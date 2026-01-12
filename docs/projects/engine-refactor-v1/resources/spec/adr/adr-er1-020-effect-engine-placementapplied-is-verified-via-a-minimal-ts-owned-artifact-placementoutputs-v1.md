@@ -1,6 +1,6 @@
 ---
 id: ADR-ER1-020
-title: "`effect:engine.placementApplied` is verified via a minimal TS-owned `artifact:placementOutputs@v1`"
+title: "`effect:engine.placementApplied` is verified via a minimal TS-owned `artifact:placementOutputs`"
 status: accepted
 date: 2025-12-22
 project: engine-refactor-v1
@@ -16,7 +16,7 @@ sources:
   - "SPIKE-target-architecture-draft"
 ---
 
-# ADR-ER1-020: `effect:engine.placementApplied` is verified via a minimal TS-owned `artifact:placementOutputs@v1`
+# ADR-ER1-020: `effect:engine.placementApplied` is verified via a minimal TS-owned `artifact:placementOutputs`
 
 ## Context
 
@@ -24,8 +24,8 @@ Placement is an engine-effect-heavy step: the adapter exposes many placement wri
 
 ## Decision
 
-- Placement publishes a minimal, versioned TS-owned output artifact `artifact:placementOutputs@v1`.
-- `effect:engine.placementApplied` verification is satisfied by validating that `artifact:placementOutputs@v1` exists and is schema-valid (plus lightweight invariants like expected `startPositions` shape/count when starts are provided).
+- Placement publishes a minimal, versioned TS-owned output artifact `artifact:placementOutputs`.
+- `effect:engine.placementApplied` verification is satisfied by validating that `artifact:placementOutputs` exists and is schema-valid (plus lightweight invariants like expected `startPositions` shape/count when starts are provided).
 
 ## Consequences
 

@@ -48,16 +48,16 @@ related_to: []
 #### A) Step map (call sites)
 - `standard.placement.derivePlacementInputs` (`mods/mod-swooper-maps/src/recipes/standard/stages/placement/steps/derive-placement-inputs/index.ts`)
   - Requires: `effect:engine.coastlinesApplied`, `effect:engine.riversModeled`, `effect:engine.featuresApplied`.
-  - Provides: `artifact:placementInputs@v1`.
+  - Provides: `artifact:placementInputs`.
   - Calls: `planStarts`, `planWonders`, and `planFloodplains` to resolve step-ready plan inputs from runtime state and config.
 - `standard.placement.placement` (`mods/mod-swooper-maps/src/recipes/standard/stages/placement/steps/placement/index.ts`)
-  - Requires: `artifact:placementInputs@v1`.
-  - Provides: `artifact:placementOutputs@v1`, `effect:engine.placementApplied`.
+  - Requires: `artifact:placementInputs`.
+  - Provides: `artifact:placementOutputs`, `effect:engine.placementApplied`.
   - Calls: applies plan outputs to adapter (natural wonders, floodplains, starts, discoveries, fertility, advanced start).
 
 #### B) Dependency contracts (keys + ownership)
-- `artifact:placementInputs@v1` (artifact) — provided by `derivePlacementInputs`, consumed by `placement`; satisfies via `isPlacementInputsV1` (tag definition in `standard/tags.ts`), owner: placement stage.
-- `artifact:placementOutputs@v1` (artifact) — provided by `placement`; satisfaction via `isPlacementOutputsV1`, used by placement effect verification; owner: placement stage.
+- `artifact:placementInputs` (artifact) — provided by `derivePlacementInputs`, consumed by `placement`; satisfies via `isPlacementInputsV1` (tag definition in `standard/tags.ts`), owner: placement stage.
+- `artifact:placementOutputs` (artifact) — provided by `placement`; satisfaction via `isPlacementOutputsV1`, used by placement effect verification; owner: placement stage.
 - `effect:engine.placementApplied` (effect) — provided by `placement`; verified via adapter hook in tag definition; owner set to placement step in `EFFECT_OWNERS`.
 - Upstream required effects: `effect:engine.coastlinesApplied`, `effect:engine.riversModeled`, `effect:engine.featuresApplied` (produced in prior stages; verified via adapter).
 

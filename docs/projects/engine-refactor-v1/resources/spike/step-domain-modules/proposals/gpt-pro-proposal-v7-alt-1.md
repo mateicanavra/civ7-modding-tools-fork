@@ -35,7 +35,7 @@ It’s already what the engine calls them, and it maps cleanly to `DependencyTag
 1. **Published data products** (`kind: "artifact"`)
 
    * Values intentionally published into the shared cross‑step store (`context.artifacts`) under a tag key.
-   * Example: `artifact:ecology.biomeClassification@v1` (published via `ctx.artifacts.set(...)`).
+   * Example: `artifact:ecology.biomeClassification` (published via `ctx.artifacts.set(...)`).
 
 2. **Map fields** (`kind: "field"`)
 
@@ -168,7 +168,7 @@ Below is the smallest shape that gives you:
 
 export const deps = {
   products: {
-    biomeClassificationV1: "artifact:ecology.biomeClassification@v1",
+    biomeClassificationV1: "artifact:ecology.biomeClassification",
     climateField: "artifact:climateField",
     heightfield: "artifact:heightfield",
   },
@@ -370,7 +370,7 @@ I would stand firm on doing this rename as part of the refactor: it clarifies th
 I do **not** feel strongly that “products” is better here. Given the current codebase:
 
 * The dependency kind is literally `"artifact"` today.
-* Keys are already `artifact:...` (e.g., `artifact:ecology.biomeClassification@v1`).
+* Keys are already `artifact:...` (e.g., `artifact:ecology.biomeClassification`).
 * The runtime store is already named `context.artifacts` and is used for these values.
 
 Renaming to “products” would be churn without clear semantic gain. So: **keep `artifacts`**.
@@ -411,7 +411,7 @@ The canonical pattern should be:
    * core `effect:*` keys (or re-exports of adapter-defined effects)
 2. **Domain dependency keys** (domain-owned artifacts)
 
-   * e.g., ecology’s `artifact:ecology.biomeClassification@v1`
+   * e.g., ecology’s `artifact:ecology.biomeClassification`
 3. **Recipe dependency key catalog** (composition root)
 
    * re-exports/aggregates keys from core + domains used by the recipe
@@ -460,7 +460,7 @@ export const dependencyKeys = {
   artifacts: {
     heightfield: "artifact:heightfield",
     climateField: "artifact:climateField",
-    biomeClassificationV1: "artifact:ecology.biomeClassification@v1",
+    biomeClassificationV1: "artifact:ecology.biomeClassification",
     // ...
   },
   fields: {

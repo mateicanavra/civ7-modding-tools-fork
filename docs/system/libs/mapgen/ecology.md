@@ -22,11 +22,11 @@ Baseline non-wonder feature placement is ecology-owned (forests, wetlands, reefs
 | --- | --- | --- | --- |
 | Operation (domain op) | Kind | Inputs | Outputs |
 | --- | --- | --- | --- |
-| `ecology/pedology/classify` | `compute` | land mask, elevation/relief, rainfall, humidity, optional sediment + bedrock + slope | `artifact:ecology.soils@v1` — `{ soilType: Uint8Array, fertility: Float32Array }` |
+| `ecology/pedology/classify` | `compute` | land mask, elevation/relief, rainfall, humidity, optional sediment + bedrock + slope | `artifact:ecology.soils` — `{ soilType: Uint8Array, fertility: Float32Array }` |
 | `ecology/pedology/aggregate` | `compute` | soils artifact | region summaries for narrative/placement |
-| `ecology/resources/plan-basins` | `plan` | soils artifact, climate, land mask | `artifact:ecology.resourceBasins@v1` — per-resource basin candidates |
+| `ecology/resources/plan-basins` | `plan` | soils artifact, climate, land mask | `artifact:ecology.resourceBasins` — per-resource basin candidates |
 | `ecology/resources/score-balance` | `score` | basin candidates | balanced basin candidates |
-| `ecology/biomes/classify` | `compute` | `width/height`, rainfall + humidity fields, elevation, latitude, land mask, optional corridor/rift masks | `artifact:ecology.biomeClassification@v1` — `{ width, height, biomeIndex, vegetationDensity, effectiveMoisture, surfaceTemperature, aridityIndex, freezeIndex }` |
+| `ecology/biomes/classify` | `compute` | `width/height`, rainfall + humidity fields, elevation, latitude, land mask, optional corridor/rift masks | `artifact:ecology.biomeClassification` — `{ width, height, biomeIndex, vegetationDensity, effectiveMoisture, surfaceTemperature, aridityIndex, freezeIndex }` |
 | `ecology/biomes/refine-edge` | `compute` | biome indices + land mask | smoothed biome indices |
 | `ecology/features/plan-vegetation` | `plan` | biome classification, soils, land mask | vegetation intents |
 | `ecology/features/plan-wetlands` | `plan` | biome classification, soils, elevation, land mask | marsh/wetland intents |
@@ -47,11 +47,11 @@ Baseline non-wonder feature placement is ecology-owned (forests, wetlands, reefs
 
 ## Step wiring (standard recipe)
 
-1. **Pedology step** — build fields from elevation/relief/climate, call `pedology.classify.run`, publish `artifact:ecology.soils@v1`.
-2. **Resource basins step** — require soils + climate + land mask, call `resources.planBasins.run` then `resources.score-balance.run`, publish `artifact:ecology.resourceBasins@v1` for placement.
-3. **Biomes step** — build rainfall/humidity/elevation/latitude + corridor/rift masks, call `classifyBiomes.run`, publish `artifact:ecology.biomeClassification@v1`, map symbols → engine biome IDs, set `field:biomeId` (water tiles explicitly assigned `BIOME_MARINE`).
+1. **Pedology step** — build fields from elevation/relief/climate, call `pedology.classify.run`, publish `artifact:ecology.soils`.
+2. **Resource basins step** — require soils + climate + land mask, call `resources.planBasins.run` then `resources.score-balance.run`, publish `artifact:ecology.resourceBasins` for placement.
+3. **Biomes step** — build rainfall/humidity/elevation/latitude + corridor/rift masks, call `classifyBiomes.run`, publish `artifact:ecology.biomeClassification`, map symbols → engine biome IDs, set `field:biomeId` (water tiles explicitly assigned `BIOME_MARINE`).
 4. **Biome edge refine step** — smooth biome seams via `refineBiomeEdges.run`, republish biome artifact for downstream stages.
-5. **Features plan step** — plan vegetation/wetlands/reefs/ice intents using biome + soils + elevation/temperature, publish `artifact:ecology.featureIntents@v1`.
+5. **Features plan step** — plan vegetation/wetlands/reefs/ice intents using biome + soils + elevation/temperature, publish `artifact:ecology.featureIntents`.
 6. **Features apply step** — merge intents via `features/apply`, write engine features + `field:featureType`.
 
 Config is always sourced from op exports (`classifyBiomes.config/defaultConfig`, future pedology/resources/feature configs). Engine binding schemas stay step-side (`BiomeBindingsSchema`).

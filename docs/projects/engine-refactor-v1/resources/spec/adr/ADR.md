@@ -53,14 +53,14 @@ This is a compact “where are the real gaps?” map; it is not authoritative co
 - ADR-ER1-008 — Narrative/playability contract is story entry artifacts by motif; views derived; no `StoryTags`; no narrative globals.
 - ADR-ER1-009 — Engine boundary is adapter-only + reification-first; `state:engine.*` is transitional-only; verified `effect:*` is schedulable.
 - ADR-ER1-010 — Climate ownership is TS-canonical `artifact:climateField` (engine reads fenced; DEF-010 is post-M4 reification).
-- ADR-ER1-011 — Placement consumes explicit `artifact:placementInputs@v1` (implementation deferred per DEF-006).
+- ADR-ER1-011 — Placement consumes explicit `artifact:placementInputs` (implementation deferred per DEF-006).
 - ADR-ER1-012 — Observability baseline is required (runId + plan fingerprint + structured errors); rich tracing is optional and toggleable.
 - ADR-ER1-014 — Core principles (TaskGraph pipeline, context-owned state, offline determinism).
 - ADR-ER1-015 — Hydrology river product is `artifact:riverAdjacency` for now (DEF-005 defers `artifact:riverGraph`).
 - ADR-ER1-016 — Pure-target non-goals (no compatibility guarantees, no migration shims in the spec).
 - ADR-ER1-017 — V1 explicit deferrals (schema must allow future expansion without breaking changes).
 - ADR-ER1-019 — Cross-cutting directionality policy is RunRequest settings (not per-step config duplication).
-- ADR-ER1-020 — `effect:engine.placementApplied` is verified via a minimal TS-owned `artifact:placementOutputs@v1`.
+- ADR-ER1-020 — `effect:engine.placementApplied` is verified via a minimal TS-owned `artifact:placementOutputs`.
 - ADR-ER1-021 — `effect:engine.landmassApplied` / `effect:engine.coastlinesApplied` are verified via cheap invariants + call evidence; adapter read-back APIs are deferred.
 - ADR-ER1-022 — Plan fingerprint excludes observability toggles (semantic fingerprint only).
 - ADR-ER1-024 — Hotspot categories live in a single narrative hotspots artifact (no split artifacts in v1).

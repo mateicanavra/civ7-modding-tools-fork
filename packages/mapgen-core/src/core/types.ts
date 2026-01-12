@@ -176,11 +176,11 @@ export interface FoundationContext {
   config: Readonly<FoundationConfigSnapshot>;
 }
 
-export const FOUNDATION_PLATES_ARTIFACT_TAG = "artifact:foundation.plates@v1";
-export const FOUNDATION_DYNAMICS_ARTIFACT_TAG = "artifact:foundation.dynamics@v1";
-export const FOUNDATION_SEED_ARTIFACT_TAG = "artifact:foundation.seed@v1";
-export const FOUNDATION_DIAGNOSTICS_ARTIFACT_TAG = "artifact:foundation.diagnostics@v1";
-export const FOUNDATION_CONFIG_ARTIFACT_TAG = "artifact:foundation.config@v1";
+export const FOUNDATION_PLATES_ARTIFACT_TAG = "artifact:foundation.plates";
+export const FOUNDATION_DYNAMICS_ARTIFACT_TAG = "artifact:foundation.dynamics";
+export const FOUNDATION_SEED_ARTIFACT_TAG = "artifact:foundation.seed";
+export const FOUNDATION_DIAGNOSTICS_ARTIFACT_TAG = "artifact:foundation.diagnostics";
+export const FOUNDATION_CONFIG_ARTIFACT_TAG = "artifact:foundation.config";
 
 export class ArtifactStore extends Map<string, unknown> {
 }

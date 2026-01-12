@@ -10,7 +10,7 @@ This PRD is a north-star statement of the **desired algorithms and domain logic*
 
 ## 2. Status (M5 baseline vs PRD target)
 
-- **Already true in M5:** Recipe → `ExecutionPlan` orchestration, tag registry validation, and versioned Foundation consumer artifacts (`artifact:foundation.plates@v1`, `artifact:foundation.dynamics@v1`, etc.).
+- **Already true in M5:** Recipe → `ExecutionPlan` orchestration, tag registry validation, and versioned Foundation consumer artifacts (`artifact:foundation.plates`, `artifact:foundation.dynamics`, etc.).
 - **Not yet true (this PRD’s core value):** The consumer artifacts are not yet derived from the mesh/crust/partition/tectonics model (and some current implementations still couple to engine surfaces like `isWater` / `getVoronoiUtils`).
 - **PRD posture:** Preserve the new architecture’s contract surfaces and determinism; upgrade the internal algorithms to the mesh-first physics model.
 
@@ -90,22 +90,22 @@ Canonical step set:
 Canonical dependency wiring:
 - `foundation.mesh.voronoi`
   - `requires: []`
-  - `provides: ["artifact:foundation.mesh@v1"]`
+  - `provides: ["artifact:foundation.mesh"]`
 - `foundation.crust.craton`
-  - `requires: ["artifact:foundation.mesh@v1"]`
-  - `provides: ["artifact:foundation.crust@v1"]`
+  - `requires: ["artifact:foundation.mesh"]`
+  - `provides: ["artifact:foundation.crust"]`
 - `foundation.plates.partition`
-  - `requires: ["artifact:foundation.mesh@v1", "artifact:foundation.crust@v1"]`
-  - `provides: ["artifact:foundation.plateGraph@v1"]`
+  - `requires: ["artifact:foundation.mesh", "artifact:foundation.crust"]`
+  - `provides: ["artifact:foundation.plateGraph"]`
 - `foundation.tectonics.physics`
-  - `requires: ["artifact:foundation.mesh@v1", "artifact:foundation.crust@v1", "artifact:foundation.plateGraph@v1"]`
-  - `provides: ["artifact:foundation.tectonics@v1"]`
+  - `requires: ["artifact:foundation.mesh", "artifact:foundation.crust", "artifact:foundation.plateGraph"]`
+  - `provides: ["artifact:foundation.tectonics"]`
 - `foundation.project.tiles`
-  - `requires: ["artifact:foundation.mesh@v1", "artifact:foundation.crust@v1", "artifact:foundation.plateGraph@v1", "artifact:foundation.tectonics@v1"]`
-  - `provides: ["artifact:foundation.plates@v1"]` (and any additional tile-indexed Foundation artifacts)
+  - `requires: ["artifact:foundation.mesh", "artifact:foundation.crust", "artifact:foundation.plateGraph", "artifact:foundation.tectonics"]`
+  - `provides: ["artifact:foundation.plates"]` (and any additional tile-indexed Foundation artifacts)
 - `foundation.dynamics.background`
-  - `requires: []` (or `requires: ["artifact:foundation.plates@v1"]` if coupling is explicitly opted into by recipe)
-  - `provides: ["artifact:foundation.dynamics@v1"]`
+  - `requires: []` (or `requires: ["artifact:foundation.plates"]` if coupling is explicitly opted into by recipe)
+  - `provides: ["artifact:foundation.dynamics"]`
 
 Notes:
 - A recipe may temporarily use a composite “foundation” step for migration, but the contracts above remain the source of truth.
@@ -133,17 +133,17 @@ This PRD defines two classes of artifacts:
 - **Tile-indexed consumer contracts**: stable surfaces for downstream stages while they remain tile-based.
 
 **Mesh-indexed intermediates (target additions; first-class artifacts)**
-- `artifact:foundation.mesh@v1`
-- `artifact:foundation.crust@v1`
-- `artifact:foundation.plateGraph@v1`
-- `artifact:foundation.tectonics@v1`
+- `artifact:foundation.mesh`
+- `artifact:foundation.crust`
+- `artifact:foundation.plateGraph`
+- `artifact:foundation.tectonics`
 
 **Tile-indexed consumer contracts (existing in M5; remain stable)**
-- `artifact:foundation.plates@v1`
-- `artifact:foundation.dynamics@v1`
-- `artifact:foundation.seed@v1`
-- `artifact:foundation.config@v1`
-- `artifact:foundation.diagnostics@v1`
+- `artifact:foundation.plates`
+- `artifact:foundation.dynamics`
+- `artifact:foundation.seed`
+- `artifact:foundation.config`
+- `artifact:foundation.diagnostics`
 
 ### 6.3 Artifact schemas (implementation-ready)
 
@@ -151,7 +151,7 @@ The following TypeScript interfaces define the canonical payload shapes. Impleme
 
 In this section, `meshCellCount` refers to `RegionMeshV1.sites.length`.
 
-#### 6.3.1 `artifact:foundation.mesh@v1` — `RegionMeshV1`
+#### 6.3.1 `artifact:foundation.mesh` — `RegionMeshV1`
 
 ```ts
 export type MeshIndex = number;
@@ -185,7 +185,7 @@ export interface RegionMeshV1 {
 - No invalid indices in adjacency lists.
 - Deterministic for a given `seed + mesh config + dimensions`.
 
-#### 6.3.2 `artifact:foundation.crust@v1` — `CrustDataV1`
+#### 6.3.2 `artifact:foundation.crust` — `CrustDataV1`
 
 Crust is the lithosphere substrate produced *before* plates are partitioned.
 
@@ -218,7 +218,7 @@ export interface CrustDataV1 {
 - `type[i] ∈ {0,1}`.
 - `age[i] ∈ [0,255]`.
 
-#### 6.3.3 `artifact:foundation.plateGraph@v1` — `RegionPlateGraphV1`
+#### 6.3.3 `artifact:foundation.plateGraph` — `RegionPlateGraphV1`
 
 This is a kinematics partition of mesh cells (plates are kinematic domains, not material domains).
 
@@ -255,7 +255,7 @@ export interface RegionPlateGraphV1 {
 - Plate IDs are dense: `0..plates.length-1`.
 - Each plate has at least one cell.
 
-#### 6.3.4 `artifact:foundation.tectonics@v1` — `TectonicDataV1`
+#### 6.3.4 `artifact:foundation.tectonics` — `TectonicDataV1`
 
 Tectonic fields are derived from **relative plate motion intersecting with crust type/age**.
 
@@ -305,7 +305,7 @@ export interface TectonicDataV1 {
 - All arrays have length `meshCellCount`.
 - Values are finite and within expected ranges.
 
-#### 6.3.5 `artifact:foundation.plates@v1` — tile-indexed consumer tensors
+#### 6.3.5 `artifact:foundation.plates` — tile-indexed consumer tensors
 
 This is the stable cross-domain surface used by downstream tile-based stages. It is the projection of mesh-first products plus tile-level derived fields (notably boundary distance fields).
 
@@ -335,9 +335,9 @@ export interface FoundationPlateFieldsV1 {
 - `shieldStability`: 0..255, higher for stable interiors (canonical: inverse of boundaryCloseness and/or low stress).
 - `movementU` / `movementV` / `rotation`: plate motion proxies for narrative/morphology alignment. These are not “meters/year”; they are normalized directional drivers.
 
-#### 6.3.6 `artifact:foundation.dynamics@v1` — background circulation tensors
+#### 6.3.6 `artifact:foundation.dynamics` — background circulation tensors
 
-`artifact:foundation.dynamics@v1` is a **background dynamics model**, not a full climate solution:
+`artifact:foundation.dynamics` is a **background dynamics model**, not a full climate solution:
 - It must not depend on a landmask (Morphology-owned).
 - It may depend on latitude bands and configurable directionality.
 
@@ -358,7 +358,7 @@ export interface FoundationDynamicsFieldsV1 {
 - `currentU/currentV`: background “ocean circulation intent” field; consumers must treat it as a hint unless/until later stages refine it with basins/topography.
 - `pressure`: mantle/planetary driver scalar (not necessarily sea-level atmospheric pressure); used as a large-scale forcing input for hotspots/directionality.
 
-#### 6.3.7 `artifact:foundation.seed@v1`, `artifact:foundation.config@v1`, `artifact:foundation.diagnostics@v1`
+#### 6.3.7 `artifact:foundation.seed`, `artifact:foundation.config`, `artifact:foundation.diagnostics`
 
 - `seed@v1`: captures determinism provenance (seed mode, fixed seed, offsets, plate seed locations, etc.).
 - `config@v1`: the config snapshot actually used (for debugging and reproducibility).
@@ -445,7 +445,7 @@ Hotspots are physical sources (mantle plumes), not narrative motifs.
 **Goal:** Allow multiple passes (“eras”) where crust persists and plate kinematics change.
 
 **Canonical mechanism**
-- `cumulativeUplift` is a stable accumulator in `artifact:foundation.tectonics@v1`.
+- `cumulativeUplift` is a stable accumulator in `artifact:foundation.tectonics`.
 - A recipe may include multiple Foundation passes, reusing crust and accumulating tectonics.
 
 ### 7.7 Mesh → tile projection (`foundation.project.tiles`) (decided)
@@ -514,8 +514,8 @@ interface FoundationTectonicsConfig {
 
 ## 9. Observability & Diagnostics (PRD-level expectations)
 
-- Every Foundation run must publish `artifact:foundation.seed@v1` and `artifact:foundation.config@v1`.
-- `artifact:foundation.diagnostics@v1` must always exist but may be empty; when enabled, it should include:
+- Every Foundation run must publish `artifact:foundation.seed` and `artifact:foundation.config`.
+- `artifact:foundation.diagnostics` must always exist but may be empty; when enabled, it should include:
   - Plate summary (counts, area distribution)
   - Boundary type distribution
   - Mesh cell count, relaxation steps, timing
@@ -541,8 +541,8 @@ interface FoundationTectonicsConfig {
 
 ## 11. Migration Notes (keep contracts stable while upgrading algorithms)
 
-- `artifact:foundation.plates@v1` remains the primary downstream dependency surface while Morphology/Hydrology/etc are tile-based.
-- Mesh-first artifacts are added as new tags (`artifact:foundation.mesh@v1`, etc.) and can be adopted incrementally by consumers.
+- `artifact:foundation.plates` remains the primary downstream dependency surface while Morphology/Hydrology/etc are tile-based.
+- Mesh-first artifacts are added as new tags (`artifact:foundation.mesh`, etc.) and can be adopted incrementally by consumers.
 - Current tile-based plate utilities (`packages/mapgen-core/src/base/foundation/plates.ts`) are treated as baseline reference only; they should be replaced/refactored to align with the mesh-first artifacts rather than being extended ad-hoc.
 
 ## 12. Open Questions (narrow, non-blocking)
