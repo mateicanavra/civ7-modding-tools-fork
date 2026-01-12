@@ -17,7 +17,12 @@ const FeaturesPlanStepContract = defineStep({
     reefs: ecology.ops.planReefs,
     ice: ecology.ops.planIce,
   },
-  schema: Type.Object({}),
+  schema: Type.Object(
+    {},
+    {
+      description: "Configuration for planning vegetation, wetlands, reefs, and ice features.",
+    }
+  ),
 });
 
 export default FeaturesPlanStepContract;

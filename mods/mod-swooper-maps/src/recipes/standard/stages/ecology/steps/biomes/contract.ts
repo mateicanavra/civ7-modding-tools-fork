@@ -21,9 +21,15 @@ const BiomesStepContract = defineStep({
   ops: {
     classify: ecology.ops.classifyBiomes,
   },
-  schema: Type.Object({
-    bindings: Type.Optional(BiomeEngineBindingsSchema),
-  }),
+  schema: Type.Object(
+    {
+      bindings: Type.Optional(BiomeEngineBindingsSchema),
+    },
+    {
+      description:
+        "Optional overrides for binding biome symbols to engine biome globals during classification.",
+    }
+  ),
 });
 
 export default BiomesStepContract;

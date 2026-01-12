@@ -14,7 +14,12 @@ const PlotEffectsStepContract = defineStep({
   ops: {
     plotEffects: ecology.ops.planPlotEffects,
   },
-  schema: Type.Object({}),
+  schema: Type.Object(
+    {},
+    {
+      description: "Configuration for climate-driven plot effects (snow, sand, burn).",
+    }
+  ),
 });
 
 export default PlotEffectsStepContract;
