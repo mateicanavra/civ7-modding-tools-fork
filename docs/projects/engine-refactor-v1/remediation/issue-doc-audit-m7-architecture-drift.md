@@ -273,7 +273,7 @@ export default defineStep({
 #### Step implementation
 
 ```ts
-import { createStep } from "@mapgen/authoring/steps";
+import { createStep } from "@swooper/mapgen-core/authoring";
 import contract from "./contract.js";
 
 export default createStep(contract, {

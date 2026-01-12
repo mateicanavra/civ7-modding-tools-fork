@@ -797,7 +797,7 @@ export const BiomeEdgeRefineStepContract = defineStep({
 #### `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/biome-edge-refine/index.ts`
 
 ```ts
-import { createStep } from "@mapgen/authoring/steps";
+import { createStep } from "@swooper/mapgen-core/authoring";
 import type { HeightfieldBuffer } from "@swooper/mapgen-core";
 import type { Static } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";

@@ -1,5 +1,4 @@
-import { createStep } from "@mapgen/authoring/steps";
-import { type Static } from "@swooper/mapgen-core/authoring";
+import { createStep, type Static } from "@swooper/mapgen-core/authoring";
 import type { FeatureKey } from "@mapgen/domain/ecology";
 import { syncHeightfield } from "@swooper/mapgen-core";
 import { featureIntentsArtifact } from "../../../../artifacts.js";

@@ -1,6 +1,7 @@
 import type { Static } from "typebox";
 
 import type { NormalizeContext } from "@mapgen/engine/index.js";
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import type { StepContract } from "./contract.js";
 import type { StepRuntimeOps } from "./ops.js";
 import type { StepModule } from "../types.js";
@@ -15,7 +16,7 @@ type StepImpl<TContext, TConfig, TOps> = Readonly<{
 
 export function createStep<
   const C extends StepContract<any, any, any>,
-  TContext = unknown,
+  TContext = ExtendedMapContext,
 >(
   contract: C,
   impl: StepImpl<TContext, StepConfigOf<C>, StepOpsOf<C>>

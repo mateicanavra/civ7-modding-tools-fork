@@ -80,13 +80,13 @@ export type MapGenStepContract<TSchema extends TSchema> = Readonly<{
 
 Notes:
 - `schema` is the single step-owned config schema.
-- `resolveConfig` and `run` are implementation-only and attached via `createStepFor<TContext>()`.
+- `resolveConfig` and `run` are implementation-only and attached via `createStep(...)`.
 - Steps can reuse `op.config` and `op.defaultConfig` values directly in their schema definitions.
 
 Step authoring surface:
 - `defineStep({ ... })` in `steps/<step>/contract.ts` defines the contract metadata.
-- `createStepFor<TContext>()` is bound once (e.g., `src/authoring/steps.ts`) and used by step implementations.
-- `createStep(contract, { resolveConfig?, run })` attaches implementation to the contract and returns the runtime step.
+- `createStep(contract, { resolveConfig?, run })` attaches implementation to the contract and returns the runtime step (defaults to `ExtendedMapContext`).
+- `createStepFor<TContext>()` is reserved for non-standard contexts that need a different `TContext`.
 
 ---
 
@@ -125,7 +125,7 @@ Rules are op-local by default and live under `domain/<domain>/ops/<op>/rules/**`
 
 Import rules:
 - Cross-module consumers (steps/tests/other domains) import ops through the domain public surface `@mapgen/domain/<domain>`.
-- Use `@mapgen/authoring/steps` for bound step factories (no relative path churn).
+- Use `@swooper/mapgen-core/authoring` for bound step factories (no relative path churn).
 - Keep relative imports inside a single op module (e.g., `./rules/...`, `./strategies/...`).
 - `rules/**` never import `../contract.js` and never export types; shared types live in `types.ts` only.
 
@@ -482,14 +482,6 @@ export type * from "./types.js";
 ### Step orchestration
 
 ```ts
-// src/authoring/steps.ts
-import type { ExtendedMapContext } from "@swooper/mapgen-core";
-import { createStepFor } from "@swooper/mapgen-core/authoring";
-
-export const createStep = createStepFor<ExtendedMapContext>();
-```
-
-```ts
 // src/recipes/standard/stages/ecology/steps/plot-vegetation/contract.ts
 import { Type, defineStep, type Static } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
@@ -560,7 +552,7 @@ export function buildVegetationInput(context: ExtendedMapContext) {
 ```ts
 // src/recipes/standard/stages/ecology/steps/plot-vegetation/index.ts
 import { clamp01 } from "@swooper/mapgen-core";
-import { createStep } from "@mapgen/authoring/steps";
+import { createStep } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
 
 import { PlotVegetationStepContract } from "./contract.js";

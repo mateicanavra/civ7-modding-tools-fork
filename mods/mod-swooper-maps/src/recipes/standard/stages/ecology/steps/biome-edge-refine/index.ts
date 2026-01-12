@@ -1,5 +1,4 @@
-import { createStep } from "@mapgen/authoring/steps";
-import { type Static } from "@swooper/mapgen-core/authoring";
+import { createStep, type Static } from "@swooper/mapgen-core/authoring";
 import { biomeClassificationArtifact, heightfieldArtifact } from "../../../../artifacts.js";
 import BiomeEdgeRefineStepContract from "./contract.js";
 type BiomeEdgeRefineConfig = Static<typeof BiomeEdgeRefineStepContract.schema>;

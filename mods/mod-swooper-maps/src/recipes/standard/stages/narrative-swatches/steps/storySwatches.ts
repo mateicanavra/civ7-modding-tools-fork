@@ -1,6 +1,5 @@
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
-import { createStep } from "@mapgen/authoring/steps";
-import type { Static } from "@swooper/mapgen-core/authoring";
+import { createStep, type Static } from "@swooper/mapgen-core/authoring";
 import { type FoundationDirectionalityConfig } from "@mapgen/domain/config";
 import { publishClimateFieldArtifact } from "../../../artifacts.js";
 import { getOrogenyCache } from "@mapgen/domain/narrative/orogeny/index.js";

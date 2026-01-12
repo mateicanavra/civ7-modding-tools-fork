@@ -310,7 +310,7 @@ This is intentionally “single file per concept” and matches the pinned modul
 
 Import convention used below (matches the pinned examples in the `recipe-compile` architecture package):
 - Core authoring exports come from `@swooper/mapgen-core/authoring`.
-- Mod-local stable aliases (when present) use `@mapgen/...` (e.g. `@mapgen/authoring/steps`, `@mapgen/domain/<domain>`).
+- Mod-local stable aliases (when present) use `@mapgen/domain/<domain>` (no authoring aliasing).
 
 ### Domain: ecology (public surface exports knobs + contracts + opsById)
 
@@ -416,7 +416,7 @@ Runtime step module binds runtime ops in a closure (no third `run` arg; runtime 
 ```ts
 // src/recipes/standard/stages/ecology/steps/plot-vegetation/index.ts
 import { bindRuntimeOps } from "@swooper/mapgen-core/authoring/bindings";
-import { createStep } from "@mapgen/authoring/steps";
+import { createStep } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
 
 import { contract } from "./contract.js";

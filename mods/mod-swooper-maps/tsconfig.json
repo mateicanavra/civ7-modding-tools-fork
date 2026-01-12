@@ -3,7 +3,6 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@mapgen/authoring/*": ["src/authoring/*"],
       "@mapgen/domain/config": ["src/domain/config.ts"],
       "@mapgen/domain": ["src/domain/index.ts"],
       "@mapgen/domain/*": ["src/domain/*"]

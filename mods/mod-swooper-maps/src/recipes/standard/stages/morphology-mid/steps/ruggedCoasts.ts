@@ -1,6 +1,5 @@
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
-import { createStep } from "@mapgen/authoring/steps";
-import type { Static } from "@swooper/mapgen-core/authoring";
+import { createStep, type Static } from "@swooper/mapgen-core/authoring";
 import { addRuggedCoasts } from "@mapgen/domain/morphology/coastlines/index.js";
 import {
   getPublishedNarrativeCorridors,

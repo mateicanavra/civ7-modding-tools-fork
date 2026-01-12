@@ -1,5 +1,4 @@
-import { createStep } from "@mapgen/authoring/steps";
-import { type Static } from "@swooper/mapgen-core/authoring";
+import { createStep, type Static } from "@swooper/mapgen-core/authoring";
 import { getPublishedClimateField, heightfieldArtifact, pedologyArtifact } from "../../../../artifacts.js";
 import PedologyStepContract from "./contract.js";
 type PedologyStepConfig = Static<typeof PedologyStepContract.schema>;
