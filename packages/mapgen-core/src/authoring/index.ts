@@ -50,7 +50,6 @@ export type {
 } from "./domain.js";
 export type {
   DomainOpCompileAny,
-  DomainOpImplementationsFor,
   DomainOpsRouter,
   DomainOpsSurface,
   DomainOpRuntime,
