@@ -185,3 +185,52 @@ Branches (downstack → upstack):
 
 **Quick take**
 - Necessary churn to align tests and call sites with the new “contracts entrypoint” surfaces; low standalone risk.
+
+### `m8-u20-domain-authoring-dx-issue` — PR #504 (`docs(engine-refactor): draft U20 domain authoring DX`)
+
+**Issue doc**
+- `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M8-U20-domain-authoring-defineDomain_createDomain.md`
+
+**Quick take**
+- Strong: clearly states the gap left by U19 (boundary solved but DX still noisy), defines a target mental model (`defineDomain/createDomain`), and explicitly logs the “default createStep context to ExtendedMapContext” decision.
+
+### `m8-u21-recipe-compile-dx-playbook` — PR #506 (`docs(recipe-compile): add DX cleanup playbook`)
+
+**Intent (inferred)**
+- Capture practical cleanup guidance for recipe-compile DX work as the architecture converges.
+
+**High-leverage notes**
+- This is docs-only and fits the milestone context as “how to apply the new patterns consistently.”
+
+### `dev-local-tbd-m8-u20-domain-authoring` — PR #505 (`feat(u20): implement defineDomain/createDomain pattern for all domains`)
+
+**Issue doc**
+- `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M8-U20-domain-authoring-defineDomain_createDomain.md`
+
+**Quick take**
+- Mostly yes: it lands the `defineDomain/createDomain` authoring primitives and executes a broad sweep to converge domains + step contracts on the intended import model.
+
+**What’s strong**
+- Adds `packages/mapgen-core/src/authoring/domain.ts` with the expected `defineDomain/createDomain` APIs and a type-level `DomainOpImplementationsForContracts<...>` to enforce key coverage + op-id compatibility.
+- Refactors domain layout to match the “two entrypoints” import graph:
+  - contract entrypoint: `mods/mod-swooper-maps/src/domain/<domain>/index.ts` (default export is `defineDomain(...)`, imports only `ops/contracts.ts`)
+  - runtime entrypoint: `mods/mod-swooper-maps/src/domain/<domain>/ops.ts` (default export is `createDomain(...)`, imports implementations)
+  - manifests: `ops/contracts.ts` + `ops/index.ts` as the only per-op “wiring lists”.
+- Updates step contracts back to the ergonomic target: `import domain from "@mapgen/domain/<domain>"; ops: { x: domain.ops.someOp }`.
+- Updates lint guardrails to match the new “single-entrypoint” rule for step contracts (no `@mapgen/domain/*/contracts`, no `@mapgen/domain/*/ops*` from contracts).
+
+**High-leverage issues / risks**
+- Several contract entrypoints still `export *` additional domain helpers (e.g. foundation exports `plate-seed`, `plates`, etc.). This doesn’t pull op implementations, but it does expand what gets eagerly evaluated when a step contract imports the domain module. If any of those helpers ever start importing runtime-only modules, it will silently break the “contract-only” invariant.
+  - Direction: keep contract entrypoints “boring” (default export + types/constants only) and treat non-contract helpers as separate explicit imports to preserve the boundary long-term.
+
+### `dev-local-tbd-m8-u20-authoring-extended-step` — PR #507 (`refactor(authoring): default createStep to ExtendedMapContext`)
+
+**Issue doc**
+- `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M8-U20-domain-authoring-defineDomain_createDomain.md` (Implementation Decision: “Default createStep context to ExtendedMapContext”)
+
+**Quick take**
+- Yes: simplifies authoring by removing a mod-local `createStep` binder shim and making `createStep` default to `ExtendedMapContext`.
+
+**What’s strong**
+- Removes the local `mods/mod-swooper-maps/src/authoring/steps.ts` indirection and updates call sites to import `createStep` from `@swooper/mapgen-core/authoring` directly.
+- Keeps an escape hatch: non-`ExtendedMapContext` usage can still supply generics explicitly.
