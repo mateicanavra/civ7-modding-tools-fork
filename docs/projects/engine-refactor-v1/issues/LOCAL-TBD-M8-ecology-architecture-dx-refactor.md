@@ -35,6 +35,10 @@ related_to:
   - `eslint.config.js`: step-contract deep-import restrictions + recipe compilation restrictions (generalized, not hard-coded to Ecology).
   - `mods/mod-swooper-maps/package.json`: add a `lint` script so `pnpm lint` actually lints mod sources.
   - `scripts/lint/lint-domain-refactor-guardrails.sh`: add a targeted Ecology step-contract deep-import check so `pnpm check` catches regressions even if a lint task is skipped.
+- Documentation-as-code (enforced for touched code):
+  - Any touched step/op schema (especially config/behavioral properties) gets high-quality, context-aware `description` fields (object + properties) that explain behavioral outcomes and relationships (not just types).
+  - Any touched rule/strategy/helper function gets JSDoc that explains what/why/edge behaviors and how it fits into mapgen flow (where non-obvious).
+  - Enforcement must be mechanical and scoped (see Implementation Details): lint/guardrails should make it hard to “forget” docs when touching contracts/schemas/rules.
 - Make tests “canonical by default” (but not over-restricted):
   - Update Ecology-focused tests (at minimum `mods/mod-swooper-maps/test/ecology/**`) to prefer public import surfaces (`@mapgen/domain/<domain>`, `@mapgen/domain/<domain>/ops`) where feasible.
   - Allow deep/internal imports only when necessary, and require they are intentional (annotated + documented; see Implementation Details).
@@ -56,6 +60,10 @@ related_to:
 - [ ] No behavior changes:
   - [ ] `pnpm test` remains green.
   - [ ] `pnpm build` and `pnpm deploy:mods` remain green.
+- [ ] Documentation-as-code is enforced for touched sites:
+  - [ ] Any touched step contract schema and any touched op contract/config schema has meaningful `description` fields (object + properties) that explain behavioral impact and interactions.
+  - [ ] Any touched exported function in Ecology step runtime/helpers and Ecology ops rules/strategies has JSDoc (what/why/edge behaviors).
+  - [ ] Lint/guardrails are updated so missing docs in the “contract-like” surfaces are caught by default workflows (or the doc adds a documented, intentional exception).
 - [ ] Deferred modeling refactors are not touched (see Deferred section in Implementation Details).
 - [ ] Tests follow the “canonical by default” posture:
   - [ ] Any remaining deep/internal imports in Ecology-focused tests (`mods/mod-swooper-maps/test/ecology/**`, plus any touched shared test helpers) have a short rationale comment in the file (example format in Implementation Details).
@@ -71,6 +79,8 @@ related_to:
   - `pnpm exec eslint mods/mod-swooper-maps/src/recipes/standard/recipe.ts`
   - `rg -n "@mapgen/domain/ecology/" mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/**/contract.ts`
   - `pnpm lint:domain-refactor-guardrails`
+- Documentation (enforcement):
+  - `pnpm lint` (must fail when required doc surfaces are missing docs, once rules land)
 - Build/deploy smoke:
   - `pnpm build`
   - `pnpm build:mapgen`
@@ -157,6 +167,25 @@ files:
 - **Choice:** (B) Curated named exports only; no `export *` in `mods/mod-swooper-maps/src/domain/ecology/index.ts`.
 - **Rationale:** Aligns with `docs/projects/engine-refactor-v1/reviews/REVIEW-M8.md` “protect the contract-only invariant long-term” while keeping step-authoring imports single-entrypoint.
 - **Risk:** Requires occasional entrypoint updates when step contracts need a new schema/type; mitigated by keeping the entrypoint small and explicit.
+
+### Documentation-as-code (enforced requirement)
+This issue treats documentation as part of “done” whenever we touch:
+- TypeBox schemas (step schemas, op config schemas, strategy schemas)
+- Contract-like surfaces (step contracts, op contracts, contract entrypoints)
+- Rules/strategies/helpers that materially affect mapgen behavior
+
+#### Context-first docs workflow (required)
+Before writing/updating JSDoc or schema descriptions:
+- Use code intel (symbols/references/call graph) to understand how the thing is used and what behavior it drives.
+- Inspect adjacent code and the data products (fields/artifacts/effects) it reads/writes.
+- Then write docs that explain behavior and interactions, not just types.
+
+#### Enforcing “docs when touched” without global doc spam
+We can’t automatically detect “touched in this PR” perfectly, but we can enforce the highest-value doc surfaces:
+- Require JSDoc (or explicit, documented exceptions) on exported functions in Ecology ops rules/strategies and step helpers when they are part of the stable authoring surface.
+- Require meaningful `description` fields on TypeBox schema objects/properties in contract-like files.
+
+Implementation detail in this issue: add scoped ESLint/guardrails rules that apply only to the contract-like surfaces for Ecology (and ideally generalized to migrated domains), rather than a blanket repo-wide JSDoc mandate.
 
 ## Implementation plan (de-ambiguated, executable)
 
