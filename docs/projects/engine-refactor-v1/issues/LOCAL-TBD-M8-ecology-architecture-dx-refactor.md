@@ -158,6 +158,88 @@ files:
 **Step runtime files**:
 - Must not import domain runtime ops; runtime ops arrive via injected `ops` param (U18 invariant).
 
+### Architecture diagram (wiring + import boundaries)
+This diagram is scoped to the mechanical architecture/DX alignment only (not domain modeling).
+
+```mermaid
+flowchart TB
+  %% Consumers
+  subgraph Recipe["Recipe compilation (compile map)"]
+    R["/mods/mod-swooper-maps/src/recipes/standard/recipe.ts\n(and any compile roots)"]
+  end
+
+  subgraph Stage["Ecology stage (createStage)"]
+    S["/mods/mod-swooper-maps/src/recipes/standard/stages/ecology/index.ts"]
+    Steps["/mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/**"]
+    SC["step contract.ts (defineStep)"]
+    SR["step runtime index.ts (createStep)"]
+  end
+
+  subgraph Domain["Ecology domain module"]
+    DC["@mapgen/domain/ecology\n(contract entrypoint; defineDomain)\n/mods/mod-swooper-maps/src/domain/ecology/index.ts"]
+    DO["@mapgen/domain/ecology/ops\n(runtime entrypoint; createDomain)\n/mods/mod-swooper-maps/src/domain/ecology/ops.ts"]
+    Impl["op implementations\n/mods/mod-swooper-maps/src/domain/ecology/ops/**"]
+  end
+
+  %% Allowed edges (enforced)
+  SC -->|imports contract surface only| DC
+  R -->|imports runtime surface only| DO
+  DO --> Impl
+
+  %% Runtime binding (U18)
+  SR -->|run(ctx, config, ops)\nops injected from compiled ops map| DO
+  S --> Steps
+  Steps --> SC
+  Steps --> SR
+```
+
+### Expected file structure (external-facing exemplar)
+This is the *intended* visible structure for Ecology-as-exemplar (domain + equivalent stage). It intentionally does not describe internals of each file beyond its “surface role”.
+
+**Public import surfaces (the “outside”):**
+- `@mapgen/domain/ecology` → `mods/mod-swooper-maps/src/domain/ecology/index.ts`
+- `@mapgen/domain/ecology/ops` → `mods/mod-swooper-maps/src/domain/ecology/ops.ts`
+- `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/index.ts` is the stage’s public entrypoint.
+
+```text
+mods/mod-swooper-maps/src/
+  domain/
+    ecology/
+      index.ts          # contract entrypoint (defineDomain + curated contract-safe exports; no value `export *`)
+      ops.ts            # runtime entrypoint (createDomain)
+      types.ts
+      biome-bindings.ts
+      config.ts         # config schemas (exported via index.ts only if step contracts need them)
+      shared/           # internal helpers/types shared across ops
+        ...
+      ops/              # per-op modules (contracts + implementations)
+        index.ts
+        contracts.ts
+        <op-name>/
+          contract.ts
+          index.ts
+          rules/
+            ...
+          strategies/
+            ...
+
+  recipes/
+    standard/
+      stages/
+        ecology/
+          index.ts       # stage entrypoint (createStage { public, compile, steps })
+          steps/
+            index.ts     # step registry (exports `steps.<name>`)
+            <step-name>/
+              contract.ts  # contract surface (defineStep) — contract-only imports
+              index.ts     # runtime surface (createStep) — ops injected; no domain runtime imports
+              apply.ts?    # optional runtime helper
+              inputs.ts?   # optional runtime helper
+              diagnostics.ts? # optional runtime helper
+              helpers/?    # optional runtime helper folder
+                ...
+```
+
 ### Contract entrypoint export posture (decision)
 #### Curated contract-safe exports (Ecology)
 - **Context:** Step contracts must import only from `@mapgen/domain/ecology`, but they still need access to schema/types/constants like `BiomeEngineBindingsSchema`.
