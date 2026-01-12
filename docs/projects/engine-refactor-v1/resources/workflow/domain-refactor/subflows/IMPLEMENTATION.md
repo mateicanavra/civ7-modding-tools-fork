@@ -48,9 +48,7 @@ Before writing code, write a short slicing plan in the domain issue doc:
 
 This is the “definition of done” for a slice. You must complete it before moving to the next slice.
 
-<workflow>
-
-<step name="extract-ops-for-slice">
+### 1) Extract ops for the slice
 
 - Create/update the op module(s) needed by this slice under `mods/mod-swooper-maps/src/domain/<domain>/ops/**`.
 - Op contracts are POJO/POJO-ish only (typed arrays ok); no adapters/context/RNG callbacks cross the boundary.
@@ -62,9 +60,7 @@ This is the “definition of done” for a slice. You must complete it before mo
   - `index.ts` exporting the created op and re-exporting contract + types
 - Op schemas + `defaultConfig` + optional `normalize` are colocated with the op module.
 
-</step>
-
-<step name="wire-steps-for-slice">
+### 2) Wire steps for the slice
 
 - Promote the migrated step(s) into the contract-first step module shape:
   - `contract.ts` (metadata-only via `defineStep`)
@@ -74,24 +70,18 @@ This is the “definition of done” for a slice. You must complete it before mo
 - `defineStep({ ops })` automatically merges each op contract’s `config` schema into the step schema.
 - Step modules call injected runtime ops via `run(context, config, ops)` (no local op binding, no importing implementations).
 
-</step>
-
-<step name="delete-legacy-for-slice">
+### 3) Delete legacy for the slice
 
 - Delete the legacy entrypoints and helpers that the migrated step(s) used.
 - Do not leave compat exports or an “old/new” switch.
 
-</step>
-
-<step name="tests-for-slice">
+### 4) Tests for the slice
 
 - Add at least one op contract test for the op(s) introduced/changed in this slice.
 - If artifact/config contracts changed across steps, add one thin integration test that exercises the edge.
 - Keep tests deterministic (fixed seeds; no RNG callbacks crossing op boundary).
 
-</step>
-
-<step name="documentation-for-slice">
+### 5) Documentation for the slice (required)
 
 - Treat documentation as part of the slice definition of done.
 - For any touched exported symbol (op contracts, step contracts, strategy exports, helper functions used cross-file):
@@ -100,9 +90,7 @@ This is the “definition of done” for a slice. You must complete it before mo
 - For any touched TypeBox schema field (especially config):
   - Ensure it has a meaningful `description` explaining behavioral impact and interactions (not just type).
 
-</step>
-
-<step name="guardrails-for-slice">
+### 6) Guardrails for the slice
 
 Single must-run guardrail gate:
 ```bash
@@ -111,16 +99,13 @@ REFRACTOR_DOMAINS="<domain>[,<domain2>...]" ./scripts/lint/lint-domain-refactor-
 
 If it fails, iterate until clean (no exceptions).
 
-</step>
-
-<step name="commit-slice">
+### 7) Commit the slice (Graphite-only)
 
 - Commit when the slice is fully complete (no partial commits for a slice).
-- Conventional Commits recommended: `refactor(<domain>): <slice summary>`
-
-</step>
-
-</workflow>
+```bash
+gt add -A
+gt modify --commit -am "refactor(<domain>): <slice summary>"
+```
 
 ## Final slice additions (end-of-domain completion)
 
