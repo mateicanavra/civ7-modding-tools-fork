@@ -808,7 +808,9 @@ This section is intended to be executable without back-and-forth.
 If a requirement below is ambiguous, add a prework prompt and stop before silently deciding.
 
 ## U21-A) Add artifact authoring primitives (`= packages/mapgen-core`)
-- **Complexity × parallelism:** medium × low (core types + runtime wrapper; touches authoring exports + tests)
+```yaml
+complexity_parallelism: "medium × low (core types + runtime wrapper; touches authoring exports + tests)"
+```
 
 **Files (expected):**
 ```yaml
@@ -837,21 +839,27 @@ out_of_scope:
 ```
 
 **Acceptance criteria:**
-- [ ] `defineArtifact({ name, id, schema })` exists and validates invariants (id prefix, name format, non-empty).
-- [ ] `implementArtifacts(provides, impl)` exists and returns typed wrappers keyed by artifact `name`.
-- [ ] Wrapper `publish(ctx, value)` stores to `ctx.artifacts` under `contract.id` and returns the stored value as a readonly view type.
-- [ ] Wrapper enforces write-once: `publish(...)` throws `ArtifactDoublePublishError` if `contract.id` already exists in the store.
-- [ ] Wrapper `read(ctx)` throws `ArtifactMissingError` when missing.
-- [ ] Wrapper `tryRead(ctx)` returns `null` on missing.
-- [ ] Wrapper exposes a `satisfies` function usable as `DependencyTagDefinition<TContext>["satisfies"]`.
-- [ ] Wrapper `read(ctx)` is typed as a deep-readonly view (type-level immutability; no runtime snapshot-on-read guarantee in production).
-- [ ] Wrapper `publish(ctx, value)` throws `ArtifactValidationError` (with issues) when `validate(...)` returns issues.
-- [ ] JSDoc at definition sites makes the immutability contract explicit:
-  - consumers must not mutate values read from `deps.artifacts.*`,
-  - mutation requires caller-owned copies.
+```yaml
+acceptance_criteria:
+  - "[ ] `defineArtifact({ name, id, schema })` exists and validates invariants (id prefix, name format, non-empty)."
+  - "[ ] `implementArtifacts(provides, impl)` exists and returns typed wrappers keyed by artifact `name`."
+  - "[ ] Wrapper `publish(ctx, value)` stores to `ctx.artifacts` under `contract.id` and returns the stored value as a readonly view type."
+  - "[ ] Wrapper enforces write-once: `publish(...)` throws `ArtifactDoublePublishError` if `contract.id` already exists in the store."
+  - "[ ] Wrapper `read(ctx)` throws `ArtifactMissingError` when missing."
+  - "[ ] Wrapper `tryRead(ctx)` returns `null` on missing."
+  - "[ ] Wrapper exposes a `satisfies` function usable as `DependencyTagDefinition<TContext>[\"satisfies\"]`."
+  - "[ ] Wrapper `read(ctx)` is typed as a deep-readonly view (type-level immutability; no runtime snapshot-on-read guarantee in production)."
+  - "[ ] Wrapper `publish(ctx, value)` throws `ArtifactValidationError` (with issues) when `validate(...)` returns issues."
+  - item: "[ ] JSDoc at definition sites makes the immutability contract explicit:"
+    points:
+      - "consumers must not mutate values read from `deps.artifacts.*`,"
+      - "mutation requires caller-owned copies."
+```
 
 ## U21-B) Extend `defineStep`: artifacts block + flat merge enforcement
-- **Complexity × parallelism:** low × low (type + runtime invariants)
+```yaml
+complexity_parallelism: "low × low (type + runtime invariants)"
+```
 
 **Files (expected):**
 ```yaml
@@ -869,12 +877,17 @@ in_scope:
 ```
 
 **Acceptance criteria:**
-- [ ] `defineStep({ artifacts: ... })` results in `contract.requires/provides` including the artifact ids.
-- [ ] Duplicate artifact ids across requires/provides are rejected with an actionable error.
-- [ ] Any attempt to create nested artifact surfaces (e.g. invalid names like `motifs.rifts`) fails via `defineArtifact` constraints.
+```yaml
+acceptance_criteria:
+  - "[ ] `defineStep({ artifacts: ... })` results in `contract.requires/provides` including the artifact ids."
+  - "[ ] Duplicate artifact ids across requires/provides are rejected with an actionable error."
+  - "[ ] Any attempt to create nested artifact surfaces (e.g. invalid names like `motifs.rifts`) fails via `defineArtifact` constraints."
+```
 
 ## U21-C) Thread `deps` into step runtime (`run(ctx, config, ops, deps)`)
-- **Complexity × parallelism:** high × low (type plumbing affects recipe wiring + mod migration)
+```yaml
+complexity_parallelism: "high × low (type plumbing affects recipe wiring + mod migration)"
+```
 
 **Files (expected):**
 ```yaml
@@ -888,12 +901,17 @@ files:
 ```
 
 **Acceptance criteria:**
-- [ ] All step runs can be authored as `run(ctx, config, ops, deps)`.
-- [ ] There is no `ctx.deps` surface anywhere in the repo (enforced by grep verification).
-- [ ] `deps.artifacts.<name>` is typed based on the step contract’s artifacts.requires/provides.
+```yaml
+acceptance_criteria:
+  - "[ ] All step runs can be authored as `run(ctx, config, ops, deps)`."
+  - "[ ] There is no `ctx.deps` surface anywhere in the repo (enforced by grep verification)."
+  - "[ ] `deps.artifacts.<name>` is typed based on the step contract’s artifacts.requires/provides."
+```
 
 ## U21-D) `createRecipe` auto-wires artifact tag definitions + satisfiers
-- **Complexity × parallelism:** medium × low (recipe compilation must synthesize tag definitions)
+```yaml
+complexity_parallelism: "medium × low (recipe compilation must synthesize tag definitions)"
+```
 
 **Files (expected):**
 ```yaml
@@ -913,11 +931,16 @@ in_scope:
 ```
 
 **Acceptance criteria:**
-- [ ] Artifact tag defs are present in the registry even if not explicitly provided in `input.tagDefinitions`.
-- [ ] Executor correctly fails with `UnsatisfiedProvidesError` when a producer step does not publish its declared artifact.
+```yaml
+acceptance_criteria:
+  - "[ ] Artifact tag defs are present in the registry even if not explicitly provided in `input.tagDefinitions`."
+  - "[ ] Executor correctly fails with `UnsatisfiedProvidesError` when a producer step does not publish its declared artifact."
+```
 
 ## U21-E) Step module carries provided artifact runtimes (for compilation + deps typing)
-- **Complexity × parallelism:** medium × low (step module shape changes thread through recipe compilation)
+```yaml
+complexity_parallelism: "medium × low (step module shape changes thread through recipe compilation)"
+```
 
 **Files (expected):**
 ```yaml
@@ -929,11 +952,16 @@ files:
 ```
 
 **Acceptance criteria:**
-- [ ] Producer steps can export `artifacts` runtime wrappers via `createStep(contract, { artifacts, run })`.
-- [ ] `createRecipe` can discover those wrappers and register satisfiers.
+```yaml
+acceptance_criteria:
+  - "[ ] Producer steps can export `artifacts` runtime wrappers via `createStep(contract, { artifacts, run })`."
+  - "[ ] `createRecipe` can discover those wrappers and register satisfiers."
+```
 
 ## U21-F) Migrate standard recipe (`= mods/mod-swooper-maps`) with no shims
-- **Complexity × parallelism:** high × low (many call sites; must remain green end-to-end)
+```yaml
+complexity_parallelism: "high × low (many call sites; must remain green end-to-end)"
+```
 
 **Files (expected, partial):**
 ```yaml
@@ -953,14 +981,19 @@ files:
 ```
 
 **Acceptance criteria:**
-- [ ] No step implementation imports `mods/mod-swooper-maps/src/recipes/standard/artifacts.ts` for artifact reads/writes.
-- [ ] Manual artifact satisfiers in `STANDARD_TAG_DEFINITIONS` are removed (artifacts only).
-- [ ] The recipe still executes with gating enforced (producer must publish declared artifacts).
-- [ ] `ctx.overlays` is removed; overlays are published/read via `deps.artifacts.storyOverlays.*` only.
-- [ ] `biomeClassification` has a single producer step (no dual-writer between `biomes` and `biome-edge-refine`).
+```yaml
+acceptance_criteria:
+  - "[ ] No step implementation imports `mods/mod-swooper-maps/src/recipes/standard/artifacts.ts` for artifact reads/writes."
+  - "[ ] Manual artifact satisfiers in `STANDARD_TAG_DEFINITIONS` are removed (artifacts only)."
+  - "[ ] The recipe still executes with gating enforced (producer must publish declared artifacts)."
+  - "[ ] `ctx.overlays` is removed; overlays are published/read via `deps.artifacts.storyOverlays.*` only."
+  - "[ ] `biomeClassification` has a single producer step (no dual-writer between `biomes` and `biome-edge-refine`)."
+```
 
 ## U21-G) Tests + verification
-- **Complexity × parallelism:** medium × low (must guard against regressions of wiring)
+```yaml
+complexity_parallelism: "medium × low (must guard against regressions of wiring)"
+```
 
 **Files (expected):**
 ```yaml
@@ -974,10 +1007,13 @@ files:
 ```
 
 **Acceptance criteria:**
-- [ ] Tests cover: defineStep merge, createRecipe artifact tag def synthesis, executor enforcement on missing/invalid artifact publish.
-- [ ] Tests assert typed error shapes (`ArtifactMissingError`, `ArtifactDoublePublishError`, `ArtifactValidationError`) so failures are debuggable and stable.
-- [ ] Type-level immutability is enforced for read values (e.g. `read(...)` returns `DeepReadonly<T>`), verified via a typecheck-only test using `// @ts-expect-error` for attempted mutations on object/array graphs.
-- [ ] Verification commands below pass.
+```yaml
+acceptance_criteria:
+  - "[ ] Tests cover: defineStep merge, createRecipe artifact tag def synthesis, executor enforcement on missing/invalid artifact publish."
+  - "[ ] Tests assert typed error shapes (`ArtifactMissingError`, `ArtifactDoublePublishError`, `ArtifactValidationError`) so failures are debuggable and stable."
+  - "[ ] Type-level immutability is enforced for read values (e.g. `read(...)` returns `DeepReadonly<T>`), verified via a typecheck-only test using `// @ts-expect-error` for attempted mutations on object/array graphs."
+  - "[ ] Verification commands below pass."
+```
 
 ## Verification (commands)
 Run from repo root unless otherwise specified.
