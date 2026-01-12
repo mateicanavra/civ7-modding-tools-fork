@@ -16,6 +16,7 @@ import PlanWetlandsContract from "./ops/features-plan-wetlands/contract.js";
 import RefineBiomeEdgesContract from "./ops/refine-biome-edges/contract.js";
 import ResourcePlanBasinsContract from "./ops/resource-plan-basins/contract.js";
 import ResourceScoreBalanceContract from "./ops/resource-score-balance/contract.js";
+
 export const contracts = {
   classifyBiomes: BiomeClassificationContract,
   classifyPedology: PedologyClassifyContract,
@@ -36,6 +37,8 @@ export const contracts = {
   planIce: PlanIceContract,
   applyFeatures: FeaturesApplyContract,
 } as const;
+
+export default contracts;
 
 export {
   AggregatePedologyContract,
