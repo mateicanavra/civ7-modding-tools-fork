@@ -247,3 +247,29 @@ Branches (downstack → upstack):
 
 **Quick take**
 - Docs-only tightening of the planned U21 artifacts work. It improves the clarity of the (still-unlanded) scope, but there is no implementation in this stack.
+
+### `LOCAL-TBD-M8-ECOLOGY-ARCH-DX` — PRs #525–#528 (`[M8] Ecology architecture/DX refactor (canonical domain/stage/step exemplar)`)
+
+**Issue doc**
+- `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M8-ecology-architecture-dx-refactor.md`
+
+**Quick take**
+- Yes: it meaningfully raises the “canonical by default” bar for Ecology contracts/ops by eliminating deep imports, curating a safe contract entrypoint, and making the import boundaries enforceable in default workflows.
+
+**What landed (as verified in-tree)**
+- Step contracts import only `@mapgen/domain/<domain>` (no deep `@mapgen/domain/<domain>/*`, no `/ops`), and Ecology’s contract entrypoint is curated (no value `export *`).
+- `eslint.config.js` enforces step-contract vs recipe-compile import boundaries and bans value `export *` on contract/public-surface files.
+- `mods/mod-swooper-maps/package.json` adds `lint`, and `pnpm lint` includes `mod-swooper-maps:lint`.
+- `scripts/lint/lint-domain-refactor-guardrails.sh` adds an Ecology step-contract deep-import check and doc-coverage checks; `docs/.../06-enforcement.md` documents the “tests canonical-by-default; exceptions allowed” posture.
+
+**High-leverage issues**
+- The doc-coverage guardrails are intentionally heuristic (e.g. schema check is string-based; JSDoc check only covers `export function`): good as a first mechanical bar, but it’s easy to satisfy without high-quality docs and it will miss common export patterns.
+- The guardrails script hard-codes stage roots for multiple domains; if stage layout changes, checks can silently stop applying to new roots (worth tightening if this becomes a long-lived enforcement layer).
+
+**Spot-check verification**
+- `rg -n "@mapgen/domain/ecology/" mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/**/contract.ts` → no hits.
+- `pnpm exec eslint mods/mod-swooper-maps/src/recipes/standard/recipe.ts`, `pnpm -C mods/mod-swooper-maps lint`, `pnpm lint:domain-refactor-guardrails`, `pnpm lint` → pass.
+- Per the issue doc, a full `pnpm check/lint/test/build/deploy:mods` run was also recorded; I did not re-run the full suite as part of this review.
+
+**Implementation decisions**
+- Decisions logged: none under `## Implementation Decisions`. Visible choices: use ESLint for structural boundaries and a targeted bash guardrail for “docs-as-code” coverage, with Ecology as the stricter exemplar domain.
