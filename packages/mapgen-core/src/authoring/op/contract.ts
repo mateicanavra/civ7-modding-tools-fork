@@ -1,8 +1,9 @@
-import type { TSchema } from "typebox";
+import type { Static, TSchema } from "typebox";
 
 import { applySchemaConventions } from "../schema.js";
 
 import type { DomainOpKind } from "./types.js";
+import { buildOpEnvelopeSchema } from "./envelope.js";
 
 export type StrategyConfigSchemas = Readonly<Record<string, TSchema>>;
 
@@ -18,6 +19,8 @@ export type OpContract<
   input: InputSchema;
   output: OutputSchema;
   strategies: Strategies;
+  config: TSchema;
+  defaultConfig: Readonly<{ strategy: "default"; config: Static<Strategies["default"]> }>;
 }>;
 
 export function defineOp<
@@ -26,11 +29,19 @@ export function defineOp<
   const InputSchema extends TSchema,
   const OutputSchema extends TSchema,
   const Strategies extends StrategyConfigSchemas & { default: TSchema },
->(def: OpContract<Kind, Id, InputSchema, OutputSchema, Strategies>): typeof def {
+>(def: Omit<OpContract<Kind, Id, InputSchema, OutputSchema, Strategies>, "config" | "defaultConfig">) {
   applySchemaConventions(def.input, `op:${def.id}.input`);
   applySchemaConventions(def.output, `op:${def.id}.output`);
   for (const [strategyId, schema] of Object.entries(def.strategies)) {
     applySchemaConventions(schema, `op:${def.id}.strategies.${strategyId}`);
   }
-  return def;
+
+  const { schema: configSchema, defaultConfig } = buildOpEnvelopeSchema(def.id, def.strategies);
+  applySchemaConventions(configSchema, `op:${def.id}.config`);
+
+  return {
+    ...def,
+    config: configSchema,
+    defaultConfig: defaultConfig as OpContract<Kind, Id, InputSchema, OutputSchema, Strategies>["defaultConfig"],
+  } as const;
 }

@@ -43,6 +43,7 @@ export type {
 } from "./types.js";
 export type {
   DomainOpCompileAny,
+  DomainOpImplementationsFor,
   DomainOpsRouter,
   DomainOpsSurface,
   DomainOpRuntime,
