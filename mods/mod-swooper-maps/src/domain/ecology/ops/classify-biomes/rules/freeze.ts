@@ -2,6 +2,9 @@ import type { Static } from "@swooper/mapgen-core/authoring";
 import { FreezeSchema } from "./freeze.schema.js";
 import { clamp01 } from "./util.js";
 
+/**
+ * Computes a normalized freeze index from temperature.
+ */
 export function computeFreezeIndex(
   temperature: number,
   cfg: Static<typeof FreezeSchema>

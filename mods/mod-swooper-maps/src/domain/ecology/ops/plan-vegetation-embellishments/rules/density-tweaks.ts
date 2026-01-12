@@ -1,6 +1,9 @@
 import type { LabelRng } from "@swooper/mapgen-core";
 import type { BiomeSymbol, FeatureKey } from "@mapgen/domain/ecology/types.js";
 
+/**
+ * Attempts to place density tweak features at a tile, returning true when placed.
+ */
 export function planDensityTweaksAtTile(params: {
   x: number;
   y: number;

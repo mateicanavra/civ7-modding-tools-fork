@@ -1,3 +1,6 @@
+/**
+ * Returns true when a nearby tile within the radius contains the target feature.
+ */
 export function hasAdjacentFeatureType(
   featureField: Int16Array,
   width: number,
@@ -20,6 +23,9 @@ export function hasAdjacentFeatureType(
   return false;
 }
 
+/**
+ * Returns true when a land tile has any adjacent water tiles within the radius.
+ */
 export function isCoastalLand(
   isWater: (x: number, y: number) => boolean,
   width: number,
@@ -41,4 +47,3 @@ export function isCoastalLand(
   }
   return false;
 }
-

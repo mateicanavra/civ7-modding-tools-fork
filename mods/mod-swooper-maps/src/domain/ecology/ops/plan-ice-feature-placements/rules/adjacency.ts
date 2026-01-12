@@ -1,3 +1,6 @@
+/**
+ * Returns true when a water tile is adjacent to any land within the radius.
+ */
 export function isAdjacentToLand(
   isWater: (x: number, y: number) => boolean,
   width: number,
@@ -18,4 +21,3 @@ export function isAdjacentToLand(
   }
   return false;
 }
-

@@ -1,6 +1,9 @@
 import type { Static } from "@swooper/mapgen-core/authoring";
 import { OverlaySchema } from "./overlays.schema.js";
 
+/**
+ * Returns the moisture bonus contributed by narrative overlay flags.
+ */
 export function overlayMoistureBonus(
   corridorFlag: number,
   riftShoulderFlag: number,

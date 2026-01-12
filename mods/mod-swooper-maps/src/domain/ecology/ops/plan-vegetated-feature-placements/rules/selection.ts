@@ -13,6 +13,9 @@ type VegetatedRules = {
   tropicalSeasonalRainforestMaxAridity: number;
 };
 
+/**
+ * Picks a vegetated feature key for the tile based on biome and climate signals.
+ */
 export function pickVegetatedFeature(params: {
   symbolIndex: number;
   moistureValue: number;

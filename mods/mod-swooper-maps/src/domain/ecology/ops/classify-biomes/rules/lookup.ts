@@ -34,6 +34,9 @@ const BIOME_LOOKUP: Record<
   },
 };
 
+/**
+ * Looks up the biome symbol for a temperature and moisture zone pair.
+ */
 export function biomeSymbolForZones(
   tempZone: "polar" | "cold" | "temperate" | "tropical",
   moistureZone: "arid" | "semiArid" | "subhumid" | "humid" | "perhumid"

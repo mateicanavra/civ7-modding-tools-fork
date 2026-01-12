@@ -12,6 +12,9 @@ const MOISTURE_ORDER: ReadonlyArray<MoistureZone> = [
   "perhumid",
 ];
 
+/**
+ * Computes a normalized aridity index from temperature, humidity, and rainfall inputs.
+ */
 export function computeAridityIndex(params: {
   temperature: number;
   humidity: number;
@@ -30,6 +33,9 @@ export function computeAridityIndex(params: {
   return clamp01(aridityRaw / Math.max(1e-6, cfg.normalization));
 }
 
+/**
+ * Returns how many aridity thresholds the index exceeds (shift count).
+ */
 export function aridityShiftForIndex(index: number, thresholds: readonly number[]): number {
   let shift = 0;
   for (const threshold of thresholds) {
@@ -38,6 +44,9 @@ export function aridityShiftForIndex(index: number, thresholds: readonly number[
   return shift;
 }
 
+/**
+ * Shifts a moisture zone toward drier classes by the requested shift count.
+ */
 export function shiftMoistureZone(
   zone: MoistureZone,
   shift: number

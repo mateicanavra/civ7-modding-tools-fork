@@ -1,6 +1,9 @@
 import type { LabelRng } from "@swooper/mapgen-core";
 import type { BiomeSymbol, FeatureKey } from "@mapgen/domain/ecology/types.js";
 
+/**
+ * Attempts to place volcanic vegetation bonuses near volcanic tiles.
+ */
 export function planVolcanicVegetationAtTile(params: {
   width: number;
   height: number;
