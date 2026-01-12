@@ -88,34 +88,10 @@ This aligns with the existing lint policy that forbids `@mapgen/domain/*/ops/*` 
 ## Proposed authoring helper(s) (MapGen core)
 These helpers are small and optional; the key value is enforcing key-shape + reducing boilerplate.
 
-### 1) `DomainOpImplementationsFor<TContracts>`
-Export a type-level helper for “implementations must cover exactly the same keys as contracts”.
+### 1) (Deprecated) `DomainOpImplementationsFor<TContracts>`
+**Update (post-M8):** `DomainOpImplementationsFor` was removed from `@swooper/mapgen-core/authoring` in favor of the contract-driven typing used by `defineDomain/createDomain`.
 
-```ts
-// @swooper/mapgen-core/authoring (new)
-export type DomainOpImplementationsFor<
-  TContracts extends Record<string, { id: string }>,
-  TOp extends { id: string } = import("./bindings.js").DomainOpCompileAny,
-> = Readonly<{ [K in keyof TContracts]: TOp }>;
-```
-
-Usage in a domain `ops.ts`:
-
-```ts
-import contracts from "./contracts.js";
-import { createDomainOpsSurface, type DomainOpImplementationsFor } from "@swooper/mapgen-core/authoring";
-
-const implementations = {
-  /* ... */
-} as const satisfies DomainOpImplementationsFor<typeof contracts>;
-
-export const ops = createDomainOpsSurface(implementations);
-export default ops;
-```
-
-This doesn’t fully prove `contract.id === op.id`, but it:
-- eliminates “forgot to add the op to one side” errors at compile time,
-- keeps runtime binding failure (`OpBindingError`) as the last line of defense.
+Use `DomainOpImplementationsForContracts` via `satisfies` in the runtime implementations entrypoint (see `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M8-U20-domain-authoring-defineDomain_createDomain.md`).
 
 ### 2) (Optional) `createDomainModule({ contracts, implementations })`
 Provide a tiny convenience wrapper for the common pattern and to centralize future checks.
@@ -123,7 +99,7 @@ Provide a tiny convenience wrapper for the common pattern and to centralize futu
 ```ts
 export function createDomainModule<
   const TContracts extends Record<string, { id: string }>,
-  const TImpls extends DomainOpImplementationsFor<TContracts>,
+  const TImpls extends DomainOpImplementationsForContracts<TContracts>,
 >(def: { contracts: TContracts; implementations: TImpls }) {
   return {
     contracts: def.contracts,
@@ -155,13 +131,16 @@ import applyFeatures from "./ops/features-apply/index.js";
 import planVegetation from "./ops/features-plan-vegetation/index.js";
 // ...
 import contracts from "./contracts.js";
-import { createDomainOpsSurface, type DomainOpImplementationsFor } from "@swooper/mapgen-core/authoring";
+import {
+  createDomainOpsSurface,
+  type DomainOpImplementationsForContracts,
+} from "@swooper/mapgen-core/authoring";
 
 const implementations = {
   applyFeatures,
   planVegetation,
   // ...
-} as const satisfies DomainOpImplementationsFor<typeof contracts>;
+} as const satisfies DomainOpImplementationsForContracts<typeof contracts>;
 
 export const ops = createDomainOpsSurface(implementations);
 export default ops;
@@ -194,7 +173,7 @@ const compileOpsById = collectCompileOps(ecologyDomain, placementDomain);
   - `@mapgen/domain/ecology`
   - `@mapgen/domain/placement`
 - Add core helper type(s) to enforce “implementations cover contract keys”:
-  - `DomainOpImplementationsFor<TContracts>`
+  - `DomainOpImplementationsForContracts<TContracts>`
   - (optional) `createDomainModule(...)`
 - Migrate step contracts in `mods/mod-swooper-maps/src/recipes/**/steps/**/contract.ts` to import from `@mapgen/domain/<domain>/contracts`.
 - Migrate recipe compilation to import from `@mapgen/domain/<domain>/ops` (not the barrel).
