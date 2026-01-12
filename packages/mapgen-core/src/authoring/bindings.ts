@@ -14,17 +14,24 @@ export type DomainOpCompileAny = DomainOp<
   string
 >;
 
+type BivariantFn<Args extends unknown[], R> = {
+  bivarianceHack(...args: Args): R;
+}["bivarianceHack"];
+
 export type DomainOpImplementationsFor<
   TContracts extends Record<string, { id: string }>,
   TOp extends DomainOpCompileAny = DomainOpCompileAny,
 > = Readonly<{ [K in keyof TContracts]: TOp }>;
 
 export type DomainOpRuntime<Op extends DomainOpCompileAny> = Op extends DomainOpCompileAny
-  ? Readonly<{
-      id: Op["id"];
-      kind: Op["kind"];
-      run: Op["run"];
-    }>
+  ? BivariantFn<
+      [input: Parameters<Op["run"]>[0], config: Parameters<Op["run"]>[1]],
+      ReturnType<Op["run"]>
+    > &
+      Readonly<{
+        id: Op["id"];
+        kind: Op["kind"];
+      }>
   : never;
 
 export type DomainOpRuntimeAny = DomainOpRuntime<DomainOpCompileAny>;
@@ -148,9 +155,14 @@ export function collectCompileOps(
 }
 
 export function runtimeOp<Op extends DomainOpCompileAny>(op: Op): DomainOpRuntime<Op> {
-  return {
-    id: op.id,
-    kind: op.kind,
-    run: op.run,
-  } as DomainOpRuntime<Op>;
+  const fn = ((input: Parameters<Op["run"]>[0], config: Parameters<Op["run"]>[1]) => {
+    return op.run(input, config);
+  }) as DomainOpRuntime<Op>;
+
+  Object.defineProperties(fn, {
+    id: { value: op.id, enumerable: true },
+    kind: { value: op.kind, enumerable: true },
+  });
+
+  return fn;
 }

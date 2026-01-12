@@ -15,9 +15,9 @@ export function buildPlacementInputs(
 ): PlacementInputsV1 {
   const runtime = getStandardRuntime(context);
   const baseStarts = getBaseStarts(context);
-  const startsPlan = ops.starts.run({ baseStarts }, config.starts);
-  const wondersPlan = ops.wonders.run({ mapInfo: runtime.mapInfo }, config.wonders);
-  const floodplainsPlan = ops.floodplains.run({}, config.floodplains);
+  const startsPlan = ops.starts({ baseStarts }, config.starts);
+  const wondersPlan = ops.wonders({ mapInfo: runtime.mapInfo }, config.wonders);
+  const floodplainsPlan = ops.floodplains({}, config.floodplains);
 
   return {
     mapInfo: runtime.mapInfo,
