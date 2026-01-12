@@ -34,6 +34,15 @@ export default [
             {
               group: ["@mapgen/domain/*/ops/*"],
               message: "Import domain ops via the domain entrypoint surface."
+            },
+            {
+              group: [
+                "@mapgen/domain/*/ops-by-id",
+                "@mapgen/domain/*/rules/*",
+                "@mapgen/domain/*/strategies/*",
+              ],
+              message:
+                "Do not deep-import internal domain modules; import from stable public surfaces."
             }
           ]
         }
@@ -120,6 +129,60 @@ export default [
         {
           selector: "FunctionDeclaration[id.name='rollPercent']",
           message: "Use rollPercent from @swooper/mapgen-core."
+        }
+      ]
+    }
+  },
+  {
+    files: [
+      "mods/**/src/recipes/**/stages/**/steps/**/contract.ts",
+      "mods/**/src/recipes/**/stages/**/steps/**/*.contract.ts"
+    ],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          paths: [
+            {
+              name: "@mapgen/domain/ecology",
+              message:
+                "Step contracts must import op contracts from @mapgen/domain/ecology/contracts."
+            },
+            {
+              name: "@mapgen/domain/placement",
+              message:
+                "Step contracts must import op contracts from @mapgen/domain/placement/contracts."
+            }
+          ],
+          patterns: [
+            {
+              group: ["@mapgen/domain/*/ops", "@mapgen/domain/*/ops/*"],
+              message:
+                "Step contracts must never import runtime ops; import contracts from @mapgen/domain/<domain>/contracts."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    files: ["mods/**/src/recipes/**/recipe.ts"],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          paths: [
+            {
+              name: "@mapgen/domain/ecology",
+              message:
+                "Recipe compilation must import domain ops from @mapgen/domain/ecology/ops."
+            },
+            {
+              name: "@mapgen/domain/placement",
+              message:
+                "Recipe compilation must import domain ops from @mapgen/domain/placement/ops."
+            }
+          ]
         }
       ]
     }
