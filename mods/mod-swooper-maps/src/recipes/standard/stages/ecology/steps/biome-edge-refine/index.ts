@@ -10,7 +10,7 @@ export default createStep(BiomeEdgeRefineStepContract, {
     const { width, height } = context.dimensions;
     const heightfield = heightfieldArtifact.get(context);
 
-    const refined = ops.refine.run(
+    const refined = ops.refine(
       {
         width,
         height,

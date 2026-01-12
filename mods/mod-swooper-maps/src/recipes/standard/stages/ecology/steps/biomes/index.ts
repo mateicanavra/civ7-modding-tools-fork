@@ -44,7 +44,7 @@ export default createStep(BiomesStepContract, {
 
     const riftShoulderMask = maskFromCoordSet(rifts.riftShoulder, width, height);
 
-    const result = ops.classify.run(
+    const result = ops.classify(
       {
         width,
         height,
