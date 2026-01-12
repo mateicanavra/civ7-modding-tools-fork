@@ -115,6 +115,26 @@ Complexity × parallelism: medium complexity × low parallelism.
 - [Testing / Verification](#testing--verification)
 - [Dependencies / Notes](#dependencies--notes)
 
+## Sequencing (in-memory sub-issues)
+
+1. **Enforcement rails (lint + guardrails + doc rules)**
+   - Add/adjust eslint restrictions for step contracts + recipe compile roots, plus scoped `export *` enforcement and docs-as-code requirements.
+   - Update `scripts/lint/lint-domain-refactor-guardrails.sh` for Ecology deep-import detection.
+   - References: [Documentation-as-code (enforced requirement)](#documentation-as-code-enforced-requirement), [Step 1 — Make enforcement real](#step-1--make-enforcement-real-lint--guardrails), [Step 3.1 — Enforce “no export *”】【#step-3-1--enforce-no-export--where-it-is-dangerous-scoped-lint).
+
+2. **Ecology contract surface alignment**
+   - Replace the known deep import in the biomes step contract and curate Ecology’s contract entrypoint exports.
+   - References: [Step 2 — Fix deep import + entrypoint](#step-2--fix-the-known-deep-import--align-entrypoint-exports), [Ecology contract entrypoint — required curated exports](#ecology-contract-entrypoint--required-curated-exports-consumer-driven).
+
+3. **Tests + docs posture normalization**
+   - Update Ecology-focused tests to use public domain entrypoints where feasible; add rationale comments for any deep imports that remain.
+   - Add the “tests posture” guideline note to the enforcement spec doc.
+   - References: [Step 3 — Normalize tests](#step-3--normalize-tests-canonical-by-default-exceptions-allowed), [Tests import posture — deep import inventory + replacements](#tests-import-posture--deep-import-inventory--replacements), `docs/projects/engine-refactor-v1/resources/spec/recipe-compile/architecture/06-enforcement.md`.
+
+4. **Optional DX polish (only if safe)**
+   - Apply low-risk, behavior-preserving import/type cleanups in Ecology step/stage files if they support the exemplar goal.
+   - References: [Step 4 — Optional mechanical DX polish](#step-4--optional-mechanical-dx-polish-only-if-safe).
+
 <!-- Path roots -->
 <!--
 ENGINE_REFACTOR_V1 = docs/projects/engine-refactor-v1
