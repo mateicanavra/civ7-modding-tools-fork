@@ -1,6 +1,5 @@
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
-import { createStep } from "@mapgen/authoring/steps";
-import type { Static } from "@swooper/mapgen-core/authoring";
+import { createStep, type Static } from "@swooper/mapgen-core/authoring";
 import { NarrativeConfigSchema, type FoundationDirectionalityConfig } from "@mapgen/domain/config";
 import { storyTagStrategicCorridors } from "@mapgen/domain/narrative/corridors/index.js";
 import { getPublishedNarrativeCorridors, narrativeCorridorsArtifact } from "../../../artifacts.js";

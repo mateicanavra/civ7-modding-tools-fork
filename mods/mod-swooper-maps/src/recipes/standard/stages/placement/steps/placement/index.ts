@@ -1,4 +1,4 @@
-import { createStep } from "@mapgen/authoring/steps";
+import { createStep } from "@swooper/mapgen-core/authoring";
 
 import { buildPlacementPlanInput } from "./inputs.js";
 import { applyPlacementPlan } from "./apply.js";

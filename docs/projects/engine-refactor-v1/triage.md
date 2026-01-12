@@ -24,6 +24,12 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
   - **Notes:** Empty ops manifests keep the entrypoint pattern uniform; monitor if this creates expectations for ops where none exist.
   - **Next check:** if future domains add ops or if entrypoint purity becomes a boundary concern.
 
+- **createStep defaults to ExtendedMapContext** [Source: LOCAL-TBD-M8-U20]
+  - **Context:** Removed mod-local step binder by making `createStep` default its context to `ExtendedMapContext`.
+  - **Type:** triage
+  - **Notes:** Streamlines authoring imports but requires explicit generics for any future non-ExtendedMapContext step usage.
+  - **Next check:** if authoring SDK is reused outside mod contexts or if a new context type is introduced.
+
 - **Object schema defaults now merge nested defaults** [Source: LOCAL-TBD-M7-F2]
   - **Context:** F2 updated `buildSchemaDefaults` to merge explicit object defaults with nested defaults so op default configs validate under runtime-only validation.
   - **Type:** triage

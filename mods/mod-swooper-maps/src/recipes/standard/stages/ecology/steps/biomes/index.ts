@@ -1,6 +1,5 @@
 import { logBiomeSummary, type ExtendedMapContext } from "@swooper/mapgen-core";
-import { createStep } from "@mapgen/authoring/steps";
-import { type Static } from "@swooper/mapgen-core/authoring";
+import { createStep, type Static } from "@swooper/mapgen-core/authoring";
 import {
   getPublishedClimateField,
   getPublishedNarrativeCorridors,

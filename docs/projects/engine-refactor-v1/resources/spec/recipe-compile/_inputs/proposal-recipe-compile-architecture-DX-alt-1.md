@@ -16,7 +16,7 @@ Below is the result in two parts:
 * Use **stable aliases** for cross-module imports:
 
   * `@mapgen/domain/*` → `src/domain/*`
-  * `@mapgen/authoring/*` → `src/authoring/*`
+  * Authoring imports use `@swooper/mapgen-core/authoring` (no content-local authoring alias).
   * Keep **relative imports inside a single op or step directory**.
 
 ## 1.2 Colocation and “no mega-modules”
@@ -225,7 +225,7 @@ This remains compatible with the new compiler architecture; it’s purely about 
 ### Cross-module imports (canonical)
 
 * Domain consumers (steps, tests, other domains): `@mapgen/domain/<domain>` only.
-* Authoring SDK: `@mapgen/authoring/*` alias (stable).
+* Authoring SDK: `@swooper/mapgen-core/authoring` (single entrypoint, no content-local alias).
 * Shared schema fragments: `@mapgen/domain/config` (type/schema only). 
 
 ### Intra-module imports (canonical)

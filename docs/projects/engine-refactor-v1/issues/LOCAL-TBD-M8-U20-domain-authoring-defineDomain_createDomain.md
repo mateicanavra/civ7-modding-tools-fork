@@ -28,6 +28,15 @@ related_to:
   - per-op “wiring lists” live in one domain-local manifest (no deep-import sprawl in consumers)
 - No codegen; no “legacy fallback” shims.
 
+## Implementation Decisions
+
+### Default createStep context to ExtendedMapContext
+- **Context:** Step implementations were importing a mod-local steps binder solely to bind `createStep` to `ExtendedMapContext`.
+- **Options:** Keep the shim and alias, add a new bound export from the SDK, or default `createStep` to `ExtendedMapContext`.
+- **Choice:** Default `createStep` to `ExtendedMapContext` in the authoring SDK and remove the shim.
+- **Rationale:** Simplifies the authoring surface to a single entrypoint, eliminates local aliasing, and keeps step authoring ergonomics.
+- **Risk:** Any future non-ExtendedMapContext usage of `createStep` will now need explicit generics.
+
 ## Context / why this exists
 The current domain module pattern (U19) solved the import-boundary problem (contracts vs runtime), but did not deliver the primary DX objective:
 - domain authoring is still “manual wiring” spread across multiple small files (`contracts.ts`, `ops.ts`, `index.ts`, plus per-op deep imports)

@@ -1,6 +1,5 @@
 import { assertFoundationPlates, logVolcanoSummary, type ExtendedMapContext } from "@swooper/mapgen-core";
-import { createStep } from "@mapgen/authoring/steps";
-import type { Static } from "@swooper/mapgen-core/authoring";
+import { createStep, type Static } from "@swooper/mapgen-core/authoring";
 import type { VolcanoesConfig } from "@mapgen/domain/config";
 import { layerAddVolcanoesPlateAware } from "@mapgen/domain/morphology/volcanoes/index.js";
 import VolcanoesStepContract from "./volcanoes.contract.js";

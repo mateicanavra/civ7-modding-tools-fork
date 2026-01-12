@@ -70,7 +70,7 @@ Step implementations:
 
 ```ts
 // mods/.../steps/features-plan/index.ts
-import { createStep } from "@mapgen/authoring/steps";
+import { createStep } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
 import FeaturesPlanStepContract from "./contract.js";
 

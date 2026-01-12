@@ -1,6 +1,5 @@
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
-import { createStep } from "@mapgen/authoring/steps";
-import type { Static } from "@swooper/mapgen-core/authoring";
+import { createStep, type Static } from "@swooper/mapgen-core/authoring";
 import { storyTagOrogenyBelts } from "@mapgen/domain/narrative/orogeny/index.js";
 import { narrativeMotifsOrogenyArtifact } from "../../../artifacts.js";
 import StoryOrogenyStepContract from "./storyOrogeny.contract.js";
