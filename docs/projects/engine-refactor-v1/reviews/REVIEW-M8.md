@@ -106,3 +106,82 @@ Branches (downstack → upstack):
 
 **High-leverage issues (noted here; resolved later in stack)**
 - Step contracts import `@mapgen/domain/ecology` (barrel). At this point in the stack, the “contracts vs runtime” module boundary isn’t yet enforced, so this can still accidentally pull runtime implementations. Later U19/U20 branches restructure the domain entrypoints and add lint guardrails; revisit after those land before taking action.
+
+### `m8-u19-domain-module-registry-issue` — PR #457 (`docs(engine-refactor): domain module registry issue draft`)
+
+**Issue doc**
+- `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M8-U19-domain-module-registry-pattern.md`
+
+**Quick take**
+- Clear articulation of the “contracts vs ops” entrypoint boundary and why barrels are dangerous under ESM eager evaluation.
+
+### `m8-u19-domain-module-registry-core` — PR #497 (`feat(authoring): add DomainOpImplementationsFor type and refactor contract definition`)
+
+**Issue doc**
+- `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M8-U19-domain-module-registry-pattern.md`
+
+**Quick take**
+- Yes: adds the missing type-level enforcement (`DomainOpImplementationsFor<...>`) and makes op contracts more self-contained by baking in `config` + `defaultConfig`.
+
+**What’s strong**
+- Moves op envelope schema + default selection into `defineOp(...)` so consumers don’t need to repeatedly rebuild envelope schema from `(id, strategies)` pairs.
+- Keeps runtime behavior guarded: `createOp` now requires `contract.config` + `contract.defaultConfig` to exist (fail-fast if someone bypasses `defineOp`).
+
+**High-leverage issues**
+- This increases contract surface area (`config/defaultConfig`) and now relies on consumers using `defineOp` correctly; the fail-fast checks are the right mitigation.
+
+### `m8-u19-domain-module-registry-domains` — PR #498 (`refactor(ecology): reorganize domain exports and add type safety`)
+
+**Issue doc**
+- `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M8-U19-domain-module-registry-pattern.md`
+
+**Quick take**
+- Yes: introduces explicit per-domain `contracts` and `ops` entrypoints with key-shape enforcement and avoids re-exporting runtime ops from the domain barrel.
+
+**What’s strong**
+- `mods/mod-swooper-maps/src/domain/<domain>/contracts.ts` becomes a contract-only module (safe for step contracts).
+- `mods/mod-swooper-maps/src/domain/<domain>/ops.ts` binds runtime implementations and uses `DomainOpImplementationsFor<typeof contracts>` to enforce key coverage.
+- This resolves the U18 migration concern where step contracts imported `@mapgen/domain/<domain>` at a time when it could have eagerly imported runtime.
+
+### `m8-u19-domain-module-registry-stepops` — PR #499 (`refactor(ops): simplify op config schema handling`)
+
+**Issue doc**
+- `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M8-U19-domain-module-registry-pattern.md`
+
+**Quick take**
+- Good follow-through: aligns step schema auto-extension + compiler default-prefill to use `contract.config` + `contract.defaultConfig` rather than recomputing envelopes.
+
+### `m8-u19-domain-module-registry-migrate` — PR #500 (`refactor(domain): reorganize imports to use contracts modules`)
+
+**Issue doc**
+- `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M8-U19-domain-module-registry-pattern.md`
+
+**Quick take**
+- Yes: step contracts move to `@mapgen/domain/<domain>/contracts` and recipes can move to `@mapgen/domain/<domain>/ops`, matching the intended import graph.
+
+### `m8-u19-domain-module-registry-lint` — PR #501 (`feat(eslint): enforce domain import restrictions for recipes and contracts`)
+
+**Issue doc**
+- `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M8-U19-domain-module-registry-pattern.md`
+
+**Quick take**
+- Directionally correct guardrail (it encodes the desired import edges), but it’s very domain-specific and likely to need adjustment once U20’s “single-entrypoint” model lands.
+
+**High-leverage notes**
+- The rule forbids `@mapgen/domain/<domain>` imports in step contracts (hard-coded for ecology/placement). Later in the stack, `@mapgen/domain/<domain>` becomes a contract-only default export under U20; at that point this restriction becomes counterproductive unless updated.
+
+### `m8-u19-domain-module-registry-opconfig` — PR #502 (`refactor(mapgen): improve OpContract type safety with OpContractCore`)
+
+**Issue doc**
+- `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M8-U19-domain-module-registry-pattern.md`
+
+**Quick take**
+- A reasonable internal follow-up to tighten typing around op contracts/config; review focus should be whether it materially improves ergonomics without adding brittle generics (confirm in U20 sweep).
+
+### `m8-u19-domain-module-registry-tests` — PR #503 (`refactor(ecology): import operation contracts directly instead of through contracts.js`)
+
+**Issue doc**
+- `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M8-U19-domain-module-registry-pattern.md`
+
+**Quick take**
+- Necessary churn to align tests and call sites with the new “contracts entrypoint” surfaces; low standalone risk.
