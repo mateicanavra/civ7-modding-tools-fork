@@ -60,10 +60,7 @@
 
 **Step**
 - **Contract** is metadata only: `id`, `phase`, `requires`, `provides`, and `schema`.
-- **Implementation** is attached by a bound factory:
-  - `const createStep = createStepFor<TContext>()`
-  - `createStep(contract, { resolveConfig?, run })`
-- Bound factories live in `src/authoring/steps.ts` and are the only entrypoint for step implementations.
+- **Implementation** is attached by `createStep(contract, { resolveConfig?, run })` from `@swooper/mapgen-core/authoring`.
 - Contract is authored with `defineStep` and exported independently of implementation.
 - `resolveConfig` is implementation-only; the contract file never contains runtime code.
 - Config schema is owned by the step and can reuse op config schemas for convenience.
@@ -73,7 +70,7 @@
 **Bridge**
 - Steps build op inputs from context, resolve config with `op.resolveConfig`, and call `op.runValidated`.
 - Recipe v2 and step registry compilation remain unchanged; the only wiring change is passing step `resolveConfig` through when registering steps.
-- `createStepFor<TContext>()` is required to lock step context typing and provide full autocomplete in `run`/`resolveConfig`.
+- `createStep` defaults to `ExtendedMapContext` for step typing; `createStepFor<TContext>()` is reserved for non-standard contexts.
 
 **Shared utilities**
 - Shared math, noise, RNG, grid, and other cross-cutting helpers must come from the core SDK.
@@ -121,7 +118,6 @@ mods/mod-swooper-maps/src/domain/
 
 - Use stable path aliases for cross-module imports:
   - `@mapgen/domain/*` → `mods/mod-swooper-maps/src/domain/*`
-  - `@mapgen/authoring/*` → `mods/mod-swooper-maps/src/authoring/*`
 - Keep relative imports within a single op or step directory (e.g., `./rules/...`, `./strategies/...`).
 - Do not force aliasing on local helpers; use aliases only when crossing module boundaries.
 
@@ -134,13 +130,6 @@ mods/mod-swooper-maps/src/recipes/<recipe>/stages/<stage>/steps/
     index.ts
     lib/
       <helper>.ts
-```
-
-### Canonical file layout for bound step factories
-
-```
-mods/mod-swooper-maps/src/authoring/
-  steps.ts
 ```
 
 ### Canonical authoring API (files)
@@ -1158,14 +1147,6 @@ export * as ops from "./ops/index.js";
 
 ### Step orchestration
 
-`mods/mod-swooper-maps/src/authoring/steps.ts`
-```ts
-import type { ExtendedMapContext } from "@swooper/mapgen-core";
-import { createStepFor } from "@swooper/mapgen-core/authoring";
-
-export const createStep = createStepFor<ExtendedMapContext>();
-```
-
 `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/plot-vegetation/contract.ts`
 ```ts
 import { Type, defineStep, type Static } from "@swooper/mapgen-core/authoring";
@@ -1237,7 +1218,7 @@ export function buildVegetationInput(context: ExtendedMapContext) {
 `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/plot-vegetation/index.ts`
 ```ts
 import { clamp01 } from "@swooper/mapgen-core";
-import { createStep } from "@mapgen/authoring/steps";
+import { createStep } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
 
 import { PlotVegetationStepContract } from "./contract.js";
@@ -1274,7 +1255,7 @@ export default createStep(PlotVegetationStepContract, {
 
 - Each op has a contract with strategy-specific config schemas. The strategy implementations are typed by the contract and authored out of line.
 - The step contract is metadata-only and uses `op.config`/`op.defaultConfig` for convenience without declaring op bindings.
-- The step implementation is attached via a bound `createStep` from `createStepFor<ExtendedMapContext>()`, mirroring the op pattern while locking context typing.
+- The step implementation is attached via `createStep` (defaults to `ExtendedMapContext`), mirroring the op pattern while locking context typing.
 - Strategy selection is a plain union in config; no envelope propagation or stage-level compilation is required.
 - Variations such as `clustered` trees and `arid` shrubs are handled entirely within op strategies.
 - Planning lives in ops, while the step is the action boundary that publishes a coherent vegetation artifact.
@@ -1311,11 +1292,10 @@ export default createStep(PlotVegetationStepContract, {
    - Expose the implemented op from `index.ts` and re-export `type *` from `./types.ts`.
 6. Update step modules to the contract-first layout:
    - Add `steps/<step>/contract.ts` using `defineStep`.
-   - Add `src/authoring/steps.ts` to export `createStepFor<ExtendedMapContext>()` as `createStep`.
-   - Move orchestration into `steps/<step>/index.ts` using the bound `createStep(contract, { resolveConfig?, run })`.
+   - Move orchestration into `steps/<step>/index.ts` using `createStep(contract, { resolveConfig?, run })` from `@swooper/mapgen-core/authoring`.
    - Move helper logic into `steps/<step>/lib/*`.
 7. Update step schema defaults to reference `op.defaultConfig` and `op.config` from the implemented ops.
-8. Standardize cross-module imports to use `@mapgen/domain/*` and `@mapgen/authoring/*` aliases, leaving intra-op/step imports relative.
+8. Standardize cross-module imports to use the `@mapgen/domain/*` alias, leaving intra-op/step imports relative.
 9. Move any shared helper clones (e.g., `clamp01`, noise helpers) into the core SDK and import them from `@swooper/mapgen-core`.
 10. Update op validation tests and any direct `createOp({ ... })` usages to `createOp(contract, { strategies })`.
 11. Add lint guardrails to forbid `rules/**` importing `../contract.js` and to keep cross-module imports on package aliases.
@@ -1339,7 +1319,7 @@ export default createStep(PlotVegetationStepContract, {
 - `packages/mapgen-core/src/engine/types.ts`: `MapGenStep` includes `configSchema` and optional `resolveConfig`.
 - `packages/mapgen-core/src/engine/execution-plan.ts`: uses `configSchema` and optional `resolveConfig` for normalization.
 - `packages/mapgen-core/src/engine/PipelineExecutor.ts`: executes `run` using normalized config.
-- Tests and example recipes: update to `defineStep` + bound `createStep` from `createStepFor<ExtendedMapContext>()`.
+- Tests and example recipes: update to `defineStep` + `createStep` (defaults to `ExtendedMapContext`) and use `createStepFor<TContext>()` only when needed.
 
 ### Integration edges
 

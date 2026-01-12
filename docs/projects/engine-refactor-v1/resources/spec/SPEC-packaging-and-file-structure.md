@@ -23,7 +23,7 @@
 Path aliasing:
 - Use stable aliases for cross-module imports:
   - `@mapgen/domain/*` → `STANDARD_CONTENT_ROOT/src/domain/*`
-  - `@mapgen/authoring/*` → `STANDARD_CONTENT_ROOT/src/authoring/*`
+- Authoring imports use `@swooper/mapgen-core/authoring` (no content-local authoring alias).
 - Keep relative imports inside a single op or step directory.
 
 ### 2.2 Core SDK (`CORE_SDK_ROOT`) target layout (collapsed)
@@ -118,7 +118,7 @@ STANDARD_CONTENT_ROOT/
   - `lib/**` — step-local helpers (pure or orchestration helpers), no registry awareness.
 - `contract.ts` is the ownership surface for step contracts. `index.ts` is orchestration only.
 - If a step’s contract is large, split into additional colocated files under the step directory (e.g., `schema.ts`, `tags.ts`, `artifacts.ts`) while keeping ownership local.
-  - `createStep` is a bound factory from `createStepFor<ExtendedMapContext>()` (exported via `src/authoring/steps.ts`).
+  - `createStep` is imported from `@swooper/mapgen-core/authoring` and defaults to `ExtendedMapContext`; use `createStepFor<TContext>()` only for non-standard contexts.
 
 **Stage scope (`stages/<stageId>/**`)**
 - Stage-scoped helpers and contracts shared across multiple steps live at the stage root as explicit modules (e.g., `producer.ts`, `placement-inputs.ts`, `shared.model.ts`).

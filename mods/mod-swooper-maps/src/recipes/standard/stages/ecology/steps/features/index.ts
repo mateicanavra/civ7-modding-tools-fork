@@ -1,5 +1,5 @@
 import { syncHeightfield, type ExtendedMapContext } from "@swooper/mapgen-core";
-import { createStep } from "@mapgen/authoring/steps";
+import { createStep } from "@swooper/mapgen-core/authoring";
 import FeaturesStepContract from "./contract.js";
 import {
   buildAquaticFeaturePlacementsInput,

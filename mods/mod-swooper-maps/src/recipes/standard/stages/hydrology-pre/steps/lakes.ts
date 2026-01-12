@@ -1,4 +1,4 @@
-import { createStep } from "@mapgen/authoring/steps";
+import { createStep } from "@swooper/mapgen-core/authoring";
 import { syncHeightfield, type ExtendedMapContext } from "@swooper/mapgen-core";
 import { publishHeightfieldArtifact } from "../../../artifacts.js";
 import { getStandardRuntime } from "../../../runtime.js";

@@ -482,7 +482,7 @@ export function applyVolcanoPlacements(
 
 ```ts
 // src/recipes/standard/stages/morphology-post/steps/volcanoes/index.ts
-import { createStep } from "@mapgen/authoring/steps";
+import { createStep } from "@swooper/mapgen-core/authoring";
 import { ctxRandom } from "@swooper/mapgen-core";
 import * as volcanoes from "@mapgen/domain/morphology/volcanoes";
 

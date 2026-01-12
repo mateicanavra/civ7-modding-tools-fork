@@ -79,7 +79,7 @@ export default defineStep({
 Step implementation (bind compile/runtime op surfaces and keep normalization compile-only):
 
 ```ts
-import { createStep } from "@mapgen/authoring/steps";
+import { createStep } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
 import FeaturesPlanStepContract from "./contract.js";
 

@@ -47,7 +47,7 @@ related_to:
 - [x] Sub-issue A: Implement op authoring surface in `packages/mapgen-core/src/authoring/op/**` (`defineOp`, `createStrategy`, `createOp`).
 - [x] Sub-issue B: Implement step authoring surface in `packages/mapgen-core/src/authoring/step/**` (`defineStep`, `createStep`, `createStepFor<TContext>`), export from `packages/mapgen-core/src/authoring/index.ts`.
 - [x] Sub-issue C: Wire step `resolveConfig` through recipe compilation and engine types (pass-through only; no compilation redesign).
-- [x] Sub-issue D: Standardize mod path aliasing (`@mapgen/domain/*`, `@mapgen/authoring/*`) and add `mods/mod-swooper-maps/src/authoring/steps.ts` binder.
+- [x] Sub-issue D: Standardize mod path aliasing (`@mapgen/domain/*`) and use `@swooper/mapgen-core/authoring` as the step entrypoint (no mod-local binder).
 - [x] Sub-issue E: Convert ops to canonical layout + envelope config, and update call sites (no compat exports).
 - [x] Sub-issue F: Convert steps to contract-first modules + binder-based implementations (no binding DSL; steps remain structurally ignorant of ops/domains).
 - [ ] Sub-issue G: Replace shared helper clones with core SDK imports and add missing broadly-useful helpers to `@swooper/mapgen-core`.
@@ -59,7 +59,7 @@ related_to:
   - [x] Each op contract owns IO schemas and all per-strategy config schemas; strategy implementations are typed by the contract (no type widening to `any`).
   - [x] Steps remain contract-first orchestration modules (no op graphs/bindings):
     - [x] Contract is metadata-only and exported independently of implementation.
-    - [x] Implementation is created via a bound `createStepFor<TContext>()` factory; `resolveConfig` (when present) lives only in the implementation.
+    - [x] Implementation is created via `createStep` (defaults to `ExtendedMapContext`) or a bound `createStepFor<TContext>()` when needed; `resolveConfig` (when present) lives only in the implementation.
     - [x] Step schemas remain mandatory and enforced by authoring helpers.
     - [x] Recipe compilation forwards optional step `resolveConfig` so normalization still works end-to-end.
   - [x] Strategy selection remains op-local; steps do not centrally choose strategies beyond supplying the envelope value.
@@ -108,9 +108,9 @@ This section is written for implementers (human or agent). It assumes the conver
 - **Decision:** `defineStep(...)` returns metadata only (`id`, `phase`, `requires`, `provides`, `schema`).
 - **Decision:** `createStep(contract, { resolveConfig?, run })` attaches behavior; the contract file contains no runtime code.
 
-### D3) `createStepFor<TContext>()` is required for step typing parity
-- **Decision:** step implementations must be authored using a bound factory (e.g., `createStep = createStepFor<ExtendedMapContext>()`) so `run`/`resolveConfig` have rich contextual typing without manual generics or extra type imports.
-- **Decision:** `mods/mod-swooper-maps/src/authoring/steps.ts` is the only place that binds `ExtendedMapContext`.
+### D3) `createStep` defaults to `ExtendedMapContext`
+- **Decision:** step implementations use `createStep` from `@swooper/mapgen-core/authoring`, which defaults to `ExtendedMapContext` for rich typing without local binders.
+- **Decision:** `createStepFor<TContext>()` remains available only for non-standard contexts.
 
 ### D4) No recipe compilation refactor
 - **Decision:** recipe v2 + step registry compilation stay as-is; only add step `resolveConfig` pass-through.
@@ -196,23 +196,18 @@ Implement as a Graphite stack with one logical change per branch (A → H). Do n
 - Compiled steps still expose `configSchema` and `run`, and now also preserve `resolveConfig` when provided.
 - No “dual” pipeline exists: there is a single compilation path and a single runtime step shape.
 
-### Sub-issue D) Standardize mod aliasing + step authoring binder module
+### Sub-issue D) Standardize mod aliasing + step authoring entrypoint
 **In scope**
 - Add stable path aliasing for cross-module imports:
   - `@mapgen/domain/*` → `mods/mod-swooper-maps/src/domain/*`
-  - `@mapgen/authoring/*` → `mods/mod-swooper-maps/src/authoring/*`
-- Add `mods/mod-swooper-maps/src/authoring/steps.ts` exporting a single bound factory:
-  - `export const createStep = createStepFor<ExtendedMapContext>();`
-- Update step implementations to import from `@mapgen/authoring/steps` (never deep-relative into authoring).
+- Update step implementations to import `createStep` from `@swooper/mapgen-core/authoring` (no mod-local authoring aliasing).
 
 **Files**
 - Modify:
   - `mods/mod-swooper-maps/tsconfig.json` (or nearest tsconfig governing the mod build)
-- Add:
-  - `mods/mod-swooper-maps/src/authoring/steps.ts`
 
 **Acceptance Criteria**
-- No step implementation file binds `ExtendedMapContext` directly; the only binder is `@mapgen/authoring/steps`.
+- `createStep` defaults to `ExtendedMapContext` in the authoring SDK, so step implementations import directly from `@swooper/mapgen-core/authoring`.
 - Cross-module imports in the mod use aliases or package imports (no brittle `../../..` traversals across the domain/recipe tree).
 
 ### Sub-issue E) Convert ops to canonical layout + envelope config (no compat exports)
@@ -242,7 +237,7 @@ Implement as a Graphite stack with one logical change per branch (A → H). Do n
 - Steps do not declare op graphs or op bindings in their contracts.
 - Step schemas reuse `op.config` and `op.defaultConfig` where they need op configs (no duplicated unions or per-strategy schema copies in step contracts).
 - Steps call ops via `runValidated` with already-normalized configs.
-- Step modules import authoring via `@mapgen/authoring/steps` + `@swooper/mapgen-core/authoring` (no deep-relative imports).
+- Step modules import authoring via `@swooper/mapgen-core/authoring` (no deep-relative imports).
 
 ### Sub-issue G) Replace shared helper clones with core SDK imports
 **In scope**

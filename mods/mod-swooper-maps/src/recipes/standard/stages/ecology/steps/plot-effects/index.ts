@@ -1,6 +1,5 @@
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
-import { createStep } from "@mapgen/authoring/steps";
-import { type Static } from "@swooper/mapgen-core/authoring";
+import { createStep, type Static } from "@swooper/mapgen-core/authoring";
 import { heightfieldArtifact } from "../../../../artifacts.js";
 import { buildPlotEffectsInput } from "./inputs.js";
 import { applyPlotEffectPlacements } from "./apply.js";
