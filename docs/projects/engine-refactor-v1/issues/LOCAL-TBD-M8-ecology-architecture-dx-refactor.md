@@ -474,3 +474,12 @@ Do not perform these here; create separate follow-up issues if needed:
 - Nested config composition in `mods/mod-swooper-maps/src/domain/ecology/config.ts`
 
 Reference: `docs/projects/engine-refactor-v1/resources/SPIKE-ecology-dx-alignment.md`
+
+## Implementation Decisions
+
+### Enforce Ecology docs-as-code via guardrail script
+- **Context:** The issue requires mechanical doc enforcement for contracts/helpers, but repo-wide ESLint/JSDoc enforcement would cause large churn outside Ecology.
+- **Options:** (A) Add eslint-plugin-jsdoc and enforce across broader globs, (B) add Ecology-only guardrail checks for exported functions and contract schemas, (C) defer enforcement and rely on manual review.
+- **Choice:** (B) Add Ecology-only guardrail checks in `scripts/lint/lint-domain-refactor-guardrails.sh` for exported function JSDoc and contract schema descriptions.
+- **Rationale:** Keeps enforcement scoped to the exemplar domain while making doc regressions visible in default workflows.
+- **Risk:** Guardrail checks are heuristic (file-level description presence) and may need tightening when expanding enforcement to other domains.
