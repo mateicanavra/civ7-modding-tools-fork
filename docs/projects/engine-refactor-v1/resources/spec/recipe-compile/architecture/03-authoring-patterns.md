@@ -26,7 +26,8 @@ export default ops;
 ```
 
 Constraints:
-- Cross-module consumers import domains via `@mapgen/domain/<domain>` (entrypoint) or `@mapgen/domain/<domain>/contracts` (contract-only).
+- Step contracts import domains via `@mapgen/domain/<domain>` (contract entrypoint; single import surface).
+- Recipe compilation imports domains via `@mapgen/domain/<domain>/ops` (runtime entrypoint for `collectCompileOps(...)`).
 - No deep imports into `@mapgen/domain/<domain>/ops/**` from steps/recipes/tests.
 
 ---
@@ -151,4 +152,3 @@ export default createRecipe({
   compileOpsById,
 });
 ```
-

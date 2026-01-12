@@ -42,12 +42,6 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
   - **Notes:** Defaulting now depends on explicit schema defaults; unions/arrays may behave differently from TypeBox Value.Default. Watch for op configs that relied on implicit conversion/clean.
   - **Next check:** during F2 enforcement or if config default regressions surface in ops/tests.
 
-- **Step schemas merged with `contract.ops` drop object-level defaults** [Source: PR #455 review]
-  - **Context:** `defineStep` rebuilds the step schema when `contract.ops` is present, merging object `properties` and enforcing strict config shape.
-  - **Type:** triage
-  - **Notes:** The merged schema forces `additionalProperties: false` and intentionally drops any object-level default on the base step schema. Policy for propagating object-level metadata like `title`/`description` is TBD.
-  - **Next check:** when defining schema-metadata propagation policy for authoring/compile surfaces.
-
 - **Plan compilation requires explicit step configs when a schema exists** [Source: LOCAL-TBD-M7-D2]
   - **Context:** D2 validate-only planner removes defaulting/cleaning; missing configs should surface as errors.
   - **Type:** triage

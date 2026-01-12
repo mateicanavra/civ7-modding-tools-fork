@@ -133,59 +133,100 @@ export default [
       ]
     }
   },
-  {
-    files: [
-      "mods/**/src/recipes/**/stages/**/steps/**/contract.ts",
-      "mods/**/src/recipes/**/stages/**/steps/**/*.contract.ts"
-    ],
-    rules: {
-      "no-restricted-imports": [
-        "error",
-        {
-          patterns: [
-            {
-              group: ["@mapgen/domain/*/ops", "@mapgen/domain/*/ops/*"],
-              message:
-                "Step contracts must never import runtime ops; import contracts from @mapgen/domain/<domain>."
-            },
-            {
-              group: ["@mapgen/domain/*/contracts"],
-              message:
-                "Step contracts must import domain contracts from @mapgen/domain/<domain>."
-            }
-          ]
-        }
-      ]
-    }
-  },
-  {
-    files: ["mods/**/src/recipes/**/recipe.ts"],
-    rules: {
-      "no-restricted-imports": [
-        "error",
-        {
-          paths: [
-            {
-              name: "@mapgen/domain/ecology",
-              message:
-                "Recipe compilation must import domain ops from @mapgen/domain/ecology/ops."
-            },
-            {
-              name: "@mapgen/domain/placement",
-              message:
-                "Recipe compilation must import domain ops from @mapgen/domain/placement/ops."
-            }
-          ]
-        }
-      ]
-    }
-  },
-  {
-    files: [
-      "mods/**/src/domain/**/ops/**/*.contract.ts",
-      "mods/**/src/recipes/**/steps/**/*.contract.ts"
-    ],
-    rules: {
+	  {
+	    files: [
+	      "mods/**/src/recipes/**/stages/**/steps/**/contract.ts",
+	      "mods/**/src/recipes/**/stages/**/steps/**/*.contract.ts"
+	    ],
+	    rules: {
+	      "no-restricted-imports": [
+	        "error",
+	        {
+	          patterns: [
+	            {
+	              group: ["@mapgen/domain/*/*"],
+	              message:
+	                "Step contracts must import only from @mapgen/domain/<domain> (no deep imports, no /ops)."
+	            },
+	            {
+	              group: ["@mapgen/domain/*/ops", "@mapgen/domain/*/ops/*"],
+	              message:
+	                "Step contracts must never import runtime ops; import contracts from @mapgen/domain/<domain>."
+	            }
+	          ]
+	        }
+	      ]
+	    }
+	  },
+	  {
+	    files: ["mods/**/src/recipes/**/recipe.ts"],
+	    rules: {
+	      "no-restricted-imports": [
+	        "error",
+	        {
+	          paths: [
+	            {
+	              name: "@mapgen/domain/ecology",
+	              message:
+	                "Recipe compilation must import domain runtime ops from @mapgen/domain/ecology/ops (not the contract entrypoint)."
+	            },
+	            {
+	              name: "@mapgen/domain/foundation",
+	              message:
+	                "Recipe compilation must import domain runtime ops from @mapgen/domain/foundation/ops (not the contract entrypoint)."
+	            },
+	            {
+	              name: "@mapgen/domain/hydrology",
+	              message:
+	                "Recipe compilation must import domain runtime ops from @mapgen/domain/hydrology/ops (not the contract entrypoint)."
+	            },
+	            {
+	              name: "@mapgen/domain/morphology",
+	              message:
+	                "Recipe compilation must import domain runtime ops from @mapgen/domain/morphology/ops (not the contract entrypoint)."
+	            },
+	            {
+	              name: "@mapgen/domain/narrative",
+	              message:
+	                "Recipe compilation must import domain runtime ops from @mapgen/domain/narrative/ops (not the contract entrypoint)."
+	            },
+	            {
+	              name: "@mapgen/domain/placement",
+	              message:
+	                "Recipe compilation must import domain runtime ops from @mapgen/domain/placement/ops (not the contract entrypoint)."
+	            }
+	          ]
+	        }
+	      ]
+	    }
+	  },
+	  {
+	    files: [
+	      "mods/**/src/recipes/**/stages/**/steps/**/contract.ts",
+	      "mods/**/src/recipes/**/stages/**/steps/**/*.contract.ts",
+	      "mods/**/src/domain/**/ops/**/contract.ts",
+	      "mods/**/src/domain/**/ops/**/types.ts",
+	      "mods/**/src/domain/**/ops/**/index.ts",
+	      "mods/**/src/domain/**/ops/**/rules/**/*.ts",
+	      "mods/**/src/domain/**/ops/**/strategies/**/*.ts"
+	    ],
+	    rules: {
+	      "no-restricted-syntax": [
+	        "error",
+	        {
+	          selector: "ExportAllDeclaration:not([exportKind='type'])",
+	          message:
+	            "Do not use value `export *` in contract/public-surface files; use named exports. (`export type *` is OK.)"
+	        }
+	      ]
+	    }
+	  },
+	  {
+	    files: [
+	      "mods/**/src/domain/**/ops/**/*.contract.ts",
+	      "mods/**/src/recipes/**/steps/**/*.contract.ts"
+	    ],
+	    rules: {
       "no-restricted-syntax": [
         "error",
         {

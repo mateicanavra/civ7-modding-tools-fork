@@ -147,6 +147,8 @@ for domain in "${DOMAINS[@]}"; do
 
   # Ecology is the canonical exemplar for the stricter op/step module rules.
   if [ "$domain" = "ecology" ]; then
+    run_rg "Step contract deep imports (ecology)" "@mapgen/domain/ecology/" -- \
+      "mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/**/contract.ts"
     run_rg "Rules import op contracts (ecology)" "from\\s+\"\\.\\./contract\\.js\"|from\\s+\"\\.\\./\\.\\./contract\\.js\"|from\\s+\"\\.\\./\\.\\./\\.\\./contract\\.js\"" -P -g "*/rules/**/*.ts" -- "$ops_root"
     run_rg "Type exports from rules (ecology)" "^export\\s+type\\b" -g "*/rules/**/*.ts" -- "$ops_root"
     run_rg "runValidated called with inner config (ecology)" "runValidated\\([^,]+,\\s*[^\\)]*\\.config\\b" -P -- "${stage_roots[@]}"

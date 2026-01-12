@@ -1,14 +1,12 @@
 import { describe, expect, it } from "bun:test";
 
-import classifyBiomes from "../../src/domain/ecology/ops/classify-biomes/index.js";
-import planVegetation from "../../src/domain/ecology/ops/features-plan-vegetation/index.js";
-import planWetlands from "../../src/domain/ecology/ops/features-plan-wetlands/index.js";
+import ecology from "@mapgen/domain/ecology/ops";
 import { runOpValidated } from "../support/compiler-helpers.js";
 
 describe("ecology defaults regression", () => {
   it("does not freeze all oceans by default", () => {
     const result = runOpValidated(
-      classifyBiomes,
+      ecology.ops.classifyBiomes,
       {
         width: 2,
         height: 1,
@@ -28,7 +26,7 @@ describe("ecology defaults regression", () => {
 
   it("does not place marsh everywhere at typical moisture", () => {
     const result = runOpValidated(
-      planWetlands,
+      ecology.ops.planWetlands,
       {
         width: 1,
         height: 1,
@@ -46,7 +44,7 @@ describe("ecology defaults regression", () => {
 
   it("treats effectiveMoisture in consistent units for vegetation weights", () => {
     const result = runOpValidated(
-      planVegetation,
+      ecology.ops.planVegetation,
       {
         width: 1,
         height: 1,
