@@ -36,6 +36,7 @@ Branches (downstack → upstack):
   - Follow-up direction: keep contract entrypoints minimal (default export + types/constants), and require explicit imports for runtime helpers elsewhere.
 - **Optional cleanup:** `DomainOpImplementationsFor` is now effectively legacy (U20 uses `DomainOpImplementationsForContracts`); consider consolidating to one exported helper to avoid two similar “registry typing” patterns.
 - **Milestone completeness:** planned M8 U21 artifacts DX (step-owned deps) is documented but not implemented in this stack.
+- **Test reliability:** `pnpm -C mods/mod-swooper-maps test` requires `@swooper/mapgen-core` to be built (dist-only exports). In a clean checkout, tests fail with “Cannot find module '@swooper/mapgen-core/...'” until `pnpm -C packages/mapgen-core build` runs; consider adding a `pretest` or wiring this into the root `pnpm test` flow.
 
 ### Fixed or superseded later in the stack
 - **U18 “step contracts importing domain barrels may eagerly load runtime”**: true at the time of PR #456, but resolved by U19/U20 restructuring (contracts vs runtime entrypoints + lint guardrails + `defineDomain/createDomain`).
