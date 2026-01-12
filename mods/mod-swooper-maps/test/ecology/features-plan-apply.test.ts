@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 
-import * as ecology from "@mapgen/domain/ecology";
+import * as ecology from "@mapgen/domain/ecology/ops";
 import featuresPlanStep from "../../src/recipes/standard/stages/ecology/steps/features-plan/index.js";
 import featuresApplyStep from "../../src/recipes/standard/stages/ecology/steps/features-apply/index.js";
 import { M3_DEPENDENCY_TAGS } from "../../src/recipes/standard/tags.js";

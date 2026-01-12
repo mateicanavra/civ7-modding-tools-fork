@@ -1,11 +1,16 @@
 import { Type, type Static } from "typebox";
 import { BiomeEngineBindingsSchema } from "./biome-bindings.js";
-import contracts from "./contracts.js";
+import BiomeClassificationContract from "./ops/classify-biomes/contract.js";
+import PlanAquaticFeaturePlacementsContract from "./ops/plan-aquatic-feature-placements/contract.js";
+import PlanIceFeaturePlacementsContract from "./ops/plan-ice-feature-placements/contract.js";
+import PlanPlotEffectsContract from "./ops/plan-plot-effects/contract.js";
+import PlanVegetatedFeaturePlacementsContract from "./ops/plan-vegetated-feature-placements/contract.js";
+import PlanWetFeaturePlacementsContract from "./ops/plan-wet-feature-placements/contract.js";
 /**
  * Biome classification config (Holdridge/Whittaker-inspired).
  * Sourced from the ecology domain operation to keep schema + logic colocated.
  */
-const BiomeConfigSchema = contracts.classifyBiomes.config;
+const BiomeConfigSchema = BiomeClassificationContract.config;
 
 /**
  * Optional bindings from biome symbols -> engine biome globals.
@@ -17,10 +22,10 @@ const BiomeBindingsSchema = BiomeEngineBindingsSchema;
  */
 const FeaturesPlacementConfigSchema = Type.Object(
   {
-    vegetated: contracts.planVegetatedFeaturePlacements.config,
-    wet: contracts.planWetFeaturePlacements.config,
-    aquatic: contracts.planAquaticFeaturePlacements.config,
-    ice: contracts.planIceFeaturePlacements.config,
+    vegetated: PlanVegetatedFeaturePlacementsContract.config,
+    wet: PlanWetFeaturePlacementsContract.config,
+    aquatic: PlanAquaticFeaturePlacementsContract.config,
+    ice: PlanIceFeaturePlacementsContract.config,
   },
   { additionalProperties: false }
 );
@@ -28,7 +33,7 @@ const FeaturesPlacementConfigSchema = Type.Object(
 /**
  * Config for climate/ecology plot effects (snow, sand, burned).
  */
-const PlotEffectsConfigSchema = contracts.planPlotEffects.config;
+const PlotEffectsConfigSchema = PlanPlotEffectsContract.config;
 
 /**
  * Localized feature bonuses around story elements.

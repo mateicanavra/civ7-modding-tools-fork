@@ -2,7 +2,7 @@ import { createMockAdapter } from "@civ7/adapter";
 import { createExtendedMapContext } from "@swooper/mapgen-core";
 import type { Static } from "@swooper/mapgen-core/authoring";
 import { FoundationDirectionalityConfigSchema } from "@mapgen/domain/config";
-import * as ecology from "@mapgen/domain/ecology";
+import * as ecology from "@mapgen/domain/ecology/ops";
 
 import { normalizeOpSelectionOrThrow, normalizeStrictOrThrow } from "../support/compiler-helpers.js";
 
@@ -16,28 +16,64 @@ import {
 import { M3_DEPENDENCY_TAGS } from "../../src/recipes/standard/tags.js";
 
 export const disabledEmbellishmentsConfig = {
+  story: { features: {} },
+  featuresDensity: {},
+};
+
+export const disabledReefEmbellishmentsConfig = {
   story: {
     features: {
       paradiseReefChance: 0,
       paradiseReefRadius: 0,
-      volcanicForestChance: 0,
-      volcanicForestBonus: 0,
-      volcanicTaigaChance: 0,
-      volcanicTaigaBonus: 0,
     },
   },
   featuresDensity: {
     shelfReefMultiplier: 0,
     shelfReefRadius: 0,
+  },
+};
+
+export const disabledVegetationEmbellishmentsConfig = {
+  story: {
+    features: {
+      volcanicForestChance: 0,
+      volcanicForestBonus: 0,
+      volcanicForestMinRainfall: 0,
+      volcanicTaigaChance: 0,
+      volcanicTaigaBonus: 0,
+      volcanicRadius: 1,
+      volcanicTaigaMinLatitude: 0,
+      volcanicTaigaMaxElevation: 0,
+      volcanicTaigaMinRainfall: 0,
+    },
+  },
+  featuresDensity: {
     rainforestExtraChance: 0,
     forestExtraChance: 0,
     taigaExtraChance: 0,
     rainforestVegetationScale: 0,
     forestVegetationScale: 0,
     taigaVegetationScale: 0,
+    rainforestMinRainfall: 0,
+    forestMinRainfall: 0,
+    taigaMaxElevation: 0,
     minVegetationForBonus: 1,
   },
 };
+
+export function buildDisabledReefEmbellishmentsSelection() {
+  return normalizeOpSelectionOrThrow(ecology.ops.planReefEmbellishments, {
+    strategy: "default",
+    config: { ...disabledReefEmbellishmentsConfig },
+  });
+}
+
+export function buildDisabledVegetationEmbellishmentsSelection() {
+  return normalizeOpSelectionOrThrow(ecology.ops.planVegetationEmbellishments, {
+    strategy: "default",
+    config: { ...disabledVegetationEmbellishmentsConfig },
+  });
+}
 
 type VegetatedPlacementConfig = Static<
   typeof ecology.ops.planVegetatedFeaturePlacements.strategies.default.config

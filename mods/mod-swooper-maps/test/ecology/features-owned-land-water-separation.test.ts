@@ -1,10 +1,12 @@
 import { describe, expect, it } from "bun:test";
 
+import * as ecology from "@mapgen/domain/ecology/ops";
 import featuresStep from "../../src/recipes/standard/stages/ecology/steps/features/index.js";
 import {
   buildFeaturesPlacementConfig,
   createFeaturesTestContext,
-  disabledEmbellishmentsConfig,
+  buildDisabledReefEmbellishmentsSelection,
+  buildDisabledVegetationEmbellishmentsSelection,
 } from "./features-owned.helpers.js";
 
 describe("features (owned baseline)", () => {
@@ -50,14 +52,20 @@ describe("features (owned baseline)", () => {
         rules: { minAbsLatitude: 90 },
       },
     });
-    const config = {
-      featuresPlacement,
-      reefEmbellishments: { strategy: "default", config: { ...disabledEmbellishmentsConfig } },
-      vegetationEmbellishments: { strategy: "default", config: { ...disabledEmbellishmentsConfig } },
-    };
-    const resolvedConfig = featuresStep.normalize(config, { env: ctx.env, knobs: {} });
 
-    featuresStep.run(ctx, resolvedConfig);
+    const ops = ecology.ops.bind(featuresStep.contract.ops!).runtime;
+    featuresStep.run(
+      ctx,
+      {
+        iceFeaturePlacements: featuresPlacement.ice,
+        aquaticFeaturePlacements: featuresPlacement.aquatic,
+        wetFeaturePlacements: featuresPlacement.wet,
+        vegetatedFeaturePlacements: featuresPlacement.vegetated,
+        reefEmbellishments: buildDisabledReefEmbellishmentsSelection(),
+        vegetationEmbellishments: buildDisabledVegetationEmbellishmentsSelection(),
+      },
+      ops
+    );
 
     const landFeatures = new Set([
       adapter.getFeatureTypeIndex("FEATURE_FOREST"),
