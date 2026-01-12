@@ -20,11 +20,13 @@ const PlanWetlandsContract = defineOp({
     default: Type.Object({
       moistureThreshold: Type.Number({ minimum: 0, maximum: 2, default: 0.75 }),
       fertilityThreshold: Type.Number({ minimum: 0, maximum: 1, default: 0.35 }),
+      moistureNormalization: Type.Number({ minimum: 1, default: 230 }),
       maxElevation: Type.Integer({ default: 1200 }),
     }),
     "delta-focused": Type.Object({
       moistureThreshold: Type.Number({ minimum: 0, maximum: 2, default: 0.75 }),
       fertilityThreshold: Type.Number({ minimum: 0, maximum: 1, default: 0.35 }),
+      moistureNormalization: Type.Number({ minimum: 1, default: 230 }),
       maxElevation: Type.Integer({ default: 1200 }),
     }),
   },

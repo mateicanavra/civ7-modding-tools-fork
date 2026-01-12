@@ -1,9 +1,11 @@
+import { clamp01 } from "@swooper/mapgen-core";
 import { createStrategy } from "@swooper/mapgen-core/authoring";
 import PlanWetlandsContract from "../contract.js";
 export const deltaFocusedStrategy = createStrategy(PlanWetlandsContract, "delta-focused", {
   run: (input, config) => {
     const placements: Array<{ x: number; y: number; feature: string; weight?: number }> = [];
     const { width, height } = input;
+    const moistureNormalization = Math.max(0.0001, config.moistureNormalization ?? 230);
     const fertility = input.fertility;
 
     for (let y = 0; y < height; y++) {
@@ -12,7 +14,7 @@ export const deltaFocusedStrategy = createStrategy(PlanWetlandsContract, "delta-
         const idx = row + x;
         if (input.landMask[idx] === 0) continue;
         if (input.elevation[idx] > config.maxElevation) continue;
-        const moisture = input.effectiveMoisture[idx];
+        const moisture = input.effectiveMoisture[idx] / moistureNormalization;
         const fert = fertility[idx];
         const deltaBonus = (x + y) % 2 === 0 ? 0.1 : 0;
         if (moisture + deltaBonus < config.moistureThreshold && fert < config.fertilityThreshold) continue;
@@ -20,7 +22,7 @@ export const deltaFocusedStrategy = createStrategy(PlanWetlandsContract, "delta-
           x,
           y,
           feature: "FEATURE_MARSH",
-          weight: Math.min(1, moisture + deltaBonus + fert * 0.2),
+          weight: clamp01(moisture + deltaBonus + fert * 0.2),
         });
       }
     }
