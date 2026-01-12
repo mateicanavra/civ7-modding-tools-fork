@@ -64,6 +64,7 @@
     }
   },
   "scripts": {
+    "prebuild": "pnpm -C ../civ7-adapter build",
     "build": "tsup",
     "precheck": "pnpm -C ../civ7-adapter build",
     "pretest": "pnpm -C ../civ7-adapter build",
