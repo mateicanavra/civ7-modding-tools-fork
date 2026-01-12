@@ -31,10 +31,15 @@ Branches (downstack → upstack):
 ## Rolling summary (updated as branches are reviewed)
 
 ### Still relevant to fix
-- TBD
+- **Protect the “contract-only domain entrypoint” invariant long-term.**
+  - U20’s `@mapgen/domain/<domain>` entrypoints are now *structurally* contract-only for ops, but several also `export *` additional helpers. This is fine today, but it creates a fragile surface where a future helper import could accidentally pull runtime-only modules and break step-contract safety.
+  - Follow-up direction: keep contract entrypoints minimal (default export + types/constants), and require explicit imports for runtime helpers elsewhere.
+- **Optional cleanup:** `DomainOpImplementationsFor` is now effectively legacy (U20 uses `DomainOpImplementationsForContracts`); consider consolidating to one exported helper to avoid two similar “registry typing” patterns.
+- **Milestone completeness:** planned M8 U21 artifacts DX (step-owned deps) is documented but not implemented in this stack.
 
 ### Fixed or superseded later in the stack
-- TBD
+- **U18 “step contracts importing domain barrels may eagerly load runtime”**: true at the time of PR #456, but resolved by U19/U20 restructuring (contracts vs runtime entrypoints + lint guardrails + `defineDomain/createDomain`).
+- **U19’s domain-specific lint restrictions** (hard-coded ecology/placement `paths`): superseded by U20’s generalized “import contracts from `@mapgen/domain/<domain>`” rule (no more `.../contracts` entrypoints).
 
 ## Branch-by-branch review
 
