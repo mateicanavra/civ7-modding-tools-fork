@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "build": "tsup",
+    "precheck": "pnpm -C ../../packages/mapgen-core build",
     "check": "tsc --noEmit",
+    "pretest": "pnpm -C ../../packages/mapgen-core build",
     "test": "bun test",
     "deploy": "pnpm run build && pnpm exec civ7 mod manage deploy --input ./mod --id mod-swooper-maps"
   },
