@@ -22,15 +22,17 @@ related_to:
 - Make artifacts **stage-owned (contracts)** and **contract-first**:
   - Each stage defines its artifact contracts in `stages/<stage>/artifacts.ts` (canonical `name` + `id` + `schema`).
   - Steps reference those contracts in their `defineStep` contracts (`artifacts.requires/provides`).
-  - Artifact runtime behavior (validation, freezing, satisfies) lives next to the producing step implementation and is bound via `implementArtifacts(...)`.
+  - Artifact runtime behavior (validation + gating `satisfies`) lives next to the producing step implementation and is bound via `implementArtifacts(...)`.
 - Eliminate ad-hoc artifact imports inside steps:
   - Step `run(...)` receives a first-class `deps` parameter.
-  - Steps access artifacts via `deps.artifacts.<artifactName>.read(ctx)` / `.publish(ctx, value)`.
+  - Steps access artifacts via `deps.artifacts.<artifactName>.read(ctx)` / `.publish(ctx, value)` (reads return a snapshot view).
 - Remove manual artifact satisfier wiring:
   - `createRecipe(...)` composes artifact tag definitions + satisfiers automatically from step modules.
 - Single path per capability:
   - No `ctx.deps` path (not even “internal”).
   - No `read`/`publish` override hooks; publication/read is canonical via `ctx.artifacts` store + runtime wrapper.
+ - Remove fake artifact id version suffixes:
+   - `@v1`, `@v2`, etc. are not a real versioning system; they are removed via a single mechanical rename sweep (see prework).
 
 Primary reference (source of truth):
 - `docs/projects/engine-refactor-v1/resources/spec/recipe-compile/DX-ARTIFACTS-PROPOSAL.md` (commit `7870be5e5`)
@@ -71,7 +73,7 @@ The engine already has a clean gating primitive (`TagRegistry` + `DependencyTagD
   - publishing the artifact and binding its runtime behavior stays with the producer step runtime module.
 - Contract vs runtime separation:
   - contract: stable `name` + `id` + schema metadata
-  - runtime: validate/freeze/satisfies, publish enforcement
+  - runtime: validate/satisfies, publish enforcement
 - Single-path DX:
   - step code never imports “artifact helpers”
   - one official access path: `deps` parameter
@@ -88,7 +90,7 @@ The engine already has a clean gating primitive (`TagRegistry` + `DependencyTagD
 - Re-architecting fields/effects storage; fields/effects remain recipe-level dependencies for now.
 
 ## Mental model (target)
-- Artifacts are published data products keyed by dependency tag ID (e.g. `artifact:ecology.featureIntents@v1`) stored in `ctx.artifacts`.
+- Artifacts are published data products keyed by dependency tag ID (e.g. `artifact:ecology.featureIntents`) stored in `ctx.artifacts`.
 - Artifact contracts are stage-owned (single canonical file per stage).
 - Steps:
   - **publish** artifacts (producer steps)
@@ -144,6 +146,9 @@ This issue must treat the following as artifacts to migrate away from manual rec
 
 ```yaml
 artifacts:
+  # NOTE: this list reflects *current reality* on this branch.
+  # Direction (locked in): remove all fake `@vN` suffixes via one mechanical rename sweep.
+
   # foundation artifacts (currently published directly via ctx.artifacts.set in producer)
   - id: artifact:foundation.plates@v1
   - id: artifact:foundation.dynamics@v1
@@ -169,38 +174,96 @@ artifacts:
   - id: artifact:placementOutputs@v1
 ```
 
-## Open Questions (explicit unknowns)
-These must be resolved explicitly during implementation. Default stance: add a targeted prework prompt rather than guessing.
+## Decisions (locked — do not re-litigate)
 
-### Trivial / mechanical (expected to resolve quickly)
-1) **Artifact name constraints** (enforced by `defineArtifact`)
-   - Proposed: `name` must be a conservative identifier (`^[a-zA-Z][a-zA-Z0-9_]*$`) to make `deps.artifacts.<name>` flat + stable.
-   - Confirm whether camelCase is required, or if `_` should be allowed.
-2) **Default freeze behavior**
-   - Typed arrays cannot be made immutable by `Object.freeze` (element mutation still possible).
-   - Decide what “freeze” means for typed arrays (likely “return as-is” + rely on discipline) vs deep-freeze only for plain objects/arrays.
-3) **Error shape**
-   - `validate` returns `readonly { message: string }[]`.
-   - Decide whether wrapper errors should always throw `Error` with a standardized prefix, or introduce a typed error class (prefer keeping it simple unless tests need structured error fields).
+### 1) `defineArtifact` name constraints (camelCase-only)
+- **Choice:** enforce camelCase-only `name` at `defineArtifact` time.
+- **Rationale:** `deps.artifacts.<name>` is the primary DX surface; keeping names flat + conservative is required for clean completion and predictable access.
+- **Rule:**
+  - `name` must match: `^[a-z][a-zA-Z0-9]*$`
+  - Reject reserved / dangerous property names (minimum): `__proto__`, `prototype`, `constructor`.
 
-### Larger design / architectural (requires a deliberate decision)
-1) **Split the existing multi-producer artifact (`artifact:ecology.biomeClassification@v1`)**
-   - Policy: **single producer per artifact id** (locked in by this issue).
-   - Current reality: both `biomes` and `biome-edge-refine` write the same artifact id.
-   - Required: change the refiner step to produce a *different* artifact id, and update all consumers to depend on the appropriate id.
-   - Open question: pick the new id naming scheme (and migration strategy), e.g.:
-     - Option A: keep `artifact:ecology.biomeClassification@v1` as the final product and add `artifact:ecology.biomeClassification.raw@v1` for the earlier step.
-     - Option B: introduce `artifact:ecology.biomeClassification@v2` as the refined product and keep `@v1` as the earlier output.
-   - Recommendation: Option A (least churn for downstream consumers that want “final classification”).
-2) **`artifact:storyOverlays` cutover**
-   - Today the satisfier checks `ctx.overlays` instead of `ctx.artifacts`.
-   - Under this issue’s “single canonical publication/read path” rule, decide whether:
-     - Option A: start publishing overlays through the artifact store (and keep `ctx.overlays` as an internal implementation detail), or
-     - Option B: treat `overlays` as non-artifact recipe state and remove `artifact:storyOverlays` entirely (likely out of scope if it breaks consumers).
-3) **Validation source of truth**
-   - Some artifacts have “assert-style” validators in mapgen-core (`validateFoundation*Artifact(...)` throws).
-   - The proposed `validate` surface is “collect errors” style.
-   - Decide the canonical adapter layer: wrap assert-validators into “issues array” and standardize, or allow `validate` to throw and normalize to issues in the wrapper.
+### 2) Default immutability + snapshot semantics
+- **Choice:** artifacts are **write-once**; publishing the same artifact id twice throws.
+- **Choice:** do **not** deep-freeze the underlying stored value in `ctx.artifacts`.
+- **Choice:** reads return an **immutable snapshot view** instead of a mutable live reference.
+  - The getter path is responsible for returning a snapshot (copy/freeze as needed), while the backing store remains unfrozen.
+  - There is no public per-artifact `freeze` option; the snapshot behavior is part of the canonical read path.
+- **Snapshot algorithm (v1, explicit to avoid ambiguity):**
+  - primitives (`string | number | boolean | null | undefined`): returned as-is
+  - typed arrays: returned as a copy (`new Uint8Array(value)`, etc.)
+  - arrays: deep-snapshot each element, then `Object.freeze(...)` the returned array
+  - plain objects: deep-snapshot each property value, then `Object.freeze(...)` the returned object
+  - unsupported objects (`Map`, `Set`, class instances, cyclic graphs, etc.): treat as invalid artifact values (either throw early in snapshot, or require producer to normalize before publish)
+- **Rationale:** the system must behave “read-many / write-once” without proliferating author-configurable knobs.
+- **Important note (performance/correctness tension):**
+  - Many artifacts contain large typed arrays (e.g. `Uint8Array`, `Float32Array`). Copying them on every `read(...)` may be expensive.
+  - Implementation must treat snapshotting as a first-class runtime behavior and add targeted perf sanity checks (see verification) so we don’t silently regress runtime.
+
+### 3) Error shape for wrapper failures
+- **Choice:** use typed error classes for artifact failures (debuggability is pipeline DX).
+- **Initial set (expand only if needed by real call sites/tests):**
+  - `ArtifactMissingError` (required artifact missing at read)
+  - `ArtifactDoublePublishError` (write-once violation)
+  - `ArtifactValidationError` (publish rejected; includes issues and optional cause)
+
+### 4) Single producer per artifact id (one writer, many readers)
+- **Choice:** **exactly one step** may `provides` / publish a given artifact `id`.
+- **Enforcement:** recipe compilation fails fast if multiple steps provide the same artifact id.
+- **Escape hatch:** “alternate producers” must use a *different artifact id* (discouraged; document rationale where used).
+
+### 5) Remove fake artifact id version suffixes (`@v1`, `@v2`, …)
+- **Choice:** remove `@vN` suffixes across the repository; they are naming-only today and create false architecture.
+- **Scope:** this is a large mechanical rename and must be executed as an explicit sweep (see prework prompt below).
+- **Rule:** do not introduce new `@vN`-suffixed ids.
+
+### 6) Multi-producer `biomeClassification` is an anti-pattern to eliminate (no “draft/final” ids)
+- **Current reality:** `biomes` and `biome-edge-refine` both write `artifact:ecology.biomeClassification@v1` today.
+- **Choice:** keep a single conceptual artifact: `artifact:ecology.biomeClassification` (post-sweep) produced once.
+- **Direction:** remove the dual-writer setup by restructuring step boundaries:
+  - Refinement is expressed inside the single producer’s runtime, or by producing a *semantically distinct* artifact (not “draft vs final”).
+
+### 7) Overlays cutover: artifacts only (remove `ctx.overlays`)
+- **Choice (now):** store overlays via `deps.artifacts.storyOverlays` into `ctx.artifacts` and remove `ctx.overlays` from the official context surface.
+- **Direction:** overlays may become a first-class context feature again later (with a dedicated API), but **for now there is one canonical access path** (artifacts).
+- **Documentation requirement:** add clear code comments near the overlay artifact contract and any context types explaining:
+  - why overlays are artifacts-only for now,
+  - that the future plan is a first-class overlay API,
+  - that dual paths are intentionally avoided.
+
+### 8) Context remains coherent (what lives on `ctx` vs `deps`)
+- **Choice:** `ctx` remains the runtime execution context (environment/adapter/dimensions/randomness/logging + internal stores).
+- **Choice:** `deps` remains the **author-facing** dependency access surface for pipeline data products (artifacts now; fields/effects later).
+- **Rule:** steps do not reach into `ctx.artifacts` directly in normal authoring; they use `deps.artifacts.*` so contracts, gating, and runtime behavior stay aligned.
+- **Rationale:** this keeps `ctx` from becoming a dumping ground while still preserving a single canonical dependency API path for step authors.
+
+### 9) Validation source of truth: issues[] at the artifact boundary, fail-fast in normal execution
+- **Choice:** `implementArtifacts(...).validate` returns `issues[]` (`readonly { message: string }[]`).
+- **Compatibility:** internal validators may throw; they are wrapped at the artifact boundary and normalized into issues.
+- **Fail-fast:** `publish(...)` throws `ArtifactValidationError` when issues exist.
+- **Reporting/testing:** tests and reporting tools can catch `ArtifactValidationError` and introspect issues without introducing an alternate publication/read API path.
+
+## Prework Prompt (Agent Brief): remove `@vN` suffixes from artifact ids (mechanical sweep)
+**Purpose:** eliminate fake artifact id version suffixes and prevent reintroduction.
+
+**Expected output:**
+1) A complete list of all artifact ids containing `@vN` (code + docs).
+2) A mechanical rename plan + executed sweep (single branch) updating:
+   - stage-owned artifact contracts (`stages/<stage>/artifacts.ts`)
+   - step contracts (`artifacts.requires/provides`)
+   - any manual or legacy references (including `mods/.../recipes/.../standard/tags.ts`, `mods/.../recipes/.../standard/artifacts.ts`)
+   - docs/specs mentioning `@vN` ids
+3) Verification commands passing.
+
+**Sources to check (minimum):**
+```bash
+rg -n \"artifact:[^\\s'\\\"]+@v[0-9]+\" packages/mapgen-core mods docs
+rg -n \"@v[0-9]+\" mods/mod-swooper-maps/src/recipes/standard -S
+```
+
+**Notes:**
+- Do not invent a new “real versioning system” here; this is a naming cleanup.
+- The new ids must remain semantically meaningful (avoid “v2 theater”).
 
 ## Proposed API (mapgen-core) — explicit signatures
 These signatures are the contract for author DX, inference, and completion.
@@ -226,7 +289,13 @@ export function defineArtifact<
   const Id extends string,
   const Schema extends TSchema,
 >(def: {
+  // Invariants:
+  // - name must match ^[a-z][a-zA-Z0-9]*$ (camelCase-only)
+  // - name must not be a reserved/dangerous property name (e.g. "__proto__")
   name: Name;
+  // Invariants:
+  // - id must start with "artifact:"
+  // - id must NOT contain fake "@vN" suffixes
   id: Id;
   schema: Schema;
 }): ArtifactContract<Name, Id, Schema>;
@@ -250,8 +319,8 @@ export type RequiredArtifactRuntime<
   TContext extends ExtendedMapContext,
 > = Readonly<{
   contract: C;
-  read: (context: TContext) => ArtifactValueOf<C>;
-  tryRead: (context: TContext) => ArtifactValueOf<C> | null;
+  read: (context: TContext) => ArtifactSnapshotOf<C>;
+  tryRead: (context: TContext) => ArtifactSnapshotOf<C> | null;
 }>;
 
 export type ProvidedArtifactRuntime<
@@ -259,9 +328,72 @@ export type ProvidedArtifactRuntime<
   TContext extends ExtendedMapContext,
 > = RequiredArtifactRuntime<C, TContext> &
   Readonly<{
-    publish: (context: TContext, value: ArtifactValueOf<C>) => ArtifactValueOf<C>;
+    publish: (context: TContext, value: ArtifactValueOf<C>) => ArtifactSnapshotOf<C>;
     satisfies: DependencyTagDefinition<TContext>["satisfies"];
   }>;
+```
+
+### Artifact snapshot typing (read-side immutability)
+```ts
+export type DeepReadonly<T> =
+  T extends (...args: any[]) => any ? T :
+  T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepReadonly<U>> :
+  T extends object ? { readonly [K in keyof T]: DeepReadonly<T[K]> } :
+  T;
+
+export type ArtifactSnapshotOf<C extends ArtifactContract<any, any, any>> = DeepReadonly<ArtifactValueOf<C>>;
+```
+
+### Artifact failure errors (typed for pipeline DX)
+```ts
+export class ArtifactMissingError extends Error {
+  public readonly artifactId: string;
+  public readonly artifactName: string;
+  public readonly consumerStepId: string;
+  constructor(args: { artifactId: string; artifactName: string; consumerStepId: string }) {
+    super(`Missing artifact ${args.artifactId} (${args.artifactName}) required by step ${args.consumerStepId}`);
+    this.name = "ArtifactMissingError";
+    this.artifactId = args.artifactId;
+    this.artifactName = args.artifactName;
+    this.consumerStepId = args.consumerStepId;
+  }
+}
+
+export class ArtifactDoublePublishError extends Error {
+  public readonly artifactId: string;
+  public readonly artifactName: string;
+  public readonly producerStepId: string;
+  constructor(args: { artifactId: string; artifactName: string; producerStepId: string }) {
+    super(`Artifact ${args.artifactId} (${args.artifactName}) is already published; write-once violated by step ${args.producerStepId}`);
+    this.name = "ArtifactDoublePublishError";
+    this.artifactId = args.artifactId;
+    this.artifactName = args.artifactName;
+    this.producerStepId = args.producerStepId;
+  }
+}
+
+export class ArtifactValidationError extends Error {
+  public readonly artifactId: string;
+  public readonly artifactName: string;
+  public readonly producerStepId: string;
+  public readonly issues: readonly { message: string }[];
+  public readonly cause?: unknown;
+  constructor(args: {
+    artifactId: string;
+    artifactName: string;
+    producerStepId: string;
+    issues: readonly { message: string }[];
+    cause?: unknown;
+  }) {
+    super(`Artifact ${args.artifactId} (${args.artifactName}) rejected by validation in step ${args.producerStepId}`);
+    this.name = "ArtifactValidationError";
+    this.artifactId = args.artifactId;
+    this.artifactName = args.artifactName;
+    this.producerStepId = args.producerStepId;
+    this.issues = args.issues;
+    this.cause = args.cause;
+  }
+}
 ```
 
 ### `implementArtifacts` (bind contracts to runtime behavior)
@@ -274,8 +406,7 @@ type ArtifactsByName<T extends readonly ArtifactContract[]> = {
 
 export type ArtifactRuntimeImpl<C extends ArtifactContract, TContext extends ExtendedMapContext> =
   Readonly<{
-    validate?: (value: unknown, context: TContext) => readonly { message: string }[];
-    freeze?: (value: ArtifactValueOf<C>) => ArtifactValueOf<C>; // default deep-freeze
+    validate?: (value: ArtifactValueOf<C>, context: TContext) => readonly { message: string }[];
     satisfies?: DependencyTagDefinition<TContext>["satisfies"]; // default uses store.has + validate (if provided)
   }>;
 
@@ -324,14 +455,14 @@ import { Type, defineArtifact } from "@swooper/mapgen-core/authoring";
 
 export const ecologyArtifacts = {
   featureIntents: defineArtifact({
-  name: "featureIntents",
-  id: "artifact:ecology.featureIntents@v1",
-  schema: Type.Object({
-    vegetation: Type.Array(Type.Object({ x: Type.Number(), y: Type.Number(), weight: Type.Optional(Type.Number()) })),
-    wetlands: Type.Array(Type.Object({ x: Type.Number(), y: Type.Number(), weight: Type.Optional(Type.Number()) })),
-    reefs: Type.Array(Type.Object({ x: Type.Number(), y: Type.Number(), weight: Type.Optional(Type.Number()) })),
-    ice: Type.Array(Type.Object({ x: Type.Number(), y: Type.Number(), weight: Type.Optional(Type.Number()) })),
-  }),
+    name: "featureIntents",
+    id: "artifact:ecology.featureIntents",
+    schema: Type.Object({
+      vegetation: Type.Array(Type.Object({ x: Type.Number(), y: Type.Number(), weight: Type.Optional(Type.Number()) })),
+      wetlands: Type.Array(Type.Object({ x: Type.Number(), y: Type.Number(), weight: Type.Optional(Type.Number()) })),
+      reefs: Type.Array(Type.Object({ x: Type.Number(), y: Type.Number(), weight: Type.Optional(Type.Number()) })),
+      ice: Type.Array(Type.Object({ x: Type.Number(), y: Type.Number(), weight: Type.Optional(Type.Number()) })),
+    }),
   }),
 } as const;
 ```
@@ -375,7 +506,6 @@ type FeaturesPlanConfig = Static<typeof FeaturesPlanStepContract.schema>;
 
 const artifacts = implementArtifacts<ExtendedMapContext>(FeaturesPlanStepContract.artifacts!.provides!, {
   featureIntents: {
-    freeze: (value) => value,
     validate: (value) => {
       if (typeof value !== "object" || !value) return [{ message: "featureIntents must be an object" }];
       return [];
@@ -468,7 +598,7 @@ flowchart LR
   A[Stage artifact contracts<br/>stages/*/artifacts.ts] --> S[Step contract<br/>defineStep + artifacts.requires/provides]
   S --> B[createStep module<br/>run(ctx, config, ops, deps)]
   B --> C[createRecipe collects step contracts]
-  B --> D[implementArtifacts binds provides to runtime<br/>(validate/freeze/satisfies)]
+  B --> D[implementArtifacts binds provides to runtime<br/>(validate/satisfies + snapshot reads)]
 
   C --> E[Recipe compilation]
   E --> F[StepRegistry]
@@ -513,10 +643,13 @@ files:
 **Acceptance criteria:**
 - [ ] `defineArtifact({ name, id, schema })` exists and validates invariants (id prefix, name format, non-empty).
 - [ ] `implementArtifacts(provides, impl)` exists and returns typed wrappers keyed by artifact `name`.
-- [ ] Wrapper `publish(ctx, value)` stores to `ctx.artifacts` under `contract.id` and returns the stored value.
-- [ ] Wrapper `read(ctx)` throws a clear error when missing.
+- [ ] Wrapper `publish(ctx, value)` stores to `ctx.artifacts` under `contract.id` and returns a snapshot view of the published value.
+- [ ] Wrapper enforces write-once: `publish(...)` throws `ArtifactDoublePublishError` if `contract.id` already exists in the store.
+- [ ] Wrapper `read(ctx)` throws `ArtifactMissingError` when missing.
 - [ ] Wrapper `tryRead(ctx)` returns `null` on missing.
 - [ ] Wrapper exposes a `satisfies` function usable as `DependencyTagDefinition<TContext>["satisfies"]`.
+- [ ] Wrapper `read(ctx)` returns an immutable snapshot view (no mutable live reference).
+- [ ] Wrapper `publish(ctx, value)` throws `ArtifactValidationError` (with issues) when `validate(...)` returns issues.
 
 ## U21-B) Extend `defineStep`: artifacts block + flat merge enforcement
 - **Complexity × parallelism:** low × low (type + runtime invariants)
@@ -618,6 +751,8 @@ files:
 - [ ] No step implementation imports `mods/mod-swooper-maps/src/recipes/standard/artifacts.ts` for artifact reads/writes.
 - [ ] Manual artifact satisfiers in `STANDARD_TAG_DEFINITIONS` are removed (artifacts only).
 - [ ] The recipe still executes with gating enforced (producer must publish declared artifacts).
+- [ ] `ctx.overlays` is removed; overlays are published/read via `deps.artifacts.storyOverlays.*` only.
+- [ ] `biomeClassification` has a single producer step (no dual-writer between `biomes` and `biome-edge-refine`).
 
 ## U21-G) Tests + verification
 - **Complexity × parallelism:** medium × low (must guard against regressions of wiring)
@@ -635,6 +770,8 @@ files:
 
 **Acceptance criteria:**
 - [ ] Tests cover: defineStep merge, createRecipe artifact tag def synthesis, executor enforcement on missing/invalid artifact publish.
+- [ ] Tests assert typed error shapes (`ArtifactMissingError`, `ArtifactDoublePublishError`, `ArtifactValidationError`) so failures are debuggable and stable.
+- [ ] Tests cover snapshot behavior on reads (at minimum: typed arrays are not exposed as a mutable live reference).
 - [ ] Verification commands below pass.
 
 ## Verification (commands)
@@ -645,6 +782,8 @@ Run from repo root unless otherwise specified.
 - `pnpm -C mods/mod-swooper-maps check`
 - `pnpm -C mods/mod-swooper-maps test`
 - `rg -n \"ctx\\.deps\" -S .` (expect zero)
+- `rg -n \"ctx\\.overlays\" -S .` (expect zero)
+- `rg -n \"artifact:[^\\s'\\\"]+@v[0-9]+\" packages/mapgen-core mods docs` (expect zero)
 - `rg -n \"from \\\"\\.\\./\\.\\./\\.\\./artifacts\\.js\\\"\" -S mods/mod-swooper-maps/src/recipes/standard/stages` (expect zero for step impls after migration)
 
 ## Ideal file structure (one end-to-end slice)
@@ -678,7 +817,7 @@ mods/mod-swooper-maps/src/
 
 File placement rules (for authoring DX):
 - Artifact contracts live in the stage boundary (`stages/<stage>/artifacts.ts`) and are imported by step contracts.
-- Artifact runtime behavior (validate/freeze/satisfies) lives with the producer step implementation.
+- Artifact runtime behavior (validate/satisfies + snapshot reads) lives with the producer step implementation.
 - Fields/effects remain recipe-level for now (in `deps/`) until a follow-up completes their `deps.*` typing/threading story.
 
 ## Terminology alignment: rename “Tag” → “Dependency”
@@ -727,6 +866,14 @@ Recommendation for sequencing:
 - Artifact publication/read behavior is canonical:
   - no `read`/`publish` override hooks exist in the authoring API.
   - publishing uses the wrapper and writes to `ctx.artifacts`.
+- Artifact ids no longer use fake `@vN` suffixes:
+  - `rg -n \"artifact:[^\\s'\\\"]+@v[0-9]+\" packages/mapgen-core mods docs` returns zero results.
+- Overlays are artifacts-only (single path):
+  - `ctx.overlays` no longer exists as an official context property.
+  - overlay producers publish via `deps.artifacts.storyOverlays.publish(...)`, and consumers read via `deps.artifacts.storyOverlays.read(...)`.
+- Artifact wrappers return snapshot views:
+  - `read(...)` returns an immutable snapshot view (not a mutable live reference).
+  - wrapper errors are typed (`ArtifactMissingError`, `ArtifactDoublePublishError`, `ArtifactValidationError`).
 - Manual artifact satisfier/tag wiring in `mods/mod-swooper-maps/src/recipes/standard/tags.ts` is removed (artifacts only).
 - `createRecipe` automatically registers artifact tag definitions with satisfiers so executor gating correctly enforces requires/provides.
 - Tests exist for the new wiring and pass.
@@ -739,7 +886,7 @@ Recommendation for sequencing:
 - Attach deps to `ctx` (`ctx.deps`):
   - Rejected: introduces a second access path and “ambient” dependencies.
 - Allow overriding `read`/`publish` via `ArtifactRuntimeImpl`:
-  - Rejected: multiple semantic paths for publication/read creates drift and indirection; keep only validate/freeze/satisfies.
+  - Rejected: multiple semantic paths for publication/read creates drift and indirection; keep only validate/satisfies (snapshot behavior is part of the canonical wrapper).
 
 ## Notes / followups
 - This issue intentionally does not fully solve “step contract imports for fields/effects tags”; it focuses on artifacts + threading `deps`.
