@@ -25,14 +25,14 @@ related_to:
   - Artifact runtime behavior (validation + gating `satisfies`) lives next to the producing step implementation and is bound via `implementArtifacts(...)`.
 - Eliminate ad-hoc artifact imports inside steps:
   - Step `run(...)` receives a first-class `deps` parameter.
-  - Steps access artifacts via `deps.artifacts.<artifactName>.read(ctx)` / `.publish(ctx, value)` (reads return a snapshot view).
+  - Steps access artifacts via `deps.artifacts.<artifactName>.read(ctx)` / `.publish(ctx, value)` (treat reads as immutable; no runtime snapshot-on-read in prod).
 - Remove manual artifact satisfier wiring:
   - `createRecipe(...)` composes artifact tag definitions + satisfiers automatically from step modules.
 - Single path per capability:
   - No `ctx.deps` path (not even “internal”).
   - No `read`/`publish` override hooks; publication/read is canonical via `ctx.artifacts` store + runtime wrapper.
- - Remove fake artifact id version suffixes:
-   - `@v1`, `@v2`, etc. are not a real versioning system; they are removed via a single mechanical rename sweep (see prework).
+- Remove fake artifact id version suffixes:
+  - `@v1`, `@v2`, etc. are not a real versioning system; they are removed via a single mechanical rename sweep (see prework).
 
 Primary reference (source of truth):
 - `docs/projects/engine-refactor-v1/resources/spec/recipe-compile/DX-ARTIFACTS-PROPOSAL.md` (commit `7870be5e5`)
@@ -183,22 +183,22 @@ artifacts:
   - `name` must match: `^[a-z][a-zA-Z0-9]*$`
   - Reject reserved / dangerous property names (minimum): `__proto__`, `prototype`, `constructor`.
 
-### 2) Default immutability + snapshot semantics
+### 2) Default immutability semantics (production: no snapshot-on-read)
 - **Choice:** artifacts are **write-once**; publishing the same artifact id twice throws.
 - **Choice:** do **not** deep-freeze the underlying stored value in `ctx.artifacts`.
-- **Choice:** reads return an **immutable snapshot view** instead of a mutable live reference.
-  - The getter path is responsible for returning a snapshot (copy/freeze as needed), while the backing store remains unfrozen.
-  - There is no public per-artifact `freeze` option; the snapshot behavior is part of the canonical read path.
-- **Snapshot algorithm (v1, explicit to avoid ambiguity):**
-  - primitives (`string | number | boolean | null | undefined`): returned as-is
-  - typed arrays: returned as a copy (`new Uint8Array(value)`, etc.)
-  - arrays: deep-snapshot each element, then `Object.freeze(...)` the returned array
-  - plain objects: deep-snapshot each property value, then `Object.freeze(...)` the returned object
-  - unsupported objects (`Map`, `Set`, class instances, cyclic graphs, etc.): treat as invalid artifact values (either throw early in snapshot, or require producer to normalize before publish)
-- **Rationale:** the system must behave “read-many / write-once” without proliferating author-configurable knobs.
-- **Important note (performance/correctness tension):**
-  - Many artifacts contain large typed arrays (e.g. `Uint8Array`, `Float32Array`). Copying them on every `read(...)` may be expensive.
-  - Implementation must treat snapshotting as a first-class runtime behavior and add targeted perf sanity checks (see verification) so we don’t silently regress runtime.
+- **Choice:** do **not** implement runtime snapshot-on-read in production.
+  - `read(...)` returns the stored value reference (no copying).
+  - Immutability is enforced by convention + types, not runtime copying.
+- **Direction (hard rule for authors/consumers):**
+  - Consumers must treat values read from `deps.artifacts.*` as immutable.
+  - Consumers must not mutate values read from `deps.artifacts.*`.
+  - If a consumer needs to mutate, it must first make a caller-owned copy (e.g. `new Uint8Array(value)` for typed arrays; `{ ...obj }` / structured clone for objects as appropriate).
+- **Type-level enforcement:**
+  - `read(...)` is typed as a deep-readonly view to steer author behavior via IntelliSense.
+  - Typed arrays remain effectively mutable in JS; readonly typing does not fully prevent element writes, so this rule is still enforced primarily by convention + code review.
+- **Optional (debug/test-only, same API path):**
+  - A debug/test mode may freeze/copy values on publish/read to detect accidental mutation early.
+  - This must not introduce an alternate authoring surface or second API path; it is a runtime mode toggle only.
 
 ### 3) Error shape for wrapper failures
 - **Choice:** use typed error classes for artifact failures (debuggability is pipeline DX).
@@ -319,8 +319,16 @@ export type RequiredArtifactRuntime<
   TContext extends ExtendedMapContext,
 > = Readonly<{
   contract: C;
-  read: (context: TContext) => ArtifactSnapshotOf<C>;
-  tryRead: (context: TContext) => ArtifactSnapshotOf<C> | null;
+  /**
+   * Read an artifact as a readonly view.
+   *
+   * IMPORTANT:
+   * - This does not perform runtime snapshotting/copying in production.
+   * - Consumers must treat the returned value as immutable and must not mutate it.
+   * - If mutation is needed, callers must copy first (caller-owned copy).
+   */
+  read: (context: TContext) => ArtifactReadValueOf<C>;
+  tryRead: (context: TContext) => ArtifactReadValueOf<C> | null;
 }>;
 
 export type ProvidedArtifactRuntime<
@@ -328,12 +336,19 @@ export type ProvidedArtifactRuntime<
   TContext extends ExtendedMapContext,
 > = RequiredArtifactRuntime<C, TContext> &
   Readonly<{
-    publish: (context: TContext, value: ArtifactValueOf<C>) => ArtifactSnapshotOf<C>;
+    /**
+     * Publish an artifact (write-once).
+     *
+     * IMPORTANT:
+     * - Publishing stores the provided value reference (no deep freeze, no snapshotting in prod).
+     * - Producers should treat published values as immutable once stored.
+     */
+    publish: (context: TContext, value: ArtifactValueOf<C>) => ArtifactReadValueOf<C>;
     satisfies: DependencyTagDefinition<TContext>["satisfies"];
   }>;
 ```
 
-### Artifact snapshot typing (read-side immutability)
+### Artifact read typing (type-level immutability, no runtime snapshot)
 ```ts
 export type DeepReadonly<T> =
   T extends (...args: any[]) => any ? T :
@@ -341,7 +356,7 @@ export type DeepReadonly<T> =
   T extends object ? { readonly [K in keyof T]: DeepReadonly<T[K]> } :
   T;
 
-export type ArtifactSnapshotOf<C extends ArtifactContract<any, any, any>> = DeepReadonly<ArtifactValueOf<C>>;
+export type ArtifactReadValueOf<C extends ArtifactContract<any, any, any>> = DeepReadonly<ArtifactValueOf<C>>;
 ```
 
 ### Artifact failure errors (typed for pipeline DX)
@@ -598,7 +613,7 @@ flowchart LR
   A[Stage artifact contracts<br/>stages/*/artifacts.ts] --> S[Step contract<br/>defineStep + artifacts.requires/provides]
   S --> B[createStep module<br/>run(ctx, config, ops, deps)]
   B --> C[createRecipe collects step contracts]
-  B --> D[implementArtifacts binds provides to runtime<br/>(validate/satisfies + snapshot reads)]
+  B --> D[implementArtifacts binds provides to runtime<br/>(validate/satisfies + write-once publish)]
 
   C --> E[Recipe compilation]
   E --> F[StepRegistry]
@@ -643,13 +658,16 @@ files:
 **Acceptance criteria:**
 - [ ] `defineArtifact({ name, id, schema })` exists and validates invariants (id prefix, name format, non-empty).
 - [ ] `implementArtifacts(provides, impl)` exists and returns typed wrappers keyed by artifact `name`.
-- [ ] Wrapper `publish(ctx, value)` stores to `ctx.artifacts` under `contract.id` and returns a snapshot view of the published value.
+- [ ] Wrapper `publish(ctx, value)` stores to `ctx.artifacts` under `contract.id` and returns the stored value as a readonly view type.
 - [ ] Wrapper enforces write-once: `publish(...)` throws `ArtifactDoublePublishError` if `contract.id` already exists in the store.
 - [ ] Wrapper `read(ctx)` throws `ArtifactMissingError` when missing.
 - [ ] Wrapper `tryRead(ctx)` returns `null` on missing.
 - [ ] Wrapper exposes a `satisfies` function usable as `DependencyTagDefinition<TContext>["satisfies"]`.
-- [ ] Wrapper `read(ctx)` returns an immutable snapshot view (no mutable live reference).
+- [ ] Wrapper `read(ctx)` is typed as a deep-readonly view (type-level immutability; no runtime snapshot-on-read guarantee in production).
 - [ ] Wrapper `publish(ctx, value)` throws `ArtifactValidationError` (with issues) when `validate(...)` returns issues.
+- [ ] JSDoc at definition sites makes the immutability contract explicit:
+  - consumers must not mutate values read from `deps.artifacts.*`,
+  - mutation requires caller-owned copies.
 
 ## U21-B) Extend `defineStep`: artifacts block + flat merge enforcement
 - **Complexity × parallelism:** low × low (type + runtime invariants)
@@ -771,7 +789,7 @@ files:
 **Acceptance criteria:**
 - [ ] Tests cover: defineStep merge, createRecipe artifact tag def synthesis, executor enforcement on missing/invalid artifact publish.
 - [ ] Tests assert typed error shapes (`ArtifactMissingError`, `ArtifactDoublePublishError`, `ArtifactValidationError`) so failures are debuggable and stable.
-- [ ] Tests cover snapshot behavior on reads (at minimum: typed arrays are not exposed as a mutable live reference).
+- [ ] Type-level immutability is enforced for read values (e.g. `read(...)` returns `DeepReadonly<T>`), verified via a typecheck-only test using `// @ts-expect-error` for attempted mutations on object/array graphs.
 - [ ] Verification commands below pass.
 
 ## Verification (commands)
@@ -817,7 +835,7 @@ mods/mod-swooper-maps/src/
 
 File placement rules (for authoring DX):
 - Artifact contracts live in the stage boundary (`stages/<stage>/artifacts.ts`) and are imported by step contracts.
-- Artifact runtime behavior (validate/satisfies + snapshot reads) lives with the producer step implementation.
+- Artifact runtime behavior (validate/satisfies + write-once publish) lives with the producer step implementation.
 - Fields/effects remain recipe-level for now (in `deps/`) until a follow-up completes their `deps.*` typing/threading story.
 
 ## Terminology alignment: rename “Tag” → “Dependency”
@@ -871,8 +889,9 @@ Recommendation for sequencing:
 - Overlays are artifacts-only (single path):
   - `ctx.overlays` no longer exists as an official context property.
   - overlay producers publish via `deps.artifacts.storyOverlays.publish(...)`, and consumers read via `deps.artifacts.storyOverlays.read(...)`.
-- Artifact wrappers return snapshot views:
-  - `read(...)` returns an immutable snapshot view (not a mutable live reference).
+- Artifact wrappers enforce write-once and provide readonly typing:
+  - `publish(...)` is write-once (double publish throws).
+  - `read(...)` returns a deep-readonly type (type-level immutability; no runtime snapshot-on-read in production).
   - wrapper errors are typed (`ArtifactMissingError`, `ArtifactDoublePublishError`, `ArtifactValidationError`).
 - Manual artifact satisfier/tag wiring in `mods/mod-swooper-maps/src/recipes/standard/tags.ts` is removed (artifacts only).
 - `createRecipe` automatically registers artifact tag definitions with satisfiers so executor gating correctly enforces requires/provides.
@@ -886,7 +905,7 @@ Recommendation for sequencing:
 - Attach deps to `ctx` (`ctx.deps`):
   - Rejected: introduces a second access path and “ambient” dependencies.
 - Allow overriding `read`/`publish` via `ArtifactRuntimeImpl`:
-  - Rejected: multiple semantic paths for publication/read creates drift and indirection; keep only validate/satisfies (snapshot behavior is part of the canonical wrapper).
+  - Rejected: multiple semantic paths for publication/read creates drift and indirection; keep only validate/satisfies (immutability is by convention + types in production).
 
 ## Notes / followups
 - This issue intentionally does not fully solve “step contract imports for fields/effects tags”; it focuses on artifacts + threading `deps`.
