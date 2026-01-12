@@ -15,7 +15,7 @@ export default createStep(FeaturesPlanStepContract, {
     const heightfield = heightfieldArtifact.get(context);
 
     const { width, height } = context.dimensions;
-    const vegetationPlan = ops.vegetation.run(
+    const vegetationPlan = ops.vegetation(
       {
         width,
         height,
@@ -29,7 +29,7 @@ export default createStep(FeaturesPlanStepContract, {
       config.vegetation
     );
 
-    const wetlandsPlan = ops.wetlands.run(
+    const wetlandsPlan = ops.wetlands(
       {
         width,
         height,
@@ -42,7 +42,7 @@ export default createStep(FeaturesPlanStepContract, {
       config.wetlands
     );
 
-    const reefsPlan = ops.reefs.run(
+    const reefsPlan = ops.reefs(
       {
         width,
         height,
@@ -52,7 +52,7 @@ export default createStep(FeaturesPlanStepContract, {
       config.reefs
     );
 
-    const icePlan = ops.ice.run(
+    const icePlan = ops.ice(
       {
         width,
         height,

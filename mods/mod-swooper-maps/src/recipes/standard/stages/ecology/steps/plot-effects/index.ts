@@ -10,7 +10,7 @@ type PlotEffectsStepConfig = Static<typeof PlotEffectsStepContract.schema>;
 export default createStep(PlotEffectsStepContract, {
   run: (context: ExtendedMapContext, config: PlotEffectsStepConfig, ops) => {
     const input = buildPlotEffectsInput(context);
-    const result = ops.plotEffects.run(input, config.plotEffects);
+    const result = ops.plotEffects(input, config.plotEffects);
 
     if (context.trace.isVerbose) {
       const heightfield = heightfieldArtifact.get(context);

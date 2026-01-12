@@ -17,13 +17,13 @@ export default createStep(FeaturesStepContract, {
     const featureLookups = resolveFeatureKeyLookups(context.adapter);
 
     const iceInput = buildIceFeaturePlacementsInput(context, featureLookups);
-    const iceResult = ops.iceFeaturePlacements.run(iceInput, config.iceFeaturePlacements);
+    const iceResult = ops.iceFeaturePlacements(iceInput, config.iceFeaturePlacements);
     if (iceResult.placements.length > 0) {
       applyFeaturePlacements(context, iceResult.placements, featureLookups);
     }
 
     const aquaticInput = buildAquaticFeaturePlacementsInput(context, featureLookups);
-    const aquaticResult = ops.aquaticFeaturePlacements.run(
+    const aquaticResult = ops.aquaticFeaturePlacements(
       aquaticInput,
       config.aquaticFeaturePlacements
     );
@@ -36,13 +36,13 @@ export default createStep(FeaturesStepContract, {
       config.wetFeaturePlacements.config,
       featureLookups
     );
-    const wetResult = ops.wetFeaturePlacements.run(wetInput, config.wetFeaturePlacements);
+    const wetResult = ops.wetFeaturePlacements(wetInput, config.wetFeaturePlacements);
     if (wetResult.placements.length > 0) {
       applyFeaturePlacements(context, wetResult.placements, featureLookups);
     }
 
     const vegetatedInput = buildVegetatedFeaturePlacementsInput(context, featureLookups);
-    const vegetatedResult = ops.vegetatedFeaturePlacements.run(
+    const vegetatedResult = ops.vegetatedFeaturePlacements(
       vegetatedInput,
       config.vegetatedFeaturePlacements
     );
@@ -51,14 +51,14 @@ export default createStep(FeaturesStepContract, {
     }
 
     const reefInput = buildReefEmbellishmentsInput(context, featureLookups);
-    const reefResult = ops.reefEmbellishments.run(reefInput, config.reefEmbellishments);
+    const reefResult = ops.reefEmbellishments(reefInput, config.reefEmbellishments);
 
     if (reefResult.placements.length > 0) {
       applyFeaturePlacements(context, reefResult.placements, featureLookups);
     }
 
     const vegetationInput = buildVegetationEmbellishmentsInput(context, featureLookups);
-    const vegetationResult = ops.vegetationEmbellishments.run(
+    const vegetationResult = ops.vegetationEmbellishments(
       vegetationInput,
       config.vegetationEmbellishments
     );

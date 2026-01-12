@@ -12,7 +12,7 @@ export default createStep(FeaturesApplyStepContract, {
   run: (context, config: FeaturesApplyConfig, ops) => {
     const intents = featureIntentsArtifact.get(context);
 
-    const merged = ops.apply.run(
+    const merged = ops.apply(
       {
         vegetation: intents.vegetation,
         wetlands: intents.wetlands,

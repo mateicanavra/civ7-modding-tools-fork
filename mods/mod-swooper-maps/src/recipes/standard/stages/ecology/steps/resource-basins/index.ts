@@ -15,7 +15,7 @@ export default createStep(ResourceBasinsStepContract, {
     const heightfield = heightfieldArtifact.get(context);
     const climate = getPublishedClimateField(context);
 
-    const planned = ops.plan.run(
+    const planned = ops.plan(
       {
         width,
         height,
@@ -28,7 +28,7 @@ export default createStep(ResourceBasinsStepContract, {
       config.plan
     );
 
-    const balanced = ops.score.run(planned, config.score);
+    const balanced = ops.score(planned, config.score);
 
     resourceBasinsArtifact.set(context, balanced);
   },

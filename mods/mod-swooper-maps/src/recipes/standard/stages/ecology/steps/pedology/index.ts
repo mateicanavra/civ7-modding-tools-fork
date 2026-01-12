@@ -9,7 +9,7 @@ export default createStep(PedologyStepContract, {
     const heightfield = heightfieldArtifact.get(context);
     const { width, height } = context.dimensions;
 
-    const result = ops.classify.run(
+    const result = ops.classify(
       {
         width,
         height,
