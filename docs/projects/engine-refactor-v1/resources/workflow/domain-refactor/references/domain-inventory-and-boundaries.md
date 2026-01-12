@@ -92,7 +92,7 @@ For each step and each candidate op:
 - config schema location (op `contract.ts`, step `contract.ts`)
 - schema defaults (TypeBox defaults)
 - any runtime merges/defaulting (must be eliminated)
-- any scaling semantics (must move into `resolveConfig`)
+- any scaling semantics (must move into compile-time normalization: `step.normalize` and/or `op.normalize`)
 
 ### D) Typed arrays + invariants
 

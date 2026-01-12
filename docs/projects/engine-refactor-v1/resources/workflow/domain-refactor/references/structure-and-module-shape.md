@@ -40,12 +40,19 @@ Use these as the **literal roots** when executing the workflow in `civ7-modding-
 Domain root:
 - `mods/mod-swooper-maps/src/domain/<domain>/`
 
-Domain ops:
+Domain contract entrypoint (contract-only; safe to import from step contracts):
+- `mods/mod-swooper-maps/src/domain/<domain>/index.ts`
+  - exports a `defineDomain({ id, ops })` domain contract
+  - must not re-export runtime op implementations
+
+Domain ops (contracts + implementations):
 - `mods/mod-swooper-maps/src/domain/<domain>/ops/**` (one op per module)
+- `mods/mod-swooper-maps/src/domain/<domain>/ops/contracts.ts` (aggregates op contracts)
+- `mods/mod-swooper-maps/src/domain/<domain>/ops/index.ts` (aggregates op implementations)
 
 Domain public surface:
-- Domain index re-exports step-callable ops and any domain-owned config/schema surfaces.
-- Steps import ops through the domain public surface (`@mapgen/domain/<domain>`, via `domain.ops.*`).
+- Steps import op contracts through the domain contract entrypoint (`@mapgen/domain/<domain>`, via `domain.ops.<opKey>`).
+- Recipe wiring imports op implementations through `@mapgen/domain/<domain>/ops` (only at the recipe wiring layer).
 
 ## Op module shape (one op per module)
 
@@ -76,7 +83,7 @@ Reference example:
 
 Steps are contract-first and orchestration-only:
 - `contract.ts` contains metadata only (`id`, `phase`, `requires`, `provides`, `schema`).
-- `index.ts` attaches `resolveConfig` and `run` using a bound `createStep` from `createStepFor<TContext>()`.
+- `index.ts` attaches optional `normalize` and required `run` using a bound `createStep` from `createStepFor<TContext>()`.
 
 Recommended structure:
 - `mods/mod-swooper-maps/src/recipes/standard/stages/<stage>/steps/<step>/contract.ts`
@@ -85,9 +92,11 @@ Recommended structure:
 
 Step logic responsibilities:
 - `contract.ts` defines the schema and dependency metadata only.
-- `index.ts` builds inputs, calls ops, and publishes artifacts.
+- `contract.ts` declares op contracts via `ops: { <key>: domain.ops.<opKey> }` (and must not deep import implementation paths).
+- `defineStep({ ops })` automatically merges each op contract’s `config` schema into the step schema; step schemas should only define step-owned props.
+- `index.ts` builds inputs, calls injected runtime ops, and publishes artifacts.
 - `lib/**` contains pure helpers (e.g., `inputs.ts`, `apply.ts`) with no registry awareness.
-- Step schemas import op `config`/`defaultConfig` directly from the **implemented op** (via the domain module); steps do not re-author wrappers unless step-local options are genuinely step-owned.
+- Step modules do not bind ops locally; they receive a typed `ops` object as the third arg in `run(context, config, ops)`.
 - Use canonical dependency keys from the standard registry file; do not inline new key strings in refactored steps:
   - `mods/mod-swooper-maps/src/recipes/standard/tags.ts` (`M3_DEPENDENCY_TAGS`, `M4_EFFECT_TAGS`, `STANDARD_TAG_DEFINITIONS`)
 
@@ -106,5 +115,5 @@ Reference example (thin re-export pattern):
 - `mods/mod-swooper-maps/src/domain/ecology/config.ts`
 
 Concrete expectation:
-- Refactored steps import op config/defaults from the domain module (`@mapgen/domain/<domain>`, via `domain.ops.*`).
+- Refactored step contracts import op contracts from the domain module (`@mapgen/domain/<domain>`, via `domain.ops.*`).
 - The config schema bundle (`@mapgen/domain/config`) remains the canonical author-facing schema surface, but it is a thin barrel over domain-owned op contracts.
