@@ -166,7 +166,7 @@ export default [
         {
           patterns: [
             {
-              group: ["@mapgen/domain/*", "!@mapgen/domain/*/ops"],
+              regex: "^@mapgen/domain/[^/]+$",
               message:
                 "Recipe compilation must import domain runtime ops from @mapgen/domain/<domain>/ops (not the contract entrypoint)."
             }
