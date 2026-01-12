@@ -42,6 +42,50 @@ tldr:
       - "`@v1`, `@v2`, etc. are not a real versioning system; they are removed via a single mechanical rename sweep (see prework)."
 ```
 
+## Parallelization boundary (clean line)
+This issue has a clean parallelization boundary to avoid churn/conflicts with the in-flight Ecology alignment work.
+
+```yaml
+parallelization_boundary:
+  phase_1:
+    name: "Core API + wiring (safe in parallel)"
+    includes:
+      - U21-A
+      - U21-B
+      - U21-C
+      - U21-D
+      - U21-E
+      - "U21-G (packages/mapgen-core only)"
+    touches:
+      - "packages/mapgen-core/**"
+    must_not_touch:
+      - mods/mod-swooper-maps/src/recipes/standard/recipe.ts
+      - mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/**/contract.ts
+      - eslint.config.js
+      - scripts/lint/lint-domain-refactor-guardrails.sh
+    phase_1_constraints:
+      - "No shims/fallback surfaces are introduced in Phase 1 (no alternate deps path, no dual authoring surfaces)."
+      - "No consumer edits required in Phase 1: existing mods/recipes/steps continue to typecheck and run unchanged."
+      - "Adding `deps` is additive: implement it so existing step `run(...)` functions can ignore it without changes."
+      - "Adding `artifacts` to `defineStep` is additive/optional: existing contracts can omit it in Phase 1."
+
+  phase_2:
+    name: "Consumer/mod migration (deferred)"
+    includes:
+      - U21-F
+      - "U21-G (mods/mod-swooper-maps + repo-wide verification)"
+    deferred_until_after:
+      - docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M8-ecology-architecture-dx-refactor.md
+    rationale:
+      - "U21-F touches the same surfaces as the Ecology alignment work (Ecology step contracts, recipe wiring, and import-boundary enforcement)."
+      - "Deferring avoids merge conflicts and rework from moving guardrails."
+
+  agent_checkpoint:
+    stop_after_phase_1: true
+    check_in_required_before_phase_2: true
+    note: "After finishing U21-A→E + mapgen-core-scoped U21-G, stop and check in with Matei before starting U21-F."
+```
+
 Primary reference (source of truth):
 ```yaml
 references:
@@ -807,6 +851,27 @@ flowchart LR
 This section is intended to be executable without back-and-forth.
 If a requirement below is ambiguous, add a prework prompt and stop before silently deciding.
 
+### Phase split (parallelization boundary)
+This plan is intentionally split so Phase 1 can land without touching Ecology alignment surfaces.
+
+```yaml
+phase_split:
+  phase_1:
+    allowed_paths:
+      - "packages/mapgen-core/**"
+    hard_rules:
+      - "Do not edit mod migration files (see U21-F) during Phase 1."
+      - "Do not edit Ecology alignment guardrails during Phase 1."
+      - "Make all Phase 1 API changes additive and non-breaking (no shims/fallback codepaths; no consumer edits required to stay green)."
+  checkpoint:
+    after: "U21-A→U21-E + mapgen-core-scoped U21-G"
+    action: "Stop and check in with Matei before starting U21-F."
+  phase_2:
+    starts_at: U21-F
+    blocked_on:
+      - docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M8-ecology-architecture-dx-refactor.md
+```
+
 ## U21-A) Add artifact authoring primitives (`= packages/mapgen-core`)
 ```yaml
 complexity_parallelism: "medium × low (core types + runtime wrapper; touches authoring exports + tests)"
@@ -906,6 +971,7 @@ acceptance_criteria:
   - "[ ] All step runs can be authored as `run(ctx, config, ops, deps)`."
   - "[ ] There is no `ctx.deps` surface anywhere in the repo (enforced by grep verification)."
   - "[ ] `deps.artifacts.<name>` is typed based on the step contract’s artifacts.requires/provides."
+  - "[ ] Phase 1 constraint: existing step modules that implement `run(ctx, config, ops)` continue to typecheck and run without changes."
 ```
 
 ## U21-D) `createRecipe` auto-wires artifact tag definitions + satisfiers
@@ -935,6 +1001,7 @@ in_scope:
 acceptance_criteria:
   - "[ ] Artifact tag defs are present in the registry even if not explicitly provided in `input.tagDefinitions`."
   - "[ ] Executor correctly fails with `UnsatisfiedProvidesError` when a producer step does not publish its declared artifact."
+  - "[ ] Phase 1 constraint: existing recipe/modules that pass `tagDefinitions` keep working unchanged; artifact auto-wiring is additive."
 ```
 
 ## U21-E) Step module carries provided artifact runtimes (for compilation + deps typing)
@@ -959,6 +1026,17 @@ acceptance_criteria:
 ```
 
 ## U21-F) Migrate standard recipe (`= mods/mod-swooper-maps`) with no shims
+```yaml
+phase_gate:
+  status: "Phase 2 (deferred)"
+  blocked_on:
+    - docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M8-ecology-architecture-dx-refactor.md
+  agent_rule:
+    - "Do not start U21-F until Phase 1 is complete and you have explicitly checked in with Matei."
+  rationale:
+    - "This touches the same mod surfaces and import-boundary guardrails as the Ecology alignment work; doing it earlier causes churn/merge conflicts."
+```
+
 ```yaml
 complexity_parallelism: "high × low (many call sites; must remain green end-to-end)"
 ```
@@ -995,6 +1073,16 @@ acceptance_criteria:
 complexity_parallelism: "medium × low (must guard against regressions of wiring)"
 ```
 
+```yaml
+phase_scoping:
+  phase_1:
+    focus: "packages/mapgen-core only"
+    note: "Phase 1 should not require any edits in mods to keep typecheck/runtime green."
+  phase_2:
+    focus: "mods/mod-swooper-maps migration + repo-wide invariants"
+    note: "Phase 2 verification runs after U21-F and after Ecology alignment lands."
+```
+
 **Files (expected):**
 ```yaml
 files:
@@ -1019,15 +1107,17 @@ acceptance_criteria:
 Run from repo root unless otherwise specified.
 ```yaml
 verification_commands:
-  - pnpm check
-  - pnpm -C packages/mapgen-core check
-  - pnpm -C packages/mapgen-core test
-  - pnpm -C mods/mod-swooper-maps check
-  - pnpm -C mods/mod-swooper-maps test
-  - "rg -n \"ctx\\\\.deps\" -S . (expect zero)"
-  - "rg -n \"ctx\\\\.overlays\" -S . (expect zero)"
-  - "rg -n \"artifact:[^\\\\s'\\\\\\\"]+@v[0-9]+\" packages/mapgen-core mods docs --glob '!**/_archive/**' --glob '!**/_archived/**' (expect zero)"
-  - "rg -n \"from \\\\\\\"\\.\\./\\.\\./\\.\\./artifacts\\\\.js\\\\\\\"\" -S mods/mod-swooper-maps/src/recipes/standard/stages (expect zero for step impls after migration)"
+  phase_1:
+    - pnpm -C packages/mapgen-core check
+    - pnpm -C packages/mapgen-core test
+    - "pnpm -C mods/mod-swooper-maps check (compat check; should not require edits in Phase 1)"
+    - "rg -n \"ctx\\\\.deps\" -S . (expect zero; no alternate deps surface)"
+    - "rg -n \"artifact:[^\\\\s'\\\\\\\"]+@v[0-9]+\" packages/mapgen-core mods docs --glob '!**/_archive/**' --glob '!**/_archived/**' (expect zero)"
+  phase_2:
+    - pnpm -C mods/mod-swooper-maps check
+    - pnpm -C mods/mod-swooper-maps test
+    - "rg -n \"ctx\\\\.overlays\" -S . (expect zero)"
+    - "rg -n \"from \\\\\\\"\\.\\./\\.\\./\\.\\./artifacts\\\\.js\\\\\\\"\" -S mods/mod-swooper-maps/src/recipes/standard/stages (expect zero for step impls after migration)"
 ```
 
 ## Ideal file structure (one end-to-end slice)
