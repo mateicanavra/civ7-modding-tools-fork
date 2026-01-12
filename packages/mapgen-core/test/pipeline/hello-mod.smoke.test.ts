@@ -97,7 +97,7 @@ describe("authoring: hello recipe compile/execute", () => {
 
     const step = createStep(stepContract, {
       run: (context, config, ops) => {
-        const result = ops.trees.run({}, config.trees);
+        const result = ops.trees({}, config.trees);
         context.metrics.warnings.push(`trees:${result.ok}`);
       },
     });
