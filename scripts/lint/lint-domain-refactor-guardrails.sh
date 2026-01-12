@@ -90,6 +90,86 @@ run_files() {
   fi
 }
 
+check_exported_jsdoc() {
+  local label="$1"
+  shift
+  local files=("$@")
+  if [ ${#files[@]} -eq 0 ]; then
+    echo -e "${YELLOW}Skip ${label}: no files provided.${NC}"
+    return
+  fi
+
+  local hits=""
+  for file in "${files[@]}"; do
+    if [ ! -f "$file" ]; then
+      continue
+    fi
+    local file_hits
+    file_hits=$(awk -v file="$file" '
+      function is_export_fn(line) { return line ~ /^[[:space:]]*export[[:space:]]+function[[:space:]]/ }
+      function is_jsdoc_end(line) { return line ~ /^[[:space:]]*\\*\\/[[:space:]]*$/ }
+      function is_jsdoc_start(line) { return line ~ /^[[:space:]]*\\/\\*\\*/ }
+      {
+        lines[NR] = $0
+      }
+      END {
+        for (i = 1; i <= NR; i++) {
+          if (is_export_fn(lines[i])) {
+            j = i - 1
+            while (j > 0 && lines[j] ~ /^[[:space:]]*$/) j--
+            if (j == 0 || !is_jsdoc_end(lines[j])) {
+              print file ":" i ":" lines[i]
+              continue
+            }
+            k = j
+            while (k > 0 && !is_jsdoc_start(lines[k])) k--
+            if (k == 0) {
+              print file ":" i ":" lines[i]
+            }
+          }
+        }
+      }
+    ' "$file")
+    if [ -n "$file_hits" ]; then
+      hits+="${file_hits}"$'\n'
+    fi
+  done
+
+  if [ -n "$hits" ]; then
+    echo -e "${RED}ERROR: ${label}${NC}"
+    echo "$hits" | sed 's/^/  /'
+    echo ""
+    violations=$((violations + 1))
+  fi
+}
+
+check_schema_descriptions() {
+  local label="$1"
+  shift
+  local files=("$@")
+  if [ ${#files[@]} -eq 0 ]; then
+    echo -e "${YELLOW}Skip ${label}: no files provided.${NC}"
+    return
+  fi
+
+  local missing=()
+  for file in "${files[@]}"; do
+    if [ ! -f "$file" ]; then
+      continue
+    fi
+    if rg -q "Type\\.Object\\(" "$file" && ! rg -q "description" "$file"; then
+      missing+=("$file")
+    fi
+  done
+
+  if [ ${#missing[@]} -gt 0 ]; then
+    echo -e "${RED}ERROR: ${label}${NC}"
+    printf '%s\n' "${missing[@]}" | sed 's/^/  /'
+    echo ""
+    violations=$((violations + 1))
+  fi
+}
+
 stage_roots_for_domain() {
   local domain="$1"
   case "$domain" in
@@ -153,6 +233,28 @@ for domain in "${DOMAINS[@]}"; do
     run_rg "Type exports from rules (ecology)" "^export\\s+type\\b" -g "*/rules/**/*.ts" -- "$ops_root"
     run_rg "runValidated called with inner config (ecology)" "runValidated\\([^,]+,\\s*[^\\)]*\\.config\\b" -P -- "${stage_roots[@]}"
     run_rg "Custom strategy-envelope schemas in steps (ecology)" "\\bstrategy\\s*:\\s*Type\\.(Literal|Union|String)\\(" -P -- "${stage_roots[@]}"
+
+    ecology_contract_files=()
+    while IFS= read -r file; do
+      [ -n "$file" ] && ecology_contract_files+=("$file")
+    done < <(
+      rg --files \
+        -g "mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/**/contract.ts" \
+        -g "mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/**/*.contract.ts" \
+        -g "mods/mod-swooper-maps/src/domain/ecology/ops/**/contract.ts"
+    )
+    check_schema_descriptions "Contract schema descriptions (ecology)" "${ecology_contract_files[@]}"
+
+    ecology_doc_targets=()
+    while IFS= read -r file; do
+      [ -n "$file" ] && ecology_doc_targets+=("$file")
+    done < <(
+      rg --files \
+        -g "mods/mod-swooper-maps/src/domain/ecology/ops/**/rules/**/*.ts" \
+        -g "mods/mod-swooper-maps/src/domain/ecology/ops/**/strategies/**/*.ts" \
+        -g "mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/**/*.ts"
+    )
+    check_exported_jsdoc "Exported function JSDoc (ecology)" "${ecology_doc_targets[@]}"
 
     for op_dir in "$ops_root"/*; do
       if [ ! -d "$op_dir" ]; then
