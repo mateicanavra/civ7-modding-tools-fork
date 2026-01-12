@@ -27,6 +27,7 @@ Branches (downstack → upstack):
 - `m8-u21-recipe-compile-dx-playbook` (PR #506)
 - `dev-local-tbd-m8-u20-domain-authoring` (PR #505)
 - `dev-local-tbd-m8-u20-authoring-extended-step` (PR #507)
+- `harden-local-tbd-m8-u21-artifacts-issue` (PR #508)
 
 ## Rolling summary (updated as branches are reviewed)
 
@@ -240,3 +241,11 @@ Branches (downstack → upstack):
 **What’s strong**
 - Removes the local `mods/mod-swooper-maps/src/authoring/steps.ts` indirection and updates call sites to import `createStep` from `@swooper/mapgen-core/authoring` directly.
 - Keeps an escape hatch: non-`ExtendedMapContext` usage can still supply generics explicitly.
+
+### `harden-local-tbd-m8-u21-artifacts-issue` — PR #508 (`docs(engine-refactor): harden artifacts issue`)
+
+**Issue doc**
+- `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M8-U21-artifacts-step-owned-deps.md`
+
+**Quick take**
+- Docs-only tightening of the planned U21 artifacts work. It improves the clarity of the (still-unlanded) scope, but there is no implementation in this stack.
