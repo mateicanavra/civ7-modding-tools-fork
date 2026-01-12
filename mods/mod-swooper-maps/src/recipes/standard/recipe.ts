@@ -1,5 +1,4 @@
-import { collectCompileOps, createRecipe } from "@swooper/mapgen-core/authoring";
-import type { CompiledRecipeConfigOf, RecipeConfigInputOf } from "@swooper/mapgen-core/authoring";
+import { collectCompileOps, createRecipe, type CompiledRecipeConfigOf, type RecipeConfigInputOf } from "@swooper/mapgen-core/authoring";
 import ecologyDomain from "@mapgen/domain/ecology/ops";
 import placementDomain from "@mapgen/domain/placement/ops";
 
