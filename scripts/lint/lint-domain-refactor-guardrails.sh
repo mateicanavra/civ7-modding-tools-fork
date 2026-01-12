@@ -133,6 +133,9 @@ for domain in "${DOMAINS[@]}"; do
 
   echo -e "${YELLOW}Checking domain: ${domain}${NC}"
 
+  run_rg "Domain entrypoint re-exports (${domain})" "^export\\s+\\*\\s+from\\s+\\\"@mapgen/domain/" -P -- \
+    "mods/mod-swooper-maps/src/domain/${domain}/index.ts"
+
   run_rg "Adapter/context crossing in ops (${domain})" "ExtendedMapContext|context\\.adapter|@civ7/adapter" -- "$ops_root"
   run_rg "RNG callbacks/state in ops (${domain})" "RngFunction|options\\.rng|\\bctx\\.rng\\b" -- "$ops_root"
   run_rg "Engine imports in ops (${domain})" "from \"@swooper/mapgen-core/engine\"|from \"@mapgen/engine\"" -- "$ops_root"
