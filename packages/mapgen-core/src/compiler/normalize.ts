@@ -5,16 +5,10 @@ import type { DomainOpCompileAny, OpsById } from "../authoring/bindings.js";
 import { bindCompileOps, OpBindingError } from "../authoring/bindings.js";
 import { buildOpEnvelopeSchema } from "../authoring/op/envelope.js";
 import { applySchemaDefaults } from "../authoring/schema.js";
+import type { StepOpsDecl } from "../authoring/step/ops.js";
 import type { CompileErrorItem } from "./recipe-compile.js";
 
 export type NormalizeCtx<TEnv = unknown, TKnobs = unknown> = Readonly<{ env: TEnv; knobs: TKnobs }>;
-
-export type OpContractAny = Readonly<{
-  id: string;
-  strategies: Readonly<Record<string, TSchema>> & { default: TSchema };
-}>;
-
-export type StepOpsDecl = Readonly<Record<string, OpContractAny>>;
 
 export type StepModuleAny = Readonly<{ contract?: Readonly<{ ops?: StepOpsDecl }> }>;
 

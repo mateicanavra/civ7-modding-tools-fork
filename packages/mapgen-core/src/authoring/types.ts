@@ -13,12 +13,13 @@ import type { DependencyTagDefinition } from "@mapgen/engine/tags.js";
 import type { TraceSession, TraceSink } from "@mapgen/trace/index.js";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import type { CompileOpsById } from "../compiler/recipe-compile.js";
+import type { DomainOpRuntimeAny, OpsById } from "./bindings.js";
 import type { StepContract } from "./step/contract.js";
 
-export type Step<TContext = ExtendedMapContext, TConfig = unknown> = {
-  readonly contract: StepContract<TSchema, string>;
+export type Step<TContext = ExtendedMapContext, TConfig = unknown, TOps = unknown> = {
+  readonly contract: StepContract<TObject, string, any>;
   normalize?: (config: TConfig, ctx: NormalizeContext) => TConfig;
-  run: (context: TContext, config: TConfig) => void | Promise<void>;
+  run: (context: TContext, config: TConfig, ops: TOps) => void | Promise<void>;
 };
 
 export const RESERVED_STAGE_KEY = "knobs" as const;
@@ -152,6 +153,7 @@ export type RecipeDefinition<
   tagDefinitions: readonly DependencyTagDefinition<TContext>[];
   stages: TStages;
   compileOpsById: CompileOpsById;
+  runtimeOpsById?: OpsById<DomainOpRuntimeAny>;
 }>;
 
 export type RecipeModule<
@@ -177,7 +179,11 @@ export type RecipeModule<
   ) => void;
 };
 
-export type StepModule<TContext = ExtendedMapContext, TConfig = unknown> = Step<TContext, TConfig>;
+export type StepModule<TContext = ExtendedMapContext, TConfig = unknown, TOps = unknown> = Step<
+  TContext,
+  TConfig,
+  TOps
+>;
 export type StageModule<
   TContext = ExtendedMapContext,
   TSteps extends readonly Step<TContext, any>[] = readonly Step<TContext, any>[],
