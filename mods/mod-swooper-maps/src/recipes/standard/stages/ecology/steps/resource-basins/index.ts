@@ -1,6 +1,5 @@
 import { createStep } from "@mapgen/authoring/steps";
 import { type Static } from "@swooper/mapgen-core/authoring";
-import * as ecology from "@mapgen/domain/ecology";
 import {
   getPublishedClimateField,
   heightfieldArtifact,
@@ -10,25 +9,14 @@ import {
 import ResourceBasinsStepContract from "./contract.js";
 type ResourceBasinsStepConfig = Static<typeof ResourceBasinsStepContract.schema>;
 
-const opContracts = {
-  planResourceBasins: ecology.contracts.planResourceBasins,
-  scoreResourceBasins: ecology.contracts.scoreResourceBasins,
-} as const;
-
-const { compile, runtime } = ecology.ops.bind(opContracts);
-
 export default createStep(ResourceBasinsStepContract, {
-  normalize: (config, ctx) => ({
-    plan: compile.planResourceBasins.normalize(config.plan, ctx),
-    score: compile.scoreResourceBasins.normalize(config.score, ctx),
-  }),
-  run: (context, config: ResourceBasinsStepConfig) => {
+  run: (context, config: ResourceBasinsStepConfig, ops) => {
     const { width, height } = context.dimensions;
     const pedology = pedologyArtifact.get(context);
     const heightfield = heightfieldArtifact.get(context);
     const climate = getPublishedClimateField(context);
 
-    const planned = runtime.planResourceBasins.run(
+    const planned = ops.plan.run(
       {
         width,
         height,
@@ -41,7 +29,7 @@ export default createStep(ResourceBasinsStepContract, {
       config.plan
     );
 
-    const balanced = runtime.scoreResourceBasins.run(planned, config.score);
+    const balanced = ops.score.run(planned, config.score);
 
     resourceBasinsArtifact.set(context, balanced);
   },

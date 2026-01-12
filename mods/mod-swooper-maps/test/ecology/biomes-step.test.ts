@@ -70,10 +70,15 @@ describe("biomes step", () => {
       config: {},
     });
 
-    biomesStep.run(ctx, {
-      classify: classifyConfig,
-      bindings: {},
-    });
+    const ops = ecology.ops.bind(biomesStep.contract.ops!).runtime;
+    biomesStep.run(
+      ctx,
+      {
+        classify: classifyConfig,
+        bindings: {},
+      },
+      ops
+    );
 
     const marineId = adapter.getBiomeGlobal("BIOME_MARINE");
     expect(ctx.fields.biomeId[0]).toBe(marineId);

@@ -4,11 +4,14 @@ import { Type } from "typebox";
 import { EmptyStepConfigSchema } from "@mapgen/engine/step-config.js";
 import { RecipeCompileError } from "@mapgen/compiler/recipe-compile.js";
 import {
+  createOp,
   bindCompileOps,
   bindRuntimeOps,
   createRecipe,
   createStage,
+  createStrategy,
   createStep,
+  defineOp,
   defineStep,
   runtimeOp,
 } from "@mapgen/authoring/index.js";
@@ -307,5 +310,45 @@ describe("authoring SDK", () => {
         foundation: { alpha: { count: 1, extra: "nope" } },
       })
     ).toThrow(RecipeCompileError);
+  });
+
+  it("createRecipe rejects missing runtime op implementations for step-declared ops", () => {
+    const contract = defineOp({
+      kind: "plan",
+      id: "test/ops/missing-runtime",
+      input: Type.Object({}, { additionalProperties: false }),
+      output: Type.Object({}, { additionalProperties: false }),
+      strategies: { default: Type.Object({}, { additionalProperties: false }) },
+    });
+    const op = createOp(contract, {
+      strategies: {
+        default: createStrategy(contract, "default", {
+          run: () => ({}),
+        }),
+      },
+    });
+
+    const step = createStep(
+      defineStep({
+        id: "alpha",
+        phase: "foundation",
+        requires: [],
+        provides: [],
+        ops: { trees: contract },
+        schema: Type.Object({}, { additionalProperties: false }),
+      }),
+      { run: () => {} }
+    );
+    const stage = createStage({ id: "foundation", knobsSchema: EmptyKnobsSchema, steps: [step] });
+
+    expect(() =>
+      createRecipe({
+        id: "core.base",
+        tagDefinitions: [],
+        stages: [stage],
+        compileOpsById: { [op.id]: op },
+        runtimeOpsById: {},
+      })
+    ).toThrow(/Missing op implementation/i);
   });
 });

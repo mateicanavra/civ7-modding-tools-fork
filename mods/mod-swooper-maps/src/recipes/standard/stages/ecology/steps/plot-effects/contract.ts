@@ -11,9 +11,10 @@ const PlotEffectsStepContract = defineStep({
     M3_DEPENDENCY_TAGS.artifact.biomeClassificationV1,
   ],
   provides: [],
-  schema: Type.Object({
-    plotEffects: ecology.ops.planPlotEffects.config,
-  }),
+  ops: {
+    plotEffects: ecology.contracts.planPlotEffects,
+  },
+  schema: Type.Object({}),
 });
 
 export default PlotEffectsStepContract;

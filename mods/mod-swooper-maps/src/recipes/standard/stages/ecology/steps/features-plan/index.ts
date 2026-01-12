@@ -1,6 +1,5 @@
 import { createStep } from "@mapgen/authoring/steps";
 import { type Static } from "@swooper/mapgen-core/authoring";
-import * as ecology from "@mapgen/domain/ecology";
 import {
   biomeClassificationArtifact,
   featureIntentsArtifact,
@@ -10,29 +9,14 @@ import {
 import FeaturesPlanStepContract from "./contract.js";
 type FeaturesPlanConfig = Static<typeof FeaturesPlanStepContract.schema>;
 
-const opContracts = {
-  planVegetation: ecology.contracts.planVegetation,
-  planWetlands: ecology.contracts.planWetlands,
-  planReefs: ecology.contracts.planReefs,
-  planIce: ecology.contracts.planIce,
-} as const;
-
-const { compile, runtime } = ecology.ops.bind(opContracts);
-
 export default createStep(FeaturesPlanStepContract, {
-  normalize: (config, ctx) => ({
-    vegetation: compile.planVegetation.normalize(config.vegetation, ctx),
-    wetlands: compile.planWetlands.normalize(config.wetlands, ctx),
-    reefs: compile.planReefs.normalize(config.reefs, ctx),
-    ice: compile.planIce.normalize(config.ice, ctx),
-  }),
-  run: (context, config: FeaturesPlanConfig) => {
+  run: (context, config: FeaturesPlanConfig, ops) => {
     const classification = biomeClassificationArtifact.get(context);
     const pedology = pedologyArtifact.get(context);
     const heightfield = heightfieldArtifact.get(context);
 
     const { width, height } = context.dimensions;
-    const vegetationPlan = runtime.planVegetation.run(
+    const vegetationPlan = ops.vegetation.run(
       {
         width,
         height,
@@ -46,7 +30,7 @@ export default createStep(FeaturesPlanStepContract, {
       config.vegetation
     );
 
-    const wetlandsPlan = runtime.planWetlands.run(
+    const wetlandsPlan = ops.wetlands.run(
       {
         width,
         height,
@@ -59,7 +43,7 @@ export default createStep(FeaturesPlanStepContract, {
       config.wetlands
     );
 
-    const reefsPlan = runtime.planReefs.run(
+    const reefsPlan = ops.reefs.run(
       {
         width,
         height,
@@ -69,7 +53,7 @@ export default createStep(FeaturesPlanStepContract, {
       config.reefs
     );
 
-    const icePlan = runtime.planIce.run(
+    const icePlan = ops.ice.run(
       {
         width,
         height,

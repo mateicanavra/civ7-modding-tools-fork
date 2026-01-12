@@ -20,18 +20,8 @@ import { resolveEngineBiomeIds } from "./helpers/engine-bindings.js";
 
 type BiomesStepConfig = Static<typeof BiomesStepContract.schema>;
 
-const opContracts = {
-  classifyBiomes: ecology.contracts.classifyBiomes,
-} as const;
-
-const { compile, runtime } = ecology.ops.bind(opContracts);
-
 export default createStep(BiomesStepContract, {
-  normalize: (config, ctx) => ({
-    classify: compile.classifyBiomes.normalize(config.classify, ctx),
-    bindings: config.bindings,
-  }),
-  run: (context: ExtendedMapContext, config: BiomesStepConfig) => {
+  run: (context: ExtendedMapContext, config: BiomesStepConfig, ops) => {
     const { width, height } = context.dimensions;
 
     const climateField = getPublishedClimateField(context);
@@ -55,7 +45,7 @@ export default createStep(BiomesStepContract, {
 
     const riftShoulderMask = maskFromCoordSet(rifts.riftShoulder, width, height);
 
-    const result = runtime.classifyBiomes.run(
+    const result = ops.classify.run(
       {
         width,
         height,
