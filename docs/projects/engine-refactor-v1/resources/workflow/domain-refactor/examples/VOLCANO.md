@@ -18,6 +18,8 @@ Repo-path note:
 src/domain/morphology/volcanoes/
   index.ts
   ops/
+    contracts.ts
+    index.ts
     compute-suitability/
       contract.ts
       types.ts
@@ -165,7 +167,7 @@ export const PlanVolcanoesContract = defineOp({
       rngSeed: Type.Integer({
         minimum: 0,
         description:
-          "Deterministic RNG seed (derived by the step from RunRequest settings + step/op identity).",
+          "Deterministic RNG seed (derived by the step from compile/run env + step/op identity).",
       }),
     },
     { additionalProperties: false }
@@ -391,17 +393,16 @@ export type * from "./types.js";
 
 ## Domain index (public surface)
 
-Steps import the domain module and only see `ops` (not rules/strategies).
+Steps import the domain **contract entrypoint** and only see op **contracts** (not implementations, rules, or strategies).
 
 ```ts
 // src/domain/morphology/volcanoes/index.ts
-import { computeSuitability } from "./ops/compute-suitability/index.js";
-import { planVolcanoes } from "./ops/plan-volcanoes/index.js";
+import { defineDomain } from "@swooper/mapgen-core/authoring";
+import ops from "./ops/contracts.js";
 
-export const ops = {
-  computeSuitability,
-  planVolcanoes,
-};
+const volcanoes = defineDomain({ id: "morphology/volcanoes", ops } as const);
+
+export default volcanoes;
 ```
 
 ## Step: build inputs → call ops → apply/publish (runtime boundary)
@@ -411,26 +412,18 @@ The step owns adapter/engine interaction and artifact publishing. The step never
 ```ts
 // src/recipes/standard/stages/morphology-post/steps/volcanoes/contract.ts
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
-import * as volcanoes from "@mapgen/domain/morphology/volcanoes";
+import volcanoes from "@mapgen/domain/morphology/volcanoes";
 
 export const VolcanoesStepContract = defineStep({
   id: "volcanoes",
   phase: "morphology-post",
   requires: ["artifact:plates", "field:elevation"],
   provides: ["artifact:volcanoPlacements", "effect:volcanoesPlaced"],
-  schema: Type.Object(
-    {
-      computeSuitability: volcanoes.ops.computeSuitability.config,
-      planVolcanoes: volcanoes.ops.planVolcanoes.config,
-    },
-    {
-      additionalProperties: false,
-      default: {
-        computeSuitability: volcanoes.ops.computeSuitability.defaultConfig,
-        planVolcanoes: volcanoes.ops.planVolcanoes.defaultConfig,
-      },
-    }
-  ),
+  ops: {
+    computeSuitability: volcanoes.ops.computeSuitability,
+    planVolcanoes: volcanoes.ops.planVolcanoes,
+  },
+  schema: Type.Object({}, { additionalProperties: false }),
 } as const);
 ```
 
@@ -484,29 +477,18 @@ export function applyVolcanoPlacements(
 // src/recipes/standard/stages/morphology-post/steps/volcanoes/index.ts
 import { createStep } from "@swooper/mapgen-core/authoring";
 import { ctxRandom } from "@swooper/mapgen-core";
-import * as volcanoes from "@mapgen/domain/morphology/volcanoes";
 
 import { VolcanoesStepContract } from "./contract.js";
 import { applyVolcanoPlacements } from "./lib/apply.js";
 import { buildVolcanoInputs } from "./lib/inputs.js";
 
 export default createStep(VolcanoesStepContract, {
-  resolveConfig: (config, settings) => ({
-    computeSuitability: volcanoes.ops.computeSuitability.resolveConfig(
-      config.computeSuitability,
-      settings
-    ),
-    planVolcanoes: volcanoes.ops.planVolcanoes.resolveConfig(config.planVolcanoes, settings),
-  }),
-  run: (context, config) => {
+  run: (context, config, ops) => {
     const inputs = buildVolcanoInputs(context);
 
-    const { suitability } = volcanoes.ops.computeSuitability.runValidated(
-      inputs,
-      config.computeSuitability
-    );
+    const { suitability } = ops.computeSuitability(inputs, config.computeSuitability);
 
-    const { placements } = volcanoes.ops.planVolcanoes.runValidated(
+    const { placements } = ops.planVolcanoes(
       {
         width: inputs.width,
         height: inputs.height,

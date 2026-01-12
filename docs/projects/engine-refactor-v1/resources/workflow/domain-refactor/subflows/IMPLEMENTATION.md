@@ -60,7 +60,7 @@ This is the “definition of done” for a slice. You must complete it before mo
   - `rules/` + `rules/index.ts`
   - `strategies/` + `strategies/index.ts`
   - `index.ts` exporting the created op and re-exporting contract + types
-- Op schemas + `defaultConfig` + optional `resolveConfig` are colocated with the op module.
+- Op schemas + `defaultConfig` + optional `normalize` are colocated with the op module.
 
 </step>
 
@@ -70,8 +70,9 @@ This is the “definition of done” for a slice. You must complete it before mo
   - `contract.ts` (metadata-only via `defineStep`)
   - `index.ts` (orchestration only, created via bound `createStep`)
   - `lib/**` (pure helpers such as `inputs.ts`/`apply.ts`, optional)
-- Steps call `op.runValidated(...)` (validation required).
-- Step schema imports op `config`/`defaultConfig` directly from the implemented op (via the domain module).
+- Step contracts declare op contracts via `ops: { <key>: domain.ops.<opKey> }`.
+- `defineStep({ ops })` automatically merges each op contract’s `config` schema into the step schema.
+- Step modules call injected runtime ops via `run(context, config, ops)` (no local op binding, no importing implementations).
 
 </step>
 
@@ -87,6 +88,17 @@ This is the “definition of done” for a slice. You must complete it before mo
 - Add at least one op contract test for the op(s) introduced/changed in this slice.
 - If artifact/config contracts changed across steps, add one thin integration test that exercises the edge.
 - Keep tests deterministic (fixed seeds; no RNG callbacks crossing op boundary).
+
+</step>
+
+<step name="documentation-for-slice">
+
+- Treat documentation as part of the slice definition of done.
+- For any touched exported symbol (op contracts, step contracts, strategy exports, helper functions used cross-file):
+  - Trace callsites/references first (code-intel; do not guess intent).
+  - Add/refresh JSDoc on the definition site with behavior-oriented notes (what/why/edge cases).
+- For any touched TypeBox schema field (especially config):
+  - Ensure it has a meaningful `description` explaining behavioral impact and interactions (not just type).
 
 </step>
 

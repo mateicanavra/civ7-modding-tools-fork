@@ -2,7 +2,7 @@
 
 This is the reference for:
 - op contract design (ids, kinds, schemas, strategies),
-- config ownership + defaulting + compile-time resolution (`resolveConfig`),
+- config ownership + defaulting + compile-time normalization (`normalize`),
 - and the hard boundaries that prevent config “fixups” from creeping back into runtime.
 
 Canonical references:
@@ -21,17 +21,35 @@ Define the target op catalog for the domain, with **no optionality**:
   - `input` schema (shared across all strategies),
   - `output` schema (shared across all strategies),
   - `strategies` schema map (must include `"default"`).
-- Strategy implementations are authored with `createStrategy(contract, strategyId, { resolveConfig?, run })`.
+- Strategy implementations are authored with `createStrategy(contract, strategyId, { normalize?, run })`.
 - `createOp(contract, { strategies })` derives and exposes:
   - `op.config`: a union schema for `{ strategy, config }`,
   - `op.defaultConfig`: always `{ strategy: "default", config: <defaulted inner> }`,
-  - `op.resolveConfig(envelope, settings)`: dispatcher over `strategy.resolveConfig`.
-- Steps call `op.runValidated(input, config)`; steps do not call internal rules directly.
+  - `op.normalize(envelope, ctx)`: dispatcher over `strategy.normalize` (compile-time only; executed by the compiler).
+- Steps call injected runtime ops (typed from contracts): `ops.<key>(input, config.<key>)`.
+  - Steps must not call internal rules directly.
+  - Steps must not import op implementations; runtime ops are injected by `createRecipe` based on the step contract’s declared op contracts.
 
 If an op needs randomness, model it explicitly:
 - add `rngSeed: Type.Integer(...)` to the op `input` schema (not an RNG callback),
 - derive deterministic draws inside the op from `rngSeed`,
 - derive `rngSeed` in the step using `ctxRandom(...)` (see the spec for the canonical pattern).
+
+## Atomic ops (strict rule set)
+
+Ops are **atomic** by design:
+- An op implementation must not call another op (no `otherOp.run(...)` / `otherOp(...)` / nested op orchestration).
+- Composition belongs in steps/stages: steps may call multiple ops and compose their results.
+- “Shared logic” belongs in `rules/**` (policy-style logic), not in calling other ops.
+
+This rule is intentionally strict: it keeps op contracts small, makes op ids meaningful, and makes later re-wiring (or reuse) tractable.
+
+## Rules as policies (avoid generic helper drift)
+
+Within an op, use rules as **policy units**:
+- A rule should encode a domain decision/policy (thresholds, heuristics, filters, scoring), not just a generic utility.
+- Ops/strategies import rules to make decisions; rules should not reach out to step/stage code or other ops.
+- If a rule needs injected behavior (RNG draws, adapter reads, external data), inject it via parameters at the op boundary (or as explicit inputs in the op contract), never via ambient globals.
 
 Naming constraints:
 - Op ids are stable and verb-forward (e.g., `compute*`, `plan*`, `score*`, `select*`).
@@ -87,7 +105,7 @@ import { createStrategy } from "@swooper/mapgen-core/authoring";
 import { MyOpContract } from "../contract.js";
 
 export const defaultStrategy = createStrategy(MyOpContract, "default", {
-  resolveConfig: (cfg) => ({ ...cfg }),
+  normalize: (cfg) => ({ ...cfg }),
   run: (input, cfg) => ({ out: input.field }),
 });
 ```
@@ -129,27 +147,35 @@ Plan compilation defaults and cleans config via TypeBox `Value.*` utilities (ADR
 
 Rules:
 - Put **local, unconditional defaults** in the schema (TypeBox `default`).
-- Put **settings-derived defaults** in `strategy.resolveConfig` (composed via `op.resolveConfig` at the step boundary).
+- Put **env/knobs-derived defaults** in `strategy.normalize` (composed via `op.normalize` and executed by the compiler).
 - Do not implement meaning-level defaults in runtime step or op `run(...)` (`?? {}` merges and `Value.Default(...)` in runtime paths are migration smells).
 
 ### Resolution location (colocation + composition)
 
 Domain-owned scaling semantics live with the op:
-- `mods/mod-swooper-maps/src/domain/<domain>/ops/**` exports `resolveConfig` (optional) next to `config` and `defaultConfig`.
+- `mods/mod-swooper-maps/src/domain/<domain>/ops/**` exports an op implementation with `config`, `defaultConfig`, and `normalize` (strategy `normalize` is optional).
 
 Step-level composition is the only place ops are combined:
-- `step.resolveConfig(stepConfig, settings)` fans out to each op’s derived `resolveConfig` and recomposes a step config that still validates against the step schema.
+- Step contracts declare op contracts (`contract.ops`), and the compiler fans out `op.normalize(...)` across those declared op envelopes.
+- Step modules may optionally provide `step.normalize(...)` for step-owned shaping, but should not manually normalize op envelopes.
 
 Hard rule:
 - Resolvers and schemas are not centralized in recipe roots or shared “resolver registries”; they live with the domain operations that own the semantics.
 
 ### Compile-time enforcement reality (must match engine behavior)
 
-- `step.resolveConfig` is executed during plan compilation in `packages/mapgen-core/src/engine/execution-plan.ts`.
-- If a step defines `resolveConfig` it must also define a schema (`defineStep({ schema: ... })`), otherwise plan compilation produces `step.resolveConfig.failed` with message `resolveConfig requires configSchema`.
-- The engine normalizes the resolver output through the same schema again (defaults/cleaning + unknown-key checks). Resolver output must remain schema-valid and must not add internal-only fields.
+- Step config normalization happens during plan compilation in:
+  - `packages/mapgen-core/src/compiler/recipe-compile.ts`
+  - `packages/mapgen-core/src/compiler/normalize.ts`
+- The compiler pipeline is (conceptually):
+  1) prefill op defaults for declared ops (from op contracts)
+  2) strict schema normalization (defaults + unknown-key rejection)
+  3) optional `step.normalize(config, { env, knobs })`
+  4) op normalization fanout (`op.normalize(envelope, { env, knobs })`) for each declared op
+  5) strict schema normalization again (shape-preserving enforcement)
+- `step.normalize` must be shape-preserving: it must return a value that still validates against the step schema and must not inject internal-only fields.
 
 ### Allowed vs forbidden merges (resolver vs runtime)
 
-- Allowed: object spread/merge inside `resolveConfig` (compile-time shaping).
+- Allowed: object spread/merge inside `step.normalize` or `strategy.normalize` (compile-time shaping).
 - Forbidden: object spread/merge used to “default” config in runtime `run(...)` paths (step or op).

@@ -27,15 +27,33 @@ To run guardrails for the domain(s) you touched:
 REFRACTOR_DOMAINS="ecology,foundation" ./scripts/lint/lint-domain-refactor-guardrails.sh
 ```
 
+## Documentation (required)
+
+Documentation is treated as part of the refactor’s correctness surface, not optional polish.
+
+Requirements (within refactor scope):
+- Any touched exported op/step/schema must have high-quality, behavior-oriented documentation at the definition site:
+  - JSDoc for exported functions/objects where it improves comprehension.
+  - TypeBox `description` for schema fields (especially config) describing behavioral impact and interactions.
+- Documentation updates must be contextual:
+  - Trace callsites/references first (code-intel) so docs reflect how the symbol is actually used.
+  - Avoid duplicating contradictory docs across layers; keep docs consistent between schema descriptions and definition-site docs.
+
 ## Tests (minimum expectations)
 
 Add at least one domain-local unit test for the op contract:
-- Use `op.runValidated(input, config, { validateOutput: true })` to catch output-shape drift.
+- Validate config selection deterministically using the mod’s canonical helpers:
+  - `mods/mod-swooper-maps/test/support/compiler-helpers.ts` (`runOpValidated`, `normalizeStrictOrThrow`)
 - Location (mod): `mods/mod-swooper-maps/test/**` (bun test runner via `pnpm -C mods/mod-swooper-maps test`).
-- Reference pattern for output validation: `packages/mapgen-core/test/authoring/op-validation.test.ts`
+- Recommended minimum assertions:
+  - `runOpValidated(op, input, rawSelection)` does schema defaulting + strict validation + `op.normalize(...)`.
+  - Validate op output shape explicitly when it matters: `normalizeStrictOrThrow(op.output, output, "<path>")`.
+
+Authoring SDK regression reference (core package):
+- `packages/mapgen-core/test/authoring/authoring.test.ts`
 
 Make tests deterministic:
-- set `settings.seed = 0` (or a fixed seed),
+- set `env.seed = 0` (or a fixed seed),
 - use a deterministic mock adapter RNG (e.g. `createMockAdapter({ rng: () => 0 })`),
 - if the op requires randomness, pass a fixed `rngSeed` input (do not pass RNG callbacks).
 
