@@ -20,17 +20,6 @@ function objectProperties(schema: TObject): Record<string, TSchema> {
   return ((schema as any).properties as Record<string, TSchema> | undefined) ?? {};
 }
 
-/**
- * Builds the effective `step.schema` when a step declares `contract.ops`.
- *
- * Important: this is a structural merge of object `properties`, not a full schema "extend".
- *
- * In particular, the returned schema intentionally:
- * - Forces `additionalProperties: false` (dropping any prior `additionalProperties` policy).
- * - Drops any object-level default (only property-level defaults remain applicable).
- *
- * TODO(triage): Define policy for propagating object-level metadata (e.g. title/description) when merging ops.
- */
 function buildSchemaWithOps<const Schema extends TObject, const Ops extends StepOpsDecl>(input: {
   stepId: string;
   schema: Schema;

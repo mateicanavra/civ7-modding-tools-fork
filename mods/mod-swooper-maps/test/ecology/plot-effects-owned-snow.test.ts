@@ -1,7 +1,7 @@
 import { describe, it, expect } from "bun:test";
 import { FoundationDirectionalityConfigSchema } from "@mapgen/domain/config";
-import planPlotEffects from "../../src/domain/ecology/ops/plan-plot-effects/index.js";
-import { BIOME_SYMBOL_TO_INDEX } from "../../src/domain/ecology/types.js";
+import { BIOME_SYMBOL_TO_INDEX } from "@mapgen/domain/ecology";
+import ecology from "@mapgen/domain/ecology/ops";
 import { normalizeOpSelectionOrThrow, normalizeStrictOrThrow } from "../support/compiler-helpers.js";
 
 const createInput = () => {
@@ -40,7 +40,7 @@ describe("plot effects (owned)", () => {
       directionality,
     };
     const selection = normalizeOpSelectionOrThrow(
-      planPlotEffects,
+      ecology.ops.planPlotEffects,
       {
         strategy: "default",
         config: {
@@ -62,7 +62,7 @@ describe("plot effects (owned)", () => {
       },
       { ctx: { env, knobs: {} }, path: "/ops/planPlotEffects" }
     );
-    const result = planPlotEffects.run(input, selection);
+    const result = ecology.ops.planPlotEffects.run(input, selection);
 
     expect(result.placements.length).toBeGreaterThan(0);
     const anySnow = result.placements.some((placement) =>

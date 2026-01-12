@@ -1,6 +1,6 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
 import ecology from "@mapgen/domain/ecology";
-import { BiomeEngineBindingsSchema } from "@mapgen/domain/ecology/biome-bindings.js";
+import { BiomeEngineBindingsSchema } from "@mapgen/domain/ecology";
 
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../../tags.js";
 

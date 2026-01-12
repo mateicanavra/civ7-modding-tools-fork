@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "tsup",
+    "lint": "eslint .",
     "precheck": "pnpm -C ../../packages/mapgen-core build",
     "check": "tsc --noEmit",
     "pretest": "pnpm -C ../../packages/mapgen-core build",

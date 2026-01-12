@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import ecology from "../../src/domain/ecology/ops.js";
-import { BIOME_SYMBOL_TO_INDEX } from "../../src/domain/ecology/types.js";
+import { BIOME_SYMBOL_TO_INDEX } from "@mapgen/domain/ecology";
+import ecology from "@mapgen/domain/ecology/ops";
 
 import { disabledEmbellishmentsConfig } from "./features-owned.helpers.js";
 import { normalizeOpSelectionOrThrow } from "../support/compiler-helpers.js";

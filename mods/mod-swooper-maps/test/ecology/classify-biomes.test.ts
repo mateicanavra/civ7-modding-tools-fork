@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 
-import classifyBiomes from "../../src/domain/ecology/ops/classify-biomes/index.js";
-import { biomeSymbolFromIndex } from "../../src/domain/ecology/types.js";
+import { biomeSymbolFromIndex } from "@mapgen/domain/ecology";
+import ecology from "@mapgen/domain/ecology/ops";
 import { normalizeOpSelectionOrThrow } from "../support/compiler-helpers.js";
 
 describe("classifyBiomes operation", () => {
@@ -18,12 +18,12 @@ describe("classifyBiomes operation", () => {
     const corridorMask = new Uint8Array(size).fill(0);
     const riftShoulderMask = new Uint8Array(size).fill(0);
 
-    const selection = normalizeOpSelectionOrThrow(classifyBiomes, {
+    const selection = normalizeOpSelectionOrThrow(ecology.ops.classifyBiomes, {
       strategy: "default",
       config: {},
     });
 
-    const result = classifyBiomes.run(
+    const result = ecology.ops.classifyBiomes.run(
       {
         width,
         height,

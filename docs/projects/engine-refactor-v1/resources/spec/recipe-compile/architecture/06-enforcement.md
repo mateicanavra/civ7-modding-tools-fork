@@ -12,15 +12,24 @@ Canonical enforcement in this repo:
 
 ### Domain entrypoints only (no deep imports)
 
-Cross-module consumers (steps/recipes/tests) import domain content only via:
-- `@mapgen/domain/<domain>` (domain public surface)
-- `@mapgen/domain/<domain>/contracts` (contract-only surface)
+Cross-module consumers import domain content only via the layer-appropriate entrypoint:
 
-Forbidden from outside the domain itself:
-- `@mapgen/domain/<domain>/ops/**`
-- `@mapgen/domain/<domain>/ops/*`
+Step contracts:
+- Allowed: `@mapgen/domain/<domain>` only
+- Forbidden: any deep import `@mapgen/domain/<domain>/*` (including `.../index.js`, `.../*.js`) and any runtime entrypoint `@mapgen/domain/<domain>/ops`
 
-This is enforced for mod source by `eslint.config.js` via `no-restricted-imports` patterns.
+Recipe compilation roots (e.g. `mods/**/src/recipes/**/recipe.ts`):
+- Allowed: `@mapgen/domain/<domain>/ops` only
+- Forbidden: `@mapgen/domain/<domain>` (contract entrypoint)
+
+Tests:
+- Default: use the same public import surfaces as “real” code (`@mapgen/domain/<domain>` and `@mapgen/domain/<domain>/ops`)
+- Allowed exception: deep imports when a stable public surface does not exist yet
+- Requirement: deep imports in tests must be intentional (add a short rationale comment near the import, or a targeted eslint disable)
+
+Enforcement:
+- `eslint.config.js` enforces step-contract and recipe-root import boundaries.
+- Tests are not treated as hard architectural boundaries in the same way as step contract/runtime code; allow exceptions where needed.
 
 ---
 
@@ -76,4 +85,3 @@ Pinned conventions for op + step schemas:
 
 Enforcement:
 - `applySchemaConventions(...)` is invoked by op/step authoring helpers.
-

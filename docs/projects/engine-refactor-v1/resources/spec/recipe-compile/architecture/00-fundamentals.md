@@ -117,7 +117,7 @@ Domain (ops + strategies + contracts)
       - `ops` (a `createDomainOpsSurface(...)` router that can bind contracts to `compile` + `runtime` surfaces)
   └── cross-module consumers import only from:
       - `@mapgen/domain/<domain>` (domain public surface), and
-      - `@mapgen/domain/<domain>/contracts` (contract-only; safe narrow import),
+      - `@mapgen/domain/<domain>` (contract entrypoint; safe narrow import),
       - with no deep imports into `ops/**` or `strategies/**`
 
 Step (internal node; orchestration)
