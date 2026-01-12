@@ -106,9 +106,10 @@ check_exported_jsdoc() {
     fi
     local file_hits
     file_hits=$(awk -v file="$file" '
+      function ltrim(line) { sub(/^[[:space:]]+/, "", line); return line }
       function is_export_fn(line) { return line ~ /^[[:space:]]*export[[:space:]]+function[[:space:]]/ }
-      function is_jsdoc_end(line) { return line ~ /^[[:space:]]*\\*\\/[[:space:]]*$/ }
-      function is_jsdoc_start(line) { return line ~ /^[[:space:]]*\\/\\*\\*/ }
+      function is_jsdoc_end(line) { return ltrim(line) == "*/" }
+      function is_jsdoc_start(line) { return index(ltrim(line), "/**") == 1 }
       {
         lines[NR] = $0
       }
