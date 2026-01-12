@@ -5,7 +5,7 @@ import {
   PlanFloodplainsContract,
   PlanStartsContract,
   PlanWondersContract,
-} from "@mapgen/domain/placement";
+} from "@mapgen/domain/placement/contracts";
 import type { Static } from "@swooper/mapgen-core/authoring";
 import { publishPlacementOutputsArtifact } from "../../../../artifacts.js";
 import { getStandardRuntime } from "../../../../runtime.js";

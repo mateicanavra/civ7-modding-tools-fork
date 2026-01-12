@@ -7,10 +7,11 @@ import {
   normalizeRange,
 } from "@swooper/mapgen-core";
 import type { TraceScope } from "@swooper/mapgen-core";
-import type * as ecology from "@mapgen/domain/ecology";
+import type { Static } from "@swooper/mapgen-core/authoring";
+import ecologyContracts from "@mapgen/domain/ecology/contracts";
 import type { PlotEffectKey } from "@mapgen/domain/ecology";
 
-type PlotEffectsInput = Parameters<typeof ecology.ops.planPlotEffects.run>[0];
+type PlotEffectsInput = Static<typeof ecologyContracts.planPlotEffects.input>;
 
 type PlotEffectPlacement = {
   x: number;

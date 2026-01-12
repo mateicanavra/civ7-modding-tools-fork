@@ -1,5 +1,5 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
-import * as ecology from "@mapgen/domain/ecology";
+import ecologyContracts from "@mapgen/domain/ecology/contracts";
 
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../../tags.js";
 
@@ -15,16 +15,15 @@ const FeaturesStepContract = defineStep({
     M3_DEPENDENCY_TAGS.artifact.narrativeMotifsHotspotsV1,
   ],
   provides: [M3_DEPENDENCY_TAGS.field.featureType, M4_EFFECT_TAGS.engine.featuresApplied],
-  schema: Type.Object({
-    featuresPlacement: Type.Object({
-      vegetated: ecology.ops.planVegetatedFeaturePlacements.config,
-      wet: ecology.ops.planWetFeaturePlacements.config,
-      aquatic: ecology.ops.planAquaticFeaturePlacements.config,
-      ice: ecology.ops.planIceFeaturePlacements.config,
-    }),
-    reefEmbellishments: ecology.ops.planReefEmbellishments.config,
-    vegetationEmbellishments: ecology.ops.planVegetationEmbellishments.config,
-  }),
+  ops: {
+    iceFeaturePlacements: ecologyContracts.planIceFeaturePlacements,
+    aquaticFeaturePlacements: ecologyContracts.planAquaticFeaturePlacements,
+    wetFeaturePlacements: ecologyContracts.planWetFeaturePlacements,
+    vegetatedFeaturePlacements: ecologyContracts.planVegetatedFeaturePlacements,
+    reefEmbellishments: ecologyContracts.planReefEmbellishments,
+    vegetationEmbellishments: ecologyContracts.planVegetationEmbellishments,
+  },
+  schema: Type.Object({}),
 });
 
 export default FeaturesStepContract;

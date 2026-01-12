@@ -1,4 +1,5 @@
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
+import type { OpTypeBag, Static } from "@swooper/mapgen-core/authoring";
 import {
   computeRiverAdjacencyMask,
   heightfieldArtifact,
@@ -7,8 +8,7 @@ import {
   getPublishedNarrativeMotifsHotspots,
   getPublishedNarrativeMotifsMargins,
 } from "../../../../artifacts.js";
-import type * as ecology from "@mapgen/domain/ecology";
-import type { PlanWetFeaturePlacementsTypes } from "@mapgen/domain/ecology";
+import ecologyContracts from "@mapgen/domain/ecology/contracts";
 import { buildLatitudeField, maskFromCoordSet } from "../biomes/helpers/inputs.js";
 import { deriveStepSeed } from "../helpers/seed.js";
 import type { FeatureKeyLookups } from "./feature-keys.js";
@@ -16,16 +16,18 @@ import type { FeatureKeyLookups } from "./feature-keys.js";
 const NO_FEATURE = -1;
 const UNKNOWN_FEATURE = -2;
 
-type ReefEmbellishmentsInput = Parameters<typeof ecology.ops.planReefEmbellishments.run>[0];
-type VegetationEmbellishmentsInput = Parameters<typeof ecology.ops.planVegetationEmbellishments.run>[0];
+type ReefEmbellishmentsInput = Static<typeof ecologyContracts.planReefEmbellishments.input>;
+type VegetationEmbellishmentsInput =
+  Static<typeof ecologyContracts.planVegetationEmbellishments.input>;
 type VegetatedPlacementInput =
-  Parameters<typeof ecology.ops.planVegetatedFeaturePlacements.run>[0];
-type WetPlacementInput = Parameters<typeof ecology.ops.planWetFeaturePlacements.run>[0];
+  Static<typeof ecologyContracts.planVegetatedFeaturePlacements.input>;
+type WetPlacementInput = Static<typeof ecologyContracts.planWetFeaturePlacements.input>;
 type AquaticPlacementInput =
-  Parameters<typeof ecology.ops.planAquaticFeaturePlacements.run>[0];
-type IcePlacementInput = Parameters<typeof ecology.ops.planIceFeaturePlacements.run>[0];
+  Static<typeof ecologyContracts.planAquaticFeaturePlacements.input>;
+type IcePlacementInput = Static<typeof ecologyContracts.planIceFeaturePlacements.input>;
 
-type WetInnerConfig = PlanWetFeaturePlacementsTypes["config"]["default"];
+type WetInnerConfig =
+  OpTypeBag<typeof ecologyContracts.planWetFeaturePlacements>["config"]["default"];
 
 const getHeightfieldArtifact = (context: ExtendedMapContext) => heightfieldArtifact.get(context);
 

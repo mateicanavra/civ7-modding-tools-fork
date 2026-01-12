@@ -3,7 +3,7 @@ import {
   PlanFloodplainsContract,
   PlanStartsContract,
   PlanWondersContract,
-} from "@mapgen/domain/placement";
+} from "@mapgen/domain/placement/contracts";
 import type { Static } from "@swooper/mapgen-core/authoring";
 
 import { getPublishedPlacementInputs } from "../../../../artifacts.js";
