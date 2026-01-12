@@ -3,7 +3,6 @@ import { Value } from "typebox/value";
 
 import type { DomainOpCompileAny, OpsById } from "../authoring/bindings.js";
 import { bindCompileOps, OpBindingError } from "../authoring/bindings.js";
-import { buildOpEnvelopeSchema } from "../authoring/op/envelope.js";
 import { applySchemaDefaults } from "../authoring/schema.js";
 import type { StepOpsDecl } from "../authoring/step/ops.js";
 import type { CompileErrorItem } from "./recipe-compile.js";
@@ -186,8 +185,15 @@ export function prefillOpDefaults(
   for (const opKey of Object.keys(opsDecl)) {
     if (value[opKey] !== undefined) continue;
     const contract = opsDecl[opKey]!;
-    const { defaultConfig } = buildOpEnvelopeSchema(contract.id, contract.strategies);
-    value[opKey] = Value.Clone(defaultConfig);
+    if (!contract.defaultConfig) {
+      errors.push({
+        code: "config.invalid",
+        path: `${path}/${opKey}`,
+        message: `Op contract "${contract.id}" missing defaultConfig`,
+      });
+      continue;
+    }
+    value[opKey] = Value.Clone(contract.defaultConfig);
   }
 
   return { value, errors };

@@ -10,6 +10,8 @@ export type OpContractAny = Readonly<{
   input: TSchema;
   output: TSchema;
   strategies: StrategyConfigSchemas & { default: TSchema };
+  config: TSchema;
+  defaultConfig: Readonly<{ strategy: "default"; config: unknown }>;
 }>;
 
 export type StepOpsDecl = Readonly<Record<string, OpContractAny>>;
