@@ -17,6 +17,9 @@ const resolveFeatureIndex = (lookups: FeatureKeyLookups, key: FeatureKey): numbe
   return index;
 };
 
+/**
+ * Attempts to place a feature at the tile and returns whether it succeeded.
+ */
 export function tryPlaceFeature(
   adapter: EngineAdapter,
   x: number,
@@ -29,6 +32,9 @@ export function tryPlaceFeature(
   return true;
 }
 
+/**
+ * Applies planned feature placements and returns the count successfully placed.
+ */
 export function applyFeaturePlacements(
   context: ExtendedMapContext,
   placements: FeaturePlacement[],
@@ -45,6 +51,9 @@ export function applyFeaturePlacements(
   return applied;
 }
 
+/**
+ * Copies engine feature types into the field buffer after application.
+ */
 export function reifyFeatureField(context: ExtendedMapContext): void {
   const featureTypeField = context.fields?.featureType;
   if (!featureTypeField) {

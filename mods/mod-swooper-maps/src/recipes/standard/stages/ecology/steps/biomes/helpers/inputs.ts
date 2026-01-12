@@ -1,5 +1,8 @@
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
 
+/**
+ * Builds a binary mask for tiles listed in a coordinate set.
+ */
 export function maskFromCoordSet(
   source: ReadonlySet<string> | null | undefined,
   width: number,
@@ -20,6 +23,9 @@ export function maskFromCoordSet(
   return mask;
 }
 
+/**
+ * Merges the river corridor mask into the base corridor mask in-place.
+ */
 export function combineCorridorMasks(
   corridorMask: Uint8Array,
   riverCorridorMask: Uint8Array
@@ -30,6 +36,9 @@ export function combineCorridorMasks(
   return corridorMask;
 }
 
+/**
+ * Builds a latitude field by sampling the adapter at each tile.
+ */
 export function buildLatitudeField(
   adapter: ExtendedMapContext["adapter"],
   width: number,

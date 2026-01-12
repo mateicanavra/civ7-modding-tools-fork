@@ -21,6 +21,9 @@ export interface ResolvedEngineBiomeIds {
   marine: number;
 }
 
+/**
+ * Resolves engine biome globals for symbols and the marine biome id.
+ */
 export function resolveEngineBiomeIds(
   adapter: EngineAdapter,
   bindings: BiomeEngineBindings = {}
