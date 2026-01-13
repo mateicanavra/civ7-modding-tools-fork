@@ -295,6 +295,28 @@ Branches (downstack → upstack):
 **PR comments**
 - No actionable review comments (Graphite stack boilerplate only); no inline review comments.
 
+### `agent-CANDY-LOCAL-TBD-M8-U21-F1-stage-artifacts` — PR #544 (`docs(engine-refactor): add buffer/overlay policy and implement standard recipe artifacts`)
+
+**Review effort estimate (complexity × parallelism)**
+- Medium × Medium (6/16): Phase 2 migration surface area (mod contracts) with downstream wiring dependencies.
+
+**Intent (from issue doc)**
+- Begin U21-F migration: introduce stage-owned artifact contract modules (`stages/<stage>/artifacts.ts`) as the single canonical definition site.
+
+**Quick take**
+- Mostly yes: the stage-level `artifacts.ts` modules are a clean, legible “contract boundary” and set up the subsequent step migrations to reference stable contracts instead of importing ad-hoc helpers.
+
+**What’s strong**
+- Contracts are centralized per stage and use `defineArtifact(...)` (so naming/`artifact:` id invariants are consistently enforced).
+- Ecology contracts capture a meaningful shape (objects/arrays + typed-array placeholders) without introducing runtime TypeBox validation (consistent with repo policy).
+
+**High-leverage issues / risks**
+- A few contract `name` choices diverge from the `id` segment (e.g. `pedology` vs `artifact:ecology.soils`). That can be a good domain-level abstraction, but it also increases cognitive load for authors who will type `deps.artifacts.pedology.*` while debugging `ctx.artifacts.get("artifact:ecology.soils")`. Consider being deliberate/consistent about “name == id tail” vs “name == domain term”.
+- Foundation contracts use `Type.Any()` schemas + import constants from `@swooper/mapgen-core`. That’s fine as metadata, but it’s worth sanity-checking that these constants remain the single source of truth (to avoid accidentally reintroducing parallel id registries).
+
+**PR comments**
+- No actionable review comments (Graphite stack boilerplate only); no inline review comments.
+
 ### `agent-CANDY-LOCAL-TBD-M8-U21-E-step-artifact-runtimes` — PR #535 (`refactor(step): add type-safe artifacts to step contracts`)
 
 **Review effort estimate (complexity × parallelism)**
