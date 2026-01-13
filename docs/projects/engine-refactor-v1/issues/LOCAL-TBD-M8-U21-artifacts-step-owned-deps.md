@@ -30,6 +30,29 @@ Phase 1 (packages/mapgen-core only, additive, no consumer edits):
 Phase 2 (deferred, requires check-in):
 1. U21-F — Migrate mod-swooper-maps standard recipe (no shims).
 
+## Implementation Decisions
+
+### Skip schema conventions for artifact contracts
+- **Context:** `defineArtifact` schema is metadata-only and spec does not require applying `applySchemaConventions`.
+- **Options:** Apply schema conventions to artifacts; leave schemas untouched.
+- **Choice:** Leave schemas untouched for now.
+- **Rationale:** Keep Phase 1 additive and avoid implicit changes to schema metadata behavior.
+- **Risk:** If conventions are required by future tooling, a follow-up normalization pass may be needed.
+
+### Guard against duplicate artifact names/ids in `implementArtifacts`
+- **Context:** `implementArtifacts` returns an object keyed by artifact name; duplicates would silently overwrite.
+- **Options:** Allow duplicates; throw on duplicate names/ids.
+- **Choice:** Throw on duplicates.
+- **Rationale:** Prevent silent overrides and ensure deterministic runtime binding.
+- **Risk:** If any caller relies on duplicates, it will now error (unlikely given the new API).
+
+### Use trace `stepId` when available for artifact error messages
+- **Context:** Artifact errors require producer/consumer step ids, but the `publish/read` signatures do not include them.
+- **Options:** Plumb explicit step ids through the API; read `context.trace.stepId` when available with a fallback.
+- **Choice:** Read `context.trace.stepId` when present, fallback to `"unknown"`.
+- **Rationale:** Preserve the specified API surface while providing richer error messages when trace data is available.
+- **Risk:** Errors may show `"unknown"` until step ids are plumbed into trace scope consistently.
+
 ## TL;DR
 ```yaml
 tldr:
