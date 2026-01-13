@@ -27,6 +27,7 @@ When you enter Phase 2 modeling, use external research if it helps ground the ph
 Minimum investigation outputs (you must produce these artifacts in the issue doc before coding):
 - A complete step map for the domain (all callsites).
 - A complete dependency contract list (requires/provides keys, ownership, validators, producers/consumers).
+- A current pipeline map (producer/consumer data-flow snapshot).
 - A complete config map (schemas, defaults, resolvers, and any runtime fixups to delete).
 - A legacy surface inventory (every config property, rule/policy, and domain function with locations).
 - An upstream authoritative intake (prior domain Phase 2 model + pipeline deltas; adopted inputs vs legacy reads to delete).
@@ -120,6 +121,12 @@ Upstream handoff review (also required):
 - Identify all downstream stages/steps that consume this domain’s outputs.
 - List the specific contracts/artifacts/buffers they depend on.
 - Note any consumer expectations that conflict with the authoritative model (to be resolved in Phase 2/3).
+
+### D3) Current pipeline map (required)
+
+- Produce a current-state producer/consumer data-flow snapshot across the pipeline.
+- Include the contracts/artifacts/buffers that connect domains.
+- Keep this map factual (current-state only; target modeling belongs in Phase 2).
 
 ### E) Typed arrays + invariants
 

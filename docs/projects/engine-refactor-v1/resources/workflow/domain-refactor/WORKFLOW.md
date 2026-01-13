@@ -91,6 +91,7 @@ Phase 2 modeling is a research sprint. Treat it like a full-time investigation, 
 - **Architecture alignment pass:** re-read the target architecture SPEC/ADR set and reconcile any conflicts (do not invent new contracts that contradict specs).
 - **Earth-physics pass:** model from first principles using domain + earth-physics references; if gaps exist, use external research and cite sources in the spike.
 - **Pipeline pass:** review upstream authoritative inputs and downstream consumers; document adopted inputs, deleted legacy reads, and required downstream changes.
+- **Model articulation pass:** produce a concise conceptual narrative plus diagrams that explain the domain as a subsystem (architecture view, data-flow, and producer/consumer map with current vs target pipeline adjustments).
 - **Codebase evidence pass:** use the code-intel MCP server and repo searches to validate current surfaces, callsites, and invariants; link evidence in decisions.
 
 ## Anti-patterns (avoid; common failure modes)
@@ -105,6 +106,7 @@ Phase 2 modeling is a research sprint. Treat it like a full-time investigation, 
 - **Config bag reuse inside ops:** using a domain-wide config bag in op strategy schemas instead of op-owned config.
 - **Silent legacy carry-through:** retaining legacy properties/rules/functions without an explicit model-relevance decision.
 - **Skipping upstream intake:** continuing to consume legacy upstream surfaces without evaluating new authoritative inputs.
+- **Diagramless model:** locking a model without a conceptual narrative or current/target pipeline diagrams.
 
 Example anti-pattern (do not copy):
 ```ts
@@ -141,6 +143,7 @@ Phase 2 gate:
 - Upstream authoritative inputs are selected and legacy upstream reads are marked for removal.
 - Upstream handoff cleanup is explicit; no upstream-introduced compat surfaces remain in this domain.
 - Downstream consumer impact scan is explicit; required downstream changes are listed.
+- Conceptual narrative and diagrams exist (architecture view, data-flow, producer/consumer mapping with current vs target adjustments).
 - Architecture alignment note exists; conflicts are recorded and reconciled.
 - Research sources are cited when external research is used.
 

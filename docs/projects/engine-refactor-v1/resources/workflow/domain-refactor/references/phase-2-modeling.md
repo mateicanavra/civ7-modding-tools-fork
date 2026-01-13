@@ -27,10 +27,12 @@ Required research passes (Phase 2):
 - Architecture alignment: reconcile the model with target SPEC/ADR docs and record any conflicts or constraints.
 - Earth-physics grounding: model from first principles using domain + earth-physics references; use external sources if needed and cite them in the spike.
 - Pipeline intake: review upstream authoritative inputs and downstream consumer expectations; document adopted inputs, legacy reads to delete, and required downstream changes.
+- Model articulation: write a concise conceptual narrative and include diagrams (architecture view, data-flow, producer/consumer map with current vs target pipeline adjustments).
 - Codebase evidence: use MCP/code-intel + repo searches to validate current surfaces and invariants; link evidence in decisions.
 
 Required sections (minimum):
 - Canonical model + causality spine
+- Conceptual narrative + diagrams (architecture view, data-flow, producer/consumer map; include current vs target pipeline adjustments)
 - Target contract matrix (buffers/artifacts/overlays classification)
 - Legacy disposition ledger (every config property/rule/function is keep/kill/migrate with rationale)
 - Upstream authoritative input selection (adopted inputs + legacy reads to delete)
@@ -52,6 +54,7 @@ Gate checklist (Phase 2 completion):
 - Target op catalog is deterministic and complete (no alternate models).
 - Buffer/artifact/overlay distinctions match `docs/system/libs/mapgen/architecture.md`.
 - Pipeline delta list names downstream consumers that must adapt.
+- Conceptual narrative and diagrams exist and align with the target model.
 - No slice plan content is present (that belongs to Phase 3).
 - Legacy disposition ledger is complete; any kept legacy invariants are explicit and justified.
 - Upstream authoritative input selection is explicit; legacy upstream reads are flagged for removal.
