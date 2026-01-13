@@ -1,5 +1,20 @@
 # Architectural Geomorphology: A Physics-Based Implementation Strategy for Civilization VII Map Generation
 
+> **Status:** Research spike (seed / non-canonical)
+>
+> **Do not treat as contract truth.** This document is an exploratory synthesis of Civ7 mapgen behaviors and a physics-inspired framing. It may contain assumptions that are outdated relative to the current SDK architecture.
+>
+> **Canonical modeling references (preferred):**
+> - `docs/system/libs/mapgen/architecture.md`
+> - `docs/system/libs/mapgen/foundation.md`
+> - `docs/system/libs/mapgen/morphology.md`
+> - `docs/system/libs/mapgen/hydrology.md`
+> - `docs/system/libs/mapgen/ecology.md`
+> - `docs/system/libs/mapgen/narrative.md`
+> - `docs/system/libs/mapgen/placement.md`
+>
+> **How to use this spike now:** treat it as a “feature inventory + hypothesis bank”; salvage durable insights into the canonical system docs above when doing domain modeling.
+
 ## 1. Executive Summary: The Voronoi Paradigm Shift
 
 The procedural generation of virtual worlds within the 4X strategy genre has historically relied upon fractal noise algorithms—specifically Perlin or Simplex noise—to synthesize terrain. While effective for creating coherent heightmaps, these methods lack the structural intentionality required to simulate realistic tectonic processes or enforce complex gameplay constraints. The release of Civilization VII marks a definitive architectural departure from this legacy approach, introducing a map generation engine founded upon Voronoi diagrams. This shift is not merely an aesthetic choice but a foundational engineering response to the game’s new *Ages* mechanic, which necessitates a world that can expand dynamically, separate distinct “Homelands” from “Distant Lands,” and support high-fidelity hydrological systems like Navigable Rivers.

@@ -1,5 +1,20 @@
 # Physics-Based Planetary Modeling for Procedural Generation: A Data-Driven Task Graph Approach
 
+> **Status:** Research spike (seed / non-canonical)
+>
+> **Do not treat as contract truth.** This document contains deep first-principles physics framing and candidate staging ideas, but it is not guaranteed to match the current SDK’s canonical contracts.
+>
+> **Canonical modeling references (preferred):**
+> - `docs/system/libs/mapgen/architecture.md`
+> - `docs/system/libs/mapgen/foundation.md`
+> - `docs/system/libs/mapgen/morphology.md`
+> - `docs/system/libs/mapgen/hydrology.md`
+> - `docs/system/libs/mapgen/ecology.md`
+> - `docs/system/libs/mapgen/narrative.md`
+> - `docs/system/libs/mapgen/placement.md`
+>
+> **How to use this spike now:** mine it for “from scratch” physics insights, then rewrite the resulting target model into the canonical domain docs rather than copying proposed APIs/surfaces verbatim.
+
 ## Executive Summary
 
 This comprehensive research report outlines the architectural and scientific framework for a modular, physics-based map generation engine designed for a high-fidelity 4X strategy game. Building upon a Data-Driven Task Graph architecture and a spherical Voronoi mesh data structure, this document details the physical principles and simulation strategies required to achieve “causal realism.” The objective is not to replicate computationally prohibitive engineering simulations (e.g., full Navier-Stokes fluid dynamics), but to implement robust field-based abstractions that produce geologically and climatically consistent worlds. The analysis rigorously dissects six primary domains—Geomorphology, Oceanography, Climatology, Hydrology, Pedology/Geology, and Ecology—providing for each a breakdown of real-world processes, simulation staging, API definition, parameter levers, and abstraction strategies suitable for graph-based processing. Furthermore, it identifies critical “missing links” such as the cryosphere and albedo feedback loops that are essential for plausible planetary evolution.
