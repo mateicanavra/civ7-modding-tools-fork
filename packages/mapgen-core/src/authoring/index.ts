@@ -1,4 +1,5 @@
 export { createStep, createStepFor, defineStep } from "./step/index.js";
+export { defineArtifact, implementArtifacts } from "./artifact/index.js";
 export { createStage } from "./stage.js";
 export { createRecipe } from "./recipe.js";
 export { createDomain, defineDomain } from "./domain.js";
@@ -9,6 +10,11 @@ export {
   createDomainOpsSurface,
   runtimeOp,
 } from "./bindings.js";
+export {
+  ArtifactDoublePublishError,
+  ArtifactMissingError,
+  ArtifactValidationError,
+} from "./artifact/index.js";
 export { createOp, createStrategy, defineOp, opRef } from "./op/index.js";
 export { TypedArraySchemas } from "./typed-array-schemas.js";
 export { Type } from "typebox";
@@ -42,6 +48,15 @@ export type {
   Step,
   StepModule,
 } from "./types.js";
+export type {
+  ArtifactContract,
+  ArtifactReadValueOf,
+  ArtifactRuntimeImpl,
+  ArtifactValueOf,
+  DeepReadonly,
+  ProvidedArtifactRuntime,
+  RequiredArtifactRuntime,
+} from "./artifact/index.js";
 export type {
   DomainContract,
   DomainContractAny,
