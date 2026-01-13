@@ -81,8 +81,8 @@ related_to: [LOCAL-TBD-M7-U08]
 - Manual: generate each shipped map preset in Civ7 and confirm `Scripting.log` has no feature-placement errors (and the resulting map has non-empty, plausible features).
 
 ## Dependencies / Notes
-- Spike: `docs/projects/engine-refactor-v1/resources/spike/spike-ecology-feature-placement-ownership.md`
-- Spike (realism pass): `docs/projects/engine-refactor-v1/resources/spike/spike-ecology-climate-realism-pass.md`
+- Spike: `docs/projects/engine-refactor-v1/resources/spike/_archive/spike-ecology-feature-placement-ownership.md`
+- Spike (realism pass): `docs/projects/engine-refactor-v1/resources/spike/_archive/spike-ecology-climate-realism-pass.md`
 - Civ7 base sources (requirements inputs, not to be copied wholesale):
   - `Base/modules/base-standard/maps/feature-biome-generator.js`
   - `Base/modules/base-standard/data/terrain.xml`

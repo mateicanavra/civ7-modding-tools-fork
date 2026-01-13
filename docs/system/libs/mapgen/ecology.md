@@ -1,10 +1,16 @@
 # Ecology
 
+> **Status:** Canonical (domain-only causality + contract spec)
+>
+> **This doc is:** what Ecology *means* in the pipeline: responsibilities, inputs, outputs, and the intended “physics → living-world” causal chain.
+>
+> **This doc is not:** SDK wiring guidance (step/stage file layout, authoring mechanics, adapters).
+
 ## Overview
 
-Ecology turns the physical world (foundation + morphology + climate) into living‑world signals: **soils**, **biomes**, **resources**, and **terrain features**. It follows the operation-module architecture (`docs/projects/engine-refactor-v1/resources/spec/SPEC-pending-step-domain-operation-modules.md`): every domain op exports its own schemas/defaults, and steps stay orchestration-only (build inputs → call op → apply/publish).
+Ecology turns the physical world (foundation + morphology + climate) into living‑world signals: **soils**, **biomes**, **resources**, and **terrain features**.
 
-Baseline non-wonder feature placement is ecology-owned (forests, wetlands, reefs, ice), while placement retains natural wonders and floodplains. The ownership boundary and migration rationale are tracked in `docs/projects/engine-refactor-v1/resources/spike/spike-ecology-feature-placement-ownership.md`.
+Baseline non-wonder feature placement is ecology-owned (forests, wetlands, reefs, ice), while placement retains natural wonders and floodplains. Historical rationale: `docs/projects/engine-refactor-v1/resources/spike/_archive/spike-ecology-feature-placement-ownership.md`.
 
 ### Responsibilities (causal chain)
 
@@ -13,79 +19,68 @@ Baseline non-wonder feature placement is ecology-owned (forests, wetlands, reefs
 3. **Biome classification:** map temperature + effective moisture into Whittaker/Holdridge-inspired zones with vegetation density, then optionally smooth biome edges.
 4. **Feature planning + apply:** plan vegetation, wetlands, reefs, and ice intents using biome + climate + soils, merge intents, and apply them to the engine/fields.
 
-## Architecture (ops, artifacts, and contracts)
+## Inputs and outputs (domain contract)
 
-- Domains expose **one op per module** with colocated `input`, `config`, and `output` schemas and `defaultConfig`. Steps import ops directly; no wrapper schemas in steps.
-- Artifacts are recipe-owned keys with domain-owned shapes; bindings to Civ7 engine IDs stay in the step layer.
+### Inputs (what must exist before Ecology runs)
 
-| Operation (domain op) | Kind | Inputs | Outputs |
+Ecology consumes:
+- **Physical substrate:** elevation + land mask, relief/slope proxies, sediment/erodibility proxies (when available).
+- **Climate:** rainfall/moisture and temperature signals (coarse bands are acceptable, but must be stable and interpretable).
+- **Optional overlays:** narrative/playability annotations that bias, not replace, the physics (corridors, rift motifs).
+
+### Outputs (products Ecology owns)
+
+Ecology publishes domain-level products that downstream consumers can treat as stable inputs:
+
+- **Soils / fertility:** a compact soil class + fertility signal for resources and start biasing.
+- **Biome classification:** biome index/symbol plus derived indices used by features and placement (vegetation density, effective moisture, freeze index).
+- **Resource basin candidates:** clustered candidate basins intended for Placement to consume and turn into concrete placements.
+- **Baseline features:** planned and applied non-wonder features (forests/wetlands/reefs/ice).
+
+## Operation catalog (atomic responsibilities)
+
+Ecology’s model should be expressed as **atomic operations** (single responsibility) that steps/stages orchestrate:
+
+| Operation | Responsibility | Inputs | Outputs |
 | --- | --- | --- | --- |
-| Operation (domain op) | Kind | Inputs | Outputs |
-| --- | --- | --- | --- |
-| `ecology/pedology/classify` | `compute` | land mask, elevation/relief, rainfall, humidity, optional sediment + bedrock + slope | `artifact:ecology.soils` — `{ soilType: Uint8Array, fertility: Float32Array }` |
-| `ecology/pedology/aggregate` | `compute` | soils artifact | region summaries for narrative/placement |
-| `ecology/resources/plan-basins` | `plan` | soils artifact, climate, land mask | `artifact:ecology.resourceBasins` — per-resource basin candidates |
-| `ecology/resources/score-balance` | `score` | basin candidates | balanced basin candidates |
-| `ecology/biomes/classify` | `compute` | `width/height`, rainfall + humidity fields, elevation, latitude, land mask, optional corridor/rift masks | `artifact:ecology.biomeClassification` — `{ width, height, biomeIndex, vegetationDensity, effectiveMoisture, surfaceTemperature, aridityIndex, freezeIndex }` |
-| `ecology/biomes/refine-edge` | `compute` | biome indices + land mask | smoothed biome indices |
-| `ecology/features/plan-vegetation` | `plan` | biome classification, soils, land mask | vegetation intents |
-| `ecology/features/plan-wetlands` | `plan` | biome classification, soils, elevation, land mask | marsh/wetland intents |
-| `ecology/features/plan-reefs` | `plan` | surface temperature, land mask | reef intents |
-| `ecology/features/plan-ice` | `plan` | surface temperature, elevation, land mask | ice intents |
-| `ecology/features/apply` | `apply` | merged feature intents | merged placements applied to engine + `field:featureType` |
+| `ecology.pedology.classify` | Classify soil type and fertility from physics + climate proxies. | elevation/relief, climate, optional sediment/bedrock proxies | soils + fertility |
+| `ecology.pedology.aggregate` | Summarize soils to region-level signals for downstream consumers. | soils | region summaries |
+| `ecology.resources.planBasins` | Plan candidate resource basins (clustered, explainable). | soils + climate | basin candidates |
+| `ecology.resources.balanceBasins` | Apply map-wide balancing constraints (counts, spacing). | basin candidates | balanced candidates |
+| `ecology.biomes.classify` | Classify biomes from temperature + effective moisture + land mask. | climate + latitude + elevation + land mask | biome index/symbol + derived indices |
+| `ecology.biomes.refineEdges` | Smooth biome seams without destroying macro zones. | biomes + land mask | refined biomes |
+| `ecology.features.plan` | Plan baseline non-wonder feature intents (veg/wetlands/reefs/ice). | biomes + soils + climate + land mask | feature intents |
+| `ecology.features.apply` | Apply planned intents to engine fields without overwrites. | feature intents + bindings | updated fields |
 
-### Strategy variants (tuning presets)
+## Modeling notes (first principles)
 
-- **Pedology classify:** `default`, `coastal-shelf` (boosted sediment + moisture), `orogeny-boosted` (higher relief weight + lower fertility ceiling).
-- **Resource basins:** `default`, `hydro-fluvial` (moisture-biased targets), `mixed` (alternating fertility/moisture emphasis by resource index).
-- **Biome edge refine:** `default`/`morphological` (cellular smoothing), `gaussian` (kernel-weighted blending).
-- **Feature planning:**
-  - Vegetation — `default`, `clustered` (adds spatial clustering noise and biome-aware feature swap).
-  - Wetlands — `default`, `delta-focused` (extra tolerance for moisture/fertility with delta-style striping).
-  - Reefs — `default`, `shipping-lanes` (warm-water stripes that mimic trade routes).
-  - Ice — `default`, `continentality` (sea ice scales with ocean distance; alpine ice tapers with inland bias).
-
-## Step wiring (standard recipe)
-
-1. **Pedology step** — build fields from elevation/relief/climate, call `pedology.classify.run`, publish `artifact:ecology.soils`.
-2. **Resource basins step** — require soils + climate + land mask, call `resources.planBasins.run` then `resources.score-balance.run`, publish `artifact:ecology.resourceBasins` for placement.
-3. **Biomes step** — build rainfall/humidity/elevation/latitude + corridor/rift masks, call `classifyBiomes.run`, publish `artifact:ecology.biomeClassification`, map symbols → engine biome IDs, set `field:biomeId` (water tiles explicitly assigned `BIOME_MARINE`).
-4. **Biome edge refine step** — smooth biome seams via `refineBiomeEdges.run`, republish biome artifact for downstream stages.
-5. **Features plan step** — plan vegetation/wetlands/reefs/ice intents using biome + soils + elevation/temperature, publish `artifact:ecology.featureIntents`.
-6. **Features apply step** — merge intents via `features/apply`, write engine features + `field:featureType`.
-
-Config is always sourced from op exports (`classifyBiomes.config/defaultConfig`, future pedology/resources/feature configs). Engine binding schemas stay step-side (`BiomeBindingsSchema`).
-
-## Algorithms and research framing
-
-### Pedology (planned)
+### Pedology (soils)
 
 - **CLORPT proxy:** combine **Climate** (temp/moisture), **Relief** (slope/curvature), **Parent material** (bedrock age/type + sediment depth), and **Time** heuristics to classify soil type (e.g., sand/loam/clay/rocky) and fertility (0–1).
 - **Signals:** deep sediment + moderate rain → loam/high fertility; steep/young crust + little sediment → rocky/low fertility; cold/arid plateaus → thin, infertile soils.
-- **Outputs:** `soilType: Uint8Array` palette + `fertility: Float32Array` scalar used by placement/resource ops.
+- **Outputs:** soil class + fertility scalar used by resources and placement biasing.
 
-### Resource basin planning (planned)
+### Resource basin planning
 
 1. **Candidate mapping:** derive per-resource probabilities from geology + climate (e.g., coal in low, wet sedimentary basins; iron on ancient shields/hills; oil on shelves or wet lowlands).
 2. **Clustering:** promote contiguous basins/fields instead of speckled singles; weight by fertility and hydrology proximity.
 3. **Culling/balancing:** enforce map-wide counts and spacing caps before placement applies the candidates.
 
-### Biome classification (implemented)
+### Biome classification
 
 - **Temperature field:** interpolate equator ↔ pole with lapse-rate and bias; subtract elevation relative to sea level before classifying.
 - **Effective moisture:** rainfall + `humidityWeight * humidity` + bias + overlay bonuses (corridors + rift shoulders) plus light noise to avoid banding.
 - **Lookup:** Holdridge/Whittaker-inspired table across temperature zones (`polar → cold → temperate → tropical`) and moisture zones (`arid → semiArid → subhumid → humid → perhumid`) returning biome symbols (`snow`, `tundra`, `boreal`, `temperateDry`, `temperateHumid`, `tropicalSeasonal`, `tropicalRainforest`, `desert`).
-- **Vegetation density:** normalized blend of moisture + humidity with biome-aware scaling (desert/snow suppress, rainforest boosts). Stored with the biome artifact for downstream feature tweaks.
+- **Vegetation density:** normalized blend of moisture + humidity with biome-aware scaling (desert/snow suppress, rainforest boosts).
 
-### Feature planning and apply (partial/target)
+### Feature planning and apply
 
 - **Forests/jungle/taiga:** use vegetation density + biome validity (and later soil fertility) to boost or restrain tree cover.
 - **Marsh/wetlands:** low elevation + high moisture + near water or high fertility basins.
-- **Reefs:** shallow warm water; leverage biome temperature and corridor/rift context to bias toward trade routes.
+- **Reefs:** shallow warm water; leverage biome temperature and (optional) motif overlays to bias reef belts without inventing new physics.
 - **Ice:** very low temperature (water) or high altitude (land) from biome surface temperature field.
 
-## Inputs and data dependencies
+## Related references (implementation guidance lives elsewhere)
 
-- **Physical:** elevation + land mask (heightfield artifact), rainfall + humidity fields (climate artifact), latitude per tile.
-- **Overlays:** narrative corridor + rift masks (optional biases).
-- **Bindings:** engine biome globals resolved in the step (domain stays symbol-only); future soils/resources keep bindings step-side as well.
+- Domain layering + boundaries: `docs/system/libs/mapgen/architecture.md`
+- Narrative/playability contract: `docs/projects/engine-refactor-v1/resources/PRD-target-narrative-and-playability.md`

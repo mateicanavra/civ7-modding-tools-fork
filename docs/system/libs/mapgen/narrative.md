@@ -1,5 +1,11 @@
 # Narrative
 
+> **Status:** Canonical (domain-only causality + contract spec)
+>
+> **This doc is:** what Narrative/Playability *means* in the pipeline: responsibilities, canonical products, and modeling posture.
+>
+> **This doc is not:** SDK wiring guidance (step/stage file layout, authoring mechanics, adapters).
+
 ## Overview
 
 Narrative is the "soul" of map generation. While the physical systems determine *what* the world looks like, Narrative determines *why* it matters and *how* it feels.
@@ -87,3 +93,7 @@ Injectors should be used sparingly: prefer “wrap existing signals with meaning
 ### Human story (placement signals)
 
 - Corridors and regions can be used to balance fairness (avoid isolation) while preserving strong thematic geography.
+
+## Related references (contract truth lives elsewhere)
+
+- Narrative/playability contract (story entries, optionality, and “no StoryTags” posture): `docs/projects/engine-refactor-v1/resources/PRD-target-narrative-and-playability.md`

@@ -1,3 +1,20 @@
+# SPIKE: Synthesis — Earth Physics Systems × Swooper Engine
+
+> **Status:** Research spike (seed / non-canonical)
+>
+> **Do not treat as contract truth.** This document proposes a synthesis pipeline and candidate product surfaces; it predates parts of the current SDK architecture and may contain outdated mechanics.
+>
+> **Canonical modeling references (preferred):**
+> - `docs/system/libs/mapgen/architecture.md`
+> - `docs/system/libs/mapgen/foundation.md`
+> - `docs/system/libs/mapgen/morphology.md`
+> - `docs/system/libs/mapgen/hydrology.md`
+> - `docs/system/libs/mapgen/ecology.md`
+> - `docs/system/libs/mapgen/narrative.md`
+> - `docs/system/libs/mapgen/placement.md`
+>
+> **How to use this spike now:** use it as a “causal staging and product ideation” seed; salvage enduring causal claims into the canonical system docs rather than copying the proposed API/wiring patterns.
+
 ## Cohesive proposal: a causal, physics‑flavored MapGen pipeline that fits your Task‑Graph architecture
 
 Your current draft architecture already has the *right* spine: a **Data‑Driven Task Graph** made of small, swappable `MapGenStep`s, executed in **strict sequential phases** (`setup → foundation → morphology → hydrology → ecology → placement`) with communication only through `MapGenContext` ("canvas fields" vs "artifacts"). What's missing is not a rewrite; it's **a consistent decomposition of the remaining domains into sub‑pipelines**, plus a few **artifact containers** that let the domains exchange physically meaningful fields without leaking implementation details. Your climate doc is already doing this for hydrology (global circulation → regional systems → orographic → routing).

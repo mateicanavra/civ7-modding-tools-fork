@@ -2,12 +2,15 @@
 name: domain-refactor-operation-modules
 description: |
   Entry point workflow for refactoring one MapGen domain to the canonical
-  contract-first ops + orchestration-only steps architecture.
+  contract-first ops + orchestration-only steps architecture, grounded in
+  authoritative, earth-physics-informed domain modeling.
 ---
 
 # WORKFLOW: Vertical Domain Refactor (Operation Modules)
 
-This is the **canonical, end-to-end workflow** for refactoring **one MapGen domain** so it conforms to the target **contract-first ops + orchestration-only steps** architecture.
+This is the **canonical, end-to-end workflow** for refactoring **one MapGen domain** so it conforms to:
+- the target **contract-first ops + orchestration-only steps** architecture, and
+- a **physically grounded, first-principles domain model** (earth-physics-informed; legacy behavior is not sacred).
 
 This file is intentionally a **flow-first executable checklist**: the `<workflow>` comes first; deep detail is indexed at the bottom.
 
@@ -30,6 +33,8 @@ This file is intentionally a **flow-first executable checklist**: the `<workflow
 - **Compile-time normalization:** defaults + `step.normalize` + `op.normalize`; runtime does not “fix up” config.
 - **Import discipline:** step `contract.ts` imports only `@mapgen/domain/<domain>` + stage-local contracts (e.g. `../artifacts.ts`); no deep imports under `@mapgen/domain/<domain>/**`, and no `@mapgen/domain/<domain>/ops`.
 - **Docs-as-code is enforced:** any touched exported function/op/step/schema gets contextual JSDoc and/or TypeBox `description` updates (trace references before writing docs).
+- **Authoritative modeling (not “code cleanup”):** prefer the physically grounded target model over preserving legacy behavior; delete/replace broken or nonsensical behavior as needed.
+- **Cross-pipeline consistency is required:** when the domain model changes contracts/artifacts, update upstream/downstream steps and stage-owned artifact contracts so the whole pipeline stays internally consistent (no “temporary mismatch”).
 
 ## Golden reference (Ecology exemplar)
 
@@ -152,6 +157,16 @@ Modeling posture (enforced):
 - composition happens in steps/stages,
 - rules are **policy units** imported into ops/strategies (avoid generic helper drift).
 
+Earth-physics grounding (required):
+- Model the domain “from the ground up” using the relevant earth-physics research and domain-level architecture docs.
+- You are explicitly allowed (and expected) to **discard** legacy behavior, artifacts, ops, and step shapes that are clearly broken, incoherent, or physically nonsensical.
+- If preserving a legacy behavior is intentional, justify it explicitly in the modeling spike as a “kept legacy invariant” with a reason (gameplay constraint, engine constraint, regression harness).
+
+Cross-pipeline posture (required):
+- The domain model lives inside a pipeline. Your target model must be consistent with (and may reshape) the artifact/deps contracts at domain boundaries.
+- If the modeled domain needs different inputs/outputs, you must plan the pipeline updates (artifact contracts, step deps, stage wiring) so the compiled plan remains valid and consumers remain coherent.
+- Prefer coordinating changes via **stage-owned artifact contracts** (`stages/<stage>/artifacts.ts`) rather than ad-hoc cross-domain imports.
+
 **Outputs:**
 - `docs/projects/engine-refactor-v1/resources/spike/spike-<domain>-modeling.md`
   - target op catalog (ids + kinds + input/output/config schemas + defaults + normalize ownership)
@@ -159,15 +174,24 @@ Modeling posture (enforced):
   - policy/rules map (what decisions exist and where they should live)
   - step/stage composition plan (which steps orchestrate which ops and in what order)
   - explicit non-goals (what modeling work is deferred, if any)
+  - pipeline delta list:
+    - upstream artifacts/inputs that must change (and where),
+    - downstream artifacts/outputs that must change (and where),
+    - any cross-domain compatibility or sequencing implications.
+- Update the domain’s canonical modeling reference doc (or create it if missing):
+  - `docs/system/libs/mapgen/<domain>.md`
+  - Treat this as the “domain-only model + causality” doc; avoid baking in implementation mechanics beyond what’s needed to describe products/contracts.
 
 **Gate (do not proceed until):**
 - [ ] Op catalog is locked with no optionality (no “could do A or B”).
 - [ ] No op depends on another op (composition is step/stage-owned).
 - [ ] Policy/rules posture is explicit (where decisions live; what’s just plumbing).
+- [ ] Pipeline delta list is explicit (no implicit “we’ll figure it out during implementation”).
 
 **References:**
 - `docs/projects/engine-refactor-v1/resources/spec/SPEC-DOMAIN-MODELING-GUIDELINES.md`
 - ADRs: `docs/projects/engine-refactor-v1/resources/spec/adr/adr-er1-030-operation-inputs-policy.md`, `docs/projects/engine-refactor-v1/resources/spec/adr/adr-er1-034-operation-kind-semantics.md`, `docs/projects/engine-refactor-v1/resources/spec/adr/adr-er1-035-config-normalization-and-derived-defaults.md`
+- Earth physics + domain spec index: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/earth-physics-and-domain-specs.md`
 
 </step>
 
@@ -184,10 +208,12 @@ Modeling posture (enforced):
   - legacy entrypoints to delete (file paths / exports)
   - tests to add/update (op contract tests + any thin integration edge)
   - guardrail scope (`REFRACTOR_DOMAINS=...`)
+  - pipeline deltas included (which upstream/downstream stages/contracts are updated in this slice, if any)
 
 **Gate (do not proceed until):**
 - [ ] Slice plan is written and reviewable.
 - [ ] Every planned slice can end in a working state (no “we’ll delete later”).
+- [ ] Any pipeline delta from Phase 2 is fully assigned to slices (no “out of band” work).
 
 **References:**
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/op-and-config-design.md`
@@ -235,6 +261,10 @@ Import boundaries (enforced):
 - Step runtime reads/publishes artifacts via `deps.artifacts.*` and never imports recipe-level artifact helpers (no `.../artifacts.*` imports inside step implementations).
 - Producer steps bind runtime artifact behavior via `implementArtifacts(contract.artifacts.provides, { ... })` and pass the result to `createStep(contract, { artifacts, run(...) })`.
 - If you added/changed ops for this slice, update stage/recipe wiring to include the op implementations in the compile-time op registry (recipe wiring is the only layer allowed to import `@mapgen/domain/<domain>/ops`).
+- If this slice includes a pipeline delta (Phase 2), update the impacted stages/contracts and their consumers now:
+  - edit the relevant stage-owned artifact contract surfaces (`stages/<stage>/artifacts.ts`),
+  - update any affected step contracts (`artifacts.requires`/`artifacts.provides`) and step runtime reads/writes (`deps.artifacts.*`),
+  - do not leave mismatched producers/consumers for “later”.
 
 3) Delete legacy for the slice
 - Delete legacy entrypoints/helpers for the migrated steps; no compat exports or “old/new” switches.
@@ -458,6 +488,14 @@ Consult while modeling (Phase 2):
 - `docs/projects/engine-refactor-v1/resources/spec/adr/adr-er1-035-config-normalization-and-derived-defaults.md`
 - `docs/projects/engine-refactor-v1/resources/spec/SPEC-global-invariants.md`
 - `docs/projects/engine-refactor-v1/triage.md`
+- `docs/system/libs/mapgen/architecture.md`
+- `docs/system/libs/mapgen/foundation.md`
+- `docs/system/libs/mapgen/morphology.md`
+- `docs/system/libs/mapgen/hydrology.md`
+- `docs/system/libs/mapgen/ecology.md`
+- `docs/system/libs/mapgen/narrative.md`
+- `docs/projects/engine-refactor-v1/resources/PRD-plate-generation.md` (Foundation seed; not authoritative for contracts)
+- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/earth-physics-and-domain-specs.md`
 
 Truth of behavior (consult as needed while implementing):
 - `packages/mapgen-core/src/compiler/recipe-compile.ts` (compile-time config normalization + op normalize fanout)

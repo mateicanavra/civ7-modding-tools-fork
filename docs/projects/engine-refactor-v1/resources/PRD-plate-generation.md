@@ -1,4 +1,11 @@
-> **Disclaimer:** This PRD is **not authoritative** for target-architecture decisions. It must be re-validated against the canonical spec and pending step-domain module spec before use. Do not use it to drive new decisions.
+> **Disclaimer:** This PRD is **not authoritative** for SDK contracts or target-architecture decisions.
+>
+> Treat it as a Foundation-specific “implementation north star” that must be re-validated against:
+> - Canonical domain-only modeling: `docs/system/libs/mapgen/foundation.md`
+> - Canonical workflow/spec set (authoring + contracts): `docs/projects/engine-refactor-v1/resources/spec/`
+> - Step/domain/operation module posture: `docs/projects/engine-refactor-v1/resources/spec/SPEC-step-domain-operation-modules.md`
+>
+> If this PRD conflicts with current specs/workflows, do not “fix truth” by editing the PRD; update the canonical spec/ADR set instead, then revise or archive the PRD.
 
 # PRD: Foundation — Plate & Tectonics Generation (Mesh → Crust → Partition → Tectonics)
 

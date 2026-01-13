@@ -1,5 +1,20 @@
 # Physics-Based Planetary Modeling for Procedural Generation
 
+> **Status:** Research spike (seed / non-canonical)
+>
+> **Do not treat as contract truth.** This document is a detailed first-principles write-up, but it mixes legacy architectural assumptions with modeling guidance.
+>
+> **Canonical modeling references (preferred):**
+> - `docs/system/libs/mapgen/architecture.md`
+> - `docs/system/libs/mapgen/foundation.md`
+> - `docs/system/libs/mapgen/morphology.md`
+> - `docs/system/libs/mapgen/hydrology.md`
+> - `docs/system/libs/mapgen/ecology.md`
+> - `docs/system/libs/mapgen/narrative.md`
+> - `docs/system/libs/mapgen/placement.md`
+>
+> **How to use this spike now:** treat it as “research raw material”; extract stable causal models into the canonical domain docs and ignore any implied SDK mechanics that conflict with current specs/workflows.
+
 **Introduction & Overview:** We are building a data-driven task graph pipeline to generate an Earth-like planet for a 4X strategy game. The world is represented on a hexagonal grid (up to roughly 120 hexes wide by ~80 tall on the largest maps), which defines a Voronoi-like mesh of terrain cells. The pipeline is divided into sequential **Stages**, each responsible for a domain of physical processes (e.g., tectonics, climate, etc.). At the **Foundation** stage, we have already modeled plate tectonics and basic crustal composition; now we extend that rigor through subsequent layers. We will use a small number of discrete **snapshots** in time (1–at most) rather than continuous simulation, focusing computational effort on the most impactful long-term processes. For example, we might simulate an initial geologic epoch to form mountains and a later epoch after erosion – this gives context like "old, worn-down mountains" versus "new, rugged ranges" for downstream stages. Climate, however, will be treated as a quasi-steady state (less discrete eras, more a single equilibrium with seasonal patterns) since geological time scales matter more for topography than for atmospheric patterns. Each stage consumes the outputs of earlier stages (via a well-defined data API of input/output fields) and produces new data layers that make the world internally consistent and rich in detail. The guiding philosophy is **causal realism**: we approximate real physical cause-and-effect so that the world "makes sense" (intuitively responds to parameter "levers" in a physically plausible way) even though we are not solving full differential equations. For each domain below, we detail: real-world processes, how to stage their simulation (order and internal steps), inputs/outputs, key **levers** (global parameters that designers can tweak), and abstraction strategies for implementation.
 
 ## Geomorphology (The Shape of the Land)

@@ -11,6 +11,6 @@ Historical (archived under `_archive/`):
 - Drift audits for older target-vs-impl reconciliation passes.
 - Consolidated “target directive” grab bags superseded by the split SPEC component set.
 
-New:
-- Feature placement ownership spike: `spike-ecology-feature-placement-ownership.md`
-- Ecology/climate realism pass spike: `spike-ecology-climate-realism-pass.md`
+Notable (archived):
+- Feature placement ownership spike: `_archive/spike-ecology-feature-placement-ownership.md`
+- Ecology/climate realism pass spike: `_archive/spike-ecology-climate-realism-pass.md`

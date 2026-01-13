@@ -1,5 +1,11 @@
 # Foundation
 
+> **Status:** Canonical (domain-only causality + contract spec)
+>
+> **This doc is:** what Foundation *means* in the pipeline: responsibilities, inputs, outputs, and first-principles causal model.
+>
+> **This doc is not:** SDK wiring guidance (step/stage file layout, authoring mechanics, adapters).
+
 ## Overview
 
 The Foundation layer constructs the physical "board" used by downstream shaping: surface geometry (mesh), geological material (crust), tectonic plates (kinematics), and the tectonic forces that drive landform evolution.
