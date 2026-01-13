@@ -295,6 +295,27 @@ Branches (downstack → upstack):
 **PR comments**
 - No actionable review comments (Graphite stack boilerplate only); no inline review comments.
 
+### `agent-CANDY-LOCAL-TBD-M8-U21-E-step-artifact-runtimes` — PR #535 (`refactor(step): add type-safe artifacts to step contracts`)
+
+**Review effort estimate (complexity × parallelism)**
+- Medium × High (4/16): type threading across `StepContract`/`StepModule` + runtime carrier surface.
+
+**Intent (from issue doc)**
+- Land U21-E: allow producer steps to export artifact runtimes via `createStep(contract, { artifacts, run })` so recipe compilation can discover `satisfies` later.
+
+**Quick take**
+- Mostly yes: step modules can now carry typed `artifacts` runtimes, and `StepArtifactsDecl` is upgraded to a generic that preserves `requires/provides` lists for downstream typing.
+
+**What’s strong**
+- The move from a non-generic `StepArtifactsDecl` to `StepArtifactsDecl<Requires, Provides>` is the right foundational type choice; it keeps artifact typing from collapsing to `ArtifactContract[]` too early.
+- `createStep(...)` surfaces `artifacts?: ...` in a way that feels consistent with the existing `normalize/run` pattern (producer-owned runtime responsibility).
+
+**High-leverage issues / risks**
+- **PR feedback still relevant:** there’s an inline review comment (Codex bot) noting that when a step omits `artifacts`, the current defaulting (`TArtifacts = StepArtifactsDecl | undefined`) causes `deps.artifacts` typing to degrade into a permissive “any artifact name” map. I spot-checked `packages/mapgen-core/src/authoring/types.ts` in later branches (C/D/G): this defaulting remains, so the concern is still live at stack tip. A small type tweak (default `TArtifacts` to `undefined` or default `Provides`/`Requires` to `readonly []`) would restore the intended “no declared artifacts → `{}` surface” behavior.
+
+**PR comments**
+- 1 inline review comment (Codex bot) about `deps.artifacts` type defaulting becoming overly permissive; not addressed by downstream branches in this stack.
+
 ### `agent-CANDY-LOCAL-TBD-M8-U21-B-step-artifacts` — PR #534 (`feat(step): add artifacts declaration to step contract`)
 
 **Review effort estimate (complexity × parallelism)**
