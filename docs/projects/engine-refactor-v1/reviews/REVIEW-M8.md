@@ -295,6 +295,28 @@ Branches (downstack → upstack):
 **PR comments**
 - No actionable review comments (Graphite stack boilerplate only); no inline review comments.
 
+### `agent-CANDY-LOCAL-TBD-M8-U21-F2-foundation-climate` — PR #545 (`refactor(mapgen): migrate foundation and hydrology steps to artifact system`)
+
+**Review effort estimate (complexity × parallelism)**
+- High × Low (8/16): touches multiple critical steps; correctness depends on downstream stages and runtime invariants.
+
+**Intent (from issue doc)**
+- Continue U21-F migration: migrate Foundation + climate/hydrology-adjacent steps to `artifacts.requires/provides` + `deps.artifacts.*` access, and bind artifact runtime validation/publish behavior in the producing step.
+
+**Quick take**
+- Mostly yes: producing steps adopt `implementArtifacts(...)` + `deps.artifacts.<name>.publish(...)`, and consumer steps move toward `deps.artifacts.<name>.read(...)` instead of ad-hoc artifact helpers.
+
+**What’s strong**
+- Foundation step becomes a clean exemplar: stage-owned contracts (`stages/foundation/artifacts.ts`) + contract `artifacts.provides` + step-owned runtime validation + write-once publish through `deps`.
+- Hydrology steps publish derived artifacts (e.g. `riverAdjacency`) from freshly computed values, which aligns with the immutability contract better than publishing shared mutable references.
+
+**High-leverage issues / risks**
+- Watch for accidental immutability violations when publishing references that may be mutated later. Example: `climateBaseline` publishes `context.buffers.climate` directly as `artifact:climateField`. If downstream steps mutate that same buffer object in-place, consumers will observe “moving” artifact values and the deep-readonly typing becomes misleading. Either ensure “publish happens at the final write” (no further mutation) or publish a caller-owned snapshot.
+- This PR touches many steps but has no dedicated mod-level regression coverage in this branch; confidence largely comes from the earlier mapgen-core wiring tests plus end-to-end recipe execution checks in later branches.
+
+**PR comments**
+- No actionable review comments (Graphite stack boilerplate only); no inline review comments.
+
 ### `agent-CANDY-LOCAL-TBD-M8-U21-F1-stage-artifacts` — PR #544 (`docs(engine-refactor): add buffer/overlay policy and implement standard recipe artifacts`)
 
 **Review effort estimate (complexity × parallelism)**
