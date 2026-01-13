@@ -1,16 +1,17 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
 import ecology from "@mapgen/domain/ecology";
 
-import { M3_DEPENDENCY_TAGS } from "../../../../tags.js";
+import { ecologyArtifacts } from "../../artifacts.js";
+import { hydrologyPreArtifacts } from "../../../hydrology-pre/artifacts.js";
 
 const PlotEffectsStepContract = defineStep({
   id: "plot-effects",
   phase: "ecology",
-  requires: [
-    M3_DEPENDENCY_TAGS.artifact.heightfield,
-    M3_DEPENDENCY_TAGS.artifact.biomeClassificationV1,
-  ],
+  requires: [],
   provides: [],
+  artifacts: {
+    requires: [hydrologyPreArtifacts.heightfield, ecologyArtifacts.biomeClassification],
+  },
   ops: {
     plotEffects: ecology.ops.planPlotEffects,
   },

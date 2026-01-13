@@ -1,39 +1,5 @@
-import { defineArtifact } from "@swooper/mapgen-core/authoring";
+import { defineArtifact, type Static } from "@swooper/mapgen-core/authoring";
 import { Type } from "typebox";
-
-export interface BiomeClassificationArtifact {
-  width: number;
-  height: number;
-  biomeIndex: Uint8Array;
-  vegetationDensity: Float32Array;
-  effectiveMoisture: Float32Array;
-  surfaceTemperature: Float32Array;
-  aridityIndex: Float32Array;
-  freezeIndex: Float32Array;
-}
-
-export interface PedologyArtifact {
-  width: number;
-  height: number;
-  soilType: Uint8Array;
-  fertility: Float32Array;
-}
-
-export interface ResourceBasinsArtifact {
-  basins: Array<{
-    resourceId: string;
-    plots: number[];
-    intensity: number[];
-    confidence: number;
-  }>;
-}
-
-export interface FeatureIntentsArtifact {
-  vegetation: Array<{ x: number; y: number; feature: string; weight?: number }>;
-  wetlands: Array<{ x: number; y: number; feature: string; weight?: number }>;
-  reefs: Array<{ x: number; y: number; feature: string; weight?: number }>;
-  ice: Array<{ x: number; y: number; feature: string; weight?: number }>;
-}
 
 export const BiomeClassificationArtifactSchema = Type.Object(
   {
@@ -49,6 +15,8 @@ export const BiomeClassificationArtifactSchema = Type.Object(
   { additionalProperties: false }
 );
 
+export type BiomeClassificationArtifact = Static<typeof BiomeClassificationArtifactSchema>;
+
 export const PedologyArtifactSchema = Type.Object(
   {
     width: Type.Integer({ minimum: 1 }),
@@ -58,6 +26,8 @@ export const PedologyArtifactSchema = Type.Object(
   },
   { additionalProperties: false }
 );
+
+export type PedologyArtifact = Static<typeof PedologyArtifactSchema>;
 
 export const ResourceBasinsArtifactSchema = Type.Object(
   {
@@ -75,6 +45,8 @@ export const ResourceBasinsArtifactSchema = Type.Object(
   },
   { additionalProperties: false }
 );
+
+export type ResourceBasinsArtifact = Static<typeof ResourceBasinsArtifactSchema>;
 
 export const FeatureIntentsArtifactSchema = Type.Object(
   {
@@ -125,6 +97,8 @@ export const FeatureIntentsArtifactSchema = Type.Object(
   },
   { additionalProperties: false }
 );
+
+export type FeatureIntentsArtifact = Static<typeof FeatureIntentsArtifactSchema>;
 
 export const ecologyArtifacts = {
   biomeClassification: defineArtifact({

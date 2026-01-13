@@ -1,14 +1,13 @@
-import { createStep, type Static } from "@swooper/mapgen-core/authoring";
-import { biomeClassificationArtifact, heightfieldArtifact } from "../../../../artifacts.js";
+import { createStep } from "@swooper/mapgen-core/authoring";
+import type { BiomeClassificationArtifact } from "../../artifacts.js";
 import BiomeEdgeRefineStepContract from "./contract.js";
-type BiomeEdgeRefineConfig = Static<typeof BiomeEdgeRefineStepContract.schema>;
 
 export default createStep(BiomeEdgeRefineStepContract, {
-  run: (context, config: BiomeEdgeRefineConfig, ops) => {
-    const classification = biomeClassificationArtifact.get(context);
+  run: (context, config, ops, deps) => {
+    const classification = deps.artifacts.biomeClassification.read(context);
 
     const { width, height } = context.dimensions;
-    const heightfield = heightfieldArtifact.get(context);
+    const heightfield = deps.artifacts.heightfield.read(context);
 
     const refined = ops.refine(
       {
@@ -20,9 +19,8 @@ export default createStep(BiomeEdgeRefineStepContract, {
       config.refine
     );
 
-    biomeClassificationArtifact.set(context, {
-      ...classification,
-      biomeIndex: refined.biomeIndex,
-    });
+    // Biome classification is refined in-place after the initial publish.
+    const mutable = classification as BiomeClassificationArtifact;
+    mutable.biomeIndex.set(refined.biomeIndex);
   },
 });

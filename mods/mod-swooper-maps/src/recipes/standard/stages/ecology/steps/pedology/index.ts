@@ -1,12 +1,17 @@
-import { createStep, type Static } from "@swooper/mapgen-core/authoring";
-import { getPublishedClimateField, heightfieldArtifact, pedologyArtifact } from "../../../../artifacts.js";
+import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
+import { ecologyArtifacts } from "../../artifacts.js";
+import { validatePedologyArtifact } from "../../artifact-validation.js";
 import PedologyStepContract from "./contract.js";
-type PedologyStepConfig = Static<typeof PedologyStepContract.schema>;
 
 export default createStep(PedologyStepContract, {
-  run: (context, config: PedologyStepConfig, ops) => {
-    const climateField = getPublishedClimateField(context);
-    const heightfield = heightfieldArtifact.get(context);
+  artifacts: implementArtifacts([ecologyArtifacts.pedology], {
+    pedology: {
+      validate: (value, context) => validatePedologyArtifact(value, context.dimensions),
+    },
+  }),
+  run: (context, config, ops, deps) => {
+    const climateField = deps.artifacts.climateField.read(context);
+    const heightfield = deps.artifacts.heightfield.read(context);
     const { width, height } = context.dimensions;
 
     const result = ops.classify(
@@ -21,7 +26,7 @@ export default createStep(PedologyStepContract, {
       config.classify
     );
 
-    pedologyArtifact.set(context, {
+    deps.artifacts.pedology.publish(context, {
       width,
       height,
       ...result,

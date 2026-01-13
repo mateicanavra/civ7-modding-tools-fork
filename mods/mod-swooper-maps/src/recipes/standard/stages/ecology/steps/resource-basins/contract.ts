@@ -1,16 +1,21 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
 import ecology from "@mapgen/domain/ecology";
-import { M3_DEPENDENCY_TAGS } from "../../../../tags.js";
+import { ecologyArtifacts } from "../../artifacts.js";
+import { hydrologyPreArtifacts } from "../../../hydrology-pre/artifacts.js";
 
 const ResourceBasinsStepContract = defineStep({
   id: "resource-basins",
   phase: "ecology",
-  requires: [
-    M3_DEPENDENCY_TAGS.artifact.pedologyV1,
-    M3_DEPENDENCY_TAGS.artifact.heightfield,
-    M3_DEPENDENCY_TAGS.artifact.climateField,
-  ],
-  provides: [M3_DEPENDENCY_TAGS.artifact.resourceBasinsV1],
+  requires: [],
+  provides: [],
+  artifacts: {
+    requires: [
+      ecologyArtifacts.pedology,
+      hydrologyPreArtifacts.heightfield,
+      hydrologyPreArtifacts.climateField,
+    ],
+    provides: [ecologyArtifacts.resourceBasins],
+  },
   ops: {
     plan: ecology.ops.planResourceBasins,
     score: ecology.ops.scoreResourceBasins,

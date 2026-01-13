@@ -91,9 +91,17 @@ export interface StoryOverlaySnapshot {
 }
 
 /**
- * Non-canonical registry of derived overlay snapshots (debug/compat only).
+ * Non-canonical overlay collections (debug/compat only).
+ *
+ * Overlays are append-preferred and may be mutated by multiple steps. They are
+ * currently threaded through artifacts for wiring, but will be redesigned as a
+ * distinct dependency kind in a future architecture pass.
  */
-export type StoryOverlayRegistry = Map<string, StoryOverlaySnapshot>;
+export interface StoryOverlayRegistry {
+  corridors: StoryOverlaySnapshot[];
+  swatches: StoryOverlaySnapshot[];
+  motifs: StoryOverlaySnapshot[];
+}
 
 // ============================================================================
 // Foundation Context Types
@@ -248,6 +256,13 @@ export interface ExtendedMapContext {
    * mutable after the initial publish. Do not republish buffer artifacts.
    */
   buffers: MapBuffers;
+  /**
+   * Derived narrative overlays (debug/compat view).
+   *
+   * Overlays are append-preferred and may be mutated across steps. They are
+   * currently carried via artifacts for wiring only.
+   * TODO(architecture): redesign overlays as a distinct dependency kind.
+   */
   overlays: StoryOverlayRegistry;
 }
 
@@ -309,7 +324,11 @@ export function createExtendedMapContext(
       climate,
       scratchMasks: new Map(),
     },
-    overlays: new Map(),
+    overlays: {
+      corridors: [],
+      swatches: [],
+      motifs: [],
+    },
   };
 }
 

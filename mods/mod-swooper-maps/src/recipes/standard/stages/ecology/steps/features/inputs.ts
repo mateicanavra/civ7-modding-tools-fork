@@ -1,17 +1,19 @@
-import type { ExtendedMapContext } from "@swooper/mapgen-core";
+import type {
+  ClimateFieldBuffer,
+  ExtendedMapContext,
+  HeightfieldBuffer,
+} from "@swooper/mapgen-core";
 import type { OpTypeBag, Static } from "@swooper/mapgen-core/authoring";
-import {
-  computeRiverAdjacencyMask,
-  heightfieldArtifact,
-  getPublishedBiomeClassification,
-  getPublishedClimateField,
-  getPublishedNarrativeMotifsHotspots,
-  getPublishedNarrativeMotifsMargins,
-} from "../../../../artifacts.js";
+import type {
+  NarrativeMotifsHotspots,
+  NarrativeMotifsMargins,
+} from "@mapgen/domain/narrative/models.js";
+import { computeRiverAdjacencyMask } from "../../../../artifacts.js";
 import ecology from "@mapgen/domain/ecology";
 import { buildLatitudeField, maskFromCoordSet } from "../biomes/helpers/inputs.js";
 import { deriveStepSeed } from "../helpers/seed.js";
 import type { FeatureKeyLookups } from "./feature-keys.js";
+import type { BiomeClassificationArtifact } from "../../artifacts.js";
 
 const NO_FEATURE = -1;
 const UNKNOWN_FEATURE = -2;
@@ -29,7 +31,13 @@ type IcePlacementInput = Static<typeof ecology.ops.planIceFeaturePlacements.inpu
 type WetInnerConfig =
   OpTypeBag<typeof ecology.ops.planWetFeaturePlacements>["config"]["default"];
 
-const getHeightfieldArtifact = (context: ExtendedMapContext) => heightfieldArtifact.get(context);
+export type FeatureArtifactInputs = {
+  heightfield: HeightfieldBuffer;
+  climateField: ClimateFieldBuffer;
+  classification: BiomeClassificationArtifact;
+  motifsHotspots: NarrativeMotifsHotspots | null;
+  motifsMargins: NarrativeMotifsMargins | null;
+};
 
 const buildFeatureKeyField = (
   context: ExtendedMapContext,
@@ -62,12 +70,13 @@ const buildFeatureKeyField = (
  */
 export function buildIceFeaturePlacementsInput(
   context: ExtendedMapContext,
-  lookups: FeatureKeyLookups
+  lookups: FeatureKeyLookups,
+  artifacts: FeatureArtifactInputs
 ): IcePlacementInput {
   const { width, height } = context.dimensions;
   const size = width * height;
 
-  const heightfield = getHeightfieldArtifact(context);
+  const { heightfield } = artifacts;
   const latitude = buildLatitudeField(context.adapter, width, height);
   const featureKeyField = buildFeatureKeyField(context, lookups);
 
@@ -87,12 +96,13 @@ export function buildIceFeaturePlacementsInput(
  */
 export function buildAquaticFeaturePlacementsInput(
   context: ExtendedMapContext,
-  lookups: FeatureKeyLookups
+  lookups: FeatureKeyLookups,
+  artifacts: FeatureArtifactInputs
 ): AquaticPlacementInput {
   const { width, height } = context.dimensions;
   const size = width * height;
 
-  const heightfield = getHeightfieldArtifact(context);
+  const { heightfield } = artifacts;
   const latitude = buildLatitudeField(context.adapter, width, height);
   const featureKeyField = buildFeatureKeyField(context, lookups);
 
@@ -114,14 +124,13 @@ export function buildAquaticFeaturePlacementsInput(
 export function buildWetFeaturePlacementsInput(
   context: ExtendedMapContext,
   config: WetInnerConfig,
-  lookups: FeatureKeyLookups
+  lookups: FeatureKeyLookups,
+  artifacts: FeatureArtifactInputs
 ): WetPlacementInput {
   const { width, height } = context.dimensions;
   const size = width * height;
 
-  const classification = getPublishedBiomeClassification(context);
-
-  const heightfield = getHeightfieldArtifact(context);
+  const { classification, heightfield } = artifacts;
   const featureKeyField = buildFeatureKeyField(context, lookups);
 
   return {
@@ -150,14 +159,13 @@ export function buildWetFeaturePlacementsInput(
  */
 export function buildVegetatedFeaturePlacementsInput(
   context: ExtendedMapContext,
-  lookups: FeatureKeyLookups
+  lookups: FeatureKeyLookups,
+  artifacts: FeatureArtifactInputs
 ): VegetatedPlacementInput {
   const { width, height } = context.dimensions;
   const size = width * height;
 
-  const classification = getPublishedBiomeClassification(context);
-
-  const heightfield = getHeightfieldArtifact(context);
+  const { classification, heightfield } = artifacts;
   const featureKeyField = buildFeatureKeyField(context, lookups);
 
   return {
@@ -182,16 +190,17 @@ export function buildVegetatedFeaturePlacementsInput(
  */
 export function buildReefEmbellishmentsInput(
   context: ExtendedMapContext,
-  lookups: FeatureKeyLookups
+  lookups: FeatureKeyLookups,
+  artifacts: FeatureArtifactInputs
 ): ReefEmbellishmentsInput {
   const { width, height } = context.dimensions;
   const size = width * height;
 
-  const heightfield = getHeightfieldArtifact(context);
+  const { heightfield, motifsHotspots, motifsMargins } = artifacts;
   const featureKeyField = buildFeatureKeyField(context, lookups);
 
-  const hotspots = getPublishedNarrativeMotifsHotspots(context);
-  const margins = getPublishedNarrativeMotifsMargins(context);
+  const hotspots = motifsHotspots;
+  const margins = motifsMargins;
 
   return {
     width,
@@ -209,20 +218,17 @@ export function buildReefEmbellishmentsInput(
  */
 export function buildVegetationEmbellishmentsInput(
   context: ExtendedMapContext,
-  lookups: FeatureKeyLookups
+  lookups: FeatureKeyLookups,
+  artifacts: FeatureArtifactInputs
 ): VegetationEmbellishmentsInput {
   const { width, height } = context.dimensions;
   const size = width * height;
 
-  const classification = getPublishedBiomeClassification(context);
-
-  const climateField = getPublishedClimateField(context);
-
-  const heightfield = getHeightfieldArtifact(context);
+  const { classification, climateField, heightfield, motifsHotspots } = artifacts;
   const latitude = buildLatitudeField(context.adapter, width, height);
   const featureKeyField = buildFeatureKeyField(context, lookups);
 
-  const hotspots = getPublishedNarrativeMotifsHotspots(context);
+  const hotspots = motifsHotspots;
 
   return {
     width,

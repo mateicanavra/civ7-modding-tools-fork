@@ -1,16 +1,13 @@
-import { createStep, type Static } from "@swooper/mapgen-core/authoring";
+import { createStep } from "@swooper/mapgen-core/authoring";
 import type { FeatureKey } from "@mapgen/domain/ecology";
 import { syncHeightfield } from "@swooper/mapgen-core";
-import { featureIntentsArtifact } from "../../../../artifacts.js";
 import FeaturesApplyStepContract from "./contract.js";
 import { applyFeaturePlacements, reifyFeatureField } from "../features/apply.js";
 import { resolveFeatureKeyLookups } from "../features/feature-keys.js";
 
-type FeaturesApplyConfig = Static<typeof FeaturesApplyStepContract.schema>;
-
 export default createStep(FeaturesApplyStepContract, {
-  run: (context, config: FeaturesApplyConfig, ops) => {
-    const intents = featureIntentsArtifact.get(context);
+  run: (context, config, ops, deps) => {
+    const intents = deps.artifacts.featureIntents.read(context);
 
     const merged = ops.apply(
       {
