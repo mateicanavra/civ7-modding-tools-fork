@@ -16,11 +16,52 @@ This file is intentionally a **flow-first executable checklist**: the `<workflow
 
 ## TL;DR (phase model)
 
+Phases are **adaptive**: each phase produces concrete artifacts, then a required lookback step updates the next phase’s plan based on what you learned (no “write once, never revise” docs).
+
 1. **Phase 1: Current-state spike** → write `docs/projects/engine-refactor-v1/resources/spike/spike-<domain>-current-state.md`
-2. **Phase 2: Modeling spike (first principles)** → write `docs/projects/engine-refactor-v1/resources/spike/spike-<domain>-modeling.md`
-3. **Phase 3: Implementation plan + slice plan** → write/update `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-<milestone>-<domain>-*.md`
-4. **Phase 4: Implementation (slices)** → refactor domain + stage code (one slice at a time; no dual paths)
-5. **Phase 5: Verification + cleanup + submit** → run gates, submit, remove worktrees
+2. **Lookback 1 (Phase 1 → Phase 2): Adjust the modeling plan** → append lookback findings + plan deltas into the Phase 1 spike
+3. **Phase 2: Modeling spike (first principles)** → write `docs/projects/engine-refactor-v1/resources/spike/spike-<domain>-modeling.md`
+4. **Lookback 2 (Phase 2 → Phase 3): Adjust the implementation plan** → append lookback findings + pipeline deltas into the Phase 2 spike
+5. **Phase 3: Implementation plan + slice plan** → write/update `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-<milestone>-<domain>-*.md`
+6. **Lookback 3 (Phase 3 → Phase 4): Finalize slices + sequencing** → append lookback findings into the Phase 3 issue doc
+7. **Phase 4: Implementation (slices)** → refactor domain + stage code (one slice at a time; no dual paths)
+8. **Lookback 4 (Phase 4 → Phase 5): Stabilize and reconcile** → append lookback findings into the Phase 3 issue doc
+9. **Phase 5: Verification + cleanup + submit** → run gates, submit, remove worktrees
+
+## Required “living artifacts” (keep updated; canonical plan spine)
+
+Each domain refactor must maintain these artifacts as a **single-source-of-truth spine** for the refactor. They can live in the domain plan doc (recommended), or be embedded into the Phase 1/2 spike docs + Phase 3 issue doc if you are not using a plan doc.
+
+- **Domain surface inventory (outside view):** entrypoints, stage contracts, step list, and who imports/calls what.
+- **Contract matrix:** per-step `requires/provides`, explicitly distinguishing **artifacts vs buffers vs overlays**, plus producer/consumer mapping.
+- **Decisions + defaults:** assumptions you are using *right now*; explicit triggers to revisit.
+- **Risk register:** top risks, whether blocking, and the mitigation plan (usually slice ordering).
+- **Golden path example:** one representative step, showing canonical imports + `run(ctx, config, ops, deps)` + `deps.artifacts.*` usage + docs-as-code.
+
+These artifacts exist to prevent “black ice”:
+- they force you to name what is public,
+- force you to name who depends on what,
+- force you to record assumptions and risks,
+- and force you to keep the plan synchronized with what you learned in each phase.
+
+## Domain resource directory (recommended for larger artifacts)
+
+If any of the “living artifacts” above start to get long, split them into standalone docs under a per-domain resources directory, and link them from the spikes/issues instead of duplicating.
+
+Recommended location:
+- `docs/projects/engine-refactor-v1/resources/domains/<domain>/`
+
+Recommended “outside view” doc set (create only what you need; keep it small):
+- `docs/projects/engine-refactor-v1/resources/domains/<domain>/INDEX.md` (optional; links + navigation)
+- `docs/projects/engine-refactor-v1/resources/domains/<domain>/inventory.md` (Domain Surface Inventory)
+- `docs/projects/engine-refactor-v1/resources/domains/<domain>/contract-matrix.md` (Contract Matrix)
+- `docs/projects/engine-refactor-v1/resources/domains/<domain>/decisions.md` (Decisions + Defaults)
+- `docs/projects/engine-refactor-v1/resources/domains/<domain>/risks.md` (Risk Register)
+- `docs/projects/engine-refactor-v1/resources/domains/<domain>/golden-path.md` (Golden Path Example)
+
+Rule of thumb:
+- If it’s referenced across phases and exceeds ~1 page, it belongs in `resources/domains/<domain>/...`.
+- If it’s short and phase-local, keep it in the spike/issue doc.
 
 ## Hard rules (do not violate)
 
@@ -38,6 +79,8 @@ This file is intentionally a **flow-first executable checklist**: the `<workflow
   - **Today (intentional compromise):** overlays are routed through artifact contracts for gating/typing; publish the overlays artifact **once**, then accumulate overlays via `ctx.overlays.*` (append-preferred; mutation is rare and intentional).
 - **Compile-time normalization:** defaults + `step.normalize` + `op.normalize`; runtime does not “fix up” config.
 - **Import discipline:** step `contract.ts` imports only `@mapgen/domain/<domain>` + stage-local contracts (e.g. `../artifacts.ts`); no deep imports under `@mapgen/domain/<domain>/**`, and no `@mapgen/domain/<domain>/ops`.
+- **Do not propagate legacy patterns:** do not copy legacy authoring patterns forward. Implement changes only through the canonical architecture, and prefer minimal, high-DX expressions over redundant imports/typing/boilerplate.
+  - Concrete example (legacy smell): importing a domain config type and annotating the `run(...)` handler `config` parameter even when `config` is already inferred from the step contract schema. Treat this as a pattern to delete, not to repeat.
 - **Docs-as-code is enforced:** any touched exported function/op/step/schema gets contextual JSDoc and/or TypeBox `description` updates (trace references before writing docs).
 - **Authoritative modeling (not “code cleanup”):** prefer the physically grounded target model over preserving legacy behavior; delete/replace broken or nonsensical behavior as needed.
 - **Cross-pipeline consistency is required:** when the domain model changes contracts/artifacts, update upstream/downstream steps and stage-owned artifact contracts so the whole pipeline stays internally consistent (no “temporary mismatch”).
@@ -69,6 +112,7 @@ Expanded constraints, wiring diagram, and the “outside view” file surfaces a
 
 **Outputs:**
 - A new branch and worktree for the domain refactor.
+- A place to keep “living artifacts” (either a plan doc or a per-domain resources directory).
 - A recorded baseline run of verification gates (so regressions are attributable).
 
 **Steps (primary checkout):**
@@ -98,6 +142,11 @@ cd ../wt-refactor-<milestone>-<domain>
 
 Patch-path guard (mandatory):
 - Only edit files inside the worktree path.
+
+Create a per-domain resources directory (recommended when artifacts are non-trivial):
+```bash
+mkdir -p docs/projects/engine-refactor-v1/resources/domains/<domain>
+```
 
 Install dependencies (only if you will run checks here):
 ```bash
@@ -136,6 +185,12 @@ gt modify --commit -am "refactor(<domain>): <slice or doc summary>"
 
 **Outputs:**
 - `docs/projects/engine-refactor-v1/resources/spike/spike-<domain>-current-state.md`
+  - Ensure it links to (or embeds) the “living artifacts” spine:
+    - Domain Surface Inventory
+    - Contract Matrix (current-state)
+    - Decisions + Defaults (initial)
+    - Risk Register (initial)
+    - Golden Path Example (initial candidate)
   - complete step map (allsites that touch the domain)
   - dependency gating inventory:
     - `requires`/`provides` (non-artifacts) per step (ids + file paths)
@@ -151,6 +206,31 @@ gt modify --commit -am "refactor(<domain>): <slice or doc summary>"
 
 **References:**
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/domain-inventory-and-boundaries.md`
+
+</step>
+
+<step name="phase-1-lookback-and-adjust">
+
+**Objective:** Convert Phase 1 findings into explicit updates to the Phase 2 modeling work (and explicitly record any plan changes you discovered).
+
+This lookback is mandatory: Phase 2 is expected to be **re-planned** based on evidence from Phase 1 (inventory + violations + deletion list).
+
+**Inputs:**
+- `docs/projects/engine-refactor-v1/resources/spike/spike-<domain>-current-state.md` (Phase 1 output)
+
+**Outputs (append to the end of the Phase 1 spike doc):**
+- `## Lookback (Phase 1 → Phase 2): Adjust modeling plan`
+  - What surprised you (top 3)
+  - Updated boundary map (what is “in domain” vs “pipeline glue” vs “legacy to delete”)
+  - Updated domain surface inventory + contract matrix (outside view, `requires/provides`, producers/consumers)
+  - Updated model hypotheses (what Phase 2 must validate/decide)
+  - Updated deletion list (anything discovered late)
+  - Updated cross-pipeline touchpoints (upstream/downstream contracts that Phase 2 must consider)
+  - Updated decisions + defaults + risk register (what became newly true / newly risky)
+
+**Gate (do not proceed until):**
+- [ ] The lookback section exists and includes explicit “plan deltas” (not just a recap).
+- [ ] Phase 2 has a clear target: what must be redesigned vs what can be preserved.
 
 </step>
 
@@ -173,6 +253,9 @@ Cross-pipeline posture (required):
 - If the modeled domain needs different inputs/outputs, you must plan the pipeline updates (artifact contracts, step deps, stage wiring) so the compiled plan remains valid and consumers remain coherent.
 - Prefer coordinating changes via **stage-owned artifact contracts** (`stages/<stage>/artifacts.ts`) rather than ad-hoc cross-domain imports.
 
+Foundation-specific reminder (applies only when `<domain> == foundation`):
+- Foundation is “upstream of everything”. Phase 2 must treat its modeled outputs (buffers, artifacts, overlays) as pipeline-wide contracts; plan for downstream adaptation rather than preserving legacy couplings.
+
 **Outputs:**
 - `docs/projects/engine-refactor-v1/resources/spike/spike-<domain>-modeling.md`
   - target op catalog (ids + kinds + input/output/config schemas + defaults + normalize ownership)
@@ -187,6 +270,12 @@ Cross-pipeline posture (required):
 - Update the domain’s canonical modeling reference doc (or create it if missing):
   - `docs/system/libs/mapgen/<domain>.md`
   - Treat this as the “domain-only model + causality” doc; avoid baking in implementation mechanics beyond what’s needed to describe products/contracts.
+ - Update the living artifacts spine to match the target model:
+   - Domain Surface Inventory (what will exist after refactor)
+   - Contract Matrix (target-state)
+   - Decisions + Defaults (target assumptions + triggers)
+   - Risk Register (updated top risks + mitigations)
+   - Golden Path Example (update if Phase 2 changes the canonical step shape)
 
 **Gate (do not proceed until):**
 - [ ] Op catalog is locked with no optionality (no “could do A or B”).
@@ -198,6 +287,30 @@ Cross-pipeline posture (required):
 - `docs/projects/engine-refactor-v1/resources/spec/SPEC-DOMAIN-MODELING-GUIDELINES.md`
 - ADRs: `docs/projects/engine-refactor-v1/resources/spec/adr/adr-er1-030-operation-inputs-policy.md`, `docs/projects/engine-refactor-v1/resources/spec/adr/adr-er1-034-operation-kind-semantics.md`, `docs/projects/engine-refactor-v1/resources/spec/adr/adr-er1-035-config-normalization-and-derived-defaults.md`
 - Earth physics + domain spec index: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/earth-physics-and-domain-specs.md`
+
+</step>
+
+<step name="phase-2-lookback-and-adjust">
+
+**Objective:** Convert the Phase 2 target model into a deterministic, slice-able implementation plan (and explicitly record any plan changes you discovered during modeling).
+
+This lookback is mandatory: Phase 3 is expected to be **re-planned** based on Phase 2’s final target model (op catalog + policy map + pipeline deltas).
+
+**Inputs:**
+- `docs/projects/engine-refactor-v1/resources/spike/spike-<domain>-modeling.md` (Phase 2 output)
+
+**Outputs (append to the end of the Phase 2 spike doc):**
+- `## Lookback (Phase 2 → Phase 3): Adjust implementation plan`
+  - Finalized invariants (what must not change during implementation)
+  - Risks (top 3) + how the slice plan mitigates them (update the risk register)
+  - Pipeline delta slicing strategy (how contract changes will be spread across slices without breaking the pipeline)
+  - Contract matrix delta (what `requires/provides` changes, by slice)
+  - Draft slice boundaries (a first cut; Phase 3 will harden into an executable checklist)
+  - Test strategy notes (what needs deterministic harnessing; what can be thin integration)
+
+**Gate (do not proceed until):**
+- [ ] The lookback section exists and includes explicit “plan deltas” (not just a recap).
+- [ ] There is a clear slicing strategy for any pipeline deltas (no “big bang” unless justified).
 
 </step>
 
@@ -224,6 +337,28 @@ Cross-pipeline posture (required):
 **References:**
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/op-and-config-design.md`
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/verification-and-guardrails.md`
+
+</step>
+
+<step name="phase-3-lookback-and-adjust">
+
+**Objective:** Validate that the slice plan is executable, then lock sequencing and reduce ambiguity before writing production code.
+
+This lookback is mandatory: Phase 4 is expected to be **re-planned** based on what Phase 3 uncovered (e.g., missing harnesses, contract uncertainties, edge cases).
+
+**Inputs:**
+- `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-<milestone>-<domain>-*.md` (Phase 3 output)
+
+**Outputs (append to the Phase 3 issue doc):**
+- `## Lookback (Phase 3 → Phase 4): Finalize slices + sequencing`
+  - Confirmed slice DAG (what blocks what; where pipeline deltas land)
+  - Any prework findings completed during planning (code-intel checks, boundary confirmation)
+  - Any remaining open decisions (should be rare; record options + default; update decisions + defaults)
+  - “First slice is safe” checklist (what must be true before implementing slice 1)
+
+**Gate (do not proceed until):**
+- [ ] Slice 1 is independently shippable (tests + docs + deletions included).
+- [ ] Any remaining open decisions are explicit, scoped, and non-surprising to implementers.
 
 </step>
 
@@ -304,6 +439,28 @@ gt modify --commit -am "refactor(<domain>): <slice summary>"
 **References:**
 - Extended slice guidance: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/subflows/IMPLEMENTATION.md`
 - “Truth of behavior” source files: see “Reference index” below
+
+</step>
+
+<step name="phase-4-lookback-and-adjust">
+
+**Objective:** Reconcile implementation reality with the plan, then stabilize before final verification/cleanup.
+
+This lookback is mandatory: Phase 5 is expected to incorporate what Phase 4 uncovered (drift, missing docs, unexpected couplings).
+
+**Inputs:**
+- The Phase 3 issue doc and the implementation work completed in Phase 4
+
+**Outputs (append to the Phase 3 issue doc):**
+- `## Lookback (Phase 4 → Phase 5): Stabilize and reconcile`
+  - Any plan drift (what changed and why)
+  - Any newly discovered cross-pipeline coupling (and how it was resolved)
+  - Any follow-up work explicitly deferred (with triggers)
+  - Final verification runbook adjustments (what is now the true “done” gate)
+
+**Gate (do not proceed until):**
+- [ ] The issue doc reflects the actual implementation outcome (no “paper plan” left behind).
+- [ ] All intentional deferrals are explicit (no silent TODOs).
 
 </step>
 
@@ -526,4 +683,9 @@ Workflow package references (keep open while implementing):
 Prior art / sequencing helpers:
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/examples/VOLCANO.md`
 - `docs/projects/engine-refactor-v1/resources/spike/spike-domain-refactor-sequencing.md`
+- Domain plan examples (draft specs):
+  - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/FOUNDATION.md`
+  - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/MORPHOLOGY.md`
+  - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/HYDROLOGY.md`
+  - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/ECOLOGY.md`
 - Standard recipe stage order: `mods/mod-swooper-maps/src/recipes/standard/recipe.ts`
