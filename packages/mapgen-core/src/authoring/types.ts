@@ -38,25 +38,27 @@ export type StepProvidedArtifactsRuntime<
     : {}
   : {};
 
-type ArtifactListOrEmpty<T> = T extends readonly ArtifactContract[] ? T : readonly ArtifactContract[];
+type ArtifactListOrEmpty<T> = T extends readonly ArtifactContract[] ? T : readonly [];
 
 type StepArtifactsSurface<TContext, TArtifacts extends StepArtifactsDecl | undefined> =
-  TArtifacts extends StepArtifactsDecl<infer Requires, infer Provides>
-    ? {
-        [K in keyof ArtifactsByName<ArtifactListOrEmpty<Requires>>]: RequiredArtifactRuntime<
-          ArtifactsByName<ArtifactListOrEmpty<Requires>>[K],
-          TContext
-        >;
-      } & {
-        [K in keyof ArtifactsByName<ArtifactListOrEmpty<Provides>>]: ProvidedArtifactRuntime<
-          ArtifactsByName<ArtifactListOrEmpty<Provides>>[K],
-          TContext
-        >;
-      }
+  TContext extends ExtendedMapContext
+    ? TArtifacts extends StepArtifactsDecl<infer Requires, infer Provides>
+      ? {
+          [K in keyof ArtifactsByName<ArtifactListOrEmpty<Requires>>]: RequiredArtifactRuntime<
+            ArtifactsByName<ArtifactListOrEmpty<Requires>>[K],
+            TContext
+          >;
+        } & {
+          [K in keyof ArtifactsByName<ArtifactListOrEmpty<Provides>>]: ProvidedArtifactRuntime<
+            ArtifactsByName<ArtifactListOrEmpty<Provides>>[K],
+            TContext
+          >;
+        }
+      : {}
     : {};
 
 export type StepDeps<
-  TContext extends ExtendedMapContext,
+  TContext,
   TArtifacts extends StepArtifactsDecl | undefined,
 > = Readonly<{
   artifacts: StepArtifactsSurface<TContext, TArtifacts>;

@@ -94,7 +94,7 @@ function buildArtifactDeps<TContext extends ExtendedMapContext>(
   recipeId: string
 ): StepDeps<TContext, any>["artifacts"] {
   const artifacts = authored.contract.artifacts;
-  if (!artifacts) return {};
+  if (!artifacts) return {} as StepDeps<TContext, any>["artifacts"];
 
   const out: Record<string, RequiredArtifactRuntime<any, TContext> | ProvidedArtifactRuntime<any, TContext>> =
     {};
@@ -110,7 +110,7 @@ function buildArtifactDeps<TContext extends ExtendedMapContext>(
         `[recipe:${recipeId}] step "${fullStepId}" missing artifact runtime for "${contract.name}"`
       );
     }
-    out[contract.name] = runtime as ProvidedArtifactRuntime<any, TContext>;
+    out[contract.name] = runtime as unknown as ProvidedArtifactRuntime<any, TContext>;
   }
 
   return out as StepDeps<TContext, typeof artifacts>["artifacts"];
