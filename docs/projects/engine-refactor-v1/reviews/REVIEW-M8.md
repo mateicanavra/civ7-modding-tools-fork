@@ -383,6 +383,23 @@ Branches (downstack → upstack):
 **PR comments**
 - No actionable review comments (Graphite boilerplate only); no inline review comments.
 
+### `agent-CANDY-LOCAL-TBD-M8-U21-phase2-sequencing` — PR #543 (`docs(engine-refactor): add phase 2 sequencing for artifacts step-owned deps`)
+
+**Review effort estimate (complexity × parallelism)**
+- Low × High (2/16): docs-only, low-risk.
+
+**Intent (from issue doc)**
+- Make Phase 2 migration sequencing explicit (mod migration split into F1–F5) after Phase 1 core API lands.
+
+**Quick take**
+- Yes: the Phase 2 breakdown matches the actual migration PR decomposition (F1–F5) and keeps the “no shims” posture legible.
+
+**High-leverage notes**
+- The “stop and check in before Phase 2” constraint is the right coordination tool for a multi-agent milestone; it’s good that it’s recorded in the issue doc rather than living only in chat/PR context.
+
+**PR comments**
+- No actionable review comments (Graphite stack boilerplate only); no inline review comments.
+
 ### `agent-CANDY-LOCAL-TBD-M8-U21-B-step-artifacts` — PR #534 (`feat(step): add artifacts declaration to step contract`)
 
 **Review effort estimate (complexity × parallelism)**
