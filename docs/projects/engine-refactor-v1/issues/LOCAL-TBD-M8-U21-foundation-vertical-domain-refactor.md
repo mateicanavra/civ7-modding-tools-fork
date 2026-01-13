@@ -83,6 +83,18 @@ Non-negotiables for implementation:
 
 Complexity × parallelism: high complexity × low parallelism (Foundation is upstream of everything).
 
+### Baseline checks (Phase 0)
+- `pnpm -C packages/mapgen-core check`: pass
+- `pnpm -C packages/mapgen-core test`: fail
+  - `packages/mapgen-core/test/pipeline/tag-registry.test.ts` fails with duplicate provider error for `artifact:test.foo` (provider step duplicates)
+- `pnpm -C mods/mod-swooper-maps check`: fail
+  - Type errors in `mods/mod-swooper-maps/src/recipes/standard/stages/**` where `deps.artifacts.*` types resolve as `{}` (multiple stages)
+- `pnpm -C mods/mod-swooper-maps test`: fail
+  - Duplicate provider error for `artifact:foundation.plates` in standard recipe
+  - `ReferenceError: Cannot access 'standardRecipe' before initialization` in standard recipe tests
+- `pnpm -C mods/mod-swooper-maps build`: pass
+- `pnpm deploy:mods`: pass
+
 ### Slice plan (draft; executable checklists per slice)
 
 This slice plan is derived from the Phase 2 modeling spike Lookback (Phase 2 → Phase 3). Each slice must be independently shippable and leave the pipeline coherent.
@@ -152,4 +164,3 @@ Pre-implementation confirmation to run (and record) before writing code:
   - [ ] Slice 1 deletes (or makes private) any legacy entrypoints it replaces (no dual implementation surfaces).
   - [ ] Slice 1 updates docs-as-code for touched contracts/schemas.
   - [ ] Slice 1 has deterministic tests (or explicit test gaps recorded with triggers).
-
