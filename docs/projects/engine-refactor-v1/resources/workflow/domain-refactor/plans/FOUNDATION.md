@@ -592,7 +592,16 @@ steps:
         buffers: []
         overlays: []
       provides:
-        artifacts: []
+        artifacts:
+          - artifact:foundation.mesh
+          - artifact:foundation.crust
+          - artifact:foundation.plateGraph
+          - artifact:foundation.tectonics
+          - artifact:foundation.plates
+          - artifact:foundation.dynamics
+          - artifact:foundation.seed
+          - artifact:foundation.diagnostics
+          - artifact:foundation.config
         buffers: []
         overlays: []
     consumers:
@@ -618,8 +627,14 @@ steps:
         buffers: []
         overlays: []
     target:
-      requires: { artifacts: [], buffers: [], overlays: [] }
-      provides: { artifacts: [], buffers: [], overlays: [] }
+      requires:
+        artifacts: [artifact:foundation.plates]
+        buffers: []
+        overlays: []
+      provides:
+        artifacts: []
+        buffers: []
+        overlays: []
     consumers: []
     notes: "Domain logic reads plates via assertFoundationPlates(ctx, ...); also uses engine-effect tags (non-artifact gating)."
 
@@ -635,8 +650,14 @@ steps:
         buffers: []
         overlays: []
     target:
-      requires: { artifacts: [], buffers: [], overlays: [] }
-      provides: { artifacts: [], buffers: [], overlays: [] }
+      requires:
+        artifacts: [artifact:foundation.plates]
+        buffers: []
+        overlays: [artifact:storyOverlays]
+      provides:
+        artifacts: []
+        buffers: []
+        overlays: []
     consumers: []
     notes: "Requires story overlays; domain logic reads plates via assertFoundationPlates(ctx, ...)."
 
@@ -652,8 +673,14 @@ steps:
         buffers: []
         overlays: [artifact:storyOverlays]
     target:
-      requires: { artifacts: [], buffers: [], overlays: [] }
-      provides: { artifacts: [], buffers: [], overlays: [] }
+      requires:
+        artifacts: [artifact:foundation.plates]
+        buffers: []
+        overlays: [artifact:storyOverlays]
+      provides:
+        artifacts: []
+        buffers: []
+        overlays: [artifact:storyOverlays]
     consumers: []
     notes: "Consumes plates; appends rift motifs into overlays."
 
@@ -669,8 +696,14 @@ steps:
         buffers: []
         overlays: [artifact:storyOverlays]
     target:
-      requires: { artifacts: [], buffers: [], overlays: [] }
-      provides: { artifacts: [], buffers: [], overlays: [] }
+      requires:
+        artifacts: [artifact:foundation.plates, artifact:foundation.dynamics]
+        buffers: []
+        overlays: [artifact:storyOverlays]
+      provides:
+        artifacts: []
+        buffers: []
+        overlays: [artifact:storyOverlays]
     consumers: []
     notes: "Consumes plates+dynamics; appends orogeny motifs into overlays."
 
@@ -686,8 +719,14 @@ steps:
         buffers: []
         overlays: [artifact:storyOverlays]
     target:
-      requires: { artifacts: [], buffers: [], overlays: [] }
-      provides: { artifacts: [], buffers: [], overlays: [] }
+      requires:
+        artifacts: [artifact:foundation.dynamics]
+        buffers: [artifact:heightfield, artifact:climateField]
+        overlays: [artifact:storyOverlays]
+      provides:
+        artifacts: []
+        buffers: []
+        overlays: [artifact:storyOverlays]
     consumers: []
     notes: "Swatches/monsoon logic reads dynamics via assertFoundationDynamics(ctx, ...); step code also requires env.directionality."
 
@@ -703,8 +742,14 @@ steps:
         buffers: []
         overlays: []
     target:
-      requires: { artifacts: [], buffers: [], overlays: [] }
-      provides: { artifacts: [], buffers: [], overlays: [] }
+      requires:
+        artifacts: [artifact:foundation.dynamics, artifact:riverAdjacency]
+        buffers: [artifact:heightfield, artifact:climateField]
+        overlays: [artifact:storyOverlays]
+      provides:
+        artifacts: []
+        buffers: []
+        overlays: []
     consumers: []
     notes: "Refinement logic reads dynamics via assertFoundationDynamics(ctx, ...); step code also requires env.directionality."
 
@@ -720,8 +765,14 @@ steps:
         buffers: []
         overlays: []
     target:
-      requires: { artifacts: [], buffers: [], overlays: [] }
-      provides: { artifacts: [], buffers: [], overlays: [] }
+      requires:
+        artifacts: [artifact:foundation.plates]
+        buffers: []
+        overlays: []
+      provides:
+        artifacts: []
+        buffers: []
+        overlays: []
     consumers: []
     notes: "Domain logic reads plates via assertFoundationPlates(ctx, ...)."
 
@@ -737,8 +788,14 @@ steps:
         buffers: []
         overlays: []
     target:
-      requires: { artifacts: [], buffers: [], overlays: [] }
-      provides: { artifacts: [], buffers: [], overlays: [] }
+      requires:
+        artifacts: [artifact:foundation.plates]
+        buffers: []
+        overlays: []
+      provides:
+        artifacts: []
+        buffers: []
+        overlays: []
     consumers: []
     notes: "Domain logic reads plates via assertFoundationPlates(ctx, ...)."
 ```
@@ -754,18 +811,28 @@ This list prevents “silent assumptions” from becoming accidental architectur
 
 ### Decision: Foundation posture is plate-graph-first
 - **Context:** PRD direction is plate graph (Delaunay/Voronoi) rather than legacy tile-first foundation.
-- **Choice:** (TBD in Phase 2) Confirm the canonical domain-only model assumes graph/mesh-first.
+- **Choice:** **Locked:** Foundation is graph/mesh-first; tile-indexed tensors are projections for consumers.
 - **Trigger to revisit:** If an engine constraint makes graph/mesh-first infeasible without a staged migration.
 
 ### Decision (Phase 2): Directionality ownership posture
 - **Context:** Current runtime expects `env.directionality` (wired from authored recipe config); some downstream steps assume it exists.
-- **Choice:** (TBD in Phase 2) Decide whether directionality is env-only, config-only, or hybrid (env override + config defaults).
+- **Choice:** **Locked:** directionality is **env-owned**; authored config influences only env construction at the entry boundary.
 - **Trigger to revisit:** Only if we introduce a new runtime host that cannot supply env directionality (or if directionality becomes fully derived from Foundation modeling).
 
 ### Decision (Phase 2): Stable boundary semantics surface
 - **Context:** Downstream domain code imports boundary enums/constants (`BOUNDARY_TYPE`) from Foundation implementation modules today.
-- **Choice:** (TBD in Phase 2) Define a stable “contract surface” export for boundary semantics so downstream can depend on it without module-layout coupling.
+- **Choice:** **Locked:** boundary semantics are a public Foundation contract; consumers must depend on a stable contract export (not Foundation module layout).
 - **Trigger to revisit:** Only when Morphology refactor lands and no longer needs boundary constants from Foundation.
+
+### Default: Foundation trace artifacts are non-canonical
+- **Context:** `foundation.seed/config/diagnostics` are useful for replay/forensics but are not part of the physical model.
+- **Choice:** Keep them **trace-only** (non-required by downstream step contracts; never used as modeling inputs).
+- **Trigger to revisit:** Only if a trace artifact becomes a first-class, independently testable product with stable I/O that multiple steps/tools consume.
+
+### Default: Typed-array schemas are explicit (not `Type.Any`)
+- **Context:** Current artifact contracts use permissive `Type.Any()` while runtime validators enforce typed arrays.
+- **Choice:** Prefer the canonical typed-array schema helpers + runtime invariant validation (ADR-ER1-030); treat `Type.Any()` as a migration smell.
+- **Trigger to revisit:** Only if the authoring SDK changes the typed-array schema strategy (new helper or new dependency kind).
 
 ## Appendix D: Risk Register (living)
 
@@ -787,12 +854,12 @@ risks:
     title: "Directionality is env-owned but authored in config"
     severity: medium
     blocking: false
-    notes: "Phase 2 must define a single canonical posture for env vs config vs override."
+    notes: "Decision locked: env-owned; config influences env construction at entry boundary."
   - id: R4
     title: "Typed array schema posture is split between Type.Any and runtime validators"
     severity: medium
     blocking: false
-    notes: "Phase 2 should decide whether artifact schemas remain permissive (validation in runtimes) or become explicit TypeBox schemas/helpers."
+    notes: "Decision locked: prefer explicit typed-array schemas + runtime invariants (ADR-ER1-030)."
 ```
 
 ## Appendix E: Golden Path Example (canonical authoring)
