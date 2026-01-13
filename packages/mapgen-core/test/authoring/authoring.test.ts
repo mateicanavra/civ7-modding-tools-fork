@@ -128,7 +128,7 @@ describe("authoring SDK", () => {
         artifacts: { requires: [artifact], provides: [artifact] },
         schema: EmptyStepConfigSchema,
       })
-    ).toThrow(/artifacts\\.requires/);
+    ).toThrow(/artifacts\.requires/);
   });
 
   it("createStage rejects steps without explicit schemas", () => {

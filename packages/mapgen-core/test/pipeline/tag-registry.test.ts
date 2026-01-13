@@ -17,6 +17,7 @@ import {
   PipelineExecutor,
   StepRegistry,
   TagRegistry,
+  StepExecutionError,
   UnknownDependencyTagError,
   UnsatisfiedProvidesError,
 } from "@mapgen/engine/index.js";
@@ -166,6 +167,14 @@ describe("tag registry", () => {
     const adapter = createMockAdapter({ width: 2, height: 2 });
     const ctx = createExtendedMapContext({ width: 2, height: 2 }, adapter, baseEnv);
 
-    expect(() => recipe.run(ctx, baseEnv)).toThrow(UnsatisfiedProvidesError);
+    let error: unknown;
+    try {
+      recipe.run(ctx, baseEnv);
+    } catch (err) {
+      error = err;
+    }
+
+    expect(error).toBeInstanceOf(StepExecutionError);
+    expect((error as StepExecutionError).cause).toBeInstanceOf(UnsatisfiedProvidesError);
   });
 });
