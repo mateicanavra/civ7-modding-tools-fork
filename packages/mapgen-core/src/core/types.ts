@@ -10,6 +10,8 @@
  * - Passes should ONLY access engine APIs via the adapter
  * - RNG calls should go through ctx.rng() for deterministic replay
  * - Context is immutable reference (but buffers/fields are mutable for performance)
+ * - Buffers are currently treated as artifacts for pipeline gating and DX
+ *   (see ArtifactStore + MapBuffers notes for the temporary exception).
  */
 
 import type { EngineAdapter, MapDimensions } from "@civ7/adapter";
@@ -54,6 +56,12 @@ export interface ClimateFieldBuffer {
 
 /**
  * Collection of reusable buffers shared across generation stages.
+ *
+ * NOTE:
+ * - Buffers are mutable and are updated in-place across steps.
+ * - Some buffers are also published as artifacts for gating/typing.
+ * - Buffer artifacts are mutable after a single publish; do not republish them.
+ * TODO(architecture): redesign buffers as a distinct dependency kind (not artifacts).
  */
 export interface MapBuffers {
   heightfield: HeightfieldBuffer;
@@ -182,8 +190,14 @@ export const FOUNDATION_SEED_ARTIFACT_TAG = "artifact:foundation.seed";
 export const FOUNDATION_DIAGNOSTICS_ARTIFACT_TAG = "artifact:foundation.diagnostics";
 export const FOUNDATION_CONFIG_ARTIFACT_TAG = "artifact:foundation.config";
 
-export class ArtifactStore extends Map<string, unknown> {
-}
+/**
+ * Store of published artifacts keyed by dependency tag id.
+ *
+ * Buffer artifacts are a temporary exception: they are published once and then
+ * mutated in-place via ctx.buffers for performance. Do not republish buffers.
+ * TODO(architecture): split buffers into their own dependency type (not artifacts).
+ */
+export class ArtifactStore extends Map<string, unknown> {}
 
 // ============================================================================
 // RNG and Metrics Types
@@ -227,6 +241,12 @@ export interface ExtendedMapContext {
    * Used by PipelineExecutor for runtime requires/provides gating.
    */
   artifacts: ArtifactStore;
+  /**
+   * Mutable generation buffers (heightfield, climate, scratch masks).
+   *
+   * Some buffers are currently mirrored as artifacts for gating, but they remain
+   * mutable after the initial publish. Do not republish buffer artifacts.
+   */
   buffers: MapBuffers;
   overlays: StoryOverlayRegistry;
 }
