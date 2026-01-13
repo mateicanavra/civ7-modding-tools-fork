@@ -64,6 +64,13 @@ export type StepDeps<
   TContext extends ExtendedMapContext,
   TArtifacts extends StepArtifactsDecl | undefined,
 > = Readonly<{
+  /**
+   * Canonical dependency surface for artifacts.
+   *
+   * Buffer artifacts are a temporary exception: they are published once and then
+   * mutated in-place via ctx.buffers without re-publishing.
+   * TODO(architecture): redesign buffers as a distinct dependency kind (not artifacts).
+   */
   artifacts: StepArtifactsSurface<TContext, TArtifacts>;
   fields: unknown;
   effects: unknown;
