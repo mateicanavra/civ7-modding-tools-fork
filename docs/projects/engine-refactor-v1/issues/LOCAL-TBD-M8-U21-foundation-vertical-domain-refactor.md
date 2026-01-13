@@ -95,6 +95,12 @@ Complexity × parallelism: high complexity × low parallelism (Foundation is ups
 - `pnpm -C mods/mod-swooper-maps build`: pass
 - `pnpm deploy:mods`: pass
 
+Post Slice 1 re-run (after contract-first spine cutover + toolchain fixes):
+- `pnpm -C packages/mapgen-core check`: pass
+- `pnpm -C packages/mapgen-core test`: pass
+- `pnpm -C mods/mod-swooper-maps check`: pass
+- `pnpm -C mods/mod-swooper-maps test`: pass
+
 ### Slice plan (draft; executable checklists per slice)
 
 This slice plan is derived from the Phase 2 modeling spike Lookback (Phase 2 → Phase 3). Each slice must be independently shippable and leave the pipeline coherent.
