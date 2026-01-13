@@ -175,6 +175,14 @@ Locked decisions for implementation (algorithmic):
 - Mesh operates in planar map-space (`0..width`, `0..height`) and does not implement wrapX or periodic tiling.
 - Neighbor/adjacency comes from the backend’s neighbor iterator (no “halfedge inference” against empty mock data).
 
+Spec alignment pass (mesh backend):
+- Spec: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/foundation/SPEC-FOUNDATION-DELAUNAY-VORONOI.md` (created from the same spikes; locks “no wrapX” and “no adapter/fallback”).
+- Alignment: the Slice 6 plan already matches the spec’s key hard locks; the remaining deltas are now explicitly checklist items in Subissue 6.3/6.4:
+  - remove all implicit heuristics inside mesh ops (`plateCount → cellCount`, `cellDensity`, etc.); config must be explicit (`cellCount`, `relaxationSteps`)
+  - remove any mesh contract payload fields related to wrapX
+  - remove halfedge-based neighbor inference and derive adjacency only from the backend iterator
+  - add validation criteria beyond symmetry (total area ~ `width * height`, determinism)
+
 #### Slice 1 — Establish the contract-first spine (behavior-preserving)
 
 Goal: route *existing* published outputs (`foundation.plates`, `foundation.dynamics`, trace artifacts) through the canonical ops + stage contract posture, without changing behavior.
@@ -271,17 +279,21 @@ Checklist:
 - [ ] Add `d3-delaunay` as a dependency in the canonical location (expected: `packages/mapgen-core`), and ensure it is bundled for builds.
 - [ ] Implement a deterministic, engine-independent Voronoi backend in mapgen-core per `SPEC-FOUNDATION-DELAUNAY-VORONOI`.
 - [ ] Update `foundation/compute-mesh` op to use the canonical backend and delete its dependency on adapter Voronoi utilities.
+- [ ] Delete mesh inputs/shape that encode wrapX semantics (mesh is planar only).
+- [ ] Delete any implicit heuristics inside the mesh op (`plateCount → cellCount`, `cellDensity`, etc.); require explicit `cellCount` + `relaxationSteps` only.
 - [ ] Update the test harness so mock adapter does not need to emulate Voronoi halfedges (mesh tests must run offline deterministically).
 
 Acceptance criteria:
 - [ ] No Foundation op or step requires `adapter.getVoronoiUtils`.
 - [ ] Mesh neighbor symmetry invariants are validated under tests.
+- [ ] Mesh total area approximates `width * height` within tolerance under tests.
+- [ ] Mesh is deterministic for fixed seed + config under tests.
 - [ ] There is no “adapter Voronoi” fallback path (single canonical backend).
 
 ##### Subissue 6.4 — Make `foundation.plates` projections derived from canonical artifacts
 
 Checklist:
-- [ ] Ensure `foundation/compute-plates-tensors` consumes only mesh-first artifacts (`mesh/crust/plateGraph/tectonics`) and produces tile-indexed tensors strictly by projection.
+- [ ] Ensure `foundation/compute-plates-tensors` consumes only mesh-first artifacts (`mesh/crust/plateGraph/tectonics`) and produces tile-indexed tensors strictly by projection (no adapter Voronoi inputs).
 - [ ] Remove any “parallel tile-first plate generation” path; no second algorithm should compute plates from unrelated inputs.
 
 Acceptance criteria:
