@@ -332,6 +332,12 @@ capability_gaps:
       - ".civ7/outputs/resources/Base/modules/base-standard/maps/map-utilities.js uses ResourceBuilder.setResourceType(...)"
     notes: "Today we treat resources as engine-owned bulk generation (`generateResources`). A Gameplay domain refactor could eventually want explicit, rule-driven resource placement, which would require adapter surface expansion."
 
+  - concern: "map-type conditional resource post-processing"
+    evidence:
+      - ".civ7/outputs/resources/Base/modules/base-standard/maps/resource-generator.js consults `Configuration.getMapValue(\"Name\")` and `GameInfo.MapIslandBehavior`, then calls `replaceIslandResources(...)`"
+      - ".civ7/outputs/resources/Base/modules/base-standard/maps/map-utilities.js defines `replaceIslandResources(iWidth, iHeight, zResourceClassType)`"
+    notes: "This is a real gameplay-oriented lever (e.g., treasure resources on island maps) that is currently only reachable by delegating to the full `generateResources(...)` routine. If we want to make it an explicit, authored behavior, it likely needs a dedicated adapter/SDK surface."
+
   - concern: "start position scoring internals"
     evidence:
       - ".civ7/outputs/resources/Base/modules/base-standard/maps/assign-starting-plots.js uses StartPositioner.getStartPositionScore(...) and related helpers"
