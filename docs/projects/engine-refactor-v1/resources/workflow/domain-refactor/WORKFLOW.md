@@ -686,4 +686,5 @@ Prior art / sequencing helpers:
 - Domain plan examples (draft specs):
   - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/FOUNDATION.md`
   - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/MORPHOLOGY.md`
+  - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/HYDROLOGY.md`
 - Standard recipe stage order: `mods/mod-swooper-maps/src/recipes/standard/recipe.ts`
