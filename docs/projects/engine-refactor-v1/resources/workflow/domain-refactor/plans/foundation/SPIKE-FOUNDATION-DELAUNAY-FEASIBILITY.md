@@ -2,17 +2,18 @@
 
 ## 1) Objective
 
-Evaluate feasibility of a canonical, mesh-first Delaunay/Voronoi backend for Foundation (no legacy or adapter fallback), including wrapX semantics and integration touchpoints.
+Evaluate feasibility of a canonical, mesh-first Delaunay/Voronoi backend for Foundation (no legacy or adapter fallback), including wrapX requirements and integration touchpoints.
 
 ## 2) Assumptions and Unknowns
 
 Assumptions:
 - Canonical only: no engine Voronoi adapter, no fallback path.
 - Foundation is mesh-first (Delaunay -> Voronoi) and offline-capable.
-- wrapX is required for canonical Civ maps.
+- wrapX requirement needs revalidation against current architecture goals (PRD is outdated).
 
 Unknowns:
-- Final mesh coordinate space (hex-space vs raw width/height) and how wrapX should be expressed there.
+- Final mesh coordinate space (hex-space vs raw width/height) and how wrapX would be expressed there if required.
+- Whether Foundation must be wrapX-correct at this stage vs. handled at later projection steps.
 - How far we must go in matching Civ7 internal Voronoi behavior for parity (not required for canonical correctness, but may matter for comparison).
 
 ## 3) Current State (Baseline)
@@ -38,14 +39,9 @@ Unknowns:
 - compute-mesh currently derives neighbors from halfedges; d3-delaunay exposes `voronoi.neighbors(i)` directly, so the op should consume neighbor iterators rather than halfedges.
 - compute-plates-tensors only needs Voronoi cells + area and can stay structurally similar with a new backend.
 
-## 7) wrapX Strategy (Required)
+## 7) wrapX Decision (Pending)
 
-d3-delaunay uses rectangular bounds, so wrapX must be handled explicitly. The canonical, backend-agnostic option is tiling the input sites across x - width, x, x + width, then:
-- Compute Voronoi on the expanded set.
-- Merge neighbors and cell polygons back to the original index space.
-- Ensure symmetry and continuity across seam edges.
-
-This is feasible but requires careful merge rules to avoid duplicate neighbors and malformed polygons near the seam.
+If wrapX is not a Foundation requirement in the current architecture, the backend should skip wrap handling entirely. If wrapX is required, we need an explicit decision on how to express periodicity in a canonical way before implementation.
 
 ## 8) Touchpoints and Impact Map
 
@@ -55,7 +51,7 @@ This is feasible but requires careful merge rules to avoid duplicate neighbors a
 
 ## 9) Verdict
 
-Feasible with caveats. The core algorithmic surface maps cleanly to d3-delaunay, but wrapX behavior and neighbor derivation require explicit design decisions and a small amount of new infrastructure.
+Feasible with caveats. The core algorithmic surface maps cleanly to d3-delaunay. The main open decision is whether wrapX is a Foundation requirement and, if so, how to express periodicity canonically.
 
 ## 10) Minimal Experiment
 
@@ -63,15 +59,14 @@ A small POC wrapper that:
 - Generates a Voronoi diagram from d3-delaunay.
 - Performs 2-3 Lloyd steps using `update()`.
 - Produces neighbors via `voronoi.neighbors(i)` and verifies symmetry.
-- Repeats with wrapX tiling to validate seam neighbors and polygon continuity.
+If wrapX is re-affirmed as in-scope, add a separate micro-POC focused solely on periodicity semantics before wiring it into the backend.
 
 This validates the hardest open questions without touching production code.
 
 ## 11) Risks and Open Questions
 
-- WrapX: tiling may create duplicate edges or unstable polygons at the seam.
+- WrapX requirement drift: if Foundation does need wrapX, we must choose a canonical periodicity strategy before implementation.
 - Coordinate space: Foundation expects hex-space semantics; we need to decide if Voronoi runs in hex-space or grid-space.
-- Performance: wrapX tiling increases point count 3x; verify costs for target plate counts.
 
 ## 12) References
 
