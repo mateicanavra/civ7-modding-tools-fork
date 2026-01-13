@@ -58,7 +58,7 @@ North-star references:
 | --- | --- | --- |
 | Phase 1 | `docs/projects/engine-refactor-v1/resources/spike/spike-morphology-current-state.md` | not started |
 | Phase 2 | `docs/projects/engine-refactor-v1/resources/spike/spike-morphology-modeling.md` | not started |
-| Phase 3 | `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-<milestone>-morphology-vertical-domain-refactor.md` | not started |
+| Phase 3 | `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-morphology-vertical-domain-refactor.md` | not started |
 
 ## Phase 1 hypotheses to validate (current-state)
 

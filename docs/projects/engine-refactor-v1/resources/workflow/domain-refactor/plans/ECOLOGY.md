@@ -67,7 +67,7 @@ Ecology special-case guidance:
 | --- | --- | --- |
 | Phase 1 | `docs/projects/engine-refactor-v1/resources/spike/spike-ecology-current-state.md` | not started |
 | Phase 2 | `docs/projects/engine-refactor-v1/resources/spike/spike-ecology-modeling.md` | not started |
-| Phase 3 | `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-<milestone>-ecology-vertical-domain-refactor.md` | not started |
+| Phase 3 | `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-ecology-vertical-domain-refactor.md` | not started |
 
 ## Phase 1 hypotheses to validate (current-state)
 
