@@ -301,6 +301,30 @@ Branches (downstack → upstack):
 **PR comments**
 - No actionable review comments (Graphite stack boilerplate only); no inline review comments.
 
+### `agent-CANDY-LOCAL-TBD-M8-U21-F5-remove-legacy-artifacts` — PR #548 (`refactor(artifacts): use overlay snapshots instead of separate artifacts`)
+
+**Review effort estimate (complexity × parallelism)**
+- High × Low (8/16): “last mile” migration + deletions; correctness is end-to-end and hard to parallelize.
+
+**Intent (from issue doc)**
+- Complete U21-F: remove legacy artifact registries/wiring (`mods/.../standard/artifacts.ts`, manual artifact satisfiers), consolidate overlay handling into a single artifact-backed snapshot surface, and bring tests/harnesses along.
+
+**Quick take**
+- Yes: this is the right consolidation step. It removes the primary sources of drift (legacy artifact registries + manual satisfiers) and brings the standard recipe closer to the contract-first, single-path model.
+
+**What’s strong**
+- Deletes `mods/mod-swooper-maps/src/recipes/standard/artifacts.ts`, which is the biggest “escape hatch” for the old model and a frequent drift source.
+- Removes the brittle `storyOverlays` satisfier that depended on the old overlays registry shape (resolving the P1 issue raised in PR #546).
+- Adds/updates multiple mod tests (pipeline artifacts + standard run + ecology/placement behaviors), which is the right way to regain confidence after a wide migration.
+- Introduces `mods/mod-swooper-maps/src/recipes/standard/overlays.ts` as a focused adapter from the overlay snapshot artifact to narrative domain models; this is a cleaner dependency boundary than proliferating individual overlay artifacts.
+
+**High-leverage issues / risks**
+- The stack still publishes some artifacts from shared mutable buffers (e.g. `artifact:climateField` from `context.buffers.climate`). If those buffers are refined/mutated later, it undermines the artifact immutability contract; confirm that “publish happens at the final write” or snapshot before publishing.
+- Overlay snapshots are explicitly treated as mutable/append-preferred (and currently routed through artifacts for wiring). That’s a reasonable stopgap, but it’s a distinct semantic from the “immutable data product” story for other artifacts—keeping that distinction crisp in docs and tests will matter as more consumers are added.
+
+**PR comments**
+- No actionable review comments (Graphite boilerplate only); no inline review comments.
+
 ### `agent-CANDY-LOCAL-TBD-M8-U21-F3-ecology-overlays` — PR #546 (`refactor(overlays): migrate ecology steps to artifact system`)
 
 **Review effort estimate (complexity × parallelism)**
