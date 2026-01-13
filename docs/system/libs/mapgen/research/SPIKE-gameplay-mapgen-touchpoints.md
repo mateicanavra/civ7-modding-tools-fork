@@ -1,5 +1,9 @@
 # SPIKE: Gameplay — Mapgen-Time Touchpoints (Evidence)
 
+This spike captures **mapgen-time gameplay levers** visible in Civ7’s official `base-standard` map scripts and data tables.
+
+**Scope note:** This is **design-level evidence**, not an SDK integration plan. It intentionally avoids repo-local wiring details (stage paths, adapter APIs, SDK node locations) to keep churn low.
+
 ## What “gameplay” can touch during map generation (evidence)
 
 - Starts / civ placement (major players): `.civ7/outputs/resources/Base/modules/base-standard/maps/assign-starting-plots.js` implements `assignStartPositions(...)` and includes leader/civ start-bias scoring (biomes, terrains, rivers, coasts, features, resources, lakes, natural wonders).
@@ -13,25 +17,21 @@
 
 - Start biases live in base data: `.civ7/outputs/resources/Base/modules/base-standard/data/leaders.xml` defines `<StartBiasBiomes>`, `<StartBiasTerrains>`, `<StartBiasFeatureClasses>`, `<StartBiasRivers>`, `<StartBiasAdjacentToCoasts>`, `<StartBiasNaturalWonders>`.
 - Discovery type mapping lives in base data: `.civ7/outputs/resources/Base/modules/base-standard/data/narrative-sifting.xml` defines `<DiscoverySiftingImprovements>` that the discovery generator reads.
-- Our SDK already exposes authoring for start-bias tables (evidence: `packages/sdk/src/nodes/StartBias*Node.ts`).
 
 ## What I did not find (re: “barbarians / city-states at mapgen time”)
 
 - I did not find mapgen-time placement logic for barbarians or city-states in `base-standard/maps/*.js` (no callsites analogous to `assignStartPositions` / `generateResources` / `addNaturalWonders`).
 - Barbarians are clearly defined in data (`.civ7/outputs/resources/Base/modules/base-standard/data/Barbarians.xml`), but that appears to be gameplay/system runtime, not the map generator scripts themselves.
 
-## What a combined “gameplay domain” would realistically pull from (today)
+## Design implications (domain shape)
 
-- From placement (existing, fairly “domain-shaped”): the planning ops (`mods/mod-swooper-maps/src/domain/placement/ops/*`) + the final application step that calls engine placement APIs (`mods/mod-swooper-maps/src/recipes/standard/stages/placement/steps/placement/apply.ts`).
-- From narrative (currently gameplay-oriented but not modeled as ops): the narrative stages already emit “story” artifacts like storyOverlays and corridors/motifs (e.g. `mods/mod-swooper-maps/src/recipes/standard/stages/narrative-pre/steps/storyCorridorsPre.contract.ts`, `mods/mod-swooper-maps/src/recipes/standard/stages/narrative-post/steps/storyCorridorsPost.contract.ts`). This is exactly the “overlays for downstream consumers” shape you’ve been pushing.
-- From Civ7 official resources: map scripts + the data tables they consult (start bias tables, discovery sifting table, map-type resource behavior tables). That’s where most “outside the box but real” gameplay levers are today.
+If we treat “gameplay” as a first-class domain in the map generation pipeline, this evidence implies gameplay’s mapgen-time responsibility set is:
+
+- **Board setup:** start positions + advanced start regions.
+- **Content placement:** discoveries + natural wonders + resources (and related post-processing like fertility/water data updates).
+- **Gameplay-tuning inputs:** data tables that condition these scripts (start biases, discovery sifting mapping, map-type resource behavior).
 
 ## A plausible merged shape (conceptual, not implementation)
 
-- Domain: `@mapgen/domain/gameplay` (new), absorbing:
-  - “Board setup” (starts + advanced start regions + late-stage map scoring hooks like fertility).
-  - “Content placement” (wonders, discoveries, resources, floodplains).
-  - “Story overlays” (corridors/swatches/etc) currently living under Narrative stages; these become first-class gameplay outputs consumed by Ecology + Placement.
-- Stages would likely remain multiple (because narrative steps are interleaved across morphology/hydrology today), but they’d be “owned” by the gameplay domain rather than split across narrative + placement.
-
-If you want, I can go one level deeper and produce a concrete “inventory” of exactly which existing narrative-* and placement steps/artifacts become gameplay-owned, plus a short list of new gameplay capabilities we can only reach by extending `EngineAdapter` (e.g., direct resource writes via `ResourceBuilder.setResourceType` which exists in the scripts but isn’t currently exposed as a first-class adapter API).
+- A merged **Gameplay** domain could treat “board setup” and “content placement” as a coherent causal layer that sits *above* physics-derived fields (terrain, climate, hydrology) and *consumes* higher-level “story overlays” (corridors/swatches/etc) to bias/shape final gameplay outcomes.
+- Stages would likely remain multiple (because narrative/playability decisions are interleaved with other domains), but they’d be **owned by gameplay** as a domain concern rather than split across “narrative” vs “placement” as separate ownership units.
