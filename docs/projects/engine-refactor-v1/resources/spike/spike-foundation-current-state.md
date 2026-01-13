@@ -379,3 +379,56 @@ Nearest “Foundation-shaped” canonical step (artifacts + deps signature, but 
 Style exemplar for contract-first authoring (already canonical):
 - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/biomes/contract.ts`
 
+---
+
+## Lookback (Phase 1 → Phase 2): Adjust modeling plan
+
+This lookback converts the Phase 1 inventory into **explicit Phase 2 modeling work** (and flags the decisions/risks that must be resolved before slicing implementation).
+
+### What we learned (Phase 1 synthesis)
+
+- **Foundation is already an artifact producer** at the stage boundary (plates/dynamics/seed/diagnostics/config), and downstream steps already declare `artifacts.requires` on plates/dynamics.
+- **Foundation is not ops-first today**: the Foundation step runtime calls a monolithic producer, which calls Foundation implementation modules directly (`plates.ts`, `plate-seed.ts`, etc.).
+- **Hidden coupling exists in downstream domain code**: multiple morphology/hydrology domain implementations read `artifact:foundation.*` via `ctx.artifacts.get(...)` assertion helpers in `packages/mapgen-core`.
+- **Directionality is currently treated as env-owned at runtime**, but authored inside the recipe config and plumbed into `Env` by map entry wiring (config↔env coupling).
+- **Module-layout coupling exists**: downstream domain code imports `BOUNDARY_TYPE` from Foundation implementation modules, which is not a stable “contract surface”.
+
+### Phase 2 scope updates (modeling work we must do)
+
+1) **Define the op catalog + contract surfaces (Foundation-owned)**
+- Identify the minimal op set that the Foundation step needs to compute the current plate/dynamics tensors (and seed/diagnostics/config snapshot if those remain artifacts).
+- Decide what “atomic” means for Foundation ops in practice (no op calls op): the current producer contains multiple conceptual units (plates, winds, pressure, currents, seed capture/finalize, config snapshot).
+
+2) **Decide what is actually “public and stable” from Foundation**
+- `artifact:foundation.plates` and `artifact:foundation.dynamics` are hard dependencies; preserve them as stable contracts until downstream domains are refactored.
+- Decide whether `artifact:foundation.seed`, `artifact:foundation.diagnostics`, and `artifact:foundation.config` are:
+  - retained as forward-compat/debugging artifacts,
+  - or demoted to internal/non-public (still possible as step-local trace products),
+  - and what their schema/validation posture should be.
+
+3) **Directionality ownership posture**
+- Decide whether directionality should be:
+  - **env-only** (runtime-owned input; config only influences env construction),
+  - **config-only** (domain-owned; env does not carry it),
+  - or **hybrid** (env provides optional overrides; config is default).
+- This decision must be recorded as a Phase 2 “default with trigger”, because it impacts contract design and test harness shape.
+
+4) **Eliminate module-layout coupling (boundary constants)**
+- Design a stable “contract surface” for boundary semantics used by downstream domains (e.g., a Foundation model export that is explicitly stable).
+- This is a Phase 2 modeling decision because it defines what Foundation is responsible for publishing as canonical semantics (even before downstream refactors).
+
+5) **Schema posture for typed arrays**
+- Foundation artifacts are currently defined as `Type.Any()` at the stage level, while mapgen-core validators enforce typed-array shapes.
+- Phase 2 should decide whether stage-owned artifact schemas:
+  - stay permissive (Type.Any) while validation lives in artifact runtimes, or
+  - become explicit TypeBox schemas (with clear guidance on typed array representation), or
+  - move toward a dedicated “typed array artifact schema helper”.
+
+### Plan deltas to carry into Phase 2
+
+- **Appendix A/B updates:** the plan now has concrete filepaths and a current contract matrix; Phase 2 must rewrite Appendix B “target” based on the op catalog and ownership decisions above.
+- **Appendix C additions:** Phase 2 must explicitly record:
+  - directionality ownership posture,
+  - boundary semantics export posture,
+  - and whether seed/diagnostics/config remain public artifacts.
+- **Appendix D updates:** keep R1/R2 as blocking risks for slice ordering (legacy `ctx.artifacts` access and module-layout coupling), and treat schema posture as a medium risk (DX + correctness).

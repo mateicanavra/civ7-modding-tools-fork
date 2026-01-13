@@ -754,6 +754,16 @@ This list prevents “silent assumptions” from becoming accidental architectur
 - **Choice:** (TBD in Phase 2) Confirm the canonical domain-only model assumes graph/mesh-first.
 - **Trigger to revisit:** If an engine constraint makes graph/mesh-first infeasible without a staged migration.
 
+### Decision (Phase 2): Directionality ownership posture
+- **Context:** Current runtime expects `env.directionality` (wired from authored recipe config); some downstream steps assume it exists.
+- **Choice:** (TBD in Phase 2) Decide whether directionality is env-only, config-only, or hybrid (env override + config defaults).
+- **Trigger to revisit:** Only if we introduce a new runtime host that cannot supply env directionality (or if directionality becomes fully derived from Foundation modeling).
+
+### Decision (Phase 2): Stable boundary semantics surface
+- **Context:** Downstream domain code imports boundary enums/constants (`BOUNDARY_TYPE`) from Foundation implementation modules today.
+- **Choice:** (TBD in Phase 2) Define a stable “contract surface” export for boundary semantics so downstream can depend on it without module-layout coupling.
+- **Trigger to revisit:** Only when Morphology refactor lands and no longer needs boundary constants from Foundation.
+
 ## Appendix D: Risk Register (living)
 
 Record whether a risk is **blocking** (must be resolved before implementation proceeds) vs **nice-to-resolve** (ideally resolved, but can be left as an explicit decision/deferral).
@@ -761,20 +771,25 @@ Record whether a risk is **blocking** (must be resolved before implementation pr
 ```yaml
 risks:
   - id: R1
-    title: "Downstream coupling to legacy Foundation outputs"
+    title: "Downstream domains read Foundation artifacts via ctx.artifacts"
     severity: high
     blocking: true
-    notes: "Phase 1 must enumerate consumers; Phase 3 must slice contract changes to keep pipeline coherent."
+    notes: "Legacy coupling via `packages/mapgen-core/src/core/assertions.ts` and downstream domain implementations; slice ordering must avoid introducing new ctx.artifacts dependencies."
   - id: R2
-    title: "Buffers vs artifacts confusion causes accidental re-publish"
+    title: "Downstream imports depend on Foundation implementation module layout"
     severity: high
     blocking: true
-    notes: "Phase 2 must define publish-once buffer-handle semantics; Phase 4 must enforce in step design."
+    notes: "BOUNDARY_TYPE imports from Foundation implementation modules require a stable contract surface."
   - id: R3
-    title: "Plate-graph target model conflicts with existing tests/harness expectations"
+    title: "Directionality is env-owned but authored in config"
     severity: medium
     blocking: false
-    notes: "Phase 3 must define test strategy; Phase 4 slices must keep deterministic harness coverage."
+    notes: "Phase 2 must define a single canonical posture for env vs config vs override."
+  - id: R4
+    title: "Typed array schema posture is split between Type.Any and runtime validators"
+    severity: medium
+    blocking: false
+    notes: "Phase 2 should decide whether artifact schemas remain permissive (validation in runtimes) or become explicit TypeBox schemas/helpers."
 ```
 
 ## Appendix E: Golden Path Example (canonical authoring)
