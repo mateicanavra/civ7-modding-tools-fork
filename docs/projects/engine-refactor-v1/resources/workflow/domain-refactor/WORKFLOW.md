@@ -87,6 +87,40 @@ Rule of thumb:
 - **Upstream compat/projection sunset:** if upstream provides compatibility shims or projection artifacts for migration, do not treat them as canonical inputs. Choose and document the authoritative upstream inputs this domain will use (buffers/artifacts/overlays), and remove compat reads as part of the refactor. If this domain publishes projections for downstream consumers, do so explicitly and mark them as deprecated/compat in contracts/docs.
 - **Compat projection cleanup ownership:** if this refactor leaves compat projections in place, create a cleanup item in `docs/projects/engine-refactor-v1/triage.md`. Do not assume the next downstream refactor will delete them. If the immediate downstream domain can remove them safely and no other downstream consumers are affected, that domain owns the cleanup and must have a dedicated issue for it; link the issue from triage.
 
+## Principles (authoritative surfaces)
+
+Domains own their surfaces. If a clean internal model requires breaking a compatibility surface, break it and update downstream stages in the same refactor. Projections are presentation-only and must never shape the internal representation.
+
+Config ownership is local and narrow. Op contracts must define op-owned strategy schemas; do not reuse a domain-wide config bag inside op contracts. If an external preset bag must be preserved temporarily, map it at step normalization into per-op envelopes or migrate presets outright.
+
+## Anti-patterns (avoid; common failure modes)
+
+- **Phase bleed:** mixing Phase 2 modeling with Phase 3 slice planning or implementation detail. Keep modeling and execution separate.
+- **Missing living artifacts:** a narrative spike without the inventory/contract matrix/decisions/risks/golden path spine.
+- **Model/projection confusion:** treating downstream-compat projections as canonical outputs or letting them shape the model.
+- **Decisions buried in prose:** critical choices not recorded as explicit decisions with rationale and triggers.
+- **Boundary drift:** silent deep imports or `ctx.artifacts` reads that reintroduce coupling during refactor.
+- **Untracked deltas:** changing contracts without updating the contract matrix or cross-pipeline inventory.
+- **Config bag reuse inside ops:** using a domain-wide config bag in op strategy schemas instead of op-owned config.
+
+Example anti-pattern (do not copy):
+```ts
+import { Type } from "@swooper/mapgen-core/authoring";
+import { FoundationConfigSchema } from "../config.js";
+
+export const ComputePlatesContract = defineOp({
+  id: "foundation/compute-plates",
+  kind: "compute",
+  input: Type.Object({ /* ... */ }),
+  output: Type.Object({ /* ... */ }),
+  strategies: {
+    default: Type.Partial(FoundationConfigSchema), // grab-bag config
+  },
+} as const);
+```
+
+Preferred posture: define a minimal op-owned schema and map any external bag at step normalization.
+
 ## Golden reference (Ecology exemplar)
 
 - Domain contract entrypoint: `mods/mod-swooper-maps/src/domain/ecology/index.ts`

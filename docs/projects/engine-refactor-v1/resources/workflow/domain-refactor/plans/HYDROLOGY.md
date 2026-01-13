@@ -28,6 +28,11 @@ Hydrology is currently a “mixed posture” domain: it has early domain module 
 - **Legacy behavior and legacy authoring patterns should not be propagated.**
 - **All new work must be expressed through the canonical architecture and authoring surfaces**, not by copying old patterns “because that’s how this file already does it”.
 
+**Design principles (authoritative surfaces):**
+- Hydrology owns its surfaces. If a clean internal model requires breaking a compatibility surface, break it and update downstream in the same refactor.
+- Projections are presentation-only and must never shape the internal representation.
+- Op config is op-owned and minimal; do not reuse a domain-wide config bag inside op contracts.
+
 **Upstream compatibility rule (apply during this refactor):**
 - If upstream provides compatibility shims or projection artifacts for migration, do not treat them as canonical inputs.
 - This domain must decide and document its authoritative upstream inputs (buffers/artifacts/overlays) and remove compat reads during the refactor.
@@ -35,6 +40,13 @@ Hydrology is currently a “mixed posture” domain: it has early domain module 
 **Compat cleanup tracking:**
 - If any compat projections remain after this refactor, add a cleanup item in `docs/projects/engine-refactor-v1/triage.md`.
 - If the immediate downstream domain can remove them safely with no other downstream consumers affected, that downstream owns the cleanup and must have a dedicated issue; link it from triage.
+
+**Anti-patterns (concise; see WORKFLOW for full list):**
+- Phase bleed: keep modeling separate from slice planning and implementation detail.
+- Missing living artifacts: do not proceed without inventory/contract matrix/decisions/risks/golden path.
+- Model/projection confusion: compat projections are not canonical.
+- Decisions buried in prose: record explicit decisions with rationale + triggers.
+- Config bag in ops: do not use Type.Partial(DomainConfigSchema) as an op strategy schema.
 
 **Concrete example (what not to repeat):**
 - In several existing Ecology steps, the step module imports a config type and then annotates the `run(...)` handler parameter as `config: <SomeConfigType>`, even though the step contract schema already defines and provides the config shape.
