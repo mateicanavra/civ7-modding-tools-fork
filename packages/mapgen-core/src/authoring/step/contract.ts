@@ -46,8 +46,8 @@ function buildSchemaWithOps<const Schema extends TObject, const Ops extends Step
 }
 
 export type StepArtifactsDecl<
-  Requires extends readonly ArtifactContract[] = readonly ArtifactContract[],
-  Provides extends readonly ArtifactContract[] = readonly ArtifactContract[],
+  Requires extends readonly ArtifactContract[] | undefined = undefined,
+  Provides extends readonly ArtifactContract[] | undefined = undefined,
 > = Readonly<{
   requires?: Requires;
   provides?: Provides;

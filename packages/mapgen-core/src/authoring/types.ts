@@ -15,7 +15,7 @@ import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import type { CompileOpsById } from "../compiler/recipe-compile.js";
 import type { DomainOpRuntimeAny, OpsById } from "./bindings.js";
 import type { ArtifactContract } from "./artifact/contract.js";
-import type { ProvidedArtifactRuntime } from "./artifact/runtime.js";
+import type { ProvidedArtifactRuntime, RequiredArtifactRuntime } from "./artifact/runtime.js";
 import type { StepArtifactsDecl, StepContract } from "./step/contract.js";
 
 type ArtifactsByName<T extends readonly ArtifactContract[]> = {
@@ -38,6 +38,34 @@ export type StepProvidedArtifactsRuntime<
     : {}
   : {};
 
+type ArtifactListOrEmpty<T> = T extends readonly ArtifactContract[] ? T : readonly [];
+
+type StepArtifactsSurface<TContext, TArtifacts extends StepArtifactsDecl | undefined> =
+  TContext extends ExtendedMapContext
+    ? TArtifacts extends StepArtifactsDecl<infer Requires, infer Provides>
+      ? {
+          [K in keyof ArtifactsByName<ArtifactListOrEmpty<Requires>>]: RequiredArtifactRuntime<
+            ArtifactsByName<ArtifactListOrEmpty<Requires>>[K],
+            TContext
+          >;
+        } & {
+          [K in keyof ArtifactsByName<ArtifactListOrEmpty<Provides>>]: ProvidedArtifactRuntime<
+            ArtifactsByName<ArtifactListOrEmpty<Provides>>[K],
+            TContext
+          >;
+        }
+      : {}
+    : {};
+
+export type StepDeps<
+  TContext,
+  TArtifacts extends StepArtifactsDecl | undefined,
+> = Readonly<{
+  artifacts: StepArtifactsSurface<TContext, TArtifacts>;
+  fields: unknown;
+  effects: unknown;
+}>;
+
 export type Step<
   TContext = ExtendedMapContext,
   TConfig = unknown,
@@ -47,7 +75,7 @@ export type Step<
   readonly contract: StepContract<TObject, string, any, TArtifacts>;
   artifacts?: StepProvidedArtifactsRuntime<TContext, TArtifacts>;
   normalize?: (config: TConfig, ctx: NormalizeContext) => TConfig;
-  run: (context: TContext, config: TConfig, ops: TOps) => void | Promise<void>;
+  run: (context: TContext, config: TConfig, ops: TOps, deps: StepDeps<TContext, TArtifacts>) => void | Promise<void>;
 };
 
 export const RESERVED_STAGE_KEY = "knobs" as const;

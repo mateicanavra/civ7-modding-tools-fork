@@ -45,6 +45,7 @@ export type {
   RecipeModule,
   Stage,
   StageModule,
+  StepDeps,
   Step,
   StepModule,
 } from "./types.js";

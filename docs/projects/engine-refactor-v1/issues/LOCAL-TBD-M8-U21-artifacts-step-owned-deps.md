@@ -53,6 +53,13 @@ Phase 2 (deferred, requires check-in):
 - **Rationale:** Preserve the specified API surface while providing richer error messages when trace data is available.
 - **Risk:** Errors may show `"unknown"` until step ids are plumbed into trace scope consistently.
 
+### Fail fast when provided artifact runtimes are missing
+- **Context:** Step contracts can declare `artifacts.provides`, but runtime wrappers live on the step module.
+- **Options:** Allow missing runtimes and publish no satisfiers; throw when a declared runtime is absent.
+- **Choice:** Throw at recipe creation when a provided artifact runtime is missing.
+- **Rationale:** Prevent silent gating drift and ensure provides contracts always have runtime behavior.
+- **Risk:** Misconfigured steps will now error at recipe creation time rather than failing later at execution.
+
 ## TL;DR
 ```yaml
 tldr:
