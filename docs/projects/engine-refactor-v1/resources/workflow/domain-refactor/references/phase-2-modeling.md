@@ -4,7 +4,7 @@ Purpose: define the authoritative, first-principles model for the domain and loc
 
 Scope guardrails:
 - This is model-first. Do not include slice planning here.
-- If a compatibility surface conflicts with the model, the model wins.
+- Compatibility surfaces must not live in this domain. If transitional compat is required, it must be downstream-owned and explicitly deprecated.
 
 Required output:
 - `docs/projects/engine-refactor-v1/resources/spike/spike-<domain>-modeling.md`
@@ -28,6 +28,7 @@ Required sections (minimum):
 - Target contract matrix (buffers/artifacts/overlays classification)
 - Legacy disposition ledger (every config property/rule/function is keep/kill/migrate with rationale)
 - Upstream authoritative input selection (adopted inputs + legacy reads to delete)
+- Upstream handoff cleanup (remove upstream-introduced compat/legacy surfaces in this domain)
 - Decisions + defaults (modeling decisions)
 - Risk register (modeling risks)
 - Golden path (authoritative)
@@ -45,6 +46,7 @@ Gate checklist (Phase 2 completion):
 - No slice plan content is present (that belongs to Phase 3).
 - Legacy disposition ledger is complete; any kept legacy invariants are explicit and justified.
 - Upstream authoritative input selection is explicit; legacy upstream reads are flagged for removal.
+- Upstream handoff cleanup is explicit; no upstream compat/legacy surfaces remain in this domain.
 
 References:
 - `docs/projects/engine-refactor-v1/resources/spec/SPEC-DOMAIN-MODELING-GUIDELINES.md`

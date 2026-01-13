@@ -28,6 +28,7 @@ Minimum investigation outputs (you must produce these artifacts in the issue doc
 - A complete config map (schemas, defaults, resolvers, and any runtime fixups to delete).
 - A legacy surface inventory (every config property, rule/policy, and domain function with locations).
 - An upstream authoritative intake (prior domain Phase 2 model + pipeline deltas; adopted inputs vs legacy reads to delete).
+- An upstream handoff review (prior refactor changes to this domain: compat shims, temporary adapters, legacy pathways).
 - A typed-array inventory (ctor + length coupling + where validation occurs).
 - A deletion list with “around-the-block” references (symbols + file paths that must go to zero).
 
@@ -107,6 +108,10 @@ Property ledger (required):
 - Enumerate the authoritative upstream inputs you will adopt (contract ids + file paths).
 - Enumerate legacy upstream reads to delete (callsite + replacement input).
 
+Upstream handoff review (also required):
+- Identify any prior refactor changes to this domain’s surfaces (compat shims, temporary adapters, legacy pathways).
+- List the exact files/exports and the planned removal path in this refactor.
+
 ### E) Typed arrays + invariants
 
 Inventory every typed array used in the domain boundary:
@@ -125,6 +130,7 @@ List and link every instance of:
 - RNG callbacks/state crossing into domain logic (e.g. `options.rng`, `ctx.rng`),
 - runtime config fixups/merges inside op/domain code,
 - consuming upstream compatibility shims or projection artifacts instead of authoritative upstream inputs.
+- retaining upstream-introduced compat surfaces inside this domain.
 
 ### G) Rules/policies/functions inventory (required)
 

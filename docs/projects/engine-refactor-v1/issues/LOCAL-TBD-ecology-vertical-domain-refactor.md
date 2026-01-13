@@ -11,6 +11,7 @@ References:
 Scope guardrails:
 - Slice planning only. No model changes here.
 - Every slice ends pipeline-green (no dual paths).
+- The refactored domain must not retain compat surfaces; downstream adjustments are part of the plan.
 
 ---
 

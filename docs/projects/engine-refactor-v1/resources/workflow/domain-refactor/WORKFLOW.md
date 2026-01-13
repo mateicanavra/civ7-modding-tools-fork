@@ -72,14 +72,14 @@ Recommended “outside view” doc set (create only what you need; keep it small
 - **Explicit legacy audit required:** every existing config property, rule/policy, and domain function must be inventoried and explicitly classified as model-relevant or legacy. Unclassified surfaces are a gate failure.
 - **Docs-as-code is enforced:** any touched exported function/op/step/schema gets contextual JSDoc and/or TypeBox `description` updates (trace references before writing docs).
 - **Authoritative modeling (not “code cleanup”):** prefer the physically grounded target model over preserving legacy behavior; delete/replace broken or nonsensical behavior as needed.
-- **Cross-pipeline consistency is required:** when the domain model changes contracts/artifacts, update upstream/downstream steps and stage-owned artifact contracts so the whole pipeline stays internally consistent (no “temporary mismatch”).
-- **Upstream model intake (non-root):** review the prior domain’s Phase 2 modeling spike and pipeline delta list, then explicitly document which authoritative inputs this domain will adopt and which legacy inputs will be deleted.
-- **Upstream compat/projection sunset:** if upstream provides compatibility shims or projection artifacts for migration, do not treat them as canonical inputs. Choose and document authoritative upstream inputs, and remove compat reads as part of the refactor. If this domain publishes projections for downstream consumers, mark them as deprecated/compat in contracts/docs.
-- **Compat projection cleanup ownership:** if compat projections remain, create a cleanup item in `docs/projects/engine-refactor-v1/triage.md`. If the immediate downstream domain can remove them safely and no other downstream consumers are affected, that downstream owns the cleanup and must have a dedicated issue; link it from triage.
+- **Cross-pipeline consistency is required:** when the domain model changes contracts/artifacts, update downstream steps and stage-owned artifact contracts in the same refactor so the whole pipeline stays internally consistent (no “temporary mismatch”).
+- **Upstream model intake (non-root):** review the prior domain’s Phase 2 modeling spike and pipeline delta list, then explicitly document which authoritative inputs this domain will adopt and which legacy inputs will be deleted. Also review any upstream refactor changes that touched this domain (compat shims, temporary adapters, legacy pathways) and explicitly plan their removal.
+- **No upstream compat surfaces:** the domain being refactored must not publish legacy compat or projection surfaces. If downstream needs transitional compatibility, it must be implemented in the downstream domain with explicit `DEPRECATED` / `DEPRECATE ME` markers. Upstream refactors must update downstream consumers in the same change.
+- **Compat cleanup ownership:** if any downstream deprecated compat surfaces remain, create a cleanup item in `docs/projects/engine-refactor-v1/triage.md`. If the immediate downstream domain can remove them safely and no other downstream consumers are affected, that downstream owns the cleanup and must have a dedicated issue; link it from triage.
 
 ## Principles (authoritative surfaces)
 
-Domains own their surfaces. If a clean internal model requires breaking a compatibility surface, break it and update downstream stages in the same refactor. Projections are presentation-only and must never shape the internal representation.
+Domains own their surfaces. The refactored domain must not retain legacy compat surfaces; update downstream consumers in the same refactor. If a downstream domain needs a transitional shim, it owns it and marks it as deprecated. Projections are presentation-only and must never shape the internal representation.
 
 Config ownership is local and narrow. Op contracts must define op-owned strategy schemas; do not reuse a domain-wide config bag inside op contracts. If an external preset bag must be preserved temporarily, map it at step normalization into per-op envelopes or migrate presets outright.
 
@@ -88,6 +88,7 @@ Config ownership is local and narrow. Op contracts must define op-owned strategy
 - **Phase bleed:** mixing Phase 2 modeling with Phase 3 slice planning or implementation detail.
 - **Missing living artifacts:** a narrative spike without the inventory/contract matrix/decisions/risks/golden path spine.
 - **Model/projection confusion:** treating downstream-compat projections as canonical outputs or letting them shape the model.
+- **Upstream compat retention:** leaving legacy compat or projection surfaces inside the refactored domain.
 - **Decisions buried in prose:** critical choices not recorded as explicit decisions with rationale and triggers.
 - **Boundary drift:** silent deep imports or `ctx.artifacts` reads that reintroduce coupling during refactor.
 - **Untracked deltas:** changing contracts without updating the contract matrix or cross-pipeline inventory.
@@ -120,12 +121,14 @@ Phase 1 gate:
 - Boundary violations and deletions are explicit.
 - Legacy surface inventory exists (all config properties, rules/policies, functions; no “TBD” placeholders).
 - Upstream authoritative input review is documented (if the domain is not the pipeline root).
+- Upstream handoff review is documented (prior refactor changes to this domain; removal plan is explicit).
 
 Phase 2 gate:
 - Modeling spike exists and includes the canonical model + target contract matrix.
 - No slice plan content is present.
 - Legacy disposition ledger is complete (every property/rule/function is keep/kill/migrate with rationale).
 - Upstream authoritative inputs are selected and legacy upstream reads are marked for removal.
+- Upstream handoff cleanup is explicit; no upstream-introduced compat surfaces remain in this domain.
 
 Phase 3 gate:
 - Implementation issue exists and includes an executable slice plan.

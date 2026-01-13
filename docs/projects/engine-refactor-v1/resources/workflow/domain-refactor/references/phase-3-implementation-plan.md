@@ -5,6 +5,7 @@ Purpose: convert the spikes into an executable slice plan and a single source-of
 Scope guardrails:
 - This is slice planning only. Do not change the model here.
 - Every slice must end in a pipeline-green state (no dual paths).
+- The refactored domain must not retain compat surfaces; downstream adjustments are part of the plan.
 
 Required output:
 - `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-<milestone>-<domain>-*.md`
@@ -29,6 +30,7 @@ Gate checklist (Phase 3 completion):
 - Every planned slice can end in a working state (no “we’ll delete later”).
 - Any pipeline delta from Phase 2 is fully assigned to slices.
 - No model changes appear in the issue doc (modeling lives in Phase 2).
+- No compat surfaces remain in the refactored domain; any deprecated shims live in downstream domains and are explicitly marked.
 
 References:
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/op-and-config-design.md`

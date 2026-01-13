@@ -24,16 +24,16 @@ Hard principle:
 - **All new work must be expressed through the canonical architecture and authoring surfaces.**
 
 Design principles (authoritative surfaces):
-- Hydrology owns its surfaces. If a clean internal model requires breaking a compatibility surface, break it and update downstream in the same refactor.
+- Hydrology owns its surfaces. The refactor must not retain legacy compat surfaces; update downstream consumers in the same refactor. If downstream needs transitional shims, they live downstream and are explicitly marked as deprecated.
 - Projections are presentation-only and must never shape the internal representation.
 - Op config is op-owned and minimal; do not reuse a domain-wide config bag inside op contracts.
 - Every existing config property, rule/policy, and function must be explicitly accepted into the model or rejected as legacy (no silent carry-through).
-- Review the upstream Phase 2 model (Morphology, plus Foundation as needed) and explicitly adopt authoritative inputs while deleting legacy reads.
+- Review the upstream Phase 2 model (Morphology, plus Foundation as needed), explicitly adopt authoritative inputs, and delete legacy reads. Also review any upstream refactor changes that touched Hydrology surfaces and plan their removal.
 
 Compatibility and cleanup rules:
-- Upstream compat/projection artifacts are **not** canonical inputs.
-- If this refactor leaves compat projections in place, add a cleanup item in `docs/projects/engine-refactor-v1/triage.md`.
-- If the immediate downstream domain can remove them safely and no other downstream consumers are affected, that downstream owns the cleanup and must have a dedicated issue; link it from triage.
+- This refactor must not leave compat/projection surfaces in Hydrology. Downstream consumers must be updated as part of this refactor.
+- If a downstream domain needs transitional compatibility, it owns the deprecated shim and must mark it explicitly (`DEPRECATED` / `DEPRECATE ME`).
+- If downstream deprecated shims are introduced, add a cleanup item in `docs/projects/engine-refactor-v1/triage.md`. If the immediate downstream domain can remove them safely and no other downstream consumers are affected, that downstream owns a dedicated cleanup issue; link it from triage.
 
 Anti-patterns (concise; see WORKFLOW for full list):
 - Phase bleed (modeling vs slicing vs implementation).
