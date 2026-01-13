@@ -15,8 +15,34 @@
 import "@swooper/mapgen-core/polyfills/text-encoder";
 import standardRecipe from "../recipes/standard/recipe.js";
 import type { StandardRecipeConfig } from "../recipes/standard/recipe.js";
+import type { FoundationDirectionalityConfig } from "@mapgen/domain/config";
 import type { MapRuntimeOptions } from "./_runtime/types.js";
 import { wireStandardMapEntry } from "./_runtime/standard-entry.js";
+
+const directionality: FoundationDirectionalityConfig = {
+  // Varied patterns for diverse island climates
+  cohesion: 0.18,
+  primaryAxes: {
+    plateAxisDeg: 30,
+    windBiasDeg: 25,
+    currentBiasDeg: 35,
+  },
+  interplay: {
+    windsFollowPlates: 0.2,
+    currentsFollowWinds: 0.65,
+    riftsFollowPlates: 0.75,
+  },
+  hemispheres: {
+    southernFlip: true,
+    monsoonBias: 0.85,
+    equatorBandDeg: 22,
+  },
+  variability: {
+    // High variability for island-specific climates
+    angleJitterDeg: 30,
+    magnitudeVariance: 0.6,
+  },
+};
 
 const config = {
   foundation: {
@@ -40,30 +66,6 @@ const config = {
             bumps: 7,
             amplitude: 0.9,
             scale: 0.4,
-          },
-          directionality: {
-            // Varied patterns for diverse island climates
-            cohesion: 0.18,
-            primaryAxes: {
-              plateAxisDeg: 30,
-              windBiasDeg: 25,
-              currentBiasDeg: 35,
-            },
-            interplay: {
-              windsFollowPlates: 0.2,
-              currentsFollowWinds: 0.65,
-              riftsFollowPlates: 0.75,
-            },
-            hemispheres: {
-              southernFlip: true,
-              monsoonBias: 0.85,
-              equatorBandDeg: 22,
-            },
-            variability: {
-              // High variability for island-specific climates
-              angleJitterDeg: 30,
-              magnitudeVariance: 0.6,
-            },
           },
         },
       },
@@ -728,8 +730,6 @@ const config = {
 } satisfies StandardRecipeConfig;
 
 const runtimeOptions: MapRuntimeOptions = { logPrefix: "[SWOOPER_MOD]" };
-const directionality =
-  config.foundation.foundation.foundation.dynamics.directionality;
 
 wireStandardMapEntry({
   engine,

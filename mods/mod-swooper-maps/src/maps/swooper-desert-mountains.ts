@@ -13,8 +13,30 @@
 import "@swooper/mapgen-core/polyfills/text-encoder";
 import standardRecipe from "../recipes/standard/recipe.js";
 import type { StandardRecipeConfig } from "../recipes/standard/recipe.js";
+import type { FoundationDirectionalityConfig } from "@mapgen/domain/config";
 import type { MapRuntimeOptions } from "./_runtime/types.js";
 import { wireStandardMapEntry } from "./_runtime/standard-entry.js";
+
+const directionality: FoundationDirectionalityConfig = {
+  cohesion: 0.2,
+  primaryAxes: {
+    plateAxisDeg: 127,
+    windBiasDeg: 0,
+    currentBiasDeg: 67,
+  },
+  interplay: {
+    windsFollowPlates: 0.4,
+    currentsFollowWinds: 0.6,
+    riftsFollowPlates: 0.75,
+  },
+  hemispheres: {
+    southernFlip: true,
+  },
+  variability: {
+    angleJitterDeg: 15,
+    magnitudeVariance: 0.5,
+  },
+};
 
 const config = {
   foundation: {
@@ -36,26 +58,6 @@ const config = {
             bumps: 3,
             amplitude: 1.0,
             scale: 1,
-          },
-          directionality: {
-            cohesion: 0.2,
-            primaryAxes: {
-              plateAxisDeg: 127,
-              windBiasDeg: 0,
-              currentBiasDeg: 67,
-            },
-            interplay: {
-              windsFollowPlates: 0.4,
-              currentsFollowWinds: 0.6,
-              riftsFollowPlates: 0.75,
-            },
-            hemispheres: {
-              southernFlip: true,
-            },
-            variability: {
-              angleJitterDeg: 15,
-              magnitudeVariance: 0.5,
-            },
           },
         },
       },
@@ -609,8 +611,6 @@ const config = {
 } satisfies StandardRecipeConfig;
 
 const runtimeOptions: MapRuntimeOptions = { logPrefix: "[SWOOPER_MOD]" };
-const directionality =
-  config.foundation.foundation.foundation.dynamics.directionality;
 
 wireStandardMapEntry({
   engine,

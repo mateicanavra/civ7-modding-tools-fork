@@ -15,8 +15,34 @@
 import "@swooper/mapgen-core/polyfills/text-encoder";
 import standardRecipe from "../recipes/standard/recipe.js";
 import type { StandardRecipeConfig } from "../recipes/standard/recipe.js";
+import type { FoundationDirectionalityConfig } from "@mapgen/domain/config";
 import type { MapRuntimeOptions } from "./_runtime/types.js";
 import { wireStandardMapEntry } from "./_runtime/standard-entry.js";
+
+const directionality: FoundationDirectionalityConfig = {
+  // Lower coherence for radial patterns
+  cohesion: 0.12,
+  primaryAxes: {
+    plateAxisDeg: 45,
+    windBiasDeg: 20,
+    currentBiasDeg: 30,
+  },
+  interplay: {
+    windsFollowPlates: 0.25,
+    currentsFollowWinds: 0.5,
+    riftsFollowPlates: 0.75,
+  },
+  hemispheres: {
+    southernFlip: true,
+    monsoonBias: 0.7,
+    equatorBandDeg: 20,
+  },
+  variability: {
+    // High variability for radial flow patterns
+    angleJitterDeg: 25,
+    magnitudeVariance: 0.55,
+  },
+};
 
 const config = {
   foundation: {
@@ -40,30 +66,6 @@ const config = {
             bumps: 5,
             amplitude: 0.85,
             scale: 0.5,
-          },
-          directionality: {
-            // Lower coherence for radial patterns
-            cohesion: 0.12,
-            primaryAxes: {
-              plateAxisDeg: 45,
-              windBiasDeg: 20,
-              currentBiasDeg: 30,
-            },
-            interplay: {
-              windsFollowPlates: 0.25,
-              currentsFollowWinds: 0.5,
-              riftsFollowPlates: 0.75,
-            },
-            hemispheres: {
-              southernFlip: true,
-              monsoonBias: 0.7,
-              equatorBandDeg: 20,
-            },
-            variability: {
-              // High variability for radial flow patterns
-              angleJitterDeg: 25,
-              magnitudeVariance: 0.55,
-            },
           },
         },
       },
@@ -730,8 +732,6 @@ const config = {
 } satisfies StandardRecipeConfig;
 
 const runtimeOptions: MapRuntimeOptions = { logPrefix: "[SWOOPER_MOD]" };
-const directionality =
-  config.foundation.foundation.foundation.dynamics.directionality;
 
 wireStandardMapEntry({
   engine,

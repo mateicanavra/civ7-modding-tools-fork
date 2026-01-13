@@ -125,7 +125,6 @@ const foundationConfig = {
       amplitude: 0.7,
       scale: 0.45,
     },
-    directionality,
   },
 };
 
