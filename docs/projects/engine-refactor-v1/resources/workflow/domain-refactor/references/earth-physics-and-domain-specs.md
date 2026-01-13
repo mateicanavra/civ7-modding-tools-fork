@@ -27,6 +27,27 @@ It also records which “research” docs are safe to treat as **inputs** today 
 **Domain-specific seed (non-authoritative for architecture/contracts):**
 - `docs/projects/engine-refactor-v1/resources/PRD-plate-generation.md` (Foundation modeling + artifacts; explicitly non-authoritative)
 
+## Canonical modeling rule: buffers vs artifacts
+
+When modeling (Phase 2) and implementing (Phase 4), treat “buffers” and “artifacts” as distinct kinds of pipeline state:
+
+- **Buffers:** mutable, shared working layers that multiple steps (and sometimes stages) refine over time (e.g., heightfield/elevation, climate field, routing indices).
+- **Artifacts:** published, write-once contracts used for dependency gating and stable typed consumption.
+
+Important nuance: today, some buffers are still routed through the artifact system for gating/typing. This is an intentional, temporary compromise and **must not** be re-canonized as “buffers are artifacts”. Model buffer layers as buffers, and treat any artifact wrapping as a wiring strategy.
+
+Canonical conceptual reference: `docs/system/libs/mapgen/architecture.md` (“Pipeline state kinds”).
+
+## Canonical modeling rule: overlays
+
+Overlays are a cross-cutting way to publish structured “stories of formation” (corridors, swatches, etc.) so downstream domains can bias behavior using interpretable motifs.
+
+- **Canonical shape:** a single `overlays` container with per-type collections (e.g., `overlays.corridors`, `overlays.swatches`).
+- **Mutation posture:** append-preferred; mutation is rare and intentional.
+- **Current wiring:** overlays are routed through artifact contracts for gating/typing, but they must be modeled as overlays (not as “just artifacts”) so the later first-class refactor doesn’t rewrite domain intent.
+
+Canonical conceptual reference: `docs/system/libs/mapgen/architecture.md` (“Overlays”).
+
 ## Recommended consolidation targets (so these become stable workflow references)
 
 The `SPIKE-*` docs in `docs/system/libs/mapgen/research/` are useful, but too large and too “scratchy” to treat as workflow-canonical long term.

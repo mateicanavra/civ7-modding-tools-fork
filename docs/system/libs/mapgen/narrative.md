@@ -18,6 +18,7 @@ Unlike other domains that have clear physical ownership, Narrative is a **cross-
 **Target model (locked):**
 - Narrative **story entries** are the published primitives (immutable artifacts).
 - Narrative “views” (overlays/snapshots) are **derived on demand** from story entries (and, where relevant, current buffers) for inspection/debug/contracts; they are not published dependency surfaces.
+  - “Buffers” are mutable working layers (e.g., heightfield, climate fields) distinct from artifacts; see `docs/system/libs/mapgen/architecture.md` (“Pipeline state kinds”).
 
 ### Core responsibilities
 

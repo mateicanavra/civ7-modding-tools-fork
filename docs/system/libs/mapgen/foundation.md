@@ -12,6 +12,18 @@ The Foundation layer constructs the physical "board" used by downstream shaping:
 
 Unlike grid-based noise and nearest-neighbor heuristics, this approach uses a graph-based physics model that explicitly decouples **kinematics** (plate motion) from **material** (crust type/age).
 
+### Modeling posture: mesh-first (not tile-first)
+
+- The canonical Foundation substrate is a **mesh/graph** (Delaunay → Voronoi), not a tile grid.
+- Any tile-indexed representation is a **projection/derivation** for consumers; it must not drive the Foundation model.
+- Legacy “tile-first” Foundation behavior is treated as baseline/legacy and must not be re-enshrined as the target model.
+
+### Buffers vs artifacts (contract nuance)
+
+Foundation mostly produces **publish-once products** that downstream domains treat as immutable inputs (mesh, crust, plate graph, force fields).
+
+If Foundation runs multi-pass history (eras) and accumulates long-term signals (e.g., `cumulativeUplift`), treat those accumulators as **buffers** (mutable working layers) with a publish-once contract surface (an “artifact handle”) for gating/typed access.
+
 ### Core responsibilities
 
 1. **Mesh generation:** Create a regularized Voronoi graph to represent the world surface.

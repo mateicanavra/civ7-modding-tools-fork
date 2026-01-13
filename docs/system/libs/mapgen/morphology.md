@@ -29,17 +29,37 @@ Prefer **field-based geomorphology** (solving on the graph) over **particle-base
 
 ## Key data products
 
+### Buffers vs artifacts (contract nuance)
+
+Morphology is fundamentally **buffer-oriented**: it refines shared, mutable world layers over multiple steps and often across domains.
+
+- The canonical example is the **elevation/heightfield**: it is iteratively refined (uplift → erosion → deposition → sea level) and then consumed broadly downstream.
+- Under current pipeline constraints, a buffer may be **published once** as an artifact “handle” for gating/typed access, but the buffer itself remains a mutable working layer until the pipeline freezes it.
+
+### Overlays (formation motifs for downstream consumers)
+
+In addition to buffers and published products, Morphology may publish **overlays** to describe motif-like formation stories that downstream domains can consume.
+
+Example: “mountain corridors”
+- The base morphology products describe *what exists* (elevation, land mask, erosion proxies).
+- A corridor overlay describes *a specific interpretable pattern* (“this is a pass/corridor carved by uplift + erosion history”).
+- Downstream usage:
+  - Ecology can bias vegetation/biome transitions along corridor overlays.
+  - Placement can bias starts/POIs along corridor overlays.
+
+Overlays are append-preferred collections inside a single `overlays` container (e.g., `overlays.corridors`); they are currently routed through artifact contracts for gating/typing but should be modeled as overlays, not as “just artifacts”.
+
 ### Inputs
 
 - Region mesh / neighbor graph.
 - Crust type/age and tectonic force fields (uplift, volcanism, cumulative uplift).
 
-### Intermediate products
+### Intermediate buffers (mutable working layers)
 
 Data used to drive simulation and downstream Ecology.
 
 ```typescript
-interface MorphologyArtifacts {
+interface MorphologyBuffers {
   /**
    * Per-cell coefficient K representing resistance to erosion.
    * Derived from crust type/age (granite is hard, sandstone is soft).
@@ -73,8 +93,7 @@ interface MorphologyArtifacts {
 
 ### Outputs
 
-- Elevation field (scaled meters).
-- Land/ocean mask.
+- Elevation/heightfield and land/ocean mask (canonical shared layers).
 
 ## Conceptual steps
 

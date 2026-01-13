@@ -51,6 +51,26 @@ Placement is explicitly downstream because it must remain free to:
 Canonical playability stance and story-entry model:
 - `docs/projects/engine-refactor-v1/resources/PRD-target-narrative-and-playability.md`
 
+### Buffers vs artifacts (contract nuance)
+
+Placement should primarily consume **artifacts** (published contracts). If Placement reads from shared **buffers** (mutable working layers like elevation/heightfield), treat those reads as:
+
+- intentionally scoped (only what is necessary for a placement decision),
+- stable (no ad-hoc heuristics scattered across the codebase),
+- and effectively **read-only** at this stage (Placement should not mutate cross-domain buffers as part of “final decisions”).
+
+### Overlays (story-driven placement bias)
+
+Placement may consume upstream **overlays** to bias decisions in a way that is explainable and testable.
+
+Examples:
+- Use `overlays.corridors` (mountain/rift corridors) to bias:
+  - start adjacency to passes,
+  - goodies/barbs placement along strategic routes,
+  - or “interesting map” constraints.
+
+Placement should generally treat overlays as read-only and avoid mutating shared overlay collections at this stage.
+
 ## Outputs (what Placement owns and publishes)
 
 Placement produces decisions, not just fields:
@@ -86,4 +106,3 @@ Historical rationale (archived): `docs/projects/engine-refactor-v1/resources/spi
 
 - What is the minimal stable contract for “resource basin candidates” so Ecology can change its internals without forcing Placement churn?
 - Which placement decisions must be explainable/diagnosable in artifacts (for debugging and mod tuning), and at what granularity?
-
