@@ -67,3 +67,4 @@ North-star references:
 - Slice planning and sequencing belong in the Phase 3 issue.
 - Delaunay/Voronoi modeling alignment audit: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/foundation/SPIKE-FOUNDATION-PRD-AUDIT.md`.
 - Delaunay/Voronoi backend feasibility: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/foundation/SPIKE-FOUNDATION-DELAUNAY-FEASIBILITY.md`.
+- Delaunay/Voronoi canonical spec: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/foundation/SPEC-FOUNDATION-DELAUNAY-VORONOI.md`.
