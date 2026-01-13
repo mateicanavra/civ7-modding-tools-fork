@@ -222,10 +222,94 @@ This is **not** an implementation plan; it’s the list of contract-level impact
 
 ## Lookback (Phase 2 → Phase 3): Adjust implementation plan
 
-Intentionally left as a placeholder to be written after Phase 3 slicing draft exists:
-- finalized invariants (what must not change during implementation),
-- risks (top 3) + how slice ordering mitigates them,
-- pipeline delta slicing strategy (how contract changes land without breaking the pipeline),
-- contract matrix deltas (what requires/provides changes by slice),
-- test strategy notes (op-unit vs thin integration).
+Phase 2 locked the **authoritative, model-first Foundation posture**. This lookback converts that posture into a slice plan that can be implemented without breaking the pipeline.
 
+### 1) Finalized invariants (must not change during implementation)
+
+These are the “laws of the land” for the Foundation refactor. If an implementation detail conflicts with any invariant, the implementation is wrong.
+
+1) **Model-first (authoritative):** mesh/graph causality is canonical; tile-indexed tensors are projections for downstream compatibility, not the model.
+2) **Single-path authoring:** steps orchestrate via `run(ctx, config, ops, deps)` and access dependencies via `deps` only (no `ctx.artifacts.get(...)` and no step imports of op implementations).
+3) **Atomic ops:** ops do not call other ops; composition lives in the stage/step.
+4) **Stage-owned artifacts:** Foundation outputs are published via stage-owned artifact contracts; consumers depend on those contracts, not ad-hoc tags or internal module paths.
+5) **Stable boundary semantics:** `BOUNDARY_TYPE` meaning is stable and available via a stable export surface (consumers must not depend on Foundation module layout beyond that contract surface).
+6) **Env-owned directionality:** `env.directionality` is authoritative; authored config only influences env construction at the entry boundary.
+7) **Trace artifacts are non-canonical:** `foundation.seed/config/diagnostics` remain trace-only (never required by downstream steps; never used as modeling inputs).
+8) **Typed-array schemas are explicit:** artifact/op schemas must not default to `Type.Any()` for typed-array payloads; prefer explicit schema helpers + runtime invariant validation (ADR-ER1-030).
+
+### 2) Top risks (and how slice ordering mitigates them)
+
+1) **Blocking: downstream reads via `ctx.artifacts.get(...)`.**
+   - Risk: any attempt to make Foundation contract-first while downstream still “reaches around” the step boundary recreates coupling and makes slice-by-slice unsafe.
+   - Mitigation: land an early slice that removes (or mechanically fences) `ctx.artifacts.get(artifact:foundation.*)` usage from `packages/mapgen-core` and downstream domain logic, and routes all reads through `deps.artifacts.<contractName>.read()` in step runtimes.
+
+2) **Blocking: downstream imports depend on Foundation implementation module layout (`BOUNDARY_TYPE`).**
+   - Risk: if we reorganize Foundation modules as part of ops-first refactor, downstream breaks (and the “contract-only” posture becomes fiction).
+   - Mitigation: treat boundary semantics as a first-class contract surface and lock a stable export path *before* deleting/moving Foundation internals; optionally add lint/guardrails to prevent new deep imports.
+
+3) **Non-blocking (but must be enforced): typed-array schemas are currently `Type.Any()`.**
+   - Risk: contract-first refactor without schema tightening leaves the system “typed by vibes” and encourages more `Any`-shaped artifacts.
+   - Mitigation: introduce typed-array schemas as part of slice 1 (or slice 2) while behavior is unchanged; this keeps failures local and makes later refactors safer.
+
+### 3) Pipeline delta slicing strategy (keep the pipeline coherent at every boundary)
+
+The safest path is **additive-first, then migration, then deletion**:
+
+- **Additive-first:** introduce mesh-first artifacts (`foundation.mesh/crust/plateGraph/tectonics`) as *additional* provides from the Foundation stage while keeping existing consumer artifacts (`foundation.plates/dynamics`) stable.
+- **Migration:** move consumers off legacy access paths (deep imports, `ctx.artifacts.get`) and onto stable step/stage contracts + `deps`.
+- **Deletion:** once the pipeline is coherent through contracts, delete legacy entrypoints (monolithic producer surfaces, `ctx.artifacts` assertions, and any “compat” helpers that bypass `deps`).
+
+This ordering keeps the pipeline working while still honoring the “no dual paths” intent: the “dual” period is contract-level (additive artifacts), not two competing implementations.
+
+### 4) Contract matrix delta by slice (draft)
+
+This is expressed in terms of the shared Contract Matrix in the plan doc (Appendix B).
+
+- **Slice 1 (contract-first surfacing; behavior-preserving):**
+  - `foundation/foundation` provides remain: `foundation.plates`, `foundation.dynamics`, trace artifacts.
+  - Change: schemas become explicit (typed-array posture); step runtime orchestration shifts to injected ops (no direct imports of implementations).
+  - No downstream contract changes yet (purely internal + schema tightening).
+
+- **Slice 2 (additive mesh-first contracts):**
+  - `foundation/foundation` additionally provides: `foundation.mesh`, `foundation.crust`, `foundation.plateGraph`, `foundation.tectonics`.
+  - Downstream requires remain unchanged (they still require `foundation.plates/dynamics`).
+
+- **Slice 3 (consumer migration off legacy access paths):**
+  - No `requires/provides` changes at the step-contract layer.
+  - Change: downstream domain logic/steps stop using `ctx.artifacts.get(artifact:foundation.*)` and any deep imports not on the stable contract surface.
+
+- **Slice 4 (directionality cutover + deletion sweep):**
+  - If `FoundationConfigSchema` currently exposes directionality knobs that are actually env-owned, move them to the env construction boundary (entry/compiler) or delete them as part of removing config/env coupling.
+  - Delete legacy entrypoints that bypass ops/stage contracts (producer-only surfaces, stale assertion helpers).
+
+### 5) Draft slice boundaries (Phase 3 hardens this into an executable checklist)
+
+Slice boundaries are chosen to keep “blast radius” small and to ensure each slice can end with the pipeline green.
+
+1) **Slice 1 — Establish Foundation’s contract-first “spine” (behavior-preserving).**
+   - Introduce: Foundation op contracts + implementations for the *existing* published outputs (`foundation.plates`, `foundation.dynamics`), implemented by delegating to the current algorithms.
+   - Convert: Foundation stage orchestration to call injected ops; stop importing Foundation implementation modules from the step.
+   - Tighten: stage-owned artifact schemas (remove `Type.Any()` posture where possible).
+   - Stabilize: boundary semantics export surface is treated as a contract (no new deep imports).
+
+2) **Slice 2 — Add mesh-first artifacts as additive provides (model-first scaffolding).**
+   - Introduce: mesh-first artifact contracts + op contracts (`compute-mesh`, `compute-crust`, `compute-plate-graph`, `compute-tectonics`), even if initial implementations are thin wrappers around existing in-memory structures.
+   - Publish: additive artifacts from the Foundation stage without changing downstream requirements.
+
+3) **Slice 3 — Remove legacy cross-pipeline coupling (consumers migrate).**
+   - Replace: `packages/mapgen-core` `assertFoundation*` artifact reads via `ctx.artifacts.get(...)` with canonical `deps` access patterns at step boundaries.
+   - Update: downstream domain logic call sites so plates/dynamics are passed explicitly (or read via `deps` in step runtime), not fetched from ctx.
+
+4) **Slice 4 — Directionality cutover + deletion sweep.**
+   - Enforce: `env.directionality` ownership end-to-end (entry boundary constructs env; Foundation does not “own” directionality as a hidden config).
+   - Delete: monolithic producer entrypoints and any stale “compat” paths that bypass ops/stage contracts.
+
+### 6) Test strategy notes (deterministic harnessing vs thin integration)
+
+- **Op-unit tests (deterministic, fast):** each `foundation/compute-*` op should have targeted tests that lock invariants (array lengths, bounds, determinism for a fixed seed/env, and boundary enum meaning).
+- **Thin integration tests (pipeline sanity):** keep at least one end-to-end “standard recipe runs” test path that asserts:
+  - Foundation publishes required artifacts,
+  - downstream stages still consume plates/dynamics coherently,
+  - no `ctx.artifacts.get(artifact:foundation.*)` reads exist outside explicitly allowed legacy test harnesses.
+
+If determinism is not currently achievable for a given op (because of engine RNG or floating-point sensitivity), record that as an explicit test gap and require a follow-up slice to make it deterministic.

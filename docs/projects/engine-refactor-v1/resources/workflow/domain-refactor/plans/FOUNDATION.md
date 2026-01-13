@@ -334,6 +334,7 @@ Cross-pipeline posture (required):
 **Outputs:**
 - A local implementation issue doc (domain-local “source of truth”):
   - `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-<milestone>-foundation-*.md`
+  - Current draft: `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M8-U21-foundation-vertical-domain-refactor.md` (rename as needed)
 - A slice plan in that issue doc, including for each slice:
   - steps included (ids + file paths),
   - ops introduced/changed (ids + kinds + module paths),
@@ -375,6 +376,7 @@ Cross-pipeline posture (required):
 
 **Inputs:**
 - `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-<milestone>-foundation-*.md` (Phase 3 output)
+- Current draft: `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M8-U21-foundation-vertical-domain-refactor.md`
 
 **Outputs (append to Phase 3 issue doc):**
 - `## Lookback (Phase 3 → Phase 4): Finalize slices + sequencing`
@@ -822,6 +824,7 @@ This list prevents “silent assumptions” from becoming accidental architectur
 ### Decision (Phase 2): Stable boundary semantics surface
 - **Context:** Downstream domain code imports boundary enums/constants (`BOUNDARY_TYPE`) from Foundation implementation modules today.
 - **Choice:** **Locked:** boundary semantics are a public Foundation contract; consumers must depend on a stable contract export (not Foundation module layout).
+- **Current contract surface:** `@mapgen/domain/foundation/constants.js` (backs onto `mods/mod-swooper-maps/src/domain/foundation/constants.ts`); treat this as stable for consumers.
 - **Trigger to revisit:** Only when Morphology refactor lands and no longer needs boundary constants from Foundation.
 
 ### Default: Foundation trace artifacts are non-canonical
@@ -844,21 +847,25 @@ risks:
     title: "Downstream domains read Foundation artifacts via ctx.artifacts"
     severity: high
     blocking: true
+    mitigation: "Slice 3: migrate consumers to `deps.artifacts.*` access and delete `ctx.artifacts.get(artifact:foundation.*)` paths."
     notes: "Legacy coupling via `packages/mapgen-core/src/core/assertions.ts` and downstream domain implementations; slice ordering must avoid introducing new ctx.artifacts dependencies."
   - id: R2
     title: "Downstream imports depend on Foundation implementation module layout"
     severity: high
     blocking: true
+    mitigation: "Slice 1: lock `@mapgen/domain/foundation/constants.js` as the stable boundary semantics surface; prevent new deep imports."
     notes: "BOUNDARY_TYPE imports from Foundation implementation modules require a stable contract surface."
   - id: R3
     title: "Directionality is env-owned but authored in config"
     severity: medium
     blocking: false
+    mitigation: "Slice 4: enforce env ownership end-to-end; delete any Foundation-stage config/env backdoors."
     notes: "Decision locked: env-owned; config influences env construction at entry boundary."
   - id: R4
     title: "Typed array schema posture is split between Type.Any and runtime validators"
     severity: medium
     blocking: false
+    mitigation: "Slice 1 (or 2): tighten schemas for stage-owned Foundation artifacts and op contracts."
     notes: "Decision locked: prefer explicit typed-array schemas + runtime invariants (ADR-ER1-030)."
 ```
 
@@ -874,3 +881,23 @@ Use this as the “one representative step” reference when authoring new Found
 
 **Reference for style (existing exemplar):**
 - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/biomes/contract.ts`
+
+**Foundation target (what we are trying to end up with):**
+- Step contract: `mods/mod-swooper-maps/src/recipes/standard/stages/foundation/steps/foundation.contract.ts`
+- Step runtime: `mods/mod-swooper-maps/src/recipes/standard/stages/foundation/steps/foundation.ts`
+- Stage-owned artifact contracts: `mods/mod-swooper-maps/src/recipes/standard/stages/foundation/artifacts.ts`
+- Domain entrypoint + ops surface: `mods/mod-swooper-maps/src/domain/foundation/index.ts`
+
+**Contract posture (shape, not implementation):**
+- Contract binds ops through the domain entrypoint (`@mapgen/domain/foundation`) and binds artifacts through stage-owned contracts (`foundationArtifacts`).
+- Runtime reads inputs from `context`/`deps` and publishes via `deps.artifacts.*` (never `ctx.artifacts.get`).
+
+Minimal contract sketch (illustrative):
+```ts
+defineStep({
+  id: "foundation",
+  phase: "foundation",
+  artifacts: { provides: [foundationArtifacts.plates, foundationArtifacts.dynamics /* ... */] },
+  ops: { computePlates: foundation.ops.computePlatesTensors },
+});
+```
