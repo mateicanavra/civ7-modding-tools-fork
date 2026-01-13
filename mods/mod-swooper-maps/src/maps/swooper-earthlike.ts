@@ -13,56 +13,37 @@
 import "@swooper/mapgen-core/polyfills/text-encoder";
 import standardRecipe from "../recipes/standard/recipe.js";
 import type { StandardRecipeConfig } from "../recipes/standard/recipe.js";
-import type { FoundationDirectionalityConfig } from "@mapgen/domain/config";
 import type { MapRuntimeOptions } from "./_runtime/types.js";
 import { wireStandardMapEntry } from "./_runtime/standard-entry.js";
 
-const directionality: FoundationDirectionalityConfig = {
-  cohesion: 0.15,
-  primaryAxes: {
-    plateAxisDeg: 12,
-    windBiasDeg: 12,
-    currentBiasDeg: 12,
-  },
-  interplay: {
-    windsFollowPlates: 0.3,
-    currentsFollowWinds: 0.6,
-    riftsFollowPlates: 0.75,
-  },
-  hemispheres: {
-    southernFlip: true,
-    // Enable monsoon pass in climate swatches/refine.
-    monsoonBias: 0.82,
-    equatorBandDeg: 18,
-  },
-  variability: {
-    angleJitterDeg: 15,
-    magnitudeVariance: 0.4,
-  },
-};
-
 const config = {
   foundation: {
-    foundation: {
-      foundation: {
-        plates: {
-          count: 23,
-          convergenceMix: 0.55,
-          relaxationSteps: 4,
-          plateRotationMultiple: 1.77,
-        },
-        dynamics: {
-          wind: {
-            jetStreaks: 3,
-            jetStrength: 1.0,
-            variance: 0.6,
-          },
-          mantle: {
-            bumps: 4,
-            amplitude: 0.7,
-            scale: 0.45,
-          },
-        },
+    computeMesh: {
+      strategy: "default",
+      config: { plateCount: 23, relaxationSteps: 4 },
+    },
+    computePlateGraph: {
+      strategy: "default",
+      config: { plateCount: 23 },
+    },
+    computePlates: {
+      strategy: "default",
+      config: {
+        plateCount: 23,
+        convergenceMix: 0.55,
+        relaxationSteps: 4,
+        plateRotationMultiple: 1.77,
+      },
+    },
+    computeDynamics: {
+      strategy: "default",
+      config: {
+        windJetStreaks: 3,
+        windJetStrength: 1.0,
+        windVariance: 0.6,
+        mantleBumps: 4,
+        mantleAmplitude: 0.7,
+        mantleScale: 0.45,
       },
     },
   },
@@ -702,6 +683,5 @@ wireStandardMapEntry({
   engine,
   recipe: standardRecipe,
   config,
-  directionality,
   options: runtimeOptions,
 });

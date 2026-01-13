@@ -141,15 +141,16 @@ const computeMesh = createOp(ComputeMeshContract, {
         const rng = requireRng(input.rng as unknown as RngFunction | undefined);
         const voronoiUtils = requireVoronoiUtils(input.voronoiUtils as unknown as VoronoiUtilsInterface | undefined);
 
-        const platesCount = normalizeInt((config as unknown as ComputeMeshConfig)?.plates?.count, 8);
-        const relaxationSteps = normalizeInt((config as unknown as ComputeMeshConfig)?.plates?.relaxationSteps, 2);
+        const cfg = config as unknown as ComputeMeshConfig;
+        const plateCount = normalizeInt(cfg?.plateCount, 8);
+        const relaxationSteps = normalizeInt(cfg?.relaxationSteps, 2);
         const cellDensity = 0.003;
 
         const bbox: BoundingBox = { xl: 0, xr: width, yt: 0, yb: height };
         const cellCount = Math.max(
           4,
-          platesCount,
-          platesCount * 2,
+          plateCount,
+          plateCount * 2,
           Math.floor(width * height * Math.max(0, cellDensity))
         );
 

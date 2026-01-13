@@ -11,7 +11,7 @@
 
 import type { ExtendedMapContext, StoryOverlaySnapshot } from "@swooper/mapgen-core";
 import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
-import type { CorridorsConfig, FoundationDirectionalityConfig } from "@mapgen/domain/config";
+import type { CorridorsConfig } from "@mapgen/domain/config";
 import {
   type NarrativeCorridors,
   type NarrativeMotifsHotspots,
@@ -42,16 +42,12 @@ export interface StoryCorridorsResult {
 export function storyTagStrategicCorridors(
   ctx: ExtendedMapContext,
   stage: CorridorStage,
-  config: { corridors?: CorridorsConfig; directionality: FoundationDirectionalityConfig },
+  config: { corridors?: CorridorsConfig },
   artifacts: StoryCorridorsInputs = {}
 ): StoryCorridorsResult {
   const corridorsCfg = config.corridors as Record<string, unknown> | undefined;
   if (!corridorsCfg) {
     throw new Error("[Narrative] Missing corridors config.");
-  }
-  const directionality = config.directionality;
-  if (!directionality) {
-    throw new Error("[Narrative] Missing env.directionality.");
   }
   const emptySet = new Set<string>();
   const existingCorridors = stage === "postRivers" ? artifacts.corridors ?? null : null;
@@ -61,15 +57,9 @@ export function storyTagStrategicCorridors(
   const state = createCorridorState(existingCorridors);
 
   if (stage === "preIslands") {
-    tagSeaLanes(ctx, corridorsCfg, directionality, state);
+    tagSeaLanes(ctx, corridorsCfg, state);
     tagIslandHopFromHotspots(ctx, corridorsCfg, hotspots?.points ?? emptySet, state);
-    tagLandCorridorsFromRifts(
-      ctx,
-      corridorsCfg,
-      directionality,
-      rifts?.riftShoulder ?? emptySet,
-      state
-    );
+    tagLandCorridorsFromRifts(ctx, corridorsCfg, rifts?.riftShoulder ?? emptySet, state);
     backfillCorridorKinds(ctx, corridorsCfg, state);
   } else if (stage === "postRivers") {
     tagRiverChainsPostRivers(ctx, corridorsCfg, state);

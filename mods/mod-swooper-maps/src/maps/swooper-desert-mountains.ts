@@ -13,53 +13,37 @@
 import "@swooper/mapgen-core/polyfills/text-encoder";
 import standardRecipe from "../recipes/standard/recipe.js";
 import type { StandardRecipeConfig } from "../recipes/standard/recipe.js";
-import type { FoundationDirectionalityConfig } from "@mapgen/domain/config";
 import type { MapRuntimeOptions } from "./_runtime/types.js";
 import { wireStandardMapEntry } from "./_runtime/standard-entry.js";
 
-const directionality: FoundationDirectionalityConfig = {
-  cohesion: 0.2,
-  primaryAxes: {
-    plateAxisDeg: 127,
-    windBiasDeg: 0,
-    currentBiasDeg: 67,
-  },
-  interplay: {
-    windsFollowPlates: 0.4,
-    currentsFollowWinds: 0.6,
-    riftsFollowPlates: 0.75,
-  },
-  hemispheres: {
-    southernFlip: true,
-  },
-  variability: {
-    angleJitterDeg: 15,
-    magnitudeVariance: 0.5,
-  },
-};
-
 const config = {
   foundation: {
-    foundation: {
-      foundation: {
-        plates: {
-          count: 13,
-          convergenceMix: 0.65,
-          relaxationSteps: 4,
-          plateRotationMultiple: 1.77,
-        },
-        dynamics: {
-          wind: {
-            jetStreaks: 3,
-            jetStrength: 1.0,
-            variance: 0.5,
-          },
-          mantle: {
-            bumps: 3,
-            amplitude: 1.0,
-            scale: 1,
-          },
-        },
+    computeMesh: {
+      strategy: "default",
+      config: { plateCount: 13, relaxationSteps: 4 },
+    },
+    computePlateGraph: {
+      strategy: "default",
+      config: { plateCount: 13 },
+    },
+    computePlates: {
+      strategy: "default",
+      config: {
+        plateCount: 13,
+        convergenceMix: 0.65,
+        relaxationSteps: 4,
+        plateRotationMultiple: 1.77,
+      },
+    },
+    computeDynamics: {
+      strategy: "default",
+      config: {
+        windJetStreaks: 3,
+        windJetStrength: 1.0,
+        windVariance: 0.5,
+        mantleBumps: 3,
+        mantleAmplitude: 1.0,
+        mantleScale: 1,
       },
     },
   },
@@ -616,6 +600,5 @@ wireStandardMapEntry({
   engine,
   recipe: standardRecipe,
   config,
-  directionality,
   options: runtimeOptions,
 });

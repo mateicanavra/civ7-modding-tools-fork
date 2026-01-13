@@ -76,7 +76,7 @@ This means:
   - the step uses `deps.artifacts.*` publishes,
   - but orchestration still routes through a monolithic producer (`/src/recipes/standard/stages/foundation/producer.ts`) instead of contract-first ops.
 - Downstream domains (morphology/hydrology/narrative) read Foundation tensors via artifact tags (`artifact:foundation.*`), including indirect reads via `ctx.artifacts.get(...)` helper assertions in `packages/mapgen-core` (a coupling that ops-first refactor must eliminate).
-- `env.directionality` is a required runtime input for Foundation + some downstream climate/story logic; current maps pass it in from the authored recipe config at runtime (config/env coupling).
+- Directionality has been deleted; orientation biases must be derived from artifacts/buffers (plateGraph/tectonics in Foundation, wind/currents in Hydrology).
 - Some downstream domain code imports Foundation implementation constants directly (e.g. `BOUNDARY_TYPE`), creating module-layout coupling that must become a stable contract surface.
 
 <workflow>
@@ -553,8 +553,6 @@ callers:
     notes: Reads plates via assertFoundationPlates(ctx, ...).
   - path: /src/domain/hydrology/climate/refine/index.ts
     notes: Reads dynamics via assertFoundationDynamics(ctx, ...).
-  - path: /src/domain/hydrology/climate/swatches/monsoon-bias.ts
-    notes: Reads dynamics via assertFoundationDynamics(ctx, ...).
 
 tests:
   - path: /test/foundation/voronoi.test.ts
@@ -573,7 +571,7 @@ For each step:
 ```yaml
 steps:
   - id: foundation/foundation
-    title: "Publish Foundation tensors (plates/dynamics) + snapshots"
+    title: "Publish Foundation mesh/plates + snapshots"
     current:
       requires:
         artifacts: []
@@ -600,7 +598,6 @@ steps:
           - artifact:foundation.plateGraph
           - artifact:foundation.tectonics
           - artifact:foundation.plates
-          - artifact:foundation.dynamics
           - artifact:foundation.seed
           - artifact:foundation.diagnostics
           - artifact:foundation.config
@@ -613,9 +610,8 @@ steps:
       - narrative-mid/story-orogeny
       - morphology-post/mountains
       - morphology-post/volcanoes
-      - narrative-swatches/story-swatches (dynamics)
       - hydrology-post/climate-refine (dynamics)
-    notes: "Current orchestration is monolithic producer (not contract-first ops)."
+    notes: "Current orchestration is monolithic producer (not contract-first ops). Hydrology owns winds/currents in target."
 
   - id: morphology-pre/landmass-plates
     title: "Landmass generation (plate-driven)"
@@ -713,7 +709,6 @@ steps:
     title: "Story overlays: climate swatches (hydrology-facing)"
     current:
       requires:
-        artifacts: [artifact:foundation.dynamics]
         buffers: [artifact:heightfield, artifact:climateField]
         overlays: [artifact:storyOverlays]
       provides:
@@ -722,7 +717,6 @@ steps:
         overlays: [artifact:storyOverlays]
     target:
       requires:
-        artifacts: [artifact:foundation.dynamics]
         buffers: [artifact:heightfield, artifact:climateField]
         overlays: [artifact:storyOverlays]
       provides:
@@ -730,7 +724,7 @@ steps:
         buffers: []
         overlays: [artifact:storyOverlays]
     consumers: []
-    notes: "Swatches/monsoon logic reads dynamics via assertFoundationDynamics(ctx, ...); step code also requires env.directionality."
+    notes: "Swatches operate on climate fields + heightfield; no directionality inputs."
 
   - id: hydrology-post/climate-refine
     title: "Post-rivers climate refinement (earthlike)"
@@ -753,7 +747,7 @@ steps:
         buffers: []
         overlays: []
     consumers: []
-    notes: "Refinement logic reads dynamics via assertFoundationDynamics(ctx, ...); step code also requires env.directionality."
+    notes: "Refinement logic reads dynamics via assertFoundationDynamics(ctx, ...)."
 
   - id: morphology-post/mountains
     title: "Mountains placement (plate-aware physics)"
@@ -817,9 +811,9 @@ This list prevents “silent assumptions” from becoming accidental architectur
 - **Trigger to revisit:** If an engine constraint makes graph/mesh-first infeasible without a staged migration.
 
 ### Decision (Phase 2): Directionality ownership posture
-- **Context:** Current runtime expects `env.directionality` (wired from authored recipe config); some downstream steps assume it exists.
-- **Choice:** **Locked:** directionality is **env-owned**; authored config influences only env construction at the entry boundary.
-- **Trigger to revisit:** Only if we introduce a new runtime host that cannot supply env directionality (or if directionality becomes fully derived from Foundation modeling).
+- **Context:** Directionality is removed; downstream alignment relies on artifacts/buffers (plateGraph/tectonics, wind/currents).
+- **Choice:** **Locked:** no directionality knob exists in env or config.
+- **Trigger to revisit:** Only if we reintroduce a new cross-domain orientation policy (requires explicit ADR and artifact-first derivation).
 
 ### Decision (Phase 2): Stable boundary semantics surface
 - **Context:** Downstream domain code imports boundary enums/constants (`BOUNDARY_TYPE`) from Foundation implementation modules today.

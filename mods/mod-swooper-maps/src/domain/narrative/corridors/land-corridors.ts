@@ -3,12 +3,11 @@ import { inBounds, storyKey } from "@swooper/mapgen-core";
 
 import { assignCorridorMetadata } from "@mapgen/domain/narrative/corridors/style-cache.js";
 import type { CorridorState } from "@mapgen/domain/narrative/corridors/state.js";
-import { getDims, rand } from "@mapgen/domain/narrative/corridors/runtime.js";
+import { getDims } from "@mapgen/domain/narrative/corridors/runtime.js";
 
 export function tagLandCorridorsFromRifts(
   ctx: ExtendedMapContext,
   corridorsCfg: Record<string, unknown>,
-  directionality: Record<string, unknown>,
   riftShoulder: ReadonlySet<string>,
   state: CorridorState
 ): void {
@@ -16,25 +15,6 @@ export function tagLandCorridorsFromRifts(
   if (!cfg) {
     throw new Error("[Narrative] Missing corridors.land config.");
   }
-  const dirCfg = directionality;
-  const cohesionRaw = Number(dirCfg.cohesion);
-  if (!Number.isFinite(cohesionRaw)) {
-    throw new Error("[Narrative] Invalid directionality cohesion.");
-  }
-  const cohesion = Math.max(0, Math.min(1, cohesionRaw));
-  const axes = dirCfg.primaryAxes as Record<string, number>;
-  if (!axes) {
-    throw new Error("[Narrative] Missing directionality primaryAxes.");
-  }
-  const plateDeg = Number(axes.plateAxisDeg);
-  const windDeg = Number(axes.windBiasDeg);
-  if (!Number.isFinite(plateDeg) || !Number.isFinite(windDeg)) {
-    throw new Error("[Narrative] Invalid directionality axis values.");
-  }
-  const radP = (plateDeg * Math.PI) / 180;
-  const radW = (windDeg * Math.PI) / 180;
-  const plateVec = { x: Math.cos(radP), y: Math.sin(radP) };
-  const windVec = { x: Math.cos(radW), y: Math.sin(radW) };
   if (!cfg.useRiftShoulders) return;
 
   const { width, height } = getDims(ctx);
@@ -100,29 +80,6 @@ export function tagLandCorridorsFromRifts(
       else if (avgElev > 550 && reliefFrac < 0.35) style = "flatMtn";
       else if (avgRain < 85 && latDeg < 35) style = "desertBelt";
       else if (avgRain > 115) style = "grasslandBelt";
-
-      if (cohesion > 0) {
-        const L = { x: 1, y: 0 };
-        const alignPlate = Math.abs(plateVec.x * L.x + plateVec.y * L.y);
-        const alignWind = Math.abs(windVec.x * L.x + windVec.y * L.y);
-        const hiAlign = 0.75 * cohesion + 0.1;
-        const midAlign = 0.5 * cohesion + 0.1;
-
-        if (alignPlate >= hiAlign) {
-          if (avgElev > 650 && reliefFrac < 0.28) style = "plateau";
-          else if (reliefFrac > 0.3 && avgRain < 100) style = "canyon";
-          else if (avgElev > 560 && reliefFrac < 0.35) style = "flatMtn";
-        } else if (alignPlate >= midAlign) {
-          if (avgElev > 600 && reliefFrac < 0.25) style = "plateau";
-        }
-
-        if (alignWind >= hiAlign) {
-          if (avgRain > 110 || (latDeg < 25 && avgRain > 100)) style = "grasslandBelt";
-          else if (avgRain < 90 && latDeg < 35) style = "desertBelt";
-        } else if (alignWind >= midAlign) {
-          if (avgRain > 120) style = "grasslandBelt";
-        }
-      }
 
       for (let cx = start; cx <= end; cx++) {
         if (ctx.adapter.isWater(cx, y)) continue;

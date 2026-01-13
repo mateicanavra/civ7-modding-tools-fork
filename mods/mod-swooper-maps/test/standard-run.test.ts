@@ -1,9 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
 import { createExtendedMapContext } from "@swooper/mapgen-core";
-import { FoundationDirectionalityConfigSchema } from "@mapgen/domain/config";
-
-import { normalizeStrictOrThrow } from "./support/compiler-helpers.js";
 
 import standardRecipe from "../src/recipes/standard/recipe.js";
 import type { StandardRecipeConfig } from "../src/recipes/standard/recipe.js";
@@ -11,28 +8,6 @@ import { initializeStandardRuntime } from "../src/recipes/standard/runtime.js";
 import { foundationArtifacts } from "../src/recipes/standard/stages/foundation/artifacts.js";
 import { hydrologyPreArtifacts } from "../src/recipes/standard/stages/hydrology-pre/artifacts.js";
 import { placementArtifacts } from "../src/recipes/standard/stages/placement/artifacts.js";
-
-const directionality = normalizeStrictOrThrow(FoundationDirectionalityConfigSchema, {
-  cohesion: 0.15,
-  primaryAxes: {
-    plateAxisDeg: 12,
-    windBiasDeg: 12,
-    currentBiasDeg: 12,
-  },
-  interplay: {
-    windsFollowPlates: 0.3,
-    currentsFollowWinds: 0.6,
-  },
-  hemispheres: {
-    southernFlip: true,
-    monsoonBias: 0.82,
-    equatorBandDeg: 18,
-  },
-  variability: {
-    angleJitterDeg: 15,
-    magnitudeVariance: 0.4,
-  },
-}, "/directionality");
 
 const landmassConfig = {
   baseWaterPercent: 68,
@@ -108,22 +83,32 @@ const volcanoesConfig = {
 };
 
 const foundationConfig = {
-  plates: {
-    count: 23,
-    convergenceMix: 0.55,
-    relaxationSteps: 4,
-    plateRotationMultiple: 1.77,
+  computeMesh: {
+    strategy: "default",
+    config: { plateCount: 23, relaxationSteps: 4 },
   },
-  dynamics: {
-    wind: {
-      jetStreaks: 3,
-      jetStrength: 1.0,
-      variance: 0.6,
+  computePlateGraph: {
+    strategy: "default",
+    config: { plateCount: 23 },
+  },
+  computePlates: {
+    strategy: "default",
+    config: {
+      plateCount: 23,
+      convergenceMix: 0.55,
+      relaxationSteps: 4,
+      plateRotationMultiple: 1.77,
     },
-    mantle: {
-      bumps: 4,
-      amplitude: 0.7,
-      scale: 0.45,
+  },
+  computeDynamics: {
+    strategy: "default",
+    config: {
+      windJetStreaks: 3,
+      windJetStrength: 1.0,
+      windVariance: 0.6,
+      mantleBumps: 4,
+      mantleAmplitude: 0.7,
+      mantleScale: 0.45,
     },
   },
 };
@@ -524,11 +509,7 @@ const storyOrogenyConfig = {};
 const climatePaleoConfig = {};
 
 const standardConfig = {
-  foundation: {
-    foundation: {
-      foundation: foundationConfig,
-    },
-  },
+  foundation: foundationConfig,
   "morphology-pre": {
     "landmass-plates": {
       landmass: landmassConfig,
@@ -609,7 +590,6 @@ describe("standard recipe execution", () => {
         bottomLatitude: mapInfo.MinLatitude,
       },
       wrap: { wrapX: true, wrapY: false },
-      directionality,
     };
 
     const adapter = createMockAdapter({ width, height, mapInfo, mapSizeId: 1 });

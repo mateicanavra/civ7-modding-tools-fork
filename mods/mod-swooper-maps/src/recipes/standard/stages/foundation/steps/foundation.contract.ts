@@ -1,5 +1,4 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
-import { FoundationConfigSchema } from "@mapgen/domain/config";
 import foundation from "@mapgen/domain/foundation";
 
 import { foundationArtifacts } from "../artifacts.js";
@@ -30,9 +29,7 @@ const FoundationStepContract = defineStep({
     computePlates: foundation.ops.computePlatesTensors,
     computeDynamics: foundation.ops.computeDynamicsTensors,
   },
-  schema: Type.Object({
-    foundation: FoundationConfigSchema,
-  }),
+  schema: Type.Object({}, { additionalProperties: false }),
 });
 
 export default FoundationStepContract;

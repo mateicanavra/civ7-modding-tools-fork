@@ -42,7 +42,7 @@ This document is the **directional project brief** for **MAPS Engine Refactor v1
 
 ## 3. Current Status (Snapshot)
 
-- **Foundations and morphology:** ✅ Complete. Voronoi-only landmass pipeline, deterministic `PlateSeedManager`, `FoundationContext` emitted and asserted, heightfield buffers in place. Mountains/volcanoes, coasts, and landmass generation consume the physics stack. A working contract for `FoundationContext` and the config → tunables → orchestrator flow lives at `docs/projects/engine-refactor-v1/resources/CONTRACT-foundation-context.md` and will be promoted into system docs once stable.
+- **Foundations and morphology:** ✅ Complete. Voronoi-only landmass pipeline, deterministic `PlateSeedManager`, foundation artifacts published (mesh/crust/plateGraph/tectonics + tile projections), heightfield buffers in place. Mountains/volcanoes, coasts, and landmass generation consume the physics stack via artifacts.
 - **Climate:** ⚠️ Partial. Climate engine is centralized and rivers run after baseline, but consumers still read `GameplayMap` instead of `ClimateField`; river flow data is not published.
 - **Narrative overlays:** ⏳ Not modernized. Margin overlays exist, but other story passes still mutate `StoryTags` directly and do not publish immutable overlays.
 - **Biomes/features/placement:** ⏳ Legacy read paths (`GameplayMap` + `StoryTags`). No overlay/`ClimateField` consumption yet.
@@ -104,7 +104,7 @@ See `milestones/M2-stable-engine-slice.md` for detailed scope, dependency mappin
 
 - **Foundation / plate generation**
   - Implement `MeshBuilder`, `CrustGenerator`, `PlatePartitioner`, and `TectonicEngine` according to `foundation.md` and `PRD-plate-generation.md`.
-  - Ensure these strategies populate the foundation data products (mesh, crust, plate graph, tectonics) and expose `FoundationContext` as the legacy bridge.
+  - Ensure these strategies populate the foundation data products (mesh, crust, plate graph, tectonics) and publish discrete `artifact:foundation.*` outputs (no monolithic bridge).
   - Ensure deterministic behavior and basic performance targets on typical map sizes.
 
 - **Diagnostics & instrumentation**
@@ -156,7 +156,7 @@ See `../../_archive/projects/engine-refactor-v1/milestones/M3-core-engine-refact
   - Remove direct `WorldModel` usage from new steps; `MapGenContext` artifacts/buffers become canonical, and narrative is expressed as explicit story entry artifacts (with derived views for inspection/debug).
 
 - **Data products and cluster alignment**
-  - Solidify `FoundationContext`, `Heightfield`, `ClimateField`, and narrative story entries (typed story entry artifacts by motif; derived views for inspection/debug) as core data products.
+  - Solidify foundation artifacts, `Heightfield`, `ClimateField`, and narrative story entries (typed story entry artifacts by motif; derived views for inspection/debug) as core data products.
   - Ensure clusters follow the target topology and consume these products instead of ad-hoc globals.
 
 **Exit Criteria**
@@ -208,16 +208,16 @@ The milestones above converge on a target engine that follows the cluster topolo
 
 | Cluster | Stages | Required Inputs | Outputs |
 | --- | --- | --- | --- |
-| Foundations | `foundation`, `landmassPlates` | Engine seed, map dimensions, Civ Voronoi utilities | Plate seeds, plate tensors, initial landmask, `FoundationContext` |
-| Morphology | `coastlines`, `mountains`, `volcanoes`, `lakes`, `terrainAdjust` | `FoundationContext`, heightfield buffer | Final heightfield, shore mask, margin metadata |
-| Hydrology & Climate | `rivers`, `rainfallBaseline`, `climateRefine`, `humidity` | Heightfield, wind/currents, shore mask | Rainfall/humidity grids, water flow graph |
+| Foundations | `foundation`, `landmassPlates` | Engine seed, map dimensions, Civ Voronoi utilities | Mesh/crust/plateGraph/tectonics artifacts, plate projections, seed/diagnostics |
+| Morphology | `coastlines`, `mountains`, `volcanoes`, `lakes`, `terrainAdjust` | Foundation artifacts, heightfield buffer | Final heightfield, shore mask, margin metadata |
+| Hydrology & Climate | `rivers`, `rainfallBaseline`, `climateRefine`, `humidity` | Heightfield, foundation tectonics signals, shore mask | Rainfall/humidity grids, water flow graph |
 | Narrative | `storySeed`, `storyHotspots`, `storyRifts`, `storyOrogeny`, `storyCorridors`, `storySwatches` | Heightfield, climate grids, plate tensors | Typed story entries by motif (derived views available for inspection/debug) |
 | Biomes & Features | `biomes`, `features` | Heightfield, climate grids, narrative story entries | Final biomes/features, validation metrics |
 | Placement & Finalization | `placement`, `finalize` | All prior fields | Player starts, resources, discoveries |
 
 ### 5.2 Data Products
 
-- `FoundationContext`: immutable snapshot bundling plate IDs, boundary metadata, uplift/rift fields, wind/currents, shared seeds.
+- Foundation artifacts: mesh/crust/plateGraph/tectonics plus tile-indexed projections (plates, diagnostics, seed/config).
 - `Heightfield`: staged terrain buffer (elevation + terrain) flushed to the engine only at cluster boundaries.
 - `ClimateField`: rainfall/humidity/temperature arrays (read-only to consumers; authored by climate engine).
 - Narrative story entries: typed, versioned motif records; narrative views are derived snapshots for inspection/debug only.

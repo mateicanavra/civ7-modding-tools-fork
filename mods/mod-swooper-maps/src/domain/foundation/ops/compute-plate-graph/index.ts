@@ -2,7 +2,7 @@ import { createOp } from "@swooper/mapgen-core/authoring";
 import { devLogIf } from "@swooper/mapgen-core";
 import type { TraceScope } from "@swooper/mapgen-core";
 
-import type { DirectionalityConfig, RngFunction } from "../../types.js";
+import type { RngFunction } from "../../types.js";
 import type { FoundationMesh } from "../compute-mesh/contract.js";
 import type { FoundationCrust } from "../compute-crust/contract.js";
 import ComputePlateGraphContract from "./contract.js";
@@ -61,27 +61,6 @@ function wrappedDistanceSq(
   return dx * dx + dy * dy;
 }
 
-function applyDirectionalityBias(
-  directionality: DirectionalityConfig | null | undefined,
-  rng: RngFunction,
-  angleDeg: number,
-  magnitude: number
-): { angleDeg: number; magnitude: number } {
-  if (!directionality) return { angleDeg, magnitude };
-
-  const cohesion = Math.max(0, Math.min(1, directionality.cohesion ?? 0));
-  if (cohesion <= 0) return { angleDeg, magnitude };
-
-  const plateAxisDeg = (directionality.primaryAxes?.plateAxisDeg ?? 0) | 0;
-  const angleJitterDeg = (directionality.variability?.angleJitterDeg ?? 0) | 0;
-  const magnitudeVariance = directionality.variability?.magnitudeVariance ?? 0.35;
-
-  const jitter = rng(angleJitterDeg * 2 + 1, "PlateGraphDirJit") - angleJitterDeg;
-  const blended = angleDeg * (1 - cohesion) + plateAxisDeg * cohesion + jitter * magnitudeVariance;
-
-  return { angleDeg: blended, magnitude };
-}
-
 function chooseUniqueSeedCells(cellCount: number, seedCount: number, rng: RngFunction): number[] {
   const indices = Array.from({ length: cellCount }, (_, i) => i);
   for (let i = 0; i < seedCount; i++) {
@@ -101,7 +80,6 @@ const computePlateGraph = createOp(ComputePlateGraphContract, {
         const crust = requireCrust(input.crust as unknown as FoundationCrust | undefined, mesh.cellCount | 0);
         void crust;
 
-        const directionality = (input.directionality ?? null) as DirectionalityConfig | null;
         const rng = requireRng(input.rng as unknown as RngFunction | undefined);
         const trace = (input.trace ?? null) as TraceScope | null;
 
@@ -110,7 +88,7 @@ const computePlateGraph = createOp(ComputePlateGraphContract, {
         const cellCount = mesh.cellCount | 0;
 
         const platesCount = clampInt(
-          (config as unknown as ComputePlateGraphConfig)?.plates?.count,
+          (config as unknown as ComputePlateGraphConfig)?.plateCount,
           8,
           2,
           Math.max(2, cellCount)
@@ -130,11 +108,9 @@ const computePlateGraph = createOp(ComputePlateGraphContract, {
 
           const baseAngleDeg = rng(360, "PlateGraphAngle");
           const speed = 0.5 + rng(100, "PlateGraphSpeed") / 200;
-          const biased = applyDirectionalityBias(directionality, rng, baseAngleDeg, speed);
-
-          const rad = (biased.angleDeg * Math.PI) / 180;
-          const velocityX = Math.cos(rad) * biased.magnitude;
-          const velocityY = Math.sin(rad) * biased.magnitude;
+          const rad = (baseAngleDeg * Math.PI) / 180;
+          const velocityX = Math.cos(rad) * speed;
+          const velocityY = Math.sin(rad) * speed;
 
           const rotation = (rng(60, "PlateGraphRotation") - 30) * 0.1;
           const kind: FoundationPlate["kind"] = id < Math.max(1, Math.floor(platesCount * 0.6)) ? "major" : "minor";

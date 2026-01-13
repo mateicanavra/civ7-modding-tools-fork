@@ -260,7 +260,7 @@ const SeaCorridorPolicySchema = Type.Object(
         minimum: 0,
       })
     ),
-    /** Maximum sea lanes to tag (pre-directionality bias). */
+    /** Maximum sea lanes to tag. */
     maxLanes: Type.Optional(
       Type.Number({
         description: "Maximum sea lanes to tag (integer).",

@@ -1,7 +1,7 @@
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
 import type { FoundationDynamicsFields } from "@swooper/mapgen-core";
 import { inBounds as boundsCheck } from "@swooper/mapgen-core/lib/grid";
-import type { ClimateConfig, FoundationDirectionalityConfig, StoryConfig } from "@mapgen/domain/config";
+import type { ClimateConfig, StoryConfig } from "@mapgen/domain/config";
 import type {
   NarrativeMotifsHotspots,
   NarrativeMotifsRifts,
@@ -26,7 +26,6 @@ export function refineClimateEarthlike(
     orogenyCache?: OrogenyCache;
     climate?: ClimateConfig;
     story?: StoryConfig;
-    directionality?: FoundationDirectionalityConfig;
     dynamics?: FoundationDynamicsFields;
     rifts?: NarrativeMotifsRifts | null;
     hotspots?: NarrativeMotifsHotspots | null;
@@ -55,10 +54,6 @@ export function refineClimateEarthlike(
   const storyRain = storyMoisture.rainfall as Record<string, number>;
   const orogenyCache = options?.orogenyCache || null;
   const storyCfg = options.story as StoryConfig;
-  if (!options.directionality) {
-    throw new Error("refineClimateEarthlike requires env.directionality.");
-  }
-  const directionality = options.directionality;
   const emptySet = new Set<string>();
   const rifts = options.rifts ?? null;
   const hotspots = options.hotspots ?? null;
@@ -82,8 +77,7 @@ export function refineClimateEarthlike(
     height,
     runtime,
     refineCfg as Record<string, unknown>,
-    dynamics,
-    directionality
+    dynamics
   );
 
   // Pass C: river corridor greening and basin humidity

@@ -20,7 +20,6 @@ type StandardMapEntry = {
     StandardRecipeCompiledConfig
   >;
   config: StandardRecipeConfig | null;
-  directionality: Record<string, unknown>;
   options: MapRuntimeOptions;
   seed?: number;
 };
@@ -29,7 +28,6 @@ export function wireStandardMapEntry({
   engine,
   recipe,
   config,
-  directionality,
   options,
   seed = 0,
 }: StandardMapEntry): void {
@@ -66,7 +64,6 @@ export function wireStandardMapEntry({
           wrapX,
           wrapY,
         },
-        directionality,
       };
 
       runStandardRecipe({ recipe, init, env, config, options });

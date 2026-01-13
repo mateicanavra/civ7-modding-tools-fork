@@ -1,11 +1,10 @@
 import { createMockAdapter } from "@civ7/adapter";
 import { createExtendedMapContext } from "@swooper/mapgen-core";
 import { implementArtifacts, type Static } from "@swooper/mapgen-core/authoring";
-import { FoundationDirectionalityConfigSchema } from "@mapgen/domain/config";
 import ecology from "@mapgen/domain/ecology/ops";
 import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
 
-import { normalizeOpSelectionOrThrow, normalizeStrictOrThrow } from "../support/compiler-helpers.js";
+import { normalizeOpSelectionOrThrow } from "../support/compiler-helpers.js";
 
 import { ecologyArtifacts } from "../../src/recipes/standard/stages/ecology/artifacts.js";
 import { hydrologyPreArtifacts } from "../../src/recipes/standard/stages/hydrology-pre/artifacts.js";
@@ -152,17 +151,11 @@ export function createFeaturesTestContext(options: FeaturesTestContextOptions) {
   const adapter = createMockAdapter({ width, height, rng, canHaveFeature });
   adapter.fillWater(false);
 
-  const directionality = normalizeStrictOrThrow(
-    FoundationDirectionalityConfigSchema,
-    {},
-    "/env/directionality"
-  );
   const env = {
     seed: 0,
     dimensions: { width, height },
     latitudeBounds: { topLatitude: 0, bottomLatitude: 0 },
     wrap: { wrapX: false, wrapY: false },
-    directionality,
   };
   const ctx = createExtendedMapContext({ width, height }, adapter, env);
 

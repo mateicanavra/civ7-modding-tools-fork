@@ -3,14 +3,13 @@ import { describe, expect, it } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
 import { createExtendedMapContext } from "@swooper/mapgen-core";
 import { implementArtifacts } from "@swooper/mapgen-core/authoring";
-import { FoundationDirectionalityConfigSchema } from "@mapgen/domain/config";
 import ecology from "@mapgen/domain/ecology/ops";
 import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
 
 import biomesStep from "../../src/recipes/standard/stages/ecology/steps/biomes/index.js";
 import { hydrologyPreArtifacts } from "../../src/recipes/standard/stages/hydrology-pre/artifacts.js";
 import { narrativePreArtifacts } from "../../src/recipes/standard/stages/narrative-pre/artifacts.js";
-import { normalizeOpSelectionOrThrow, normalizeStrictOrThrow } from "../support/compiler-helpers.js";
+import { normalizeOpSelectionOrThrow } from "../support/compiler-helpers.js";
 import { buildTestDeps } from "../support/step-deps.js";
 
 describe("biomes step", () => {
@@ -18,17 +17,11 @@ describe("biomes step", () => {
     const width = 4;
     const height = 3;
     const size = width * height;
-    const directionality = normalizeStrictOrThrow(
-      FoundationDirectionalityConfigSchema,
-      {},
-      "/env/directionality"
-    );
     const env = {
       seed: 0,
       dimensions: { width, height },
       latitudeBounds: { topLatitude: 0, bottomLatitude: 0 },
       wrap: { wrapX: false, wrapY: false },
-      directionality,
     };
 
     const adapter = createMockAdapter({ width, height });

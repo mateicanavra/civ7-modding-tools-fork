@@ -1,5 +1,5 @@
 /**
- * Core Types — MapContext, FoundationContext, and data contracts
+ * Core Types — MapContext and data contracts
  *
  * Purpose:
  * - Define the seam between pure logic and engine coupling
@@ -177,19 +177,6 @@ export interface FoundationDynamicsFields {
  */
 export interface FoundationDiagnosticsFields {
   boundaryTree: unknown | null;
-}
-
-/**
- * Immutable data product emitted by the foundation stage.
- * Downstream stages rely on this snapshot for tectonic and dynamics data.
- */
-export interface FoundationContext {
-  dimensions: Readonly<{ width: number; height: number; size: number }>;
-  plateSeed: Readonly<SeedSnapshot> | null;
-  plates: Readonly<FoundationPlateFields>;
-  dynamics: Readonly<FoundationDynamicsFields>;
-  diagnostics: Readonly<FoundationDiagnosticsFields>;
-  config: Readonly<FoundationConfigSnapshot>;
 }
 
 export const FOUNDATION_PLATES_ARTIFACT_TAG = "artifact:foundation.plates";
@@ -446,19 +433,8 @@ export function writeClimateField(
 }
 
 // ============================================================================
-// Foundation Context Helpers
+// Foundation Artifact Helpers
 // ============================================================================
-
-function freezeConfigSnapshot(
-  value: unknown
-): Readonly<Record<string, unknown>> {
-  if (!value || typeof value !== "object") return EMPTY_FROZEN_OBJECT;
-  try {
-    return Object.freeze(value as Record<string, unknown>);
-  } catch {
-    return value as Record<string, unknown>;
-  }
-}
 
 function ensureTensor<T extends { length: number }>(
   name: string,
@@ -466,62 +442,14 @@ function ensureTensor<T extends { length: number }>(
   size: number
 ): T {
   if (!tensor || typeof tensor.length !== "number") {
-    throw new Error(`[FoundationContext] Missing ${name} tensor.`);
+    throw new Error(`[FoundationArtifact] Missing ${name} tensor.`);
   }
   if (tensor.length !== size) {
     throw new Error(
-      `[FoundationContext] ${name} tensor length mismatch (expected ${size}, received ${tensor.length}).`
+      `[FoundationArtifact] ${name} tensor length mismatch (expected ${size}, received ${tensor.length}).`
     );
   }
   return tensor;
-}
-
-export function validateFoundationContext(
-  foundation: FoundationContext,
-  dimensions: MapDimensions
-): void {
-  if (!foundation) {
-    throw new Error("[FoundationContext] Missing foundation payload.");
-  }
-  if (!dimensions) {
-    throw new Error("[FoundationContext] Map dimensions are required to validate foundation.");
-  }
-
-  const width = dimensions.width | 0;
-  const height = dimensions.height | 0;
-  const size = Math.max(0, width * height) | 0;
-
-  if (size <= 0) {
-    throw new Error("[FoundationContext] Invalid map dimensions.");
-  }
-
-  if (
-    foundation.dimensions.width !== width ||
-    foundation.dimensions.height !== height ||
-    foundation.dimensions.size !== size
-  ) {
-    throw new Error(
-      "[FoundationContext] Dimension mismatch between context and foundation payload."
-    );
-  }
-
-  const { plates, dynamics } = foundation;
-
-  ensureTensor("plateId", plates.id, size);
-  ensureTensor("boundaryCloseness", plates.boundaryCloseness, size);
-  ensureTensor("boundaryType", plates.boundaryType, size);
-  ensureTensor("tectonicStress", plates.tectonicStress, size);
-  ensureTensor("upliftPotential", plates.upliftPotential, size);
-  ensureTensor("riftPotential", plates.riftPotential, size);
-  ensureTensor("shieldStability", plates.shieldStability, size);
-  ensureTensor("plateMovementU", plates.movementU, size);
-  ensureTensor("plateMovementV", plates.movementV, size);
-  ensureTensor("plateRotation", plates.rotation, size);
-  ensureTensor("windU", dynamics.windU, size);
-  ensureTensor("windV", dynamics.windV, size);
-  ensureTensor("currentU", dynamics.currentU, size);
-  ensureTensor("currentV", dynamics.currentV, size);
-  ensureTensor("pressure", dynamics.pressure, size);
 }
 
 export function validateFoundationPlatesArtifact(
@@ -600,136 +528,6 @@ export function validateFoundationConfigArtifact(value: unknown): asserts value 
     throw new Error("[FoundationArtifact] Invalid foundation config snapshot payload.");
   }
 }
-
-export interface CreateFoundationContextOptions {
-  dimensions: MapDimensions;
-  config?: Partial<FoundationConfigSnapshot>;
-}
-
-/**
- * Source tensors used to build the foundation context snapshot.
- */
-export interface FoundationContextSource {
-  plateSeed: Readonly<SeedSnapshot> | null;
-  plates: FoundationPlateFields;
-  dynamics: FoundationDynamicsFields;
-  diagnostics?: FoundationDiagnosticsFields;
-}
-
-/**
- * Create an immutable FoundationContext snapshot from foundation tensors.
- */
-export function createFoundationContext(
-  source: FoundationContextSource,
-  options: CreateFoundationContextOptions
-): FoundationContext {
-  if (!source?.plates || !source?.dynamics) {
-    throw new Error(
-      "[FoundationContext] Foundation tensors are required to build the context."
-    );
-  }
-  if (!options?.dimensions) {
-    throw new Error(
-      "[FoundationContext] Map dimensions are required to build the context."
-    );
-  }
-
-  const width = options.dimensions.width | 0;
-  const height = options.dimensions.height | 0;
-  const size = Math.max(0, width * height) | 0;
-
-  if (size <= 0) {
-    throw new Error("[FoundationContext] Invalid map dimensions.");
-  }
-
-  const plateId = ensureTensor("plateId", source.plates.id, size);
-  const boundaryCloseness = ensureTensor(
-    "boundaryCloseness",
-    source.plates.boundaryCloseness,
-    size
-  );
-  const boundaryType = ensureTensor(
-    "boundaryType",
-    source.plates.boundaryType,
-    size
-  );
-  const tectonicStress = ensureTensor(
-    "tectonicStress",
-    source.plates.tectonicStress,
-    size
-  );
-  const upliftPotential = ensureTensor(
-    "upliftPotential",
-    source.plates.upliftPotential,
-    size
-  );
-  const riftPotential = ensureTensor(
-    "riftPotential",
-    source.plates.riftPotential,
-    size
-  );
-  const shieldStability = ensureTensor(
-    "shieldStability",
-    source.plates.shieldStability,
-    size
-  );
-  const plateMovementU = ensureTensor(
-    "plateMovementU",
-    source.plates.movementU,
-    size
-  );
-  const plateMovementV = ensureTensor(
-    "plateMovementV",
-    source.plates.movementV,
-    size
-  );
-  const plateRotation = ensureTensor(
-    "plateRotation",
-    source.plates.rotation,
-    size
-  );
-  const windU = ensureTensor("windU", source.dynamics.windU, size);
-  const windV = ensureTensor("windV", source.dynamics.windV, size);
-  const currentU = ensureTensor("currentU", source.dynamics.currentU, size);
-  const currentV = ensureTensor("currentV", source.dynamics.currentV, size);
-  const pressure = ensureTensor("pressure", source.dynamics.pressure, size);
-
-  const configInput = options.config || {};
-  const configSnapshot: FoundationConfigSnapshot = {
-    seed: freezeConfigSnapshot(configInput.seed),
-    plates: freezeConfigSnapshot(configInput.plates),
-    dynamics: freezeConfigSnapshot(configInput.dynamics),
-    surface: freezeConfigSnapshot(configInput.surface),
-    policy: freezeConfigSnapshot(configInput.policy),
-    diagnostics: freezeConfigSnapshot(configInput.diagnostics),
-  };
-
-  return Object.freeze({
-    dimensions: Object.freeze({ width, height, size }),
-    plateSeed: source.plateSeed || null,
-    plates: Object.freeze({
-      id: plateId,
-      boundaryCloseness,
-      boundaryType,
-      tectonicStress,
-      upliftPotential,
-      riftPotential,
-      shieldStability,
-      movementU: plateMovementU,
-      movementV: plateMovementV,
-      rotation: plateRotation,
-    }),
-    dynamics: Object.freeze({ windU, windV, currentU, currentV, pressure }),
-    diagnostics: Object.freeze({
-      boundaryTree: source.diagnostics?.boundaryTree ?? null,
-    }),
-    config: Object.freeze(configSnapshot),
-  });
-}
-
-/**
- * Check whether the provided context already carries a FoundationContext.
- */
 // ============================================================================
 // Sync Functions
 // ============================================================================

@@ -1,5 +1,5 @@
 import type { ExtendedMapContext, FoundationPlateFields } from "@swooper/mapgen-core";
-import { clamp, inBounds, storyKey } from "@swooper/mapgen-core";
+import { inBounds, storyKey } from "@swooper/mapgen-core";
 import { idx } from "@swooper/mapgen-core/lib/grid";
 import type { NarrativeMotifsRifts } from "@mapgen/domain/narrative/models.js";
 import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
@@ -26,32 +26,6 @@ export function storyTagRiftValleys(
   if (!riftCfg) {
     throw new Error("[Narrative] Missing story rift config.");
   }
-  const directionality = ctx.env.directionality as Record<string, unknown>;
-  if (!directionality) {
-    throw new Error("[Narrative] Missing env.directionality.");
-  }
-  const interplay = directionality.interplay as Record<string, number>;
-  const primaryAxes = directionality.primaryAxes as Record<string, number>;
-  if (!interplay || !primaryAxes) {
-    throw new Error("[Narrative] Missing directionality interplay/primaryAxes.");
-  }
-  const cohesionRaw = Number(directionality.cohesion);
-  if (!Number.isFinite(cohesionRaw)) {
-    throw new Error("[Narrative] Invalid directionality cohesion.");
-  }
-  const cohesion = clamp(cohesionRaw, 0, 1);
-  const followPlates = Number(interplay.riftsFollowPlates);
-  if (!Number.isFinite(followPlates)) {
-    throw new Error("[Narrative] Invalid directionality riftsFollowPlates.");
-  }
-  const follow = clamp(followPlates, 0, 1) * cohesion;
-  const plateAxisDeg = Number(primaryAxes.plateAxisDeg);
-  if (!Number.isFinite(plateAxisDeg)) {
-    throw new Error("[Narrative] Invalid directionality plateAxisDeg.");
-  }
-  const axisRad = (plateAxisDeg * Math.PI) / 180;
-  const axisX = Math.cos(axisRad);
-  const axisY = Math.sin(axisRad);
 
   const areaRift = Math.max(1, width * height);
   const sqrtRift = Math.min(2.0, Math.max(0.6, Math.sqrt(areaRift / 10000)));
@@ -196,13 +170,8 @@ export function storyTagRiftValleys(
       placedAny = true;
       tagShoulders(x, y, sdx, sdy);
 
-      function stepDirBias(tx: number, ty: number): number {
-        if (follow <= 0) return 0;
-        const vlen = Math.max(1, Math.hypot(tx, ty));
-        const vx = tx / vlen;
-        const vy = ty / vlen;
-        const dot = axisX * vx + axisY * vy;
-        return Math.round(10 * follow * dot);
+      function stepDirBias(_tx: number, _ty: number): number {
+        return 0;
       }
 
       let bestScore = -1;

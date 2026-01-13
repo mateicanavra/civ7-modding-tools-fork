@@ -85,7 +85,7 @@ This means:
   - `rivers` (core)
   - `climate-refine` (post)
 - Current hydrology code includes cross-domain coupling that must be made explicit in the contract matrix:
-  - Climate refine consumes `env.directionality` and narrative motifs (`rifts`, `hotspots`) plus river adjacency.
+  - Climate refine consumes hydrology-owned wind/current products plus narrative motifs (`rifts`, `hotspots`) and river adjacency.
 
 <workflow>
 
@@ -280,4 +280,3 @@ _Populate continuously. Prefer “what could go wrong” + mitigation and slice 
 ## Appendix E: Golden Path Example (canonical authoring)
 
 _Add one minimal step + op example that demonstrates canonical authoring under the U21 posture._
-

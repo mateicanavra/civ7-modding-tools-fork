@@ -507,7 +507,6 @@ export function computePlatesVoronoi(
     relaxationSteps = 5,
     convergenceMix = 0.5,
     plateRotationMultiple = 1.0,
-    directionality = null,
   } = config;
 
   const allowPlateDownsample = false;
@@ -583,11 +582,6 @@ export function computePlatesVoronoi(
         rng
       );
       region.seedLocation = { x: cell.site.x, y: cell.site.y };
-
-      // Apply directionality bias if provided
-      if (directionality) {
-        applyDirectionalityBias(region, directionality, rng);
-      }
 
       return region;
     });
@@ -795,31 +789,6 @@ export function computePlatesVoronoi(
   }
 
   return lastResult!;
-}
-
-/**
- * Apply directionality bias to plate movement
- */
-function applyDirectionalityBias(
-  plate: PlateRegion,
-  directionality: NonNullable<PlateConfig["directionality"]>,
-  rng: RngFunction
-): void {
-  const cohesion = Math.max(0, Math.min(1, directionality.cohesion ?? 0));
-  const plateAxisDeg = (directionality.primaryAxes?.plateAxisDeg ?? 0) | 0;
-  const angleJitterDeg = (directionality.variability?.angleJitterDeg ?? 0) | 0;
-  const magnitudeVariance = directionality.variability?.magnitudeVariance ?? 0.35;
-
-  const currentAngle = (Math.atan2(plate.m_movement.y, plate.m_movement.x) * 180) / Math.PI;
-  const currentMag = Math.sqrt(plate.m_movement.x ** 2 + plate.m_movement.y ** 2);
-
-  const jitter = rng(angleJitterDeg * 2 + 1, "PlateDirJit") - angleJitterDeg;
-  const targetAngle =
-    currentAngle * (1 - cohesion) + plateAxisDeg * cohesion + jitter * magnitudeVariance;
-
-  const rad = (targetAngle * Math.PI) / 180;
-  plate.m_movement.x = Math.cos(rad) * currentMag;
-  plate.m_movement.y = Math.sin(rad) * currentMag;
 }
 
 // ============================================================================

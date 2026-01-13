@@ -1,5 +1,4 @@
 import { createStep } from "@swooper/mapgen-core/authoring";
-import { type FoundationDirectionalityConfig } from "@mapgen/domain/config";
 import { getOrogenyCache } from "@mapgen/domain/narrative/orogeny/index.js";
 import { storyTagClimateSwatches } from "@mapgen/domain/narrative/swatches.js";
 import StorySwatchesStepContract from "./storySwatches.contract.js";
@@ -11,17 +10,10 @@ export default createStep(StorySwatchesStepContract, {
       return;
     }
 
-    const directionality = context.env.directionality as FoundationDirectionalityConfig;
-    if (!directionality) {
-      throw new Error("story-swatches requires env.directionality.");
-    }
-    const dynamics = deps.artifacts.foundationDynamics.read(context);
     void deps.artifacts.overlays.read(context);
     storyTagClimateSwatches(context, {
       orogenyCache: getOrogenyCache(context),
       climate: config.climate,
-      directionality,
-      dynamics,
     });
   },
 });

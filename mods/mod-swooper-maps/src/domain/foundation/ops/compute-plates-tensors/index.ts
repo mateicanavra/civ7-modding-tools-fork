@@ -16,24 +16,17 @@ function requireRng(rng: RngFunction | undefined, scope: string): RngFunction {
 }
 
 function buildPlateConfig(
-  config: ComputePlatesTensorsConfig,
-  directionalityOverride: PlateConfig["directionality"] | null
+  config: ComputePlatesTensorsConfig
 ): PlateConfig {
-  const platesCfg = config.plates;
-  if (!platesCfg) {
-    throw new Error("[Foundation] Missing plates config.");
-  }
-  const directionality = directionalityOverride ?? null;
-
-  const count = (platesCfg.count! | 0);
-  const convergenceMix = platesCfg.convergenceMix!;
-  const relaxationSteps = (platesCfg.relaxationSteps! | 0);
-  const plateRotationMultiple = platesCfg.plateRotationMultiple!;
-  const seedMode = platesCfg.seedMode!;
-  const seedOffset = Math.trunc(platesCfg.seedOffset!);
-  const fixedSeed = Number.isFinite(platesCfg.fixedSeed)
-    ? Math.trunc(platesCfg.fixedSeed!)
-    : undefined;
+  const count = (config.plateCount ?? 8) | 0;
+  const convergenceMix = config.convergenceMix ?? 0.5;
+  const relaxationSteps = (config.relaxationSteps ?? 5) | 0;
+  const plateRotationMultiple = config.plateRotationMultiple ?? 1;
+  const seedMode = config.seedMode ?? "engine";
+  const seedOffset = Math.trunc(config.seedOffset ?? 0);
+  const fixedSeedValue = config.fixedSeed;
+  const fixedSeed =
+    typeof fixedSeedValue === "number" && Number.isFinite(fixedSeedValue) ? Math.trunc(fixedSeedValue) : undefined;
 
   return {
     count,
@@ -43,7 +36,6 @@ function buildPlateConfig(
     seedMode,
     fixedSeed,
     seedOffset,
-    directionality,
   };
 }
 
@@ -53,13 +45,12 @@ const computePlatesTensors = createOp(ComputePlatesTensorsContract, {
       run: (input, config) => {
         const width = input.width | 0;
         const height = input.height | 0;
-        const directionalityOverride = input.directionality ?? null;
         const trace = (input.trace ?? null) as TraceScope | null;
 
         const rng = requireRng(input.rng as unknown as RngFunction | undefined, "foundation/compute-plates-tensors");
         const voronoiUtils = input.voronoiUtils as unknown as VoronoiUtilsInterface;
 
-        const plateConfig = buildPlateConfig(config as unknown as ComputePlatesTensorsConfig, directionalityOverride);
+        const plateConfig = buildPlateConfig(config as unknown as ComputePlatesTensorsConfig);
 
         devLogIf(
           trace,

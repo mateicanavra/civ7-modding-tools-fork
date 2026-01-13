@@ -1,12 +1,10 @@
 import { TypedArraySchemas, Type, defineOp } from "@swooper/mapgen-core/authoring";
 import type { Static } from "@swooper/mapgen-core/authoring";
 
-import { FoundationConfigSchema } from "@mapgen/domain/config";
-
 import type { RngFunction } from "../../types.js";
 import { FoundationMeshSchema } from "../compute-mesh/contract.js";
 
-const StrategySchema = Type.Partial(FoundationConfigSchema);
+const StrategySchema = Type.Object({}, { additionalProperties: false });
 
 export const FoundationCrustSchema = Type.Object(
   {

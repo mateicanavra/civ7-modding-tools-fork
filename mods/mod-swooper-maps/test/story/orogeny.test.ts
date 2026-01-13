@@ -1,7 +1,6 @@
 import { describe, it, expect } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
 import { createExtendedMapContext } from "@swooper/mapgen-core";
-import { FoundationDirectionalityConfigSchema } from "@mapgen/domain/config";
 import {
   getStoryOverlay,
   STORY_OVERLAY_KEYS,
@@ -9,24 +8,17 @@ import {
 import {
   storyTagOrogenyBelts,
 } from "@mapgen/domain/narrative/orogeny/index.js";
-import { normalizeStrictOrThrow } from "../support/compiler-helpers.js";
 
 describe("story/orogeny", () => {
   it("publishes an overlay when provided foundation tensors", () => {
     const width = 30;
     const height = 20;
     const size = width * height;
-    const directionality = normalizeStrictOrThrow(
-      FoundationDirectionalityConfigSchema,
-      {},
-      "/env/directionality"
-    );
     const env = {
       seed: 0,
       dimensions: { width, height },
       latitudeBounds: { topLatitude: 0, bottomLatitude: 0 },
       wrap: { wrapX: false, wrapY: false },
-      directionality,
     };
     const adapter = createMockAdapter({ width, height });
 

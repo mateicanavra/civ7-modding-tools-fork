@@ -6,10 +6,9 @@
  */
 
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
-import type { FoundationDynamicsFields } from "@swooper/mapgen-core";
 import { applyClimateSwatches } from "@mapgen/domain/hydrology/climate/index.js";
 import type { OrogenyCache } from "@mapgen/domain/hydrology/climate/index.js";
-import type { ClimateConfig, FoundationDirectionalityConfig } from "@mapgen/domain/config";
+import type { ClimateConfig } from "@mapgen/domain/config";
 import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
 import { storyTagPaleoHydrology } from "@mapgen/domain/narrative/paleo/index.js";
 
@@ -25,24 +24,13 @@ export function storyTagClimateSwatches(
   options: {
     orogenyCache?: OrogenyCache;
     climate?: ClimateConfig;
-    directionality?: FoundationDirectionalityConfig;
-    dynamics?: FoundationDynamicsFields;
   } = {}
 ): ClimateSwatchesSummary {
   const { width, height } = ctx.dimensions;
 
-  if (!options.directionality) {
-    throw new Error("storyTagClimateSwatches requires env.directionality.");
-  }
-  if (!options.dynamics) {
-    throw new Error("storyTagClimateSwatches requires foundation dynamics.");
-  }
-
   const result = applyClimateSwatches(width, height, ctx, {
     orogenyCache: options.orogenyCache,
     climate: options.climate,
-    directionality: options.directionality,
-    dynamics: options.dynamics,
   });
 
   publishStoryOverlay(ctx, STORY_OVERLAY_KEYS.SWATCHES, {
