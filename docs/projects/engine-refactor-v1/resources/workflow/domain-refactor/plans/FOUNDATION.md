@@ -20,6 +20,42 @@ This is a **draft plan** (not a milestone doc yet). The plan is expected to evol
  = mods/mod-swooper-maps
  = packages/mapgen-core
 
+## Canonical posture (enforced): do not propagate legacy
+
+Foundation is the first “new canonical” vertical refactor plan we intend to reuse across domains. That means it must be explicit about the posture we want agents to take while implementing.
+
+**Hard principle:**
+- **Legacy behavior and legacy authoring patterns should not be propagated.**
+- **All new work must be expressed through the canonical architecture and authoring surfaces**, not by copying old patterns “because that’s how this file already does it”.
+
+**Concrete example (what not to repeat):**
+- In several existing Ecology steps, the step module imports a config type and then annotates the `run(...)` handler parameter as `config: <SomeConfigType>`, even though the step contract schema already defines and provides the config shape.
+- This is a legacy smell because it:
+  - adds unnecessary imports and coupling,
+  - encourages redundant type plumbing,
+  - worsens DX without improving correctness.
+
+**Default rule for this refactor (unless Phase 1/2 prove otherwise):**
+- Do not import config types purely to annotate the `run(ctx, config, ops, deps)` parameter list.
+- Prefer inferred types from the step contract schema + canonical authoring helpers.
+
+**DX posture checklist (apply before writing or “improving” code):**
+- [ ] Am I about to add a new import? If yes, is it truly required by canonical layering (or is it a legacy habit)?
+- [ ] Am I about to add explicit types that inference already provides? If yes, justify why.
+- [ ] Am I about to introduce a second way to do something (compat paths, alt deps access, legacy helpers)? If yes, stop—prefer one canonical way.
+- [ ] Did I inspect callsites/references (code-intel) before writing JSDoc/TypeBox `description` text?
+- [ ] Is this the minimal, highest-DX expression that still respects boundaries and contracts?
+
+## Living plan artifacts (required; keep updated)
+
+This plan stays “live” by keeping a small set of structured artifacts continuously updated. These are used directly when cutting the Phase 3 implementation issue and when validating slice completeness.
+
+- Appendix A: **Domain Surface Inventory (outside view)**
+- Appendix B: **Contract Matrix (requires/provides; artifacts vs buffers vs overlays)**
+- Appendix C: **Decisions + Defaults**
+- Appendix D: **Risk Register**
+- Appendix E: **Golden Path Example (canonical authoring)**
+
 ## Foundation-specific framing (read once)
 
 Foundation is **upstream of everything**: it seeds core, physics-adjacent pipeline layers (buffers) and the first publish-once contracts (artifacts) that downstream domains consume.
@@ -65,6 +101,9 @@ This means:
 
 **Outputs:**
 - `docs/projects/engine-refactor-v1/resources/spike/spike-foundation-current-state.md`
+- Update (at least a first draft) in this plan:
+  - Appendix A (Domain Surface Inventory)
+  - Appendix B (Contract Matrix; current-state mapping)
 
 **Phase 1 focus (Foundation-specific):**
 - Stage + recipe wiring:
@@ -82,6 +121,7 @@ This means:
 **Gate (do not proceed until):**
 - [ ] The spike includes an explicit list of downstream stages/steps that depend on Foundation outputs.
 - [ ] Any “hidden coupling” discovered is written down with file paths and consumers.
+- [ ] Appendix A and Appendix B have at least a “current state” draft (even if incomplete).
 
 **References:**
 - Shared inventory guide: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/domain-inventory-and-boundaries.md`
@@ -94,9 +134,14 @@ This means:
 
 **Outputs (append to Phase 1 spike):**
 - `## Lookback (Phase 1 → Phase 2): Adjust modeling plan`
+  - Include explicit “plan deltas”:
+    - what changed in Appendix A/B (inventory + contract matrix),
+    - what new decisions/defaults are now required (Appendix C),
+    - what new risks were discovered (Appendix D).
 
 **Gate (do not proceed until):**
 - [ ] The Phase 2 modeling work is explicitly re-scoped based on evidence (not assumptions).
+- [ ] Appendix C and Appendix D have at least first-pass entries (even if provisional).
 
 </step>
 
@@ -108,6 +153,10 @@ This means:
 - `docs/projects/engine-refactor-v1/resources/spike/spike-foundation-modeling.md`
 - Update (or confirm) the canonical Foundation spec:
   - `docs/system/libs/mapgen/foundation.md`
+- Update in this plan:
+  - Appendix B (Contract Matrix; target-state mapping)
+  - Appendix C (Decisions + Defaults; record provisional defaults and triggers)
+  - Appendix D (Risk Register; revise based on target model)
 
 **Phase 2 focus (Foundation-specific):**
 - Plate-graph posture (Delaunay/Voronoi) vs legacy tile-first approaches:
@@ -127,6 +176,7 @@ This means:
 - [ ] Op catalog is deterministic and complete (no “optional” alternate models).
 - [ ] Buffer/artifact/overlay distinctions are explicit and consistent with `docs/system/libs/mapgen/architecture.md`.
 - [ ] The pipeline delta list includes downstream consumers that must be updated to stay coherent.
+- [ ] Appendix B reflects the target `requires/provides` model (even if slice sequencing is not finalized yet).
 
 **References:**
 - Modeling guidelines: `docs/projects/engine-refactor-v1/resources/spec/SPEC-DOMAIN-MODELING-GUIDELINES.md`
@@ -142,9 +192,14 @@ This means:
 
 **Outputs (append to Phase 2 spike):**
 - `## Lookback (Phase 2 → Phase 3): Adjust implementation plan`
+  - Include explicit “plan deltas”:
+    - contract matrix changes that require slices (Appendix B),
+    - updated risks + mitigations via slice ordering (Appendix D),
+    - any defaults/assumptions that must become explicit implementation decisions (Appendix C).
 
 **Gate (do not proceed until):**
 - [ ] The plan includes a slicing strategy for any cross-pipeline contract changes.
+- [ ] Appendix D identifies which risks are “blocking” vs “nice to resolve”.
 
 </step>
 
@@ -155,6 +210,10 @@ This means:
 **Outputs:**
 - A local implementation issue doc (domain-local “source of truth”):
   - `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-<milestone>-foundation-*.md`
+- Copy (or link) the plan spine into the issue doc so it remains actionable:
+  - Appendix B (Contract Matrix; target-state + slice deltas)
+  - Appendix C (Decisions + Defaults)
+  - Appendix D (Risk Register)
 
 **Phase 3 focus (Foundation-specific):**
 - Convert the op catalog into contract files + module surfaces.
@@ -167,6 +226,7 @@ This means:
 
 **Gate (do not proceed until):**
 - [ ] Slice 1 is fully scoped and independently shippable (docs + tests + deletions included).
+- [ ] Slice plan is explicitly ordered to mitigate the top “blocking” risks (Appendix D).
 
 **References:**
 - Shared workflow: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/WORKFLOW.md`
@@ -179,9 +239,14 @@ This means:
 
 **Outputs (append to Phase 3 issue doc):**
 - `## Lookback (Phase 3 → Phase 4): Finalize slices + sequencing`
+  - Explicitly confirm:
+    - that the Decisions + Defaults list is current (Appendix C),
+    - that the Risk Register is current and mapped to slice ordering (Appendix D),
+    - that slice 1 does not propagate legacy authoring patterns (posture checklist above).
 
 **Gate (do not proceed until):**
 - [ ] Remaining open decisions are explicit, scoped, and non-surprising.
+- [ ] No “silent backdoors” exist (e.g., tests or steps relying on deep imports that the target posture forbids without documenting why).
 
 </step>
 
@@ -198,6 +263,7 @@ This means:
 **Gate (per-slice):**
 - [ ] Slice leaves the pipeline working end-to-end (tests + build + deploy gate as required).
 - [ ] Slice leaves touched contracts and schemas documented (docs-as-code enforcement).
+- [ ] Slice does not introduce new legacy authoring patterns (use the DX posture checklist).
 
 </step>
 
@@ -231,3 +297,106 @@ This plan intentionally avoids locking down:
 
 until Phase 1/2 discoveries are complete. Treat those phases as the “plan-shaping” engine.
 
+## Appendix A: Domain Surface Inventory (living)
+
+This appendix is the “outside view” of the Foundation domain and its stage boundary. It should be a compact map of **what exists**, **what is public**, and **who depends on what**. Prefer lists over prose.
+
+**Phase 1 requirement:** fill this with current-state reality (callers, deep imports, stage wiring).
+**Phase 2 requirement:** revise this to reflect the target model (what should exist after refactor).
+
+```yaml
+files:
+  - path: /src/domain/foundation/index.ts
+    notes: Domain contract entrypoint (target); current status to be discovered in Phase 1.
+  - path: /src/domain/foundation/ops/contracts.ts
+    notes: Op contract router (target); current status known-empty, validate.
+  - path: /src/recipes/standard/stages/foundation/artifacts.ts
+    notes: Stage-owned artifact contracts (target); current status to be discovered in Phase 1.
+  - path: /src/recipes/standard/stages/foundation/steps
+    notes: Step modules + contracts (current + target); enumerate.
+```
+
+## Appendix B: Contract Matrix (living)
+
+This is the contract spine for refactoring safely: **who provides what, who requires what**, and whether each dependency is an **artifact**, a **buffer**, or an **overlay**.
+
+For each step:
+- record its **current** contract (Phase 1) and its **target** contract (Phase 2),
+- then Phase 3 slices will map the transition without breaking the pipeline.
+
+```yaml
+steps:
+  - id: foundation/<step-id>
+    title: "<human-readable step name>"
+    current:
+      requires:
+        artifacts: []
+        buffers: []
+        overlays: []
+      provides:
+        artifacts: []
+        buffers: []
+        overlays: []
+    target:
+      requires:
+        artifacts: []
+        buffers: []
+        overlays: []
+      provides:
+        artifacts: []
+        buffers: []
+        overlays: []
+    consumers:
+      - "<stage-or-step that reads this output>"
+    notes: ""
+```
+
+## Appendix C: Decisions + Defaults (living)
+
+This list prevents “silent assumptions” from becoming accidental architecture.
+
+### Default: Do not propagate legacy authoring
+- **Context:** Legacy patterns are common in existing steps; they should be deleted, not re-encoded.
+- **Choice:** Prefer inferred types from contracts; avoid redundant config-type imports/annotations in `run(...)` handlers.
+- **Trigger to revisit:** Only if Phase 1/2 show a concrete typing gap that cannot be solved via canonical authoring helpers.
+
+### Decision: Foundation posture is plate-graph-first
+- **Context:** PRD direction is plate graph (Delaunay/Voronoi) rather than legacy tile-first foundation.
+- **Choice:** (TBD in Phase 2) Confirm the canonical domain-only model assumes graph/mesh-first.
+- **Trigger to revisit:** If an engine constraint makes graph/mesh-first infeasible without a staged migration.
+
+## Appendix D: Risk Register (living)
+
+Record whether a risk is **blocking** (must be resolved before implementation proceeds) vs **nice-to-resolve** (ideally resolved, but can be left as an explicit decision/deferral).
+
+```yaml
+risks:
+  - id: R1
+    title: "Downstream coupling to legacy Foundation outputs"
+    severity: high
+    blocking: true
+    notes: "Phase 1 must enumerate consumers; Phase 3 must slice contract changes to keep pipeline coherent."
+  - id: R2
+    title: "Buffers vs artifacts confusion causes accidental re-publish"
+    severity: high
+    blocking: true
+    notes: "Phase 2 must define publish-once buffer-handle semantics; Phase 4 must enforce in step design."
+  - id: R3
+    title: "Plate-graph target model conflicts with existing tests/harness expectations"
+    severity: medium
+    blocking: false
+    notes: "Phase 3 must define test strategy; Phase 4 slices must keep deterministic harness coverage."
+```
+
+## Appendix E: Golden Path Example (canonical authoring)
+
+Use this as the “one representative step” reference when authoring new Foundation steps. This is intentionally minimal and focuses on boundaries and DX.
+
+**Targets to demonstrate:**
+- `contract.ts` imports only the domain entrypoint + stage-owned artifact contracts.
+- Step runtime uses `run(ctx, config, ops, deps)` and reads/writes via `deps.artifacts.*`.
+- No redundant config typing imports when inference already provides it.
+- Docs-as-code: JSDoc and schema `description` updates after tracing callsites.
+
+**Reference for style (existing exemplar):**
+- `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/biomes/contract.ts`
