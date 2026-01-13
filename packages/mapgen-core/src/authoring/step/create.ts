@@ -4,7 +4,7 @@ import type { NormalizeContext } from "@mapgen/engine/index.js";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import type { StepContract } from "./contract.js";
 import type { StepRuntimeOps } from "./ops.js";
-import type { StepModule, StepProvidedArtifactsRuntime } from "../types.js";
+import type { StepDeps, StepModule, StepProvidedArtifactsRuntime } from "../types.js";
 
 type StepConfigOf<C extends StepContract<any, any, any>> = Static<C["schema"]>;
 type StepOpsOf<C extends StepContract<any, any, any>> = StepRuntimeOps<NonNullable<C["ops"]>>;
@@ -12,10 +12,10 @@ type StepOpsOf<C extends StepContract<any, any, any>> = StepRuntimeOps<NonNullab
 type StepArtifactsRuntime<C extends StepContract<any, any, any>, TContext> =
   StepProvidedArtifactsRuntime<TContext, C["artifacts"]>;
 
-type StepImpl<TContext, TConfig, TOps, TArtifacts> = Readonly<{
+type StepImpl<TContext, TConfig, TOps, TArtifacts, TDeps> = Readonly<{
   artifacts?: TArtifacts;
   normalize?: (config: TConfig, ctx: NormalizeContext) => TConfig;
-  run: (context: TContext, config: TConfig, ops: TOps) => void | Promise<void>;
+  run: (context: TContext, config: TConfig, ops: TOps, deps: TDeps) => void | Promise<void>;
 }>;
 
 export function createStep<
@@ -23,7 +23,13 @@ export function createStep<
   TContext = ExtendedMapContext,
 >(
   contract: C,
-  impl: StepImpl<TContext, StepConfigOf<C>, StepOpsOf<C>, StepArtifactsRuntime<C, TContext>>
+  impl: StepImpl<
+    TContext,
+    StepConfigOf<C>,
+    StepOpsOf<C>,
+    StepArtifactsRuntime<C, TContext>,
+    StepDeps<TContext, C["artifacts"]>
+  >
 ): StepModule<TContext, StepConfigOf<C>, StepOpsOf<C>, C["artifacts"]> {
   if (!contract?.schema) {
     const label = contract?.id ? `step "${contract.id}"` : "step";
@@ -37,7 +43,13 @@ export function createStep<
 
 export type CreateStepFor<TContext> = <const C extends StepContract<any, any, any>>(
   contract: C,
-  impl: StepImpl<TContext, StepConfigOf<C>, StepOpsOf<C>, StepArtifactsRuntime<C, TContext>>
+  impl: StepImpl<
+    TContext,
+    StepConfigOf<C>,
+    StepOpsOf<C>,
+    StepArtifactsRuntime<C, TContext>,
+    StepDeps<TContext, C["artifacts"]>
+  >
 ) => StepModule<TContext, StepConfigOf<C>, StepOpsOf<C>, C["artifacts"]>;
 
 export function createStepFor<TContext>(): CreateStepFor<TContext> {

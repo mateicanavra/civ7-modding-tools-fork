@@ -17,6 +17,12 @@ import type { TraceSession, TraceSink } from "@mapgen/trace/index.js";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import { bindRuntimeOps, runtimeOp, type DomainOpRuntimeAny } from "./bindings.js";
 import { compileRecipeConfig } from "../compiler/recipe-compile.js";
+import type { ArtifactContract, ArtifactReadValueOf } from "./artifact/contract.js";
+import {
+  ArtifactMissingError,
+  type ProvidedArtifactRuntime,
+  type RequiredArtifactRuntime,
+} from "./artifact/runtime.js";
 import type {
   CompiledRecipeConfigOf,
   RecipeConfig,
@@ -25,6 +31,7 @@ import type {
   RecipeModule,
   Stage,
   Step,
+  StepDeps,
 } from "./types.js";
 
 type AnyStage<TContext> = Stage<TContext, readonly Step<TContext, any>[]>;
@@ -58,6 +65,69 @@ function computeFullStepId(input: {
   return `${base}.${input.stageId}.${input.stepId}`;
 }
 
+function createRequiredArtifactRuntime<
+  TContext extends ExtendedMapContext,
+  C extends ArtifactContract,
+>(contract: C, consumerStepId: string): RequiredArtifactRuntime<C, TContext> {
+  return {
+    contract,
+    read: (context: TContext) => {
+      if (!context.artifacts.has(contract.id)) {
+        throw new ArtifactMissingError({
+          artifactId: contract.id,
+          artifactName: contract.name,
+          consumerStepId,
+        });
+      }
+      return context.artifacts.get(contract.id) as ArtifactReadValueOf<C>;
+    },
+    tryRead: (context: TContext) => {
+      if (!context.artifacts.has(contract.id)) return null;
+      return context.artifacts.get(contract.id) as ArtifactReadValueOf<C>;
+    },
+  };
+}
+
+function buildArtifactDeps<TContext extends ExtendedMapContext>(
+  authored: Step<TContext, any, any, any>,
+  fullStepId: string,
+  recipeId: string
+): StepDeps<TContext, any>["artifacts"] {
+  const artifacts = authored.contract.artifacts;
+  if (!artifacts) return {};
+
+  const out: Record<string, RequiredArtifactRuntime<any, TContext> | ProvidedArtifactRuntime<any, TContext>> =
+    {};
+
+  for (const contract of artifacts.requires ?? []) {
+    out[contract.name] = createRequiredArtifactRuntime(contract, fullStepId);
+  }
+
+  for (const contract of artifacts.provides ?? []) {
+    const runtime = authored.artifacts?.[contract.name as keyof typeof authored.artifacts];
+    if (!runtime) {
+      throw new Error(
+        `[recipe:${recipeId}] step "${fullStepId}" missing artifact runtime for "${contract.name}"`
+      );
+    }
+    out[contract.name] = runtime as ProvidedArtifactRuntime<any, TContext>;
+  }
+
+  return out as StepDeps<TContext, typeof artifacts>["artifacts"];
+}
+
+function buildStepDeps<TContext extends ExtendedMapContext>(
+  authored: Step<TContext, any, any, any>,
+  fullStepId: string,
+  recipeId: string
+): StepDeps<TContext, typeof authored.contract.artifacts> {
+  return {
+    artifacts: buildArtifactDeps(authored, fullStepId, recipeId),
+    fields: {},
+    effects: {},
+  } as StepDeps<TContext, typeof authored.contract.artifacts>;
+}
+
 function finalizeOccurrences<TContext extends ExtendedMapContext>(input: {
   namespace?: string;
   recipeId: string;
@@ -75,6 +145,7 @@ function finalizeOccurrences<TContext extends ExtendedMapContext>(input: {
         stageId: stage.id,
         stepId,
       });
+      const deps = buildStepDeps(authored, fullId, input.recipeId);
 
       const ops = authored.contract.ops
         ? bindRuntimeOps(authored.contract.ops as any, input.runtimeOpsById as any)
@@ -93,7 +164,7 @@ function finalizeOccurrences<TContext extends ExtendedMapContext>(input: {
             | MapGenStep<TContext, unknown>["normalize"]
             | undefined,
           run: ((context: TContext, config: unknown) => {
-            return (authored.run as any)(context, config, ops);
+            return (authored.run as any)(context, config, ops, deps);
           }) as unknown as MapGenStep<TContext, unknown>["run"],
         },
       });
