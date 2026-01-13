@@ -12,7 +12,10 @@ type StepOpsOf<C extends StepContract<any, any, any>> = StepRuntimeOps<NonNullab
 type StepArtifactsRuntime<
   C extends StepContract<any, any, any>,
   TContext extends ExtendedMapContext,
-> = StepProvidedArtifactsRuntime<TContext, C["artifacts"]>;
+> = StepProvidedArtifactsRuntime<TContext, ArtifactsOf<C>>;
+
+type ArtifactsOf<C extends StepContract<any, any, any>> =
+  C extends StepContract<any, any, any, infer A> ? A : undefined;
 
 type StepImpl<TContext, TConfig, TOps, TArtifacts, TDeps> = Readonly<{
   artifacts?: TArtifacts;
@@ -30,9 +33,9 @@ export function createStep<
     StepConfigOf<C>,
     StepOpsOf<C>,
     StepArtifactsRuntime<C, TContext>,
-    StepDeps<TContext, C["artifacts"]>
+    StepDeps<TContext, ArtifactsOf<C>>
   >
-): StepModule<TContext, StepConfigOf<C>, StepOpsOf<C>, C["artifacts"]> {
+): StepModule<TContext, StepConfigOf<C>, StepOpsOf<C>, ArtifactsOf<C>> {
   if (!contract?.schema) {
     const label = contract?.id ? `step "${contract.id}"` : "step";
     throw new Error(`createStep requires an explicit schema for ${label}`);
@@ -40,7 +43,7 @@ export function createStep<
   return {
     contract,
     ...impl,
-  };
+  } as StepModule<TContext, StepConfigOf<C>, StepOpsOf<C>, ArtifactsOf<C>>;
 }
 
 export type CreateStepFor<TContext extends ExtendedMapContext> = <
@@ -52,9 +55,9 @@ export type CreateStepFor<TContext extends ExtendedMapContext> = <
     StepConfigOf<C>,
     StepOpsOf<C>,
     StepArtifactsRuntime<C, TContext>,
-    StepDeps<TContext, C["artifacts"]>
+    StepDeps<TContext, ArtifactsOf<C>>
   >
-) => StepModule<TContext, StepConfigOf<C>, StepOpsOf<C>, C["artifacts"]>;
+) => StepModule<TContext, StepConfigOf<C>, StepOpsOf<C>, ArtifactsOf<C>>;
 
 export function createStepFor<TContext extends ExtendedMapContext>(): CreateStepFor<TContext> {
   return (contract, impl) => createStep(contract, impl);

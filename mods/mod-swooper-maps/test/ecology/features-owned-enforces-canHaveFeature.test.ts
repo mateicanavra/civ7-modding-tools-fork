@@ -8,6 +8,7 @@ import {
   buildDisabledReefEmbellishmentsSelection,
   buildDisabledVegetationEmbellishmentsSelection,
 } from "./features-owned.helpers.js";
+import { buildTestDeps } from "../support/step-deps.js";
 
 describe("features (owned baseline)", () => {
   it("respects adapter.canHaveFeature gating", () => {
@@ -51,7 +52,8 @@ describe("features (owned baseline)", () => {
         reefEmbellishments: buildDisabledReefEmbellishmentsSelection(),
         vegetationEmbellishments: buildDisabledVegetationEmbellishmentsSelection(),
       },
-      ops
+      ops,
+      buildTestDeps(featuresStep)
     );
 
     for (let y = 0; y < height; y++) {

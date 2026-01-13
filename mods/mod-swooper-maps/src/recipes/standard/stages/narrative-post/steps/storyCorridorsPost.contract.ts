@@ -15,7 +15,6 @@ const StoryCorridorsPostStepContract = defineStep({
   artifacts: {
     requires: [
       narrativePreArtifacts.overlays,
-      narrativePreArtifacts.corridors,
       hydrologyCoreArtifacts.riverAdjacency,
     ],
   },

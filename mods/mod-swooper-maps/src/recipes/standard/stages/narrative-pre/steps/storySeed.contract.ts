@@ -10,7 +10,7 @@ const StorySeedStepContract = defineStep({
   requires: [M4_EFFECT_TAGS.engine.coastlinesApplied],
   provides: [],
   artifacts: {
-    provides: [narrativePreArtifacts.overlays, narrativePreArtifacts.motifsMargins],
+    provides: [narrativePreArtifacts.overlays],
   },
   schema: Type.Object({
     margins: NarrativeConfigSchema.properties.margins,

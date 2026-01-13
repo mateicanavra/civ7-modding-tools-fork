@@ -6,13 +6,9 @@ import { narrativePreArtifacts } from "../artifacts.js";
 import StorySeedStepContract from "./storySeed.contract.js";
 
 export default createStep(StorySeedStepContract, {
-  artifacts: implementArtifacts(
-    [narrativePreArtifacts.overlays, narrativePreArtifacts.motifsMargins],
-    {
-      overlays: {},
-      motifsMargins: {},
-    }
-  ),
+  artifacts: implementArtifacts([narrativePreArtifacts.overlays], {
+    overlays: {},
+  }),
   run: (context, config, _ops, deps) => {
     deps.artifacts.overlays.publish(context, context.overlays);
     const runtime = getStandardRuntime(context);
@@ -23,7 +19,6 @@ export default createStep(StorySeedStepContract, {
       }));
     }
     const result = storyTagContinentalMargins(context, config.margins);
-    deps.artifacts.motifsMargins.publish(context, result.motifs);
 
     const activeCount = result.snapshot.active?.length ?? 0;
     const passiveCount = result.snapshot.passive?.length ?? 0;

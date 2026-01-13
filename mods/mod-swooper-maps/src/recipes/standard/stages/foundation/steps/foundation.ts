@@ -1,4 +1,4 @@
-import type { MapDimensions } from "@swooper/mapgen-core";
+import type { MapDimensions } from "@civ7/adapter";
 import {
   validateFoundationConfigArtifact,
   validateFoundationDiagnosticsArtifact,

@@ -1,58 +1,11 @@
 import { ENGINE_EFFECT_TAGS } from "@civ7/adapter";
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
-import {
-  FOUNDATION_CONFIG_ARTIFACT_TAG,
-  FOUNDATION_DIAGNOSTICS_ARTIFACT_TAG,
-  FOUNDATION_DYNAMICS_ARTIFACT_TAG,
-  FOUNDATION_PLATES_ARTIFACT_TAG,
-  FOUNDATION_SEED_ARTIFACT_TAG,
-  validateFoundationConfigArtifact,
-  validateFoundationDiagnosticsArtifact,
-  validateFoundationDynamicsArtifact,
-  validateFoundationPlatesArtifact,
-  validateFoundationSeedArtifact,
-} from "@swooper/mapgen-core";
 import type { DependencyTagDefinition, TagOwner } from "@swooper/mapgen-core/engine";
-import {
-  biomeClassificationArtifact,
-  climateFieldArtifact,
-  featureIntentsArtifact,
-  heightfieldArtifact,
-  narrativeCorridorsArtifact,
-  narrativeMotifsHotspotsArtifact,
-  narrativeMotifsMarginsArtifact,
-  narrativeMotifsOrogenyArtifact,
-  narrativeMotifsRiftsArtifact,
-  pedologyArtifact,
-  placementInputsArtifact,
-  placementOutputsArtifact,
-  resourceBasinsArtifact,
-  riverAdjacencyArtifact,
-} from "./artifacts.js";
+import { placementArtifacts } from "./stages/placement/artifacts.js";
+import type { PlacementInputsV1 } from "./stages/placement/placement-inputs.js";
+import type { PlacementOutputsV1 } from "./stages/placement/placement-outputs.js";
 
 export const M3_DEPENDENCY_TAGS = {
-  artifact: {
-    foundationPlatesV1: FOUNDATION_PLATES_ARTIFACT_TAG,
-    foundationDynamicsV1: FOUNDATION_DYNAMICS_ARTIFACT_TAG,
-    foundationSeedV1: FOUNDATION_SEED_ARTIFACT_TAG,
-    foundationDiagnosticsV1: FOUNDATION_DIAGNOSTICS_ARTIFACT_TAG,
-    foundationConfigV1: FOUNDATION_CONFIG_ARTIFACT_TAG,
-    heightfield: "artifact:heightfield",
-    climateField: "artifact:climateField",
-    storyOverlays: "artifact:storyOverlays",
-    riverAdjacency: "artifact:riverAdjacency",
-    biomeClassificationV1: "artifact:ecology.biomeClassification",
-    pedologyV1: "artifact:ecology.soils",
-    resourceBasinsV1: "artifact:ecology.resourceBasins",
-    featureIntentsV1: "artifact:ecology.featureIntents",
-    narrativeCorridorsV1: "artifact:narrative.corridors",
-    narrativeMotifsMarginsV1: "artifact:narrative.motifs.margins",
-    narrativeMotifsHotspotsV1: "artifact:narrative.motifs.hotspots",
-    narrativeMotifsRiftsV1: "artifact:narrative.motifs.rifts",
-    narrativeMotifsOrogenyV1: "artifact:narrative.motifs.orogeny",
-    placementInputsV1: "artifact:placementInputs",
-    placementOutputsV1: "artifact:placementOutputs",
-  },
   field: {
     terrainType: "field:terrainType",
     elevation: "field:elevation",
@@ -74,7 +27,6 @@ export const M4_EFFECT_TAGS = {
 } as const;
 
 export const M3_CANONICAL_DEPENDENCY_TAGS: ReadonlySet<string> = new Set([
-  ...Object.values(M3_DEPENDENCY_TAGS.artifact),
   ...Object.values(M3_DEPENDENCY_TAGS.field),
   ...Object.values(M4_EFFECT_TAGS.engine),
 ]);
@@ -102,225 +54,11 @@ const EFFECT_OWNERS: Record<string, TagOwner> = {
   },
 };
 
-const demoDimensions = { width: 0, height: 0 } as const;
-
 type SatisfactionState = {
   satisfied: ReadonlySet<string>;
 };
 
 export const STANDARD_TAG_DEFINITIONS: readonly DependencyTagDefinition<ExtendedMapContext>[] = [
-  {
-    id: M3_DEPENDENCY_TAGS.artifact.foundationPlatesV1,
-    kind: "artifact",
-    satisfies: (context) => isFoundationPlatesArtifactSatisfied(context),
-  },
-  {
-    id: M3_DEPENDENCY_TAGS.artifact.foundationDynamicsV1,
-    kind: "artifact",
-    satisfies: (context) => isFoundationDynamicsArtifactSatisfied(context),
-  },
-  {
-    id: M3_DEPENDENCY_TAGS.artifact.foundationSeedV1,
-    kind: "artifact",
-    satisfies: (context) => isFoundationSeedArtifactSatisfied(context),
-  },
-  {
-    id: M3_DEPENDENCY_TAGS.artifact.foundationDiagnosticsV1,
-    kind: "artifact",
-    satisfies: (context) => isFoundationDiagnosticsArtifactSatisfied(context),
-  },
-  {
-    id: M3_DEPENDENCY_TAGS.artifact.foundationConfigV1,
-    kind: "artifact",
-    satisfies: (context) => isFoundationConfigArtifactSatisfied(context),
-  },
-  {
-    id: M3_DEPENDENCY_TAGS.artifact.heightfield,
-    kind: "artifact",
-    satisfies: (context) =>
-      heightfieldArtifact.validate(
-        context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.heightfield),
-        context.dimensions
-      ).length === 0,
-    demo: {
-      elevation: new Int16Array(0),
-      terrain: new Uint8Array(0),
-      landMask: new Uint8Array(0),
-    },
-    validateDemo: (demo) => heightfieldArtifact.validate(demo, demoDimensions).length === 0,
-  },
-  {
-    id: M3_DEPENDENCY_TAGS.artifact.climateField,
-    kind: "artifact",
-    satisfies: (context) =>
-      climateFieldArtifact.validate(
-        context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.climateField),
-        context.dimensions
-      ).length === 0,
-    demo: {
-      rainfall: new Uint8Array(0),
-      humidity: new Uint8Array(0),
-    },
-    validateDemo: (demo) => climateFieldArtifact.validate(demo, demoDimensions).length === 0,
-  },
-  {
-    id: M3_DEPENDENCY_TAGS.artifact.biomeClassificationV1,
-    kind: "artifact",
-    satisfies: (context) =>
-      biomeClassificationArtifact.validate(
-        context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.biomeClassificationV1),
-        context.dimensions
-      ).length === 0,
-    demo: {
-      width: 0,
-      height: 0,
-      biomeIndex: new Uint8Array(0),
-      vegetationDensity: new Float32Array(0),
-      effectiveMoisture: new Float32Array(0),
-      surfaceTemperature: new Float32Array(0),
-      aridityIndex: new Float32Array(0),
-      freezeIndex: new Float32Array(0),
-    },
-    validateDemo: (demo) =>
-      biomeClassificationArtifact.validate(demo, demoDimensions).length === 0,
-  },
-  {
-    id: M3_DEPENDENCY_TAGS.artifact.pedologyV1,
-    kind: "artifact",
-    satisfies: (context) =>
-      pedologyArtifact.validate(
-        context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.pedologyV1),
-        context.dimensions
-      ).length === 0,
-  },
-  {
-    id: M3_DEPENDENCY_TAGS.artifact.resourceBasinsV1,
-    kind: "artifact",
-    satisfies: (context) =>
-      resourceBasinsArtifact.validate(
-        context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.resourceBasinsV1),
-        context.dimensions
-      ).length === 0,
-  },
-  {
-    id: M3_DEPENDENCY_TAGS.artifact.featureIntentsV1,
-    kind: "artifact",
-    satisfies: (context) =>
-      featureIntentsArtifact.validate(
-        context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.featureIntentsV1),
-        context.dimensions
-      ).length === 0,
-  },
-  {
-    id: M3_DEPENDENCY_TAGS.artifact.storyOverlays,
-    kind: "artifact",
-    satisfies: (context) => (context.overlays?.size ?? 0) > 0,
-    demo: {},
-    validateDemo: (demo) => isPlainObject(demo),
-  },
-  {
-    id: M3_DEPENDENCY_TAGS.artifact.narrativeCorridorsV1,
-    kind: "artifact",
-    satisfies: (context) =>
-      narrativeCorridorsArtifact.validate(
-        context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.narrativeCorridorsV1),
-        context.dimensions
-      ).length === 0,
-  },
-  {
-    id: M3_DEPENDENCY_TAGS.artifact.narrativeMotifsMarginsV1,
-    kind: "artifact",
-    satisfies: (context) =>
-      narrativeMotifsMarginsArtifact.validate(
-        context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.narrativeMotifsMarginsV1),
-        context.dimensions
-      ).length === 0,
-  },
-  {
-    id: M3_DEPENDENCY_TAGS.artifact.narrativeMotifsHotspotsV1,
-    kind: "artifact",
-    satisfies: (context) =>
-      narrativeMotifsHotspotsArtifact.validate(
-        context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.narrativeMotifsHotspotsV1),
-        context.dimensions
-      ).length === 0,
-  },
-  {
-    id: M3_DEPENDENCY_TAGS.artifact.narrativeMotifsRiftsV1,
-    kind: "artifact",
-    satisfies: (context) =>
-      narrativeMotifsRiftsArtifact.validate(
-        context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.narrativeMotifsRiftsV1),
-        context.dimensions
-      ).length === 0,
-  },
-  {
-    id: M3_DEPENDENCY_TAGS.artifact.narrativeMotifsOrogenyV1,
-    kind: "artifact",
-    satisfies: (context) =>
-      narrativeMotifsOrogenyArtifact.validate(
-        context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.narrativeMotifsOrogenyV1),
-        context.dimensions
-      ).length === 0,
-  },
-  {
-    id: M3_DEPENDENCY_TAGS.artifact.riverAdjacency,
-    kind: "artifact",
-    satisfies: (context) =>
-      riverAdjacencyArtifact.validate(
-        context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.riverAdjacency),
-        context.dimensions
-      ).length === 0,
-    demo: new Uint8Array(0),
-    validateDemo: (demo) => riverAdjacencyArtifact.validate(demo, demoDimensions).length === 0,
-  },
-  {
-    id: M3_DEPENDENCY_TAGS.artifact.placementInputsV1,
-    kind: "artifact",
-    satisfies: (context) =>
-      placementInputsArtifact.validate(
-        context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.placementInputsV1),
-        context.dimensions
-      ).length === 0,
-    demo: {
-      mapInfo: { NumNaturalWonders: 0 },
-      starts: {
-        playersLandmass1: 1,
-        playersLandmass2: 1,
-        westContinent: { west: 0, east: 0, south: 0, north: 0, continent: 0 },
-        eastContinent: { west: 0, east: 0, south: 0, north: 0, continent: 1 },
-        startSectorRows: 1,
-        startSectorCols: 1,
-        startSectors: [],
-      },
-      wonders: { wondersCount: 1 },
-      floodplains: { minLength: 4, maxLength: 10 },
-      placementConfig: {
-        wonders: { strategy: "default", config: { wondersPlusOne: true } },
-        floodplains: { strategy: "default", config: { minLength: 4, maxLength: 10 } },
-        starts: { strategy: "default", config: {} },
-      },
-    },
-    validateDemo: (demo) => placementInputsArtifact.validate(demo, demoDimensions).length === 0,
-  },
-  {
-    id: M3_DEPENDENCY_TAGS.artifact.placementOutputsV1,
-    kind: "artifact",
-    satisfies: (context) =>
-      placementOutputsArtifact.validate(
-        context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.placementOutputsV1),
-        context.dimensions
-      ).length === 0,
-    demo: {
-      naturalWondersCount: 0,
-      floodplainsCount: 0,
-      snowTilesCount: 0,
-      resourcesCount: 0,
-      startsAssigned: 0,
-      discoveriesCount: 0,
-    },
-    validateDemo: (demo) => placementOutputsArtifact.validate(demo, demoDimensions).length === 0,
-  },
   {
     id: M3_DEPENDENCY_TAGS.field.terrainType,
     kind: "field",
@@ -385,102 +123,34 @@ export function registerStandardTags(registry: {
 function isPlacementOutputSatisfied(context: ExtendedMapContext, state: SatisfactionState): boolean {
   if (!state.satisfied.has(M4_EFFECT_TAGS.engine.placementApplied)) return false;
 
-  let outputs: ReturnType<typeof placementOutputsArtifact["get"]>;
-  try {
-    outputs = placementOutputsArtifact.get(context);
-  } catch {
-    return false;
-  }
+  const outputs = context.artifacts.get(placementArtifacts.placementOutputs.id);
+  if (!outputs || typeof outputs !== "object") return false;
+  const candidate = outputs as PlacementOutputsV1;
 
   const counts = [
-    outputs.naturalWondersCount,
-    outputs.floodplainsCount,
-    outputs.snowTilesCount,
-    outputs.resourcesCount,
-    outputs.startsAssigned,
-    outputs.discoveriesCount,
+    candidate.naturalWondersCount,
+    candidate.floodplainsCount,
+    candidate.snowTilesCount,
+    candidate.resourcesCount,
+    candidate.startsAssigned,
+    candidate.discoveriesCount,
   ];
   if (!counts.every((value) => Number.isFinite(value) && value >= 0)) return false;
-  if (!Number.isInteger(outputs.startsAssigned)) return false;
+  if (!Number.isInteger(candidate.startsAssigned)) return false;
 
-  try {
-    const inputs = placementInputsArtifact.get(context);
+  const inputs = context.artifacts.get(placementArtifacts.placementInputs.id);
+  if (inputs && typeof inputs === "object") {
+    const candidates = inputs as PlacementInputsV1;
     const expectedPlayers =
-      (inputs.starts?.playersLandmass1 ?? 0) + (inputs.starts?.playersLandmass2 ?? 0);
-    if (expectedPlayers > 0 && outputs.startsAssigned < expectedPlayers) return false;
-  } catch {
-    // Placement inputs validation is optional for placementApplied satisfaction.
+      (candidates.starts?.playersLandmass1 ?? 0) + (candidates.starts?.playersLandmass2 ?? 0);
+    if (expectedPlayers > 0 && candidate.startsAssigned < expectedPlayers) return false;
   }
 
   return true;
 }
 
-function isFoundationPlatesArtifactSatisfied(context: ExtendedMapContext): boolean {
-  try {
-    validateFoundationPlatesArtifact(
-      context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.foundationPlatesV1),
-      context.dimensions
-    );
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-function isFoundationDynamicsArtifactSatisfied(context: ExtendedMapContext): boolean {
-  try {
-    validateFoundationDynamicsArtifact(
-      context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.foundationDynamicsV1),
-      context.dimensions
-    );
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-function isFoundationSeedArtifactSatisfied(context: ExtendedMapContext): boolean {
-  try {
-    validateFoundationSeedArtifact(
-      context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.foundationSeedV1),
-      context.dimensions
-    );
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-function isFoundationDiagnosticsArtifactSatisfied(context: ExtendedMapContext): boolean {
-  try {
-    validateFoundationDiagnosticsArtifact(
-      context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.foundationDiagnosticsV1)
-    );
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-function isFoundationConfigArtifactSatisfied(context: ExtendedMapContext): boolean {
-  try {
-    validateFoundationConfigArtifact(
-      context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.foundationConfigV1)
-    );
-    return true;
-  } catch {
-    return false;
-  }
-}
-
 function getExpectedSize(context: ExtendedMapContext): number {
   return context.dimensions.width * context.dimensions.height;
-}
-
-function isPlainObject(value: unknown): value is Record<string, unknown> {
-  if (value == null || typeof value !== "object" || Array.isArray(value)) return false;
-  const proto = Object.getPrototypeOf(value);
-  return proto === Object.prototype || proto === null;
 }
 
 function isUint8Array(value: unknown, expectedSize?: number): value is Uint8Array {

@@ -8,6 +8,7 @@ import {
   buildDisabledReefEmbellishmentsSelection,
   buildDisabledVegetationEmbellishmentsSelection,
 } from "./features-owned.helpers.js";
+import { buildTestDeps } from "../support/step-deps.js";
 
 describe("features (owned baseline)", () => {
   it("keeps land features on land and aquatic features on water", () => {
@@ -64,7 +65,8 @@ describe("features (owned baseline)", () => {
         reefEmbellishments: buildDisabledReefEmbellishmentsSelection(),
         vegetationEmbellishments: buildDisabledVegetationEmbellishmentsSelection(),
       },
-      ops
+      ops,
+      buildTestDeps(featuresStep)
     );
 
     const landFeatures = new Set([

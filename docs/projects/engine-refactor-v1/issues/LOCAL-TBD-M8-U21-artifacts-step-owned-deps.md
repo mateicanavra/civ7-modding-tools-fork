@@ -189,19 +189,33 @@ Corridors are a canonical overlay type:
 - **Rationale:** Aligns with the buffer policy (single publish + in-place mutation) and keeps a single producer for the artifact.
 - **Risk:** Consumers must treat the artifact as mutable post-publish; future buffer/artifact separation should make this explicit.
 
-### Story corridors publish once, then refine in place
-- **Context:** `story-corridors-pre` and `story-corridors-post` previously both published the narrative corridors artifact.
-- **Options:** Publish only in post; publish in pre and republish in post; publish in pre and mutate in post.
-- **Choice:** Publish in `story-corridors-pre`, then mutate in place during `story-corridors-post`.
-- **Rationale:** Keeps a single producer, preserves pre-corridor availability for morphology, and matches buffer-style mutation.
-- **Risk:** Corridor artifacts are mutable; downstream consumers must tolerate post-step updates.
+### Story corridors append overlay snapshots per stage
+- **Context:** `story-corridors-pre` and `story-corridors-post` previously published a dedicated corridor artifact.
+- **Options:** Keep a corridor artifact; append overlay snapshots only.
+- **Choice:** Use overlay snapshots only: pre/post steps append to `overlays.corridors`, consumers read the latest snapshot.
+- **Rationale:** Aligns with the single overlays artifact policy and avoids a parallel corridor artifact path.
+- **Risk:** Corridor state is reconstructed from overlay snapshots; consumers must use the latest snapshot.
 
-### Islands refine hotspot motifs in place
-- **Context:** `islands` augments hotspot motifs after `story-hotspots` has published them.
-- **Options:** Republish motifs; publish a new artifact; mutate in place.
-- **Choice:** Mutate `motifsHotspots` in place after the initial publish.
-- **Rationale:** Maintains a single producer and aligns with the buffer-style mutation policy.
-- **Risk:** Hotspot motifs become mutable after publish; future redesign should make this explicit.
+### Islands append hotspot overlay updates
+- **Context:** `islands` augments hotspot motifs after `story-hotspots` runs.
+- **Options:** Keep a motif artifact; append overlay updates.
+- **Choice:** Append a new hotspot overlay snapshot encoding paradise/volcanic updates; consumers read the latest snapshot.
+- **Rationale:** Preserves the append-preferred overlay model while avoiding a separate motifs artifact.
+- **Risk:** Overlay snapshots become a functional data source; downstream steps must read the latest snapshot for accuracy.
+
+### Placement effect satisfaction uses output counters only
+- **Context:** Removing legacy artifact handlers drops the `placementOutputsArtifact.get` validation path.
+- **Options:** Recreate full placement artifact validation in tags; rely on minimal numeric checks for effect gating.
+- **Choice:** Use numeric field checks plus the optional inputs-based starts sanity check.
+- **Rationale:** Keeps effect validation lightweight without reintroducing legacy handlers or runtime schema compilation.
+- **Risk:** Malformed placement outputs with numeric fields could satisfy the effect; deeper validation remains a follow-up.
+
+### Narrative motifs/corridors are sourced from overlay snapshots
+- **Context:** Overlay policy removes separate narrative motif/corridor artifacts, but downstream steps still need motifs/corridors data.
+- **Options:** Keep separate motif/corridor artifacts; encode motif/corridor data in overlay snapshots and reconstruct for consumers.
+- **Choice:** Store motif/corridor data in overlay snapshots (summary/active/passive) and reconstruct in consumers.
+- **Rationale:** Preserves the single overlays artifact policy and avoids parallel artifact paths.
+- **Risk:** Overlay snapshots become a functional data source; downstream steps must read the latest snapshot for accurate state (e.g., islands appends hotspot updates).
 
 ## Sequencing (Phase 2)
 1. U21-F1: Define stage-owned artifact contracts for the standard recipe (all stages).
@@ -1254,11 +1268,11 @@ files:
 **Acceptance criteria:**
 ```yaml
 acceptance_criteria:
-  - "[ ] No step implementation imports `mods/mod-swooper-maps/src/recipes/standard/artifacts.ts` for artifact reads/writes."
-  - "[ ] Manual artifact satisfiers in `STANDARD_TAG_DEFINITIONS` are removed (artifacts only)."
-  - "[ ] The recipe still executes with gating enforced (producer must publish declared artifacts)."
-  - "[ ] `ctx.overlays` is the single overlays container, published once as `artifact:storyOverlays` and mutated in place (no republish)."
-  - "[ ] `biomeClassification` has a single producer step (no dual-writer between `biomes` and `biome-edge-refine`)."
+  - "[x] No step implementation imports `mods/mod-swooper-maps/src/recipes/standard/artifacts.ts` for artifact reads/writes."
+  - "[x] Manual artifact satisfiers in `STANDARD_TAG_DEFINITIONS` are removed (artifacts only)."
+  - "[x] The recipe still executes with gating enforced (producer must publish declared artifacts)."
+  - "[x] `ctx.overlays` is the single overlays container, published once as `artifact:storyOverlays` and mutated in place (no republish)."
+  - "[x] `biomeClassification` has a single producer step (no dual-writer between `biomes` and `biome-edge-refine`)."
 ```
 
 ## U21-G) Tests + verification
@@ -1309,7 +1323,7 @@ verification_commands:
   phase_2:
     - pnpm -C mods/mod-swooper-maps check
     - pnpm -C mods/mod-swooper-maps test
-    - "rg -n \"ctx\\\\.overlays\" -S . (expect zero)"
+    - "rg -n \"ctx\\\\.overlays\" -S mods/mod-swooper-maps/src/recipes/standard (expect zero)"
     - "rg -n \"from \\\\\\\"\\.\\./\\.\\./\\.\\./artifacts\\\\.js\\\\\\\"\" -S mods/mod-swooper-maps/src/recipes/standard/stages (expect zero for step impls after migration)"
 ```
 

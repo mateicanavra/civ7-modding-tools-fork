@@ -15,8 +15,7 @@ const RuggedCoastsStepContract = defineStep({
   artifacts: {
     requires: [
       foundationArtifacts.plates,
-      narrativePreArtifacts.motifsMargins,
-      narrativePreArtifacts.corridors,
+      narrativePreArtifacts.overlays,
     ],
   },
   schema: Type.Object({

@@ -2,18 +2,16 @@ import { describe, expect, it } from "bun:test";
 
 import { createMockAdapter } from "@civ7/adapter";
 import { createExtendedMapContext } from "@swooper/mapgen-core";
+import { implementArtifacts } from "@swooper/mapgen-core/authoring";
 import { FoundationDirectionalityConfigSchema } from "@mapgen/domain/config";
 import ecology from "@mapgen/domain/ecology/ops";
+import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
 
 import biomesStep from "../../src/recipes/standard/stages/ecology/steps/biomes/index.js";
-import {
-  buildNarrativeCorridorsV1,
-  buildNarrativeMotifsRiftsV1,
-  publishClimateFieldArtifact,
-  publishHeightfieldArtifact,
-} from "../../src/recipes/standard/artifacts.js";
-import { M3_DEPENDENCY_TAGS } from "../../src/recipes/standard/tags.js";
+import { hydrologyPreArtifacts } from "../../src/recipes/standard/stages/hydrology-pre/artifacts.js";
+import { narrativePreArtifacts } from "../../src/recipes/standard/stages/narrative-pre/artifacts.js";
 import { normalizeOpSelectionOrThrow, normalizeStrictOrThrow } from "../support/compiler-helpers.js";
+import { buildTestDeps } from "../support/step-deps.js";
 
 describe("biomes step", () => {
   it("assigns marine biome to water tiles", () => {
@@ -46,24 +44,47 @@ describe("biomes step", () => {
     ctx.buffers.climate.rainfall.fill(120);
     ctx.buffers.climate.humidity.fill(80);
 
-    publishHeightfieldArtifact(ctx);
-    publishClimateFieldArtifact(ctx);
-    ctx.artifacts.set(
-      M3_DEPENDENCY_TAGS.artifact.narrativeCorridorsV1,
-      buildNarrativeCorridorsV1({
-        seaLanes: [],
-        islandHops: [],
-        landCorridors: [],
-        riverCorridors: [],
-        kindByTile: new Map(),
-        styleByTile: new Map(),
-        attributesByTile: new Map(),
-      })
+    const hydrologyArtifacts = implementArtifacts(
+      [hydrologyPreArtifacts.heightfield, hydrologyPreArtifacts.climateField],
+      { heightfield: {}, climateField: {} }
     );
-    ctx.artifacts.set(
-      M3_DEPENDENCY_TAGS.artifact.narrativeMotifsRiftsV1,
-      buildNarrativeMotifsRiftsV1({ riftLine: [], riftShoulder: [] })
-    );
+    hydrologyArtifacts.heightfield.publish(ctx, ctx.buffers.heightfield);
+    hydrologyArtifacts.climateField.publish(ctx, ctx.buffers.climate);
+
+    const narrativeArtifacts = implementArtifacts([narrativePreArtifacts.overlays], {
+      overlays: {},
+    });
+    narrativeArtifacts.overlays.publish(ctx, ctx.overlays);
+    publishStoryOverlay(ctx, STORY_OVERLAY_KEYS.CORRIDORS, {
+      kind: STORY_OVERLAY_KEYS.CORRIDORS,
+      version: 1,
+      width,
+      height,
+      active: [],
+      summary: {
+        seaLane: [],
+        islandHop: [],
+        landOpen: [],
+        riverChain: [],
+        kindByTile: {},
+        styleByTile: {},
+        attributesByTile: {},
+      },
+    });
+    publishStoryOverlay(ctx, STORY_OVERLAY_KEYS.RIFTS, {
+      kind: STORY_OVERLAY_KEYS.RIFTS,
+      version: 1,
+      width,
+      height,
+      active: [],
+      passive: [],
+      summary: {
+        rifts: 0,
+        lineTiles: 0,
+        shoulderTiles: 0,
+        kind: "test",
+      },
+    });
 
     const classifyConfig = normalizeOpSelectionOrThrow(ecology.ops.classifyBiomes, {
       strategy: "default",
@@ -77,7 +98,8 @@ describe("biomes step", () => {
         classify: classifyConfig,
         bindings: {},
       },
-      ops
+      ops,
+      buildTestDeps(biomesStep)
     );
 
     const marineId = adapter.getBiomeGlobal("BIOME_MARINE");

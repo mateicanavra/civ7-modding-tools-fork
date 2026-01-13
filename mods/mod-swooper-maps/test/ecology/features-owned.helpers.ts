@@ -1,19 +1,15 @@
 import { createMockAdapter } from "@civ7/adapter";
 import { createExtendedMapContext } from "@swooper/mapgen-core";
-import type { Static } from "@swooper/mapgen-core/authoring";
+import { implementArtifacts, type Static } from "@swooper/mapgen-core/authoring";
 import { FoundationDirectionalityConfigSchema } from "@mapgen/domain/config";
 import ecology from "@mapgen/domain/ecology/ops";
+import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
 
 import { normalizeOpSelectionOrThrow, normalizeStrictOrThrow } from "../support/compiler-helpers.js";
 
-import {
-  buildNarrativeMotifsHotspotsV1,
-  buildNarrativeMotifsMarginsV1,
-  publishBiomeClassificationArtifact,
-  publishClimateFieldArtifact,
-  publishHeightfieldArtifact,
-} from "../../src/recipes/standard/artifacts.js";
-import { M3_DEPENDENCY_TAGS } from "../../src/recipes/standard/tags.js";
+import { ecologyArtifacts } from "../../src/recipes/standard/stages/ecology/artifacts.js";
+import { hydrologyPreArtifacts } from "../../src/recipes/standard/stages/hydrology-pre/artifacts.js";
+import { narrativePreArtifacts } from "../../src/recipes/standard/stages/narrative-pre/artifacts.js";
 
 export const disabledEmbellishmentsConfig = {
   story: { features: {} },
@@ -202,9 +198,18 @@ export function createFeaturesTestContext(options: FeaturesTestContextOptions) {
   const soilType = new Uint8Array(size).fill(2);
   const fertility = new Float32Array(size).fill(defaultFertility);
 
-  publishHeightfieldArtifact(ctx);
-  publishClimateFieldArtifact(ctx);
-  publishBiomeClassificationArtifact(ctx, {
+  const hydrologyArtifacts = implementArtifacts(
+    [hydrologyPreArtifacts.heightfield, hydrologyPreArtifacts.climateField],
+    { heightfield: {}, climateField: {} }
+  );
+  hydrologyArtifacts.heightfield.publish(ctx, ctx.buffers.heightfield);
+  hydrologyArtifacts.climateField.publish(ctx, ctx.buffers.climate);
+
+  const ecologyArtifactsRuntime = implementArtifacts(
+    [ecologyArtifacts.biomeClassification, ecologyArtifacts.pedology],
+    { biomeClassification: {}, pedology: {} }
+  );
+  ecologyArtifactsRuntime.biomeClassification.publish(ctx, {
     width,
     height,
     biomeIndex,
@@ -214,20 +219,40 @@ export function createFeaturesTestContext(options: FeaturesTestContextOptions) {
     aridityIndex,
     freezeIndex,
   });
-  ctx.artifacts.set(M3_DEPENDENCY_TAGS.artifact.pedologyV1, {
+  ecologyArtifactsRuntime.pedology.publish(ctx, {
     width,
     height,
     soilType,
     fertility,
   });
-  ctx.artifacts.set(
-    M3_DEPENDENCY_TAGS.artifact.narrativeMotifsHotspotsV1,
-    buildNarrativeMotifsHotspotsV1({ points: [], paradise: [], volcanic: [] })
-  );
-  ctx.artifacts.set(
-    M3_DEPENDENCY_TAGS.artifact.narrativeMotifsMarginsV1,
-    buildNarrativeMotifsMarginsV1({ activeMargin: [], passiveShelf: [] })
-  );
+
+  const narrativeArtifacts = implementArtifacts([narrativePreArtifacts.overlays], {
+    overlays: {},
+  });
+  narrativeArtifacts.overlays.publish(ctx, ctx.overlays);
+  publishStoryOverlay(ctx, STORY_OVERLAY_KEYS.HOTSPOTS, {
+    kind: STORY_OVERLAY_KEYS.HOTSPOTS,
+    version: 1,
+    width,
+    height,
+    active: [],
+    summary: {
+      paradise: [],
+      volcanic: [],
+    },
+  });
+  publishStoryOverlay(ctx, STORY_OVERLAY_KEYS.MARGINS, {
+    kind: STORY_OVERLAY_KEYS.MARGINS,
+    version: 1,
+    width,
+    height,
+    active: [],
+    passive: [],
+    summary: {
+      active: 0,
+      passive: 0,
+    },
+  });
 
   return {
     ctx,

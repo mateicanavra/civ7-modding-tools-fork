@@ -16,8 +16,7 @@ const FeaturesStepContract = defineStep({
       hydrologyPreArtifacts.climateField,
       hydrologyPreArtifacts.heightfield,
       ecologyArtifacts.biomeClassification,
-      narrativePreArtifacts.motifsMargins,
-      narrativePreArtifacts.motifsHotspots,
+      narrativePreArtifacts.overlays,
     ],
   },
   ops: {

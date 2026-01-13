@@ -5,7 +5,8 @@
  * - Uses EngineAdapter reads (water/elevation/rainfall/latitude) when ctx provided
  * - Publishes a canonical overlay snapshot for Task Graph contracts
  *
- * Corridors are published as narrative artifacts and overlays.
+ * Corridors are published as overlay snapshots; pipeline consumers reconstruct corridor state
+ * from the latest overlays entry (no standalone corridor artifact).
  */
 
 import type { ExtendedMapContext, StoryOverlaySnapshot } from "@swooper/mapgen-core";

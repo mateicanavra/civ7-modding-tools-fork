@@ -11,6 +11,7 @@ import { clampToByte } from "./helpers/apply.js";
 import { resolveEngineBiomeIds } from "./helpers/engine-bindings.js";
 import { ecologyArtifacts } from "../../artifacts.js";
 import { validateBiomeClassificationArtifact } from "../../artifact-validation.js";
+import { readOverlayCorridors, readOverlayMotifsRifts } from "../../../../overlays.js";
 
 export default createStep(BiomesStepContract, {
   artifacts: implementArtifacts([ecologyArtifacts.biomeClassification], {
@@ -32,14 +33,15 @@ export default createStep(BiomesStepContract, {
     }
 
     const latitude = buildLatitudeField(context.adapter, width, height);
-    const corridors = deps.artifacts.corridors.read(context);
-    const rifts = deps.artifacts.motifsRifts.read(context);
+    const overlays = deps.artifacts.overlays.read(context);
+    const corridors = readOverlayCorridors(overlays);
+    const rifts = readOverlayMotifsRifts(overlays);
 
-    const corridorMask = maskFromCoordSet(corridors.landCorridors, width, height);
-    const riverCorridorMask = maskFromCoordSet(corridors.riverCorridors, width, height);
+    const corridorMask = maskFromCoordSet(corridors?.landCorridors, width, height);
+    const riverCorridorMask = maskFromCoordSet(corridors?.riverCorridors, width, height);
     combineCorridorMasks(corridorMask, riverCorridorMask);
 
-    const riftShoulderMask = maskFromCoordSet(rifts.riftShoulder, width, height);
+    const riftShoulderMask = maskFromCoordSet(rifts?.riftShoulder, width, height);
 
     const result = ops.classify(
       {
