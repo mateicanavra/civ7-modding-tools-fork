@@ -114,8 +114,5 @@ The adapter gap triage indicates Gameplay v1 likely does not require new adapter
 
 ## Suggested Next Artifact (If We Proceed)
 
-Create a Gameplay-domain refactor implementation plan that:
-- uses `OWNERSHIP-MAP.md` as the contract baseline
-- migrates Placement first (low-risk, already domain-shaped)
-- then incrementally absorbs Narrative overlay production modules while preserving consumer contracts
-
+The implementation/migration plan for Gameplay v1 lives in:
+- `docs/projects/engine-refactor-v1/resources/domains/gameplay/IMPLEMENTATION-PLAN.md`
