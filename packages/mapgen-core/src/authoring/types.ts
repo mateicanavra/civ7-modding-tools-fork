@@ -14,10 +14,36 @@ import type { TraceSession, TraceSink } from "@mapgen/trace/index.js";
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 import type { CompileOpsById } from "../compiler/recipe-compile.js";
 import type { DomainOpRuntimeAny, OpsById } from "./bindings.js";
-import type { StepContract } from "./step/contract.js";
+import type { ArtifactContract } from "./artifact/contract.js";
+import type { ProvidedArtifactRuntime } from "./artifact/runtime.js";
+import type { StepArtifactsDecl, StepContract } from "./step/contract.js";
 
-export type Step<TContext = ExtendedMapContext, TConfig = unknown, TOps = unknown> = {
-  readonly contract: StepContract<TObject, string, any>;
+type ArtifactsByName<T extends readonly ArtifactContract[]> = {
+  [C in T[number] as C["name"]]: C;
+};
+
+export type StepProvidedArtifactsRuntime<
+  TContext,
+  TArtifacts extends StepArtifactsDecl | undefined,
+> = TArtifacts extends StepArtifactsDecl<any, infer Provides>
+  ? Provides extends readonly ArtifactContract[]
+    ? {
+        [K in keyof ArtifactsByName<Provides>]: ProvidedArtifactRuntime<
+          ArtifactsByName<Provides>[K],
+          TContext
+        >;
+      }
+    : {}
+  : {};
+
+export type Step<
+  TContext = ExtendedMapContext,
+  TConfig = unknown,
+  TOps = unknown,
+  TArtifacts extends StepArtifactsDecl | undefined = StepArtifactsDecl | undefined,
+> = {
+  readonly contract: StepContract<TObject, string, any, TArtifacts>;
+  artifacts?: StepProvidedArtifactsRuntime<TContext, TArtifacts>;
   normalize?: (config: TConfig, ctx: NormalizeContext) => TConfig;
   run: (context: TContext, config: TConfig, ops: TOps) => void | Promise<void>;
 };
@@ -179,11 +205,12 @@ export type RecipeModule<
   ) => void;
 };
 
-export type StepModule<TContext = ExtendedMapContext, TConfig = unknown, TOps = unknown> = Step<
-  TContext,
-  TConfig,
-  TOps
->;
+export type StepModule<
+  TContext = ExtendedMapContext,
+  TConfig = unknown,
+  TOps = unknown,
+  TArtifacts extends StepArtifactsDecl | undefined = StepArtifactsDecl | undefined,
+> = Step<TContext, TConfig, TOps, TArtifacts>;
 export type StageModule<
   TContext = ExtendedMapContext,
   TSteps extends readonly Step<TContext, any>[] = readonly Step<TContext, any>[],
