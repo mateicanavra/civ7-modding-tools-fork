@@ -30,6 +30,121 @@ Phase 1 (packages/mapgen-core only, additive, no consumer edits):
 Phase 2 (deferred, requires check-in):
 1. U21-F — Migrate mod-swooper-maps standard recipe (no shims).
 
+## Phase 2 Policy (Buffers + Overlays)
+Phase 2 adopts the finalized buffer/overlay policy and applies it throughout the
+standard recipe migration. This policy is intentional and temporary: buffers and
+overlays are still threaded through artifacts because the current pipeline only
+supports artifact wiring.
+
+### Context Block — Buffers vs Artifacts (Current Policy + Future Intent)
+Overview (Conceptual Explanation)
+Buffers are the mutable, shared working layers of the map generation pipeline.
+They represent canonical, physics-adjacent layers that multiple stages/steps need
+to read and mutate over time (e.g., heightfield, climate field). Buffers exist to
+support iterative, multi-step refinement without reallocating or duplicating large
+arrays on every step.
+
+Artifacts are published data products with explicit contracts used for pipeline
+gating, dependency scheduling, and typed access. Artifacts are designed to be
+write-once, immutable (by convention and type), and consumed via the step deps
+surface. In contrast, buffers are intentionally mutable and shared across multiple
+steps.
+
+Today, buffers are still threaded through the artifact system. This is a temporary
+architectural compromise: buffers are treated as artifacts for gating/typing
+because the current pipeline only has artifact-based dependency wiring. This does
+not mean buffers are conceptually artifacts; it means we are deferring a larger
+redesign that would give buffers their own distinct dependency kind.
+
+Current State vs Desired State (Intentional, Temporary Compromise)
+Current state (intentional):
+- Buffers are published as artifacts to participate in dependency gating and typed
+  access.
+- A buffer artifact is published once, then mutated in place via ctx.buffers by
+  subsequent steps.
+- Buffer artifacts must not be re-published after the initial publish.
+
+Desired state (future):
+- Buffers should become their own dependency kind, separate from artifacts.
+- Buffer dependency wiring should acknowledge and support mutability explicitly.
+- The artifact system should return to a pure write-once, immutable-by-convention
+  contract model, without carrying buffer semantics.
+
+This is a deliberate, temporary compromise to avoid a deeper architectural refactor
+mid-stream. It is not accidental behavior. A dedicated redesign is planned to
+cleanly separate buffers from artifacts.
+
+Policy & Usage Guidelines (How to Use Buffers Now)
+1. Buffers are canonical pipeline layers. They should represent stable,
+   physics-oriented layers (e.g., heightfield), not ad-hoc or overly specific
+   variants.
+2. Buffers are shared across multiple steps/stages. They exist precisely because
+   multiple stages mutate or read the same layer over time.
+3. Buffer artifacts are published once. After publication, they are mutated in
+   place via ctx.buffers; do not re-publish.
+4. Buffers are not just "another artifact." They are mutable by design, and their
+   current artifact wrapping is a temporary wiring strategy.
+
+Example (Canonical Buffer)
+Heightfield is a canonical buffer layer:
+- It represents the evolving terrain surface and is used across multiple stages
+  (landmass shaping, lakes, rivers, coastlines, biome placement).
+- Multiple steps read and mutate it over time, so it must remain a shared, mutable
+  buffer.
+- Under the current architecture, heightfield is published once as an artifact for
+  gating/typing, then mutated in place via ctx.buffers.heightfield by later steps
+  without re-publishing.
+
+Audience & Purpose
+Use this context when modeling domains or refactoring steps in Phase 2 (or when
+onboarding another agent). It encodes the distinction between buffers and
+artifacts, the current temporary wiring strategy, and the future intent. It should
+guide implementation decisions and prevent accidental re-publishing or misuse of
+buffer artifacts.
+
+### Context Block — Overlays (Current Policy + Future Intent)
+Overview (Conceptual Explanation)
+Overlays are shared, additive story/structure layers that multiple steps may
+contribute to or adjust. They behave like buffers in that they are accumulated
+across steps, but they are not physics buffers; they are higher-level, narrative
+or structural layers.
+
+Current State vs Desired State (Intentional, Temporary Compromise)
+Current state (intentional):
+- A single top-level overlays artifact exists at ctx.overlays.
+- ctx.overlays is a container for overlay type collections:
+  - ctx.overlays.corridors
+  - ctx.overlays.swatches
+  - (add new types as needed)
+- Each overlay type is an artifact-like collection (typically an array) holding
+  multiple overlay instances.
+- Overlays are append-preferred. Mutation is allowed but should be minimal and
+  intentional.
+
+Desired state (future):
+- Overlays should become their own dependency kind, distinct from artifacts, with
+  explicit mutability and accumulation semantics.
+- The artifact system should return to a pure write-once contract for non-buffer
+  data products.
+
+Policy & Usage Guidelines (How to Use Overlays Now)
+1. Use a single top-level overlays artifact (ctx.overlays). Do not define many
+   top-level overlay artifacts (e.g., storyOverlaysMargins, storyOverlaysRifts).
+2. Model per-type collections under ctx.overlays.* (corridors, swatches, etc.).
+3. Corridors are unified under ctx.overlays.corridors. Individual corridor variants
+   (rift, mountain, etc.) are entries in that collection, not separate artifacts.
+4. Avoid standalone overlay types for concepts like "orogeny." Fold them into
+   existing overlay types or derived overlays instead of new top-level types.
+5. Prefer append-oriented workflows (push new overlays). Mutate existing overlays
+   only when necessary.
+
+Example (Canonical Overlay Type)
+Corridors are a canonical overlay type:
+- Multiple steps can contribute corridor overlays (rift corridors, mountain
+  corridors) by appending entries to ctx.overlays.corridors.
+- Pre/post steps operate on the same corridors collection; there is no separate
+  storyCorridorsPre vs storyCorridorsPost artifact split.
+
 ## Implementation Decisions
 
 ### Skip schema conventions for artifact contracts
