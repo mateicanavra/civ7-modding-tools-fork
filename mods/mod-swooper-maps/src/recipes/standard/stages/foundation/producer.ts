@@ -1,10 +1,5 @@
 import type { ExtendedMapContext, FoundationContext, TraceScope } from "@swooper/mapgen-core";
 import {
-  FOUNDATION_CONFIG_ARTIFACT_TAG,
-  FOUNDATION_DIAGNOSTICS_ARTIFACT_TAG,
-  FOUNDATION_DYNAMICS_ARTIFACT_TAG,
-  FOUNDATION_PLATES_ARTIFACT_TAG,
-  FOUNDATION_SEED_ARTIFACT_TAG,
   createFoundationContext,
   ctxRandom,
   validateFoundationContext,
@@ -412,15 +407,5 @@ export function runFoundationStage(
   foundationConfig: FoundationConfig
 ): FoundationContext {
   const foundationContext = buildFoundationContext(context, foundationConfig);
-
-  context.artifacts.set(FOUNDATION_PLATES_ARTIFACT_TAG, foundationContext.plates);
-  context.artifacts.set(FOUNDATION_DYNAMICS_ARTIFACT_TAG, foundationContext.dynamics);
-  if (!foundationContext.plateSeed) {
-    throw new Error("[Foundation] Missing plate seed snapshot.");
-  }
-  context.artifacts.set(FOUNDATION_SEED_ARTIFACT_TAG, foundationContext.plateSeed);
-  context.artifacts.set(FOUNDATION_DIAGNOSTICS_ARTIFACT_TAG, foundationContext.diagnostics);
-  context.artifacts.set(FOUNDATION_CONFIG_ARTIFACT_TAG, foundationContext.config);
-
   return foundationContext;
 }

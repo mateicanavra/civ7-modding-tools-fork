@@ -1,17 +1,21 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
 import { ClimateConfigSchema } from "@mapgen/domain/config";
 
-import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";
+import { M4_EFFECT_TAGS } from "../../../tags.js";
+import { hydrologyCoreArtifacts } from "../artifacts.js";
+import { hydrologyPreArtifacts } from "../../hydrology-pre/artifacts.js";
 
 const RiversStepContract = defineStep({
   id: "rivers",
   phase: "hydrology",
-  requires: [M3_DEPENDENCY_TAGS.artifact.heightfield],
+  requires: [],
   provides: [
     M4_EFFECT_TAGS.engine.riversModeled,
-    M3_DEPENDENCY_TAGS.artifact.heightfield,
-    M3_DEPENDENCY_TAGS.artifact.riverAdjacency,
   ],
+  artifacts: {
+    requires: [hydrologyPreArtifacts.heightfield, hydrologyPreArtifacts.climateField],
+    provides: [hydrologyCoreArtifacts.riverAdjacency],
+  },
   schema: Type.Object({
     climate: Type.Object({
       story: Type.Object({

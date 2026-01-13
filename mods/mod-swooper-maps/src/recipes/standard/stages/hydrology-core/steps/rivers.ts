@@ -4,21 +4,60 @@ import {
   NAVIGABLE_RIVER_TERRAIN,
   syncHeightfield,
   type ExtendedMapContext,
+  type MapDimensions,
 } from "@swooper/mapgen-core";
-import { createStep, type Static } from "@swooper/mapgen-core/authoring";
+import { createStep, implementArtifacts, type Static } from "@swooper/mapgen-core/authoring";
 import {
   computeRiverAdjacencyMask,
-  publishClimateFieldArtifact,
-  publishHeightfieldArtifact,
-  publishRiverAdjacencyArtifact,
 } from "../../../artifacts.js";
 import { getStandardRuntime } from "../../../runtime.js";
 import { storyTagClimatePaleo } from "@mapgen/domain/narrative/swatches.js";
+import { hydrologyCoreArtifacts } from "../artifacts.js";
 import RiversStepContract from "./rivers.contract.js";
 type RiversStepConfig = Static<typeof RiversStepContract.schema>;
 
+type ArtifactValidationIssue = Readonly<{ message: string }>;
+
+function expectedSize(dimensions: MapDimensions): number {
+  return Math.max(0, (dimensions.width | 0) * (dimensions.height | 0));
+}
+
+function validateTypedArray(
+  errors: ArtifactValidationIssue[],
+  label: string,
+  value: unknown,
+  ctor: { new (...args: any[]): { length: number } },
+  expectedLength?: number
+): value is { length: number } {
+  if (!(value instanceof ctor)) {
+    errors.push({ message: `Expected ${label} to be ${ctor.name}.` });
+    return false;
+  }
+  if (expectedLength != null && value.length !== expectedLength) {
+    errors.push({
+      message: `Expected ${label} length ${expectedLength} (received ${value.length}).`,
+    });
+  }
+  return true;
+}
+
+function validateRiverAdjacencyMask(
+  value: unknown,
+  dimensions: MapDimensions
+): ArtifactValidationIssue[] {
+  const errors: ArtifactValidationIssue[] = [];
+  const size = expectedSize(dimensions);
+  validateTypedArray(errors, "riverAdjacency", value, Uint8Array, size);
+  return errors;
+}
+
 export default createStep(RiversStepContract, {
-  run: (context: ExtendedMapContext, config: RiversStepConfig) => {
+  artifacts: implementArtifacts([hydrologyCoreArtifacts.riverAdjacency], {
+    riverAdjacency: {
+      validate: (value, context) => validateRiverAdjacencyMask(value, context.dimensions),
+    },
+  }),
+  run: (context: ExtendedMapContext, config: RiversStepConfig, _ops, deps) => {
     const runtime = getStandardRuntime(context);
     const navigableRiverTerrain = NAVIGABLE_RIVER_TERRAIN;
     const { width, height } = context.dimensions;
@@ -64,7 +103,6 @@ export default createStep(RiversStepContract, {
     context.adapter.validateAndFixTerrain();
     logStats("POST-VALIDATE");
     syncHeightfield(context);
-    publishHeightfieldArtifact(context);
     context.adapter.defineNamedRivers();
 
     if (runtime.storyEnabled && config.climate?.story?.paleo != null) {
@@ -75,10 +113,9 @@ export default createStep(RiversStepContract, {
         }));
       }
       storyTagClimatePaleo(context, config.climate);
-      publishClimateFieldArtifact(context);
     }
 
     const riverAdjacency = computeRiverAdjacencyMask(context);
-    publishRiverAdjacencyArtifact(context, riverAdjacency);
+    deps.artifacts.riverAdjacency.publish(context, riverAdjacency);
   },
 });
