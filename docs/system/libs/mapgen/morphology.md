@@ -1,5 +1,11 @@
 # Morphology
 
+> **Status:** Canonical (domain-only causality + contract spec)
+>
+> **This doc is:** what Morphology *means* in the pipeline: responsibilities, inputs, outputs, and first-principles causal model.
+>
+> **This doc is not:** SDK wiring guidance (step/stage file layout, authoring mechanics, adapters).
+
 ## Overview
 
 Morphology transforms tectonic potential and geologic history into a realistic, playable landscape.
