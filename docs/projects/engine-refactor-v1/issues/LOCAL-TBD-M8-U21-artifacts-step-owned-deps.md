@@ -217,6 +217,12 @@ Corridors are a canonical overlay type:
 - **Rationale:** Preserves the single overlays artifact policy and avoids parallel artifact paths.
 - **Risk:** Overlay snapshots become a functional data source; downstream steps must read the latest snapshot for accurate state (e.g., islands appends hotspot updates).
 
+## Review follow-ups (fix loop)
+- **Fixed:** tighten artifact typing defaults so undeclared artifacts (or missing `requires/provides`) no longer yield permissive `deps.artifacts` surfaces.
+- **Already tracked:** single-producer enforcement remains scoped to `artifacts.provides` for now; legacy `artifact:*` producers are covered by Phase 2 migration and the existing U21 implementation decision.
+- **Needs discussion:** consider blocking `input.tagDefinitions` overrides for `artifact:*` ids to prevent accidental satisfier shadowing.
+- **Disagree (by policy):** buffer artifacts remain intentionally mutable after a single publish; this is an explicit U21 buffer-policy tradeoff.
+
 ## Sequencing (Phase 2)
 1. U21-F1: Define stage-owned artifact contracts for the standard recipe (all stages).
 2. U21-F2: Migrate foundation + climate steps to artifacts/deps (contracts + runtimes).

@@ -41,6 +41,12 @@ Branches (downstack → upstack):
 - **U18 “step contracts importing domain barrels may eagerly load runtime”**: true at the time of PR #456, but resolved by U19/U20 restructuring (contracts vs runtime entrypoints + lint guardrails + `defineDomain/createDomain`).
 - **U19’s domain-specific lint restrictions** (hard-coded ecology/placement `paths`): superseded by U20’s generalized “import contracts from `@mapgen/domain/<domain>`” rule (no more `.../contracts` entrypoints).
 
+### Fix loop updates (U21)
+- **Fixed:** tighten artifact typing defaults so undeclared artifacts (or missing `requires/provides`) no longer yield permissive `deps.artifacts` surfaces.
+- **Already tracked:** single-producer enforcement remains scoped to `artifacts.provides` for now; legacy `artifact:*` producers are covered by Phase 2 migration and the U21 implementation decision.
+- **Needs discussion:** consider blocking `input.tagDefinitions` overrides for `artifact:*` ids to prevent accidental satisfier shadowing.
+- **Disagree (by policy):** buffer artifacts (e.g. climate/heightfield) remain intentionally mutable after a single publish; this is an explicit U21 buffer-policy tradeoff.
+
 ## Branch-by-branch review
 
 ### `m7-ecology-behavior-fixes` — PR #452 (`fix(ecology): normalize moisture values and fix ocean temperature calculations`)

@@ -117,11 +117,14 @@ function buildArtifactDeps<TContext extends ExtendedMapContext>(
   const out: Record<string, RequiredArtifactRuntime<any, TContext> | ProvidedArtifactRuntime<any, TContext>> =
     {};
 
-  for (const contract of artifacts.requires ?? []) {
+  const requires = (artifacts.requires ?? []) as readonly ArtifactContract[];
+  const provides = (artifacts.provides ?? []) as readonly ArtifactContract[];
+
+  for (const contract of requires) {
     out[contract.name] = createRequiredArtifactRuntime(contract, fullStepId);
   }
 
-  for (const contract of artifacts.provides ?? []) {
+  for (const contract of provides) {
     out[contract.name] = resolveProvidedArtifactRuntime(authored, contract, fullStepId, recipeId);
   }
 
@@ -169,7 +172,8 @@ function collectArtifactTagDefinitions<TContext extends ExtendedMapContext>(inpu
         providers.set(tag, fullId);
       }
 
-      for (const contract of authored.contract.artifacts?.provides ?? []) {
+      const provides = (authored.contract.artifacts?.provides ?? []) as readonly ArtifactContract[];
+      for (const contract of provides) {
         const existing = providers.get(contract.id);
         if (existing) {
           throw new Error(
