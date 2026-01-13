@@ -19,20 +19,22 @@ import type { ProvidedArtifactRuntime } from "./artifact/runtime.js";
 import type { StepArtifactsDecl, StepContract } from "./step/contract.js";
 
 type ArtifactsByName<T extends readonly ArtifactContract[]> = {
-  [C in T[number] as C["name"]]: C;
+  [Name in T[number]["name"] & string]: Extract<T[number], { name: Name }>;
 };
 
 export type StepProvidedArtifactsRuntime<
   TContext,
   TArtifacts extends StepArtifactsDecl | undefined,
-> = TArtifacts extends StepArtifactsDecl<any, infer Provides>
-  ? Provides extends readonly ArtifactContract[]
-    ? {
-        [K in keyof ArtifactsByName<Provides>]: ProvidedArtifactRuntime<
-          ArtifactsByName<Provides>[K],
-          TContext
-        >;
-      }
+> = TContext extends ExtendedMapContext
+  ? TArtifacts extends StepArtifactsDecl<any, infer Provides>
+    ? Provides extends readonly ArtifactContract[]
+      ? {
+          [Name in keyof ArtifactsByName<Provides> & string]: ProvidedArtifactRuntime<
+            ArtifactsByName<Provides>[Name],
+            TContext
+          >;
+        }
+      : {}
     : {}
   : {};
 

@@ -66,7 +66,7 @@ export class ArtifactValidationError extends Error {
 }
 
 type ArtifactsByName<T extends readonly ArtifactContract[]> = {
-  [C in T[number] as C["name"]]: C;
+  [Name in T[number]["name"] & string]: Extract<T[number], { name: Name }>;
 };
 
 export type RequiredArtifactRuntime<
@@ -167,10 +167,13 @@ export function implementArtifacts<
 >(
   provides: Provides,
   impl: {
-    [K in keyof ArtifactsByName<Provides>]: ArtifactRuntimeImpl<ArtifactsByName<Provides>[K], TContext>;
+    [K in keyof ArtifactsByName<Provides> & string]: ArtifactRuntimeImpl<
+      ArtifactsByName<Provides>[K],
+      TContext
+    >;
   }
 ): {
-  [K in keyof ArtifactsByName<Provides>]: ProvidedArtifactRuntime<
+  [K in keyof ArtifactsByName<Provides> & string]: ProvidedArtifactRuntime<
     ArtifactsByName<Provides>[K],
     TContext
   >;
@@ -178,17 +181,20 @@ export function implementArtifacts<
   assertUniqueContracts(provides);
 
   const runtimes = {} as {
-    [K in keyof ArtifactsByName<Provides>]: ProvidedArtifactRuntime<
+    [K in keyof ArtifactsByName<Provides> & string]: ProvidedArtifactRuntime<
       ArtifactsByName<Provides>[K],
       TContext
     >;
   };
 
   for (const contract of provides) {
-    const runtimeImpl = impl[contract.name as keyof ArtifactsByName<Provides>];
+    const runtimeImpl = impl[contract.name as keyof ArtifactsByName<Provides>] as ArtifactRuntimeImpl<
+      typeof contract,
+      TContext
+    >;
     const satisfies = runtimeImpl.satisfies ?? buildDefaultSatisfies(contract, runtimeImpl);
 
-    runtimes[contract.name as keyof ArtifactsByName<Provides>] = {
+    (runtimes as any)[contract.name as keyof ArtifactsByName<Provides>] = {
       contract,
       read: (context) => {
         const { hasValue, value } = readStored(context, contract);
@@ -239,7 +245,7 @@ export function implementArtifacts<
         return value as ArtifactReadValueOf<typeof contract>;
       },
       satisfies,
-    };
+    } as ProvidedArtifactRuntime<typeof contract, TContext>;
   }
 
   return runtimes;

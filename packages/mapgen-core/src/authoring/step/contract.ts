@@ -73,8 +73,23 @@ const STEP_ID_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 export function defineStep<
   const Schema extends TObject,
   const Id extends string,
+>(
+  def: StepContract<Schema, Id, undefined, undefined> & { artifacts?: never }
+): StepContract<Schema, Id, undefined, undefined>;
+
+export function defineStep<
+  const Schema extends TObject,
+  const Id extends string,
   const Artifacts extends StepArtifactsDecl | undefined,
 >(def: StepContract<Schema, Id, undefined, Artifacts>): StepContract<Schema, Id, undefined, Artifacts>;
+
+export function defineStep<
+  const Schema extends TObject,
+  const Id extends string,
+  const Ops extends StepOpsDecl,
+>(
+  def: StepContract<Schema, Id, Ops, undefined> & { ops: Ops; artifacts?: never }
+): StepContract<SchemaWithOps<Schema, Ops>, Id, Ops, undefined>;
 
 export function defineStep<
   const Schema extends TObject,
