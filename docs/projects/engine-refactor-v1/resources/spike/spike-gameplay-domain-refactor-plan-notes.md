@@ -338,6 +338,12 @@ capability_gaps:
       - ".civ7/outputs/resources/Base/modules/base-standard/maps/map-utilities.js defines `replaceIslandResources(iWidth, iHeight, zResourceClassType)`"
     notes: "This is a real gameplay-oriented lever (e.g., treasure resources on island maps) that is currently only reachable by delegating to the full `generateResources(...)` routine. If we want to make it an explicit, authored behavior, it likely needs a dedicated adapter/SDK surface."
 
+  - concern: "mapgen-time city/district mutation (indirect, but real)"
+    evidence:
+      - ".civ7/outputs/resources/Base/modules/base-standard/maps/map-utilities.js defines `removeRuralDistrict(...)` / `placeRuralDistrict(...)` using MapCities + Cities APIs"
+      - ".civ7/outputs/resources/Base/modules/base-standard/maps/map-utilities.js calls those from `replaceIslandResources(...)` when swapping resources"
+    notes: "Even though we don't have a dedicated 'district placement' script, this shows mapgen-time code can mutate city-claimed plots/districts as part of resource manipulation. If the Gameplay domain scope expands beyond starts/resources/wonders/discoveries, this is a concrete, evidenced lever to consider."
+
   - concern: "start position scoring internals"
     evidence:
       - ".civ7/outputs/resources/Base/modules/base-standard/maps/assign-starting-plots.js uses StartPositioner.getStartPositionScore(...) and related helpers"
