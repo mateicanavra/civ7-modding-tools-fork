@@ -11,7 +11,9 @@ This spike captures **mapgen-time gameplay levers** visible in Civ7’s official
 - Discoveries (“goody huts” equivalents): `.civ7/outputs/resources/Base/modules/base-standard/maps/discovery-generator.js` places discoveries via `MapConstructibles.addDiscovery(...)`, and uses `GameInfo.DiscoverySiftingImprovements` plus `Configuration.getGameValue("DiscoverySiftingType")`.
 - Natural wonders: `.civ7/outputs/resources/Base/modules/base-standard/maps/natural-wonder-generator.js` places wonders and honors `Configuration.getMapValue("RequestedNaturalWonders")`.
 - Resources: `.civ7/outputs/resources/Base/modules/base-standard/maps/resource-generator.js` uses `ResourceBuilder.getGeneratedMapResources(...)` and also consults map-type tables like `GameInfo.MapIslandBehavior` (driven by `Configuration.getMapValue("Name")`).
+- Late-stage “board mutation” via districts (rural districts): `.civ7/outputs/resources/Base/modules/base-standard/maps/map-utilities.js` uses `MapCities` + `Cities` to `removeRuralDistrict(...)` / `placeRuralDistrict(...)` while replacing island resources (`replaceIslandResources(...)`).
 - Fertility + water data (board scoring inputs): the canonical map scripts (e.g. `.civ7/outputs/resources/Base/modules/base-standard/maps/terra-incognita.js`) run `FertilityBuilder.recalculate()` and `TerrainBuilder.storeWaterData()` after terrain/features are in place.
+- Plot effects as player-facing board modifiers: `.civ7/outputs/resources/Base/modules/base-standard/maps/snow-generator.js` uses `MapPlotEffects.addPlotEffect(...)` to apply permanent snow effects.
 
 ## Gameplay tuning that’s “data-driven” but directly affects mapgen behavior
 
