@@ -14,8 +14,26 @@ Map generation is organized into **domain layers** that progressively refine the
 - **Stage:** a recipe slice that composes steps to realize one or more domain responsibilities.
 - **Step:** orchestration + publication; composition happens here (not inside operations).
 - **Operation:** an **atomic** domain unit of work (a single responsibility); operations should not contain composition of other operations.
-- **Artifact:** a named product (often non-rendered “math”) published for downstream consumption.
+- **Buffer:** a mutable, shared working layer that multiple steps (and sometimes stages) read and refine over time.
+- **Artifact:** a named published product (often non-rendered “math”) that is **write-once** and treated as immutable-by-convention.
 - **Field:** a rendered/engine-facing map surface (tile fields like terrain/biome/feature IDs).
+
+## Pipeline state kinds (buffers vs artifacts vs fields)
+
+Domain specs intentionally talk about “products” without binding to SDK mechanics, but we still need a shared conceptual model for pipeline data:
+
+- **Buffers (mutable working layers):**
+  - Exist because multiple steps need to iteratively refine the same canonical layer (e.g., elevation/heightfield, climate field, routing indices).
+  - Are intentionally mutable and shared.
+  - Are **not** “just another artifact”, even if current wiring temporarily routes them through artifact contracts for gating/typing.
+  - When a buffer is routed through artifact contracts, that “buffer artifact” must be **published once**, then refined in place; do **not** re-publish it.
+- **Artifacts (published contracts):**
+  - Exist for dependency gating, typed access, and stable consumption across domain boundaries.
+  - Are published once and treated as immutable-by-convention.
+  - A buffer may be *published once* as an artifact “handle” for gating/typing, but the buffer itself remains mutable until the pipeline freezes it.
+- **Fields (engine-facing surfaces):**
+  - Are the final rendered representations applied to the engine map (biome IDs, terrain IDs, feature IDs).
+  - May be derived from artifacts/buffers; mutating a field is not the same as mutating a physics buffer.
 
 ## Causal spine (domain ordering)
 
