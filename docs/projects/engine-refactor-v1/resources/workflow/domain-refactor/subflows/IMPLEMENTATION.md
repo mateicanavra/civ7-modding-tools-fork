@@ -13,6 +13,9 @@ This sub-flow assumes you already produced:
 - a domain inventory (all callsites, contracts, config surfaces, typed arrays, deletions), and
 - a locked op catalog (ids, kinds, schema ownership, config resolution plan).
 
+Keep open while implementing:
+- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/implementation-reference.md`
+
 ## How to think about slicing (guardrails)
 
 You (the implementer) choose slices **ad hoc** based on the domain inventory. The workflow is not prescriptive about slice boundaries, but it is strict about slice **completion** (no half-migrations).

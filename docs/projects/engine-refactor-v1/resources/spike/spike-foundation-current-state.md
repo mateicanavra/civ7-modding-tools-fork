@@ -24,6 +24,17 @@ pnpm deploy:mods
 
 ---
 
+## Phase 1 hypotheses to validate (from plan)
+
+- `/src/domain/foundation/ops/contracts.ts` is currently empty (Foundation is not yet contract-first in practice).
+- `/src/recipes/standard/stages/foundation/` is partially aligned with canonical authoring posture:
+  - stage-owned artifact contracts exist,
+  - the step uses `deps.artifacts.*` publishes,
+  - orchestration still routes through a monolithic producer (`/src/recipes/standard/stages/foundation/producer.ts`).
+- Downstream domains read Foundation tensors via artifact tags, including indirect reads via `ctx.artifacts.get(...)` helper assertions.
+- `env.directionality` is required at runtime; current maps pass it in from authored recipe config.
+- Some downstream code imports Foundation implementation constants directly (e.g., `BOUNDARY_TYPE`), creating module-layout coupling that must become a stable contract surface.
+
 ## 1) Recipe wiring (where Foundation sits)
 
 Standard recipe stage ordering (source of truth):
@@ -262,86 +273,220 @@ Cross-domain tests that implicitly depend on Foundation tensors being present in
 
 ## Living artifacts spine (Phase 1 snapshot)
 
-These are the Phase 1 versions of the “living artifacts” required by `WORKFLOW.md`. They should be reconciled into the plan appendices (and later the Phase 3 local issue doc).
-
 ### A) Domain surface inventory (current)
 
 ```yaml
-foundation_stage:
-  stage_dir: mods/mod-swooper-maps/src/recipes/standard/stages/foundation
-  artifacts: mods/mod-swooper-maps/src/recipes/standard/stages/foundation/artifacts.ts
-  producer: mods/mod-swooper-maps/src/recipes/standard/stages/foundation/producer.ts
-  step:
-    id: foundation
-    contract: mods/mod-swooper-maps/src/recipes/standard/stages/foundation/steps/foundation.contract.ts
-    impl: mods/mod-swooper-maps/src/recipes/standard/stages/foundation/steps/foundation.ts
+files:
+  - path: /src/recipes/standard/recipe.ts
+    notes: Standard recipe ordering; Foundation runs first.
 
-foundation_domain:
-  domain_dir: mods/mod-swooper-maps/src/domain/foundation
-  entrypoint: mods/mod-swooper-maps/src/domain/foundation/index.ts
-  ops:
-    contracts_router: mods/mod-swooper-maps/src/domain/foundation/ops/contracts.ts
-    implementations_router: mods/mod-swooper-maps/src/domain/foundation/ops/index.ts
-    create_domain: mods/mod-swooper-maps/src/domain/foundation/ops.ts
-  implementations:
-    plates: mods/mod-swooper-maps/src/domain/foundation/plates.ts
-    plate_seed: mods/mod-swooper-maps/src/domain/foundation/plate-seed.ts
-    constants: mods/mod-swooper-maps/src/domain/foundation/constants.ts
+  # Foundation stage boundary (source of truth for publish-once artifact contracts + step wiring)
+  - path: /src/recipes/standard/stages/foundation/index.ts
+    notes: Stage module; currently contains one step (`foundation`).
+  - path: /src/recipes/standard/stages/foundation/artifacts.ts
+    notes: Stage-owned artifact contracts for foundation outputs (plates/dynamics/seed/diagnostics/config).
+  - path: /src/recipes/standard/stages/foundation/producer.ts
+    notes: Monolithic producer/orchestration; calls Foundation implementation modules directly.
+  - path: /src/recipes/standard/stages/foundation/steps/foundation.contract.ts
+    notes: Step contract; provides all foundation artifacts; schema includes FoundationConfigSchema.
+  - path: /src/recipes/standard/stages/foundation/steps/foundation.ts
+    notes: Step runtime; publishes artifacts via deps.artifacts.* and calls runFoundationStage (producer).
+
+  # Foundation domain module (current state is not ops-first)
+  - path: /src/domain/foundation/index.ts
+    notes: Domain entrypoint (`defineDomain({ id: "foundation", ops })`); exports types; ops router currently empty.
+  - path: /src/domain/foundation/ops/contracts.ts
+    notes: Empty op contract router (no declared ops).
+  - path: /src/domain/foundation/ops/index.ts
+    notes: Empty op implementations router (no implementations).
+  - path: /src/domain/foundation/ops.ts
+    notes: createDomain(domain, implementations) wrapper; runtime ops surface exists but is empty.
+  - path: /src/domain/foundation/plates.ts
+    notes: Voronoi plate generation implementation (typed arrays) used by the Foundation stage producer.
+  - path: /src/domain/foundation/plate-seed.ts
+    notes: PlateSeedManager capture/finalize; used by producer and tests.
+  - path: /src/domain/foundation/constants.ts
+    notes: Re-exports `BOUNDARY_TYPE`; imported by downstream domain implementations (coupling).
+
+callers:
+  # Downstream steps that explicitly require foundation artifacts via step contracts
+  - path: /src/recipes/standard/stages/morphology-pre/steps/landmassPlates.contract.ts
+    notes: Requires foundationPlates.
+  - path: /src/recipes/standard/stages/morphology-mid/steps/ruggedCoasts.contract.ts
+    notes: Requires foundationPlates (and storyOverlays).
+  - path: /src/recipes/standard/stages/morphology-post/steps/mountains.contract.ts
+    notes: Requires foundationPlates.
+  - path: /src/recipes/standard/stages/morphology-post/steps/volcanoes.contract.ts
+    notes: Requires foundationPlates.
+  - path: /src/recipes/standard/stages/narrative-pre/steps/storyRifts.contract.ts
+    notes: Requires foundationPlates (and storyOverlays).
+  - path: /src/recipes/standard/stages/narrative-mid/steps/storyOrogeny.contract.ts
+    notes: Requires foundationPlates + foundationDynamics (and storyOverlays).
+  - path: /src/recipes/standard/stages/narrative-swatches/steps/storySwatches.contract.ts
+    notes: Requires foundationDynamics (and heightfield/climateField/overlays).
+  - path: /src/recipes/standard/stages/hydrology-post/steps/climateRefine.contract.ts
+    notes: Requires foundationDynamics (and heightfield/climateField/overlays/riverAdjacency).
+
+  # Downstream domain logic that reads foundation artifacts indirectly via ctx.artifacts.get (legacy coupling)
+  - path: packages/mapgen-core/src/core/assertions.ts
+    notes: assertFoundationPlates/assertFoundationDynamics fetch from ctx.artifacts.get(artifact:foundation.*).
+  - path: /src/domain/morphology/landmass/index.ts
+    notes: Reads plates via assertFoundationPlates(ctx, ...).
+  - path: /src/domain/morphology/mountains/apply.ts
+    notes: Reads plates via assertFoundationPlates(ctx, ...).
+  - path: /src/domain/morphology/volcanoes/apply.ts
+    notes: Reads plates via assertFoundationPlates(ctx, ...).
+  - path: /src/domain/morphology/coastlines/rugged-coasts.ts
+    notes: Reads plates via assertFoundationPlates(ctx, ...).
+  - path: /src/domain/hydrology/climate/refine/index.ts
+    notes: Reads dynamics via assertFoundationDynamics(ctx, ...).
+  - path: /src/domain/hydrology/climate/swatches/monsoon-bias.ts
+    notes: Reads dynamics via assertFoundationDynamics(ctx, ...).
+
+tests:
+  - path: /test/foundation/voronoi.test.ts
+  - path: /test/foundation/plates.test.ts
+  - path: /test/foundation/plate-seed.test.ts
 ```
 
 ### B) Contract matrix (current)
 
 ```yaml
-foundation_outputs:
-  artifacts_provided_by_foundation_step:
-    - artifact:foundation.plates
-    - artifact:foundation.dynamics
-    - artifact:foundation.seed
-    - artifact:foundation.diagnostics
-    - artifact:foundation.config
+steps:
+  - id: foundation/foundation
+    title: "Publish Foundation tensors (plates/dynamics) + snapshots"
+    requires:
+      artifacts: []
+      buffers: []
+      overlays: []
+    provides:
+      artifacts:
+        - artifact:foundation.plates
+        - artifact:foundation.dynamics
+        - artifact:foundation.seed
+        - artifact:foundation.diagnostics
+        - artifact:foundation.config
+      buffers: []
+      overlays: []
+    consumers:
+      - morphology-pre/landmass-plates
+      - morphology-mid/rugged-coasts
+      - narrative-pre/story-rifts
+      - narrative-mid/story-orogeny
+      - morphology-post/mountains
+      - morphology-post/volcanoes
+      - narrative-swatches/story-swatches (dynamics)
+      - hydrology-post/climate-refine (dynamics)
+    notes: "Current orchestration is monolithic producer (not contract-first ops)."
 
-consumers:
-  - step: morphology-pre/landmass-plates
-    contract: mods/mod-swooper-maps/src/recipes/standard/stages/morphology-pre/steps/landmassPlates.contract.ts
-    artifacts_requires: [artifact:foundation.plates]
-    notes: "Domain implementation reads plates via assertFoundationPlates(ctx, ...)."
+  - id: morphology-pre/landmass-plates
+    title: "Landmass generation (plate-driven)"
+    requires:
+      artifacts: [artifact:foundation.plates]
+      buffers: []
+      overlays: []
+    provides:
+      artifacts: []
+      buffers: []
+      overlays: []
+    consumers: []
+    notes: "Domain logic reads plates via assertFoundationPlates(ctx, ...); also uses engine-effect tags (non-artifact gating)."
 
-  - step: morphology-mid/rugged-coasts
-    contract: mods/mod-swooper-maps/src/recipes/standard/stages/morphology-mid/steps/ruggedCoasts.contract.ts
-    artifacts_requires: [artifact:foundation.plates, artifact:storyOverlays]
-    notes: "Domain implementation reads plates via assertFoundationPlates(ctx, ...)."
+  - id: morphology-mid/rugged-coasts
+    title: "Rugged coasts (margin/corridor-aware)"
+    requires:
+      artifacts: [artifact:foundation.plates]
+      buffers: []
+      overlays: [artifact:storyOverlays]
+    provides:
+      artifacts: []
+      buffers: []
+      overlays: []
+    consumers: []
+    notes: "Requires story overlays; domain logic reads plates via assertFoundationPlates(ctx, ...)."
 
-  - step: narrative-pre/story-rifts
-    contract: mods/mod-swooper-maps/src/recipes/standard/stages/narrative-pre/steps/storyRifts.contract.ts
-    artifacts_requires: [artifact:foundation.plates, artifact:storyOverlays]
+  - id: narrative-pre/story-rifts
+    title: "Story motifs: rift valleys"
+    requires:
+      artifacts: [artifact:foundation.plates]
+      buffers: []
+      overlays: [artifact:storyOverlays]
+    provides:
+      artifacts: []
+      buffers: []
+      overlays: [artifact:storyOverlays]
+    consumers: []
+    notes: "Consumes plates; appends rift motifs into overlays."
 
-  - step: narrative-mid/story-orogeny
-    contract: mods/mod-swooper-maps/src/recipes/standard/stages/narrative-mid/steps/storyOrogeny.contract.ts
-    artifacts_requires: [artifact:foundation.plates, artifact:foundation.dynamics, artifact:storyOverlays]
+  - id: narrative-mid/story-orogeny
+    title: "Story motifs: orogeny belts"
+    requires:
+      artifacts: [artifact:foundation.plates, artifact:foundation.dynamics]
+      buffers: []
+      overlays: [artifact:storyOverlays]
+    provides:
+      artifacts: []
+      buffers: []
+      overlays: [artifact:storyOverlays]
+    consumers: []
+    notes: "Consumes plates+dynamics; appends orogeny motifs into overlays."
 
-  - step: narrative-swatches/story-swatches
-    contract: mods/mod-swooper-maps/src/recipes/standard/stages/narrative-swatches/steps/storySwatches.contract.ts
-    artifacts_requires: [artifact:foundation.dynamics, artifact:storyOverlays, artifact:heightfield, artifact:climateField]
-    notes: "Swatches/monsoon logic reads dynamics via assertFoundationDynamics(ctx, ...)."
+  - id: narrative-swatches/story-swatches
+    title: "Story overlays: climate swatches (hydrology-facing)"
+    requires:
+      artifacts: [artifact:foundation.dynamics]
+      buffers: [artifact:heightfield, artifact:climateField]
+      overlays: [artifact:storyOverlays]
+    provides:
+      artifacts: []
+      buffers: []
+      overlays: [artifact:storyOverlays]
+    consumers: []
+    notes: "Swatches/monsoon logic reads dynamics via assertFoundationDynamics(ctx, ...); step code also requires env.directionality."
 
-  - step: hydrology-post/climate-refine
-    contract: mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-post/steps/climateRefine.contract.ts
-    artifacts_requires: [artifact:foundation.dynamics, artifact:storyOverlays, artifact:heightfield, artifact:climateField, artifact:riverAdjacency]
-    notes: "Refinement logic reads dynamics via assertFoundationDynamics(ctx, ...)."
+  - id: hydrology-post/climate-refine
+    title: "Post-rivers climate refinement (earthlike)"
+    requires:
+      artifacts: [artifact:foundation.dynamics, artifact:riverAdjacency]
+      buffers: [artifact:heightfield, artifact:climateField]
+      overlays: [artifact:storyOverlays]
+    provides:
+      artifacts: []
+      buffers: []
+      overlays: []
+    consumers: []
+    notes: "Refinement logic reads dynamics via assertFoundationDynamics(ctx, ...); step code also requires env.directionality."
 
-  - step: morphology-post/mountains
-    contract: mods/mod-swooper-maps/src/recipes/standard/stages/morphology-post/steps/mountains.contract.ts
-    artifacts_requires: [artifact:foundation.plates]
-    notes: "Domain implementation reads plates via assertFoundationPlates(ctx, ...)."
+  - id: morphology-post/mountains
+    title: "Mountains placement (plate-aware physics)"
+    requires:
+      artifacts: [artifact:foundation.plates]
+      buffers: []
+      overlays: []
+    provides:
+      artifacts: []
+      buffers: []
+      overlays: []
+    consumers: []
+    notes: "Domain logic reads plates via assertFoundationPlates(ctx, ...)."
 
-  - step: morphology-post/volcanoes
-    contract: mods/mod-swooper-maps/src/recipes/standard/stages/morphology-post/steps/volcanoes.contract.ts
-    artifacts_requires: [artifact:foundation.plates]
-    notes: "Domain implementation reads plates via assertFoundationPlates(ctx, ...)."
+  - id: morphology-post/volcanoes
+    title: "Volcano placement (plate-aware)"
+    requires:
+      artifacts: [artifact:foundation.plates]
+      buffers: []
+      overlays: []
+    provides:
+      artifacts: []
+      buffers: []
+      overlays: []
+    consumers: []
+    notes: "Domain logic reads plates via assertFoundationPlates(ctx, ...)."
 ```
 
 ### C) Decisions + defaults (initial)
 
+- **Default:** do not propagate legacy authoring patterns; prefer canonical authoring surfaces.
 - **Default:** treat all `ctx.artifacts.get(artifact:foundation.*)` reads in domain code as legacy coupling to delete once Foundation becomes ops-first.
 - **Decision needed (Phase 2):** resolve `env.directionality` ownership (see section 6); current state duplicates it in config and env.
 
@@ -371,13 +516,17 @@ risks:
     notes: "Slice plan must preserve deterministic coverage while migrating to ops-first surfaces."
 ```
 
-### E) Golden path example (current candidate)
+### E) Golden path candidate (current)
 
 Nearest “Foundation-shaped” canonical step (artifacts + deps signature, but no ops yet):
 - `mods/mod-swooper-maps/src/recipes/standard/stages/foundation/steps/foundation.ts`
 
 Style exemplar for contract-first authoring (already canonical):
 - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/biomes/contract.ts`
+
+### F) Deletion list (current)
+
+- TBD (populate during Phase 1 inventory)
 
 ---
 

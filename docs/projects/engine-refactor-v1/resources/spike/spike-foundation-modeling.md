@@ -74,8 +74,7 @@ This section defines the **target** Foundation outputs as pipeline contracts. So
 
 **Tile-indexed (projection; stable consumer surface for current pipeline):**
 - `artifact:foundation.plates` — tile-indexed tensors derived from mesh-first model (plate id, boundary proximity/type, plate motion, tectonic driver fields).
- 
-Hydrology owns wind/currents as climate products (not Foundation).
+- `artifact:foundation.dynamics` — tile-indexed “planetary baseline” tensors (winds/currents/pressure) used by downstream narrative + hydrology logic.
 
 **Trace-only (debug/forensics; not part of the physical model):**
 - `artifact:foundation.seed` — seed snapshot / replay metadata.
@@ -104,18 +103,18 @@ Target rule:
 - Downstream domains may depend on the **meaning** above, but must not depend on Foundation **module layout** to import it.
 - Implementation must provide a stable contract export (exact module placement is Phase 3 work; this spike locks the semantics).
 
-### 3.3 Directionality posture (removed; derived signals only)
+### 3.3 Directionality posture (ownership + meaning)
 
-Directionality is **removed** as a global knob. Orientation biases must be derived from artifacts/buffers.
+Directionality is a **planetary boundary condition** used to bias large-scale orientation (plates / winds / currents).
 
 Decision (locked):
-- No `env.directionality` or config-level directionality surface exists.
-- Plate/tectonic orientation uses Foundation artifacts (plateGraph/tectonics).
-- Climate/narrative orientation uses Hydrology products (winds/currents), not a global knob.
+- **`env.directionality` is the authoritative runtime input.**
+- Recipe/map config may define defaults, but only by influencing env construction at the entry boundary (not by embedding directionality as domain-private “hidden config”).
+- Steps pass directionality into ops as explicit **op inputs** when needed (never as callback “views”).
 
 Rationale:
-- Global knobs were shaping internals and leaking legacy assumptions across domains.
-- Artifact-derived signals keep causality explicit and domain-owned.
+- `Env` already owns run-defining parameters (seed, dimensions, latitude bounds, wrap); directionality belongs in the same class.
+- Multiple downstream steps already assume `env.directionality` exists; keeping this centralized avoids drift.
 
 ### 3.4 Typed-array contract posture (schemas + validation)
 
@@ -124,6 +123,137 @@ Decision (locked):
 - Artifact/operation schemas should use the canonical typed-array schema helpers (not `Type.Any()`), and rely on runtime validators for length/invariant enforcement where schema precision is impossible.
 
 ---
+
+## 3.5 Target contract matrix (target)
+
+```yaml
+steps:
+  - id: foundation/foundation
+    title: "Publish Foundation tensors (plates/dynamics) + snapshots"
+    requires:
+      artifacts: []
+      buffers: []
+      overlays: []
+    provides:
+      artifacts:
+        - artifact:foundation.mesh
+        - artifact:foundation.crust
+        - artifact:foundation.plateGraph
+        - artifact:foundation.tectonics
+        - artifact:foundation.plates
+        - artifact:foundation.dynamics
+        - artifact:foundation.seed
+        - artifact:foundation.diagnostics
+        - artifact:foundation.config
+      buffers: []
+      overlays: []
+    consumers:
+      - morphology-pre/landmass-plates
+      - morphology-mid/rugged-coasts
+      - narrative-pre/story-rifts
+      - narrative-mid/story-orogeny
+      - morphology-post/mountains
+      - morphology-post/volcanoes
+      - narrative-swatches/story-swatches (dynamics)
+      - hydrology-post/climate-refine (dynamics)
+    notes: "Mesh-first artifacts are canonical; plates/dynamics remain projections until downstream migrates."
+
+  - id: morphology-pre/landmass-plates
+    title: "Landmass generation (plate-driven)"
+    requires:
+      artifacts: [artifact:foundation.plates]
+      buffers: []
+      overlays: []
+    provides:
+      artifacts: []
+      buffers: []
+      overlays: []
+    consumers: []
+
+  - id: morphology-mid/rugged-coasts
+    title: "Rugged coasts (margin/corridor-aware)"
+    requires:
+      artifacts: [artifact:foundation.plates]
+      buffers: []
+      overlays: [artifact:storyOverlays]
+    provides:
+      artifacts: []
+      buffers: []
+      overlays: []
+    consumers: []
+
+  - id: narrative-pre/story-rifts
+    title: "Story motifs: rift valleys"
+    requires:
+      artifacts: [artifact:foundation.plates]
+      buffers: []
+      overlays: [artifact:storyOverlays]
+    provides:
+      artifacts: []
+      buffers: []
+      overlays: [artifact:storyOverlays]
+    consumers: []
+
+  - id: narrative-mid/story-orogeny
+    title: "Story motifs: orogeny belts"
+    requires:
+      artifacts: [artifact:foundation.plates, artifact:foundation.dynamics]
+      buffers: []
+      overlays: [artifact:storyOverlays]
+    provides:
+      artifacts: []
+      buffers: []
+      overlays: [artifact:storyOverlays]
+    consumers: []
+
+  - id: narrative-swatches/story-swatches
+    title: "Story overlays: climate swatches (hydrology-facing)"
+    requires:
+      artifacts: [artifact:foundation.dynamics]
+      buffers: [artifact:heightfield, artifact:climateField]
+      overlays: [artifact:storyOverlays]
+    provides:
+      artifacts: []
+      buffers: []
+      overlays: [artifact:storyOverlays]
+    consumers: []
+
+  - id: hydrology-post/climate-refine
+    title: "Post-rivers climate refinement (earthlike)"
+    requires:
+      artifacts: [artifact:foundation.dynamics, artifact:riverAdjacency]
+      buffers: [artifact:heightfield, artifact:climateField]
+      overlays: [artifact:storyOverlays]
+    provides:
+      artifacts: []
+      buffers: []
+      overlays: []
+    consumers: []
+
+  - id: morphology-post/mountains
+    title: "Mountains placement (plate-aware physics)"
+    requires:
+      artifacts: [artifact:foundation.plates]
+      buffers: []
+      overlays: []
+    provides:
+      artifacts: []
+      buffers: []
+      overlays: []
+    consumers: []
+
+  - id: morphology-post/volcanoes
+    title: "Volcano placement (plate-aware)"
+    requires:
+      artifacts: [artifact:foundation.plates]
+      buffers: []
+      overlays: []
+    provides:
+      artifacts: []
+      buffers: []
+      overlays: []
+    consumers: []
+```
 
 ## 4) Target Foundation op catalog (atomic; no op-calls-op)
 
@@ -146,7 +276,7 @@ Notes:
 - **Output:** `artifact:foundation.crust`
 
 3) `foundation/compute-plate-graph` (`compute`)
-- **Input:** `{ mesh, crust, rngSeed }`
+- **Input:** `{ mesh, crust, rngSeed, directionality? }`
 - **Config:** major/minor plate counts, partition cost policy, kinematics distribution.
 - **Output:** `artifact:foundation.plateGraph`
 
@@ -161,8 +291,11 @@ Notes:
 - **Input:** `{ dimensions, mesh, crust, plateGraph, tectonics }`
 - **Config:** projection policy (how mesh signals map to tile tensors; smoothing rules).
 - **Output:** `artifact:foundation.plates`
- 
-Hydrology owns wind/currents as climate products (not a Foundation op).
+
+6) `foundation/compute-dynamics-tensors` (`compute`)
+- **Input:** `{ dimensions, latitudeBounds, wrap, directionality?, rngSeed }`
+- **Config:** baseline circulation knobs (kept minimal; downstream climate owns refinement).
+- **Output:** `artifact:foundation.dynamics`
 
 ### 4.3 Things that are *not* ops (step-owned effects / trace surfaces)
 
@@ -180,10 +313,10 @@ Trigger to revisit:
 Current Standard recipe has one Foundation step: `foundation/foundation`.
 
 Target composition inside that step (still one step unless Phase 3 slicing demands more):
-1) Build plain inputs from `ctx` (dimensions/wrap/lat bounds + deterministic RNG seeds).
+1) Build plain inputs from `ctx` (dimensions/wrap/lat bounds + `env.directionality` + deterministic RNG seeds).
 2) Call ops in causal order:
    - `compute-mesh` → `compute-crust` → `compute-plate-graph` → `compute-tectonics`
-   - `compute-plates-tensors` (projection)
+   - `compute-plates-tensors` (+ projection) and `compute-dynamics-tensors`
 3) Publish artifacts via stage-owned contracts (write-once semantics).
 4) Optionally publish trace artifacts (non-required).
 
@@ -196,7 +329,7 @@ This is **not** an implementation plan; it’s the list of contract-level impact
 ### 6.1 Additive contract changes (low risk)
 
 - Add new mesh-first artifacts: `foundation.mesh`, `foundation.crust`, `foundation.plateGraph`, `foundation.tectonics`.
-- Keep existing consumer artifact (`foundation.plates`) as a projection until downstream domains migrate to mesh-first consumption.
+- Keep existing consumer artifacts (`foundation.plates`, `foundation.dynamics`) as projections until downstream domains migrate to mesh-first consumption.
 
 ### 6.2 Stabilization changes (must happen to avoid reintroducing coupling)
 
@@ -206,7 +339,7 @@ This is **not** an implementation plan; it’s the list of contract-level impact
 ### 6.3 Known downstream consumers of current artifacts (must remain coherent)
 
 - `artifact:foundation.plates` consumers: morphology (landmass, rugged coasts, mountains, volcanoes) and narrative (rifts, orogeny).
-- Hydrology/narrative consumers should read climate/wind products from Hydrology (not Foundation).
+- `artifact:foundation.dynamics` consumers: narrative swatches/orogeny and hydrology climate refinement.
 
 ---
 
@@ -218,96 +351,123 @@ This is **not** an implementation plan; it’s the list of contract-level impact
 
 ---
 
+## 8) Invariants (locked)
+
+- Model-first: mesh/graph causality is canonical; tile-indexed tensors are projections for downstream compatibility, not the model.
+- `env.directionality` is authoritative; authored config only influences env construction at the entry boundary.
+- `foundation.seed/config/diagnostics` are trace-only; never required by downstream steps and never used as modeling inputs.
+- Typed-array payloads must not be `Type.Any()` by default; prefer explicit typed-array schemas + runtime invariant validation (ADR-ER1-030).
+
+## 9) Decisions + defaults (modeling)
+
+### Decision: Foundation posture is plate-graph-first
+- **Context:** PRD direction is plate graph (Delaunay/Voronoi) rather than legacy tile-first foundation.
+- **Choice:** Locked: Foundation is graph/mesh-first; tile-indexed tensors are projections for consumers.
+- **Trigger to revisit:** Only if an engine constraint makes graph/mesh-first infeasible without a staged migration.
+
+### Decision: Stable boundary semantics surface
+- **Context:** Downstream domain code imports boundary enums/constants (`BOUNDARY_TYPE`) from Foundation implementation modules today.
+- **Choice:** Locked: boundary semantics are a public Foundation contract; consumers must depend on a stable contract export.
+- **Current contract surface:** `@mapgen/domain/foundation/constants.js` (backs onto `mods/mod-swooper-maps/src/domain/foundation/constants.ts`).
+- **Trigger to revisit:** Only when Morphology refactor lands and no longer needs boundary constants from Foundation.
+
+### Decision: Mesh-first artifact representation (typed arrays + POJOs)
+- **Context:** We need mesh-first artifacts that are schema-able and deterministic across adapters.
+- **Choice:** Publish typed-array + POJO mesh artifacts; neighbors are best-effort reconstructed from Voronoi halfedges when available.
+- **Risk:** adjacency/wrap semantics are not yet authoritative across adapters; tectonics fields are placeholder/invariant-focused until consumers migrate.
+
+### Default: Trace artifacts are non-canonical
+- **Context:** `foundation.seed/config/diagnostics` are useful for replay/forensics but are not part of the physical model.
+- **Choice:** Keep them trace-only; never required by downstream step contracts.
+- **Trigger to revisit:** Only if a trace artifact becomes a first-class, independently testable product with stable I/O.
+
+### Default: Typed-array schemas are explicit
+- **Context:** Current artifact contracts use permissive `Type.Any()` while runtime validators enforce typed arrays.
+- **Choice:** Prefer canonical typed-array schema helpers + runtime invariant validation; treat `Type.Any()` as a migration smell.
+- **Trigger to revisit:** Only if authoring SDK changes typed-array schema strategy.
+
+## 10) Risk register (modeling)
+
+```yaml
+risks:
+  - id: R1
+    title: "Downstream domains read Foundation artifacts via ctx.artifacts"
+    severity: high
+    blocking: true
+    notes: "Must be removed via canonical deps access before completion."
+  - id: R2
+    title: "Downstream imports depend on Foundation module layout"
+    severity: high
+    blocking: true
+    notes: "Boundary semantics must be a stable contract surface before refactor deletes or moves internals."
+  - id: R3
+    title: "Directionality ownership is duplicated (env + config)"
+    severity: medium
+    blocking: false
+    notes: "Enforce env ownership at the entry boundary in implementation."
+  - id: R4
+    title: "Typed-array schema posture is split between Type.Any and runtime validators"
+    severity: medium
+    blocking: false
+    notes: "Tighten schemas early to avoid reinforcing permissive contracts."
+```
+
+## 11) Golden path (authoritative)
+
+Use this as the “one representative step” reference when authoring new Foundation steps.
+
+Targets to demonstrate:
+- `contract.ts` imports only the domain entrypoint + stage-owned artifact contracts.
+- Step runtime uses `run(ctx, config, ops, deps)` and reads/writes via `deps.artifacts.*`.
+- No redundant config typing imports when inference already provides it.
+
+Reference for style (existing exemplar):
+- `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/biomes/contract.ts`
+
+Foundation target (shape, not implementation):
+- Step contract: `mods/mod-swooper-maps/src/recipes/standard/stages/foundation/steps/foundation.contract.ts`
+- Step runtime: `mods/mod-swooper-maps/src/recipes/standard/stages/foundation/steps/foundation.ts`
+- Stage-owned artifact contracts: `mods/mod-swooper-maps/src/recipes/standard/stages/foundation/artifacts.ts`
+- Domain entrypoint + ops surface: `mods/mod-swooper-maps/src/domain/foundation/index.ts`
+
+Minimal contract sketch (illustrative):
+```ts
+defineStep({
+  id: "foundation",
+  phase: "foundation",
+  artifacts: { provides: [foundationArtifacts.plates, foundationArtifacts.dynamics /* ... */] },
+  ops: { computePlates: foundation.ops.computePlatesTensors },
+});
+```
+
 ## Lookback (Phase 2 → Phase 3): Adjust implementation plan
 
-Phase 2 locked the **authoritative, model-first Foundation posture**. This lookback converts that posture into a slice plan that can be implemented without breaking the pipeline.
+Phase 2 locked the authoritative model. This lookback provides **inputs** to Phase 3 without prescribing slice ordering.
 
 ### 1) Finalized invariants (must not change during implementation)
 
-These are the “laws of the land” for the Foundation refactor. If an implementation detail conflicts with any invariant, the implementation is wrong.
+1) Model-first: mesh/graph causality is canonical; tile-indexed tensors are projections for downstream compatibility, not the model.
+2) Single-path authoring: steps orchestrate via `run(ctx, config, ops, deps)` and access dependencies via `deps` only (no `ctx.artifacts.get(...)`).
+3) Atomic ops: ops do not call other ops; composition lives in the stage/step.
+4) Stage-owned artifacts: Foundation outputs are published via stage-owned artifact contracts.
+5) Stable boundary semantics: `BOUNDARY_TYPE` meaning is stable and available via a stable export surface.
+6) Env-owned directionality: `env.directionality` is authoritative; authored config only influences env construction at the entry boundary.
+7) Trace artifacts are non-canonical: `foundation.seed/config/diagnostics` are trace-only.
+8) Typed-array schemas are explicit: artifact/op schemas must not default to `Type.Any()` for typed-array payloads.
 
-1) **Model-first (authoritative):** mesh/graph causality is canonical; tile-indexed tensors are projections for downstream compatibility, not the model.
-2) **Single-path authoring:** steps orchestrate via `run(ctx, config, ops, deps)` and access dependencies via `deps` only (no `ctx.artifacts.get(...)` and no step imports of op implementations).
-3) **Atomic ops:** ops do not call other ops; composition lives in the stage/step.
-4) **Stage-owned artifacts:** Foundation outputs are published via stage-owned artifact contracts; consumers depend on those contracts, not ad-hoc tags or internal module paths.
-5) **Stable boundary semantics:** `BOUNDARY_TYPE` meaning is stable and available via a stable export surface (consumers must not depend on Foundation module layout beyond that contract surface).
-6) **No directionality knob:** orientation biases are derived from artifacts/buffers (plateGraph/tectonics, hydrology winds/currents).
-7) **Trace artifacts are non-canonical:** `foundation.seed/config/diagnostics` remain trace-only (never required by downstream steps; never used as modeling inputs).
-8) **Typed-array schemas are explicit:** artifact/op schemas must not default to `Type.Any()` for typed-array payloads; prefer explicit schema helpers + runtime invariant validation (ADR-ER1-030).
+### 2) Pipeline delta summary (contract-level changes)
 
-### 2) Top risks (and how slice ordering mitigates them)
+- Add mesh-first artifacts: `foundation.mesh`, `foundation.crust`, `foundation.plateGraph`, `foundation.tectonics`.
+- Keep `foundation.plates` and `foundation.dynamics` as projections until downstream domains migrate.
+- Provide a stable contract surface for boundary semantics (no module-layout coupling).
+- Normalize typed-array schema posture for Foundation artifacts and ops.
 
-1) **Blocking: downstream reads via `ctx.artifacts.get(...)`.**
-   - Risk: any attempt to make Foundation contract-first while downstream still “reaches around” the step boundary recreates coupling and makes slice-by-slice unsafe.
-   - Mitigation: land an early slice that removes (or mechanically fences) `ctx.artifacts.get(artifact:foundation.*)` usage from `packages/mapgen-core` and downstream domain logic, and routes all reads through `deps.artifacts.<contractName>.read()` in step runtimes.
+### 3) Risk priorities for Phase 3
 
-2) **Blocking: downstream imports depend on Foundation implementation module layout (`BOUNDARY_TYPE`).**
-   - Risk: if we reorganize Foundation modules as part of ops-first refactor, downstream breaks (and the “contract-only” posture becomes fiction).
-   - Mitigation: treat boundary semantics as a first-class contract surface and lock a stable export path *before* deleting/moving Foundation internals; optionally add lint/guardrails to prevent new deep imports.
+- **Blocking:** downstream reads via `ctx.artifacts.get(...)` must be removed.
+- **Blocking:** downstream imports depend on Foundation implementation module layout.
+- **Non-blocking:** typed-array schema posture (tighten early to avoid reinforcing `Type.Any`).
+- **Non-blocking:** directionality ownership (enforce env ownership at the entry boundary).
 
-3) **Non-blocking (but must be enforced): typed-array schemas are currently `Type.Any()`.**
-   - Risk: contract-first refactor without schema tightening leaves the system “typed by vibes” and encourages more `Any`-shaped artifacts.
-   - Mitigation: introduce typed-array schemas as part of slice 1 (or slice 2) while behavior is unchanged; this keeps failures local and makes later refactors safer.
+Phase 3 owns slice ordering and mitigation sequencing using these inputs.
 
-### 3) Pipeline delta slicing strategy (keep the pipeline coherent at every boundary)
-
-The safest path is **additive-first, then migration, then deletion**:
-
-- **Additive-first:** introduce mesh-first artifacts (`foundation.mesh/crust/plateGraph/tectonics`) as *additional* provides from the Foundation stage while keeping existing consumer artifact (`foundation.plates`) stable.
-- **Migration:** move consumers off legacy access paths (deep imports, `ctx.artifacts.get`) and onto stable step/stage contracts + `deps`.
-- **Deletion:** once the pipeline is coherent through contracts, delete legacy entrypoints (monolithic producer surfaces, `ctx.artifacts` assertions, and any “compat” helpers that bypass `deps`).
-
-This ordering keeps the pipeline working while still honoring the “no dual paths” intent: the “dual” period is contract-level (additive artifacts), not two competing implementations.
-
-### 4) Contract matrix delta by slice (draft)
-
-This is expressed in terms of the shared Contract Matrix in the plan doc (Appendix B).
-
-- **Slice 1 (contract-first surfacing; behavior-preserving):**
-  - `foundation/foundation` provides remain: `foundation.plates` (and any legacy dynamics until removed), trace artifacts.
-  - Change: schemas become explicit (typed-array posture); step runtime orchestration shifts to injected ops (no direct imports of implementations).
-  - No downstream contract changes yet (purely internal + schema tightening).
-
-- **Slice 2 (additive mesh-first contracts):**
-  - `foundation/foundation` additionally provides: `foundation.mesh`, `foundation.crust`, `foundation.plateGraph`, `foundation.tectonics`.
-  - Downstream requires remain unchanged (they still require `foundation.plates`, and any legacy dynamics until removed).
-
-- **Slice 3 (consumer migration off legacy access paths):**
-  - No `requires/provides` changes at the step-contract layer.
-  - Change: downstream domain logic/steps stop using `ctx.artifacts.get(artifact:foundation.*)` and any deep imports not on the stable contract surface.
-
-- **Slice 4 (directionality removal + deletion sweep):**
-  - Delete any directionality knobs (no env/config surfaces remain).
-  - Delete legacy entrypoints that bypass ops/stage contracts (producer-only surfaces, stale assertion helpers).
-
-### 5) Draft slice boundaries (Phase 3 hardens this into an executable checklist)
-
-Slice boundaries are chosen to keep “blast radius” small and to ensure each slice can end with the pipeline green.
-
-1) **Slice 1 — Establish Foundation’s contract-first “spine” (behavior-preserving).**
-   - Introduce: Foundation op contracts + implementations for the *existing* published outputs (`foundation.plates`, plus any legacy dynamics until removed), implemented by delegating to the current algorithms.
-   - Convert: Foundation stage orchestration to call injected ops; stop importing Foundation implementation modules from the step.
-   - Tighten: stage-owned artifact schemas (remove `Type.Any()` posture where possible).
-   - Stabilize: boundary semantics export surface is treated as a contract (no new deep imports).
-
-2) **Slice 2 — Add mesh-first artifacts as additive provides (model-first scaffolding).**
-   - Introduce: mesh-first artifact contracts + op contracts (`compute-mesh`, `compute-crust`, `compute-plate-graph`, `compute-tectonics`), even if initial implementations are thin wrappers around existing in-memory structures.
-   - Publish: additive artifacts from the Foundation stage without changing downstream requirements.
-
-3) **Slice 3 — Remove legacy cross-pipeline coupling (consumers migrate).**
-   - Replace: `packages/mapgen-core` `assertFoundation*` artifact reads via `ctx.artifacts.get(...)` with canonical `deps` access patterns at step boundaries.
-   - Update: downstream domain logic call sites so plates/dynamics are passed explicitly (or read via `deps` in step runtime), not fetched from ctx.
-
-4) **Slice 4 — Directionality removal + deletion sweep.**
-   - Enforce: no directionality surfaces (env/config) and no hidden knobs.
-   - Delete: monolithic producer entrypoints and any stale “compat” paths that bypass ops/stage contracts.
-
-### 6) Test strategy notes (deterministic harnessing vs thin integration)
-
-- **Op-unit tests (deterministic, fast):** each `foundation/compute-*` op should have targeted tests that lock invariants (array lengths, bounds, determinism for a fixed seed/env, and boundary enum meaning).
-- **Thin integration tests (pipeline sanity):** keep at least one end-to-end “standard recipe runs” test path that asserts:
-  - Foundation publishes required artifacts,
-  - downstream stages still consume plates/dynamics coherently,
-  - no `ctx.artifacts.get(artifact:foundation.*)` reads exist outside explicitly allowed legacy test harnesses.
-
-If determinism is not currently achievable for a given op (because of engine RNG or floating-point sensitivity), record that as an explicit test gap and require a follow-up slice to make it deterministic.
