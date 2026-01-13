@@ -38,6 +38,16 @@ Important nuance: today, some buffers are still routed through the artifact syst
 
 Canonical conceptual reference: `docs/system/libs/mapgen/architecture.md` (“Pipeline state kinds”).
 
+## Canonical modeling rule: overlays
+
+Overlays are a cross-cutting way to publish structured “stories of formation” (corridors, swatches, etc.) so downstream domains can bias behavior using interpretable motifs.
+
+- **Canonical shape:** a single `overlays` container with per-type collections (e.g., `overlays.corridors`, `overlays.swatches`).
+- **Mutation posture:** append-preferred; mutation is rare and intentional.
+- **Current wiring:** overlays are routed through artifact contracts for gating/typing, but they must be modeled as overlays (not as “just artifacts”) so the later first-class refactor doesn’t rewrite domain intent.
+
+Canonical conceptual reference: `docs/system/libs/mapgen/architecture.md` (“Overlays”).
+
 ## Recommended consolidation targets (so these become stable workflow references)
 
 The `SPIKE-*` docs in `docs/system/libs/mapgen/research/` are useful, but too large and too “scratchy” to treat as workflow-canonical long term.

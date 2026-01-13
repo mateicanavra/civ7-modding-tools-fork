@@ -46,6 +46,13 @@ Ecology is primarily an **artifact-producing** domain built on upstream **buffer
 
 If Ecology refines an upstream buffer (rare; generally avoid), treat that as an explicit, testable modeling decision. Do not implicitly “smuggle” buffer semantics into published artifacts.
 
+### Overlays (read-only bias inputs)
+
+Ecology may consume upstream **overlays** as bias inputs (not as physics replacements):
+
+- Example: read corridor overlays (e.g., mountain corridors) to bias biome seams, vegetation density, or feature planning along those corridors.
+- Rule: overlays should be treated as **read-only** at this layer unless Ecology is explicitly responsible for adding a new overlay type/instance (rare).
+
 ## Operation catalog (atomic responsibilities)
 
 Ecology’s model should be expressed as **atomic operations** (single responsibility) that steps/stages orchestrate:

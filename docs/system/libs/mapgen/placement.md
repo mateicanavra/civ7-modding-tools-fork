@@ -59,6 +59,18 @@ Placement should primarily consume **artifacts** (published contracts). If Place
 - stable (no ad-hoc heuristics scattered across the codebase),
 - and effectively **read-only** at this stage (Placement should not mutate cross-domain buffers as part of “final decisions”).
 
+### Overlays (story-driven placement bias)
+
+Placement may consume upstream **overlays** to bias decisions in a way that is explainable and testable.
+
+Examples:
+- Use `overlays.corridors` (mountain/rift corridors) to bias:
+  - start adjacency to passes,
+  - goodies/barbs placement along strategic routes,
+  - or “interesting map” constraints.
+
+Placement should generally treat overlays as read-only and avoid mutating shared overlay collections at this stage.
+
 ## Outputs (what Placement owns and publishes)
 
 Placement produces decisions, not just fields:
