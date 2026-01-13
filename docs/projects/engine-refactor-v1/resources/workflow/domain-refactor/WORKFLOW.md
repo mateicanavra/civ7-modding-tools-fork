@@ -625,4 +625,5 @@ Workflow package references (keep open while implementing):
 Prior art / sequencing helpers:
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/examples/VOLCANO.md`
 - `docs/projects/engine-refactor-v1/resources/spike/spike-domain-refactor-sequencing.md`
+- Domain plan example (draft spec): `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/FOUNDATION.md`
 - Standard recipe stage order: `mods/mod-swooper-maps/src/recipes/standard/recipe.ts`
