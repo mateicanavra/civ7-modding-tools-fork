@@ -67,6 +67,14 @@ Phase 2 (deferred, requires check-in):
 - **Rationale:** Avoid breaking existing consumers while ensuring the new contract-first path is safe.
 - **Risk:** Duplicate producers declared via legacy `requires/provides` are not caught until Phase 2 migration.
 
+## Sequencing (Phase 2)
+1. U21-F1: Define stage-owned artifact contracts for the standard recipe (all stages).
+2. U21-F2: Migrate foundation + climate steps to artifacts/deps (contracts + runtimes).
+3. U21-F3: Migrate ecology steps to artifacts/deps (contracts + runtimes), including overlays cutover and single-producer biomeClassification.
+4. U21-F4: Migrate narrative + placement steps to artifacts/deps (contracts + runtimes).
+5. U21-F5: Remove legacy artifact wiring in the standard recipe (manual tag defs, registry helpers).
+6. U21-G2: Phase 2 tests + verification.
+
 ## TL;DR
 ```yaml
 tldr:
