@@ -28,7 +28,7 @@ Lock this in: “authoritative first-principles model even if artifacts change�
 Non-negotiables for implementation:
 - Mesh/graph causality is canonical; tile-indexed tensors are projections for downstream compatibility, not the model.
 - Directionality is deleted; orientation biases are derived from artifacts/buffers (plateGraph/tectonics + Hydrology winds/currents).
-- `foundation.seed/config/diagnostics` are trace-only; never required by downstream steps and never used as modeling inputs.
+- `foundation.seed/diagnostics` are trace-only; never required by downstream steps and never used as modeling inputs.
 - Typed-array payloads must not be “Type.Any by default”; prefer explicit typed-array schemas + runtime invariant validation (ADR-ER1-030).
 
 ## Dependencies / Sources
@@ -161,6 +161,20 @@ Post Slice 5 re-run (after config purity + FoundationContext removal):
 
 This slice plan is derived from the Phase 2 modeling spike Lookback (Phase 2 → Phase 3). Each slice must be independently shippable and leave the pipeline coherent.
 
+### Algorithmic reference (Delaunay/Voronoi; do not treat as architecture)
+
+These are trusted for algorithmic direction only. Canonical architecture remains `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/WORKFLOW.md`.
+
+- PRD north-star (algorithm): `docs/projects/engine-refactor-v1/resources/PRD-plate-generation.md`
+- Audit (alignment gap): `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/SPIKE-FOUNDATION-PRD-AUDIT.md`
+- Feasibility spike: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/foundation/SPIKE-FOUNDATION-DELAUNAY-FEASIBILITY.md`
+- Canonical mesh spec: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/foundation/SPEC-FOUNDATION-DELAUNAY-VORONOI.md`
+
+Locked decisions for implementation (algorithmic):
+- Use `d3-delaunay` as the canonical Delaunay/Voronoi backend (no adapter, no fallback).
+- Mesh operates in planar map-space (`0..width`, `0..height`) and does not implement wrapX or periodic tiling.
+- Neighbor/adjacency comes from the backend’s neighbor iterator (no “halfedge inference” against empty mock data).
+
 #### Slice 1 — Establish the contract-first spine (behavior-preserving)
 
 Goal: route *existing* published outputs (`foundation.plates`, `foundation.dynamics`, trace artifacts) through the canonical ops + stage contract posture, without changing behavior.
@@ -219,30 +233,152 @@ Checklist:
 - [x] Remove directionality references from all steps/domains/tests/presets (artifact-derived signals only).
 - [x] Delete `FoundationContext` wrapper + tests; publish artifacts directly from step ops.
 
-#### Slice 6 — Derived projections + move winds/currents to Hydrology
+#### Slice 6 — Derived projections + move winds/currents to Hydrology (and de-monolith Foundation stage)
 
-Goal: enforce the authoritative spine and move atmospheric/oceanic products out of Foundation.
+Goal: enforce the authoritative spine and remove “Foundation dynamics” by moving climate products to Hydrology; Foundation stage must be multi-step (no monolith).
 
-Checklist:
-- [ ] Make tile tensors pure projections of mesh/crust/plateGraph/tectonics (no parallel computation paths).
-- [ ] Move wind/currents into Hydrology-owned climate products/buffers; remove Foundation dynamics outputs.
-- [ ] Update consumers to read hydrology wind/current products instead of Foundation dynamics.
+##### Subissue 6.1 — Split Foundation stage into multiple canonical steps
 
-#### Slice 7 — Downstream rebuild
-
-Goal: downstream domains consume authoritative surfaces only; no residual directionality assumptions.
-
-Checklist:
-- [ ] Narrative/Hydrology/Morphology read plates/tectonics projections or mesh-first artifacts (as appropriate).
-- [ ] Remove any ad-hoc directionality validations or config shims in downstream logic.
-
-#### Slice 8 — Ruthless deletion sweep
-
-Goal: remove all legacy/compat/unused modules, strategies, exports, and tests.
+Create a step-per-op spine in `mods/mod-swooper-maps/src/recipes/standard/stages/foundation/steps/`:
+- `mesh` (ops: `computeMesh`; provides: `artifact:foundation.mesh`)
+- `crust` (requires: mesh; ops: `computeCrust`; provides: `artifact:foundation.crust`)
+- `plate-graph` (requires: mesh+crust; ops: `computePlateGraph`; provides: `artifact:foundation.plateGraph`)
+- `tectonics` (requires: mesh+crust+plateGraph; ops: `computeTectonics`; provides: `artifact:foundation.tectonics`)
+- `projection` (requires: mesh+plateGraph+tectonics; ops: `computePlatesTensors`; provides: tile projections needed downstream)
 
 Checklist:
-- [ ] Delete remaining legacy strategy IDs, compat modules, and unused artifacts/contracts.
-- [ ] Add/extend guardrails to prevent reintroducing config bags or directionality surfaces.
+- [ ] Add step contract + runtime for each step (kebab-case step ids; no shared monolithic contract).
+- [ ] Update `mods/mod-swooper-maps/src/recipes/standard/stages/foundation/index.ts` to register the new steps in order.
+- [ ] Delete the old `foundation` monolith step and remove it from the stage index.
+
+Acceptance criteria:
+- [ ] There is no “single foundation step” in the recipe; the stage is explicitly multi-step with step-level contracts.
+- [ ] Each step runtime is orchestration-only and calls injected ops; no step imports op implementations directly.
+
+##### Subissue 6.2 — Delete config snapshots entirely (hard lock)
+
+Checklist:
+- [ ] Delete any `foundation.config` artifact (definition + publish + validation).
+- [ ] Remove any config snapshot types/validators in `packages/mapgen-core/src/core/types.ts` and `packages/mapgen-core/src/core/assertions.ts`.
+
+Acceptance criteria:
+- [ ] No config payload is published as an artifact anywhere in Foundation.
+- [ ] `rg -n \"foundation\\.config\" mods/mod-swooper-maps/src packages/mapgen-core/src` returns no hits.
+
+##### Subissue 6.3 — Make mesh generation PRD-aligned: use `d3-delaunay` (canonical-only backend)
+
+Checklist:
+- [ ] Add `d3-delaunay` as a dependency in the canonical location (expected: `packages/mapgen-core`), and ensure it is bundled for builds.
+- [ ] Implement a deterministic, engine-independent Voronoi backend in mapgen-core per `SPEC-FOUNDATION-DELAUNAY-VORONOI`.
+- [ ] Update `foundation/compute-mesh` op to use the canonical backend and delete its dependency on adapter Voronoi utilities.
+- [ ] Update the test harness so mock adapter does not need to emulate Voronoi halfedges (mesh tests must run offline deterministically).
+
+Acceptance criteria:
+- [ ] No Foundation op or step requires `adapter.getVoronoiUtils`.
+- [ ] Mesh neighbor symmetry invariants are validated under tests.
+- [ ] There is no “adapter Voronoi” fallback path (single canonical backend).
+
+##### Subissue 6.4 — Make `foundation.plates` projections derived from canonical artifacts
+
+Checklist:
+- [ ] Ensure `foundation/compute-plates-tensors` consumes only mesh-first artifacts (`mesh/crust/plateGraph/tectonics`) and produces tile-indexed tensors strictly by projection.
+- [ ] Remove any “parallel tile-first plate generation” path; no second algorithm should compute plates from unrelated inputs.
+
+Acceptance criteria:
+- [ ] `foundation.plates` is derived solely from mesh-first artifacts and tectonics outputs (single-path causality).
+- [ ] There is no call path that recomputes Voronoi/plates independently inside projection ops.
+
+##### Subissue 6.5 — Hydrology owns winds/currents; Foundation does not
+
+Checklist:
+- [ ] Keep `hydrology/compute-wind-fields` as the only producer of wind/current fields (Hydrology-owned artifacts).
+- [ ] Remove Foundation dynamics artifacts/types/validators and update any consumers to read Hydrology wind fields instead.
+- [ ] Remove any remaining climate/wind concepts from Foundation ops/contracts.
+
+Acceptance criteria:
+- [ ] `rg -n \"foundation\\.dynamics\" mods/mod-swooper-maps/src packages/mapgen-core/src` returns no hits.
+- [ ] Foundation stage publishes no wind/current/pressure tensors.
+
+##### Subissue 6.6 — Update authoring surfaces (presets/tests) and compile ops wiring
+
+Checklist:
+- [ ] Update `mods/mod-swooper-maps/src/recipes/standard/recipe.ts` to include Hydrology ops in compilation (as needed for new op usage).
+- [ ] Update presets (`mods/mod-swooper-maps/src/maps/*.ts`) and runtime tests to:
+  - remove any deleted foundation dynamics config,
+  - author wind config under `hydrology-pre` climate baseline step/op envelope,
+  - align foundation projection config with the new contract (no legacy fields).
+
+Acceptance criteria:
+- [ ] `pnpm -C mods/mod-swooper-maps check` passes (type-level surface is coherent).
+
+##### Slice 6 gates (must pass before Slice 7)
+- [ ] `pnpm -C packages/mapgen-core check`
+- [ ] `pnpm -C packages/mapgen-core test`
+- [ ] `pnpm -C mods/mod-swooper-maps check`
+- [ ] `pnpm -C mods/mod-swooper-maps test`
+- [ ] `pnpm -C mods/mod-swooper-maps build`
+
+#### Slice 7 — Downstream rebuild (authoritative surfaces only)
+
+Goal: downstream domains consume authoritative artifacts/buffers only; remove any remaining legacy assumptions and delete any remaining directionality or “hidden global” inputs.
+
+##### Subissue 7.1 — Rewrite consumer steps/contracts to the new surfaces
+
+Checklist:
+- [ ] Morphology steps read only the specific Foundation artifacts/projections they require via `deps.artifacts.*`.
+- [ ] Narrative steps read only the specific artifacts they require via `deps.artifacts.*`.
+- [ ] Hydrology refine continues to use Hydrology wind fields (no Foundation “dynamics”).
+
+Acceptance criteria:
+- [ ] No downstream step or domain code imports deleted Foundation modules or deep paths.
+- [ ] No downstream step requires artifacts that were deleted in Slice 6 (e.g., `foundation.dynamics`).
+
+##### Subissue 7.2 — Remove any lingering directionality-era validations or knobs
+
+Checklist:
+- [ ] Delete any runtime “directionality required” checks, including in presets/tests.
+- [ ] Replace any remaining orientation bias logic with artifact/buffer derived signals only (plate boundaries/tectonics + hydrology winds/currents).
+
+Acceptance criteria:
+- [ ] `rg -n \"directionality\" mods/mod-swooper-maps/src packages/mapgen-core/src` returns no hits.
+
+##### Slice 7 gates
+- [ ] `pnpm -C packages/mapgen-core check`
+- [ ] `pnpm -C packages/mapgen-core test`
+- [ ] `pnpm -C mods/mod-swooper-maps check`
+- [ ] `pnpm -C mods/mod-swooper-maps test`
+- [ ] `pnpm -C mods/mod-swooper-maps build`
+
+#### Slice 8 — Ruthless deletion sweep (no shims, no legacy, no compat)
+
+Goal: delete everything legacy/compat/unused; leave no alternate paths behind.
+
+##### Subissue 8.1 — Delete dead modules/exports/tests and remove duplicate providers
+
+Checklist:
+- [ ] Delete any remaining legacy Foundation helper modules (e.g. tile-first plate generators) and associated tests.
+- [ ] Delete any deprecated/compat/legacy strategy ids, providers, or registry entries.
+- [ ] Fix any “duplicate provider” failures by removing the extra provider at the source (never by weakening validation).
+
+Acceptance criteria:
+- [ ] `rg -n \"compat|deprecated|legacy\" mods/mod-swooper-maps/src packages/mapgen-core/src` returns no hits.
+- [ ] Tag registry tests do not fail due to duplicate providers.
+
+##### Subissue 8.2 — Guardrails (cheap CI rails)
+
+Checklist:
+- [ ] Add/extend a small test or script that fails if any of these reappear:
+  - imports of domain config bags in Foundation op/step contracts,
+  - `Type.Partial(FoundationConfigSchema)` usage,
+  - `directionality` or `foundation.dynamics` surfaces.
+
+##### Slice 8 final gates
+- [ ] `pnpm -C packages/mapgen-core check`
+- [ ] `pnpm -C packages/mapgen-core test`
+- [ ] `pnpm -C mods/mod-swooper-maps check`
+- [ ] `pnpm -C mods/mod-swooper-maps test`
+- [ ] `pnpm -C mods/mod-swooper-maps build`
+- [ ] `pnpm deploy:mods`
 
 ## Lookback (Phase 3 → Phase 4): Finalize slices + sequencing
 
