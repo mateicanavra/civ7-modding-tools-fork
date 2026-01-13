@@ -1,3 +1,6 @@
+/**
+ * Returns true when a nearby tile within the radius contains the target feature.
+ */
 export function hasAdjacentFeatureType(
   featureField: Int16Array,
   width: number,
@@ -20,6 +23,9 @@ export function hasAdjacentFeatureType(
   return false;
 }
 
+/**
+ * Returns true when a tile is adjacent to shallow water terrain within the radius.
+ */
 export function isAdjacentToShallowWater(
   getTerrainType: (x: number, y: number) => number,
   coastTerrain: number,
@@ -42,4 +48,3 @@ export function isAdjacentToShallowWater(
   }
   return false;
 }
-

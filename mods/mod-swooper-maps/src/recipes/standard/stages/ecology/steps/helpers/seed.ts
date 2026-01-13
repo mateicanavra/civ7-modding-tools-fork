@@ -6,6 +6,9 @@ const hashLabel = (label: string): number => {
   return hash | 0;
 };
 
+/**
+ * Derives a deterministic step seed from a base seed and label.
+ */
 export function deriveStepSeed(baseSeed: number, label: string): number {
   return (baseSeed | 0) ^ hashLabel(label);
 }

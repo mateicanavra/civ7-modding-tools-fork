@@ -57,6 +57,9 @@ const buildFeatureKeyField = (
   return field;
 };
 
+/**
+ * Builds the input payload for ice feature placement planning.
+ */
 export function buildIceFeaturePlacementsInput(
   context: ExtendedMapContext,
   lookups: FeatureKeyLookups
@@ -79,6 +82,9 @@ export function buildIceFeaturePlacementsInput(
   };
 }
 
+/**
+ * Builds the input payload for aquatic feature placement planning.
+ */
 export function buildAquaticFeaturePlacementsInput(
   context: ExtendedMapContext,
   lookups: FeatureKeyLookups
@@ -102,6 +108,9 @@ export function buildAquaticFeaturePlacementsInput(
   };
 }
 
+/**
+ * Builds the input payload for wet feature placement planning.
+ */
 export function buildWetFeaturePlacementsInput(
   context: ExtendedMapContext,
   config: WetInnerConfig,
@@ -136,6 +145,9 @@ export function buildWetFeaturePlacementsInput(
   };
 }
 
+/**
+ * Builds the input payload for vegetated feature placement planning.
+ */
 export function buildVegetatedFeaturePlacementsInput(
   context: ExtendedMapContext,
   lookups: FeatureKeyLookups
@@ -165,6 +177,9 @@ export function buildVegetatedFeaturePlacementsInput(
   };
 }
 
+/**
+ * Builds the input payload for reef embellishment planning.
+ */
 export function buildReefEmbellishmentsInput(
   context: ExtendedMapContext,
   lookups: FeatureKeyLookups
@@ -189,6 +204,9 @@ export function buildReefEmbellishmentsInput(
   };
 }
 
+/**
+ * Builds the input payload for vegetation embellishment planning.
+ */
 export function buildVegetationEmbellishmentsInput(
   context: ExtendedMapContext,
   lookups: FeatureKeyLookups

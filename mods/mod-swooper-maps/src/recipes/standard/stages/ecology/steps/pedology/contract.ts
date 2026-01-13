@@ -10,7 +10,12 @@ const PedologyStepContract = defineStep({
   ops: {
     classify: ecology.ops.classifyPedology,
   },
-  schema: Type.Object({}),
+  schema: Type.Object(
+    {},
+    {
+      description: "Configuration for classifying soils and fertility in the pedology step.",
+    }
+  ),
 });
 
 export default PedologyStepContract;

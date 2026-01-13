@@ -9,6 +9,9 @@ export type FeatureKeyLookups = {
   byEngineId: Map<number, number>;
 };
 
+/**
+ * Builds lookup tables for feature keys to engine ids and reverse.
+ */
 export function resolveFeatureKeyLookups(adapter: EngineAdapter): FeatureKeyLookups {
   const byKey = {} as Record<FeatureKey, number>;
   const byEngineId = new Map<number, number>();

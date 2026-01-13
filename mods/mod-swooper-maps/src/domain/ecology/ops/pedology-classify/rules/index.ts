@@ -2,12 +2,18 @@ import { clamp01 } from "@swooper/mapgen-core";
 
 import type { PedologyClassifyInput } from "../types.js";
 
+/**
+ * Throws when an input array length does not match the expected map size.
+ */
 export function ensureSize(array: ArrayLike<number>, expected: number, label: string): void {
   if (array.length !== expected) {
     throw new Error(`Pedology classify: expected ${label} length ${expected}, got ${array.length}.`);
   }
 }
 
+/**
+ * Returns a normalized relief field, using slope when provided or elevation as a fallback.
+ */
 export function computeReliefProxy(
   slope: Float32Array | undefined,
   elevation: Int16Array,
@@ -30,6 +36,9 @@ export function computeReliefProxy(
   return result;
 }
 
+/**
+ * Computes a fertility score for a tile from climate, relief, sediment, and bedrock signals.
+ */
 export function fertilityForTile({
   rainfall,
   humidity,
@@ -66,6 +75,9 @@ export function fertilityForTile({
   return Math.min(weights.fertilityCeiling, clamp01(normalized));
 }
 
+/**
+ * Maps fertility, relief, and moisture to a coarse soil palette bucket.
+ */
 export function soilPaletteIndex(fertility: number, relief: number, moisture: number): number {
   if (relief > 0.75) return 0; // rocky
   if (fertility > 0.7 && moisture > 0.5) return 2; // loam
@@ -74,6 +86,9 @@ export function soilPaletteIndex(fertility: number, relief: number, moisture: nu
   return 2;
 }
 
+/**
+ * Normalizes an optional field into a 0..1 Float32Array or returns zeros when missing.
+ */
 export function normalizeOptionalField(field: Float32Array | Int16Array | undefined, size: number): Float32Array {
   if (!field || field.length !== size) return new Float32Array(size);
   let max = 1;
@@ -89,6 +104,9 @@ export function normalizeOptionalField(field: Float32Array | Int16Array | undefi
   return result;
 }
 
+/**
+ * Validates pedology input array sizes and returns the total tile count.
+ */
 export function validateInput(input: PedologyClassifyInput): number {
   const { width, height, landMask, elevation, rainfall, humidity } = input;
   const size = width * height;

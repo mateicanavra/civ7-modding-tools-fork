@@ -10,7 +10,12 @@ const FeaturesApplyStepContract = defineStep({
   ops: {
     apply: ecology.ops.applyFeatures,
   },
-  schema: Type.Object({}),
+  schema: Type.Object(
+    {},
+    {
+      description: "Configuration for applying planned feature placements to the map.",
+    }
+  ),
 });
 
 export default FeaturesApplyStepContract;

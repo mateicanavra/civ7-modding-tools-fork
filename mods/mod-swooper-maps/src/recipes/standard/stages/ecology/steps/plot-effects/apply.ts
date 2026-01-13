@@ -18,6 +18,9 @@ const resolvePlotEffectIndex = (
   return index;
 };
 
+/**
+ * Applies plot effect placements to the engine adapter.
+ */
 export function applyPlotEffectPlacements(
   context: ExtendedMapContext,
   placements: PlotEffectPlacement[]

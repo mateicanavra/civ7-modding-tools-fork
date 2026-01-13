@@ -1,3 +1,6 @@
+/**
+ * Maps a normalized moisture value to a moisture zone bucket.
+ */
 export function moistureZoneOf(
   value: number,
   thresholds: readonly number[]
@@ -9,6 +12,9 @@ export function moistureZoneOf(
   return "perhumid";
 }
 
+/**
+ * Computes effective moisture with humidity weighting, overlays, and noise.
+ */
 export function computeEffectiveMoisture(params: {
   rainfall: number;
   humidity: number;

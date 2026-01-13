@@ -1,5 +1,8 @@
 import type { LabelRng } from "@swooper/mapgen-core";
 
+/**
+ * Seeds paradise reefs around paradise mask hotspots within the configured radius.
+ */
 export function planParadiseReefs(params: {
   width: number;
   height: number;

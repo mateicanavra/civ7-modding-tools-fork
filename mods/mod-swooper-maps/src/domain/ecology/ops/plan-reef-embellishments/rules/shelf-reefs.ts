@@ -1,5 +1,8 @@
 import type { LabelRng } from "@swooper/mapgen-core";
 
+/**
+ * Seeds shelf reefs around passive shelf markers within the configured radius.
+ */
 export function planShelfReefs(params: {
   width: number;
   height: number;

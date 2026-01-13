@@ -6,6 +6,9 @@ import { deriveStepSeed } from "../helpers/seed.js";
 
 type PlotEffectsInput = Static<typeof ecology.ops.planPlotEffects.input>;
 
+/**
+ * Builds the input payload for plot effects planning from published artifacts.
+ */
 export function buildPlotEffectsInput(context: ExtendedMapContext): PlotEffectsInput {
   const { width, height } = context.dimensions;
   const classification = getPublishedBiomeClassification(context);

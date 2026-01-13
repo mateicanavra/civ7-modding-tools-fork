@@ -1,6 +1,9 @@
 import type { Static } from "@swooper/mapgen-core/authoring";
 import { TemperatureSchema } from "./temperature.schema.js";
 
+/**
+ * Maps a temperature value to a coarse temperature zone.
+ */
 export function temperatureZoneOf(
   value: number,
   cfg: Static<typeof TemperatureSchema>
@@ -12,6 +15,9 @@ export function temperatureZoneOf(
   return "tropical";
 }
 
+/**
+ * Computes surface temperature from latitude and elevation using configured lapse rates.
+ */
 export function computeTemperature(params: {
   latitudeAbs: number;
   maxLatitude: number;

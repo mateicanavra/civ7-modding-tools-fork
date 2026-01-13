@@ -1,5 +1,8 @@
 import type { BiomeSymbol } from "@mapgen/domain/ecology/types.js";
 
+/**
+ * Computes vegetation density for a biome symbol using climate and modifier weights.
+ */
 export function vegetationDensityForBiome(
   symbol: BiomeSymbol,
   params: {

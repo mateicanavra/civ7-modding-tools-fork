@@ -135,6 +135,9 @@ const finalizeScoreStats = (bucket: TerrainBucket): ScoreStats | null => {
   };
 };
 
+/**
+ * Logs a verbose summary of snow eligibility and scoring buckets for diagnostics.
+ */
 export function logSnowEligibilitySummary(
   trace: TraceScope | null | undefined,
   input: PlotEffectsInput,

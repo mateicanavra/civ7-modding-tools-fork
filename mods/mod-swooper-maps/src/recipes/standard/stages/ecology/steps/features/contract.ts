@@ -23,7 +23,12 @@ const FeaturesStepContract = defineStep({
     reefEmbellishments: ecology.ops.planReefEmbellishments,
     vegetationEmbellishments: ecology.ops.planVegetationEmbellishments,
   },
-  schema: Type.Object({}),
+  schema: Type.Object(
+    {},
+    {
+      description: "Configuration for combined feature placement and embellishment passes.",
+    }
+  ),
 });
 
 export default FeaturesStepContract;

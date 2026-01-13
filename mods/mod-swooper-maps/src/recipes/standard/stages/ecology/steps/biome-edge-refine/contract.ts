@@ -13,7 +13,12 @@ const BiomeEdgeRefineStepContract = defineStep({
   ops: {
     refine: ecology.ops.refineBiomeEdges,
   },
-  schema: Type.Object({}),
+  schema: Type.Object(
+    {},
+    {
+      description: "Configuration for refining biome edges after classification.",
+    }
+  ),
 });
 
 export default BiomeEdgeRefineStepContract;
