@@ -316,6 +316,28 @@ Branches (downstack → upstack):
 **PR comments**
 - 1 inline review comment (Codex bot) about `deps.artifacts` type defaulting becoming overly permissive; not addressed by downstream branches in this stack.
 
+### `agent-CANDY-LOCAL-TBD-M8-U21-C-step-deps` — PR #536 (`feat(artifacts): add step-owned dependencies and fail fast for missing runtimes`)
+
+**Review effort estimate (complexity × parallelism)**
+- Medium × Medium (6/16): signature threading across authoring surface + recipe runtime wiring; low parallelism with later recipe-compile work.
+
+**Intent (from issue doc)**
+- Land U21-C: thread `deps` into step runtime (`run(ctx, config, ops, deps)`) and make artifacts available via `deps.artifacts.<name>.*` (no alternate `ctx.deps` path).
+
+**Quick take**
+- Mostly yes: `deps` is threaded through `createStep` typing and `createRecipe` runtime invocation, and artifact reads/writes are now reachable via a first-class `deps` parameter.
+
+**What’s strong**
+- Back-compat is preserved: existing `run(ctx, config, ops)` functions can ignore the 4th param without code changes (Phase 1 additive constraint met).
+- `createRecipe` fails fast if a step declares `artifacts.provides` but doesn’t supply a runtime wrapper for that contract, which prevents silent gating drift.
+
+**High-leverage issues / risks**
+- `deps.fields` / `deps.effects` are currently `unknown` placeholders. That’s consistent with the “future enhancement” stance, but it’s easy for authors to misread this as “fields/effects are already on deps”; consider a more explicit placeholder type (or a doc note) to reduce confusion until the follow-up lands.
+- **PR feedback still relevant:** there’s an inline comment (Codex bot) pointing out that `ArtifactListOrEmpty` falling back to `readonly ArtifactContract[]` makes undeclared artifacts appear type-safe (e.g. declaring only `provides` still allows `deps.artifacts.someRequired.read(...)` to typecheck). I spot-checked the later branches (D/G): this behavior remains, so the concern is still live at stack tip.
+
+**PR comments**
+- 1 inline review comment (Codex bot) about `StepArtifactsSurface` defaulting to a permissive map when lists are omitted; not addressed by downstream branches in this stack.
+
 ### `agent-CANDY-LOCAL-TBD-M8-U21-B-step-artifacts` — PR #534 (`feat(step): add artifacts declaration to step contract`)
 
 **Review effort estimate (complexity × parallelism)**
