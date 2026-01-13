@@ -295,6 +295,27 @@ Branches (downstack → upstack):
 **PR comments**
 - No actionable review comments (Graphite stack boilerplate only); no inline review comments.
 
+### `agent-CANDY-LOCAL-TBD-M8-U21-B-step-artifacts` — PR #534 (`feat(step): add artifacts declaration to step contract`)
+
+**Review effort estimate (complexity × parallelism)**
+- Low × High (2/16): localized contract typing + invariants.
+
+**Intent (from issue doc)**
+- Land U21-B: optional `contract.artifacts.requires/provides` (stage-owned contracts referenced in step contracts) and flatten those into `contract.requires/provides`.
+
+**Quick take**
+- Yes: `defineStep` merges `artifacts.*.id` into the step’s `requires/provides` and enforces the “single authoring surface” rule (no mixing direct `artifact:*` tags with `artifacts.*`).
+
+**What’s strong**
+- The guardrail against mixing `artifact:*` in `requires/provides` when `artifacts.*` is present is exactly the kind of “make the right thing easy” enforcement U21 needs.
+- Duplicate declarations are rejected with error messages that point directly at the offending step id + artifact id.
+
+**High-leverage issues / risks**
+- This enforces uniqueness within the per-step `artifacts` declaration, but doesn’t attempt to police duplicates already present in plain `requires/provides`. That’s fine for Phase 1 additivity, but it increases the importance of U21-F migration (otherwise authoring will remain split across two patterns).
+
+**PR comments**
+- No actionable review comments (Graphite stack boilerplate only); no inline review comments.
+
 ### `agent-CANDY-LOCAL-TBD-M8-U21-A-artifact-primitives` — PR #533 (`feat(artifacts): implement step-owned artifact dependency system`)
 
 **Review effort estimate (complexity × parallelism)**
