@@ -273,3 +273,24 @@ Branches (downstack → upstack):
 
 **Implementation decisions**
 - Decisions logged: none under `## Implementation Decisions`. Visible choices: use ESLint for structural boundaries and a targeted bash guardrail for “docs-as-code” coverage, with Ecology as the stricter exemplar domain.
+
+### `agent-CANDY-LOCAL-TBD-M8-U21-sequencing` — PR #532 (`docs(engine-refactor): add sequencing for artifacts step-owned deps`)
+
+**Review effort estimate (complexity × parallelism)**
+- Low × High (2/16): docs-only, largely independent.
+
+**Issue doc**
+- `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M8-U21-artifacts-step-owned-deps.md`
+
+**Quick take**
+- Yes: strong “how to execute without churn” sequencing + explicit phase boundary is the right foundation for a multi-PR U21 implementation.
+
+**What’s strong**
+- Names and isolates Phase 1 vs Phase 2 surfaces, with explicit “must not touch” constraints that match the intent to avoid Ecology-alignment conflicts.
+- Captures the key DX invariants (contract-first, stage-owned contracts, step-owned runtime, single-path deps access) in a way that downstream PRs can be judged against.
+
+**High-leverage issues / risks**
+- The issue doc includes a lot of “prework executed” inventory and mechanical sweep output. That’s useful context, but it’s also high drift risk once implementation diverges; consider treating it as a dated record (or moving the verbose inventories under `docs/projects/engine-refactor-v1/resources/` and keeping the issue doc focused on durable decisions + acceptance).
+
+**PR comments**
+- No actionable review comments (Graphite stack boilerplate only); no inline review comments.
