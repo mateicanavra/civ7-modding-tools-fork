@@ -23,6 +23,10 @@ TBD.
 
 TBD.
 
+## Legacy disposition ledger (keep/kill/migrate)
+
+TBD.
+
 ## Decisions + defaults (modeling decisions)
 
 TBD.

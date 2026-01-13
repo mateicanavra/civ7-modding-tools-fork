@@ -27,6 +27,7 @@ Design principles (authoritative surfaces):
 - Hydrology owns its surfaces. If a clean internal model requires breaking a compatibility surface, break it and update downstream in the same refactor.
 - Projections are presentation-only and must never shape the internal representation.
 - Op config is op-owned and minimal; do not reuse a domain-wide config bag inside op contracts.
+- Every existing config property, rule/policy, and function must be explicitly accepted into the model or rejected as legacy (no silent carry-through).
 
 Compatibility and cleanup rules:
 - Upstream compat/projection artifacts are **not** canonical inputs.
@@ -38,6 +39,7 @@ Anti-patterns (concise; see WORKFLOW for full list):
 - Model/projection confusion.
 - Decisions buried in prose.
 - Config bag in ops.
+- Silent legacy carry-through.
 
 ## Domain framing (Hydrology/Climate)
 

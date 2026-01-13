@@ -31,6 +31,10 @@ TBD.
 
 TBD.
 
+## Legacy surface inventory (config properties + rules/policies + functions)
+
+TBD.
+
 ## Decisions + defaults (initial)
 
 TBD.

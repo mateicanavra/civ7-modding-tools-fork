@@ -26,6 +26,7 @@ Cross-pipeline posture (required):
 Required sections (minimum):
 - Canonical model + causality spine
 - Target contract matrix (buffers/artifacts/overlays classification)
+- Legacy disposition ledger (every config property/rule/function is keep/kill/migrate with rationale)
 - Decisions + defaults (modeling decisions)
 - Risk register (modeling risks)
 - Golden path (authoritative)
@@ -41,6 +42,7 @@ Gate checklist (Phase 2 completion):
 - Buffer/artifact/overlay distinctions match `docs/system/libs/mapgen/architecture.md`.
 - Pipeline delta list names downstream consumers that must adapt.
 - No slice plan content is present (that belongs to Phase 3).
+- Legacy disposition ledger is complete; any kept legacy invariants are explicit and justified.
 
 References:
 - `docs/projects/engine-refactor-v1/resources/spec/SPEC-DOMAIN-MODELING-GUIDELINES.md`

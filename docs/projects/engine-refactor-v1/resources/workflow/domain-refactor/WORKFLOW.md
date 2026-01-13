@@ -69,6 +69,7 @@ Recommended “outside view” doc set (create only what you need; keep it small
 - **Compile-time normalization:** defaults + `step.normalize` + `op.normalize`; runtime does not “fix up” config.
 - **Import discipline:** step `contract.ts` imports only `@mapgen/domain/<domain>` + stage-local contracts (e.g. `../artifacts.ts`); no deep imports under `@mapgen/domain/<domain>/**`, and no `@mapgen/domain/<domain>/ops`.
 - **Do not propagate legacy patterns:** do not copy legacy authoring patterns forward. Implement changes only through the canonical architecture.
+- **Explicit legacy audit required:** every existing config property, rule/policy, and domain function must be inventoried and explicitly classified as model-relevant or legacy. Unclassified surfaces are a gate failure.
 - **Docs-as-code is enforced:** any touched exported function/op/step/schema gets contextual JSDoc and/or TypeBox `description` updates (trace references before writing docs).
 - **Authoritative modeling (not “code cleanup”):** prefer the physically grounded target model over preserving legacy behavior; delete/replace broken or nonsensical behavior as needed.
 - **Cross-pipeline consistency is required:** when the domain model changes contracts/artifacts, update upstream/downstream steps and stage-owned artifact contracts so the whole pipeline stays internally consistent (no “temporary mismatch”).
@@ -90,6 +91,7 @@ Config ownership is local and narrow. Op contracts must define op-owned strategy
 - **Boundary drift:** silent deep imports or `ctx.artifacts` reads that reintroduce coupling during refactor.
 - **Untracked deltas:** changing contracts without updating the contract matrix or cross-pipeline inventory.
 - **Config bag reuse inside ops:** using a domain-wide config bag in op strategy schemas instead of op-owned config.
+- **Silent legacy carry-through:** retaining legacy properties/rules/functions without an explicit model-relevance decision.
 
 Example anti-pattern (do not copy):
 ```ts
@@ -114,10 +116,12 @@ Preferred posture: define a minimal op-owned schema and map any external bag at 
 Phase 1 gate:
 - Current-state spike exists and includes all “living artifacts.”
 - Boundary violations and deletions are explicit.
+- Legacy surface inventory exists (all config properties, rules/policies, functions; no “TBD” placeholders).
 
 Phase 2 gate:
 - Modeling spike exists and includes the canonical model + target contract matrix.
 - No slice plan content is present.
+- Legacy disposition ledger is complete (every property/rule/function is keep/kill/migrate with rationale).
 
 Phase 3 gate:
 - Implementation issue exists and includes an executable slice plan.

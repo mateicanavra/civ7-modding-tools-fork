@@ -26,6 +26,7 @@ Minimum investigation outputs (you must produce these artifacts in the issue doc
 - A complete step map for the domain (all callsites).
 - A complete dependency contract list (requires/provides keys, ownership, validators, producers/consumers).
 - A complete config map (schemas, defaults, resolvers, and any runtime fixups to delete).
+- A legacy surface inventory (every config property, rule/policy, and domain function with locations).
 - A typed-array inventory (ctor + length coupling + where validation occurs).
 - A deletion list with “around-the-block” references (symbols + file paths that must go to zero).
 
@@ -94,6 +95,11 @@ For each step and each candidate op:
 - any runtime merges/defaulting (must be eliminated)
 - any scaling semantics (must move into compile-time normalization: `step.normalize` and/or `op.normalize`)
 
+Property ledger (required):
+- enumerate every config property in the domain boundary (schema path + file path)
+- list current usage sites (op/step/module)
+- mark as “legacy candidate” until Phase 2 disposition (keep/kill/migrate)
+
 ### D) Typed arrays + invariants
 
 Inventory every typed array used in the domain boundary:
@@ -112,6 +118,14 @@ List and link every instance of:
 - RNG callbacks/state crossing into domain logic (e.g. `options.rng`, `ctx.rng`),
 - runtime config fixups/merges inside op/domain code,
 - consuming upstream compatibility shims or projection artifacts instead of authoritative upstream inputs.
+
+### F) Rules/policies/functions inventory (required)
+
+For every rule, policy, or domain function:
+- identifier + file path
+- current callsites
+- the contract or buffer/artifact it operates on
+- mark as “legacy candidate” until Phase 2 disposition (keep/kill/migrate)
 
 ## Slicing plan (required before implementation)
 
