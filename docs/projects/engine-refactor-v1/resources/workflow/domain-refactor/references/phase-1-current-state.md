@@ -13,6 +13,7 @@ Required sections (minimum):
 - Domain surface inventory (outside view)
 - Contract matrix (current-state)
 - Legacy surface inventory (config properties + rules/policies + functions)
+- Upstream authoritative input review (if non-root)
 - Decisions + defaults (initial)
 - Risk register (initial)
 - Golden path candidate
@@ -26,6 +27,7 @@ Inventory checklist (do not skip):
   - Stage-owned artifact contract catalog per stage (`stages/<stage>/artifacts.ts`)
 - Config surface map (schemas/defaults/normalizers + runtime fixups to delete)
 - Legacy surface inventory (every config property, rule/policy, and domain function)
+- Upstream authoritative input review (prior domain Phase 2 model + pipeline delta list)
 - Typed-array inventory (constructors, lengths, validators)
 - Deletion list (symbols + file paths that must go to zero)
 
@@ -34,6 +36,7 @@ Gate checklist (Phase 1 completion):
 - Every boundary violation in scope is either listed as a deletion target or explicitly deferred.
 - The deletion list exists and is concrete (symbols + file paths).
 - Legacy surface inventory is complete (no “TBD” placeholders).
+- Upstream authoritative inputs are reviewed and logged (if the domain is not the pipeline root).
 
 References:
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/domain-inventory-and-boundaries.md`

@@ -488,13 +488,17 @@ steps:
 
 - TBD (inventory every config property, rule/policy, and domain function with locations and callsites)
 
-### D) Decisions + defaults (initial)
+### D) Upstream authoritative input review (current)
+
+- Not applicable (Foundation is the pipeline root).
+
+### E) Decisions + defaults (initial)
 
 - **Default:** do not propagate legacy authoring patterns; prefer canonical authoring surfaces.
 - **Default:** treat all `ctx.artifacts.get(artifact:foundation.*)` reads in domain code as legacy coupling to delete once Foundation becomes ops-first.
 - **Decision needed (Phase 2):** resolve `env.directionality` ownership (see section 6); current state duplicates it in config and env.
 
-### E) Risk register (initial)
+### F) Risk register (initial)
 
 ```yaml
 risks:
@@ -520,7 +524,7 @@ risks:
     notes: "Slice plan must preserve deterministic coverage while migrating to ops-first surfaces."
 ```
 
-### F) Golden path candidate (current)
+### G) Golden path candidate (current)
 
 Nearest “Foundation-shaped” canonical step (artifacts + deps signature, but no ops yet):
 - `mods/mod-swooper-maps/src/recipes/standard/stages/foundation/steps/foundation.ts`
@@ -528,7 +532,7 @@ Nearest “Foundation-shaped” canonical step (artifacts + deps signature, but 
 Style exemplar for contract-first authoring (already canonical):
 - `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/biomes/contract.ts`
 
-### G) Deletion list (current)
+### H) Deletion list (current)
 
 - TBD (populate during Phase 1 inventory)
 

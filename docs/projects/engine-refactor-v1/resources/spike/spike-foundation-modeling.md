@@ -349,7 +349,13 @@ This is **not** an implementation plan; it’s the list of contract-level impact
 
 ---
 
-## 8) Non-goals (explicit)
+## 8) Upstream authoritative input selection
+
+- Not applicable (Foundation is the pipeline root).
+
+---
+
+## 9) Non-goals (explicit)
 
 - Multi-era geology simulation (“eras”) and long-term accumulation buffers are out of scope for this Foundation refactor unless explicitly pulled into the slice plan.
 - Morphology’s elevation/land/sea shaping logic is not a Foundation responsibility.
@@ -357,14 +363,14 @@ This is **not** an implementation plan; it’s the list of contract-level impact
 
 ---
 
-## 9) Invariants (locked)
+## 10) Invariants (locked)
 
 - Model-first: mesh/graph causality is canonical; tile-indexed tensors are projections for downstream compatibility, not the model.
 - `env.directionality` is authoritative; authored config only influences env construction at the entry boundary.
 - `foundation.seed/config/diagnostics` are trace-only; never required by downstream steps and never used as modeling inputs.
 - Typed-array payloads must not be `Type.Any()` by default; prefer explicit typed-array schemas + runtime invariant validation (ADR-ER1-030).
 
-## 10) Decisions + defaults (modeling)
+## 11) Decisions + defaults (modeling)
 
 ### Decision: Foundation posture is plate-graph-first
 - **Context:** PRD direction is plate graph (Delaunay/Voronoi) rather than legacy tile-first foundation.
@@ -392,7 +398,7 @@ This is **not** an implementation plan; it’s the list of contract-level impact
 - **Choice:** Prefer canonical typed-array schema helpers + runtime invariant validation; treat `Type.Any()` as a migration smell.
 - **Trigger to revisit:** Only if authoring SDK changes typed-array schema strategy.
 
-## 11) Risk register (modeling)
+## 12) Risk register (modeling)
 
 ```yaml
 risks:
@@ -418,7 +424,7 @@ risks:
     notes: "Tighten schemas early to avoid reinforcing permissive contracts."
 ```
 
-## 12) Golden path (authoritative)
+## 13) Golden path (authoritative)
 
 Use this as the “one representative step” reference when authoring new Foundation steps.
 

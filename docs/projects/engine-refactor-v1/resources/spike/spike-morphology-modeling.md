@@ -27,6 +27,10 @@ TBD.
 
 TBD.
 
+## Upstream authoritative input selection
+
+TBD.
+
 ## Decisions + defaults (modeling decisions)
 
 TBD.

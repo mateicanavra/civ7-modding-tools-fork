@@ -28,6 +28,7 @@ Design principles (authoritative surfaces):
 - Projections are presentation-only and must never shape the internal representation.
 - Op config is op-owned and minimal; do not reuse a domain-wide config bag inside op contracts.
 - Every existing config property, rule/policy, and function must be explicitly accepted into the model or rejected as legacy (no silent carry-through).
+- Review the upstream Phase 2 models (Morphology, Hydrology, Foundation as needed) and explicitly adopt authoritative inputs while deleting legacy reads.
 
 Compatibility and cleanup rules:
 - Upstream compat/projection artifacts are **not** canonical inputs.

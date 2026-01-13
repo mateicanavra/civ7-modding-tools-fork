@@ -27,6 +27,7 @@ Required sections (minimum):
 - Canonical model + causality spine
 - Target contract matrix (buffers/artifacts/overlays classification)
 - Legacy disposition ledger (every config property/rule/function is keep/kill/migrate with rationale)
+- Upstream authoritative input selection (adopted inputs + legacy reads to delete)
 - Decisions + defaults (modeling decisions)
 - Risk register (modeling risks)
 - Golden path (authoritative)
@@ -43,6 +44,7 @@ Gate checklist (Phase 2 completion):
 - Pipeline delta list names downstream consumers that must adapt.
 - No slice plan content is present (that belongs to Phase 3).
 - Legacy disposition ledger is complete; any kept legacy invariants are explicit and justified.
+- Upstream authoritative input selection is explicit; legacy upstream reads are flagged for removal.
 
 References:
 - `docs/projects/engine-refactor-v1/resources/spec/SPEC-DOMAIN-MODELING-GUIDELINES.md`

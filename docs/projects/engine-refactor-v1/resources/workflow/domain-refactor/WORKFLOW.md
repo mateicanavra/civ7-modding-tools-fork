@@ -73,6 +73,7 @@ Recommended “outside view” doc set (create only what you need; keep it small
 - **Docs-as-code is enforced:** any touched exported function/op/step/schema gets contextual JSDoc and/or TypeBox `description` updates (trace references before writing docs).
 - **Authoritative modeling (not “code cleanup”):** prefer the physically grounded target model over preserving legacy behavior; delete/replace broken or nonsensical behavior as needed.
 - **Cross-pipeline consistency is required:** when the domain model changes contracts/artifacts, update upstream/downstream steps and stage-owned artifact contracts so the whole pipeline stays internally consistent (no “temporary mismatch”).
+- **Upstream model intake (non-root):** review the prior domain’s Phase 2 modeling spike and pipeline delta list, then explicitly document which authoritative inputs this domain will adopt and which legacy inputs will be deleted.
 - **Upstream compat/projection sunset:** if upstream provides compatibility shims or projection artifacts for migration, do not treat them as canonical inputs. Choose and document authoritative upstream inputs, and remove compat reads as part of the refactor. If this domain publishes projections for downstream consumers, mark them as deprecated/compat in contracts/docs.
 - **Compat projection cleanup ownership:** if compat projections remain, create a cleanup item in `docs/projects/engine-refactor-v1/triage.md`. If the immediate downstream domain can remove them safely and no other downstream consumers are affected, that downstream owns the cleanup and must have a dedicated issue; link it from triage.
 
@@ -92,6 +93,7 @@ Config ownership is local and narrow. Op contracts must define op-owned strategy
 - **Untracked deltas:** changing contracts without updating the contract matrix or cross-pipeline inventory.
 - **Config bag reuse inside ops:** using a domain-wide config bag in op strategy schemas instead of op-owned config.
 - **Silent legacy carry-through:** retaining legacy properties/rules/functions without an explicit model-relevance decision.
+- **Skipping upstream intake:** continuing to consume legacy upstream surfaces without evaluating new authoritative inputs.
 
 Example anti-pattern (do not copy):
 ```ts
@@ -117,11 +119,13 @@ Phase 1 gate:
 - Current-state spike exists and includes all “living artifacts.”
 - Boundary violations and deletions are explicit.
 - Legacy surface inventory exists (all config properties, rules/policies, functions; no “TBD” placeholders).
+- Upstream authoritative input review is documented (if the domain is not the pipeline root).
 
 Phase 2 gate:
 - Modeling spike exists and includes the canonical model + target contract matrix.
 - No slice plan content is present.
 - Legacy disposition ledger is complete (every property/rule/function is keep/kill/migrate with rationale).
+- Upstream authoritative inputs are selected and legacy upstream reads are marked for removal.
 
 Phase 3 gate:
 - Implementation issue exists and includes an executable slice plan.
