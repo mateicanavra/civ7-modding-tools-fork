@@ -45,29 +45,29 @@ related_to:
   - Optional (behavior-preserving) DX polish in Ecology stage/steps (imports/layout/types only; no modeling changes).
 
 ## Acceptance Criteria
-- [ ] Step contract imports are single-entrypoint only:
-  - [ ] `rg -n "@mapgen/domain/ecology/" mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/**/contract.ts` returns **no hits**.
-  - [ ] `pnpm lint` passes with the updated ESLint restrictions in place.
-- [ ] Recipe compilation uses runtime entrypoints only:
-  - [ ] `eslint.config.js` restricts recipe compilation roots to `@mapgen/domain/*/ops` (and forbids `@mapgen/domain/*`).
-  - [ ] `pnpm exec eslint mods/mod-swooper-maps/src/recipes/standard/recipe.ts` passes with the expected runtime imports.
-- [ ] Mod lint runs in the repo’s default lint loop:
-  - [ ] `pnpm -C mods/mod-swooper-maps lint` runs successfully.
-  - [ ] `pnpm lint` includes `mod-swooper-maps#lint` in its Turbo task output.
-- [ ] Guardrails enforce Ecology’s step-contract import boundary:
-  - [ ] `pnpm lint:domain-refactor-guardrails` passes.
-  - [ ] `scripts/lint/lint-domain-refactor-guardrails.sh` includes a check that fails if any Ecology step `contract.ts` imports `@mapgen/domain/ecology/*` (deep path).
-- [ ] No behavior changes:
-  - [ ] `pnpm test` remains green.
-  - [ ] `pnpm build` and `pnpm deploy:mods` remain green.
-- [ ] Documentation-as-code is enforced for touched sites:
-  - [ ] Any touched step contract schema and any touched op contract/config schema has meaningful `description` fields (object + properties) that explain behavioral impact and interactions.
-  - [ ] Any touched exported function in Ecology step runtime/helpers and Ecology ops rules/strategies has JSDoc (what/why/edge behaviors).
-  - [ ] Lint/guardrails are updated so missing docs in the “contract-like” surfaces are caught by default workflows (or the doc adds a documented, intentional exception).
-- [ ] Deferred modeling refactors are not touched (see Deferred section in Implementation Details).
-- [ ] Tests follow the “canonical by default” posture:
-  - [ ] Any remaining deep/internal imports in Ecology-focused tests (`mods/mod-swooper-maps/test/ecology/**`, plus any touched shared test helpers) have a short rationale comment in the file (example format in Implementation Details).
-  - [ ] A short guideline note exists documenting this posture in `docs/projects/engine-refactor-v1/resources/spec/recipe-compile/architecture/06-enforcement.md`.
+- [x] Step contract imports are single-entrypoint only:
+  - [x] `rg -n "@mapgen/domain/ecology/" mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/**/contract.ts` returns **no hits**.
+  - [x] `pnpm lint` passes with the updated ESLint restrictions in place.
+- [x] Recipe compilation uses runtime entrypoints only:
+  - [x] `eslint.config.js` restricts recipe compilation roots to `@mapgen/domain/*/ops` (and forbids `@mapgen/domain/*`).
+  - [x] `pnpm exec eslint mods/mod-swooper-maps/src/recipes/standard/recipe.ts` passes with the expected runtime imports.
+- [x] Mod lint runs in the repo’s default lint loop:
+  - [x] `pnpm -C mods/mod-swooper-maps lint` runs successfully.
+  - [x] `pnpm lint` includes `mod-swooper-maps#lint` in its Turbo task output.
+- [x] Guardrails enforce Ecology’s step-contract import boundary:
+  - [x] `pnpm lint:domain-refactor-guardrails` passes.
+  - [x] `scripts/lint/lint-domain-refactor-guardrails.sh` includes a check that fails if any Ecology step `contract.ts` imports `@mapgen/domain/ecology/*` (deep path).
+- [x] No behavior changes:
+  - [x] `pnpm test` remains green.
+  - [x] `pnpm build` and `pnpm deploy:mods` remain green.
+- [x] Documentation-as-code is enforced for touched sites:
+  - [x] Any touched step contract schema and any touched op contract/config schema has meaningful `description` fields (object + properties) that explain behavioral impact and interactions.
+  - [x] Any touched exported function in Ecology step runtime/helpers and Ecology ops rules/strategies has JSDoc (what/why/edge behaviors).
+  - [x] Lint/guardrails are updated so missing docs in the “contract-like” surfaces are caught by default workflows (or the doc adds a documented, intentional exception).
+- [x] Deferred modeling refactors are not touched (see Deferred section in Implementation Details).
+- [x] Tests follow the “canonical by default” posture:
+  - [x] Any remaining deep/internal imports in Ecology-focused tests (`mods/mod-swooper-maps/test/ecology/**`, plus any touched shared test helpers) have a short rationale comment in the file (example format in Implementation Details).
+  - [x] A short guideline note exists documenting this posture in `docs/projects/engine-refactor-v1/resources/spec/recipe-compile/architecture/06-enforcement.md`.
 
 ## Testing / Verification
 - Baseline:
@@ -474,3 +474,19 @@ Do not perform these here; create separate follow-up issues if needed:
 - Nested config composition in `mods/mod-swooper-maps/src/domain/ecology/config.ts`
 
 Reference: `docs/projects/engine-refactor-v1/resources/SPIKE-ecology-dx-alignment.md`
+
+## Implementation Decisions
+
+### Enforce Ecology docs-as-code via guardrail script
+- **Context:** The issue requires mechanical doc enforcement for contracts/helpers, but repo-wide ESLint/JSDoc enforcement would cause large churn outside Ecology.
+- **Options:** (A) Add eslint-plugin-jsdoc and enforce across broader globs, (B) add Ecology-only guardrail checks for exported functions and contract schemas, (C) defer enforcement and rely on manual review.
+- **Choice:** (B) Add Ecology-only guardrail checks in `scripts/lint/lint-domain-refactor-guardrails.sh` for exported function JSDoc and contract schema descriptions.
+- **Rationale:** Keeps enforcement scoped to the exemplar domain while making doc regressions visible in default workflows.
+- **Risk:** Guardrail checks are heuristic (file-level description presence) and may need tightening when expanding enforcement to other domains.
+
+### Use pnpm script runner for mod deploy command
+- **Context:** `pnpm -C mods/mod-swooper-maps deploy` resolves to pnpm's deploy command and fails with `ERR_PNPM_NOTHING_TO_DEPLOY` instead of invoking the script.
+- **Options:** (A) Treat the command as a failed verification step, (B) run the package script explicitly via `pnpm -C mods/mod-swooper-maps run deploy`, (C) skip the mod-local deploy and rely on `pnpm deploy:mods`.
+- **Choice:** (B) Run `pnpm -C mods/mod-swooper-maps run deploy` after the failed direct command.
+- **Rationale:** Matches the intent of the verification step and executes the mod deployment script in the target package.
+- **Risk:** Leaves the verification list with an ambiguous command; future runs should prefer the explicit `run deploy` form to avoid pnpm CLI semantics.

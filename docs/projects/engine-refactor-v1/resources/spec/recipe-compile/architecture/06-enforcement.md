@@ -33,6 +33,17 @@ Enforcement:
 
 ---
 
+## Documentation-as-code
+
+Contract-like surfaces must carry behavior-oriented documentation when touched:
+- Step/op contract schemas include object-level descriptions and descriptive property fields.
+- Exported helper/rule functions in Ecology step/runtime files and Ecology ops rules include JSDoc (what + why).
+
+Enforcement:
+- `scripts/lint/lint-domain-refactor-guardrails.sh` checks Ecology contract schemas and exported helpers/rules for doc coverage.
+
+---
+
 ## Runtime vs compile-time boundaries
 
 ### No runtime schema defaulting/cleaning/validation
