@@ -23,9 +23,12 @@ This file is intentionally a **flow-first executable checklist**: the `<workflow
 
 - **Contract-first:** All domain logic is behind op contracts (`mods/mod-swooper-maps/src/domain/<domain>/ops/**`).
 - **No op composition:** Ops are atomic; ops must not call other ops (composition happens in steps/stages).
-- **Steps are orchestration:** step modules must not import op implementations; they call injected ops in `run(context, config, ops)`.
+- **Steps are orchestration:** step modules must not import op implementations; they call injected ops in `run(ctx, config, ops, deps)`.
+- **Single-path deps access:** step runtime must not reach into alternate dependency paths (no `ctx.deps`); dependencies are accessed via the `deps` parameter only.
+- **Artifacts are stage-owned (contracts) and contract-first:** each stage defines artifact contracts in `mods/mod-swooper-maps/src/recipes/standard/stages/<stage>/artifacts.ts`; step contracts declare `artifacts.requires` / `artifacts.provides` using those stage-owned contracts.
+- **No ad-hoc artifact imports in steps:** step implementations read/publish artifacts via `deps.artifacts.<artifactName>.*` (no direct imports from recipe-level `artifacts.*`, and no direct `ctx.artifacts` access in normal authoring).
 - **Compile-time normalization:** defaults + `step.normalize` + `op.normalize`; runtime does not “fix up” config.
-- **Import discipline:** step `contract.ts` imports only `@mapgen/domain/<domain>` (no deep imports, no `.../ops`).
+- **Import discipline:** step `contract.ts` imports only `@mapgen/domain/<domain>` + stage-local contracts (e.g. `../artifacts.ts`); no deep imports under `@mapgen/domain/<domain>/**`, and no `@mapgen/domain/<domain>/ops`.
 - **Docs-as-code is enforced:** any touched exported function/op/step/schema gets contextual JSDoc and/or TypeBox `description` updates (trace references before writing docs).
 
 ## Golden reference (Ecology exemplar)
@@ -33,6 +36,7 @@ This file is intentionally a **flow-first executable checklist**: the `<workflow
 - Domain contract entrypoint: `mods/mod-swooper-maps/src/domain/ecology/index.ts`
 - Op contracts router: `mods/mod-swooper-maps/src/domain/ecology/ops/contracts.ts`
 - Op implementations router: `mods/mod-swooper-maps/src/domain/ecology/ops/index.ts`
+- Stage-owned artifact contracts: `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/artifacts.ts`
 - Representative step contract: `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/biomes/contract.ts`
 
 ## Decision logging
@@ -122,7 +126,10 @@ gt modify --commit -am "refactor(<domain>): <slice or doc summary>"
 **Outputs:**
 - `docs/projects/engine-refactor-v1/resources/spike/spike-<domain>-current-state.md`
   - complete step map (allsites that touch the domain)
-  - requires/provides inventory (artifact contracts + owners)
+  - dependency gating inventory:
+    - `requires`/`provides` (non-artifacts) per step (ids + file paths)
+    - `artifacts.requires`/`artifacts.provides` per step (ids + file paths)
+    - stage-owned artifact contract catalog per stage (`stages/<stage>/artifacts.ts`)
   - config surface map (schemas/defaults/normalizers + runtime fixups to delete)
   - typed-array inventory (constructors, lengths, validators)
   - deletion list (symbols + file paths that must go to zero)
@@ -148,7 +155,7 @@ Modeling posture (enforced):
 **Outputs:**
 - `docs/projects/engine-refactor-v1/resources/spike/spike-<domain>-modeling.md`
   - target op catalog (ids + kinds + input/output/config schemas + defaults + normalize ownership)
-  - artifact contracts (who owns which typed arrays / POJOs, and how they flow)
+  - artifact contracts (stage-owned contracts + producing steps + consuming steps; how artifacts flow across steps via `deps`)
   - policy/rules map (what decisions exist and where they should live)
   - step/stage composition plan (which steps orchestrate which ops and in what order)
   - explicit non-goals (what modeling work is deferred, if any)
@@ -196,12 +203,21 @@ Canonical authoring surface (do not invent alternates):
 - Ops: `defineOp(...)` + `createOp(contract, { strategies })`
 - Strategies: `createStrategy(contract, "<strategyId>", { normalize?, run })` (must include `"default"`)
 - Domain contracts: `defineDomain({ id, ops })` (contract-only; safe for step contracts)
-- Steps: `defineStep(...)` + `createStep(contract, { normalize?, run })` (via a bound `createStepFor<TContext>()`)
+- Artifacts: `defineArtifact({ name, id, schema })` (stage-owned contract surface) + `implementArtifacts(provides, impl)` (producer step runtime binding)
+- Steps: `defineStep(...)` + `createStep(contract, { artifacts?, normalize?, run(ctx, config, ops, deps) })` (via a bound `createStepFor<TContext>()`)
 
 Import boundaries (enforced):
-- Step `contract.ts` imports **only** the domain contract entrypoint (`@mapgen/domain/<domain>`) and recipe-local utilities.
-- Step runtime calls injected ops in `run(context, config, ops)`; it must not import implementations.
+- Step `contract.ts` imports **only**:
+  - the domain contract entrypoint (`@mapgen/domain/<domain>`), and
+  - stage-local contract surfaces (notably `stages/<stage>/artifacts.ts` for artifact contracts),
+  - plus recipe-local utilities.
+- Step runtime calls injected ops and uses the injected dependency surface:
+  - ops: `run(ctx, config, ops, deps)` calls `ops.<key>(...)` / `ops.<key>.run(...)` (depending on op kind),
+  - artifacts: `deps.artifacts.<artifactName>.read(ctx)` / `.publish(ctx, value)` (no artifact helper imports; no direct `ctx.artifacts` access in normal authoring).
 - Recipe wiring is the only layer allowed to import `@mapgen/domain/<domain>/ops` to build `compileOpsById`.
+- `createRecipe(...)` is responsible for:
+  - threading the typed `deps` surface into each step’s `run(ctx, config, ops, deps)`, and
+  - auto-wiring artifact tag definitions + satisfiers from step contracts + step-provided artifact runtimes (no manual registry maintenance for artifacts).
 
 **Slice completion checklist (repeat for each slice):**
 
@@ -213,7 +229,11 @@ Import boundaries (enforced):
 2) Wire steps for the slice
 - Promote step(s) into the contract-first step module shape (`contract.ts` + `index.ts` + optional `lib/**`).
 - Step contracts declare op contracts via `ops: { <key>: domain.ops.<opKey> }`.
+- Step contracts declare artifact dependencies (when applicable) via `artifacts: { requires: [...], provides: [...] }` using artifact contracts imported from the stage boundary (`stages/<stage>/artifacts.ts`).
+- Step contracts must not manually list artifact tags in raw `requires`/`provides` when those same tags are declared via `artifacts.requires`/`artifacts.provides`.
 - Step runtime calls injected ops: `ops.<key>(input, config.<key>)`.
+- Step runtime reads/publishes artifacts via `deps.artifacts.*` and never imports recipe-level artifact helpers (no `.../artifacts.*` imports inside step implementations).
+- Producer steps bind runtime artifact behavior via `implementArtifacts(contract.artifacts.provides, { ... })` and pass the result to `createStep(contract, { artifacts, run(...) })`.
 - If you added/changed ops for this slice, update stage/recipe wiring to include the op implementations in the compile-time op registry (recipe wiring is the only layer allowed to import `@mapgen/domain/<domain>/ops`).
 
 3) Delete legacy for the slice
@@ -272,7 +292,7 @@ gt ss --draft
 
 Include in PR notes:
 - what was deleted (deletion list),
-- what contracts changed (requires/provides, artifact shapes, config keys),
+- what contracts changed (requires/provides, artifacts.requires/provides, artifact contracts, config keys),
 - what tests were added and how to run them.
 
 **Worktree cleanup (after submission):**
@@ -313,24 +333,85 @@ Non-negotiable invariants (target architecture):
 - `defineStep({ ops })` merges declared op configs into the step schema automatically (step schemas only declare step-owned props).
 - Plan compilation produces final configs; runtime treats `node.config` as “the config” (no runtime defaulting merges).
 - No dual paths, shims, translators, DeepPartial override blobs, or fallback behaviors within scope.
+- Artifacts are contract-first and stage-owned:
+  - contracts live at `stages/<stage>/artifacts.ts` (stable import surface),
+  - step contracts declare `artifacts.requires/provides` using those contracts,
+  - step runtime uses `deps.artifacts.*` exclusively (no ad-hoc artifact imports).
+
+### Artifacts authoring (stage-owned contract + step-owned runtime)
+
+Stage contract surface (stable import path for step contracts):
+```ts
+// mods/mod-swooper-maps/src/recipes/standard/stages/ecology/artifacts.ts
+import { Type, defineArtifact } from "@swooper/mapgen-core/authoring";
+
+export const ecologyArtifacts = {
+  featureIntents: defineArtifact({
+    name: "featureIntents",
+    id: "artifact:ecology.featureIntents",
+    schema: Type.Object({}, { additionalProperties: false }),
+  }),
+} as const;
+```
+
+Consumer step contract (declares dependencies via `artifacts.*`):
+```ts
+// mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/features-apply/contract.ts
+import { Type, defineStep } from "@swooper/mapgen-core/authoring";
+import ecology from "@mapgen/domain/ecology";
+import { ecologyArtifacts } from "../../artifacts.js";
+
+export default defineStep({
+  id: "features-apply",
+  phase: "ecology",
+  artifacts: { requires: [ecologyArtifacts.featureIntents], provides: [] },
+  ops: { apply: ecology.ops.applyFeatures },
+  schema: Type.Object({}, { additionalProperties: false }),
+  requires: [],
+  provides: [],
+});
+```
+
+Producer step runtime (binds runtime checks + publishes via `deps`):
+```ts
+// mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/features-plan/index.ts
+import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
+import contract from "./contract.js";
+
+const artifacts = implementArtifacts(contract.artifacts!.provides!, {
+  featureIntents: { /* validate/satisfies/freeze overrides (optional) */ },
+});
+
+export default createStep(contract, {
+  artifacts,
+  run: (ctx, config, ops, deps) => {
+    // No artifact imports here: only deps.* access.
+    deps.artifacts.featureIntents.publish(ctx, { /* ... */ });
+  },
+});
+```
 
 ## Appendix B: Target architecture diagram (wiring)
 
 ```mermaid
 flowchart LR
   DomainContract["@mapgen/domain/<domain>\n(contract entrypoint)\ndefineDomain({ id, ops })"]
-  StepContract["Step contract\ncontract.ts\n- ops: { key: domain.ops.<opContract> }\n- schema: step-owned props only\n(defineStep merges op config schemas)"]
+  StageArtifacts["Stage artifact contracts\nstages/<stage>/artifacts.ts\n- defineArtifact({ name, id, schema })"]
+  StepContract["Step contract\ncontract.ts\n- ops: { key: domain.ops.<opContract> }\n- artifacts: { requires/provides }\n- schema: step-owned props only\n(defineStep merges op config schemas)"]
   DomainImpl["@mapgen/domain/<domain>/ops\n(implementation entrypoint)\nexport default { <opKey>: createOp(...) }"]
   Compiler["compileRecipeConfig\nprefillOpDefaults → normalizeStrict → step.normalize → op.normalize fanout"]
-  Recipe["createRecipe\nbindRuntimeOps → run(ctx, config, ops)"]
-  StepRun["Step implementation\nindex.ts\ncreateStep(contract, { run(ctx, config, ops) })"]
+  StepModule["Step module\ncreateStep(contract, { artifacts?, run(ctx, config, ops, deps) })"]
+  ArtifactRuntime["implementArtifacts(contract.artifacts.provides, impl)\n→ deps.artifacts wrappers + satisfiers"]
+  Recipe["createRecipe\ncollect step modules → bindRuntimeOps + bindRuntimeDeps\n(auto-wire artifact tag defs + satisfiers)"]
 
+  StageArtifacts --> StepContract
   DomainContract --> StepContract
   DomainImpl --> Compiler
+  StepContract --> StepModule
   StepContract --> Compiler
   Compiler --> Recipe
-  StepContract --> Recipe
-  Recipe --> StepRun
+  ArtifactRuntime --> StepModule
+  StepModule --> Recipe
 ```
 
 ## Appendix C: Expected file surfaces (outside view)
@@ -353,11 +434,12 @@ mods/mod-swooper-maps/src/domain/<domain>/
       index.ts
 
 mods/mod-swooper-maps/src/recipes/standard/stages/<stage>/
+  artifacts.ts            # stage-owned artifact contracts (defineArtifact)
   index.ts                # stage module (createStage), wires steps + knobsSchema + compile-time op registry
   steps/
     <step>/
-      contract.ts         # defineStep({ ops, schema, requires/provides })
-      index.ts            # createStep(contract, { normalize?, run(ctx, config, ops) })
+      contract.ts         # defineStep({ ops, artifacts.requires/provides, schema, requires/provides (non-artifacts) })
+      index.ts            # createStep(contract, { artifacts?, normalize?, run(ctx, config, ops, deps) })
       lib/                # optional pure helpers
 ```
 
@@ -367,6 +449,8 @@ Read once before Phase 1:
 - `docs/projects/engine-refactor-v1/resources/repomix/gpt-config-architecture-converged.md`
 - `docs/projects/engine-refactor-v1/resources/spec/SPEC-step-domain-operation-modules.md`
 - `docs/projects/engine-refactor-v1/resources/spec/SPEC-DOMAIN-MODELING-GUIDELINES.md`
+- `docs/projects/engine-refactor-v1/resources/spec/recipe-compile/DX-ARTIFACTS-PROPOSAL.md`
+- `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M8-U21-artifacts-step-owned-deps.md`
 
 Consult while modeling (Phase 2):
 - `docs/projects/engine-refactor-v1/resources/spec/adr/adr-er1-030-operation-inputs-policy.md`
@@ -378,12 +462,14 @@ Consult while modeling (Phase 2):
 Truth of behavior (consult as needed while implementing):
 - `packages/mapgen-core/src/compiler/recipe-compile.ts` (compile-time config normalization + op normalize fanout)
 - `packages/mapgen-core/src/compiler/normalize.ts` (strict normalize pipeline)
-- `packages/mapgen-core/src/authoring/recipe.ts` (runtime ops injection into `step.run(context, config, ops)`)
+- `packages/mapgen-core/src/authoring/recipe.ts` (runtime ops + deps injection into `step.run(ctx, config, ops, deps)`)
 - `packages/mapgen-core/src/authoring/step/contract.ts` (`defineStep` schema merge + ops-derived config keys)
 - `packages/mapgen-core/src/authoring/op/contract.ts` (`defineOp`)
 - `packages/mapgen-core/src/authoring/op/create.ts` (`createOp`)
 - `packages/mapgen-core/src/authoring/op/strategy.ts` (`createStrategy`)
-- `packages/mapgen-core/src/authoring/bindings.ts` (`collectCompileOps`, `bindRuntimeOps`)
+- `packages/mapgen-core/src/authoring/bindings.ts` (`collectCompileOps`, `bindRuntimeOps`, `bindRuntimeDeps`)
+- `packages/mapgen-core/src/authoring/artifact/contract.ts` (`defineArtifact` + name/id/schema invariants)
+- `packages/mapgen-core/src/authoring/artifact/runtime.ts` (`implementArtifacts` + runtime wrappers + satisfiers)
 - `mods/mod-swooper-maps/test/support/compiler-helpers.ts` (canonical test helpers for config normalization)
 
 Workflow package references (keep open while implementing):
