@@ -9,7 +9,7 @@ description: |
 # PLAN: Foundation (Vertical Domain Refactor)
 
 This is the **Foundation-specific implementation plan/spec** for refactoring the Foundation domain end-to-end:
-- **Domain modeling:** physically grounded, first-principles, authoritative (legacy behavior is not sacred).
+- **Domain modeling (model-first):** authoritative first-principles model, even if artifacts change (legacy behavior is not sacred).
 - **SDK architecture:** contract-first ops + orchestration-only steps; stage-owned artifact contracts; `run(ctx, config, ops, deps)`.
 
 This is a **draft plan** (not a milestone doc yet). The plan is expected to evolve via the built-in lookbacks.
@@ -239,6 +239,9 @@ This phase is about **evidence**:
 
 **Objective:** Define the “correct” Foundation model from first principles + canonical MapGen architecture posture.
 
+Model-first principle (locked):
+- **Authoritative first-principles model, even if artifacts change.** We do not preserve today’s artifact set/shape as an end in itself; we preserve only what the model requires and what the pipeline can coherently consume.
+
 Modeling posture (enforced):
 - ops are **atomic** (no op-calls-op composition),
 - composition happens in steps/stages,
@@ -250,7 +253,7 @@ Earth-physics grounding (required):
 
 Cross-pipeline posture (required):
 - Foundation is “upstream of everything”; its products are pipeline-wide contracts.
-- If the modeled Foundation needs different inputs/outputs, plan the pipeline updates via stage-owned artifact contracts and the contract matrix (no ad-hoc deep imports).
+- If the modeled Foundation needs different inputs/outputs, plan the pipeline updates via stage-owned artifact contracts and the contract matrix (no ad-hoc deep imports, no “compat forever” shadows).
 
 **Outputs:**
 - `docs/projects/engine-refactor-v1/resources/spike/spike-foundation-modeling.md`
