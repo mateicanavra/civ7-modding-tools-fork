@@ -34,7 +34,7 @@ import type {
   StepDeps,
 } from "./types.js";
 
-type AnyStage<TContext> = Stage<TContext, readonly Step<TContext, any>[]>;
+type AnyStage<TContext> = Stage<TContext, readonly Step<TContext, any, any, any>[]>;
 
 type StepOccurrence<TContext> = {
   stageId: string;
@@ -154,6 +154,17 @@ function collectArtifactTagDefinitions<TContext extends ExtendedMapContext>(inpu
         stageId: stage.id,
         stepId,
       });
+
+      for (const tag of authored.contract.provides) {
+        if (!tag.startsWith("artifact:")) continue;
+        const existing = providers.get(tag);
+        if (existing) {
+          throw new Error(
+            `[recipe:${input.recipeId}] artifact "${tag}" provided by multiple steps: ${existing}, ${fullId}`
+          );
+        }
+        providers.set(tag, fullId);
+      }
 
       for (const contract of authored.contract.artifacts?.provides ?? []) {
         const existing = providers.get(contract.id);
