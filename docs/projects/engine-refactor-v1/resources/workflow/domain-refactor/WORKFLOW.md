@@ -84,6 +84,8 @@ Rule of thumb:
 - **Docs-as-code is enforced:** any touched exported function/op/step/schema gets contextual JSDoc and/or TypeBox `description` updates (trace references before writing docs).
 - **Authoritative modeling (not “code cleanup”):** prefer the physically grounded target model over preserving legacy behavior; delete/replace broken or nonsensical behavior as needed.
 - **Cross-pipeline consistency is required:** when the domain model changes contracts/artifacts, update upstream/downstream steps and stage-owned artifact contracts so the whole pipeline stays internally consistent (no “temporary mismatch”).
+- **Upstream compat/projection sunset:** if upstream provides compatibility shims or projection artifacts for migration, do not treat them as canonical inputs. Choose and document the authoritative upstream inputs this domain will use (buffers/artifacts/overlays), and remove compat reads as part of the refactor. If this domain publishes projections for downstream consumers, do so explicitly and mark them as deprecated/compat in contracts/docs.
+- **Compat projection cleanup ownership:** if this refactor leaves compat projections in place, create a cleanup item in `docs/projects/engine-refactor-v1/triage.md`. Do not assume the next downstream refactor will delete them. If the immediate downstream domain can remove them safely and no other downstream consumers are affected, that domain owns the cleanup and must have a dedicated issue for it; link the issue from triage.
 
 ## Golden reference (Ecology exemplar)
 

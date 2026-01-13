@@ -66,6 +66,7 @@ If the subissue affects artifact contracts across steps, add one minimal pipelin
 After migrating a callsite to ops + step modules:
 - remove the old entrypoints for the extracted logic (no “compat exports”),
 - remove dead helpers, adapters, translators, and unused exports.
+- remove any remaining reads of upstream compat/projection artifacts inside scope, and mark any downstream projections you still publish as deprecated/compat.
 
 Troubleshooting note:
 - If the guardrail script fails, use the printed hits (file + line) to drive fixes; run any additional `rg` searches ad-hoc as needed while iterating.
@@ -93,5 +94,6 @@ After the domain refactor lands:
 - remove duplicate map entrypoint wiring that is now redundant,
 - remove obsolete exports/re-exports that bypass the op boundary,
 - remove stale docs references and update any canonical docs that named legacy structures.
+- if any compat projections remain, add a cleanup item in `docs/projects/engine-refactor-v1/triage.md`, or open a dedicated downstream issue if the next domain can remove them safely (link the issue from triage).
 
 The domain is not “done” until the surrounding callsites are also cleaned.

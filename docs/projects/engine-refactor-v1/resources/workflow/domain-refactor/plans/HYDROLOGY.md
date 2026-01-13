@@ -28,6 +28,14 @@ Hydrology is currently a “mixed posture” domain: it has early domain module 
 - **Legacy behavior and legacy authoring patterns should not be propagated.**
 - **All new work must be expressed through the canonical architecture and authoring surfaces**, not by copying old patterns “because that’s how this file already does it”.
 
+**Upstream compatibility rule (apply during this refactor):**
+- If upstream provides compatibility shims or projection artifacts for migration, do not treat them as canonical inputs.
+- This domain must decide and document its authoritative upstream inputs (buffers/artifacts/overlays) and remove compat reads during the refactor.
+- If this domain publishes projections for downstream consumers, do so explicitly and mark them as deprecated/compat in contracts/docs.
+**Compat cleanup tracking:**
+- If any compat projections remain after this refactor, add a cleanup item in `docs/projects/engine-refactor-v1/triage.md`.
+- If the immediate downstream domain can remove them safely with no other downstream consumers affected, that downstream owns the cleanup and must have a dedicated issue; link it from triage.
+
 **Concrete example (what not to repeat):**
 - In several existing Ecology steps, the step module imports a config type and then annotates the `run(...)` handler parameter as `config: <SomeConfigType>`, even though the step contract schema already defines and provides the config shape.
 - This is a legacy smell because it:

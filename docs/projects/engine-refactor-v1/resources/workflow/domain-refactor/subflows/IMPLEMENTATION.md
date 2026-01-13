@@ -74,6 +74,7 @@ This is the “definition of done” for a slice. You must complete it before mo
 
 - Delete the legacy entrypoints and helpers that the migrated step(s) used.
 - Do not leave compat exports or an “old/new” switch.
+- If upstream compatibility/projection artifacts were used for migration, replace them with the authoritative upstream inputs now and remove the compat reads. Any downstream projections this domain publishes must be explicitly marked as deprecated/compat.
 
 ### 4) Tests for the slice
 
@@ -113,6 +114,7 @@ In the final slice, do the “around-the-block” cleanup:
 - remove now-unused shared helpers that existed only to support legacy paths,
 - remove obsolete exports/re-exports that bypass the op boundary,
 - update docs/presets/tests that referenced removed legacy structures.
+- if any compat projections remain, add a cleanup item in `docs/projects/engine-refactor-v1/triage.md`, or open a dedicated downstream issue if the next domain can remove them safely (link the issue from triage).
 
 Then run the full verification gates:
 ```bash

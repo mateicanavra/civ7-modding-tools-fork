@@ -110,7 +110,8 @@ List and link every instance of:
 - adapter/context crossing into domain logic,
 - callback “views” passed into domain functions,
 - RNG callbacks/state crossing into domain logic (e.g. `options.rng`, `ctx.rng`),
-- runtime config fixups/merges inside op/domain code.
+- runtime config fixups/merges inside op/domain code,
+- consuming upstream compatibility shims or projection artifacts instead of authoritative upstream inputs.
 
 ## Slicing plan (required before implementation)
 
