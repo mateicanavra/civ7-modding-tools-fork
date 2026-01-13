@@ -1,18 +1,18 @@
-import { createStep, type Static } from "@swooper/mapgen-core/authoring";
-import {
-  biomeClassificationArtifact,
-  featureIntentsArtifact,
-  heightfieldArtifact,
-  pedologyArtifact,
-} from "../../../../artifacts.js";
+import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
+import { ecologyArtifacts } from "../../artifacts.js";
+import { validateFeatureIntentsArtifact } from "../../artifact-validation.js";
 import FeaturesPlanStepContract from "./contract.js";
-type FeaturesPlanConfig = Static<typeof FeaturesPlanStepContract.schema>;
 
 export default createStep(FeaturesPlanStepContract, {
-  run: (context, config: FeaturesPlanConfig, ops) => {
-    const classification = biomeClassificationArtifact.get(context);
-    const pedology = pedologyArtifact.get(context);
-    const heightfield = heightfieldArtifact.get(context);
+  artifacts: implementArtifacts([ecologyArtifacts.featureIntents], {
+    featureIntents: {
+      validate: (value, context) => validateFeatureIntentsArtifact(value, context.dimensions),
+    },
+  }),
+  run: (context, config, ops, deps) => {
+    const classification = deps.artifacts.biomeClassification.read(context);
+    const pedology = deps.artifacts.pedology.read(context);
+    const heightfield = deps.artifacts.heightfield.read(context);
 
     const { width, height } = context.dimensions;
     const vegetationPlan = ops.vegetation(
@@ -63,7 +63,7 @@ export default createStep(FeaturesPlanStepContract, {
       config.ice
     );
 
-    featureIntentsArtifact.set(context, {
+    deps.artifacts.featureIntents.publish(context, {
       vegetation: vegetationPlan.placements,
       wetlands: wetlandsPlan.placements,
       reefs: reefsPlan.placements,

@@ -182,6 +182,13 @@ Corridors are a canonical overlay type:
 - **Rationale:** Avoid breaking existing consumers while ensuring the new contract-first path is safe.
 - **Risk:** Duplicate producers declared via legacy `requires/provides` are not caught until Phase 2 migration.
 
+### Biome edge refinement mutates `biomeClassification` in place
+- **Context:** `biome-edge-refine` is a post-classification adjustment step that previously mutated the classification buffers after `biomes` published them.
+- **Options:** Publish a new artifact with refined results; mutate the published classification buffers in place.
+- **Choice:** Mutate `biomeClassification` in place after the initial publish.
+- **Rationale:** Aligns with the buffer policy (single publish + in-place mutation) and keeps a single producer for the artifact.
+- **Risk:** Consumers must treat the artifact as mutable post-publish; future buffer/artifact separation should make this explicit.
+
 ## Sequencing (Phase 2)
 1. U21-F1: Define stage-owned artifact contracts for the standard recipe (all stages).
 2. U21-F2: Migrate foundation + climate steps to artifacts/deps (contracts + runtimes).
@@ -619,10 +626,10 @@ direction:
     - "Refinement is expressed inside the single producer’s runtime, or by producing a *semantically distinct* artifact (not “draft vs final”)."
 ```
 
-### 7) Overlays cutover: artifacts only (remove `ctx.overlays`)
+### 7) Overlays cutover: single overlays container (append-preferred)
 ```yaml
-choice_now: "store overlays via `deps.artifacts.storyOverlays` into `ctx.artifacts` and remove `ctx.overlays` from the official context surface."
-direction: "overlays may become a first-class context feature again later (with a dedicated API), but **for now there is one canonical access path** (artifacts)."
+choice_now: "publish `ctx.overlays` once via `deps.artifacts.overlays` and mutate in place; keep a single overlays container with per-type collections."
+direction: "overlays may become a first-class dependency kind later, but for now they are threaded through artifacts and remain append-preferred."
 documentation_requirement:
   - why overlays are artifacts-only for now
   - that the future plan is a first-class overlay API
@@ -1236,7 +1243,7 @@ acceptance_criteria:
   - "[ ] No step implementation imports `mods/mod-swooper-maps/src/recipes/standard/artifacts.ts` for artifact reads/writes."
   - "[ ] Manual artifact satisfiers in `STANDARD_TAG_DEFINITIONS` are removed (artifacts only)."
   - "[ ] The recipe still executes with gating enforced (producer must publish declared artifacts)."
-  - "[ ] `ctx.overlays` is removed; overlays are published/read via `deps.artifacts.storyOverlays.*` only."
+  - "[ ] `ctx.overlays` is the single overlays container, published once as `artifact:storyOverlays` and mutated in place (no republish)."
   - "[ ] `biomeClassification` has a single producer step (no dual-writer between `biomes` and `biome-edge-refine`)."
 ```
 
@@ -1413,10 +1420,10 @@ acceptance_criteria:
   - title: "Artifact ids no longer use fake `@vN` suffixes"
     points:
       - "rg -n \"artifact:[^\\\\s'\\\\\\\"]+@v[0-9]+\" packages/mapgen-core mods docs returns zero results."
-  - title: "Overlays are artifacts-only (single path)"
+  - title: "Overlays are a single shared container (append-preferred)"
     points:
-      - "`ctx.overlays` no longer exists as an official context property."
-      - "overlay producers publish via `deps.artifacts.storyOverlays.publish(...)`, and consumers read via `deps.artifacts.storyOverlays.read(...)`."
+      - "`ctx.overlays` is the single overlays container, published once as `artifact:storyOverlays` and mutated in place."
+      - "overlay producers publish once via `deps.artifacts.overlays.publish(...)`, then append to `ctx.overlays.*`."
   - title: "Artifact wrappers enforce write-once and provide readonly typing"
     points:
       - "`publish(...)` is write-once (double publish throws)."

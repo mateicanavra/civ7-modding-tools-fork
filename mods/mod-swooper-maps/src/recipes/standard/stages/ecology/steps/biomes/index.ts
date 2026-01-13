@@ -1,12 +1,5 @@
-import { logBiomeSummary, type ExtendedMapContext } from "@swooper/mapgen-core";
-import { createStep, type Static } from "@swooper/mapgen-core/authoring";
-import {
-  getPublishedClimateField,
-  getPublishedNarrativeCorridors,
-  getPublishedNarrativeMotifsRifts,
-  heightfieldArtifact,
-  publishBiomeClassificationArtifact,
-} from "../../../../artifacts.js";
+import { logBiomeSummary } from "@swooper/mapgen-core";
+import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
 import BiomesStepContract from "./contract.js";
 import {
@@ -16,16 +9,20 @@ import {
 } from "./helpers/inputs.js";
 import { clampToByte } from "./helpers/apply.js";
 import { resolveEngineBiomeIds } from "./helpers/engine-bindings.js";
-
-type BiomesStepConfig = Static<typeof BiomesStepContract.schema>;
+import { ecologyArtifacts } from "../../artifacts.js";
+import { validateBiomeClassificationArtifact } from "../../artifact-validation.js";
 
 export default createStep(BiomesStepContract, {
-  run: (context: ExtendedMapContext, config: BiomesStepConfig, ops) => {
+  artifacts: implementArtifacts([ecologyArtifacts.biomeClassification], {
+    biomeClassification: {
+      validate: (value, context) => validateBiomeClassificationArtifact(value, context.dimensions),
+    },
+  }),
+  run: (context, config, ops, deps) => {
     const { width, height } = context.dimensions;
 
-    const climateField = getPublishedClimateField(context);
-
-    const heightfield = heightfieldArtifact.get(context);
+    const climateField = deps.artifacts.climateField.read(context);
+    const heightfield = deps.artifacts.heightfield.read(context);
     const { landMask, elevation } = heightfield;
 
     const biomeField = context.fields.biomeId;
@@ -35,8 +32,8 @@ export default createStep(BiomesStepContract, {
     }
 
     const latitude = buildLatitudeField(context.adapter, width, height);
-    const corridors = getPublishedNarrativeCorridors(context);
-    const rifts = getPublishedNarrativeMotifsRifts(context);
+    const corridors = deps.artifacts.corridors.read(context);
+    const rifts = deps.artifacts.motifsRifts.read(context);
 
     const corridorMask = maskFromCoordSet(corridors.landCorridors, width, height);
     const riverCorridorMask = maskFromCoordSet(corridors.riverCorridors, width, height);
@@ -63,7 +60,7 @@ export default createStep(BiomesStepContract, {
       context.adapter,
       config.bindings
     );
-    publishBiomeClassificationArtifact(context, {
+    deps.artifacts.biomeClassification.publish(context, {
       width,
       height,
       ...result,
