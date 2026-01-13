@@ -75,6 +75,9 @@ This means:
   - stage-owned artifact contracts exist (`/src/recipes/standard/stages/foundation/artifacts.ts`),
   - the step uses `deps.artifacts.*` publishes,
   - but orchestration still routes through a monolithic producer (`/src/recipes/standard/stages/foundation/producer.ts`) instead of contract-first ops.
+- Downstream domains (morphology/hydrology/narrative) read Foundation tensors via artifact tags (`artifact:foundation.*`), including indirect reads via `ctx.artifacts.get(...)` helper assertions in `packages/mapgen-core` (a coupling that ops-first refactor must eliminate).
+- `env.directionality` is a required runtime input for Foundation + some downstream climate/story logic; current maps pass it in from the authored recipe config at runtime (config/env coupling).
+- Some downstream domain code imports Foundation implementation constants directly (e.g. `BOUNDARY_TYPE`), creating module-layout coupling that must become a stable contract surface.
 
 <workflow>
 
@@ -482,14 +485,76 @@ This appendix is the “outside view” of the Foundation domain and its stage b
 
 ```yaml
 files:
-  - path: /src/domain/foundation/index.ts
-    notes: Domain contract entrypoint (target); current status to be discovered in Phase 1.
-  - path: /src/domain/foundation/ops/contracts.ts
-    notes: Op contract router (target); current status known-empty, validate.
+  - path: /src/recipes/standard/recipe.ts
+    notes: Standard recipe ordering; Foundation runs first.
+
+  # Foundation stage boundary (source of truth for publish-once artifact contracts + step wiring)
+  - path: /src/recipes/standard/stages/foundation/index.ts
+    notes: Stage module; currently contains one step (`foundation`).
   - path: /src/recipes/standard/stages/foundation/artifacts.ts
-    notes: Stage-owned artifact contracts (target); current status to be discovered in Phase 1.
-  - path: /src/recipes/standard/stages/foundation/steps
-    notes: Step modules + contracts (current + target); enumerate.
+    notes: Stage-owned artifact contracts for foundation outputs (plates/dynamics/seed/diagnostics/config).
+  - path: /src/recipes/standard/stages/foundation/producer.ts
+    notes: Monolithic producer/orchestration; calls Foundation implementation modules directly.
+  - path: /src/recipes/standard/stages/foundation/steps/foundation.contract.ts
+    notes: Step contract; provides all foundation artifacts; schema includes FoundationConfigSchema.
+  - path: /src/recipes/standard/stages/foundation/steps/foundation.ts
+    notes: Step runtime; publishes artifacts via deps.artifacts.* and calls runFoundationStage (producer).
+
+  # Foundation domain module (current state is not ops-first)
+  - path: /src/domain/foundation/index.ts
+    notes: Domain entrypoint (`defineDomain({ id: \"foundation\", ops })`); exports types; ops router currently empty.
+  - path: /src/domain/foundation/ops/contracts.ts
+    notes: Empty op contract router (no declared ops).
+  - path: /src/domain/foundation/ops/index.ts
+    notes: Empty op implementations router (no implementations).
+  - path: /src/domain/foundation/ops.ts
+    notes: createDomain(domain, implementations) wrapper; runtime ops surface exists but is empty.
+  - path: /src/domain/foundation/plates.ts
+    notes: Voronoi plate generation implementation (typed arrays) used by the Foundation stage producer.
+  - path: /src/domain/foundation/plate-seed.ts
+    notes: PlateSeedManager capture/finalize; used by producer and tests.
+  - path: /src/domain/foundation/constants.ts
+    notes: Re-exports `BOUNDARY_TYPE`; imported by downstream domain implementations (coupling).
+
+callers:
+  # Downstream steps that explicitly require foundation artifacts via step contracts
+  - path: /src/recipes/standard/stages/morphology-pre/steps/landmassPlates.contract.ts
+    notes: Requires foundationPlates.
+  - path: /src/recipes/standard/stages/morphology-mid/steps/ruggedCoasts.contract.ts
+    notes: Requires foundationPlates (and storyOverlays).
+  - path: /src/recipes/standard/stages/morphology-post/steps/mountains.contract.ts
+    notes: Requires foundationPlates.
+  - path: /src/recipes/standard/stages/morphology-post/steps/volcanoes.contract.ts
+    notes: Requires foundationPlates.
+  - path: /src/recipes/standard/stages/narrative-pre/steps/storyRifts.contract.ts
+    notes: Requires foundationPlates (and storyOverlays).
+  - path: /src/recipes/standard/stages/narrative-mid/steps/storyOrogeny.contract.ts
+    notes: Requires foundationPlates + foundationDynamics (and storyOverlays).
+  - path: /src/recipes/standard/stages/narrative-swatches/steps/storySwatches.contract.ts
+    notes: Requires foundationDynamics (and heightfield/climateField/overlays).
+  - path: /src/recipes/standard/stages/hydrology-post/steps/climateRefine.contract.ts
+    notes: Requires foundationDynamics (and heightfield/climateField/overlays/riverAdjacency).
+
+  # Downstream domain logic that reads foundation artifacts indirectly via ctx.artifacts.get (legacy coupling)
+  - path: packages/mapgen-core/src/core/assertions.ts
+    notes: assertFoundationPlates/assertFoundationDynamics fetch from ctx.artifacts.get(artifact:foundation.*).
+  - path: /src/domain/morphology/landmass/index.ts
+    notes: Reads plates via assertFoundationPlates(ctx, ...).
+  - path: /src/domain/morphology/mountains/apply.ts
+    notes: Reads plates via assertFoundationPlates(ctx, ...).
+  - path: /src/domain/morphology/volcanoes/apply.ts
+    notes: Reads plates via assertFoundationPlates(ctx, ...).
+  - path: /src/domain/morphology/coastlines/rugged-coasts.ts
+    notes: Reads plates via assertFoundationPlates(ctx, ...).
+  - path: /src/domain/hydrology/climate/refine/index.ts
+    notes: Reads dynamics via assertFoundationDynamics(ctx, ...).
+  - path: /src/domain/hydrology/climate/swatches/monsoon-bias.ts
+    notes: Reads dynamics via assertFoundationDynamics(ctx, ...).
+
+tests:
+  - path: /test/foundation/voronoi.test.ts
+  - path: /test/foundation/plates.test.ts
+  - path: /test/foundation/plate-seed.test.ts
 ```
 
 ## Appendix B: Contract Matrix (living)
@@ -502,15 +567,20 @@ For each step:
 
 ```yaml
 steps:
-  - id: foundation/<step-id>
-    title: "<human-readable step name>"
+  - id: foundation/foundation
+    title: "Publish Foundation tensors (plates/dynamics) + snapshots"
     current:
       requires:
         artifacts: []
         buffers: []
         overlays: []
       provides:
-        artifacts: []
+        artifacts:
+          - artifact:foundation.plates
+          - artifact:foundation.dynamics
+          - artifact:foundation.seed
+          - artifact:foundation.diagnostics
+          - artifact:foundation.config
         buffers: []
         overlays: []
     target:
@@ -523,8 +593,151 @@ steps:
         buffers: []
         overlays: []
     consumers:
-      - "<stage-or-step that reads this output>"
-    notes: ""
+      - morphology-pre/landmass-plates
+      - morphology-mid/rugged-coasts
+      - narrative-pre/story-rifts
+      - narrative-mid/story-orogeny
+      - morphology-post/mountains
+      - morphology-post/volcanoes
+      - narrative-swatches/story-swatches (dynamics)
+      - hydrology-post/climate-refine (dynamics)
+    notes: "Current orchestration is monolithic producer (not contract-first ops)."
+
+  - id: morphology-pre/landmass-plates
+    title: "Landmass generation (plate-driven)"
+    current:
+      requires:
+        artifacts: [artifact:foundation.plates]
+        buffers: []
+        overlays: []
+      provides:
+        artifacts: []
+        buffers: []
+        overlays: []
+    target:
+      requires: { artifacts: [], buffers: [], overlays: [] }
+      provides: { artifacts: [], buffers: [], overlays: [] }
+    consumers: []
+    notes: "Domain logic reads plates via assertFoundationPlates(ctx, ...); also uses engine-effect tags (non-artifact gating)."
+
+  - id: morphology-mid/rugged-coasts
+    title: "Rugged coasts (margin/corridor-aware)"
+    current:
+      requires:
+        artifacts: [artifact:foundation.plates]
+        buffers: []
+        overlays: [artifact:storyOverlays]
+      provides:
+        artifacts: []
+        buffers: []
+        overlays: []
+    target:
+      requires: { artifacts: [], buffers: [], overlays: [] }
+      provides: { artifacts: [], buffers: [], overlays: [] }
+    consumers: []
+    notes: "Requires story overlays; domain logic reads plates via assertFoundationPlates(ctx, ...)."
+
+  - id: narrative-pre/story-rifts
+    title: "Story motifs: rift valleys"
+    current:
+      requires:
+        artifacts: [artifact:foundation.plates]
+        buffers: []
+        overlays: [artifact:storyOverlays]
+      provides:
+        artifacts: []
+        buffers: []
+        overlays: [artifact:storyOverlays]
+    target:
+      requires: { artifacts: [], buffers: [], overlays: [] }
+      provides: { artifacts: [], buffers: [], overlays: [] }
+    consumers: []
+    notes: "Consumes plates; appends rift motifs into overlays."
+
+  - id: narrative-mid/story-orogeny
+    title: "Story motifs: orogeny belts"
+    current:
+      requires:
+        artifacts: [artifact:foundation.plates, artifact:foundation.dynamics]
+        buffers: []
+        overlays: [artifact:storyOverlays]
+      provides:
+        artifacts: []
+        buffers: []
+        overlays: [artifact:storyOverlays]
+    target:
+      requires: { artifacts: [], buffers: [], overlays: [] }
+      provides: { artifacts: [], buffers: [], overlays: [] }
+    consumers: []
+    notes: "Consumes plates+dynamics; appends orogeny motifs into overlays."
+
+  - id: narrative-swatches/story-swatches
+    title: "Story overlays: climate swatches (hydrology-facing)"
+    current:
+      requires:
+        artifacts: [artifact:foundation.dynamics]
+        buffers: [artifact:heightfield, artifact:climateField]
+        overlays: [artifact:storyOverlays]
+      provides:
+        artifacts: []
+        buffers: []
+        overlays: [artifact:storyOverlays]
+    target:
+      requires: { artifacts: [], buffers: [], overlays: [] }
+      provides: { artifacts: [], buffers: [], overlays: [] }
+    consumers: []
+    notes: "Swatches/monsoon logic reads dynamics via assertFoundationDynamics(ctx, ...); step code also requires env.directionality."
+
+  - id: hydrology-post/climate-refine
+    title: "Post-rivers climate refinement (earthlike)"
+    current:
+      requires:
+        artifacts: [artifact:foundation.dynamics, artifact:riverAdjacency]
+        buffers: [artifact:heightfield, artifact:climateField]
+        overlays: [artifact:storyOverlays]
+      provides:
+        artifacts: []
+        buffers: []
+        overlays: []
+    target:
+      requires: { artifacts: [], buffers: [], overlays: [] }
+      provides: { artifacts: [], buffers: [], overlays: [] }
+    consumers: []
+    notes: "Refinement logic reads dynamics via assertFoundationDynamics(ctx, ...); step code also requires env.directionality."
+
+  - id: morphology-post/mountains
+    title: "Mountains placement (plate-aware physics)"
+    current:
+      requires:
+        artifacts: [artifact:foundation.plates]
+        buffers: []
+        overlays: []
+      provides:
+        artifacts: []
+        buffers: []
+        overlays: []
+    target:
+      requires: { artifacts: [], buffers: [], overlays: [] }
+      provides: { artifacts: [], buffers: [], overlays: [] }
+    consumers: []
+    notes: "Domain logic reads plates via assertFoundationPlates(ctx, ...)."
+
+  - id: morphology-post/volcanoes
+    title: "Volcano placement (plate-aware)"
+    current:
+      requires:
+        artifacts: [artifact:foundation.plates]
+        buffers: []
+        overlays: []
+      provides:
+        artifacts: []
+        buffers: []
+        overlays: []
+    target:
+      requires: { artifacts: [], buffers: [], overlays: [] }
+      provides: { artifacts: [], buffers: [], overlays: [] }
+    consumers: []
+    notes: "Domain logic reads plates via assertFoundationPlates(ctx, ...)."
 ```
 
 ## Appendix C: Decisions + Defaults (living)
