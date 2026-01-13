@@ -287,7 +287,7 @@ Post Slice 5 re-run (after config purity + FoundationContext removal):
   - publish a tile-graph “mesh” (wrap-correct but violates mesh-first intent).
 - Choice: publish a typed-array+POJO mesh artifact; neighbors are best-effort reconstructed from Voronoi halfedges when available (mock adapter yields empty halfedges, so adjacency is empty in tests).
 - Rationale: keeps artifacts schema-able and deterministic while avoiding a second “tile mesh” model path.
-- Risk: adjacency/wrap semantics are not yet authoritative across adapters; tectonics fields are placeholder/invariant-focused until consumers migrate.
+- Risk: adjacency/wrap semantics are not yet authoritative in scaffolding; mesh-first wrap must be canonical before projections migrate.
 
 ### Slice plan (draft; executable checklists per slice)
 
@@ -304,18 +304,18 @@ These are trusted for algorithmic direction only. Canonical architecture remains
 
 Locked decisions for implementation (algorithmic):
 - Use `d3-delaunay` as the canonical Delaunay/Voronoi backend (no adapter, no fallback).
-- Mesh operates in planar map-space (`0..width`, `0..height`) and does not implement wrapX or periodic tiling.
+- Mesh operates in planar map-space (`0..width`, `0..height`) and must implement wrapX periodic adjacency when `env.wrapX` is true (wrapY unsupported).
 - Neighbor/adjacency comes from the backend’s neighbor iterator (no “halfedge inference” against empty mock data).
 - Plate counts are authored as base values and scaled to runtime map size during op normalization (no per-map manual retuning).
 - Mesh `cellCount` is derived during normalization from scaled `plateCount` and an authored `cellsPerPlate` factor; users do not author `cellCount` directly.
 
 Spec alignment pass (mesh backend):
-- Spec: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/foundation/SPEC-FOUNDATION-DELAUNAY-VORONOI.md` (created from the same spikes; locks “no wrapX” and “no adapter/fallback”).
+- Spec: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/foundation/SPEC-FOUNDATION-DELAUNAY-VORONOI.md` (created from the same spikes; locks “wrapX required” and “no adapter/fallback”).
 - Alignment: the Slice 6 plan already matches the spec’s key hard locks; the remaining deltas are now explicitly checklist items in Subissue 6.3/6.4:
   - remove all implicit heuristics inside mesh ops (`plateCount → cellCount`, `cellDensity`, etc.); config must be explicit (`cellCount`, `relaxationSteps`)
-  - remove any mesh contract payload fields related to wrapX
+  - include wrapX semantics in the mesh contract and enforce wrap-correct adjacency
   - remove halfedge-based neighbor inference and derive adjacency only from the backend iterator
-  - add validation criteria beyond symmetry (total area ~ `width * height`, determinism)
+  - add validation criteria beyond symmetry (total area ~ `width * height`, determinism, wrapX seam adjacency)
 
 #### Slice 1 — Establish the contract-first spine (behavior-preserving)
 
@@ -413,7 +413,7 @@ Checklist:
 - [ ] Add `d3-delaunay` as a dependency in the canonical location (expected: `packages/mapgen-core`), and ensure it is bundled for builds.
 - [ ] Implement a deterministic, engine-independent Voronoi backend in mapgen-core per `SPEC-FOUNDATION-DELAUNAY-VORONOI`.
 - [ ] Update `foundation/compute-mesh` op to use the canonical backend and delete its dependency on adapter Voronoi utilities.
-- [ ] Delete mesh inputs/shape that encode wrapX semantics (mesh is planar only).
+- [ ] Encode wrapX semantics in the mesh contract and implement periodic adjacency when `env.wrapX` is true (wrapY unsupported).
 - [ ] Delete any implicit heuristics inside the mesh op (`plateCount → cellCount`, `cellDensity`, etc.); require explicit `cellCount` + `relaxationSteps` only.
 - [ ] Update the test harness so mock adapter does not need to emulate Voronoi halfedges (mesh tests must run offline deterministically).
 

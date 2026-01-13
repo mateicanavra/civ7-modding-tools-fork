@@ -9,11 +9,12 @@ Evaluate feasibility of a canonical, mesh-first Delaunay/Voronoi backend for Fou
 Assumptions:
 - Canonical only: no engine Voronoi adapter, no fallback path.
 - Foundation is mesh-first (Delaunay -> Voronoi) and offline-capable.
-- wrapX is out of scope for Foundation per canonical spec (no periodic tiling).
+- wrapX is required for mesh-first correctness when `env.wrapX` is true.
 
 Unknowns:
 - Final mesh coordinate space (hex-space vs raw width/height).
 - How far we must go in matching Civ7 internal Voronoi behavior for parity (not required for canonical correctness, but may matter for comparison).
+- Periodic Voronoi strategy details (adjacency + area/centroid correctness at the seam).
 
 ## 3) Current State (Baseline)
 
@@ -21,6 +22,7 @@ Unknowns:
 - Mesh generation uses Voronoi cell halfedges to infer neighbors: `mods/mod-swooper-maps/src/domain/foundation/ops/compute-mesh/index.ts`.
 - Tile projection (plates tensors) is still driven by `computePlatesVoronoi`: `mods/mod-swooper-maps/src/domain/foundation/plates.ts`.
 - Op contracts explicitly describe Voronoi as adapter-provided: `mods/mod-swooper-maps/src/domain/foundation/ops/compute-mesh/contract.ts` and `mods/mod-swooper-maps/src/domain/foundation/ops/compute-plates-tensors/contract.ts`.
+- Tile-level plate generation already treats X as cylindrical (wrap-correct distances and neighbors), but mesh-first artifacts do not.
 
 ## 4) Canonical Requirements (Docs)
 
@@ -38,9 +40,13 @@ Unknowns:
 - compute-mesh currently derives neighbors from halfedges; d3-delaunay exposes `voronoi.neighbors(i)` directly, so the op should consume neighbor iterators rather than halfedges.
 - compute-plates-tensors only needs Voronoi cells + area and can stay structurally similar with a new backend.
 
-## 7) wrapX Decision (Resolved)
+## 7) wrapX Decision (Revised)
 
-wrapX is not a Foundation requirement and must not be implemented in the mesh backend. Periodic tiling and seam stitching are explicitly out of scope; if a wrap requirement emerges, it needs a separate spec.
+wrapX is required for mesh-first correctness when `env.wrapX` is true. A mesh-first Foundation that does not implement wrap-correct adjacency will produce seam artifacts when tectonics and projections rely on mesh-level fields.
+
+Canonical approach:
+- Implement periodic X for the Voronoi backend (e.g., replicate sites at `x±wrapWidth`, compute Delaunay/Voronoi, then fold adjacency and areas back to base indices).
+- Ensure seam-adjacent cells have wrap-correct neighbors so tectonics can resolve boundary interactions across the seam.
 
 ## 8) Touchpoints and Impact Map
 
@@ -50,7 +56,7 @@ wrapX is not a Foundation requirement and must not be implemented in the mesh ba
 
 ## 9) Verdict
 
-Feasible with caveats. The core algorithmic surface maps cleanly to d3-delaunay. WrapX is out of scope per canonical spec.
+Feasible with caveats. The core algorithmic surface maps cleanly to d3-delaunay. WrapX must be implemented at the mesh layer for cylindrical worlds; periodic Voronoi handling is the main complexity.
 
 ## 10) Minimal Experiment
 
@@ -64,6 +70,7 @@ This validates the hardest open questions without touching production code.
 ## 11) Risks and Open Questions
 
 - Coordinate space: Foundation expects hex-space semantics; we need to decide if Voronoi runs in hex-space or grid-space.
+- Periodic Voronoi correctness: ensure neighbor adjacency and areas are wrap-correct at the seam.
 
 ## 12) References
 
@@ -71,6 +78,7 @@ Internal:
 - `docs/system/libs/mapgen/foundation.md`
 - `docs/projects/engine-refactor-v1/resources/PRD-plate-generation.md`
 - `mods/mod-swooper-maps/src/domain/foundation/ops/compute-mesh/index.ts`
+- `mods/mod-swooper-maps/src/domain/foundation/ops/compute-tectonics/index.ts`
 - `mods/mod-swooper-maps/src/domain/foundation/plates.ts`
 - `mods/mod-swooper-maps/src/recipes/standard/stages/foundation/steps/foundation.ts`
 - `docs/projects/engine-refactor-v1/issues/_archive/LOCAL-TBD-foundation-step-2-mesh.md`
