@@ -16,11 +16,17 @@ This file is intentionally a **flow-first executable checklist**: the `<workflow
 
 ## TL;DR (phase model)
 
+Phases are **adaptive**: each phase produces concrete artifacts, then a required lookback step updates the next phase’s plan based on what you learned (no “write once, never revise” docs).
+
 1. **Phase 1: Current-state spike** → write `docs/projects/engine-refactor-v1/resources/spike/spike-<domain>-current-state.md`
-2. **Phase 2: Modeling spike (first principles)** → write `docs/projects/engine-refactor-v1/resources/spike/spike-<domain>-modeling.md`
-3. **Phase 3: Implementation plan + slice plan** → write/update `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-<milestone>-<domain>-*.md`
-4. **Phase 4: Implementation (slices)** → refactor domain + stage code (one slice at a time; no dual paths)
-5. **Phase 5: Verification + cleanup + submit** → run gates, submit, remove worktrees
+2. **Lookback 1 (Phase 1 → Phase 2): Adjust the modeling plan** → append lookback findings + plan deltas into the Phase 1 spike
+3. **Phase 2: Modeling spike (first principles)** → write `docs/projects/engine-refactor-v1/resources/spike/spike-<domain>-modeling.md`
+4. **Lookback 2 (Phase 2 → Phase 3): Adjust the implementation plan** → append lookback findings + pipeline deltas into the Phase 2 spike
+5. **Phase 3: Implementation plan + slice plan** → write/update `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-<milestone>-<domain>-*.md`
+6. **Lookback 3 (Phase 3 → Phase 4): Finalize slices + sequencing** → append lookback findings into the Phase 3 issue doc
+7. **Phase 4: Implementation (slices)** → refactor domain + stage code (one slice at a time; no dual paths)
+8. **Lookback 4 (Phase 4 → Phase 5): Stabilize and reconcile** → append lookback findings into the Phase 3 issue doc
+9. **Phase 5: Verification + cleanup + submit** → run gates, submit, remove worktrees
 
 ## Hard rules (do not violate)
 
@@ -154,6 +160,29 @@ gt modify --commit -am "refactor(<domain>): <slice or doc summary>"
 
 </step>
 
+<step name="phase-1-lookback-and-adjust">
+
+**Objective:** Convert Phase 1 findings into explicit updates to the Phase 2 modeling work (and explicitly record any plan changes you discovered).
+
+This lookback is mandatory: Phase 2 is expected to be **re-planned** based on evidence from Phase 1 (inventory + violations + deletion list).
+
+**Inputs:**
+- `docs/projects/engine-refactor-v1/resources/spike/spike-<domain>-current-state.md` (Phase 1 output)
+
+**Outputs (append to the end of the Phase 1 spike doc):**
+- `## Lookback (Phase 1 → Phase 2): Adjust modeling plan`
+  - What surprised you (top 3)
+  - Updated boundary map (what is “in domain” vs “pipeline glue” vs “legacy to delete”)
+  - Updated model hypotheses (what Phase 2 must validate/decide)
+  - Updated deletion list (anything discovered late)
+  - Updated cross-pipeline touchpoints (upstream/downstream contracts that Phase 2 must consider)
+
+**Gate (do not proceed until):**
+- [ ] The lookback section exists and includes explicit “plan deltas” (not just a recap).
+- [ ] Phase 2 has a clear target: what must be redesigned vs what can be preserved.
+
+</step>
+
 <step name="phase-2-modeling-spike">
 
 **Objective:** Define “how this domain should look” from first principles + our architecture, producing a no-optionality target model.
@@ -172,6 +201,9 @@ Cross-pipeline posture (required):
 - The domain model lives inside a pipeline. Your target model must be consistent with (and may reshape) the artifact/deps contracts at domain boundaries.
 - If the modeled domain needs different inputs/outputs, you must plan the pipeline updates (artifact contracts, step deps, stage wiring) so the compiled plan remains valid and consumers remain coherent.
 - Prefer coordinating changes via **stage-owned artifact contracts** (`stages/<stage>/artifacts.ts`) rather than ad-hoc cross-domain imports.
+
+Foundation-specific reminder (applies only when `<domain> == foundation`):
+- Foundation is “upstream of everything”. Phase 2 must treat its modeled outputs (buffers, artifacts, overlays) as pipeline-wide contracts; plan for downstream adaptation rather than preserving legacy couplings.
 
 **Outputs:**
 - `docs/projects/engine-refactor-v1/resources/spike/spike-<domain>-modeling.md`
@@ -201,6 +233,29 @@ Cross-pipeline posture (required):
 
 </step>
 
+<step name="phase-2-lookback-and-adjust">
+
+**Objective:** Convert the Phase 2 target model into a deterministic, slice-able implementation plan (and explicitly record any plan changes you discovered during modeling).
+
+This lookback is mandatory: Phase 3 is expected to be **re-planned** based on Phase 2’s final target model (op catalog + policy map + pipeline deltas).
+
+**Inputs:**
+- `docs/projects/engine-refactor-v1/resources/spike/spike-<domain>-modeling.md` (Phase 2 output)
+
+**Outputs (append to the end of the Phase 2 spike doc):**
+- `## Lookback (Phase 2 → Phase 3): Adjust implementation plan`
+  - Finalized invariants (what must not change during implementation)
+  - Risks (top 3) + how the slice plan mitigates them
+  - Pipeline delta slicing strategy (how contract changes will be spread across slices without breaking the pipeline)
+  - Draft slice boundaries (a first cut; Phase 3 will harden into an executable checklist)
+  - Test strategy notes (what needs deterministic harnessing; what can be thin integration)
+
+**Gate (do not proceed until):**
+- [ ] The lookback section exists and includes explicit “plan deltas” (not just a recap).
+- [ ] There is a clear slicing strategy for any pipeline deltas (no “big bang” unless justified).
+
+</step>
+
 <step name="phase-3-implementation-plan-and-slice-plan">
 
 **Objective:** Translate the spikes into a deterministic implementation issue and an executable slice plan.
@@ -224,6 +279,28 @@ Cross-pipeline posture (required):
 **References:**
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/op-and-config-design.md`
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/verification-and-guardrails.md`
+
+</step>
+
+<step name="phase-3-lookback-and-adjust">
+
+**Objective:** Validate that the slice plan is executable, then lock sequencing and reduce ambiguity before writing production code.
+
+This lookback is mandatory: Phase 4 is expected to be **re-planned** based on what Phase 3 uncovered (e.g., missing harnesses, contract uncertainties, edge cases).
+
+**Inputs:**
+- `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-<milestone>-<domain>-*.md` (Phase 3 output)
+
+**Outputs (append to the Phase 3 issue doc):**
+- `## Lookback (Phase 3 → Phase 4): Finalize slices + sequencing`
+  - Confirmed slice DAG (what blocks what; where pipeline deltas land)
+  - Any prework findings completed during planning (code-intel checks, boundary confirmation)
+  - Any remaining open decisions (should be rare; record options + default)
+  - “First slice is safe” checklist (what must be true before implementing slice 1)
+
+**Gate (do not proceed until):**
+- [ ] Slice 1 is independently shippable (tests + docs + deletions included).
+- [ ] Any remaining open decisions are explicit, scoped, and non-surprising to implementers.
 
 </step>
 
@@ -304,6 +381,28 @@ gt modify --commit -am "refactor(<domain>): <slice summary>"
 **References:**
 - Extended slice guidance: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/subflows/IMPLEMENTATION.md`
 - “Truth of behavior” source files: see “Reference index” below
+
+</step>
+
+<step name="phase-4-lookback-and-adjust">
+
+**Objective:** Reconcile implementation reality with the plan, then stabilize before final verification/cleanup.
+
+This lookback is mandatory: Phase 5 is expected to incorporate what Phase 4 uncovered (drift, missing docs, unexpected couplings).
+
+**Inputs:**
+- The Phase 3 issue doc and the implementation work completed in Phase 4
+
+**Outputs (append to the Phase 3 issue doc):**
+- `## Lookback (Phase 4 → Phase 5): Stabilize and reconcile`
+  - Any plan drift (what changed and why)
+  - Any newly discovered cross-pipeline coupling (and how it was resolved)
+  - Any follow-up work explicitly deferred (with triggers)
+  - Final verification runbook adjustments (what is now the true “done” gate)
+
+**Gate (do not proceed until):**
+- [ ] The issue doc reflects the actual implementation outcome (no “paper plan” left behind).
+- [ ] All intentional deferrals are explicit (no silent TODOs).
 
 </step>
 
