@@ -1,6 +1,7 @@
 import { Type, type TObject, type TSchema } from "typebox";
 
 import { applySchemaConventions } from "../schema.js";
+import type { ArtifactContract } from "../artifact/contract.js";
 
 import type { DependencyTag, GenerationPhase } from "@mapgen/engine/index.js";
 import type { StepOpsDecl } from "./ops.js";
@@ -53,8 +54,14 @@ export type StepContract<
   phase: GenerationPhase;
   requires: readonly DependencyTag[];
   provides: readonly DependencyTag[];
+  artifacts?: StepArtifactsDecl;
   schema: Schema;
   ops?: Ops;
+}>;
+
+export type StepArtifactsDecl = Readonly<{
+  requires?: readonly ArtifactContract[];
+  provides?: readonly ArtifactContract[];
 }>;
 
 const STEP_ID_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -76,6 +83,40 @@ export function defineStep(def: any): any {
     throw new Error(`step id "${def.id}" must be kebab-case (e.g. "plot-vegetation")`);
   }
 
+  const artifactRequires: string[] = def.artifacts?.requires?.map((artifact: ArtifactContract) => artifact.id) ?? [];
+  const artifactProvides: string[] = def.artifacts?.provides?.map((artifact: ArtifactContract) => artifact.id) ?? [];
+  const hasArtifacts = Boolean(def.artifacts);
+
+  if (hasArtifacts) {
+    const directArtifactTags = [...def.requires, ...def.provides].filter((tag: string) =>
+      tag.startsWith("artifact:")
+    );
+    if (directArtifactTags.length > 0) {
+      throw new Error(
+        `step "${def.id}" mixes artifact ids in requires/provides with artifacts.*; move artifact ids into artifacts.*`
+      );
+    }
+  }
+
+  const seenArtifacts = new Set<string>();
+  for (const id of artifactRequires) {
+    if (seenArtifacts.has(id)) {
+      throw new Error(`step "${def.id}" declares artifact "${id}" multiple times in artifacts.requires`);
+    }
+    seenArtifacts.add(id);
+  }
+  for (const id of artifactProvides) {
+    if (seenArtifacts.has(id)) {
+      throw new Error(
+        `step "${def.id}" declares artifact "${id}" in both artifacts.requires and artifacts.provides`
+      );
+    }
+    seenArtifacts.add(id);
+  }
+
+  const requires = [...def.requires, ...artifactRequires];
+  const provides = [...def.provides, ...artifactProvides];
+
   const schema = def.ops
     ? buildSchemaWithOps({ stepId: def.id, schema: def.schema, ops: def.ops })
     : def.schema;
@@ -83,6 +124,8 @@ export function defineStep(def: any): any {
 
   return {
     ...def,
+    requires,
+    provides,
     schema,
   };
 }
