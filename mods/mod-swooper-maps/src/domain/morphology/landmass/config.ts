@@ -1,4 +1,4 @@
-import { Type, type Static } from "typebox";
+import { Type, type Static } from "@swooper/mapgen-core/authoring";
 
 /**
  * Bounding box for a continent band when seeding player starts.

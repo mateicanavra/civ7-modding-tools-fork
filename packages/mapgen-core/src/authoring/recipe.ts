@@ -161,8 +161,13 @@ function collectArtifactTagDefinitions<TContext extends ExtendedMapContext>(inpu
         stepId,
       });
 
+      const hasArtifactDecl = Boolean(authored.contract.artifacts);
       for (const tag of authored.contract.provides) {
         if (!tag.startsWith("artifact:")) continue;
+        if (hasArtifactDecl) {
+          // defineStep merges artifacts.* into requires/provides for gating; tag defs are owned by artifacts.*.
+          continue;
+        }
         const existing = providers.get(tag);
         if (existing) {
           throw new Error(

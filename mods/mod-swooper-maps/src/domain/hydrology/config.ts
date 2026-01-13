@@ -1,4 +1,4 @@
-import { Type, type Static } from "typebox";
+import { Type, type Static } from "@swooper/mapgen-core/authoring";
 
 /**
  * Rainfall targets by latitude zone for the climate engine.

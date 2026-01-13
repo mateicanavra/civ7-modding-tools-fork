@@ -53,19 +53,27 @@ export type StepArtifactsDecl<
   provides?: Provides;
 }>;
 
+export type StepArtifactsDeclAny = StepArtifactsDecl<
+  readonly ArtifactContract[] | undefined,
+  readonly ArtifactContract[] | undefined
+>;
+
 type StepArtifactsDeclInput = Readonly<{
   requires?: readonly ArtifactContract[];
   provides?: readonly ArtifactContract[];
 }>;
 
-type StepArtifactsRequires<T> = T extends { requires: infer R } ? R : undefined;
-type StepArtifactsProvides<T> = T extends { provides: infer P } ? P : undefined;
+type StepArtifactsRequires<T> = T extends { requires?: infer R } ? R : undefined;
+type StepArtifactsProvides<T> = T extends { provides?: infer P } ? P : undefined;
+
+type CoerceArtifactList<T> =
+  Extract<T, readonly ArtifactContract[]> extends never ? undefined : Extract<T, readonly ArtifactContract[]>;
 
 type StepArtifactsDeclFromInput<T extends StepArtifactsDeclInput | undefined> =
   T extends StepArtifactsDeclInput
     ? StepArtifactsDecl<
-        StepArtifactsRequires<T> extends readonly ArtifactContract[] ? StepArtifactsRequires<T> : undefined,
-        StepArtifactsProvides<T> extends readonly ArtifactContract[] ? StepArtifactsProvides<T> : undefined
+        CoerceArtifactList<StepArtifactsRequires<T>>,
+        CoerceArtifactList<StepArtifactsProvides<T>>
       >
     : undefined;
 
@@ -73,7 +81,7 @@ export type StepContract<
   Schema extends TObject,
   Id extends string,
   Ops extends StepOpsDecl | undefined = undefined,
-  Artifacts extends StepArtifactsDecl | undefined = StepArtifactsDecl | undefined,
+  Artifacts extends StepArtifactsDeclAny | undefined = StepArtifactsDeclAny | undefined,
 > = Readonly<{
   id: Id;
   phase: GenerationPhase;

@@ -1,4 +1,4 @@
-import { Type, type Static } from "typebox";
+import { Type, type Static } from "@swooper/mapgen-core/authoring";
 
 /**
  * Bindings from internal biome symbols to Civ7 engine biome globals.

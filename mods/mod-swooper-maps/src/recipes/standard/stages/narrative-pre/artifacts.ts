@@ -1,5 +1,5 @@
 import { defineArtifact } from "@swooper/mapgen-core/authoring";
-import { Type } from "typebox";
+import { Type } from "@swooper/mapgen-core/authoring";
 
 export const StoryOverlaysArtifactSchema = Type.Object(
   {
