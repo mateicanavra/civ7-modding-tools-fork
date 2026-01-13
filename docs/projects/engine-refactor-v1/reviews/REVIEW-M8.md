@@ -338,6 +338,28 @@ Branches (downstack → upstack):
 **PR comments**
 - 1 inline review comment (Codex bot) about `StepArtifactsSurface` defaulting to a permissive map when lists are omitted; not addressed by downstream branches in this stack.
 
+### `agent-CANDY-LOCAL-TBD-M8-U21-D-recipe-artifact-wiring` — PR #537 (`feat(mapgen-core): auto-wire artifact tag defs`)
+
+**Review effort estimate (complexity × parallelism)**
+- Medium × Medium (6/16): recipe-level invariants + execution model coupling; serial with migration and tests.
+
+**Intent (from issue doc)**
+- Land U21-D: have `createRecipe(...)` auto-register artifact dependency tag definitions with `satisfies` derived from producer artifact runtimes, and enforce “exactly one provider per artifact id”.
+
+**Quick take**
+- Mostly yes: the tag registry gets artifact tag defs (with `satisfies`) without requiring manual recipe wiring, and multi-provider artifacts declared via `artifacts.provides` fail fast at recipe creation.
+
+**What’s strong**
+- The `satisfies` plumbing aligns correctly with the engine’s post-step `UnsatisfiedProvidesError` check (`PipelineExecutor` + `isDependencyTagSatisfied`): a producer can “provide” the tag but still fail if it didn’t actually publish to `ctx.artifacts`.
+- The duplicate-provider error message includes the recipe id + both full step ids, which is the right “actionable” shape for debugging.
+
+**High-leverage issues / risks**
+- `collectTagDefinitions(...)` currently allows explicit `input.tagDefinitions` to override auto-wired artifact tag defs. That’s probably fine as an escape hatch, but it also makes it possible to accidentally shadow an artifact’s `satisfies` and regress gating. If artifacts are meant to be strictly contract-owned, consider preventing explicit overrides for `artifact:*` ids (or at least warning).
+- **PR feedback partially unresolved:** there’s an inline comment noting the duplicate-producer enforcement only considers `contract.artifacts?.provides`, not legacy `provides` entries that start with `artifact:`. If the stack fully migrates all artifact producers to `artifacts.provides` (and bans legacy `artifact:*` provides), this becomes moot; otherwise, mixed-mode recipes can still produce ambiguous artifact ownership without failing fast.
+
+**PR comments**
+- 1 inline review comment (Codex bot) about duplicate-producer enforcement not accounting for legacy `provides: ["artifact:..."]`; verify this is eliminated by the downstream migration (or tighten the enforcement).
+
 ### `agent-CANDY-LOCAL-TBD-M8-U21-B-step-artifacts` — PR #534 (`feat(step): add artifacts declaration to step contract`)
 
 **Review effort estimate (complexity × parallelism)**
