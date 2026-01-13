@@ -11,8 +11,10 @@ import {
   createStage,
   createStrategy,
   createStep,
+  defineArtifact,
   defineOp,
   defineStep,
+  implementArtifacts,
   runtimeOp,
 } from "@mapgen/authoring/index.js";
 import type { DomainOpCompileAny } from "@mapgen/authoring/index.js";
@@ -284,6 +286,55 @@ describe("authoring SDK", () => {
     expect(() =>
       createRecipe({ id: "core.base", tagDefinitions: [], stages: [stage], compileOpsById: {} })
     ).toThrow(/Invalid dependency tag/);
+  });
+
+  it("createRecipe rejects duplicates against legacy artifact providers", () => {
+    const contract = defineArtifact({
+      name: "alphaArtifact",
+      id: "artifact:test/alpha",
+      schema: Type.Object({}, { additionalProperties: false }),
+    });
+
+    const stepA = createStep(
+      defineStep({
+        id: "alpha",
+        phase: "foundation",
+        requires: [],
+        provides: [],
+        artifacts: { provides: [contract] as const },
+        schema: EmptyStepConfigSchema,
+      }),
+      {
+        artifacts: implementArtifacts([contract] as const, { alphaArtifact: {} }),
+        run: () => {},
+      }
+    );
+
+    const stepB = createStep(
+      defineStep({
+        id: "beta",
+        phase: "foundation",
+        requires: [],
+        provides: [contract.id],
+        schema: EmptyStepConfigSchema,
+      }),
+      { run: () => {} }
+    );
+
+    const stage = createStage({
+      id: "foundation",
+      knobsSchema: EmptyKnobsSchema,
+      steps: [stepA, stepB],
+    });
+
+    expect(() =>
+      createRecipe({
+        id: "core.base",
+        tagDefinitions: [],
+        stages: [stage],
+        compileOpsById: {},
+      })
+    ).toThrow(/provided by multiple steps/i);
   });
 
   it("compile applies schema defaults and rejects unknown keys", () => {

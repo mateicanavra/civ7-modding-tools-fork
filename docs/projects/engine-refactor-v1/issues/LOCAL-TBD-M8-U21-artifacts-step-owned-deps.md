@@ -60,6 +60,13 @@ Phase 2 (deferred, requires check-in):
 - **Rationale:** Prevent silent gating drift and ensure provides contracts always have runtime behavior.
 - **Risk:** Misconfigured steps will now error at recipe creation time rather than failing later at execution.
 
+### Enforce single-producer only for artifacts declared via `artifacts.provides`
+- **Context:** Phase 1 must be additive; existing recipes may still declare artifact ids directly in `requires/provides`.
+- **Options:** Enforce duplicate producers across all artifact ids; enforce only for new `artifacts.provides` contracts.
+- **Choice:** Enforce single producer only for artifacts declared via `artifacts.provides`.
+- **Rationale:** Avoid breaking existing consumers while ensuring the new contract-first path is safe.
+- **Risk:** Duplicate producers declared via legacy `requires/provides` are not caught until Phase 2 migration.
+
 ## TL;DR
 ```yaml
 tldr:
