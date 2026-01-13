@@ -55,3 +55,170 @@ If we proceed to “one level deeper”, the concrete deliverable to produce is 
 
 Open question to answer with evidence:
 - Which additional Civ7 gameplay levers exist in official scripts that we do **not** currently expose via `EngineAdapter` (e.g., script-level APIs that are present but not wrapped yet), and whether they belong in the gameplay domain refactor scope.
+
+---
+
+## Deep inventory (one level deeper)
+
+This section turns the “planned next deepening” bullets into an **evidence-backed inventory** of what a merged Gameplay domain would likely absorb (and what it would need to keep interoperating with).
+
+### 1) Where the gameplay-shaped stages live today (recipe order)
+
+The standard recipe stage braid (source of truth for ordering):
+- `mods/mod-swooper-maps/src/recipes/standard/recipe.ts`
+
+```yaml
+stages_in_order:
+  - foundation
+  - morphology-pre
+  - narrative-pre
+  - morphology-mid
+  - narrative-mid
+  - morphology-post
+  - hydrology-pre
+  - narrative-swatches
+  - hydrology-core
+  - narrative-post
+  - hydrology-post
+  - ecology
+  - placement
+```
+
+**Implication:** “gameplay” (as narrative + placement) is not one contiguous stage today; it is **interleaved** with morphology and hydrology.
+
+### 2) Narrative stages + steps (overlay production)
+
+Narrative’s explicit stage footprints:
+
+```yaml
+stages:
+  - id: narrative-pre
+    stage_dir: mods/mod-swooper-maps/src/recipes/standard/stages/narrative-pre
+    stage_module: mods/mod-swooper-maps/src/recipes/standard/stages/narrative-pre/index.ts
+    artifacts_module: mods/mod-swooper-maps/src/recipes/standard/stages/narrative-pre/artifacts.ts
+    artifacts:
+      - name: overlays
+        id: artifact:storyOverlays
+        notes: "Single shared overlays container (corridors/swatches/motifs arrays; additionalProperties allowed)."
+    steps:
+      - id: story-seed
+        contract: mods/mod-swooper-maps/src/recipes/standard/stages/narrative-pre/steps/storySeed.contract.ts
+        impl: mods/mod-swooper-maps/src/recipes/standard/stages/narrative-pre/steps/storySeed.ts
+        artifacts:
+          provides: [overlays]
+        notes: "Implements/publishes overlays once via `deps.artifacts.overlays.publish(ctx, ctx.overlays)` (establishes the shared container)."
+      - id: story-hotspots
+        contract: mods/mod-swooper-maps/src/recipes/standard/stages/narrative-pre/steps/storyHotspots.contract.ts
+        impl: mods/mod-swooper-maps/src/recipes/standard/stages/narrative-pre/steps/storyHotspots.ts
+        artifacts:
+          requires: [overlays]
+        notes: "Appends HOTSPOTS overlay snapshots into `ctx.overlays` via narrative tagging utilities."
+      - id: story-rifts
+        contract: mods/mod-swooper-maps/src/recipes/standard/stages/narrative-pre/steps/storyRifts.contract.ts
+        impl: mods/mod-swooper-maps/src/recipes/standard/stages/narrative-pre/steps/storyRifts.ts
+        artifacts:
+          requires: [foundationPlates, overlays]
+        notes: "Appends RIFTS overlays; depends on Foundation plate fields."
+      - id: story-corridors-pre
+        contract: mods/mod-swooper-maps/src/recipes/standard/stages/narrative-pre/steps/storyCorridorsPre.contract.ts
+        impl: mods/mod-swooper-maps/src/recipes/standard/stages/narrative-pre/steps/storyCorridorsPre.ts
+        artifacts:
+          requires: [overlays]
+        notes: "Computes pre-islands corridors from prior motifs (hotspots + rifts)."
+
+  - id: narrative-mid
+    stage_dir: mods/mod-swooper-maps/src/recipes/standard/stages/narrative-mid
+    stage_module: mods/mod-swooper-maps/src/recipes/standard/stages/narrative-mid/index.ts
+    steps:
+      - id: story-orogeny
+        contract: mods/mod-swooper-maps/src/recipes/standard/stages/narrative-mid/steps/storyOrogeny.contract.ts
+        impl: mods/mod-swooper-maps/src/recipes/standard/stages/narrative-mid/steps/storyOrogeny.ts
+        artifacts:
+          requires: [foundationPlates, foundationDynamics, overlays]
+        notes: "Appends OROGENY overlay snapshots; depends on Foundation plates + dynamics."
+
+  - id: narrative-swatches
+    stage_dir: mods/mod-swooper-maps/src/recipes/standard/stages/narrative-swatches
+    stage_module: mods/mod-swooper-maps/src/recipes/standard/stages/narrative-swatches/index.ts
+    steps:
+      - id: story-swatches
+        contract: mods/mod-swooper-maps/src/recipes/standard/stages/narrative-swatches/steps/storySwatches.contract.ts
+        impl: mods/mod-swooper-maps/src/recipes/standard/stages/narrative-swatches/steps/storySwatches.ts
+        artifacts:
+          requires: [heightfield, climateField, foundationDynamics, overlays]
+        notes: "Appends SWATCHES + PALEO overlays (climate-informed) when enabled."
+
+  - id: narrative-post
+    stage_dir: mods/mod-swooper-maps/src/recipes/standard/stages/narrative-post
+    stage_module: mods/mod-swooper-maps/src/recipes/standard/stages/narrative-post/index.ts
+    steps:
+      - id: story-corridors-post
+        contract: mods/mod-swooper-maps/src/recipes/standard/stages/narrative-post/steps/storyCorridorsPost.contract.ts
+        impl: mods/mod-swooper-maps/src/recipes/standard/stages/narrative-post/steps/storyCorridorsPost.ts
+        artifacts:
+          requires: [overlays, riverAdjacency]
+        notes: "Post-rivers corridor pass; appends another CORRIDORS snapshot keyed to the `postRivers` stage."
+```
+
+**Important nuance:** narrative stages are “gameplay-shaped”, but their steps **depend on physics artifacts** (Foundation plates/dynamics; Hydrology riverAdjacency; Hydrology Pre buffers-as-artifacts).
+
+### 3) Placement stage + steps (board setup + content placement)
+
+Placement’s explicit stage footprint:
+
+```yaml
+stage:
+  id: placement
+  stage_dir: mods/mod-swooper-maps/src/recipes/standard/stages/placement
+  stage_module: mods/mod-swooper-maps/src/recipes/standard/stages/placement/index.ts
+  artifacts_module: mods/mod-swooper-maps/src/recipes/standard/stages/placement/artifacts.ts
+  artifacts:
+    - name: placementInputs
+      id: artifact:placementInputs
+      schema: mods/mod-swooper-maps/src/recipes/standard/stages/placement/placement-inputs.ts
+    - name: placementOutputs
+      id: artifact:placementOutputs
+      schema: mods/mod-swooper-maps/src/recipes/standard/stages/placement/placement-outputs.ts
+  steps:
+    - id: derive-placement-inputs
+      contract: mods/mod-swooper-maps/src/recipes/standard/stages/placement/steps/derive-placement-inputs/contract.ts
+      impl: mods/mod-swooper-maps/src/recipes/standard/stages/placement/steps/derive-placement-inputs/index.ts
+      artifacts:
+        provides: [placementInputs]
+      ops:
+        - "@mapgen/domain/placement ops: planWonders, planFloodplains, planStarts"
+      notes: "Derives placementInputs (plans) from runtime mapInfo + baseStarts."
+    - id: placement
+      contract: mods/mod-swooper-maps/src/recipes/standard/stages/placement/steps/placement/contract.ts
+      impl: mods/mod-swooper-maps/src/recipes/standard/stages/placement/steps/placement/index.ts
+      artifacts:
+        requires: [placementInputs]
+        provides: [placementOutputs]
+      notes: "Applies engine-side placement (wonders/resources/starts/discoveries/etc) via adapter."
+```
+
+The engine-facing apply boundary:
+- `mods/mod-swooper-maps/src/recipes/standard/stages/placement/steps/placement/apply.ts`
+
+### 4) Cross-pipeline overlay consumers (who reads gameplay “story”)
+
+The overlays container is produced/published in `narrative-pre`, then **read across multiple later stages**:
+
+```yaml
+overlay_consumers:
+  - step: mods/mod-swooper-maps/src/recipes/standard/stages/morphology-mid/steps/ruggedCoasts.ts
+    reads: [motifs.margins, corridors]
+  - step: mods/mod-swooper-maps/src/recipes/standard/stages/morphology-post/steps/islands.ts
+    reads: [motifs.margins, motifs.hotspots, corridors]
+  - step: mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-post/steps/climateRefine.ts
+    reads: [motifs.rifts, motifs.hotspots]
+  - step: mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/biomes/index.ts
+    reads: [corridors, motifs.rifts]
+  - step: mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/features/index.ts
+    reads: [motifs.hotspots, motifs.margins]
+```
+
+**Notable wrinkle:** at least one **non-narrative** step also publishes a story overlay:
+- `mods/mod-swooper-maps/src/recipes/standard/stages/morphology-post/steps/islands.ts` publishes `STORY_OVERLAY_KEYS.HOTSPOTS` after island-chain shaping.
+
+This supports the “overlays are append-preferred, cross-domain, story-shaped outputs” stance: overlay production is not strictly confined to narrative stages today.
