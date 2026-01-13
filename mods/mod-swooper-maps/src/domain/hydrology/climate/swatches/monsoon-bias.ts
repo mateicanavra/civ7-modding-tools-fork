@@ -1,16 +1,15 @@
 import { clamp } from "@swooper/mapgen-core/lib/math";
 import type { FoundationDirectionalityConfig } from "@mapgen/domain/config";
-import type { ExtendedMapContext } from "@swooper/mapgen-core";
-import { assertFoundationDynamics } from "@swooper/mapgen-core";
+import type { FoundationDynamicsFields } from "@swooper/mapgen-core";
 import type { SwatchHelpers, SwatchRuntime } from "@mapgen/domain/hydrology/climate/swatches/types.js";
 
 export function applyMonsoonBiasPass(
   width: number,
   height: number,
-  ctx: ExtendedMapContext,
   runtime: SwatchRuntime,
   helpers: SwatchHelpers,
-  directionality: FoundationDirectionalityConfig
+  directionality: FoundationDirectionalityConfig,
+  dynamics: FoundationDynamicsFields
 ): void {
   const { readRainfall, writeRainfall, idx } = runtime;
   const { inLocalBounds, isWater, isCoastalLand, signedLatitudeAt } = helpers;
@@ -21,7 +20,6 @@ export function applyMonsoonBiasPass(
   const COH = Math.max(0, Math.min(1, directionality.cohesion ?? 0));
   const eqBand = Math.max(0, (hemispheres?.equatorBandDeg ?? 12) | 0);
 
-  const dynamics = assertFoundationDynamics(ctx, "story-swatches");
   if (monsoonBias > 0 && COH > 0) {
     const baseDelta = Math.max(1, Math.round(3 * COH * monsoonBias));
 

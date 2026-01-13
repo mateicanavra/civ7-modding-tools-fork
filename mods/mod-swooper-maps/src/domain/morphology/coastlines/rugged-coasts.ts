@@ -1,6 +1,6 @@
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
+import type { FoundationPlateFields } from "@swooper/mapgen-core";
 import { ctxRandom, writeHeightfield } from "@swooper/mapgen-core";
-import { assertFoundationPlates } from "@swooper/mapgen-core";
 import { clamp } from "@swooper/mapgen-core/lib/math";
 import { forEachNeighbor3x3 } from "@swooper/mapgen-core/lib/grid";
 import { BOUNDARY_TYPE } from "@mapgen/domain/foundation/constants.js";
@@ -30,9 +30,9 @@ export function addRuggedCoasts(
   iHeight: number,
   ctx: ExtendedMapContext,
   config: { coastlines?: CoastlinesConfig; corridors?: CorridorPolicy },
+  plates: FoundationPlateFields,
   artifacts: RuggedCoastsArtifacts = {}
 ): void {
-  const plates = assertFoundationPlates(ctx, "coastlines");
   const adapter = ctx.adapter;
 
   const area = Math.max(1, iWidth * iHeight);

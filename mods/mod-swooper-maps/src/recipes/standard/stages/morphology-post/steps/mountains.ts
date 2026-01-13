@@ -11,7 +11,7 @@ import MountainsStepContract from "./mountains.contract.js";
 
 export default createStep(MountainsStepContract, {
   run: (context, config, _ops, deps) => {
-    void deps.artifacts.foundationPlates.read(context);
+    const plates = deps.artifacts.foundationPlates.read(context);
     const runtime = getStandardRuntime(context);
     const { width, height } = context.dimensions;
     const mountainOptions = config.mountains as MountainsConfig;
@@ -28,7 +28,7 @@ export default createStep(MountainsStepContract, {
         `interiorPenaltyWeight=${mountainOptions.interiorPenaltyWeight}`
     );
 
-    layerAddMountainsPhysics(context, mountainOptions);
+    layerAddMountainsPhysics(context, plates, mountainOptions);
 
     logMountainSummary(context.trace, context.adapter, width, height);
     logReliefAscii(context.trace, context.adapter, width, height);

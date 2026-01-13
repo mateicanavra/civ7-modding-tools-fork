@@ -109,6 +109,12 @@ Post Slice 2 re-run (after additive mesh-first artifacts + ops scaffolding):
 - `pnpm -C mods/mod-swooper-maps build`: pass
 - `pnpm deploy:mods`: pass
 
+Post Slice 3 re-run (after removing ctx.artifacts.get coupling for Foundation consumers):
+- `pnpm -C packages/mapgen-core check`: pass
+- `pnpm -C packages/mapgen-core test`: pass
+- `pnpm -C mods/mod-swooper-maps check`: pass
+- `pnpm -C mods/mod-swooper-maps test`: pass
+
 ### Implementation Decisions
 
 #### Slice 2: mesh-first artifact representation (scaffolding)
