@@ -18,6 +18,18 @@ related_to:
   - LOCAL-TBD-M7-C1
 ---
 
+## Sequencing
+Phase 1 (packages/mapgen-core only, additive, no consumer edits):
+1. U21-A — Add artifact authoring primitives (defineArtifact, implementArtifacts).
+2. U21-B — Extend defineStep with artifacts.requires/provides + flat enforcement.
+3. U21-E — StepModule carries provided artifact runtimes.
+4. U21-C — Thread deps into step runtime (run(ctx, config, ops, deps)).
+5. U21-D — createRecipe auto-wires artifact tag defs + satisfiers.
+6. U21-G — Tests + verification harness (mapgen-core scope).
+
+Phase 2 (deferred, requires check-in):
+1. U21-F — Migrate mod-swooper-maps standard recipe (no shims).
+
 ## TL;DR
 ```yaml
 tldr:
