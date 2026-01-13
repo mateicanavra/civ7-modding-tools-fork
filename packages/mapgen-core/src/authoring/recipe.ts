@@ -34,7 +34,10 @@ import type {
   StepDeps,
 } from "./types.js";
 
-type AnyStage<TContext> = Stage<TContext, readonly Step<TContext, any, any, any>[]>;
+type AnyStage<TContext extends ExtendedMapContext> = Stage<
+  TContext,
+  readonly Step<TContext, any, any, any>[]
+>;
 
 type StepOccurrence<TContext> = {
   stageId: string;

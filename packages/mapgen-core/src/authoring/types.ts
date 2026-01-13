@@ -22,43 +22,46 @@ type ArtifactsByName<T extends readonly ArtifactContract[]> = {
   [Name in T[number]["name"] & string]: Extract<T[number], { name: Name }>;
 };
 
+type ArtifactNameOf<T extends readonly ArtifactContract[]> = Extract<keyof ArtifactsByName<T>, string>;
+
+type ArtifactByName<T extends readonly ArtifactContract[], K extends string> = Extract<
+  T[number],
+  { name: K }
+>;
+
 export type StepProvidedArtifactsRuntime<
-  TContext,
+  TContext extends ExtendedMapContext,
   TArtifacts extends StepArtifactsDecl | undefined,
-> = TContext extends ExtendedMapContext
-  ? TArtifacts extends StepArtifactsDecl<any, infer Provides>
-    ? Provides extends readonly ArtifactContract[]
-      ? {
-          [Name in keyof ArtifactsByName<Provides> & string]: ProvidedArtifactRuntime<
-            ArtifactsByName<Provides>[Name],
-            TContext
-          >;
-        }
-      : {}
+> = TArtifacts extends StepArtifactsDecl<any, infer Provides>
+  ? Provides extends readonly ArtifactContract[]
+    ? {
+        [K in ArtifactNameOf<Provides>]: ProvidedArtifactRuntime<ArtifactByName<Provides, K>, TContext>;
+      }
     : {}
   : {};
 
 type ArtifactListOrEmpty<T> = T extends readonly ArtifactContract[] ? T : readonly [];
 
-type StepArtifactsSurface<TContext, TArtifacts extends StepArtifactsDecl | undefined> =
-  TContext extends ExtendedMapContext
-    ? TArtifacts extends StepArtifactsDecl<infer Requires, infer Provides>
-      ? {
-          [K in keyof ArtifactsByName<ArtifactListOrEmpty<Requires>>]: RequiredArtifactRuntime<
-            ArtifactsByName<ArtifactListOrEmpty<Requires>>[K],
-            TContext
-          >;
-        } & {
-          [K in keyof ArtifactsByName<ArtifactListOrEmpty<Provides>>]: ProvidedArtifactRuntime<
-            ArtifactsByName<ArtifactListOrEmpty<Provides>>[K],
-            TContext
-          >;
-        }
-      : {}
+type StepArtifactsSurface<
+  TContext extends ExtendedMapContext,
+  TArtifacts extends StepArtifactsDecl | undefined,
+> =
+  TArtifacts extends StepArtifactsDecl<infer Requires, infer Provides>
+    ? {
+        [K in ArtifactNameOf<ArtifactListOrEmpty<Requires>>]: RequiredArtifactRuntime<
+          ArtifactByName<ArtifactListOrEmpty<Requires>, K>,
+          TContext
+        >;
+      } & {
+        [K in ArtifactNameOf<ArtifactListOrEmpty<Provides>>]: ProvidedArtifactRuntime<
+          ArtifactByName<ArtifactListOrEmpty<Provides>, K>,
+          TContext
+        >;
+      }
     : {};
 
 export type StepDeps<
-  TContext,
+  TContext extends ExtendedMapContext,
   TArtifacts extends StepArtifactsDecl | undefined,
 > = Readonly<{
   artifacts: StepArtifactsSurface<TContext, TArtifacts>;
@@ -67,7 +70,7 @@ export type StepDeps<
 }>;
 
 export type Step<
-  TContext = ExtendedMapContext,
+  TContext extends ExtendedMapContext = ExtendedMapContext,
   TConfig = unknown,
   TOps = unknown,
   TArtifacts extends StepArtifactsDecl | undefined = StepArtifactsDecl | undefined,
@@ -81,7 +84,7 @@ export type Step<
 export const RESERVED_STAGE_KEY = "knobs" as const;
 export type ReservedStageKey = typeof RESERVED_STAGE_KEY;
 
-type StepsArray<TContext> = readonly Step<TContext, any>[];
+type StepsArray<TContext extends ExtendedMapContext> = readonly Step<TContext, any>[];
 type StepIdOf<TSteps extends StepsArray<any>> = TSteps[number]["contract"]["id"] & string;
 type NonReservedStepIdOf<TSteps extends StepsArray<any>> = Exclude<StepIdOf<TSteps>, ReservedStageKey>;
 
@@ -105,7 +108,7 @@ export type StageCompileFn<PublicSchema extends TObject, StepId extends string, 
 
 export type StageDef<
   Id extends string,
-  TContext,
+  TContext extends ExtendedMapContext,
   KnobsSchema extends TObject,
   Knobs = Static<KnobsSchema>,
   TSteps extends StepsArray<TContext> = StepsArray<TContext>,
@@ -122,7 +125,7 @@ export type StageDef<
 
 export type StageContract<
   Id extends string,
-  TContext,
+  TContext extends ExtendedMapContext,
   KnobsSchema extends TObject,
   Knobs = Static<KnobsSchema>,
   TSteps extends StepsArray<TContext> = StepsArray<TContext>,
@@ -136,10 +139,10 @@ export type StageContract<
     >;
   }>;
 
-export type StageContractAny = StageContract<string, any, any, any, any, any>;
+export type StageContractAny = StageContract<string, ExtendedMapContext, any, any, any, any>;
 
 export type Stage<
-  TContext = ExtendedMapContext,
+  TContext extends ExtendedMapContext = ExtendedMapContext,
   TSteps extends StepsArray<TContext> = StepsArray<TContext>,
   KnobsSchema extends TObject = TObject,
   PublicSchema extends TObject | undefined = TObject | undefined,
@@ -198,7 +201,7 @@ export type CompiledRecipeConfigOf<
 > = RecipeConfigOf<TStages>;
 
 export type RecipeDefinition<
-  TContext = ExtendedMapContext,
+  TContext extends ExtendedMapContext = ExtendedMapContext,
   TStages extends readonly Stage<TContext, readonly Step<TContext, any>[]>[] = readonly Stage<
     TContext,
     readonly Step<TContext, any>[]
@@ -213,7 +216,7 @@ export type RecipeDefinition<
 }>;
 
 export type RecipeModule<
-  TContext = ExtendedMapContext,
+  TContext extends ExtendedMapContext = ExtendedMapContext,
   TConfigInput = RecipeConfigInputOf<any> | null,
   TConfigCompiled = RecipeConfig,
 > = {
@@ -236,12 +239,12 @@ export type RecipeModule<
 };
 
 export type StepModule<
-  TContext = ExtendedMapContext,
+  TContext extends ExtendedMapContext = ExtendedMapContext,
   TConfig = unknown,
   TOps = unknown,
   TArtifacts extends StepArtifactsDecl | undefined = StepArtifactsDecl | undefined,
 > = Step<TContext, TConfig, TOps, TArtifacts>;
 export type StageModule<
-  TContext = ExtendedMapContext,
+  TContext extends ExtendedMapContext = ExtendedMapContext,
   TSteps extends readonly Step<TContext, any>[] = readonly Step<TContext, any>[],
 > = Stage<TContext, TSteps>;

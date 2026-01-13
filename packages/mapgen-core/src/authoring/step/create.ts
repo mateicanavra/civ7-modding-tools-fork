@@ -9,8 +9,10 @@ import type { StepDeps, StepModule, StepProvidedArtifactsRuntime } from "../type
 type StepConfigOf<C extends StepContract<any, any, any>> = Static<C["schema"]>;
 type StepOpsOf<C extends StepContract<any, any, any>> = StepRuntimeOps<NonNullable<C["ops"]>>;
 
-type StepArtifactsRuntime<C extends StepContract<any, any, any>, TContext> =
-  StepProvidedArtifactsRuntime<TContext, C["artifacts"]>;
+type StepArtifactsRuntime<
+  C extends StepContract<any, any, any>,
+  TContext extends ExtendedMapContext,
+> = StepProvidedArtifactsRuntime<TContext, C["artifacts"]>;
 
 type StepImpl<TContext, TConfig, TOps, TArtifacts, TDeps> = Readonly<{
   artifacts?: TArtifacts;
@@ -20,7 +22,7 @@ type StepImpl<TContext, TConfig, TOps, TArtifacts, TDeps> = Readonly<{
 
 export function createStep<
   const C extends StepContract<any, any, any>,
-  TContext = ExtendedMapContext,
+  TContext extends ExtendedMapContext = ExtendedMapContext,
 >(
   contract: C,
   impl: StepImpl<
@@ -41,7 +43,9 @@ export function createStep<
   };
 }
 
-export type CreateStepFor<TContext> = <const C extends StepContract<any, any, any>>(
+export type CreateStepFor<TContext extends ExtendedMapContext> = <
+  const C extends StepContract<any, any, any>,
+>(
   contract: C,
   impl: StepImpl<
     TContext,
@@ -52,6 +56,6 @@ export type CreateStepFor<TContext> = <const C extends StepContract<any, any, an
   >
 ) => StepModule<TContext, StepConfigOf<C>, StepOpsOf<C>, C["artifacts"]>;
 
-export function createStepFor<TContext>(): CreateStepFor<TContext> {
+export function createStepFor<TContext extends ExtendedMapContext>(): CreateStepFor<TContext> {
   return (contract, impl) => createStep(contract, impl);
 }

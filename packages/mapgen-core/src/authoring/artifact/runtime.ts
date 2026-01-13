@@ -69,6 +69,13 @@ type ArtifactsByName<T extends readonly ArtifactContract[]> = {
   [Name in T[number]["name"] & string]: Extract<T[number], { name: Name }>;
 };
 
+type ArtifactNameOf<T extends readonly ArtifactContract[]> = Extract<keyof ArtifactsByName<T>, string>;
+
+type ArtifactByName<T extends readonly ArtifactContract[], K extends string> = Extract<
+  T[number],
+  { name: K }
+>;
+
 export type RequiredArtifactRuntime<
   C extends ArtifactContract,
   TContext extends ExtendedMapContext,
@@ -167,34 +174,31 @@ export function implementArtifacts<
 >(
   provides: Provides,
   impl: {
-    [K in keyof ArtifactsByName<Provides> & string]: ArtifactRuntimeImpl<
-      ArtifactsByName<Provides>[K],
-      TContext
-    >;
+    [K in ArtifactNameOf<Provides>]: ArtifactRuntimeImpl<ArtifactByName<Provides, K>, TContext>;
   }
 ): {
-  [K in keyof ArtifactsByName<Provides> & string]: ProvidedArtifactRuntime<
-    ArtifactsByName<Provides>[K],
+  [K in ArtifactNameOf<Provides>]: ProvidedArtifactRuntime<
+    ArtifactByName<Provides, K>,
     TContext
   >;
 } {
   assertUniqueContracts(provides);
 
   const runtimes = {} as {
-    [K in keyof ArtifactsByName<Provides> & string]: ProvidedArtifactRuntime<
-      ArtifactsByName<Provides>[K],
+    [K in ArtifactNameOf<Provides>]: ProvidedArtifactRuntime<
+      ArtifactByName<Provides, K>,
       TContext
     >;
   };
 
   for (const contract of provides) {
-    const runtimeImpl = impl[contract.name as keyof ArtifactsByName<Provides>] as ArtifactRuntimeImpl<
+    const runtimeImpl = impl[contract.name as ArtifactNameOf<Provides>] as ArtifactRuntimeImpl<
       typeof contract,
       TContext
     >;
     const satisfies = runtimeImpl.satisfies ?? buildDefaultSatisfies(contract, runtimeImpl);
 
-    (runtimes as any)[contract.name as keyof ArtifactsByName<Provides>] = {
+    const runtime: ProvidedArtifactRuntime<typeof contract, TContext> = {
       contract,
       read: (context) => {
         const { hasValue, value } = readStored(context, contract);
@@ -245,7 +249,9 @@ export function implementArtifacts<
         return value as ArtifactReadValueOf<typeof contract>;
       },
       satisfies,
-    } as ProvidedArtifactRuntime<typeof contract, TContext>;
+    };
+    runtimes[contract.name as ArtifactNameOf<Provides>] =
+      runtime as ProvidedArtifactRuntime<ArtifactByName<Provides, ArtifactNameOf<Provides>>, TContext>;
   }
 
   return runtimes;
