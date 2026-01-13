@@ -360,6 +360,29 @@ Branches (downstack → upstack):
 **PR comments**
 - 1 inline review comment (Codex bot) about duplicate-producer enforcement not accounting for legacy `provides: ["artifact:..."]`; verify this is eliminated by the downstream migration (or tighten the enforcement).
 
+### `agent-CANDY-LOCAL-TBD-M8-U21-G-tests` — PR #538 (`feat(artifacts): implement step-owned artifact dependencies`)
+
+**Review effort estimate (complexity × parallelism)**
+- Medium × Medium (6/16): correctness hardening + tests; serial with Phase 2 migration.
+
+**Intent (from issue doc)**
+- Land U21-G: add a verification harness/tests for the new artifacts wiring (Phase 1 scoped to `packages/mapgen-core`).
+
+**Quick take**
+- Mostly yes: the added tests cover the core invariants (contract merge rules, artifact runtime errors, and “provider must publish” enforcement via `UnsatisfiedProvidesError`).
+
+**What’s strong**
+- `packages/mapgen-core/test/pipeline/tag-registry.test.ts` has a direct regression test for the most important behavior: a step can declare `artifacts.provides`, “provide” the tag, and still fail postconditions if it didn’t publish to `ctx.artifacts`.
+- `packages/mapgen-core/test/authoring/authoring.test.ts` exercises the artifact runtime wrapper error shapes (`ArtifactMissingError`, `ArtifactValidationError`, `ArtifactDoublePublishError`) and validates the `defineStep` merge guardrails.
+- The type-level test (`packages/mapgen-core/src/authoring/__type_tests__/artifact-readonly.ts`) gives a cheap “compile-time guardrail” that the deep-readonly intent doesn’t silently regress.
+
+**High-leverage issues / risks**
+- This PR mixes in some meta-maintenance (issue checkbox updates, triage note, and milestone review doc edits). The triage note is useful, but editing `docs/projects/engine-refactor-v1/reviews/REVIEW-M8.md` from an implementation PR blurs “implementation vs review artifacts”; consider keeping milestone review entries on dedicated review branches only.
+- The triage note correctly calls out that single-producer enforcement is currently scoped to `artifacts.provides` (not legacy `provides: ["artifact:..."]`). That’s acceptable for Phase 1 if Phase 2 migration eliminates legacy artifact provides entirely; otherwise, it’s a correctness footgun that will need enforcement tightening.
+
+**PR comments**
+- No actionable review comments (Graphite boilerplate only); no inline review comments.
+
 ### `agent-CANDY-LOCAL-TBD-M8-U21-B-step-artifacts` — PR #534 (`feat(step): add artifacts declaration to step contract`)
 
 **Review effort estimate (complexity × parallelism)**
