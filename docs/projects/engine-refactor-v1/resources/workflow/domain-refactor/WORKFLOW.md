@@ -687,4 +687,5 @@ Prior art / sequencing helpers:
   - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/FOUNDATION.md`
   - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/MORPHOLOGY.md`
   - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/HYDROLOGY.md`
+  - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/ECOLOGY.md`
 - Standard recipe stage order: `mods/mod-swooper-maps/src/recipes/standard/recipe.ts`
