@@ -28,7 +28,7 @@ Phases are **adaptive**: each phase produces concrete artifacts, then a required
 8. **Lookback 4 (Phase 4 → Phase 5): Stabilize and reconcile** → append lookback findings into the Phase 3 issue doc
 9. **Phase 5: Verification + cleanup + submit** → run gates, submit, remove worktrees
 
-## Required “living artifacts” (keep updated)
+## Required “living artifacts” (keep updated; canonical plan spine)
 
 Each domain refactor must maintain these artifacts as a **single-source-of-truth spine** for the refactor. They can live in the domain plan doc (recommended), or be embedded into the Phase 1/2 spike docs + Phase 3 issue doc if you are not using a plan doc.
 
@@ -37,6 +37,31 @@ Each domain refactor must maintain these artifacts as a **single-source-of-truth
 - **Decisions + defaults:** assumptions you are using *right now*; explicit triggers to revisit.
 - **Risk register:** top risks, whether blocking, and the mitigation plan (usually slice ordering).
 - **Golden path example:** one representative step, showing canonical imports + `run(ctx, config, ops, deps)` + `deps.artifacts.*` usage + docs-as-code.
+
+These artifacts exist to prevent “black ice”:
+- they force you to name what is public,
+- force you to name who depends on what,
+- force you to record assumptions and risks,
+- and force you to keep the plan synchronized with what you learned in each phase.
+
+## Domain resource directory (recommended for larger artifacts)
+
+If any of the “living artifacts” above start to get long, split them into standalone docs under a per-domain resources directory, and link them from the spikes/issues instead of duplicating.
+
+Recommended location:
+- `docs/projects/engine-refactor-v1/resources/domains/<domain>/`
+
+Recommended “outside view” doc set (create only what you need; keep it small):
+- `docs/projects/engine-refactor-v1/resources/domains/<domain>/INDEX.md` (optional; links + navigation)
+- `docs/projects/engine-refactor-v1/resources/domains/<domain>/inventory.md` (Domain Surface Inventory)
+- `docs/projects/engine-refactor-v1/resources/domains/<domain>/contract-matrix.md` (Contract Matrix)
+- `docs/projects/engine-refactor-v1/resources/domains/<domain>/decisions.md` (Decisions + Defaults)
+- `docs/projects/engine-refactor-v1/resources/domains/<domain>/risks.md` (Risk Register)
+- `docs/projects/engine-refactor-v1/resources/domains/<domain>/golden-path.md` (Golden Path Example)
+
+Rule of thumb:
+- If it’s referenced across phases and exceeds ~1 page, it belongs in `resources/domains/<domain>/...`.
+- If it’s short and phase-local, keep it in the spike/issue doc.
 
 ## Hard rules (do not violate)
 
@@ -87,6 +112,7 @@ Expanded constraints, wiring diagram, and the “outside view” file surfaces a
 
 **Outputs:**
 - A new branch and worktree for the domain refactor.
+- A place to keep “living artifacts” (either a plan doc or a per-domain resources directory).
 - A recorded baseline run of verification gates (so regressions are attributable).
 
 **Steps (primary checkout):**
@@ -116,6 +142,11 @@ cd ../wt-refactor-<milestone>-<domain>
 
 Patch-path guard (mandatory):
 - Only edit files inside the worktree path.
+
+Create a per-domain resources directory (recommended when artifacts are non-trivial):
+```bash
+mkdir -p docs/projects/engine-refactor-v1/resources/domains/<domain>
+```
 
 Install dependencies (only if you will run checks here):
 ```bash
@@ -154,6 +185,12 @@ gt modify --commit -am "refactor(<domain>): <slice or doc summary>"
 
 **Outputs:**
 - `docs/projects/engine-refactor-v1/resources/spike/spike-<domain>-current-state.md`
+  - Ensure it links to (or embeds) the “living artifacts” spine:
+    - Domain Surface Inventory
+    - Contract Matrix (current-state)
+    - Decisions + Defaults (initial)
+    - Risk Register (initial)
+    - Golden Path Example (initial candidate)
   - complete step map (allsites that touch the domain)
   - dependency gating inventory:
     - `requires`/`provides` (non-artifacts) per step (ids + file paths)
@@ -189,6 +226,7 @@ This lookback is mandatory: Phase 2 is expected to be **re-planned** based on ev
   - Updated model hypotheses (what Phase 2 must validate/decide)
   - Updated deletion list (anything discovered late)
   - Updated cross-pipeline touchpoints (upstream/downstream contracts that Phase 2 must consider)
+  - Updated decisions + defaults + risk register (what became newly true / newly risky)
 
 **Gate (do not proceed until):**
 - [ ] The lookback section exists and includes explicit “plan deltas” (not just a recap).
@@ -232,6 +270,12 @@ Foundation-specific reminder (applies only when `<domain> == foundation`):
 - Update the domain’s canonical modeling reference doc (or create it if missing):
   - `docs/system/libs/mapgen/<domain>.md`
   - Treat this as the “domain-only model + causality” doc; avoid baking in implementation mechanics beyond what’s needed to describe products/contracts.
+ - Update the living artifacts spine to match the target model:
+   - Domain Surface Inventory (what will exist after refactor)
+   - Contract Matrix (target-state)
+   - Decisions + Defaults (target assumptions + triggers)
+   - Risk Register (updated top risks + mitigations)
+   - Golden Path Example (update if Phase 2 changes the canonical step shape)
 
 **Gate (do not proceed until):**
 - [ ] Op catalog is locked with no optionality (no “could do A or B”).
