@@ -16,6 +16,7 @@ It also records which “research” docs are safe to treat as **inputs** today 
 - `docs/system/libs/mapgen/hydrology.md`
 - `docs/system/libs/mapgen/ecology.md`
 - `docs/system/libs/mapgen/narrative.md`
+- `docs/system/libs/mapgen/placement.md`
 
 **Seed / legacy research (use for ideas; do not treat as contract truth):**
 - `docs/system/libs/mapgen/research/SPIKE-synthesis-earth-physics-systems-swooper-engine.md`
@@ -103,6 +104,7 @@ These are the minimum “ground truth” docs for Phase 2 modeling work, before 
 **Primary:**
 - `docs/system/libs/mapgen/narrative.md`
 - `docs/system/libs/mapgen/architecture.md`
+- `docs/projects/engine-refactor-v1/resources/PRD-target-narrative-and-playability.md` (canonical narrative/playability contract)
 
 **Seed (optional):**
 - `docs/system/libs/mapgen/research/SPIKE-synthesis-earth-physics-systems-swooper-engine.md`
@@ -110,9 +112,11 @@ These are the minimum “ground truth” docs for Phase 2 modeling work, before 
 ### Placement
 
 **Primary:**
+- `docs/system/libs/mapgen/placement.md`
 - `docs/system/libs/mapgen/architecture.md` (placement layer definition)
+- `docs/projects/engine-refactor-v1/resources/PRD-target-narrative-and-playability.md` (how playability/narrative signals are produced and consumed)
 
 **Seed (optional):**
 - `docs/system/libs/mapgen/research/SPIKE-civ7-map-generation-features.md` (gameplay constraints)
 
-Note: there is no `docs/system/libs/mapgen/placement.md` today. If placement is being vertically remodeled, create a domain-only placement doc as part of Phase 2 (domain ownership, products, and causality), and then treat that doc as canonical going forward.
+Note: `docs/system/libs/mapgen/placement.md` is the canonical placement modeling input for Phase 2.
