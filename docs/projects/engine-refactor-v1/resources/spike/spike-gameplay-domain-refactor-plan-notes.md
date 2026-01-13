@@ -222,3 +222,131 @@ overlay_consumers:
 - `mods/mod-swooper-maps/src/recipes/standard/stages/morphology-post/steps/islands.ts` publishes `STORY_OVERLAY_KEYS.HOTSPOTS` after island-chain shaping.
 
 This supports the “overlays are append-preferred, cross-domain, story-shaped outputs” stance: overlay production is not strictly confined to narrative stages today.
+
+### 5) Civ7 scripts vs adapter vs current mod usage (capability matrix)
+
+This is the concrete “what exists” map that a Gameplay domain refactor would need to respect.
+
+**Note on evidence gathering:** the `.civ7/outputs/**` tree is typically ignored by default search tooling (gitignore). When scanning these files, use `rg --no-ignore` to avoid false negatives.
+
+#### A) Canonical “gameplay mapgen” entrypoints (official scripts) and adapter coverage
+
+```yaml
+official_entrypoints:
+  - concern: "natural wonders"
+    official: .civ7/outputs/resources/Base/modules/base-standard/maps/natural-wonder-generator.js
+    exports: [addNaturalWonders]
+    adapter_support:
+      method: EngineAdapter.addNaturalWonders
+      evidence: packages/civ7-adapter/src/types.ts
+    mod_usage:
+      callsite: mods/mod-swooper-maps/src/recipes/standard/stages/placement/steps/placement/apply.ts
+
+  - concern: "resources (bulk generation)"
+    official: .civ7/outputs/resources/Base/modules/base-standard/maps/resource-generator.js
+    exports: [generateResources, canHaveFlowerPlot, getFlowerPlot]
+    adapter_support:
+      method: EngineAdapter.generateResources
+      evidence: packages/civ7-adapter/src/types.ts
+    mod_usage:
+      callsite: mods/mod-swooper-maps/src/recipes/standard/stages/placement/steps/placement/apply.ts
+
+  - concern: "discoveries"
+    official: .civ7/outputs/resources/Base/modules/base-standard/maps/discovery-generator.js
+    exports: [generateDiscoveries]
+    adapter_support:
+      method: EngineAdapter.generateDiscoveries
+      evidence: packages/civ7-adapter/src/types.ts
+    mod_usage:
+      callsite: mods/mod-swooper-maps/src/recipes/standard/stages/placement/steps/placement/apply.ts
+
+  - concern: "start positions (major players)"
+    official: .civ7/outputs/resources/Base/modules/base-standard/maps/assign-starting-plots.js
+    exports:
+      - chooseStartSectors
+      - assignStartPositions
+      - assignSingleContinentStartPositions
+      - assignStartPositionsFromTiles
+    adapter_support:
+      methods:
+        - EngineAdapter.assignStartPositions
+        - EngineAdapter.chooseStartSectors
+        - EngineAdapter.needHumanNearEquator
+      evidence: packages/civ7-adapter/src/types.ts
+    mod_usage:
+      callsite: mods/mod-swooper-maps/src/recipes/standard/stages/placement/steps/placement/apply.ts
+      notes: "The mod currently calls `assignStartPositions(...)`; it does not call `chooseStartSectors(...)` directly."
+
+  - concern: "advanced start regions"
+    official: .civ7/outputs/resources/Base/modules/base-standard/maps/assign-advanced-start-region.js
+    exports: [assignAdvancedStartRegions]
+    adapter_support:
+      method: EngineAdapter.assignAdvancedStartRegions
+      evidence: packages/civ7-adapter/src/types.ts
+    mod_usage:
+      callsite: mods/mod-swooper-maps/src/recipes/standard/stages/placement/steps/placement/apply.ts
+
+  - concern: "floodplains (river post-processing)"
+    official_examples:
+      - .civ7/outputs/resources/Base/modules/base-standard/maps/terra-incognita.js
+      - .civ7/outputs/resources/Base/modules/base-standard/maps/continents.js
+      - .civ7/outputs/resources/Base/modules/base-standard/maps/archipelago.js
+    evidence: "Each map script calls `TerrainBuilder.addFloodplains(4, 10)` as part of the standard sequence."
+    adapter_support:
+      method: EngineAdapter.addFloodplains
+      evidence: packages/civ7-adapter/src/types.ts
+    mod_usage:
+      callsite: mods/mod-swooper-maps/src/recipes/standard/stages/placement/steps/placement/apply.ts
+
+  - concern: "fertility (board scoring inputs)"
+    official_examples:
+      - .civ7/outputs/resources/Base/modules/base-standard/maps/terra-incognita.js
+      - .civ7/outputs/resources/Base/modules/base-standard/maps/continents.js
+    evidence: "Map scripts call `FertilityBuilder.recalculate()` after terrain/features/resources/starts."
+    adapter_support:
+      method: EngineAdapter.recalculateFertility
+      evidence: packages/civ7-adapter/src/types.ts
+    mod_usage:
+      callsite: mods/mod-swooper-maps/src/recipes/standard/stages/placement/steps/placement/apply.ts
+
+  - concern: "water data (board scoring inputs)"
+    official_examples:
+      - .civ7/outputs/resources/Base/modules/base-standard/maps/terra-incognita.js
+    evidence: "Map scripts call `TerrainBuilder.storeWaterData()`."
+    adapter_support:
+      method: EngineAdapter.storeWaterData
+      evidence: packages/civ7-adapter/src/types.ts
+    mod_usage:
+      callsite: mods/mod-swooper-maps/src/recipes/standard/stages/placement/steps/placement/apply.ts
+```
+
+#### B) Notable “exists in scripts, not a first-class adapter capability” levers
+
+These are the clearest “outside-the-box but real” gameplay-ish hooks visible in `base-standard` scripts, which are not yet modeled as adapter-level capabilities in our SDK:
+
+```yaml
+capability_gaps:
+  - concern: "direct resource placement"
+    evidence:
+      - ".civ7/outputs/resources/Base/modules/base-standard/maps/resource-generator.js uses ResourceBuilder.setResourceType(...)"
+      - ".civ7/outputs/resources/Base/modules/base-standard/maps/map-utilities.js uses ResourceBuilder.setResourceType(...)"
+    notes: "Today we treat resources as engine-owned bulk generation (`generateResources`). A Gameplay domain refactor could eventually want explicit, rule-driven resource placement, which would require adapter surface expansion."
+
+  - concern: "start position scoring internals"
+    evidence:
+      - ".civ7/outputs/resources/Base/modules/base-standard/maps/assign-starting-plots.js uses StartPositioner.getStartPositionScore(...) and related helpers"
+    notes: "We currently consume starts as a black-box engine capability (`assignStartPositions`). Fine for now; exposing scoring knobs would be an explicit adapter/API decision."
+
+  - concern: "discovery placement primitives"
+    evidence:
+      - ".civ7/outputs/resources/Base/modules/base-standard/maps/discovery-generator.js places via MapConstructibles.addDiscovery(...)"
+    notes: "Adapter currently wraps the full `generateDiscoveries(...)` routine; custom discovery placement would require exposing lower-level hooks."
+```
+
+#### C) “What I did not find” (broader scan, confirmed)
+
+Using `rg --no-ignore` across `.civ7/outputs/resources/Base/modules/base-standard/maps/*.js`, I still did not find mapgen-time logic for:
+- barbarians / barbarian camps
+- city-states / minor civs / independent factions
+
+The only “camp” hit was in discovery visuals (`\"Campfire\"`), not unit/camp placement logic.
