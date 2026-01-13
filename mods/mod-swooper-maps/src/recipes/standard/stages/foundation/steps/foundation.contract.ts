@@ -11,6 +11,10 @@ const FoundationStepContract = defineStep({
   provides: [],
   artifacts: {
     provides: [
+      foundationArtifacts.mesh,
+      foundationArtifacts.crust,
+      foundationArtifacts.plateGraph,
+      foundationArtifacts.tectonics,
       foundationArtifacts.plates,
       foundationArtifacts.dynamics,
       foundationArtifacts.seed,
@@ -19,6 +23,10 @@ const FoundationStepContract = defineStep({
     ],
   },
   ops: {
+    computeMesh: foundation.ops.computeMesh,
+    computeCrust: foundation.ops.computeCrust,
+    computePlateGraph: foundation.ops.computePlateGraph,
+    computeTectonics: foundation.ops.computeTectonics,
     computePlates: foundation.ops.computePlatesTensors,
     computeDynamics: foundation.ops.computeDynamicsTensors,
   },

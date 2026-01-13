@@ -3,8 +3,12 @@ import {
   FOUNDATION_CONFIG_ARTIFACT_TAG,
   FOUNDATION_DIAGNOSTICS_ARTIFACT_TAG,
   FOUNDATION_DYNAMICS_ARTIFACT_TAG,
+  FOUNDATION_CRUST_ARTIFACT_TAG,
+  FOUNDATION_MESH_ARTIFACT_TAG,
+  FOUNDATION_PLATE_GRAPH_ARTIFACT_TAG,
   FOUNDATION_PLATES_ARTIFACT_TAG,
   FOUNDATION_SEED_ARTIFACT_TAG,
+  FOUNDATION_TECTONICS_ARTIFACT_TAG,
 } from "@swooper/mapgen-core";
 
 const FoundationPlatesArtifactSchema = Type.Object(
@@ -23,6 +27,85 @@ const FoundationPlatesArtifactSchema = Type.Object(
   { additionalProperties: false }
 );
 
+const FoundationMeshArtifactSchema = Type.Object(
+  {
+    cellCount: Type.Integer({ minimum: 1, description: "Number of mesh cells." }),
+    siteX: TypedArraySchemas.f32({ shape: null, description: "X coordinate per mesh cell." }),
+    siteY: TypedArraySchemas.f32({ shape: null, description: "Y coordinate per mesh cell." }),
+    neighborsOffsets: TypedArraySchemas.i32({
+      shape: null,
+      description: "CSR offsets into neighbors array (length = cellCount + 1).",
+    }),
+    neighbors: TypedArraySchemas.i32({ shape: null, description: "CSR neighbor indices." }),
+    areas: TypedArraySchemas.f32({ shape: null, description: "Cell area per mesh cell (units: bbox space)." }),
+    bbox: Type.Object(
+      {
+        xl: Type.Number(),
+        xr: Type.Number(),
+        yt: Type.Number(),
+        yb: Type.Number(),
+      },
+      { additionalProperties: false }
+    ),
+    wrapX: Type.Boolean({ description: "Whether the map wraps in X (cylindrical)." }),
+  },
+  { additionalProperties: false }
+);
+
+const FoundationCrustArtifactSchema = Type.Object(
+  {
+    type: TypedArraySchemas.u8({
+      shape: null,
+      description: "Crust type per mesh cell (0=oceanic, 1=continental).",
+    }),
+    age: TypedArraySchemas.u8({
+      shape: null,
+      description: "Crust age per mesh cell (0=new, 255=ancient).",
+    }),
+  },
+  { additionalProperties: false }
+);
+
+const FoundationPlateGraphArtifactSchema = Type.Object(
+  {
+    cellToPlate: TypedArraySchemas.i16({ shape: null, description: "Plate id per mesh cell." }),
+    plates: Type.Array(
+      Type.Object(
+        {
+          id: Type.Integer({ minimum: 0 }),
+          kind: Type.Union([Type.Literal("major"), Type.Literal("minor")]),
+          seedX: Type.Number(),
+          seedY: Type.Number(),
+          velocityX: Type.Number(),
+          velocityY: Type.Number(),
+          rotation: Type.Number(),
+        },
+        { additionalProperties: false }
+      )
+    ),
+  },
+  { additionalProperties: false }
+);
+
+const FoundationTectonicsArtifactSchema = Type.Object(
+  {
+    boundaryType: TypedArraySchemas.u8({
+      shape: null,
+      description: "Boundary type per mesh cell (BOUNDARY_TYPE values; 0 when non-boundary/unknown).",
+    }),
+    upliftPotential: TypedArraySchemas.u8({ shape: null, description: "Uplift potential per mesh cell (0..255)." }),
+    riftPotential: TypedArraySchemas.u8({ shape: null, description: "Rift potential per mesh cell (0..255)." }),
+    shearStress: TypedArraySchemas.u8({ shape: null, description: "Shear stress per mesh cell (0..255)." }),
+    volcanism: TypedArraySchemas.u8({ shape: null, description: "Volcanism per mesh cell (0..255)." }),
+    fracture: TypedArraySchemas.u8({ shape: null, description: "Fracture potential per mesh cell (0..255)." }),
+    cumulativeUplift: TypedArraySchemas.u8({
+      shape: null,
+      description: "Accumulated uplift per mesh cell (0..255).",
+    }),
+  },
+  { additionalProperties: false }
+);
+
 const FoundationDynamicsArtifactSchema = Type.Object(
   {
     windU: TypedArraySchemas.i8({ description: "Wind U component per tile (-127..127)." }),
@@ -35,6 +118,26 @@ const FoundationDynamicsArtifactSchema = Type.Object(
 );
 
 export const foundationArtifacts = {
+  mesh: defineArtifact({
+    name: "foundationMesh",
+    id: FOUNDATION_MESH_ARTIFACT_TAG,
+    schema: FoundationMeshArtifactSchema,
+  }),
+  crust: defineArtifact({
+    name: "foundationCrust",
+    id: FOUNDATION_CRUST_ARTIFACT_TAG,
+    schema: FoundationCrustArtifactSchema,
+  }),
+  plateGraph: defineArtifact({
+    name: "foundationPlateGraph",
+    id: FOUNDATION_PLATE_GRAPH_ARTIFACT_TAG,
+    schema: FoundationPlateGraphArtifactSchema,
+  }),
+  tectonics: defineArtifact({
+    name: "foundationTectonics",
+    id: FOUNDATION_TECTONICS_ARTIFACT_TAG,
+    schema: FoundationTectonicsArtifactSchema,
+  }),
   plates: defineArtifact({
     name: "foundationPlates",
     id: FOUNDATION_PLATES_ARTIFACT_TAG,

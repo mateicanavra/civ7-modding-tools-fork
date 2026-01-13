@@ -194,6 +194,10 @@ export interface FoundationContext {
 
 export const FOUNDATION_PLATES_ARTIFACT_TAG = "artifact:foundation.plates";
 export const FOUNDATION_DYNAMICS_ARTIFACT_TAG = "artifact:foundation.dynamics";
+export const FOUNDATION_MESH_ARTIFACT_TAG = "artifact:foundation.mesh";
+export const FOUNDATION_CRUST_ARTIFACT_TAG = "artifact:foundation.crust";
+export const FOUNDATION_PLATE_GRAPH_ARTIFACT_TAG = "artifact:foundation.plateGraph";
+export const FOUNDATION_TECTONICS_ARTIFACT_TAG = "artifact:foundation.tectonics";
 export const FOUNDATION_SEED_ARTIFACT_TAG = "artifact:foundation.seed";
 export const FOUNDATION_DIAGNOSTICS_ARTIFACT_TAG = "artifact:foundation.diagnostics";
 export const FOUNDATION_CONFIG_ARTIFACT_TAG = "artifact:foundation.config";
