@@ -294,3 +294,26 @@ Branches (downstack → upstack):
 
 **PR comments**
 - No actionable review comments (Graphite stack boilerplate only); no inline review comments.
+
+### `agent-CANDY-LOCAL-TBD-M8-U21-A-artifact-primitives` — PR #533 (`feat(artifacts): implement step-owned artifact dependency system`)
+
+**Review effort estimate (complexity × parallelism)**
+- Medium × High (4/16): core API surface + error semantics, but largely contained to `packages/mapgen-core`.
+
+**Intent (from issue doc)**
+- Land U21-A primitives: `defineArtifact` contracts + `implementArtifacts` runtime wrapper (read/tryRead/publish + `satisfies`) backed by `ctx.artifacts`.
+
+**Quick take**
+- Mostly yes: the API surface matches the issue doc and the runtime wrapper behavior is coherent (write-once, typed errors, `satisfies` integration, deep-readonly read typing).
+
+**What’s strong**
+- Clear separation of contract vs runtime (`contract.ts` vs `runtime.ts`), with `@swooper/mapgen-core/authoring` re-exporting the canonical entrypoints.
+- Wrapper enforces the right invariants for author DX: missing reads are loud (`ArtifactMissingError`), write-once violations are explicit (`ArtifactDoublePublishError`), and validation failures are structured (`ArtifactValidationError` with `issues` + `cause`).
+- JSDoc is explicit about the “readonly view / no snapshotting” immutability contract at the `read(...)` boundary.
+
+**High-leverage issues / risks**
+- `DeepReadonly<T>` is a useful IntelliSense nudge, but it won’t meaningfully protect typed arrays (or other complex mutables like `Map`/`Set`). This is consistent with the issue doc’s “convention + review” stance, but it’s worth explicitly acknowledging in docs/examples wherever artifacts are expected to be typed arrays (otherwise people will infer stronger guarantees than exist).
+- `defineArtifact(...)` throws generic `Error`s for invariant violations. That’s fine for now, but if this becomes a user-facing authoring API, typed errors (or at least error codes) will improve downstream DX (tests, CLI diagnostics).
+
+**PR comments**
+- No actionable review comments (Graphite stack boilerplate only); no inline review comments.
