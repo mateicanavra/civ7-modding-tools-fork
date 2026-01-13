@@ -1,8 +1,10 @@
 import { describe, it, expect } from "vitest";
 import { createMockAdapter } from "@civ7/adapter";
 import { createExtendedMapContext } from "@swooper/mapgen-core";
+import { implementArtifacts } from "@swooper/mapgen-core/authoring";
 import placement from "../../src/domain/placement/ops.js";
 import { getBaseStarts, getStandardRuntime } from "../../src/recipes/standard/runtime.js";
+import { placementArtifacts } from "../../src/recipes/standard/stages/placement/artifacts.js";
 import { applyPlacementPlan } from "../../src/recipes/standard/stages/placement/steps/placement/apply.js";
 
 describe("placement", () => {
@@ -37,7 +39,16 @@ describe("placement", () => {
       placement.ops.planFloodplains.defaultConfig
     );
 
-    applyPlacementPlan({ context, starts, wonders, floodplains });
+    const placementRuntime = implementArtifacts([placementArtifacts.placementOutputs], {
+      placementOutputs: {},
+    });
+    applyPlacementPlan({
+      context,
+      starts,
+      wonders,
+      floodplains,
+      publishOutputs: (outputs) => placementRuntime.placementOutputs.publish(context, outputs),
+    });
 
     expect(adapter.calls.generateSnow.length).toBe(0);
   });

@@ -8,7 +8,7 @@ import type {
   NarrativeMotifsHotspots,
   NarrativeMotifsMargins,
 } from "@mapgen/domain/narrative/models.js";
-import { computeRiverAdjacencyMask } from "../../../../artifacts.js";
+import { computeRiverAdjacencyMask } from "../../../hydrology-core/river-adjacency.js";
 import ecology from "@mapgen/domain/ecology";
 import { buildLatitudeField, maskFromCoordSet } from "../biomes/helpers/inputs.js";
 import { deriveStepSeed } from "../helpers/seed.js";

@@ -4,7 +4,6 @@ import { NarrativeConfigSchema } from "@mapgen/domain/config";
 import { M4_EFFECT_TAGS } from "../../../tags.js";
 import { foundationArtifacts } from "../../foundation/artifacts.js";
 import { narrativePreArtifacts } from "../../narrative-pre/artifacts.js";
-import { narrativeMidArtifacts } from "../artifacts.js";
 
 const StoryOrogenyStepContract = defineStep({
   id: "story-orogeny",
@@ -17,7 +16,6 @@ const StoryOrogenyStepContract = defineStep({
       foundationArtifacts.dynamics,
       narrativePreArtifacts.overlays,
     ],
-    provides: [narrativeMidArtifacts.motifsOrogeny],
   },
   schema: Type.Object({
     story: Type.Object({

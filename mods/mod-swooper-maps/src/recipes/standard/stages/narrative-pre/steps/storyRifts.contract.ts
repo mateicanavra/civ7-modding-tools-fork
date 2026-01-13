@@ -14,7 +14,6 @@ const StoryRiftsStepContract = defineStep({
   provides: [],
   artifacts: {
     requires: [foundationArtifacts.plates, narrativePreArtifacts.overlays],
-    provides: [narrativePreArtifacts.motifsRifts],
   },
   schema: Type.Object({
     story: Type.Object({

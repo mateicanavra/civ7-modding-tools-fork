@@ -11,16 +11,18 @@ import {
 } from "./inputs.js";
 import { applyFeaturePlacements, reifyFeatureField } from "./apply.js";
 import { resolveFeatureKeyLookups } from "./feature-keys.js";
+import { readOverlayMotifsHotspots, readOverlayMotifsMargins } from "../../../../overlays.js";
 
 export default createStep(FeaturesStepContract, {
   run: (context, config, ops, deps) => {
     const featureLookups = resolveFeatureKeyLookups(context.adapter);
+    const overlays = deps.artifacts.overlays.read(context);
     const artifacts = {
       heightfield: deps.artifacts.heightfield.read(context),
       climateField: deps.artifacts.climateField.read(context),
       classification: deps.artifacts.biomeClassification.read(context),
-      motifsHotspots: deps.artifacts.motifsHotspots.read(context),
-      motifsMargins: deps.artifacts.motifsMargins.read(context),
+      motifsHotspots: readOverlayMotifsHotspots(overlays),
+      motifsMargins: readOverlayMotifsMargins(overlays),
     };
 
     const iceInput = buildIceFeaturePlacementsInput(context, featureLookups, artifacts);

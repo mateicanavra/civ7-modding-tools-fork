@@ -1,6 +1,7 @@
 import { createStep } from "@swooper/mapgen-core/authoring";
 import { type FoundationDirectionalityConfig } from "@mapgen/domain/config";
 import { storyTagStrategicCorridors } from "@mapgen/domain/narrative/corridors/index.js";
+import { readOverlayCorridors } from "../../../overlays.js";
 import StoryCorridorsPostStepContract from "./storyCorridorsPost.contract.js";
 
 export default createStep(StoryCorridorsPostStepContract, {
@@ -10,10 +11,10 @@ export default createStep(StoryCorridorsPostStepContract, {
     if (!directionality) {
       throw new Error("[Narrative] Missing env.directionality.");
     }
-    void deps.artifacts.overlays.read(context);
     void deps.artifacts.riverAdjacency.read(context);
-    const corridors = deps.artifacts.corridors.read(context);
-    const result = storyTagStrategicCorridors(
+    const overlays = deps.artifacts.overlays.read(context);
+    const corridors = readOverlayCorridors(overlays);
+    storyTagStrategicCorridors(
       context,
       "postRivers",
       {
@@ -22,7 +23,5 @@ export default createStep(StoryCorridorsPostStepContract, {
       },
       { corridors }
     );
-    // Corridor artifact is published once, then updated in place.
-    Object.assign(corridors, result.corridors);
   },
 });

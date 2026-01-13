@@ -1,10 +1,5 @@
-import {
-  markLandmassId,
-  logElevationSummary,
-  resolveLandmassIds,
-  syncHeightfield,
-  type MapDimensions,
-} from "@swooper/mapgen-core";
+import { logElevationSummary, markLandmassId, resolveLandmassIds, syncHeightfield } from "@swooper/mapgen-core";
+import type { MapDimensions } from "@civ7/adapter";
 import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import { getStandardRuntime } from "../../../runtime.js";
 import { hydrologyPreArtifacts } from "../artifacts.js";

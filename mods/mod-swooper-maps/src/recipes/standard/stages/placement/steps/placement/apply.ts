@@ -2,7 +2,7 @@ import type { ExtendedMapContext, TraceScope } from "@swooper/mapgen-core";
 import { HILL_TERRAIN, MOUNTAIN_TERRAIN, getTerrainSymbol } from "@swooper/mapgen-core";
 
 import placement from "@mapgen/domain/placement";
-import type { Static } from "@swooper/mapgen-core/authoring";
+import type { DeepReadonly, Static } from "@swooper/mapgen-core/authoring";
 import { getStandardRuntime } from "../../../../runtime.js";
 import type { PlacementOutputsV1 } from "../../placement-outputs.js";
 
@@ -12,10 +12,10 @@ type PlanWondersOutput = Static<typeof placement.ops.planWonders["output"]>;
 
 type ApplyPlacementArgs = {
   context: ExtendedMapContext;
-  starts: PlanStartsOutput;
-  wonders: PlanWondersOutput;
-  floodplains: PlanFloodplainsOutput;
-  publishOutputs: (outputs: PlacementOutputsV1) => PlacementOutputsV1;
+  starts: DeepReadonly<PlanStartsOutput>;
+  wonders: DeepReadonly<PlanWondersOutput>;
+  floodplains: DeepReadonly<PlanFloodplainsOutput>;
+  publishOutputs: (outputs: PlacementOutputsV1) => DeepReadonly<PlacementOutputsV1>;
 };
 
 export function applyPlacementPlan({
@@ -24,7 +24,7 @@ export function applyPlacementPlan({
   wonders,
   floodplains,
   publishOutputs,
-}: ApplyPlacementArgs): PlacementOutputsV1 {
+}: ApplyPlacementArgs): DeepReadonly<PlacementOutputsV1> {
   const { adapter, trace } = context;
   const { width, height } = context.dimensions;
   const emit = (payload: Record<string, unknown>): void => {

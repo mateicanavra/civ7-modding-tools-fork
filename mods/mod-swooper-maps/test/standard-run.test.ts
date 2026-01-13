@@ -8,7 +8,9 @@ import { normalizeStrictOrThrow } from "./support/compiler-helpers.js";
 import standardRecipe from "../src/recipes/standard/recipe.js";
 import type { StandardRecipeConfig } from "../src/recipes/standard/recipe.js";
 import { initializeStandardRuntime } from "../src/recipes/standard/runtime.js";
-import { M3_DEPENDENCY_TAGS } from "../src/recipes/standard/tags.js";
+import { foundationArtifacts } from "../src/recipes/standard/stages/foundation/artifacts.js";
+import { hydrologyPreArtifacts } from "../src/recipes/standard/stages/hydrology-pre/artifacts.js";
+import { placementArtifacts } from "../src/recipes/standard/stages/placement/artifacts.js";
 
 const directionality = normalizeStrictOrThrow(FoundationDirectionalityConfigSchema, {
   cohesion: 0.15,
@@ -624,7 +626,7 @@ describe("standard recipe execution", () => {
       standardRecipe.run(context, env, config, { log: () => {} })
     ).not.toThrow();
 
-    const climateField = context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.climateField) as
+    const climateField = context.artifacts.get(hydrologyPreArtifacts.climateField.id) as
       | { humidity?: Uint8Array }
       | undefined;
     const humidity = climateField?.humidity;
@@ -632,7 +634,7 @@ describe("standard recipe execution", () => {
     expect(humidity?.length).toBe(width * height);
     expect(humidity?.some((value) => value > 0)).toBe(true);
 
-    expect(context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.foundationPlatesV1)).toBeTruthy();
-    expect(context.artifacts.get(M3_DEPENDENCY_TAGS.artifact.placementOutputsV1)).toBeTruthy();
+    expect(context.artifacts.get(foundationArtifacts.plates.id)).toBeTruthy();
+    expect(context.artifacts.get(placementArtifacts.placementOutputs.id)).toBeTruthy();
   });
 });

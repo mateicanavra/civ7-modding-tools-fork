@@ -12,12 +12,7 @@ const StoryCorridorsPreStepContract = defineStep({
   ],
   provides: [],
   artifacts: {
-    requires: [
-      narrativePreArtifacts.overlays,
-      narrativePreArtifacts.motifsHotspots,
-      narrativePreArtifacts.motifsRifts,
-    ],
-    provides: [narrativePreArtifacts.corridors],
+    requires: [narrativePreArtifacts.overlays],
   },
   schema: Type.Object({
     corridors: NarrativeConfigSchema.properties.corridors,

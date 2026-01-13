@@ -8,6 +8,7 @@ import {
   buildDisabledReefEmbellishmentsSelection,
   buildDisabledVegetationEmbellishmentsSelection,
 } from "./features-owned.helpers.js";
+import { buildTestDeps } from "../support/step-deps.js";
 
 describe("features (owned baseline)", () => {
   it("never places land features on navigable river plots", () => {
@@ -43,7 +44,8 @@ describe("features (owned baseline)", () => {
         reefEmbellishments: buildDisabledReefEmbellishmentsSelection(),
         vegetationEmbellishments: buildDisabledVegetationEmbellishmentsSelection(),
       },
-      ops
+      ops,
+      buildTestDeps(featuresStep)
     );
 
     expect(adapter.getFeatureType(riverX, riverY)).toBe(adapter.NO_FEATURE);

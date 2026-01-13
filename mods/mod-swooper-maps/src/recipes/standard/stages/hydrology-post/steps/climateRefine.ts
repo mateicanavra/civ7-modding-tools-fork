@@ -2,6 +2,7 @@ import { logRainfallStats } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
 import { type FoundationDirectionalityConfig } from "@mapgen/domain/config";
 import { refineClimateEarthlike } from "@mapgen/domain/hydrology/climate/index.js";
+import { readOverlayMotifsHotspots, readOverlayMotifsRifts } from "../../../overlays.js";
 import ClimateRefineStepContract from "./climateRefine.contract.js";
 
 export default createStep(ClimateRefineStepContract, {
@@ -11,8 +12,9 @@ export default createStep(ClimateRefineStepContract, {
     if (!directionality) {
       throw new Error("climate-refine requires env.directionality.");
     }
-    const rifts = deps.artifacts.motifsRifts.read(context);
-    const hotspots = deps.artifacts.motifsHotspots.read(context);
+    const overlays = deps.artifacts.overlays.read(context);
+    const rifts = readOverlayMotifsRifts(overlays);
+    const hotspots = readOverlayMotifsHotspots(overlays);
     const riverAdjacency = deps.artifacts.riverAdjacency.read(context);
     refineClimateEarthlike(width, height, context, {
       climate: config.climate,

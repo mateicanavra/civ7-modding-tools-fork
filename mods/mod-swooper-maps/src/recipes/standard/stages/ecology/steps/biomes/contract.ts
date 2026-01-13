@@ -18,8 +18,7 @@ const BiomesStepContract = defineStep({
     requires: [
       hydrologyPreArtifacts.climateField,
       hydrologyPreArtifacts.heightfield,
-      narrativePreArtifacts.corridors,
-      narrativePreArtifacts.motifsRifts,
+      narrativePreArtifacts.overlays,
     ],
     provides: [ecologyArtifacts.biomeClassification],
   },

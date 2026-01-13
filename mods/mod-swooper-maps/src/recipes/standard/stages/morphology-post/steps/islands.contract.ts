@@ -12,11 +12,7 @@ const IslandsStepContract = defineStep({
   ],
   provides: [M4_EFFECT_TAGS.engine.landmassApplied],
   artifacts: {
-    requires: [
-      narrativePreArtifacts.motifsMargins,
-      narrativePreArtifacts.motifsHotspots,
-      narrativePreArtifacts.corridors,
-    ],
+    requires: [narrativePreArtifacts.overlays],
   },
   schema: Type.Object({
     islands: MorphologyConfigSchema.properties.islands,

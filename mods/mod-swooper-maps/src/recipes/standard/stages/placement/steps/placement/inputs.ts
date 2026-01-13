@@ -1,5 +1,5 @@
 import placement from "@mapgen/domain/placement";
-import type { Static } from "@swooper/mapgen-core/authoring";
+import type { DeepReadonly, Static } from "@swooper/mapgen-core/authoring";
 
 import type { PlacementInputsV1 } from "../../placement-inputs.js";
 
@@ -8,13 +8,15 @@ type PlanStartsOutput = Static<typeof placement.ops.planStarts["output"]>;
 type PlanWondersOutput = Static<typeof placement.ops.planWonders["output"]>;
 
 export type PlacementPlanBundle = {
-  artifact: PlacementInputsV1;
-  starts: PlanStartsOutput;
-  wonders: PlanWondersOutput;
-  floodplains: PlanFloodplainsOutput;
+  artifact: DeepReadonly<PlacementInputsV1>;
+  starts: DeepReadonly<PlanStartsOutput>;
+  wonders: DeepReadonly<PlanWondersOutput>;
+  floodplains: DeepReadonly<PlanFloodplainsOutput>;
 };
 
-export function buildPlacementPlanInput(derivedInputs: PlacementInputsV1): PlacementPlanBundle {
+export function buildPlacementPlanInput(
+  derivedInputs: DeepReadonly<PlacementInputsV1>
+): PlacementPlanBundle {
   return {
     artifact: derivedInputs,
     starts: derivedInputs.starts,

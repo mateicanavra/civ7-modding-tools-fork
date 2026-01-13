@@ -1,14 +1,12 @@
+import type { MapDimensions } from "@civ7/adapter";
 import {
   HILL_TERRAIN,
   MOUNTAIN_TERRAIN,
   NAVIGABLE_RIVER_TERRAIN,
   syncHeightfield,
-  type MapDimensions,
 } from "@swooper/mapgen-core";
 import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
-import {
-  computeRiverAdjacencyMask,
-} from "../../../artifacts.js";
+import { computeRiverAdjacencyMask } from "../river-adjacency.js";
 import { getStandardRuntime } from "../../../runtime.js";
 import { storyTagClimatePaleo } from "@mapgen/domain/narrative/swatches.js";
 import { hydrologyCoreArtifacts } from "../artifacts.js";

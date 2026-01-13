@@ -1,5 +1,6 @@
+import type { MapDimensions } from "@civ7/adapter";
 import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
-import { syncHeightfield, type MapDimensions } from "@swooper/mapgen-core";
+import { syncHeightfield } from "@swooper/mapgen-core";
 import { getStandardRuntime } from "../../../runtime.js";
 import { hydrologyPreArtifacts } from "../artifacts.js";
 import LakesStepContract from "./lakes.contract.js";

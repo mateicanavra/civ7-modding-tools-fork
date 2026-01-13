@@ -8,6 +8,7 @@ import {
   buildDisabledReefEmbellishmentsSelection,
   buildDisabledVegetationEmbellishmentsSelection,
 } from "./features-owned.helpers.js";
+import { buildTestDeps } from "../support/step-deps.js";
 
 describe("features (owned baseline)", () => {
   it("selects reef vs cold reef based on latitude split", () => {
@@ -46,7 +47,8 @@ describe("features (owned baseline)", () => {
         reefEmbellishments: buildDisabledReefEmbellishmentsSelection(),
         vegetationEmbellishments: buildDisabledVegetationEmbellishmentsSelection(),
       },
-      ops
+      ops,
+      buildTestDeps(featuresStep)
     );
 
     const warmReef = adapter.getFeatureTypeIndex("FEATURE_REEF");

@@ -8,6 +8,7 @@ import {
   buildDisabledReefEmbellishmentsSelection,
   buildDisabledVegetationEmbellishmentsSelection,
 } from "./features-owned.helpers.js";
+import { buildTestDeps } from "../support/step-deps.js";
 
 describe("features (owned baseline)", () => {
   it("does not call adapter.addFeatures when strategy is owned", () => {
@@ -35,7 +36,8 @@ describe("features (owned baseline)", () => {
         reefEmbellishments: buildDisabledReefEmbellishmentsSelection(),
         vegetationEmbellishments: buildDisabledVegetationEmbellishmentsSelection(),
       },
-      ops
+      ops,
+      buildTestDeps(featuresStep)
     );
 
     expect(adapter.calls.addFeatures.length).toBe(0);

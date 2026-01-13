@@ -11,7 +11,6 @@ const StoryHotspotsStepContract = defineStep({
   provides: [],
   artifacts: {
     requires: [narrativePreArtifacts.overlays],
-    provides: [narrativePreArtifacts.motifsHotspots],
   },
   schema: Type.Object({
     story: Type.Object({

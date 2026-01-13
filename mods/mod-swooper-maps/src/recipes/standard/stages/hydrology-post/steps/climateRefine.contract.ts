@@ -15,8 +15,7 @@ const ClimateRefineStepContract = defineStep({
     requires: [
       hydrologyPreArtifacts.heightfield,
       hydrologyPreArtifacts.climateField,
-      narrativePreArtifacts.motifsHotspots,
-      narrativePreArtifacts.motifsRifts,
+      narrativePreArtifacts.overlays,
       hydrologyCoreArtifacts.riverAdjacency,
       foundationArtifacts.dynamics,
     ],

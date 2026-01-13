@@ -10,8 +10,8 @@ Then replace the placeholders and follow the steps below. This template is inten
 
 - Use deterministic env (`env.seed = 0`, fixed dimensions).
 - Use a deterministic adapter RNG: `createMockAdapter({ rng: () => 0 })`.
-- Use canonical dependency keys from `mods/mod-swooper-maps/src/recipes/standard/tags.ts`.
-- Assert artifacts/effects are satisfied via `STANDARD_TAG_DEFINITIONS` where applicable.
+- Use canonical field/effect tags from `mods/mod-swooper-maps/src/recipes/standard/tags.ts` and artifact ids from the stage-owned `artifacts.ts`.
+- Assert fields/effects are satisfied via `STANDARD_TAG_DEFINITIONS` where applicable.
 
 ## Skeleton (copy into the `.test.ts` file)
 
@@ -22,7 +22,8 @@ import { createExtendedMapContext } from "@swooper/mapgen-core";
 import { normalizeStrictOrThrow } from "../support/compiler-helpers.js";
 import { FoundationDirectionalityConfigSchema } from "@mapgen/domain/config";
 
-import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../src/recipes/standard/tags.js";
+import { M4_EFFECT_TAGS } from "../../src/recipes/standard/tags.js";
+import { __STAGE__Artifacts } from "../../src/recipes/standard/stages/__STAGE__/artifacts.js";
 import { initializeStandardRuntime } from "../../src/recipes/standard/runtime.js";
 import standardRecipe from "../../src/recipes/standard/recipe.js";
 import type { StandardRecipeConfig } from "../../src/recipes/standard/recipe.js";
@@ -45,7 +46,7 @@ describe("__DOMAIN__ stage smoke", () => {
     const config = __DOMAIN__Config satisfies StandardRecipeConfig;
     expect(() => standardRecipe.run(ctx, env, config, { log: () => {} })).not.toThrow();
 
-    expect(ctx.artifacts.get(M3_DEPENDENCY_TAGS.artifact.__ARTIFACT_KEY__)).toBeTruthy();
+    expect(ctx.artifacts.get(__STAGE__Artifacts.__ARTIFACT_KEY__.id)).toBeTruthy();
     expect(ctx.effects.has(M4_EFFECT_TAGS.engine.__EFFECT_KEY__)).toBe(true);
   });
 });

@@ -8,14 +8,15 @@ import { resolveFeatureKeyLookups } from "../features/feature-keys.js";
 export default createStep(FeaturesApplyStepContract, {
   run: (context, config, ops, deps) => {
     const intents = deps.artifacts.featureIntents.read(context);
+    const placements = {
+      vegetation: Array.from(intents.vegetation),
+      wetlands: Array.from(intents.wetlands),
+      reefs: Array.from(intents.reefs),
+      ice: Array.from(intents.ice),
+    };
 
     const merged = ops.apply(
-      {
-        vegetation: intents.vegetation,
-        wetlands: intents.wetlands,
-        reefs: intents.reefs,
-        ice: intents.ice,
-      },
+      placements,
       config.apply
     );
 
