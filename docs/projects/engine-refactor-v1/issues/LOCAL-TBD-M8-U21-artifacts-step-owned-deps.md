@@ -955,16 +955,16 @@ out_of_scope:
 **Acceptance criteria:**
 ```yaml
 acceptance_criteria:
-  - "[ ] `defineArtifact({ name, id, schema })` exists and validates invariants (id prefix, name format, non-empty)."
-  - "[ ] `implementArtifacts(provides, impl)` exists and returns typed wrappers keyed by artifact `name`."
-  - "[ ] Wrapper `publish(ctx, value)` stores to `ctx.artifacts` under `contract.id` and returns the stored value as a readonly view type."
-  - "[ ] Wrapper enforces write-once: `publish(...)` throws `ArtifactDoublePublishError` if `contract.id` already exists in the store."
-  - "[ ] Wrapper `read(ctx)` throws `ArtifactMissingError` when missing."
-  - "[ ] Wrapper `tryRead(ctx)` returns `null` on missing."
-  - "[ ] Wrapper exposes a `satisfies` function usable as `DependencyTagDefinition<TContext>[\"satisfies\"]`."
-  - "[ ] Wrapper `read(ctx)` is typed as a deep-readonly view (type-level immutability; no runtime snapshot-on-read guarantee in production)."
-  - "[ ] Wrapper `publish(ctx, value)` throws `ArtifactValidationError` (with issues) when `validate(...)` returns issues."
-  - item: "[ ] JSDoc at definition sites makes the immutability contract explicit:"
+  - "[x] `defineArtifact({ name, id, schema })` exists and validates invariants (id prefix, name format, non-empty)."
+  - "[x] `implementArtifacts(provides, impl)` exists and returns typed wrappers keyed by artifact `name`."
+  - "[x] Wrapper `publish(ctx, value)` stores to `ctx.artifacts` under `contract.id` and returns the stored value as a readonly view type."
+  - "[x] Wrapper enforces write-once: `publish(...)` throws `ArtifactDoublePublishError` if `contract.id` already exists in the store."
+  - "[x] Wrapper `read(ctx)` throws `ArtifactMissingError` when missing."
+  - "[x] Wrapper `tryRead(ctx)` returns `null` on missing."
+  - "[x] Wrapper exposes a `satisfies` function usable as `DependencyTagDefinition<TContext>[\"satisfies\"]`."
+  - "[x] Wrapper `read(ctx)` is typed as a deep-readonly view (type-level immutability; no runtime snapshot-on-read guarantee in production)."
+  - "[x] Wrapper `publish(ctx, value)` throws `ArtifactValidationError` (with issues) when `validate(...)` returns issues."
+  - item: "[x] JSDoc at definition sites makes the immutability contract explicit:"
     points:
       - "consumers must not mutate values read from `deps.artifacts.*`,"
       - "mutation requires caller-owned copies."
@@ -993,9 +993,9 @@ in_scope:
 **Acceptance criteria:**
 ```yaml
 acceptance_criteria:
-  - "[ ] `defineStep({ artifacts: ... })` results in `contract.requires/provides` including the artifact ids."
-  - "[ ] Duplicate artifact ids across requires/provides are rejected with an actionable error."
-  - "[ ] Any attempt to create nested artifact surfaces (e.g. invalid names like `motifs.rifts`) fails via `defineArtifact` constraints."
+  - "[x] `defineStep({ artifacts: ... })` results in `contract.requires/provides` including the artifact ids."
+  - "[x] Duplicate artifact ids across requires/provides are rejected with an actionable error."
+  - "[x] Any attempt to create nested artifact surfaces (e.g. invalid names like `motifs.rifts`) fails via `defineArtifact` constraints."
 ```
 
 ## U21-C) Thread `deps` into step runtime (`run(ctx, config, ops, deps)`)
@@ -1017,10 +1017,10 @@ files:
 **Acceptance criteria:**
 ```yaml
 acceptance_criteria:
-  - "[ ] All step runs can be authored as `run(ctx, config, ops, deps)`."
-  - "[ ] There is no `ctx.deps` surface anywhere in the repo (enforced by grep verification)."
-  - "[ ] `deps.artifacts.<name>` is typed based on the step contract’s artifacts.requires/provides."
-  - "[ ] Phase 1 constraint: existing step modules that implement `run(ctx, config, ops)` continue to typecheck and run without changes."
+  - "[x] All step runs can be authored as `run(ctx, config, ops, deps)`."
+  - "[x] There is no `ctx.deps` surface anywhere in the repo (enforced by grep verification)."
+  - "[x] `deps.artifacts.<name>` is typed based on the step contract’s artifacts.requires/provides."
+  - "[x] Phase 1 constraint: existing step modules that implement `run(ctx, config, ops)` continue to typecheck and run without changes."
 ```
 
 ## U21-D) `createRecipe` auto-wires artifact tag definitions + satisfiers
@@ -1048,9 +1048,9 @@ in_scope:
 **Acceptance criteria:**
 ```yaml
 acceptance_criteria:
-  - "[ ] Artifact tag defs are present in the registry even if not explicitly provided in `input.tagDefinitions`."
-  - "[ ] Executor correctly fails with `UnsatisfiedProvidesError` when a producer step does not publish its declared artifact."
-  - "[ ] Phase 1 constraint: existing recipe/modules that pass `tagDefinitions` keep working unchanged; artifact auto-wiring is additive."
+  - "[x] Artifact tag defs are present in the registry even if not explicitly provided in `input.tagDefinitions`."
+  - "[x] Executor correctly fails with `UnsatisfiedProvidesError` when a producer step does not publish its declared artifact."
+  - "[x] Phase 1 constraint: existing recipe/modules that pass `tagDefinitions` keep working unchanged; artifact auto-wiring is additive."
 ```
 
 ## U21-E) Step module carries provided artifact runtimes (for compilation + deps typing)
@@ -1070,8 +1070,8 @@ files:
 **Acceptance criteria:**
 ```yaml
 acceptance_criteria:
-  - "[ ] Producer steps can export `artifacts` runtime wrappers via `createStep(contract, { artifacts, run })`."
-  - "[ ] `createRecipe` can discover those wrappers and register satisfiers."
+  - "[x] Producer steps can export `artifacts` runtime wrappers via `createStep(contract, { artifacts, run })`."
+  - "[x] `createRecipe` can discover those wrappers and register satisfiers."
 ```
 
 ## U21-F) Migrate standard recipe (`= mods/mod-swooper-maps`) with no shims
@@ -1146,10 +1146,10 @@ files:
 **Acceptance criteria:**
 ```yaml
 acceptance_criteria:
-  - "[ ] Tests cover: defineStep merge, createRecipe artifact tag def synthesis, executor enforcement on missing/invalid artifact publish."
-  - "[ ] Tests assert typed error shapes (`ArtifactMissingError`, `ArtifactDoublePublishError`, `ArtifactValidationError`) so failures are debuggable and stable."
-  - "[ ] Type-level immutability is enforced for read values (e.g. `read(...)` returns `DeepReadonly<T>`), verified via a typecheck-only test using `// @ts-expect-error` for attempted mutations on object/array graphs."
-  - "[ ] Verification commands below pass."
+  - "[x] Tests cover: defineStep merge, createRecipe artifact tag def synthesis, executor enforcement on missing/invalid artifact publish."
+  - "[x] Tests assert typed error shapes (`ArtifactMissingError`, `ArtifactDoublePublishError`, `ArtifactValidationError`) so failures are debuggable and stable."
+  - "[x] Type-level immutability is enforced for read values (e.g. `read(...)` returns `DeepReadonly<T>`), verified via a typecheck-only test using `// @ts-expect-error` for attempted mutations on object/array graphs."
+  - "[x] Verification commands below pass."
 ```
 
 ## Verification (commands)

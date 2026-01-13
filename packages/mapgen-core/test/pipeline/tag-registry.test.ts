@@ -1,14 +1,25 @@
 import { describe, expect, it } from "bun:test";
+import { Type } from "typebox";
 import { createMockAdapter } from "@civ7/adapter";
 import { createExtendedMapContext } from "@mapgen/core/types.js";
 
+import {
+  createRecipe,
+  createStage,
+  createStep,
+  defineArtifact,
+  defineStep,
+  implementArtifacts,
+} from "@mapgen/authoring/index.js";
 import {
   compileExecutionPlan,
   InvalidDependencyTagDemoError,
   PipelineExecutor,
   StepRegistry,
   TagRegistry,
+  StepExecutionError,
   UnknownDependencyTagError,
+  UnsatisfiedProvidesError,
 } from "@mapgen/engine/index.js";
 
 const TEST_TAGS = {
@@ -24,6 +35,8 @@ const baseEnv = {
   latitudeBounds: { topLatitude: 0, bottomLatitude: 0 },
   wrap: { wrapX: false, wrapY: false },
 };
+
+const EmptyKnobsSchema = Type.Object({}, { additionalProperties: false, default: {} });
 
 function compilePlan<TContext>(
   registry: StepRegistry<TContext>,
@@ -119,5 +132,49 @@ describe("tag registry", () => {
     const { stepResults } = executor.executePlanReport(ctx, plan);
 
     expect(stepResults[0]?.success).toBe(true);
+  });
+
+  it("fails fast when a provider step skips artifact publish", () => {
+    const artifact = defineArtifact({
+      name: "artifactFoo",
+      id: "artifact:test.foo",
+      schema: Type.Object({}, { additionalProperties: false }),
+    });
+
+    const step = createStep(
+      defineStep({
+        id: "alpha",
+        phase: "foundation",
+        requires: [],
+        provides: [],
+        artifacts: { provides: [artifact] },
+        schema: Type.Object({}, { additionalProperties: false }),
+      }),
+      {
+        artifacts: implementArtifacts([artifact], { artifactFoo: {} }),
+        run: () => {},
+      }
+    );
+
+    const stage = createStage({ id: "foundation", knobsSchema: EmptyKnobsSchema, steps: [step] });
+    const recipe = createRecipe({
+      id: "core.base",
+      tagDefinitions: [],
+      stages: [stage],
+      compileOpsById: {},
+    });
+
+    const adapter = createMockAdapter({ width: 2, height: 2 });
+    const ctx = createExtendedMapContext({ width: 2, height: 2 }, adapter, baseEnv);
+
+    let error: unknown;
+    try {
+      recipe.run(ctx, baseEnv);
+    } catch (err) {
+      error = err;
+    }
+
+    expect(error).toBeInstanceOf(StepExecutionError);
+    expect((error as StepExecutionError).cause).toBeInstanceOf(UnsatisfiedProvidesError);
   });
 });
