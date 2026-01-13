@@ -45,38 +45,60 @@ function buildSchemaWithOps<const Schema extends TObject, const Ops extends Step
   return Type.Object({ ...baseProps, ...(opProps as any) }, { additionalProperties: false }) as any;
 }
 
+export type StepArtifactsDecl<
+  Requires extends readonly ArtifactContract[] = readonly ArtifactContract[],
+  Provides extends readonly ArtifactContract[] = readonly ArtifactContract[],
+> = Readonly<{
+  requires?: Requires;
+  provides?: Provides;
+}>;
+
 export type StepContract<
   Schema extends TObject,
   Id extends string,
   Ops extends StepOpsDecl | undefined = undefined,
+  Artifacts extends StepArtifactsDecl | undefined = StepArtifactsDecl | undefined,
 > = Readonly<{
   id: Id;
   phase: GenerationPhase;
   requires: readonly DependencyTag[];
   provides: readonly DependencyTag[];
-  artifacts?: StepArtifactsDecl;
+  artifacts?: Artifacts;
   schema: Schema;
   ops?: Ops;
 }>;
 
-export type StepArtifactsDecl = Readonly<{
-  requires?: readonly ArtifactContract[];
-  provides?: readonly ArtifactContract[];
-}>;
-
 const STEP_ID_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
-export function defineStep<const Schema extends TObject, const Id extends string>(
-  def: StepContract<Schema, Id, undefined>
-): StepContract<Schema, Id, undefined>;
+export function defineStep<
+  const Schema extends TObject,
+  const Id extends string,
+>(
+  def: StepContract<Schema, Id, undefined, undefined> & { artifacts?: never }
+): StepContract<Schema, Id, undefined, undefined>;
+
+export function defineStep<
+  const Schema extends TObject,
+  const Id extends string,
+  const Artifacts extends StepArtifactsDecl | undefined,
+>(def: StepContract<Schema, Id, undefined, Artifacts>): StepContract<Schema, Id, undefined, Artifacts>;
 
 export function defineStep<
   const Schema extends TObject,
   const Id extends string,
   const Ops extends StepOpsDecl,
 >(
-  def: StepContract<Schema, Id, Ops> & { ops: Ops }
-): StepContract<SchemaWithOps<Schema, Ops>, Id, Ops>;
+  def: StepContract<Schema, Id, Ops, undefined> & { ops: Ops; artifacts?: never }
+): StepContract<SchemaWithOps<Schema, Ops>, Id, Ops, undefined>;
+
+export function defineStep<
+  const Schema extends TObject,
+  const Id extends string,
+  const Ops extends StepOpsDecl,
+  const Artifacts extends StepArtifactsDecl | undefined,
+>(
+  def: StepContract<Schema, Id, Ops, Artifacts> & { ops: Ops }
+): StepContract<SchemaWithOps<Schema, Ops>, Id, Ops, Artifacts>;
 
 export function defineStep(def: any): any {
   if (!STEP_ID_RE.test(def.id)) {
