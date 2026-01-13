@@ -4,19 +4,67 @@ import {
   resolveLandmassIds,
   syncHeightfield,
   type ExtendedMapContext,
+  type MapDimensions,
 } from "@swooper/mapgen-core";
-import { createStep, type Static } from "@swooper/mapgen-core/authoring";
-import {
-  publishClimateFieldArtifact,
-  publishHeightfieldArtifact,
-} from "../../../artifacts.js";
+import { createStep, implementArtifacts, type Static } from "@swooper/mapgen-core/authoring";
 import { getStandardRuntime } from "../../../runtime.js";
+import { hydrologyPreArtifacts } from "../artifacts.js";
 import { applyClimateBaseline } from "@mapgen/domain/hydrology/climate/index.js";
 import ClimateBaselineStepContract from "./climateBaseline.contract.js";
 type ClimateBaselineStepConfig = Static<typeof ClimateBaselineStepContract.schema>;
 
+type ArtifactValidationIssue = Readonly<{ message: string }>;
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+
+function expectedSize(dimensions: MapDimensions): number {
+  return Math.max(0, (dimensions.width | 0) * (dimensions.height | 0));
+}
+
+function validateTypedArray(
+  errors: ArtifactValidationIssue[],
+  label: string,
+  value: unknown,
+  ctor: { new (...args: any[]): { length: number } },
+  expectedLength?: number
+): value is { length: number } {
+  if (!(value instanceof ctor)) {
+    errors.push({ message: `Expected ${label} to be ${ctor.name}.` });
+    return false;
+  }
+  if (expectedLength != null && value.length !== expectedLength) {
+    errors.push({
+      message: `Expected ${label} length ${expectedLength} (received ${value.length}).`,
+    });
+  }
+  return true;
+}
+
+function validateClimateFieldBuffer(
+  value: unknown,
+  dimensions: MapDimensions
+): ArtifactValidationIssue[] {
+  const errors: ArtifactValidationIssue[] = [];
+  if (!isRecord(value)) {
+    errors.push({ message: "Missing climate field buffer." });
+    return errors;
+  }
+  const size = expectedSize(dimensions);
+  const candidate = value as { rainfall?: unknown; humidity?: unknown };
+  validateTypedArray(errors, "climate.rainfall", candidate.rainfall, Uint8Array, size);
+  validateTypedArray(errors, "climate.humidity", candidate.humidity, Uint8Array, size);
+  return errors;
+}
+
 export default createStep(ClimateBaselineStepContract, {
-  run: (context: ExtendedMapContext, config: ClimateBaselineStepConfig) => {
+  artifacts: implementArtifacts([hydrologyPreArtifacts.climateField], {
+    climateField: {
+      validate: (value, context) => validateClimateFieldBuffer(value, context.dimensions),
+    },
+  }),
+  run: (context: ExtendedMapContext, config: ClimateBaselineStepConfig, _ops, deps) => {
     const runtime = getStandardRuntime(context);
     const { width, height } = context.dimensions;
     const landmassIds = resolveLandmassIds(context.adapter);
@@ -47,8 +95,7 @@ export default createStep(ClimateBaselineStepContract, {
 
     syncHeightfield(context);
     logElevationSummary(context.trace, context.adapter, width, height, "post-buildElevation");
-    publishHeightfieldArtifact(context);
     applyClimateBaseline(width, height, context, config.climate);
-    publishClimateFieldArtifact(context);
+    deps.artifacts.climateField.publish(context, context.buffers.climate);
   },
 });

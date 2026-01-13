@@ -1,13 +1,17 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
 import { ClimateConfigSchema } from "@mapgen/domain/config";
 
-import { M3_DEPENDENCY_TAGS } from "../../../tags.js";
+import { hydrologyPreArtifacts } from "../artifacts.js";
 
 const ClimateBaselineStepContract = defineStep({
   id: "climate-baseline",
   phase: "hydrology",
-  requires: [M3_DEPENDENCY_TAGS.artifact.heightfield],
-  provides: [M3_DEPENDENCY_TAGS.artifact.heightfield, M3_DEPENDENCY_TAGS.artifact.climateField],
+  requires: [],
+  provides: [],
+  artifacts: {
+    requires: [hydrologyPreArtifacts.heightfield],
+    provides: [hydrologyPreArtifacts.climateField],
+  },
   schema: Type.Object({
     climate: Type.Object({
       baseline: ClimateConfigSchema.properties.baseline,
