@@ -1,20 +1,24 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
 import { NarrativeConfigSchema } from "@mapgen/domain/config";
 
-import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";
+import { M4_EFFECT_TAGS } from "../../../tags.js";
+import { narrativePreArtifacts } from "../artifacts.js";
 
 const StoryCorridorsPreStepContract = defineStep({
   id: "story-corridors-pre",
   phase: "morphology",
   requires: [
     M4_EFFECT_TAGS.engine.coastlinesApplied,
-    M3_DEPENDENCY_TAGS.artifact.narrativeMotifsHotspotsV1,
-    M3_DEPENDENCY_TAGS.artifact.narrativeMotifsRiftsV1,
   ],
-  provides: [
-    M3_DEPENDENCY_TAGS.artifact.storyOverlays,
-    M3_DEPENDENCY_TAGS.artifact.narrativeCorridorsV1,
-  ],
+  provides: [],
+  artifacts: {
+    requires: [
+      narrativePreArtifacts.overlays,
+      narrativePreArtifacts.motifsHotspots,
+      narrativePreArtifacts.motifsRifts,
+    ],
+    provides: [narrativePreArtifacts.corridors],
+  },
   schema: Type.Object({
     corridors: NarrativeConfigSchema.properties.corridors,
   }),

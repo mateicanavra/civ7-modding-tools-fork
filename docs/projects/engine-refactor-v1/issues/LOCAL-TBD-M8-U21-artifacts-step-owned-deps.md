@@ -189,6 +189,20 @@ Corridors are a canonical overlay type:
 - **Rationale:** Aligns with the buffer policy (single publish + in-place mutation) and keeps a single producer for the artifact.
 - **Risk:** Consumers must treat the artifact as mutable post-publish; future buffer/artifact separation should make this explicit.
 
+### Story corridors publish once, then refine in place
+- **Context:** `story-corridors-pre` and `story-corridors-post` previously both published the narrative corridors artifact.
+- **Options:** Publish only in post; publish in pre and republish in post; publish in pre and mutate in post.
+- **Choice:** Publish in `story-corridors-pre`, then mutate in place during `story-corridors-post`.
+- **Rationale:** Keeps a single producer, preserves pre-corridor availability for morphology, and matches buffer-style mutation.
+- **Risk:** Corridor artifacts are mutable; downstream consumers must tolerate post-step updates.
+
+### Islands refine hotspot motifs in place
+- **Context:** `islands` augments hotspot motifs after `story-hotspots` has published them.
+- **Options:** Republish motifs; publish a new artifact; mutate in place.
+- **Choice:** Mutate `motifsHotspots` in place after the initial publish.
+- **Rationale:** Maintains a single producer and aligns with the buffer-style mutation policy.
+- **Risk:** Hotspot motifs become mutable after publish; future redesign should make this explicit.
+
 ## Sequencing (Phase 2)
 1. U21-F1: Define stage-owned artifact contracts for the standard recipe (all stages).
 2. U21-F2: Migrate foundation + climate steps to artifacts/deps (contracts + runtimes).

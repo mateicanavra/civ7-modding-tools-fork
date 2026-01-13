@@ -1,4 +1,4 @@
-import type { ExtendedMapContext, MapDimensions } from "@swooper/mapgen-core";
+import type { MapDimensions } from "@swooper/mapgen-core";
 import {
   validateFoundationConfigArtifact,
   validateFoundationDiagnosticsArtifact,
@@ -6,11 +6,10 @@ import {
   validateFoundationPlatesArtifact,
   validateFoundationSeedArtifact,
 } from "@swooper/mapgen-core";
-import { createStep, implementArtifacts, type Static } from "@swooper/mapgen-core/authoring";
+import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import { runFoundationStage } from "../producer.js";
 import { foundationArtifacts } from "../artifacts.js";
 import FoundationStepContract from "./foundation.contract.js";
-type FoundationStepConfig = Static<typeof FoundationStepContract.schema>;
 
 type ArtifactValidationIssue = Readonly<{ message: string }>;
 
@@ -69,7 +68,7 @@ export default createStep(FoundationStepContract, {
       },
     }
   ),
-  run: (context: ExtendedMapContext, config: FoundationStepConfig, _ops, deps) => {
+  run: (context, config, _ops, deps) => {
     const foundationContext = runFoundationStage(context, config.foundation);
     deps.artifacts.foundationPlates.publish(context, foundationContext.plates);
     deps.artifacts.foundationDynamics.publish(context, foundationContext.dynamics);

@@ -1,8 +1,6 @@
-import type { ExtendedMapContext } from "@swooper/mapgen-core";
 import placement from "@mapgen/domain/placement";
 import type { Static } from "@swooper/mapgen-core/authoring";
 
-import { getPublishedPlacementInputs } from "../../../../artifacts.js";
 import type { PlacementInputsV1 } from "../../placement-inputs.js";
 
 type PlanFloodplainsOutput = Static<typeof placement.ops.planFloodplains["output"]>;
@@ -16,9 +14,7 @@ export type PlacementPlanBundle = {
   floodplains: PlanFloodplainsOutput;
 };
 
-export function buildPlacementPlanInput(context: ExtendedMapContext): PlacementPlanBundle {
-  const derivedInputs = getPublishedPlacementInputs(context);
-
+export function buildPlacementPlanInput(derivedInputs: PlacementInputsV1): PlacementPlanBundle {
   return {
     artifact: derivedInputs,
     starts: derivedInputs.starts,

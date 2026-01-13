@@ -12,9 +12,10 @@ import {
 import { normalizeStrictOrThrow } from "../support/compiler-helpers.js";
 
 describe("story/orogeny", () => {
-  it("fails fast when foundation context is missing", () => {
+  it("publishes an overlay when provided foundation tensors", () => {
     const width = 30;
     const height = 20;
+    const size = width * height;
     const directionality = normalizeStrictOrThrow(
       FoundationDirectionalityConfigSchema,
       {},
@@ -39,9 +40,29 @@ describe("story/orogeny", () => {
     const config = { story: { orogeny: { beltMinLength: 12 } } };
     const ctx = createExtendedMapContext({ width, height }, adapter, env);
 
-    expect(() => storyTagOrogenyBelts(ctx, config.story)).toThrow("foundation plates");
+    const plates = {
+      id: new Int16Array(size),
+      boundaryCloseness: new Uint8Array(size),
+      boundaryType: new Uint8Array(size),
+      tectonicStress: new Uint8Array(size),
+      upliftPotential: new Uint8Array(size),
+      riftPotential: new Uint8Array(size),
+      shieldStability: new Uint8Array(size),
+      movementU: new Int8Array(size),
+      movementV: new Int8Array(size),
+      rotation: new Int8Array(size),
+    };
+    const dynamics = {
+      windU: new Int8Array(size),
+      windV: new Int8Array(size),
+      currentU: new Int8Array(size),
+      currentV: new Int8Array(size),
+      pressure: new Uint8Array(size),
+    };
+
+    storyTagOrogenyBelts(ctx, config.story, plates, dynamics);
 
     const overlay = getStoryOverlay(ctx, STORY_OVERLAY_KEYS.OROGENY);
-    expect(overlay).toBeNull();
+    expect(overlay).not.toBeNull();
   });
 });

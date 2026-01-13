@@ -1,13 +1,11 @@
 import type { ContinentBounds } from "@civ7/adapter";
 import {
-  assertFoundationPlates,
   devWarn,
   logLandmassAscii,
   markLandmassId,
   resolveLandmassIds,
-  type ExtendedMapContext,
 } from "@swooper/mapgen-core";
-import { createStep, type Static } from "@swooper/mapgen-core/authoring";
+import { createStep } from "@swooper/mapgen-core/authoring";
 import type { LandmassConfig } from "@mapgen/domain/config";
 import {
   applyLandmassPostAdjustments,
@@ -17,7 +15,6 @@ import {
 } from "@mapgen/domain/morphology/landmass/index.js";
 import { getStandardRuntime } from "../../../runtime.js";
 import LandmassPlatesStepContract from "./landmassPlates.contract.js";
-type LandmassStepConfig = Static<typeof LandmassPlatesStepContract.schema>;
 
 function windowToContinentBounds(window: LandmassWindow, continent: number): ContinentBounds {
   return {
@@ -38,8 +35,8 @@ function assignContinentBounds(target: ContinentBounds, src: ContinentBounds): v
 }
 
 export default createStep(LandmassPlatesStepContract, {
-  run: (context: ExtendedMapContext, config: LandmassStepConfig) => {
-    assertFoundationPlates(context, "landmass-plates");
+  run: (context, config, _ops, deps) => {
+    void deps.artifacts.foundationPlates.read(context);
     const runtime = getStandardRuntime(context);
     const { width, height } = context.dimensions;
     const landmassCfg = config.landmass as LandmassConfig;

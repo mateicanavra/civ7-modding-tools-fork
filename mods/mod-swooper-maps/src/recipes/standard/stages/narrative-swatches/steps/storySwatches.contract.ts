@@ -3,6 +3,7 @@ import { ClimateConfigSchema } from "@mapgen/domain/config";
 
 import { foundationArtifacts } from "../../foundation/artifacts.js";
 import { hydrologyPreArtifacts } from "../../hydrology-pre/artifacts.js";
+import { narrativePreArtifacts } from "../../narrative-pre/artifacts.js";
 
 const StorySwatchesStepContract = defineStep({
   id: "story-swatches",
@@ -14,6 +15,7 @@ const StorySwatchesStepContract = defineStep({
       hydrologyPreArtifacts.heightfield,
       hydrologyPreArtifacts.climateField,
       foundationArtifacts.dynamics,
+      narrativePreArtifacts.overlays,
     ],
   },
   schema: Type.Object({

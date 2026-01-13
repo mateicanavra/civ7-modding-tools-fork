@@ -1,21 +1,23 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
 import { MorphologyConfigSchema, NarrativeConfigSchema } from "@mapgen/domain/config";
 
-import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";
+import { M4_EFFECT_TAGS } from "../../../tags.js";
+import { narrativePreArtifacts } from "../../narrative-pre/artifacts.js";
 
 const IslandsStepContract = defineStep({
   id: "islands",
   phase: "morphology",
   requires: [
     M4_EFFECT_TAGS.engine.coastlinesApplied,
-    M3_DEPENDENCY_TAGS.artifact.narrativeMotifsMarginsV1,
-    M3_DEPENDENCY_TAGS.artifact.narrativeMotifsHotspotsV1,
-    M3_DEPENDENCY_TAGS.artifact.narrativeCorridorsV1,
   ],
-  provides: [
-    M4_EFFECT_TAGS.engine.landmassApplied,
-    M3_DEPENDENCY_TAGS.artifact.narrativeMotifsHotspotsV1,
-  ],
+  provides: [M4_EFFECT_TAGS.engine.landmassApplied],
+  artifacts: {
+    requires: [
+      narrativePreArtifacts.motifsMargins,
+      narrativePreArtifacts.motifsHotspots,
+      narrativePreArtifacts.corridors,
+    ],
+  },
   schema: Type.Object({
     islands: MorphologyConfigSchema.properties.islands,
     story: Type.Object({

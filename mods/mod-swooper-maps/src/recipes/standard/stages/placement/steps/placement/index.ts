@@ -1,12 +1,24 @@
-import { createStep } from "@swooper/mapgen-core/authoring";
+import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 
 import { buildPlacementPlanInput } from "./inputs.js";
 import { applyPlacementPlan } from "./apply.js";
 import PlacementStepContract from "./contract.js";
+import { placementArtifacts } from "../../artifacts.js";
 export default createStep(PlacementStepContract, {
-  run: (context) => {
-    const { starts, wonders, floodplains } = buildPlacementPlanInput(context);
+  artifacts: implementArtifacts([placementArtifacts.placementOutputs], {
+    placementOutputs: {},
+  }),
+  run: (context, _config, _ops, deps) => {
+    const placementInputs = deps.artifacts.placementInputs.read(context);
+    const { starts, wonders, floodplains } = buildPlacementPlanInput(placementInputs);
 
-    applyPlacementPlan({ context, starts, wonders, floodplains });
+    applyPlacementPlan({
+      context,
+      starts,
+      wonders,
+      floodplains,
+      publishOutputs: (outputs) =>
+        deps.artifacts.placementOutputs.publish(context, outputs),
+    });
   },
 });

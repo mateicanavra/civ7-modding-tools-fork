@@ -1,16 +1,11 @@
-import { logRainfallStats, type ExtendedMapContext } from "@swooper/mapgen-core";
-import { createStep, type Static } from "@swooper/mapgen-core/authoring";
-import {
-  type FoundationDirectionalityConfig,
-} from "@mapgen/domain/config";
-import {
-} from "../../../artifacts.js";
+import { logRainfallStats } from "@swooper/mapgen-core";
+import { createStep } from "@swooper/mapgen-core/authoring";
+import { type FoundationDirectionalityConfig } from "@mapgen/domain/config";
 import { refineClimateEarthlike } from "@mapgen/domain/hydrology/climate/index.js";
 import ClimateRefineStepContract from "./climateRefine.contract.js";
-type ClimateRefineStepConfig = Static<typeof ClimateRefineStepContract.schema>;
 
 export default createStep(ClimateRefineStepContract, {
-  run: (context: ExtendedMapContext, config: ClimateRefineStepConfig, _ops, deps) => {
+  run: (context, config, _ops, deps) => {
     const { width, height } = context.dimensions;
     const directionality = context.env.directionality as FoundationDirectionalityConfig;
     if (!directionality) {

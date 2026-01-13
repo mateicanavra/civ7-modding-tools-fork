@@ -1,20 +1,17 @@
 import {
-  assertFoundationPlates,
   devLogIf,
   logMountainSummary,
   logReliefAscii,
-  type ExtendedMapContext,
 } from "@swooper/mapgen-core";
-import { createStep, type Static } from "@swooper/mapgen-core/authoring";
+import { createStep } from "@swooper/mapgen-core/authoring";
 import type { MountainsConfig } from "@mapgen/domain/config";
 import { layerAddMountainsPhysics } from "@mapgen/domain/morphology/mountains/index.js";
 import { getStandardRuntime } from "../../../runtime.js";
 import MountainsStepContract from "./mountains.contract.js";
-type MountainsStepConfig = Static<typeof MountainsStepContract.schema>;
 
 export default createStep(MountainsStepContract, {
-  run: (context: ExtendedMapContext, config: MountainsStepConfig) => {
-    assertFoundationPlates(context, "mountains");
+  run: (context, config, _ops, deps) => {
+    void deps.artifacts.foundationPlates.read(context);
     const runtime = getStandardRuntime(context);
     const { width, height } = context.dimensions;
     const mountainOptions = config.mountains as MountainsConfig;

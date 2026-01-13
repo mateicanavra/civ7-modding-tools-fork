@@ -1,24 +1,22 @@
-import type { ExtendedMapContext } from "@swooper/mapgen-core";
-import { createStep, type Static } from "@swooper/mapgen-core/authoring";
-import { NarrativeConfigSchema, type FoundationDirectionalityConfig } from "@mapgen/domain/config";
+import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
+import { type FoundationDirectionalityConfig } from "@mapgen/domain/config";
 import { storyTagStrategicCorridors } from "@mapgen/domain/narrative/corridors/index.js";
-import {
-  getPublishedNarrativeMotifsHotspots,
-  getPublishedNarrativeMotifsRifts,
-  narrativeCorridorsArtifact,
-} from "../../../artifacts.js";
+import { narrativePreArtifacts } from "../artifacts.js";
 import StoryCorridorsPreStepContract from "./storyCorridorsPre.contract.js";
-type StoryCorridorsStepConfig = Static<typeof StoryCorridorsPreStepContract.schema>;
 
 export default createStep(StoryCorridorsPreStepContract, {
-  run: (context: ExtendedMapContext, config: StoryCorridorsStepConfig) => {
+  artifacts: implementArtifacts([narrativePreArtifacts.corridors], {
+    corridors: {},
+  }),
+  run: (context, config, _ops, deps) => {
     const directionality =
       context.env.directionality as FoundationDirectionalityConfig | undefined;
     if (!directionality) {
       throw new Error("[Narrative] Missing env.directionality.");
     }
-    const hotspots = getPublishedNarrativeMotifsHotspots(context);
-    const rifts = getPublishedNarrativeMotifsRifts(context);
+    const hotspots = deps.artifacts.motifsHotspots.read(context);
+    const rifts = deps.artifacts.motifsRifts.read(context);
+    void deps.artifacts.overlays.read(context);
     const result = storyTagStrategicCorridors(
       context,
       "preIslands",
@@ -28,6 +26,6 @@ export default createStep(StoryCorridorsPreStepContract, {
       },
       { hotspots, rifts }
     );
-    narrativeCorridorsArtifact.set(context, result.corridors);
+    deps.artifacts.corridors.publish(context, result.corridors);
   },
 });

@@ -1,13 +1,12 @@
-import { assertFoundationPlates, logVolcanoSummary, type ExtendedMapContext } from "@swooper/mapgen-core";
-import { createStep, type Static } from "@swooper/mapgen-core/authoring";
+import { logVolcanoSummary } from "@swooper/mapgen-core";
+import { createStep } from "@swooper/mapgen-core/authoring";
 import type { VolcanoesConfig } from "@mapgen/domain/config";
 import { layerAddVolcanoesPlateAware } from "@mapgen/domain/morphology/volcanoes/index.js";
 import VolcanoesStepContract from "./volcanoes.contract.js";
-type VolcanoesStepConfig = Static<typeof VolcanoesStepContract.schema>;
 
 export default createStep(VolcanoesStepContract, {
-  run: (context: ExtendedMapContext, config: VolcanoesStepConfig) => {
-    assertFoundationPlates(context, "volcanoes");
+  run: (context, config, _ops, deps) => {
+    void deps.artifacts.foundationPlates.read(context);
     const { width, height } = context.dimensions;
     const volcanoOptions = config.volcanoes as VolcanoesConfig;
 

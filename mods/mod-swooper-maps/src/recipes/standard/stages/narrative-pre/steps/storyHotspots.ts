@@ -1,13 +1,16 @@
-import { devWarn, type ExtendedMapContext } from "@swooper/mapgen-core";
-import { createStep, type Static } from "@swooper/mapgen-core/authoring";
+import { devWarn } from "@swooper/mapgen-core";
+import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import { storyTagHotspotTrails } from "@mapgen/domain/narrative/tagging/index.js";
 import { getStandardRuntime } from "../../../runtime.js";
-import { narrativeMotifsHotspotsArtifact } from "../../../artifacts.js";
+import { narrativePreArtifacts } from "../artifacts.js";
 import StoryHotspotsStepContract from "./storyHotspots.contract.js";
-type StoryHotspotsStepConfig = Static<typeof StoryHotspotsStepContract.schema>;
 
 export default createStep(StoryHotspotsStepContract, {
-  run: (context: ExtendedMapContext, config: StoryHotspotsStepConfig) => {
+  artifacts: implementArtifacts([narrativePreArtifacts.motifsHotspots], {
+    motifsHotspots: {},
+  }),
+  run: (context, config, _ops, deps) => {
+    void deps.artifacts.overlays.read(context);
     const runtime = getStandardRuntime(context);
     if (context.trace.isVerbose) {
       context.trace.event(() => ({
@@ -16,7 +19,7 @@ export default createStep(StoryHotspotsStepContract, {
       }));
     }
     const result = storyTagHotspotTrails(context, config.story.hotspot);
-    narrativeMotifsHotspotsArtifact.set(context, result.motifs);
+    deps.artifacts.motifsHotspots.publish(context, result.motifs);
     if (result.summary.points === 0) {
       devWarn(context.trace, "[smoke] story-hotspots enabled but no hotspot points were emitted");
     }
