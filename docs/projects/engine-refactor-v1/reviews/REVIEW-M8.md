@@ -295,6 +295,28 @@ Branches (downstack → upstack):
 **PR comments**
 - No actionable review comments (Graphite stack boilerplate only); no inline review comments.
 
+### `agent-CANDY-LOCAL-TBD-M8-U21-F3-ecology-overlays` — PR #546 (`refactor(overlays): migrate ecology steps to artifact system`)
+
+**Review effort estimate (complexity × parallelism)**
+- High × Low (8/16): broad mod-surface migration + subtle runtime invariants; limited parallelism with remaining migration branches.
+
+**Intent (from issue doc)**
+- Continue U21-F migration: move Ecology steps off ad-hoc artifact helpers and onto stage-owned contracts + `deps.artifacts.*`, while also cutting overlays over to the “artifacts-only for wiring” posture.
+
+**Quick take**
+- Mostly yes, but this PR introduces an intermediate-state footgun around overlays satisfaction that must be fixed by downstream work (and appears to be).
+
+**What’s strong**
+- Ecology step contracts consistently switch to `artifacts.requires/provides` using the stage-owned contracts, which is the core DX win of U21-F.
+- The `StoryOverlayRegistry` shape is clarified as “debug/compat only” and explicitly documented as mutable/append-preferred (important to avoid over-promising immutability guarantees).
+
+**High-leverage issues / risks**
+- **PR comment is real (but resolved later):** the inline review points out that `context.overlays` changed from a `Map` to a plain object with arrays, but `mods/mod-swooper-maps/src/recipes/standard/tags.ts` still used `context.overlays?.size` for the `storyOverlays` satisfaction check. In this PR’s state, that would effectively make the tag unsatisfiable. Downstream branch `agent-CANDY-LOCAL-TBD-M8-U21-F5-remove-legacy-artifacts` removes `storyOverlays` wiring from `tags.ts`, which resolves the immediate break; keep an eye on other lingering “Map-like” assumptions.
+- This PR touches `packages/mapgen-core/src/core/types.ts` (context shape) as part of a mod migration. That coupling is sometimes necessary, but it increases the blast radius; ensure any downstream consumers of `StoryOverlayRegistry` are covered by at least one targeted regression test (the stack does update overlay tests).
+
+**PR comments**
+- 1 inline review comment (Codex bot) about `context.overlays?.size` being incompatible with the new overlays registry shape; addressed later in the stack by removing the legacy `storyOverlays` satisfier from `mods/mod-swooper-maps/src/recipes/standard/tags.ts`.
+
 ### `agent-CANDY-LOCAL-TBD-M8-U21-F2-foundation-climate` — PR #545 (`refactor(mapgen): migrate foundation and hydrology steps to artifact system`)
 
 **Review effort estimate (complexity × parallelism)**
