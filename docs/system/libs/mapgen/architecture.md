@@ -15,6 +15,7 @@ Map generation is organized into **domain layers** that progressively refine the
 - **Step:** orchestration + publication; composition happens here (not inside operations).
 - **Operation:** an **atomic** domain unit of work (a single responsibility); operations should not contain composition of other operations.
 - **Buffer:** a mutable, shared working layer that multiple steps (and sometimes stages) read and refine over time.
+- **Overlay:** an append-preferred, structured “story of formation” published alongside the pipeline (e.g., corridors/swatches) for downstream domains to bias behavior.
 - **Artifact:** a named published product (often non-rendered “math”) that is **write-once** and treated as immutable-by-convention.
 - **Field:** a rendered/engine-facing map surface (tile fields like terrain/biome/feature IDs).
 
@@ -34,6 +35,34 @@ Domain specs intentionally talk about “products” without binding to SDK mech
 - **Fields (engine-facing surfaces):**
   - Are the final rendered representations applied to the engine map (biome IDs, terrain IDs, feature IDs).
   - May be derived from artifacts/buffers; mutating a field is not the same as mutating a physics buffer.
+
+## Overlays (published “stories” of formation)
+
+Overlays are a cross-cutting way to publish *extra, structured meaning* about how the world was created, so downstream domains can “read” that story and act on it.
+
+- Overlays are **not the same thing** as core domain products like “the heightfield” or “the biome map”.
+- They are a **semantic layer** that captures motifs/patterns (e.g., a specific mountain corridor) that consumers can use for biasing.
+
+### Canonical model (single overlays container)
+
+- Conceptually, there is a single **overlay container** (`overlays`) that holds per-type collections:
+  - `overlays.corridors`
+  - `overlays.swatches`
+  - (add types only when there is a clear downstream consumer)
+- Each overlay type is a collection of overlay instances:
+  - `overlays.corridors = [corridor1, corridor2, ...]`
+- Do **not** model overlays as many separate top-level artifacts (`storyOverlaysRifts`, `storyOverlaysMargins`, ...). Use one container and vary instances inside the relevant type.
+
+### Mutation posture (append-preferred)
+
+- Overlays are **append-preferred**: steps should generally add new overlay instances rather than rewriting prior ones.
+- Mutation is not forbidden today, but it should be rare and intentional (treat edits as “surgery”, not “normal flow”).
+
+### Current wiring vs desired end state
+
+- Today, overlays are still threaded through the **artifact** system so they can participate in dependency gating/typing.
+- This is a temporary architectural compromise, similar to how buffers are currently routed.
+- Future intent: overlays become a first-class dependency kind (distinct from artifacts), without changing the conceptual model above.
 
 ## Causal spine (domain ordering)
 

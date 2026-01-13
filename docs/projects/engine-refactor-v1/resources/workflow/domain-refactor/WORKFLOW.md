@@ -33,6 +33,9 @@ This file is intentionally a **flow-first executable checklist**: the `<workflow
 - **Buffers are not artifacts (conceptual rule):** buffers are mutable, shared working layers (e.g., heightfield/elevation, climate field, routing indices) that multiple steps/stages refine over time.
   - **Today (intentional compromise):** some buffers are still routed through artifact contracts for gating/typing; publish the buffer artifact **once**, then mutate the underlying buffer in place (do **not** re-publish).
   - **Modeling posture:** always describe buffers as buffers in domain specs and refactor plans; treat any artifact wrapping as a temporary wiring strategy, not as a domain-model truth statement.
+- **Overlays are not artifacts (conceptual rule):** overlays are append-preferred, structured “stories of formation” (e.g., corridors, swatches) that downstream domains can read and act on.
+  - **Canonical shape:** a single `overlays` container with per-type collections (`overlays.corridors`, `overlays.swatches`, ...). Avoid many top-level overlay artifacts.
+  - **Today (intentional compromise):** overlays are routed through artifact contracts for gating/typing; publish the overlays artifact **once**, then accumulate overlays via `ctx.overlays.*` (append-preferred; mutation is rare and intentional).
 - **Compile-time normalization:** defaults + `step.normalize` + `op.normalize`; runtime does not “fix up” config.
 - **Import discipline:** step `contract.ts` imports only `@mapgen/domain/<domain>` + stage-local contracts (e.g. `../artifacts.ts`); no deep imports under `@mapgen/domain/<domain>/**`, and no `@mapgen/domain/<domain>/ops`.
 - **Docs-as-code is enforced:** any touched exported function/op/step/schema gets contextual JSDoc and/or TypeBox `description` updates (trace references before writing docs).
@@ -433,7 +436,7 @@ flowchart LR
   StepContract["Step contract\ncontract.ts\n- ops: { key: domain.ops.<opContract> }\n- artifacts: { requires/provides }\n- schema: step-owned props only\n(defineStep merges op config schemas)"]
   DomainImpl["@mapgen/domain/<domain>/ops\n(implementation entrypoint)\nexport default { <opKey>: createOp(...) }"]
   Compiler["compileRecipeConfig\nprefillOpDefaults → normalizeStrict → step.normalize → op.normalize fanout"]
-  StepModule["Step module\ncreateStep(contract, { artifacts?, run(ctx, config, ops, deps) })\nctx.buffers.* = mutable working layers\n deps.artifacts.* = published contracts"]
+  StepModule["Step module\ncreateStep(contract, { artifacts?, run(ctx, config, ops, deps) })\nctx.buffers.* = mutable working layers\n ctx.overlays.* = append-preferred story overlays\n deps.artifacts.* = published contracts"]
   ArtifactRuntime["implementArtifacts(contract.artifacts.provides, impl)\n→ deps.artifacts wrappers + satisfiers"]
   Recipe["createRecipe\ncollect step modules → bindRuntimeOps + bindRuntimeDeps\n(auto-wire artifact tag defs + satisfiers)"]
 
