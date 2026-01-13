@@ -28,6 +28,16 @@ Phases are **adaptive**: each phase produces concrete artifacts, then a required
 8. **Lookback 4 (Phase 4 → Phase 5): Stabilize and reconcile** → append lookback findings into the Phase 3 issue doc
 9. **Phase 5: Verification + cleanup + submit** → run gates, submit, remove worktrees
 
+## Required “living artifacts” (keep updated)
+
+Each domain refactor must maintain these artifacts as a **single-source-of-truth spine** for the refactor. They can live in the domain plan doc (recommended), or be embedded into the Phase 1/2 spike docs + Phase 3 issue doc if you are not using a plan doc.
+
+- **Domain surface inventory (outside view):** entrypoints, stage contracts, step list, and who imports/calls what.
+- **Contract matrix:** per-step `requires/provides`, explicitly distinguishing **artifacts vs buffers vs overlays**, plus producer/consumer mapping.
+- **Decisions + defaults:** assumptions you are using *right now*; explicit triggers to revisit.
+- **Risk register:** top risks, whether blocking, and the mitigation plan (usually slice ordering).
+- **Golden path example:** one representative step, showing canonical imports + `run(ctx, config, ops, deps)` + `deps.artifacts.*` usage + docs-as-code.
+
 ## Hard rules (do not violate)
 
 - **Contract-first:** All domain logic is behind op contracts (`mods/mod-swooper-maps/src/domain/<domain>/ops/**`).
@@ -44,6 +54,8 @@ Phases are **adaptive**: each phase produces concrete artifacts, then a required
   - **Today (intentional compromise):** overlays are routed through artifact contracts for gating/typing; publish the overlays artifact **once**, then accumulate overlays via `ctx.overlays.*` (append-preferred; mutation is rare and intentional).
 - **Compile-time normalization:** defaults + `step.normalize` + `op.normalize`; runtime does not “fix up” config.
 - **Import discipline:** step `contract.ts` imports only `@mapgen/domain/<domain>` + stage-local contracts (e.g. `../artifacts.ts`); no deep imports under `@mapgen/domain/<domain>/**`, and no `@mapgen/domain/<domain>/ops`.
+- **Do not propagate legacy patterns:** do not copy legacy authoring patterns forward. Implement changes only through the canonical architecture, and prefer minimal, high-DX expressions over redundant imports/typing/boilerplate.
+  - Concrete example (legacy smell): importing a domain config type and annotating the `run(...)` handler `config` parameter even when `config` is already inferred from the step contract schema. Treat this as a pattern to delete, not to repeat.
 - **Docs-as-code is enforced:** any touched exported function/op/step/schema gets contextual JSDoc and/or TypeBox `description` updates (trace references before writing docs).
 - **Authoritative modeling (not “code cleanup”):** prefer the physically grounded target model over preserving legacy behavior; delete/replace broken or nonsensical behavior as needed.
 - **Cross-pipeline consistency is required:** when the domain model changes contracts/artifacts, update upstream/downstream steps and stage-owned artifact contracts so the whole pipeline stays internally consistent (no “temporary mismatch”).
@@ -173,6 +185,7 @@ This lookback is mandatory: Phase 2 is expected to be **re-planned** based on ev
 - `## Lookback (Phase 1 → Phase 2): Adjust modeling plan`
   - What surprised you (top 3)
   - Updated boundary map (what is “in domain” vs “pipeline glue” vs “legacy to delete”)
+  - Updated domain surface inventory + contract matrix (outside view, `requires/provides`, producers/consumers)
   - Updated model hypotheses (what Phase 2 must validate/decide)
   - Updated deletion list (anything discovered late)
   - Updated cross-pipeline touchpoints (upstream/downstream contracts that Phase 2 must consider)
@@ -245,8 +258,9 @@ This lookback is mandatory: Phase 3 is expected to be **re-planned** based on Ph
 **Outputs (append to the end of the Phase 2 spike doc):**
 - `## Lookback (Phase 2 → Phase 3): Adjust implementation plan`
   - Finalized invariants (what must not change during implementation)
-  - Risks (top 3) + how the slice plan mitigates them
+  - Risks (top 3) + how the slice plan mitigates them (update the risk register)
   - Pipeline delta slicing strategy (how contract changes will be spread across slices without breaking the pipeline)
+  - Contract matrix delta (what `requires/provides` changes, by slice)
   - Draft slice boundaries (a first cut; Phase 3 will harden into an executable checklist)
   - Test strategy notes (what needs deterministic harnessing; what can be thin integration)
 
@@ -295,7 +309,7 @@ This lookback is mandatory: Phase 4 is expected to be **re-planned** based on wh
 - `## Lookback (Phase 3 → Phase 4): Finalize slices + sequencing`
   - Confirmed slice DAG (what blocks what; where pipeline deltas land)
   - Any prework findings completed during planning (code-intel checks, boundary confirmation)
-  - Any remaining open decisions (should be rare; record options + default)
+  - Any remaining open decisions (should be rare; record options + default; update decisions + defaults)
   - “First slice is safe” checklist (what must be true before implementing slice 1)
 
 **Gate (do not proceed until):**
