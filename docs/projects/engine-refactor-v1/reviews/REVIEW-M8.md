@@ -317,6 +317,27 @@ Branches (downstack → upstack):
 **PR comments**
 - 1 inline review comment (Codex bot) about `context.overlays?.size` being incompatible with the new overlays registry shape; addressed later in the stack by removing the legacy `storyOverlays` satisfier from `mods/mod-swooper-maps/src/recipes/standard/tags.ts`.
 
+### `agent-CANDY-LOCAL-TBD-M8-U21-F4-narrative-placement` — PR #547 (`refactor(standard): migrate narrative/placement/morphology steps to artifact system`)
+
+**Review effort estimate (complexity × parallelism)**
+- High × Low (8/16): high churn across multiple domains; correctness relies on end-to-end recipe execution.
+
+**Intent (from issue doc)**
+- Continue U21-F migration: migrate remaining narrative, placement, and morphology steps to stage-owned artifact contracts + `deps.artifacts.*` access, and remove step-level imports of legacy artifact helpers.
+
+**Quick take**
+- Mostly yes: the migration pushes artifact ownership into contracts and standardizes runtime access through `deps`, but the PR’s breadth increases risk of subtle behavioral drift.
+
+**What’s strong**
+- The migration appears systematic: contract updates (`artifacts.requires/provides`) land alongside runtime changes (`run(..., deps)` + publish/read) and the stack keeps moving step-by-step (F1 → F5) rather than attempting a single giant rewrite.
+- The PR updates story/morphology tests (e.g. `mods/mod-swooper-maps/test/story/orogeny.test.ts`), which is a good signal that narrative correctness wasn’t treated as “best effort”.
+
+**High-leverage issues / risks**
+- This branch touches many independent behaviors (foundation, hydrology, morphology, narrative, placement) in one PR. Even if this is “mechanical migration”, it becomes hard to reason about regression cause. If follow-ups are needed, strongly prefer small fix branches per domain/stage rather than stacking more mixed changes here.
+
+**PR comments**
+- No actionable review comments (Graphite stack boilerplate only); no inline review comments.
+
 ### `agent-CANDY-LOCAL-TBD-M8-U21-F2-foundation-climate` — PR #545 (`refactor(mapgen): migrate foundation and hydrology steps to artifact system`)
 
 **Review effort estimate (complexity × parallelism)**
