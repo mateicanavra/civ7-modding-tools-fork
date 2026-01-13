@@ -2,41 +2,54 @@ import { createOp } from "@swooper/mapgen-core/authoring";
 import { devLogIf } from "@swooper/mapgen-core";
 import type { TraceScope } from "@swooper/mapgen-core";
 
-import PlateSeedManager from "../../plate-seed.js";
-import { computePlatesVoronoi } from "../../plates.js";
-import type { PlateConfig, RngFunction, VoronoiUtilsInterface } from "../../types.js";
+import { projectPlatesFromModel } from "../../projections.js";
+import type { FoundationMesh } from "../compute-mesh/contract.js";
+import type { FoundationPlateGraph } from "../compute-plate-graph/contract.js";
+import type { FoundationTectonics } from "../compute-tectonics/contract.js";
 import ComputePlatesTensorsContract from "./contract.js";
-import type { ComputePlatesTensorsConfig } from "./contract.js";
 
-function requireRng(rng: RngFunction | undefined, scope: string): RngFunction {
-  if (!rng) {
-    throw new Error(`[Foundation] RNG not provided for ${scope}.`);
+function requireMesh(mesh: FoundationMesh | undefined): FoundationMesh {
+  if (!mesh) {
+    throw new Error("[Foundation] Mesh not provided for foundation/compute-plates-tensors.");
   }
-  return rng;
+  const cellCount = mesh.cellCount | 0;
+  if (cellCount <= 0) throw new Error("[Foundation] Invalid mesh.cellCount for plate projection.");
+  if (!(mesh.siteX instanceof Float32Array) || mesh.siteX.length !== cellCount) {
+    throw new Error("[Foundation] Invalid mesh.siteX for plate projection.");
+  }
+  if (!(mesh.siteY instanceof Float32Array) || mesh.siteY.length !== cellCount) {
+    throw new Error("[Foundation] Invalid mesh.siteY for plate projection.");
+  }
+  return mesh;
 }
 
-function buildPlateConfig(
-  config: ComputePlatesTensorsConfig
-): PlateConfig {
-  const count = (config.plateCount ?? 8) | 0;
-  const convergenceMix = config.convergenceMix ?? 0.5;
-  const relaxationSteps = (config.relaxationSteps ?? 5) | 0;
-  const plateRotationMultiple = config.plateRotationMultiple ?? 1;
-  const seedMode = config.seedMode ?? "engine";
-  const seedOffset = Math.trunc(config.seedOffset ?? 0);
-  const fixedSeedValue = config.fixedSeed;
-  const fixedSeed =
-    typeof fixedSeedValue === "number" && Number.isFinite(fixedSeedValue) ? Math.trunc(fixedSeedValue) : undefined;
+function requirePlateGraph(
+  plateGraph: FoundationPlateGraph | undefined,
+  expectedCellCount: number
+): FoundationPlateGraph {
+  if (!plateGraph) {
+    throw new Error("[Foundation] PlateGraph not provided for foundation/compute-plates-tensors.");
+  }
+  if (!(plateGraph.cellToPlate instanceof Int16Array) || plateGraph.cellToPlate.length !== expectedCellCount) {
+    throw new Error("[Foundation] Invalid plateGraph.cellToPlate for plate projection.");
+  }
+  if (!Array.isArray(plateGraph.plates) || plateGraph.plates.length <= 0) {
+    throw new Error("[Foundation] Invalid plateGraph.plates for plate projection.");
+  }
+  return plateGraph;
+}
 
-  return {
-    count,
-    relaxationSteps,
-    convergenceMix,
-    plateRotationMultiple,
-    seedMode,
-    fixedSeed,
-    seedOffset,
-  };
+function requireTectonics(
+  tectonics: FoundationTectonics | undefined,
+  expectedCellCount: number
+): FoundationTectonics {
+  if (!tectonics) {
+    throw new Error("[Foundation] Tectonics not provided for foundation/compute-plates-tensors.");
+  }
+  if (!(tectonics.boundaryType instanceof Uint8Array) || tectonics.boundaryType.length !== expectedCellCount) {
+    throw new Error("[Foundation] Invalid tectonics.boundaryType for plate projection.");
+  }
+  return tectonics;
 }
 
 const computePlatesTensors = createOp(ComputePlatesTensorsContract, {
@@ -46,57 +59,49 @@ const computePlatesTensors = createOp(ComputePlatesTensorsContract, {
         const width = input.width | 0;
         const height = input.height | 0;
         const trace = (input.trace ?? null) as TraceScope | null;
+        const mesh = requireMesh(input.mesh as unknown as FoundationMesh | undefined);
+        const plateGraph = requirePlateGraph(input.plateGraph as unknown as FoundationPlateGraph | undefined, mesh.cellCount | 0);
+        const tectonics = requireTectonics(input.tectonics as unknown as FoundationTectonics | undefined, mesh.cellCount | 0);
 
-        const rng = requireRng(input.rng as unknown as RngFunction | undefined, "foundation/compute-plates-tensors");
-        const voronoiUtils = input.voronoiUtils as unknown as VoronoiUtilsInterface;
-
-        const plateConfig = buildPlateConfig(config as unknown as ComputePlatesTensorsConfig);
+        const boundaryInfluenceDistance = config.boundaryInfluenceDistance;
+        const boundaryDecay = config.boundaryDecay;
+        const movementScale = config.movementScale;
+        const rotationScale = config.rotationScale;
 
         devLogIf(
           trace,
           "LOG_FOUNDATION_PLATES",
-          `[Foundation] Config plates.count=${plateConfig.count}, relaxationSteps=${plateConfig.relaxationSteps}, ` +
-            `convergenceMix=${plateConfig.convergenceMix}, rotationMultiple=${plateConfig.plateRotationMultiple}, ` +
-            `seedMode=${plateConfig.seedMode}, seedOffset=${plateConfig.seedOffset}, fixedSeed=${
-              plateConfig.fixedSeed ?? "n/a"
-            }`
+          `[Foundation] Plate projection boundaryDistance=${boundaryInfluenceDistance}, decay=${boundaryDecay}, ` +
+            `movementScale=${movementScale}, rotationScale=${rotationScale}`
         );
 
-        const { snapshot: seedBase } = PlateSeedManager.capture(width, height, plateConfig);
-        const plateData = computePlatesVoronoi(width, height, plateConfig, { rng, voronoiUtils });
+        const { plates, diagnostics } = projectPlatesFromModel({
+          width,
+          height,
+          mesh,
+          plateGraph,
+          tectonics,
+          boundaryInfluenceDistance,
+          boundaryDecay,
+          movementScale,
+          rotationScale,
+        });
 
-        if (!plateData) {
-          throw new Error("[Foundation] Plate generation failed.");
-        }
-
-        const meta = plateData.meta;
-        const plateSeed =
-          PlateSeedManager.finalize(seedBase, {
-            config: plateConfig,
-            meta: meta ? { seedLocations: meta.seedLocations } : undefined,
-          }) ||
-          Object.freeze({
-            width,
-            height,
-            seedMode: "engine" as const,
-            config: Object.freeze({ ...plateConfig }),
-          });
+        const plateSeed = Object.freeze({
+          width,
+          height,
+          seedMode: "engine" as const,
+          seedLocations: plateGraph.plates.map((plate, id) => ({
+            id,
+            x: plate.seedX ?? 0,
+            y: plate.seedY ?? 0,
+          })),
+        });
 
         return {
-          plates: Object.freeze({
-            id: plateData.plateId,
-            boundaryCloseness: plateData.boundaryCloseness,
-            boundaryType: plateData.boundaryType,
-            tectonicStress: plateData.tectonicStress,
-            upliftPotential: plateData.upliftPotential,
-            riftPotential: plateData.riftPotential,
-            shieldStability: plateData.shieldStability,
-            movementU: plateData.plateMovementU,
-            movementV: plateData.plateMovementV,
-            rotation: plateData.plateRotation,
-          }),
+          plates,
           plateSeed,
-          diagnostics: Object.freeze({ boundaryTree: plateData.boundaryTree ?? null }),
+          diagnostics,
         } as const;
       },
     },

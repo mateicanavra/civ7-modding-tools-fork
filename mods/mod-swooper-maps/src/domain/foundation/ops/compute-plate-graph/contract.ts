@@ -7,14 +7,24 @@ import { FoundationCrustSchema } from "../compute-crust/contract.js";
 
 const StrategySchema = Type.Object(
   {
-    plateCount: Type.Optional(
-      Type.Integer({
-        default: 8,
-        minimum: 2,
-        maximum: 32,
-        description: "Number of plates used to seed the plate graph partition.",
-      })
-    ),
+    plateCount: Type.Integer({
+      default: 8,
+      minimum: 2,
+      maximum: 256,
+      description:
+        "Authored plate count (scaled to the runtime map size in normalization).",
+    }),
+    referenceArea: Type.Integer({
+      default: 4000,
+      minimum: 1,
+      description: "Reference map area (width*height) used for plateCount scaling.",
+    }),
+    plateScalePower: Type.Number({
+      default: 0.5,
+      minimum: 0,
+      maximum: 2,
+      description: "Exponent applied to (area/referenceArea) when scaling plateCount.",
+    }),
   },
   { additionalProperties: false }
 );

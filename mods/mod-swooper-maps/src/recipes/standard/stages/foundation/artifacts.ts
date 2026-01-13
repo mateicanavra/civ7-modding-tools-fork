@@ -1,8 +1,6 @@
 import { TypedArraySchemas, Type, defineArtifact } from "@swooper/mapgen-core/authoring";
 import {
-  FOUNDATION_CONFIG_ARTIFACT_TAG,
   FOUNDATION_DIAGNOSTICS_ARTIFACT_TAG,
-  FOUNDATION_DYNAMICS_ARTIFACT_TAG,
   FOUNDATION_CRUST_ARTIFACT_TAG,
   FOUNDATION_MESH_ARTIFACT_TAG,
   FOUNDATION_PLATE_GRAPH_ARTIFACT_TAG,
@@ -47,7 +45,6 @@ const FoundationMeshArtifactSchema = Type.Object(
       },
       { additionalProperties: false }
     ),
-    wrapX: Type.Boolean({ description: "Whether the map wraps in X (cylindrical)." }),
   },
   { additionalProperties: false }
 );
@@ -106,16 +103,6 @@ const FoundationTectonicsArtifactSchema = Type.Object(
   { additionalProperties: false }
 );
 
-const FoundationDynamicsArtifactSchema = Type.Object(
-  {
-    windU: TypedArraySchemas.i8({ description: "Wind U component per tile (-127..127)." }),
-    windV: TypedArraySchemas.i8({ description: "Wind V component per tile (-127..127)." }),
-    currentU: TypedArraySchemas.i8({ description: "Current U component per tile (-127..127)." }),
-    currentV: TypedArraySchemas.i8({ description: "Current V component per tile (-127..127)." }),
-    pressure: TypedArraySchemas.u8({ description: "Mantle pressure per tile (0..255)." }),
-  },
-  { additionalProperties: false }
-);
 
 export const foundationArtifacts = {
   mesh: defineArtifact({
@@ -143,11 +130,6 @@ export const foundationArtifacts = {
     id: FOUNDATION_PLATES_ARTIFACT_TAG,
     schema: FoundationPlatesArtifactSchema,
   }),
-  dynamics: defineArtifact({
-    name: "foundationDynamics",
-    id: FOUNDATION_DYNAMICS_ARTIFACT_TAG,
-    schema: FoundationDynamicsArtifactSchema,
-  }),
   seed: defineArtifact({
     name: "foundationSeed",
     id: FOUNDATION_SEED_ARTIFACT_TAG,
@@ -156,11 +138,6 @@ export const foundationArtifacts = {
   diagnostics: defineArtifact({
     name: "foundationDiagnostics",
     id: FOUNDATION_DIAGNOSTICS_ARTIFACT_TAG,
-    schema: Type.Any(),
-  }),
-  config: defineArtifact({
-    name: "foundationConfig",
-    id: FOUNDATION_CONFIG_ARTIFACT_TAG,
     schema: Type.Any(),
   }),
 } as const;

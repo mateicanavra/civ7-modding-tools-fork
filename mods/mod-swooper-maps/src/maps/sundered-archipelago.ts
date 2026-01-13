@@ -20,32 +20,16 @@ import { wireStandardMapEntry } from "./_runtime/standard-entry.js";
 
 const config = {
   foundation: {
-    computeMesh: {
-      strategy: "default",
-      config: { plateCount: 32, relaxationSteps: 4 },
-    },
-    computePlateGraph: {
-      strategy: "default",
-      config: { plateCount: 32 },
-    },
-    computePlates: {
-      strategy: "default",
-      config: {
-        plateCount: 32,
-        convergenceMix: 0.75,
-        relaxationSteps: 4,
-        plateRotationMultiple: 1.8,
+    mesh: {
+      computeMesh: {
+        strategy: "default",
+        config: { plateCount: 32, cellsPerPlate: 2, relaxationSteps: 4 },
       },
     },
-    computeDynamics: {
-      strategy: "default",
-      config: {
-        windJetStreaks: 5,
-        windJetStrength: 0.85,
-        windVariance: 0.8,
-        mantleBumps: 7,
-        mantleAmplitude: 0.9,
-        mantleScale: 0.4,
+    "plate-graph": {
+      computePlateGraph: {
+        strategy: "default",
+        config: { plateCount: 32 },
       },
     },
   },

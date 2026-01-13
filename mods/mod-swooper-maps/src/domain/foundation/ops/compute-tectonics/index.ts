@@ -56,13 +56,6 @@ function clampByte(value: number): number {
   return Math.max(0, Math.min(255, value | 0)) | 0;
 }
 
-function wrappedDelta(dx: number, width: number): number {
-  const abs = Math.abs(dx);
-  const wrapped = width - abs;
-  if (wrapped < abs) return -Math.sign(dx) * wrapped;
-  return dx;
-}
-
 const computeTectonics = createOp(ComputeTectonicsContract, {
   strategies: {
     default: {
@@ -76,10 +69,7 @@ const computeTectonics = createOp(ComputeTectonicsContract, {
         const trace = (input.trace ?? null) as TraceScope | null;
 
         const cellCount = mesh.cellCount | 0;
-        const width = Math.max(1e-6, (mesh.bbox?.xr ?? 0) - (mesh.bbox?.xl ?? 0));
-        const wrapX = !!mesh.wrapX;
-
-        devLogIf(trace, "LOG_FOUNDATION_TECTONICS", `[Foundation] Tectonics cellCount=${cellCount}, wrapX=${wrapX}`);
+        devLogIf(trace, "LOG_FOUNDATION_TECTONICS", `[Foundation] Tectonics cellCount=${cellCount}`);
 
         const boundaryType = new Uint8Array(cellCount);
         const upliftPotential = new Uint8Array(cellCount);
@@ -115,8 +105,7 @@ const computeTectonics = createOp(ComputeTectonicsContract, {
             const bx = mesh.siteX[j] ?? 0;
             const by = mesh.siteY[j] ?? 0;
 
-            let dx = bx - ax;
-            if (wrapX) dx = wrappedDelta(dx, width);
+            const dx = bx - ax;
             const dy = by - ay;
 
             const rvx = (plateB.velocityX ?? 0) - (plateA.velocityX ?? 0);

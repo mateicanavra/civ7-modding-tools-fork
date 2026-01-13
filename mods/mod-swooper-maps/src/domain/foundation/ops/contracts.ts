@@ -1,4 +1,3 @@
-import ComputeDynamicsTensorsContract from "./compute-dynamics-tensors/contract.js";
 import ComputeCrustContract from "./compute-crust/contract.js";
 import ComputeMeshContract from "./compute-mesh/contract.js";
 import ComputePlateGraphContract from "./compute-plate-graph/contract.js";
@@ -11,7 +10,6 @@ export const contracts = {
   computePlateGraph: ComputePlateGraphContract,
   computeTectonics: ComputeTectonicsContract,
   computePlatesTensors: ComputePlatesTensorsContract,
-  computeDynamicsTensors: ComputeDynamicsTensorsContract,
 } as const;
 
 export default contracts;

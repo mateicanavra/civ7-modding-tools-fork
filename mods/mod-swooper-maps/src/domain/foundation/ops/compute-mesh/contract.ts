@@ -1,29 +1,7 @@
 import { TypedArraySchemas, Type, defineOp } from "@swooper/mapgen-core/authoring";
 import type { Static } from "@swooper/mapgen-core/authoring";
 
-import type { BoundingBox, RngFunction, VoronoiUtilsInterface } from "../../types.js";
-
-const StrategySchema = Type.Object(
-  {
-    plateCount: Type.Optional(
-      Type.Integer({
-        default: 8,
-        minimum: 2,
-        maximum: 32,
-        description: "Target plate count used to derive a reasonable mesh cell count.",
-      })
-    ),
-    relaxationSteps: Type.Optional(
-      Type.Integer({
-        default: 2,
-        minimum: 0,
-        maximum: 50,
-        description: "Lloyd relaxation iterations applied to mesh sites.",
-      })
-    ),
-  },
-  { additionalProperties: false }
-);
+import type { BoundingBox, RngFunction } from "../../types.js";
 
 export const BoundingBoxSchema = Type.Object(
   {
@@ -47,7 +25,6 @@ export const FoundationMeshSchema = Type.Object(
     neighbors: TypedArraySchemas.i32({ shape: null, description: "CSR neighbor indices." }),
     areas: TypedArraySchemas.f32({ shape: null, description: "Cell area per mesh cell (units: bbox space)." }),
     bbox: BoundingBoxSchema,
-    wrapX: Type.Boolean({ description: "Whether the map wraps in X (cylindrical)." }),
   },
   { additionalProperties: false }
 );
@@ -59,21 +36,27 @@ const ComputeMeshContract = defineOp({
     {
       width: Type.Integer({ minimum: 1 }),
       height: Type.Integer({ minimum: 1 }),
-      wrapX: Type.Boolean(),
       rng: Type.Unsafe<RngFunction>({ description: "Deterministic RNG wrapper (typically ctxRandom)." }),
-      voronoiUtils: Type.Unsafe<VoronoiUtilsInterface>({
-        description: "Adapter-provided Voronoi utilities (typically adapter.getVoronoiUtils()).",
-      }),
       trace: Type.Optional(Type.Any()),
     },
     { additionalProperties: false }
   ),
   output: Type.Object({ mesh: FoundationMeshSchema }, { additionalProperties: false }),
   strategies: {
-    default: StrategySchema,
+    default: Type.Object(
+      {
+        plateCount: Type.Integer({ default: 8, minimum: 2 }),
+        cellsPerPlate: Type.Integer({ default: 2, minimum: 1, maximum: 32 }),
+        referenceArea: Type.Integer({ default: 4000, minimum: 1 }),
+        plateScalePower: Type.Number({ default: 0.5, minimum: 0, maximum: 2 }),
+        relaxationSteps: Type.Integer({ default: 2, minimum: 0, maximum: 50 }),
+        cellCount: Type.Optional(Type.Integer({ minimum: 1 })),
+      },
+      { additionalProperties: false }
+    ),
   },
 });
 
 export default ComputeMeshContract;
-export type ComputeMeshConfig = Static<typeof StrategySchema>;
+export type ComputeMeshConfig = Static<(typeof ComputeMeshContract)["strategies"]["default"]>;
 export type FoundationMesh = Static<typeof FoundationMeshSchema> & Readonly<{ bbox: BoundingBox }>;

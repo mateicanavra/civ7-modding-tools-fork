@@ -1,57 +1,42 @@
 import { TypedArraySchemas, Type, defineOp } from "@swooper/mapgen-core/authoring";
 import type { Static } from "@swooper/mapgen-core/authoring";
 
-import type { RngFunction, VoronoiUtilsInterface } from "../../types.js";
+import { FoundationMeshSchema } from "../compute-mesh/contract.js";
+import { FoundationPlateGraphSchema } from "../compute-plate-graph/contract.js";
+import { FoundationTectonicsSchema } from "../compute-tectonics/contract.js";
 
 const StrategySchema = Type.Object(
   {
-    plateCount: Type.Optional(
-      Type.Integer({
-        default: 8,
-        minimum: 2,
-        maximum: 32,
-        description: "Number of plates to project onto tiles.",
-      })
-    ),
-    relaxationSteps: Type.Optional(
+    boundaryInfluenceDistance: Type.Optional(
       Type.Integer({
         default: 5,
-        minimum: 0,
-        maximum: 50,
-        description: "Lloyd relaxation iterations for plate Voronoi.",
+        minimum: 1,
+        maximum: 32,
+        description: "Tile-distance influence radius for boundary closeness.",
       })
     ),
-    convergenceMix: Type.Optional(
+    boundaryDecay: Type.Optional(
       Type.Number({
-        default: 0.5,
-        minimum: 0,
+        default: 0.55,
+        minimum: 0.05,
         maximum: 1,
-        description: "Ratio of convergent vs divergent boundaries (0..1).",
+        description: "Exponential decay applied to boundary closeness by distance.",
       })
     ),
-    plateRotationMultiple: Type.Optional(
+    movementScale: Type.Optional(
       Type.Number({
-        default: 1,
-        minimum: 0,
-        maximum: 5,
-        description: "Multiplier applied to plate rotation weighting along boundaries.",
+        default: 100,
+        minimum: 1,
+        maximum: 200,
+        description: "Scale factor mapping plate velocity to int8 tile fields.",
       })
     ),
-    seedMode: Type.Optional(
-      Type.Union([Type.Literal("engine"), Type.Literal("fixed")], {
-        default: "engine",
-        description: "Choose engine RNG or a fixed seed for plate projection.",
-      })
-    ),
-    fixedSeed: Type.Optional(
-      Type.Integer({
-        description: "Explicit plate seed value when seedMode is 'fixed'.",
-      })
-    ),
-    seedOffset: Type.Optional(
-      Type.Integer({
-        default: 0,
-        description: "Integer offset applied to the selected base plate seed.",
+    rotationScale: Type.Optional(
+      Type.Number({
+        default: 100,
+        minimum: 1,
+        maximum: 200,
+        description: "Scale factor mapping plate rotation to int8 tile fields.",
       })
     ),
   },
@@ -65,10 +50,9 @@ const ComputePlatesTensorsContract = defineOp({
     {
       width: Type.Integer({ minimum: 1 }),
       height: Type.Integer({ minimum: 1 }),
-      rng: Type.Unsafe<RngFunction>({ description: "Deterministic RNG wrapper (typically ctxRandom)." }),
-      voronoiUtils: Type.Unsafe<VoronoiUtilsInterface>({
-        description: "Adapter-provided Voronoi utilities (typically adapter.getVoronoiUtils()).",
-      }),
+      mesh: FoundationMeshSchema,
+      plateGraph: FoundationPlateGraphSchema,
+      tectonics: FoundationTectonicsSchema,
       trace: Type.Optional(Type.Any()),
     },
     { additionalProperties: false }

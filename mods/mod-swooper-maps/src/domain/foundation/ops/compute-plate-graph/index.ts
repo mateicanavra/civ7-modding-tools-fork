@@ -6,7 +6,7 @@ import type { RngFunction } from "../../types.js";
 import type { FoundationMesh } from "../compute-mesh/contract.js";
 import type { FoundationCrust } from "../compute-crust/contract.js";
 import ComputePlateGraphContract from "./contract.js";
-import type { ComputePlateGraphConfig, FoundationPlate } from "./contract.js";
+import type { FoundationPlate } from "./contract.js";
 
 function requireRng(rng: RngFunction | undefined): RngFunction {
   if (!rng) {
@@ -41,22 +41,8 @@ function requireCrust(crust: FoundationCrust | undefined, expectedCellCount: num
   return crust;
 }
 
-function clampInt(value: unknown, fallback: number, min: number, max: number): number {
-  if (!Number.isFinite(value)) return fallback;
-  const n = Math.trunc(value as number);
-  return Math.max(min, Math.min(max, n));
-}
-
-function wrappedDistanceSq(
-  ax: number,
-  ay: number,
-  bx: number,
-  by: number,
-  width: number,
-  wrapX: boolean
-): number {
-  const rawDx = ax - bx;
-  const dx = wrapX ? Math.sign(rawDx) * Math.min(Math.abs(rawDx), width - Math.abs(rawDx)) : rawDx;
+function distanceSq(ax: number, ay: number, bx: number, by: number): number {
+  const dx = ax - bx;
   const dy = ay - by;
   return dx * dx + dy * dy;
 }
@@ -75,6 +61,21 @@ function chooseUniqueSeedCells(cellCount: number, seedCount: number, rng: RngFun
 const computePlateGraph = createOp(ComputePlateGraphContract, {
   strategies: {
     default: {
+      normalize: (config, ctx) => {
+        const { width, height } = (ctx as any)?.env?.dimensions ?? {};
+        const area = Math.max(1, (Number(width) | 0) * (Number(height) | 0));
+
+        const referenceArea = Math.max(1, config.referenceArea | 0);
+        const power = Number.isFinite(config.plateScalePower) ? config.plateScalePower : 0.5;
+
+        const scale = Math.pow(area / referenceArea, power);
+        const scaledPlateCount = Math.max(2, Math.round((config.plateCount | 0) * scale));
+
+        return {
+          ...config,
+          plateCount: scaledPlateCount,
+        };
+      },
       run: (input, config) => {
         const mesh = requireMesh(input.mesh as unknown as FoundationMesh | undefined);
         const crust = requireCrust(input.crust as unknown as FoundationCrust | undefined, mesh.cellCount | 0);
@@ -83,21 +84,17 @@ const computePlateGraph = createOp(ComputePlateGraphContract, {
         const rng = requireRng(input.rng as unknown as RngFunction | undefined);
         const trace = (input.trace ?? null) as TraceScope | null;
 
-        const width = Math.max(1e-6, (mesh.bbox?.xr ?? 0) - (mesh.bbox?.xl ?? 0));
-        const wrapX = !!mesh.wrapX;
         const cellCount = mesh.cellCount | 0;
 
-        const platesCount = clampInt(
-          (config as unknown as ComputePlateGraphConfig)?.plateCount,
-          8,
-          2,
-          Math.max(2, cellCount)
-        );
+        const platesCount = config.plateCount;
+        if (platesCount > cellCount) {
+          throw new Error("[Foundation] PlateGraph plateCount exceeds mesh cellCount.");
+        }
 
         devLogIf(
           trace,
           "LOG_FOUNDATION_PLATE_GRAPH",
-          `[Foundation] PlateGraph cellCount=${cellCount}, platesCount=${platesCount}, wrapX=${wrapX}`
+          `[Foundation] PlateGraph cellCount=${cellCount}, platesCount=${platesCount}`
         );
 
         const seedCells = chooseUniqueSeedCells(cellCount, platesCount, rng);
@@ -135,7 +132,7 @@ const computePlateGraph = createOp(ComputePlateGraphContract, {
           let bestDist = Infinity;
           for (let p = 0; p < plates.length; p++) {
             const plate = plates[p]!;
-            const dist = wrappedDistanceSq(x, y, plate.seedX, plate.seedY, width, wrapX);
+            const dist = distanceSq(x, y, plate.seedX, plate.seedY);
             if (dist < bestDist) {
               bestDist = dist;
               bestId = p;
