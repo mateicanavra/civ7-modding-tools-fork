@@ -1,9 +1,14 @@
 import { describe, expect, it } from "bun:test";
 import { Type } from "typebox";
 
+import { createMockAdapter } from "@civ7/adapter";
 import { EmptyStepConfigSchema } from "@mapgen/engine/step-config.js";
 import { RecipeCompileError } from "@mapgen/compiler/recipe-compile.js";
+import { createExtendedMapContext } from "@mapgen/core/types.js";
 import {
+  ArtifactDoublePublishError,
+  ArtifactMissingError,
+  ArtifactValidationError,
   createOp,
   bindCompileOps,
   bindRuntimeOps,
@@ -67,6 +72,63 @@ describe("authoring SDK", () => {
         schema: EmptyStepConfigSchema,
       })
     ).toThrow(/BadId/);
+  });
+
+  it("defineStep merges artifact contracts into requires/provides", () => {
+    const artifact = defineArtifact({
+      name: "artifactFoo",
+      id: "artifact:test.foo",
+      schema: Type.Object({}, { additionalProperties: false }),
+    });
+    const contract = defineStep({
+      id: "alpha",
+      phase: "foundation",
+      requires: ["field:test.bar"],
+      provides: [],
+      artifacts: { requires: [artifact], provides: [] },
+      schema: EmptyStepConfigSchema,
+    });
+
+    expect(contract.requires).toContain("field:test.bar");
+    expect(contract.requires).toContain("artifact:test.foo");
+  });
+
+  it("defineStep rejects mixing artifact ids with artifacts block", () => {
+    const artifact = defineArtifact({
+      name: "artifactFoo",
+      id: "artifact:test.foo",
+      schema: Type.Object({}, { additionalProperties: false }),
+    });
+
+    expect(() =>
+      defineStep({
+        id: "alpha",
+        phase: "foundation",
+        requires: ["artifact:test.foo"],
+        provides: [],
+        artifacts: { requires: [artifact], provides: [] },
+        schema: EmptyStepConfigSchema,
+      })
+    ).toThrow(/mixes artifact ids/i);
+  });
+
+  it("defineStep rejects duplicate artifacts across requires/provides", () => {
+    const artifact = defineArtifact({
+      name: "artifactFoo",
+      id: "artifact:test.foo",
+      schema: Type.Object({}, { additionalProperties: false }),
+    });
+
+    expect(() =>
+      defineStep({
+        id: "alpha",
+        phase: "foundation",
+        requires: [],
+        provides: [],
+        artifacts: { requires: [artifact], provides: [artifact] },
+        schema: EmptyStepConfigSchema,
+      })
+    ).toThrow(/artifacts\\.requires/);
   });
 
   it("createStage rejects steps without explicit schemas", () => {
@@ -401,5 +463,35 @@ describe("authoring SDK", () => {
         runtimeOpsById: {},
       })
     ).toThrow(/Missing op implementation/i);
+  });
+
+  it("artifact runtimes enforce missing/double publish/validation errors", () => {
+    const artifact = defineArtifact({
+      name: "artifactFoo",
+      id: "artifact:test.foo",
+      schema: Type.Object(
+        {
+          value: Type.Number(),
+        },
+        { additionalProperties: false }
+      ),
+    });
+
+    const runtimes = implementArtifacts([artifact], {
+      artifactFoo: {
+        validate: (value) => (value.value > 0 ? [] : [{ message: "value must be positive" }]),
+      },
+    });
+
+    const adapter = createMockAdapter({ width: 1, height: 1 });
+    const env = { ...baseSettings, dimensions: { width: 1, height: 1 } };
+    const ctx = createExtendedMapContext({ width: 1, height: 1 }, adapter, env);
+
+    expect(() => runtimes.artifactFoo.read(ctx)).toThrow(ArtifactMissingError);
+    expect(runtimes.artifactFoo.tryRead(ctx)).toBeNull();
+    expect(() => runtimes.artifactFoo.publish(ctx, { value: 0 })).toThrow(ArtifactValidationError);
+
+    runtimes.artifactFoo.publish(ctx, { value: 1 });
+    expect(() => runtimes.artifactFoo.publish(ctx, { value: 2 })).toThrow(ArtifactDoublePublishError);
   });
 });
