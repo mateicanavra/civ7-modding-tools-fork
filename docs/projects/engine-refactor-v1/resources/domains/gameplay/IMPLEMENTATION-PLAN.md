@@ -109,8 +109,13 @@ imports:
     notes: imports swatches (“paleo”) helpers today
   - path: mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/**/*
     notes: imports narrative models and reads overlays
-  - path: mods/mod-swooper-maps/test/**/*
-    notes: story/ecology tests import narrative overlay machinery directly today
+  - path: mods/mod-swooper-maps/test/story/orogeny.test.ts
+  - path: mods/mod-swooper-maps/test/story/paleo.test.ts
+  - path: mods/mod-swooper-maps/test/story/corridors.test.ts
+  - path: mods/mod-swooper-maps/test/story/overlays.test.ts
+  - path: mods/mod-swooper-maps/test/ecology/biomes-step.test.ts
+  - path: mods/mod-swooper-maps/test/ecology/features-owned.helpers.ts
+    notes: tests currently import narrative overlay machinery directly
 ```
 
 ### Slice 0 — Preflight: lock invariants + inventory the blast radius
@@ -186,6 +191,7 @@ files:
 - Update narrative stage step implementations to import overlay publishers from Gameplay.
 - Update physics steps that publish overlays (HOTSPOTS wrinkle) to import publishers/keys from Gameplay.
 - Keep `@mapgen/domain/narrative/overlays/*` as compatibility wrappers re-exporting from Gameplay for one migration window.
+- Update tests to prefer Gameplay imports by default, while allowing deep imports when the public surface can’t express the test.
 
 **Files (expected touchpoints):**
 ```yaml
@@ -196,6 +202,8 @@ files:
   - path: mods/mod-swooper-maps/src/recipes/standard/overlays.ts
   - path: mods/mod-swooper-maps/src/recipes/standard/stages/narrative-*/steps/*.ts
   - path: mods/mod-swooper-maps/src/recipes/standard/stages/morphology-post/steps/islands.ts
+  - path: mods/mod-swooper-maps/test/story/*.test.ts
+  - path: mods/mod-swooper-maps/test/ecology/*.test.ts
 ```
 
 **Gate:**
