@@ -88,6 +88,21 @@ function createRequiredArtifactRuntime<
   };
 }
 
+function resolveProvidedArtifactRuntime<TContext extends ExtendedMapContext>(
+  authored: Step<TContext, any, any, any>,
+  contract: ArtifactContract,
+  fullStepId: string,
+  recipeId: string
+): ProvidedArtifactRuntime<any, TContext> {
+  const runtime = authored.artifacts?.[contract.name as keyof typeof authored.artifacts];
+  if (!runtime) {
+    throw new Error(
+      `[recipe:${recipeId}] step "${fullStepId}" missing artifact runtime for "${contract.name}"`
+    );
+  }
+  return runtime as unknown as ProvidedArtifactRuntime<any, TContext>;
+}
+
 function buildArtifactDeps<TContext extends ExtendedMapContext>(
   authored: Step<TContext, any, any, any>,
   fullStepId: string,
@@ -104,13 +119,7 @@ function buildArtifactDeps<TContext extends ExtendedMapContext>(
   }
 
   for (const contract of artifacts.provides ?? []) {
-    const runtime = authored.artifacts?.[contract.name as keyof typeof authored.artifacts];
-    if (!runtime) {
-      throw new Error(
-        `[recipe:${recipeId}] step "${fullStepId}" missing artifact runtime for "${contract.name}"`
-      );
-    }
-    out[contract.name] = runtime as unknown as ProvidedArtifactRuntime<any, TContext>;
+    out[contract.name] = resolveProvidedArtifactRuntime(authored, contract, fullStepId, recipeId);
   }
 
   return out as StepDeps<TContext, typeof artifacts>["artifacts"];
@@ -126,6 +135,45 @@ function buildStepDeps<TContext extends ExtendedMapContext>(
     fields: {},
     effects: {},
   } as StepDeps<TContext, typeof authored.contract.artifacts>;
+}
+
+function collectArtifactTagDefinitions<TContext extends ExtendedMapContext>(input: {
+  namespace?: string;
+  recipeId: string;
+  stages: readonly AnyStage<TContext>[];
+}): DependencyTagDefinition<TContext>[] {
+  const defs = new Map<string, DependencyTagDefinition<TContext>>();
+  const providers = new Map<string, string>();
+
+  for (const stage of input.stages) {
+    for (const authored of stage.steps) {
+      const stepId = authored.contract.id;
+      const fullId = computeFullStepId({
+        namespace: input.namespace,
+        recipeId: input.recipeId,
+        stageId: stage.id,
+        stepId,
+      });
+
+      for (const contract of authored.contract.artifacts?.provides ?? []) {
+        const existing = providers.get(contract.id);
+        if (existing) {
+          throw new Error(
+            `[recipe:${input.recipeId}] artifact "${contract.id}" provided by multiple steps: ${existing}, ${fullId}`
+          );
+        }
+        const runtime = resolveProvidedArtifactRuntime(authored, contract, fullId, input.recipeId);
+        defs.set(contract.id, {
+          id: contract.id,
+          kind: "artifact",
+          satisfies: runtime.satisfies,
+        });
+        providers.set(contract.id, fullId);
+      }
+    }
+  }
+
+  return Array.from(defs.values());
 }
 
 function finalizeOccurrences<TContext extends ExtendedMapContext>(input: {
@@ -176,7 +224,8 @@ function finalizeOccurrences<TContext extends ExtendedMapContext>(input: {
 
 function collectTagDefinitions<TContext>(
   occurrences: readonly StepOccurrence<TContext>[],
-  explicit: readonly DependencyTagDefinition<TContext>[]
+  explicit: readonly DependencyTagDefinition<TContext>[],
+  artifactTagDefinitions: readonly DependencyTagDefinition<TContext>[]
 ): DependencyTagDefinition<TContext>[] {
   const defs = new Map<string, DependencyTagDefinition<TContext>>();
 
@@ -189,6 +238,10 @@ function collectTagDefinitions<TContext>(
     defs.set(id, { id, kind: inferTagKind(id) } as DependencyTagDefinition<TContext>);
   }
 
+  for (const def of artifactTagDefinitions) {
+    defs.set(def.id, def);
+  }
+
   for (const def of explicit) {
     defs.set(def.id, def);
   }
@@ -198,10 +251,11 @@ function collectTagDefinitions<TContext>(
 
 function buildRegistry<TContext extends ExtendedMapContext>(
   occurrences: readonly StepOccurrence<TContext>[],
-  tagDefinitions: readonly DependencyTagDefinition<TContext>[]
+  tagDefinitions: readonly DependencyTagDefinition<TContext>[],
+  artifactTagDefinitions: readonly DependencyTagDefinition<TContext>[]
 ): StepRegistry<TContext> {
   const tags = new TagRegistry<TContext>();
-  tags.registerTags(collectTagDefinitions(occurrences, tagDefinitions));
+  tags.registerTags(collectTagDefinitions(occurrences, tagDefinitions, artifactTagDefinitions));
 
   const registry = new StepRegistry<TContext>({ tags });
   for (const occ of occurrences) registry.register(occ.step);
@@ -245,7 +299,12 @@ export function createRecipe<
     stages: input.stages,
     runtimeOpsById,
   });
-  const registry = buildRegistry(occurrences, input.tagDefinitions);
+  const artifactTagDefinitions = collectArtifactTagDefinitions({
+    namespace: input.namespace,
+    recipeId: input.id,
+    stages: input.stages,
+  });
+  const registry = buildRegistry(occurrences, input.tagDefinitions, artifactTagDefinitions);
   const recipe = toStructuralRecipeV2(input.id, occurrences);
 
   function assertCompiledConfig(
