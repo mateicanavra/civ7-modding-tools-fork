@@ -48,6 +48,17 @@ Hydrology products are the canonical read path for:
 - lakes/lake mask (if modeled),
 - and wetness/runoff proxies (useful for wetlands, fertility, and placement biases).
 
+### Buffers vs artifacts (contract nuance)
+
+Hydrology/Climate outputs often begin life as **buffers** (mutable working layers) because they are built by multiple steps:
+
+- temperature signal (baseline → orographic adjustment → latitude biasing),
+- moisture/rainfall (baseline → rain shadow pass → regional biasing),
+- routing indices (flow directions/accumulation when owned here),
+- and derived indices (aridity/freeze).
+
+Under current pipeline constraints, these buffers may be published **once** as artifacts for gating/typed access, then refined by subsequent steps without re-publishing.
+
 ## Key products
 
 This doc intentionally does not lock exact data shapes, but the following conceptual products are expected to exist:

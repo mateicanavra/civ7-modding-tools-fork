@@ -37,6 +37,15 @@ Ecology publishes domain-level products that downstream consumers can treat as s
 - **Resource basin candidates:** clustered candidate basins intended for Placement to consume and turn into concrete placements.
 - **Baseline features:** planned and applied non-wonder features (forests/wetlands/reefs/ice).
 
+### Buffers vs artifacts (contract nuance)
+
+Ecology is primarily an **artifact-producing** domain built on upstream **buffers**:
+
+- It consumes shared mutable layers (e.g., elevation/heightfield and climate fields) as the physics/climate substrate.
+- It publishes soils, biomes, basin candidates, and feature intents as contracted products for downstream consumption.
+
+If Ecology refines an upstream buffer (rare; generally avoid), treat that as an explicit, testable modeling decision. Do not implicitly “smuggle” buffer semantics into published artifacts.
+
 ## Operation catalog (atomic responsibilities)
 
 Ecology’s model should be expressed as **atomic operations** (single responsibility) that steps/stages orchestrate:
