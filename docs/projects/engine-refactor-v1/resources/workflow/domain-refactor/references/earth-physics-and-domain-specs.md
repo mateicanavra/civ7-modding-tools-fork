@@ -27,6 +27,10 @@ It also records which “research” docs are safe to treat as **inputs** today 
 **Domain-specific seed (non-authoritative for architecture/contracts):**
 - `docs/projects/engine-refactor-v1/resources/PRD-plate-generation.md` (Foundation modeling + artifacts; explicitly non-authoritative)
 
+## External research (when needed)
+
+If domain docs + seeds are insufficient to ground the physics, use external sources and cite them directly in the Phase 2 modeling spike. Record what you borrowed and how it maps to the authoritative model.
+
 ## Canonical modeling rule: buffers vs artifacts
 
 When modeling (Phase 2) and implementing (Phase 4), treat “buffers” and “artifacts” as distinct kinds of pipeline state:

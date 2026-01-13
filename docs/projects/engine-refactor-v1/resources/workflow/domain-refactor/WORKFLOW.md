@@ -74,6 +74,7 @@ Recommended “outside view” doc set (create only what you need; keep it small
 - **Authoritative modeling (not “code cleanup”):** prefer the physically grounded target model over preserving legacy behavior; delete/replace broken or nonsensical behavior as needed.
 - **Cross-pipeline consistency is required:** when the domain model changes contracts/artifacts, update downstream steps and stage-owned artifact contracts in the same refactor so the whole pipeline stays internally consistent (no “temporary mismatch”).
 - **Upstream model intake (non-root):** review the prior domain’s Phase 2 modeling spike and pipeline delta list, then explicitly document which authoritative inputs this domain will adopt and which legacy inputs will be deleted. Also review any upstream refactor changes that touched this domain (compat shims, temporary adapters, legacy pathways) and explicitly plan their removal.
+- **Downstream model intake (non-leaf):** review downstream domain docs and current consumer callsites, then explicitly document which downstream consumers must change to honor the authoritative model.
 - **No upstream compat surfaces:** the domain being refactored must not publish legacy compat or projection surfaces. If downstream needs transitional compatibility, it must be implemented in the downstream domain with explicit `DEPRECATED` / `DEPRECATE ME` markers. Upstream refactors must update downstream consumers in the same change.
 - **Compat cleanup ownership:** if any downstream deprecated compat surfaces remain, create a cleanup item in `docs/projects/engine-refactor-v1/triage.md`. If the immediate downstream domain can remove them safely and no other downstream consumers are affected, that downstream owns the cleanup and must have a dedicated issue; link it from triage.
 
@@ -82,6 +83,15 @@ Recommended “outside view” doc set (create only what you need; keep it small
 Domains own their surfaces. The refactored domain must not retain legacy compat surfaces; update downstream consumers in the same refactor. If a downstream domain needs a transitional shim, it owns it and marks it as deprecated. Projections are presentation-only and must never shape the internal representation.
 
 Config ownership is local and narrow. Op contracts must define op-owned strategy schemas; do not reuse a domain-wide config bag inside op contracts. If an external preset bag must be preserved temporarily, map it at step normalization into per-op envelopes or migrate presets outright.
+
+## Modeling research discipline (required passes)
+
+Phase 2 modeling is a research sprint. Treat it like a full-time investigation, not a cursory read-through. Record evidence in the modeling spike.
+
+- **Architecture alignment pass:** re-read the target architecture SPEC/ADR set and reconcile any conflicts (do not invent new contracts that contradict specs).
+- **Earth-physics pass:** model from first principles using domain + earth-physics references; if gaps exist, use external research and cite sources in the spike.
+- **Pipeline pass:** review upstream authoritative inputs and downstream consumers; document adopted inputs, deleted legacy reads, and required downstream changes.
+- **Codebase evidence pass:** use the code-intel MCP server and repo searches to validate current surfaces, callsites, and invariants; link evidence in decisions.
 
 ## Anti-patterns (avoid; common failure modes)
 
@@ -122,6 +132,7 @@ Phase 1 gate:
 - Legacy surface inventory exists (all config properties, rules/policies, functions; no “TBD” placeholders).
 - Upstream authoritative input review is documented (if the domain is not the pipeline root).
 - Upstream handoff review is documented (prior refactor changes to this domain; removal plan is explicit).
+- Downstream consumer inventory is documented (current-state callsites + contract usage).
 
 Phase 2 gate:
 - Modeling spike exists and includes the canonical model + target contract matrix.
@@ -129,6 +140,9 @@ Phase 2 gate:
 - Legacy disposition ledger is complete (every property/rule/function is keep/kill/migrate with rationale).
 - Upstream authoritative inputs are selected and legacy upstream reads are marked for removal.
 - Upstream handoff cleanup is explicit; no upstream-introduced compat surfaces remain in this domain.
+- Downstream consumer impact scan is explicit; required downstream changes are listed.
+- Architecture alignment note exists; conflicts are recorded and reconciled.
+- Research sources are cited when external research is used.
 
 Phase 3 gate:
 - Implementation issue exists and includes an executable slice plan.

@@ -29,6 +29,8 @@ Design principles (authoritative surfaces):
 - Op config is op-owned and minimal; do not reuse a domain-wide config bag inside op contracts.
 - Every existing config property, rule/policy, and function must be explicitly accepted into the model or rejected as legacy (no silent carry-through).
 - Review the upstream Phase 2 models (Morphology, Hydrology, Foundation as needed), explicitly adopt authoritative inputs, and delete legacy reads. Also review any upstream refactor changes that touched Ecology surfaces and plan their removal.
+- Review downstream consumers (Placement/Narrative as applicable): document current dependencies, required changes, and plan downstream updates as part of this refactor.
+- Modeling is research-driven: reconcile target SPEC/ADR docs with domain specs, use earth-physics references, and lean on MCP/code-intel + web research; cite sources in the Phase 2 spike.
 
 Compatibility and cleanup rules:
 - This refactor must not leave compat/projection surfaces in Ecology. Downstream consumers must be updated as part of this refactor.
