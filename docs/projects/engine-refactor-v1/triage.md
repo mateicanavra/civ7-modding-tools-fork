@@ -18,6 +18,12 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
 
 ## Triage (needs decision / research)
 
+- **Single-producer enforcement scoped to `artifacts.provides` in Phase 1** [Source: LOCAL-TBD-M8-U21]
+  - **Context:** U21 Phase 1 adds artifact contracts without mod migration; legacy steps still declare artifact ids directly in `requires/provides`.
+  - **Type:** triage
+  - **Notes:** Current enforcement checks duplicates only for artifact ids declared via `artifacts.provides`. Revisit after Phase 2 migration to enforce across all artifact provides.
+  - **Next check:** when starting U21-F or once mod migration lands.
+
 - **Empty ops manifests for non-op domains** [Source: LOCAL-TBD-M8-U20]
   - **Context:** U20 domain authoring sweep aligned all domains to defineDomain/createDomain, including domains without ops.
   - **Type:** triage
