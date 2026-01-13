@@ -1,18 +1,13 @@
-import type { ExtendedMapContext } from "@swooper/mapgen-core";
-import { createStep, type Static } from "@swooper/mapgen-core/authoring";
+import { createStep } from "@swooper/mapgen-core/authoring";
 import { addRuggedCoasts } from "@mapgen/domain/morphology/coastlines/index.js";
-import {
-  getPublishedNarrativeCorridors,
-  getPublishedNarrativeMotifsMargins,
-} from "../../../artifacts.js";
 import RuggedCoastsStepContract from "./ruggedCoasts.contract.js";
-type RuggedCoastsStepConfig = Static<typeof RuggedCoastsStepContract.schema>;
 
 export default createStep(RuggedCoastsStepContract, {
-  run: (context: ExtendedMapContext, config: RuggedCoastsStepConfig) => {
+  run: (context, config, _ops, deps) => {
     const { width, height } = context.dimensions;
-    const margins = getPublishedNarrativeMotifsMargins(context);
-    const corridors = getPublishedNarrativeCorridors(context);
+    void deps.artifacts.foundationPlates.read(context);
+    const margins = deps.artifacts.motifsMargins.read(context);
+    const corridors = deps.artifacts.corridors.read(context);
     addRuggedCoasts(width, height, context, config, { margins, corridors });
   },
 });

@@ -3,15 +3,13 @@ import {
   logElevationSummary,
   resolveLandmassIds,
   syncHeightfield,
-  type ExtendedMapContext,
   type MapDimensions,
 } from "@swooper/mapgen-core";
-import { createStep, implementArtifacts, type Static } from "@swooper/mapgen-core/authoring";
+import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import { getStandardRuntime } from "../../../runtime.js";
 import { hydrologyPreArtifacts } from "../artifacts.js";
 import { applyClimateBaseline } from "@mapgen/domain/hydrology/climate/index.js";
 import ClimateBaselineStepContract from "./climateBaseline.contract.js";
-type ClimateBaselineStepConfig = Static<typeof ClimateBaselineStepContract.schema>;
 
 type ArtifactValidationIssue = Readonly<{ message: string }>;
 
@@ -64,7 +62,7 @@ export default createStep(ClimateBaselineStepContract, {
       validate: (value, context) => validateClimateFieldBuffer(value, context.dimensions),
     },
   }),
-  run: (context: ExtendedMapContext, config: ClimateBaselineStepConfig, _ops, deps) => {
+  run: (context, config, _ops, deps) => {
     const runtime = getStandardRuntime(context);
     const { width, height } = context.dimensions;
     const landmassIds = resolveLandmassIds(context.adapter);

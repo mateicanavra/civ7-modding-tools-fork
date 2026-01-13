@@ -1,17 +1,24 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
 import { MorphologyConfigSchema, NarrativeConfigSchema } from "@mapgen/domain/config";
 
-import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";
+import { M4_EFFECT_TAGS } from "../../../tags.js";
+import { foundationArtifacts } from "../../foundation/artifacts.js";
+import { narrativePreArtifacts } from "../../narrative-pre/artifacts.js";
 
 const RuggedCoastsStepContract = defineStep({
   id: "rugged-coasts",
   phase: "morphology",
   requires: [
     M4_EFFECT_TAGS.engine.coastlinesApplied,
-    M3_DEPENDENCY_TAGS.artifact.foundationPlatesV1,
-    M3_DEPENDENCY_TAGS.artifact.narrativeMotifsMarginsV1,
   ],
   provides: [M4_EFFECT_TAGS.engine.coastlinesApplied],
+  artifacts: {
+    requires: [
+      foundationArtifacts.plates,
+      narrativePreArtifacts.motifsMargins,
+      narrativePreArtifacts.corridors,
+    ],
+  },
   schema: Type.Object({
     coastlines: MorphologyConfigSchema.properties.coastlines,
     corridors: NarrativeConfigSchema.properties.corridors,

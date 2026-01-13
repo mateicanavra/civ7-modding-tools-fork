@@ -1,19 +1,18 @@
-import type { ExtendedMapContext } from "@swooper/mapgen-core";
-import { createStep, type Static } from "@swooper/mapgen-core/authoring";
-import { NarrativeConfigSchema, type FoundationDirectionalityConfig } from "@mapgen/domain/config";
+import { createStep } from "@swooper/mapgen-core/authoring";
+import { type FoundationDirectionalityConfig } from "@mapgen/domain/config";
 import { storyTagStrategicCorridors } from "@mapgen/domain/narrative/corridors/index.js";
-import { getPublishedNarrativeCorridors, narrativeCorridorsArtifact } from "../../../artifacts.js";
 import StoryCorridorsPostStepContract from "./storyCorridorsPost.contract.js";
-type StoryCorridorsStepConfig = Static<typeof StoryCorridorsPostStepContract.schema>;
 
 export default createStep(StoryCorridorsPostStepContract, {
-  run: (context: ExtendedMapContext, config: StoryCorridorsStepConfig) => {
+  run: (context, config, _ops, deps) => {
     const directionality =
       context.env.directionality as FoundationDirectionalityConfig | undefined;
     if (!directionality) {
       throw new Error("[Narrative] Missing env.directionality.");
     }
-    const corridors = getPublishedNarrativeCorridors(context);
+    void deps.artifacts.overlays.read(context);
+    void deps.artifacts.riverAdjacency.read(context);
+    const corridors = deps.artifacts.corridors.read(context);
     const result = storyTagStrategicCorridors(
       context,
       "postRivers",
@@ -23,6 +22,7 @@ export default createStep(StoryCorridorsPostStepContract, {
       },
       { corridors }
     );
-    narrativeCorridorsArtifact.set(context, result.corridors);
+    // Corridor artifact is published once, then updated in place.
+    Object.assign(corridors, result.corridors);
   },
 });

@@ -1,7 +1,8 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
 import placement from "@mapgen/domain/placement";
 
-import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../../tags.js";
+import { M4_EFFECT_TAGS } from "../../../../tags.js";
+import { placementArtifacts } from "../../artifacts.js";
 
 const DerivePlacementInputsContract = defineStep({
   id: "derive-placement-inputs",
@@ -11,7 +12,10 @@ const DerivePlacementInputsContract = defineStep({
     M4_EFFECT_TAGS.engine.riversModeled,
     M4_EFFECT_TAGS.engine.featuresApplied,
   ],
-  provides: [M3_DEPENDENCY_TAGS.artifact.placementInputsV1],
+  provides: [],
+  artifacts: {
+    provides: [placementArtifacts.placementInputs],
+  },
   ops: {
     wonders: placement.ops.planWonders,
     floodplains: placement.ops.planFloodplains,

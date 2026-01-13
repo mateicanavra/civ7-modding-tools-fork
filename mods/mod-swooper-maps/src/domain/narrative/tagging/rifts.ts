@@ -1,6 +1,5 @@
-import type { ExtendedMapContext } from "@swooper/mapgen-core";
+import type { ExtendedMapContext, FoundationPlateFields } from "@swooper/mapgen-core";
 import { clamp, inBounds, storyKey } from "@swooper/mapgen-core";
-import { assertFoundationPlates } from "@swooper/mapgen-core";
 import { idx } from "@swooper/mapgen-core/lib/grid";
 import type { NarrativeMotifsRifts } from "@mapgen/domain/narrative/models.js";
 import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
@@ -18,9 +17,9 @@ export interface RiftValleysResult {
 
 export function storyTagRiftValleys(
   ctx: ExtendedMapContext,
-  config: { story: StoryConfig }
+  config: { story: StoryConfig },
+  plates: FoundationPlateFields
 ): RiftValleysResult {
-  const plates = assertFoundationPlates(ctx, "story-rifts");
   const { width, height } = getDims(ctx);
   const storyCfg = config.story as Record<string, unknown>;
   const riftCfg = storyCfg.rift as Record<string, number>;

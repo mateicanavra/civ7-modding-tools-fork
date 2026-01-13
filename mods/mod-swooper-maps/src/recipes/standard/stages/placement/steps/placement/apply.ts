@@ -3,7 +3,6 @@ import { HILL_TERRAIN, MOUNTAIN_TERRAIN, getTerrainSymbol } from "@swooper/mapge
 
 import placement from "@mapgen/domain/placement";
 import type { Static } from "@swooper/mapgen-core/authoring";
-import { publishPlacementOutputsArtifact } from "../../../../artifacts.js";
 import { getStandardRuntime } from "../../../../runtime.js";
 import type { PlacementOutputsV1 } from "../../placement-outputs.js";
 
@@ -16,6 +15,7 @@ type ApplyPlacementArgs = {
   starts: PlanStartsOutput;
   wonders: PlanWondersOutput;
   floodplains: PlanFloodplainsOutput;
+  publishOutputs: (outputs: PlacementOutputsV1) => PlacementOutputsV1;
 };
 
 export function applyPlacementPlan({
@@ -23,6 +23,7 @@ export function applyPlacementPlan({
   starts,
   wonders,
   floodplains,
+  publishOutputs,
 }: ApplyPlacementArgs): PlacementOutputsV1 {
   const { adapter, trace } = context;
   const { width, height } = context.dimensions;
@@ -169,7 +170,7 @@ export function applyPlacementPlan({
     discoveriesCount: 0,
   };
 
-  return publishPlacementOutputsArtifact(context, outputs);
+  return publishOutputs(outputs);
 }
 
 function logTerrainStats(

@@ -1,5 +1,5 @@
 import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
-import { syncHeightfield, type ExtendedMapContext, type MapDimensions } from "@swooper/mapgen-core";
+import { syncHeightfield, type MapDimensions } from "@swooper/mapgen-core";
 import { getStandardRuntime } from "../../../runtime.js";
 import { hydrologyPreArtifacts } from "../artifacts.js";
 import LakesStepContract from "./lakes.contract.js";
@@ -60,7 +60,7 @@ export default createStep(LakesStepContract, {
       validate: (value, context) => validateHeightfieldBuffer(value, context.dimensions),
     },
   }),
-  run: (context: ExtendedMapContext, _config, _ops, deps) => {
+  run: (context, _config, _ops, deps) => {
     const runtime = getStandardRuntime(context);
     const { width, height } = context.dimensions;
     const iTilesPerLake = Math.max(10, (runtime.mapInfo.LakeGenerationFrequency ?? 5) * 2);

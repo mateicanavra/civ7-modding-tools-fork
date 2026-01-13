@@ -1,15 +1,17 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
 
-import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../../tags.js";
+import { M4_EFFECT_TAGS } from "../../../../tags.js";
+import { placementArtifacts } from "../../artifacts.js";
 
 const PlacementStepContract = defineStep({
   id: "placement",
   phase: "placement",
-  requires: [M3_DEPENDENCY_TAGS.artifact.placementInputsV1],
-  provides: [
-    M3_DEPENDENCY_TAGS.artifact.placementOutputsV1,
-    M4_EFFECT_TAGS.engine.placementApplied,
-  ],
+  requires: [],
+  provides: [M4_EFFECT_TAGS.engine.placementApplied],
+  artifacts: {
+    requires: [placementArtifacts.placementInputs],
+    provides: [placementArtifacts.placementOutputs],
+  },
   schema: Type.Object({}),
 });
 

@@ -3,10 +3,9 @@ import {
   MOUNTAIN_TERRAIN,
   NAVIGABLE_RIVER_TERRAIN,
   syncHeightfield,
-  type ExtendedMapContext,
   type MapDimensions,
 } from "@swooper/mapgen-core";
-import { createStep, implementArtifacts, type Static } from "@swooper/mapgen-core/authoring";
+import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import {
   computeRiverAdjacencyMask,
 } from "../../../artifacts.js";
@@ -14,7 +13,6 @@ import { getStandardRuntime } from "../../../runtime.js";
 import { storyTagClimatePaleo } from "@mapgen/domain/narrative/swatches.js";
 import { hydrologyCoreArtifacts } from "../artifacts.js";
 import RiversStepContract from "./rivers.contract.js";
-type RiversStepConfig = Static<typeof RiversStepContract.schema>;
 
 type ArtifactValidationIssue = Readonly<{ message: string }>;
 
@@ -57,7 +55,7 @@ export default createStep(RiversStepContract, {
       validate: (value, context) => validateRiverAdjacencyMask(value, context.dimensions),
     },
   }),
-  run: (context: ExtendedMapContext, config: RiversStepConfig, _ops, deps) => {
+  run: (context, config, _ops, deps) => {
     const runtime = getStandardRuntime(context);
     const navigableRiverTerrain = NAVIGABLE_RIVER_TERRAIN;
     const { width, height } = context.dimensions;

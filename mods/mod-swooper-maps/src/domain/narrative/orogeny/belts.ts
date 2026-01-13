@@ -9,10 +9,14 @@
  * Uses lazy provider pattern for test isolation.
  */
 
-import type { ExtendedMapContext, FoundationPlateFields, StoryOverlaySnapshot } from "@swooper/mapgen-core";
+import type {
+  ExtendedMapContext,
+  FoundationDynamicsFields,
+  FoundationPlateFields,
+  StoryOverlaySnapshot,
+} from "@swooper/mapgen-core";
 import type { StoryConfig } from "@mapgen/domain/config";
 import { inBounds, storyKey } from "@swooper/mapgen-core";
-import { assertFoundationDynamics, assertFoundationPlates } from "@swooper/mapgen-core";
 import type { NarrativeMotifsOrogeny } from "@mapgen/domain/narrative/models.js";
 import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
 import { getDims } from "@mapgen/domain/narrative/utils/dims.js";
@@ -33,9 +37,10 @@ export interface OrogenySummary {
  */
 export function storyTagOrogenyBelts(
   ctx: ExtendedMapContext,
-  storyConfig: StoryConfig
+  storyConfig: StoryConfig,
+  plates: FoundationPlateFields,
+  dynamics: FoundationDynamicsFields
 ): { snapshot: StoryOverlaySnapshot; motifs: NarrativeMotifsOrogeny } {
-  const plates = assertFoundationPlates(ctx, "story-orogeny");
   const cache = getOrogenyCache(ctx);
   cache.belts.clear();
   cache.windward.clear();
@@ -64,7 +69,7 @@ export function storyTagOrogenyBelts(
 
   // Common Windward/Lee Tagging
   if (cache.belts.size >= minLenSoft) {
-    const { windU, windV } = assertFoundationDynamics(ctx, "story-orogeny");
+    const { windU, windV } = dynamics;
     tagWindwardLee(ctx, cache, width, height, radius, windU, windV);
   } else {
     // If belts are too small/fragmented, discard them to avoid noise

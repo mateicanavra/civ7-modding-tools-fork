@@ -1,20 +1,24 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
 import { NarrativeConfigSchema } from "@mapgen/domain/config";
 
-import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../tags.js";
+import { M4_EFFECT_TAGS } from "../../../tags.js";
+import { foundationArtifacts } from "../../foundation/artifacts.js";
+import { narrativePreArtifacts } from "../../narrative-pre/artifacts.js";
+import { narrativeMidArtifacts } from "../artifacts.js";
 
 const StoryOrogenyStepContract = defineStep({
   id: "story-orogeny",
   phase: "morphology",
-  requires: [
-    M4_EFFECT_TAGS.engine.coastlinesApplied,
-    M3_DEPENDENCY_TAGS.artifact.foundationPlatesV1,
-    M3_DEPENDENCY_TAGS.artifact.foundationDynamicsV1,
-  ],
-  provides: [
-    M3_DEPENDENCY_TAGS.artifact.storyOverlays,
-    M3_DEPENDENCY_TAGS.artifact.narrativeMotifsOrogenyV1,
-  ],
+  requires: [M4_EFFECT_TAGS.engine.coastlinesApplied],
+  provides: [],
+  artifacts: {
+    requires: [
+      foundationArtifacts.plates,
+      foundationArtifacts.dynamics,
+      narrativePreArtifacts.overlays,
+    ],
+    provides: [narrativeMidArtifacts.motifsOrogeny],
+  },
   schema: Type.Object({
     story: Type.Object({
       orogeny: NarrativeConfigSchema.properties.story.properties.orogeny,

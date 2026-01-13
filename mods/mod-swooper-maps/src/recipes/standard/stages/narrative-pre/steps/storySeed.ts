@@ -1,13 +1,20 @@
-import { devWarn, type ExtendedMapContext } from "@swooper/mapgen-core";
-import { createStep, type Static } from "@swooper/mapgen-core/authoring";
+import { devWarn } from "@swooper/mapgen-core";
+import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import { storyTagContinentalMargins } from "@mapgen/domain/narrative/tagging/index.js";
 import { getStandardRuntime } from "../../../runtime.js";
-import { narrativeMotifsMarginsArtifact } from "../../../artifacts.js";
+import { narrativePreArtifacts } from "../artifacts.js";
 import StorySeedStepContract from "./storySeed.contract.js";
-type StorySeedStepConfig = Static<typeof StorySeedStepContract.schema>;
 
 export default createStep(StorySeedStepContract, {
-  run: (context: ExtendedMapContext, config: StorySeedStepConfig) => {
+  artifacts: implementArtifacts(
+    [narrativePreArtifacts.overlays, narrativePreArtifacts.motifsMargins],
+    {
+      overlays: {},
+      motifsMargins: {},
+    }
+  ),
+  run: (context, config, _ops, deps) => {
+    deps.artifacts.overlays.publish(context, context.overlays);
     const runtime = getStandardRuntime(context);
     if (context.trace.isVerbose) {
       context.trace.event(() => ({
@@ -16,7 +23,7 @@ export default createStep(StorySeedStepContract, {
       }));
     }
     const result = storyTagContinentalMargins(context, config.margins);
-    narrativeMotifsMarginsArtifact.set(context, result.motifs);
+    deps.artifacts.motifsMargins.publish(context, result.motifs);
 
     const activeCount = result.snapshot.active?.length ?? 0;
     const passiveCount = result.snapshot.passive?.length ?? 0;
