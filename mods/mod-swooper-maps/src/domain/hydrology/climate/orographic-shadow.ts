@@ -1,5 +1,5 @@
-import type { FoundationDynamicsFields } from "@swooper/mapgen-core";
 import type { ClimateAdapter } from "@mapgen/domain/hydrology/climate/types.js";
+import type { HydrologyWindFields } from "@mapgen/domain/hydrology/ops/compute-wind-fields/contract.js";
 
 /**
  * Upwind barrier utility (legacy helper).
@@ -28,7 +28,7 @@ export function hasUpwindBarrier(
 }
 
 /**
- * Upwind barrier using foundation dynamics wind vectors.
+ * Upwind barrier using Hydrology wind vectors.
  */
 export function hasUpwindBarrierWM(
   x: number,
@@ -37,10 +37,10 @@ export function hasUpwindBarrierWM(
   adapter: ClimateAdapter,
   width: number,
   height: number,
-  dynamics: FoundationDynamicsFields
+  wind: HydrologyWindFields
 ): number {
-  const U = dynamics.windU;
-  const V = dynamics.windV;
+  const U = wind.windU;
+  const V = wind.windV;
   if (!U || !V) return 0;
 
   let cx = x;

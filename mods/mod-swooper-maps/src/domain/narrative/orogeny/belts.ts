@@ -11,12 +11,11 @@
 
 import type {
   ExtendedMapContext,
-  FoundationDynamicsFields,
   FoundationPlateFields,
   StoryOverlaySnapshot,
 } from "@swooper/mapgen-core";
 import type { StoryConfig } from "@mapgen/domain/config";
-import { inBounds, storyKey } from "@swooper/mapgen-core";
+import { storyKey } from "@swooper/mapgen-core";
 import type { NarrativeMotifsOrogeny } from "@mapgen/domain/narrative/models.js";
 import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
 import { getDims } from "@mapgen/domain/narrative/utils/dims.js";
@@ -38,8 +37,7 @@ export interface OrogenySummary {
 export function storyTagOrogenyBelts(
   ctx: ExtendedMapContext,
   storyConfig: StoryConfig,
-  plates: FoundationPlateFields,
-  dynamics: FoundationDynamicsFields
+  plates: FoundationPlateFields
 ): { snapshot: StoryOverlaySnapshot; motifs: NarrativeMotifsOrogeny } {
   const cache = getOrogenyCache(ctx);
   cache.belts.clear();
@@ -59,20 +57,14 @@ export function storyTagOrogenyBelts(
     throw new Error("[Narrative] Missing story orogeny config.");
   }
 
-  const baseRadius = Number.isFinite(cfg.radius) ? (cfg.radius | 0) : 2;
-  const radius = baseRadius + (sqrtScale > 1.5 ? 1 : 0);
   const beltMinLength = Number.isFinite(cfg.beltMinLength) ? (cfg.beltMinLength | 0) : 30;
   const minLenSoft = Math.max(10, Math.round(beltMinLength * (0.9 + 0.4 * sqrtScale)));
 
   const kind: OrogenySummary["kind"] = "foundation";
   runFoundationPass(ctx, cache, width, height, minLenSoft, plates);
 
-  // Common Windward/Lee Tagging
-  if (cache.belts.size >= minLenSoft) {
-    const { windU, windV } = dynamics;
-    tagWindwardLee(ctx, cache, width, height, radius, windU, windV);
-  } else {
-    // If belts are too small/fragmented, discard them to avoid noise
+  // If belts are too small/fragmented, discard them to avoid noise
+  if (cache.belts.size < minLenSoft) {
     cache.belts.clear();
   }
 
@@ -166,68 +158,4 @@ function runFoundationPass(
     if (cache.belts.size >= minLenSoft || thr <= 128) break;
     thr -= 12;
   }
-}
-
-/**
- * Casts "Windward" (wet) and "Lee" (dry) shadows from identified belts.
- */
-function tagWindwardLee(
-  ctx: ExtendedMapContext,
-  cache: OrogenyCacheInstance,
-  width: number,
-  height: number,
-  radius: number,
-  windU: Int8Array,
-  windV: Int8Array
-): void {
-  for (const key of cache.belts) {
-    const [sx, sy] = key.split(",").map(Number);
-    
-    // Determine prevailing wind direction at this location
-    const { dx, dy } = getWindStep(sx, sy, width, windU, windV);
-    
-    const upwindX = -dx;
-    const upwindY = -dy;
-    const downX = dx;
-    const downY = dy;
-
-    for (let r = 1; r <= radius; r++) {
-      // Windward (Upwind side)
-      const wx = sx + upwindX * r;
-      const wy = sy + upwindY * r;
-      if (inBounds(wx, wy, width, height) && !isWaterAt(ctx, wx, wy)) {
-        cache.windward.add(storyKey(wx, wy));
-      }
-
-      // Lee (Downwind side)
-      const lx = sx + downX * r;
-      const ly = sy + downY * r;
-      if (inBounds(lx, ly, width, height) && !isWaterAt(ctx, lx, ly)) {
-        cache.lee.add(storyKey(lx, ly));
-      }
-    }
-  }
-}
-
-/**
- * Helper to determine wind direction vector (dx, dy).
- * Prioritizes Foundation dynamics, falls back to Zonal approximation.
- */
-function getWindStep(
-  x: number,
-  y: number,
-  width: number,
-  windU: Int8Array,
-  windV: Int8Array
-): { dx: number; dy: number } {
-  const i = y * width + x;
-  if (i >= 0 && i < windU.length) {
-    const u = windU[i];
-    const v = windV[i];
-    if (Math.abs(u) >= Math.abs(v)) {
-      return { dx: u === 0 ? 0 : u > 0 ? 1 : -1, dy: 0 };
-    }
-    return { dx: 0, dy: v === 0 ? 0 : v > 0 ? 1 : -1 };
-  }
-  return { dx: 0, dy: 0 };
 }

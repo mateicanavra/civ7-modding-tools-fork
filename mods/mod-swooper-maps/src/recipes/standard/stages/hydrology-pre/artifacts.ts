@@ -1,5 +1,6 @@
 import { defineArtifact } from "@swooper/mapgen-core/authoring";
 import { Type } from "@swooper/mapgen-core/authoring";
+import { HydrologyWindFieldSchema } from "@mapgen/domain/hydrology/ops/compute-wind-fields/contract.js";
 
 export const HeightfieldArtifactSchema = Type.Object(
   {
@@ -28,5 +29,10 @@ export const hydrologyPreArtifacts = {
     name: "climateField",
     id: "artifact:climateField",
     schema: ClimateFieldArtifactSchema,
+  }),
+  windField: defineArtifact({
+    name: "windField",
+    id: "artifact:windField",
+    schema: HydrologyWindFieldSchema,
   }),
 } as const;

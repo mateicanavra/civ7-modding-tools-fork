@@ -1,6 +1,4 @@
 import { describe, it, expect } from "bun:test";
-import { createMockAdapter } from "@civ7/adapter";
-
 import computeMesh from "../../src/domain/foundation/ops/compute-mesh/index.js";
 import computeCrust from "../../src/domain/foundation/ops/compute-crust/index.js";
 import computePlateGraph from "../../src/domain/foundation/ops/compute-plate-graph/index.js";
@@ -14,35 +12,53 @@ function createDeterministicRng(seed = 12345) {
   };
 }
 
+function neighborsFor(mesh: {
+  neighborsOffsets: Int32Array;
+  neighbors: Int32Array;
+}, cellId: number): Int32Array {
+  const start = mesh.neighborsOffsets[cellId] | 0;
+  const end = mesh.neighborsOffsets[cellId + 1] | 0;
+  return mesh.neighbors.slice(start, end);
+}
+
+function sumAreas(areas: Float32Array): number {
+  let total = 0;
+  for (let i = 0; i < areas.length; i++) total += areas[i] ?? 0;
+  return total;
+}
+
 describe("foundation mesh-first ops (slice 2)", () => {
   it("compute-mesh is deterministic and shape-correct", () => {
     const width = 40;
     const height = 20;
-    const adapter = createMockAdapter({ width, height });
-    const voronoiUtils = adapter.getVoronoiUtils();
+
+    const ctx = { env: { dimensions: { width, height } }, knobs: {} };
+    const meshConfig = computeMesh.normalize(
+      {
+        strategy: "default",
+        config: { plateCount: 9, cellsPerPlate: 2, relaxationSteps: 2, referenceArea: 800, plateScalePower: 0 },
+      },
+      ctx as any
+    );
 
     const first = computeMesh.run(
       {
         width,
         height,
-        wrapX: true,
         rng: createDeterministicRng(1),
-        voronoiUtils,
         trace: null,
       },
-      computeMesh.defaultConfig
+      meshConfig
     );
 
     const second = computeMesh.run(
       {
         width,
         height,
-        wrapX: true,
         rng: createDeterministicRng(1),
-        voronoiUtils,
         trace: null,
       },
-      computeMesh.defaultConfig
+      meshConfig
     );
 
     expect(first.mesh.cellCount).toBeGreaterThan(0);
@@ -50,31 +66,48 @@ describe("foundation mesh-first ops (slice 2)", () => {
     expect(first.mesh.siteY.length).toBe(first.mesh.cellCount);
     expect(first.mesh.areas.length).toBe(first.mesh.cellCount);
     expect(first.mesh.neighborsOffsets.length).toBe(first.mesh.cellCount + 1);
-    expect(first.mesh.wrapX).toBe(true);
 
     expect(Array.from(first.mesh.siteX)).toEqual(Array.from(second.mesh.siteX));
     expect(Array.from(first.mesh.siteY)).toEqual(Array.from(second.mesh.siteY));
     expect(Array.from(first.mesh.areas)).toEqual(Array.from(second.mesh.areas));
     expect(Array.from(first.mesh.neighborsOffsets)).toEqual(Array.from(second.mesh.neighborsOffsets));
     expect(Array.from(first.mesh.neighbors)).toEqual(Array.from(second.mesh.neighbors));
+
+    const expectedArea = width * height;
+    const totalArea = sumAreas(first.mesh.areas);
+    expect(Math.abs(totalArea - expectedArea)).toBeLessThan(expectedArea * 0.05);
+
+    for (let i = 0; i < first.mesh.cellCount; i++) {
+      const neighbors = neighborsFor(first.mesh, i);
+      for (let j = 0; j < neighbors.length; j++) {
+        const n = neighbors[j]!;
+        const back = neighborsFor(first.mesh, n);
+        expect(Array.from(back)).toContain(i);
+      }
+    }
   });
 
   it("compute-crust/compute-plate-graph/compute-tectonics are deterministic and internally consistent", () => {
     const width = 40;
     const height = 20;
-    const adapter = createMockAdapter({ width, height });
-    const voronoiUtils = adapter.getVoronoiUtils();
+
+    const ctx = { env: { dimensions: { width, height } }, knobs: {} };
+    const meshConfig = computeMesh.normalize(
+      {
+        strategy: "default",
+        config: { plateCount: 9, cellsPerPlate: 2, relaxationSteps: 2, referenceArea: 800, plateScalePower: 0 },
+      },
+      ctx as any
+    );
 
     const mesh = computeMesh.run(
       {
         width,
         height,
-        wrapX: true,
         rng: createDeterministicRng(2),
-        voronoiUtils,
         trace: null,
       },
-      computeMesh.defaultConfig
+      meshConfig
     ).mesh;
 
     const crustA = computeCrust.run(

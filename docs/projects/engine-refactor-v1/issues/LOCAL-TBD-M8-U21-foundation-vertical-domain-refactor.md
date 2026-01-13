@@ -147,6 +147,48 @@ Post Slice 5 re-run (after config purity + FoundationContext removal):
 - **Rationale:** keeps the recipe config surface clean while preserving step internals and op envelopes.
 - **Risk:** other stages may remain internal-only; future work might choose to expose similar public surfaces for consistency.
 
+#### Slice 6: move foundation stage to internal step surfaces
+- **Context:** Foundation stage is being split into multiple steps (mesh/crust/plate-graph/tectonics/projection), and the public mapping was designed for a single step.
+- **Options:** (a) keep a public stage schema and compile into multiple steps, (b) remove the public surface and use the internal step-level schema directly.
+- **Choice:** remove the public surface and expose step-level config directly.
+- **Rationale:** aligns with the architecture posture (explicit step envelopes) and avoids adding a new synthetic config layer.
+- **Risk:** recipe configs must be updated to use step ids directly.
+
+#### Slice 6: implement Delaunay backend in mapgen-core with CSR neighbors
+- **Context:** Mesh backend must move off adapter Voronoi utilities and use d3-delaunay with backend adjacency, while preserving the existing mesh artifact contract.
+- **Options:** (a) implement Delaunay directly inside the mod step, (b) add a mapgen-core mesh backend and reuse it from the Foundation op; store neighbors as CSR arrays vs array-of-arrays.
+- **Choice:** implement a mapgen-core `lib/mesh` Delaunay backend and keep CSR neighbors/offsets in the mesh artifact.
+- **Rationale:** keeps backend ownership in mapgen-core and avoids changing the mesh artifact contract shape.
+- **Risk:** CSR representation stays as the canonical mesh adjacency shape; any consumer expecting array-of-arrays must adapt (none in-tree today).
+
+#### Slice 6: remove config snapshots from foundation seed artifacts
+- **Context:** Plate seed artifacts were embedding projection/config metadata; directive is to avoid config snapshots in artifacts.
+- **Options:** (a) keep config metadata inside `foundation.seed` for diagnostics, (b) remove config data entirely and keep only seed locations.
+- **Choice:** remove config payload from `foundation.seed`.
+- **Rationale:** enforces the “no config snapshot artifacts” rule and keeps artifacts strictly model outputs.
+- **Risk:** any downstream tooling that expected config metadata in the seed artifact loses that introspection.
+
+#### Slice 6: mesh area validation tolerance in tests
+- **Context:** Delaunay/Voronoi area sums should approximate `width * height` but floating-point and clipping can introduce minor drift.
+- **Options:** (a) strict equality, (b) small relative tolerance (1–5%).
+- **Choice:** 5% relative tolerance for mesh area sum checks in tests.
+- **Rationale:** keeps the invariant meaningful while avoiding false negatives from numeric drift.
+- **Risk:** tolerance could hide small regressions in total area; monitor if failures cluster near the threshold.
+
+#### Slice 6: derive mesh cellCount from plate semantics (deviate from explicit cellCount spec)
+- **Context:** Spec draft required explicit `cellCount`, but authored configs should not force users to reason about internal mesh resolution directly.
+- **Options:** (a) require explicit `cellCount`, (b) derive `cellCount` from authored plate semantics via op normalization.
+- **Choice:** derive `cellCount` in `foundation/compute-mesh` normalization from scaled `plateCount` and authored `cellsPerPlate`.
+- **Rationale:** preserves “no hidden defaults in run handlers” while keeping mesh resolution internal and still explicitly controlled.
+- **Risk:** this diverges from the earlier mesh-spec lock and must be kept consistent across `compute-mesh` and `compute-plate-graph` scaling.
+
+#### Slice 6: mesh cellCount values in presets
+- **Context:** Mesh config originally required explicit `cellCount`, which forced per-map authoring.
+- **Options:** (a) keep `cellCount` authored directly, (b) derive `cellCount` from authored plate semantics.
+- **Choice:** derive `cellCount` during `foundation/compute-mesh` normalization from scaled `plateCount` and authored `cellsPerPlate`.
+- **Rationale:** keeps `cellCount` internal while still giving explicit resolution control (`cellsPerPlate`) and consistent scaling across map sizes.
+- **Risk:** normalization formula changes will affect mesh resolution across all maps; keep invariant tests and review diffs carefully.
+
 #### Slice 2: mesh-first artifact representation (scaffolding)
 - Context: we need to publish `foundation.mesh/crust/plateGraph/tectonics` additively without changing downstream behavior (tiles remain projections).
 - Options:
@@ -174,6 +216,8 @@ Locked decisions for implementation (algorithmic):
 - Use `d3-delaunay` as the canonical Delaunay/Voronoi backend (no adapter, no fallback).
 - Mesh operates in planar map-space (`0..width`, `0..height`) and does not implement wrapX or periodic tiling.
 - Neighbor/adjacency comes from the backend’s neighbor iterator (no “halfedge inference” against empty mock data).
+- Plate counts are authored as base values and scaled to runtime map size during op normalization (no per-map manual retuning).
+- Mesh `cellCount` is derived during normalization from scaled `plateCount` and an authored `cellsPerPlate` factor; users do not author `cellCount` directly.
 
 Spec alignment pass (mesh backend):
 - Spec: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/foundation/SPEC-FOUNDATION-DELAUNAY-VORONOI.md` (created from the same spikes; locks “no wrapX” and “no adapter/fallback”).

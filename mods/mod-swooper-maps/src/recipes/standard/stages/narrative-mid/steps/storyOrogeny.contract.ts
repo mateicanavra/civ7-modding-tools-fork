@@ -13,7 +13,6 @@ const StoryOrogenyStepContract = defineStep({
   artifacts: {
     requires: [
       foundationArtifacts.plates,
-      foundationArtifacts.dynamics,
       narrativePreArtifacts.overlays,
     ],
   },

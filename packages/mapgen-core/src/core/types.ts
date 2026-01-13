@@ -134,18 +134,6 @@ export interface SeedSnapshot {
 }
 
 /**
- * Snapshot of configuration that informed the foundation run.
- */
-export interface FoundationConfigSnapshot {
-  seed: Readonly<Record<string, unknown>>;
-  plates: Readonly<Record<string, unknown>>;
-  dynamics: Readonly<Record<string, unknown>>;
-  surface: Readonly<Record<string, unknown>>;
-  policy: Readonly<Record<string, unknown>>;
-  diagnostics: Readonly<Record<string, unknown>>;
-}
-
-/**
  * Plate-centric tensors emitted by the foundation stage.
  */
 export interface FoundationPlateFields {
@@ -162,17 +150,6 @@ export interface FoundationPlateFields {
 }
 
 /**
- * Atmospheric and oceanic tensors emitted by the foundation stage.
- */
-export interface FoundationDynamicsFields {
-  windU: Int8Array;
-  windV: Int8Array;
-  currentU: Int8Array;
-  currentV: Int8Array;
-  pressure: Uint8Array;
-}
-
-/**
  * Diagnostics payload accompanying the foundation tensors.
  */
 export interface FoundationDiagnosticsFields {
@@ -180,14 +157,12 @@ export interface FoundationDiagnosticsFields {
 }
 
 export const FOUNDATION_PLATES_ARTIFACT_TAG = "artifact:foundation.plates";
-export const FOUNDATION_DYNAMICS_ARTIFACT_TAG = "artifact:foundation.dynamics";
 export const FOUNDATION_MESH_ARTIFACT_TAG = "artifact:foundation.mesh";
 export const FOUNDATION_CRUST_ARTIFACT_TAG = "artifact:foundation.crust";
 export const FOUNDATION_PLATE_GRAPH_ARTIFACT_TAG = "artifact:foundation.plateGraph";
 export const FOUNDATION_TECTONICS_ARTIFACT_TAG = "artifact:foundation.tectonics";
 export const FOUNDATION_SEED_ARTIFACT_TAG = "artifact:foundation.seed";
 export const FOUNDATION_DIAGNOSTICS_ARTIFACT_TAG = "artifact:foundation.diagnostics";
-export const FOUNDATION_CONFIG_ARTIFACT_TAG = "artifact:foundation.config";
 
 /**
  * Store of published artifacts keyed by dependency tag id.
@@ -476,24 +451,6 @@ export function validateFoundationPlatesArtifact(
   ensureTensor("plateRotation", plates.rotation, size);
 }
 
-export function validateFoundationDynamicsArtifact(
-  value: unknown,
-  dimensions: MapDimensions
-): asserts value is FoundationDynamicsFields {
-  if (!value || typeof value !== "object") {
-    throw new Error("[FoundationArtifact] Missing foundation dynamics artifact payload.");
-  }
-  const dynamics = value as FoundationDynamicsFields;
-  const width = dimensions.width | 0;
-  const height = dimensions.height | 0;
-  const size = Math.max(0, width * height) | 0;
-
-  ensureTensor("windU", dynamics.windU, size);
-  ensureTensor("windV", dynamics.windV, size);
-  ensureTensor("currentU", dynamics.currentU, size);
-  ensureTensor("currentV", dynamics.currentV, size);
-  ensureTensor("pressure", dynamics.pressure, size);
-}
 
 export function validateFoundationSeedArtifact(
   value: unknown,
@@ -517,16 +474,6 @@ export function validateFoundationDiagnosticsArtifact(value: unknown): asserts v
     throw new Error("[FoundationArtifact] Missing foundation diagnostics artifact payload.");
   }
   // boundaryTree is intentionally untyped/optional (diagnostics-only).
-}
-
-export function validateFoundationConfigArtifact(value: unknown): asserts value is FoundationConfigSnapshot {
-  if (!value || typeof value !== "object") {
-    throw new Error("[FoundationArtifact] Missing foundation config artifact payload.");
-  }
-  const snapshot = value as FoundationConfigSnapshot;
-  if (!snapshot.seed || !snapshot.plates || !snapshot.dynamics || !snapshot.surface || !snapshot.policy || !snapshot.diagnostics) {
-    throw new Error("[FoundationArtifact] Invalid foundation config snapshot payload.");
-  }
 }
 // ============================================================================
 // Sync Functions

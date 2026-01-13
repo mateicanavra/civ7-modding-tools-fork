@@ -5,8 +5,7 @@ import StoryOrogenyStepContract from "./storyOrogeny.contract.js";
 export default createStep(StoryOrogenyStepContract, {
   run: (context, config, _ops, deps) => {
     const plates = deps.artifacts.foundationPlates.read(context);
-    const dynamics = deps.artifacts.foundationDynamics.read(context);
     void deps.artifacts.overlays.read(context);
-    storyTagOrogenyBelts(context, config.story, plates, dynamics);
+    storyTagOrogenyBelts(context, config.story, plates);
   },
 });

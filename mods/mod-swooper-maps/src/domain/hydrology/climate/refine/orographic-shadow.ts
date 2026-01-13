@@ -1,4 +1,4 @@
-import type { FoundationDynamicsFields } from "@swooper/mapgen-core";
+import type { HydrologyWindFields } from "@mapgen/domain/hydrology/ops/compute-wind-fields/contract.js";
 import type { ClimateRuntime } from "@mapgen/domain/hydrology/climate/types.js";
 import { hasUpwindBarrierWM } from "@mapgen/domain/hydrology/climate/orographic-shadow.js";
 
@@ -7,7 +7,7 @@ export function applyOrographicShadowRefinement(
   height: number,
   runtime: ClimateRuntime,
   refineCfg: Record<string, unknown>,
-  dynamics: FoundationDynamicsFields
+  wind: HydrologyWindFields
 ): void {
   const { adapter, readRainfall, writeRainfall } = runtime;
   const orographic = refineCfg.orographic as Record<string, number>;
@@ -18,7 +18,7 @@ export function applyOrographicShadowRefinement(
 
       const steps = Math.max(1, (orographic.steps as number) | 0);
 
-      const barrier = hasUpwindBarrierWM(x, y, steps, adapter, width, height, dynamics);
+      const barrier = hasUpwindBarrierWM(x, y, steps, adapter, width, height, wind);
 
       if (barrier) {
         const rf = readRainfall(x, y);

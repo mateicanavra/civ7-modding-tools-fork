@@ -1,5 +1,4 @@
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
-import type { FoundationDynamicsFields } from "@swooper/mapgen-core";
 import { inBounds as boundsCheck } from "@swooper/mapgen-core/lib/grid";
 import type { ClimateConfig, StoryConfig } from "@mapgen/domain/config";
 import type {
@@ -14,6 +13,7 @@ import { applyRiverCorridorRefinement } from "@mapgen/domain/hydrology/climate/r
 import { applyRiftHumidityRefinement } from "@mapgen/domain/hydrology/climate/refine/rift-humidity.js";
 import { applyOrogenyBeltsRefinement } from "@mapgen/domain/hydrology/climate/refine/orogeny-belts.js";
 import { applyHotspotMicroclimatesRefinement } from "@mapgen/domain/hydrology/climate/refine/hotspot-microclimates.js";
+import type { HydrologyWindFields } from "@mapgen/domain/hydrology/ops/compute-wind-fields/contract.js";
 
 /**
  * Earthlike rainfall refinements (post-rivers).
@@ -26,7 +26,7 @@ export function refineClimateEarthlike(
     orogenyCache?: OrogenyCache;
     climate?: ClimateConfig;
     story?: StoryConfig;
-    dynamics?: FoundationDynamicsFields;
+    wind?: HydrologyWindFields;
     rifts?: NarrativeMotifsRifts | null;
     hotspots?: NarrativeMotifsHotspots | null;
     riverAdjacency?: Uint8Array | null;
@@ -40,9 +40,9 @@ export function refineClimateEarthlike(
   const runtime = createClimateRuntime(width, height, ctx, {
     riverAdjacency: options.riverAdjacency,
   });
-  const dynamics = options.dynamics;
-  if (!dynamics) {
-    throw new Error("refineClimateEarthlike requires foundation dynamics.");
+  const wind = options.wind;
+  if (!wind) {
+    throw new Error("refineClimateEarthlike requires hydrology wind fields.");
   }
 
   if (!options.climate) {
@@ -77,7 +77,7 @@ export function refineClimateEarthlike(
     height,
     runtime,
     refineCfg as Record<string, unknown>,
-    dynamics
+    wind
   );
 
   // Pass C: river corridor greening and basin humidity

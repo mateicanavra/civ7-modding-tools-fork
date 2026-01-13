@@ -192,6 +192,14 @@ const config = {
   "hydrology-pre": {
     lakes: {},
     "climate-baseline": {
+      computeWindFields: {
+        strategy: "default",
+        config: {
+          windJetStreaks: 4,
+          windJetStrength: 0.9,
+          windVariance: 0.7,
+        },
+      },
       climate: {
         baseline: {
           blend: {

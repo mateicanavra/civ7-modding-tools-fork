@@ -1,6 +1,7 @@
 import { collectCompileOps, createRecipe, type CompiledRecipeConfigOf, type RecipeConfigInputOf } from "@swooper/mapgen-core/authoring";
 import ecologyDomain from "@mapgen/domain/ecology/ops";
 import foundationDomain from "@mapgen/domain/foundation/ops";
+import hydrologyDomain from "@mapgen/domain/hydrology/ops";
 import placementDomain from "@mapgen/domain/placement/ops";
 
 import ecology from "./stages/ecology/index.js";
@@ -38,7 +39,12 @@ const stages = [
 export type StandardRecipeConfig = RecipeConfigInputOf<typeof stages>;
 export type StandardRecipeCompiledConfig = CompiledRecipeConfigOf<typeof stages>;
 
-export const compileOpsById = collectCompileOps(foundationDomain, ecologyDomain, placementDomain);
+export const compileOpsById = collectCompileOps(
+  foundationDomain,
+  hydrologyDomain,
+  ecologyDomain,
+  placementDomain
+);
 
 export default createRecipe({
   id: "standard",
