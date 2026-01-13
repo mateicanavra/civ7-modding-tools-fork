@@ -16,9 +16,9 @@ This is a **draft plan** (not a milestone doc yet). The plan is expected to evol
 
 **Backbone workflow:** `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/WORKFLOW.md`
 
-<!-- Path roots -->
- = mods/mod-swooper-maps
- = packages/mapgen-core
+<!-- Path roots (convention used in this plan) -->
+- `/src/...` = `mods/mod-swooper-maps/src/...`
+- `/packages/mapgen-core/...` = `packages/mapgen-core/...`
 
 ## Canonical posture (enforced): do not propagate legacy
 
@@ -71,7 +71,10 @@ This means:
 
 **Known current-state reality (to validate in Phase 1; do not assume beyond this list):**
 - `/src/domain/foundation/ops/contracts.ts` is currently empty (Foundation is not yet contract-first in practice).
-- `/src/recipes/standard/stages/foundation/` uses the legacy step signature (`run(ctx, config)`), legacy tag-based dependency wiring, and a monolithic producer.
+- `/src/recipes/standard/stages/foundation/` is partially aligned with canonical authoring posture:
+  - stage-owned artifact contracts exist (`/src/recipes/standard/stages/foundation/artifacts.ts`),
+  - the step uses `deps.artifacts.*` publishes,
+  - but orchestration still routes through a monolithic producer (`/src/recipes/standard/stages/foundation/producer.ts`) instead of contract-first ops.
 
 <workflow>
 
@@ -86,9 +89,53 @@ This means:
 - Worktree + branch for Foundation refactor work.
 - A “baseline is green” note (or a recorded list of known failures + links).
 
+**Steps (primary checkout; stop if dirty):**
+```bash
+git status
+gt ls
+git worktree list
+```
+
+Sync trunk metadata (do not restack as part of setup):
+```bash
+gt sync --no-restack
+```
+
+Create a new branch:
+```bash
+gt create refactor-<milestone>-foundation
+```
+
+**Steps (worktree):**
+```bash
+git worktree add ../wt-refactor-<milestone>-foundation refactor-<milestone>-foundation
+cd ../wt-refactor-<milestone>-foundation
+pwd -P
+```
+
+If any “living artifacts” exceed ~1 page, split them into a per-domain resources directory (optional):
+```bash
+mkdir -p docs/projects/engine-refactor-v1/resources/domains/foundation
+```
+
+Install deps (only if you will run checks in this worktree):
+```bash
+pnpm install
+```
+
+Baseline gates (mandatory; record failures with links + rationale if they’re environmental):
+```bash
+pnpm -C packages/mapgen-core check
+pnpm -C packages/mapgen-core test
+pnpm -C mods/mod-swooper-maps check
+pnpm -C mods/mod-swooper-maps test
+pnpm -C mods/mod-swooper-maps build
+pnpm deploy:mods
+```
+
 **Gate (do not proceed until):**
-- [ ] You are operating in a worktree.
-- [ ] Baseline checks are green, or failures are recorded with rationale.
+- [ ] You are operating in a worktree (`pwd -P` shows the worktree path).
+- [ ] Baseline checks are green, or failures are recorded with links + rationale.
 
 **References:**
 - Shared workflow preflight: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/WORKFLOW.md`
@@ -99,16 +146,46 @@ This means:
 
 **Objective:** Produce a Foundation-specific current-state spike: inventory everything Foundation touches, and everything that touches Foundation.
 
+This phase is about **evidence**:
+- what exists today,
+- what violates canonical boundaries,
+- what must be deleted vs migrated vs exposed via contracts.
+
 **Outputs:**
 - `docs/projects/engine-refactor-v1/resources/spike/spike-foundation-current-state.md`
-- Update (at least a first draft) in this plan:
-  - Appendix A (Domain Surface Inventory)
-  - Appendix B (Contract Matrix; current-state mapping)
+- Ensure the spike links to (or embeds) the “living artifacts” spine:
+  - Appendix A (Domain Surface Inventory; current-state)
+  - Appendix B (Contract Matrix; current-state)
+  - Appendix C (Decisions + Defaults; initial)
+  - Appendix D (Risk Register; initial)
+  - Appendix E (Golden Path Example; initial candidate)
+- A “where it stands” inventory that includes:
+  - complete step map (all sites that touch Foundation products),
+  - dependency gating inventory (`requires/provides` and `artifacts.requires/provides` per step, with file paths),
+  - stage-owned artifact contract catalog (`/src/recipes/standard/stages/**/artifacts.ts` entries that name Foundation products),
+  - config surface map (schemas/defaults/normalizers + runtime fixups to delete),
+  - typed-array inventory (constructors/lengths/validators) where relevant to Foundation (plates/graphs/fields),
+  - deletion list (symbols + file paths that must go to zero to avoid legacy propagation).
+
+**Scope (required inventory slices):**
+- Domain entrypoint surface: `/src/domain/foundation/index.ts` exports and re-exports.
+- Op catalog posture:
+  - contract router: `/src/domain/foundation/ops/contracts.ts`,
+  - implementations router: `/src/domain/foundation/ops/index.ts`,
+  - current legacy/mixed surfaces (e.g., `/src/domain/foundation/ops.ts`, `plates.ts`, `plate-seed.ts`).
+- Stage boundary (Standard recipe):
+  - stage config: `/src/recipes/standard/stages/foundation/index.ts`,
+  - stage-owned artifacts: `/src/recipes/standard/stages/foundation/artifacts.ts`,
+  - producer/orchestration: `/src/recipes/standard/stages/foundation/producer.ts`,
+  - step contract + runtime: `/src/recipes/standard/stages/foundation/steps/**`.
+- Cross-domain coupling:
+  - downstream stages/steps that read Foundation products (artifacts/buffers/overlays),
+  - any deep imports into Foundation internals (to eliminate or convert into contracts).
 
 **Phase 1 focus (Foundation-specific):**
 - Stage + recipe wiring:
-  - Identify how `/src/recipes/standard/stages/foundation/` is wired today (steps, tags, producers).
-  - Identify where the Standard recipe expects Foundation outputs (dependency tags/artifacts/buffers).
+  - Identify how `/src/recipes/standard/stages/foundation/` is wired today (steps, contracts, producer/orchestration).
+  - Identify where the Standard recipe expects Foundation outputs (artifacts/buffers/overlays; tags if any remain).
 - Domain touchpoints:
   - Catalog the current Foundation “domain logic” surfaces that are consumed directly (deep imports).
   - Identify any cross-domain coupling that should become a curated, stable contract surface.
@@ -121,10 +198,12 @@ This means:
 **Gate (do not proceed until):**
 - [ ] The spike includes an explicit list of downstream stages/steps that depend on Foundation outputs.
 - [ ] Any “hidden coupling” discovered is written down with file paths and consumers.
-- [ ] Appendix A and Appendix B have at least a “current state” draft (even if incomplete).
+- [ ] Appendix A/B have at least a “current state” draft (even if incomplete).
+- [ ] Appendix C/D have initial entries (decisions + risks) so Phase 2 doesn’t re-introduce silent assumptions.
 
 **References:**
 - Shared inventory guide: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/domain-inventory-and-boundaries.md`
+- Contract posture + config design: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/op-and-config-design.md`
 
 </step>
 
@@ -132,12 +211,20 @@ This means:
 
 **Objective:** Update the modeling plan based on Phase 1 discoveries.
 
+**Inputs:**
+- `docs/projects/engine-refactor-v1/resources/spike/spike-foundation-current-state.md` (Phase 1 output)
+
 **Outputs (append to Phase 1 spike):**
 - `## Lookback (Phase 1 → Phase 2): Adjust modeling plan`
-  - Include explicit “plan deltas”:
+  - Include explicit “plan deltas” (not just a recap):
+    - what surprised you (top 3),
+    - updated boundary map (what is “in Foundation domain” vs “pipeline glue” vs “legacy to delete”),
     - what changed in Appendix A/B (inventory + contract matrix),
+    - updated model hypotheses (what Phase 2 must validate/decide),
+    - updated cross-pipeline touchpoints (upstream/downstream contracts Phase 2 must consider),
     - what new decisions/defaults are now required (Appendix C),
-    - what new risks were discovered (Appendix D).
+    - what new risks were discovered (Appendix D),
+    - updated deletion list (anything discovered late).
 
 **Gate (do not proceed until):**
 - [ ] The Phase 2 modeling work is explicitly re-scoped based on evidence (not assumptions).
@@ -149,14 +236,34 @@ This means:
 
 **Objective:** Define the “correct” Foundation model from first principles + canonical MapGen architecture posture.
 
+Modeling posture (enforced):
+- ops are **atomic** (no op-calls-op composition),
+- composition happens in steps/stages,
+- rules are **policy units** imported into ops/strategies (avoid generic helper drift).
+
+Earth-physics grounding (required):
+- Discard legacy behavior that is incoherent or physically nonsensical unless there is a concrete gameplay/engine constraint.
+- If preserving a legacy behavior is intentional, record it as a “kept legacy invariant” with rationale.
+
+Cross-pipeline posture (required):
+- Foundation is “upstream of everything”; its products are pipeline-wide contracts.
+- If the modeled Foundation needs different inputs/outputs, plan the pipeline updates via stage-owned artifact contracts and the contract matrix (no ad-hoc deep imports).
+
 **Outputs:**
 - `docs/projects/engine-refactor-v1/resources/spike/spike-foundation-modeling.md`
+  - target op catalog (ids + kinds + IO/config schemas + defaults + normalization ownership),
+  - policy/rules map (what decisions exist and where they should live),
+  - step/stage composition plan (which steps orchestrate which ops, and in what order),
+  - explicit non-goals (what modeling work is deferred, if any),
+  - pipeline delta list (downstream consumers that must adapt; staged contract changes if required).
 - Update (or confirm) the canonical Foundation spec:
   - `docs/system/libs/mapgen/foundation.md`
 - Update in this plan:
+  - Appendix A (Domain Surface Inventory; target-state)
   - Appendix B (Contract Matrix; target-state mapping)
   - Appendix C (Decisions + Defaults; record provisional defaults and triggers)
   - Appendix D (Risk Register; revise based on target model)
+  - Appendix E (Golden Path Example; update if Phase 2 changes the canonical step shape)
 
 **Phase 2 focus (Foundation-specific):**
 - Plate-graph posture (Delaunay/Voronoi) vs legacy tile-first approaches:
@@ -180,6 +287,11 @@ This means:
 
 **References:**
 - Modeling guidelines: `docs/projects/engine-refactor-v1/resources/spec/SPEC-DOMAIN-MODELING-GUIDELINES.md`
+- ADRs:
+  - `docs/projects/engine-refactor-v1/resources/spec/adr/adr-er1-030-operation-inputs-policy.md`
+  - `docs/projects/engine-refactor-v1/resources/spec/adr/adr-er1-034-operation-kind-semantics.md`
+  - `docs/projects/engine-refactor-v1/resources/spec/adr/adr-er1-035-config-normalization-and-derived-defaults.md`
+- Earth physics + domain spec index: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/earth-physics-and-domain-specs.md`
 - Pipeline posture: `docs/system/libs/mapgen/architecture.md`
 - Foundation domain spec: `docs/system/libs/mapgen/foundation.md`
 - Plate-graph seed: `docs/projects/engine-refactor-v1/resources/PRD-plate-generation.md`
@@ -190,12 +302,18 @@ This means:
 
 **Objective:** Convert the target Foundation model into a slice-able implementation plan.
 
+**Inputs:**
+- `docs/projects/engine-refactor-v1/resources/spike/spike-foundation-modeling.md` (Phase 2 output)
+
 **Outputs (append to Phase 2 spike):**
 - `## Lookback (Phase 2 → Phase 3): Adjust implementation plan`
-  - Include explicit “plan deltas”:
-    - contract matrix changes that require slices (Appendix B),
-    - updated risks + mitigations via slice ordering (Appendix D),
-    - any defaults/assumptions that must become explicit implementation decisions (Appendix C).
+  - Include explicit “plan deltas” (not just a recap):
+    - finalized invariants (what must not change during implementation),
+    - risks (top 3) + how slice ordering mitigates them (Appendix D),
+    - pipeline delta slicing strategy (how contract changes land without breaking the pipeline),
+    - contract matrix delta (what `requires/provides` changes, by slice),
+    - draft slice boundaries (a first cut; Phase 3 hardens this into an executable checklist),
+    - test strategy notes (what needs deterministic harnessing vs thin integration).
 
 **Gate (do not proceed until):**
 - [ ] The plan includes a slicing strategy for any cross-pipeline contract changes.
@@ -210,10 +328,18 @@ This means:
 **Outputs:**
 - A local implementation issue doc (domain-local “source of truth”):
   - `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-<milestone>-foundation-*.md`
-- Copy (or link) the plan spine into the issue doc so it remains actionable:
+- A slice plan in that issue doc, including for each slice:
+  - steps included (ids + file paths),
+  - ops introduced/changed (ids + kinds + module paths),
+  - legacy entrypoints to delete (file paths / exports),
+  - tests to add/update (op contract tests + any thin integration edge),
+  - guardrail scope (`REFRACTOR_DOMAINS=foundation`),
+  - pipeline deltas included (which upstream/downstream stages/contracts are updated in this slice, if any).
+- Copy (or link) the plan spine into the issue doc so it remains executable:
   - Appendix B (Contract Matrix; target-state + slice deltas)
   - Appendix C (Decisions + Defaults)
   - Appendix D (Risk Register)
+  - (Optional) Appendix A/E if they’re not embedded in the spike docs.
 
 **Phase 3 focus (Foundation-specific):**
 - Convert the op catalog into contract files + module surfaces.
@@ -225,11 +351,15 @@ This means:
 - Define a slice plan that keeps downstream stages working while Foundation contracts evolve.
 
 **Gate (do not proceed until):**
+- [ ] Slice plan is written and reviewable.
 - [ ] Slice 1 is fully scoped and independently shippable (docs + tests + deletions included).
+- [ ] Every planned slice can end in a working state (no “we’ll delete later”).
 - [ ] Slice plan is explicitly ordered to mitigate the top “blocking” risks (Appendix D).
 
 **References:**
 - Shared workflow: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/WORKFLOW.md`
+- Op + config design: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/op-and-config-design.md`
+- Verification + guardrails: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/verification-and-guardrails.md`
 
 </step>
 
@@ -237,14 +367,21 @@ This means:
 
 **Objective:** Confirm the slice plan is executable before writing code.
 
+**Inputs:**
+- `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-<milestone>-foundation-*.md` (Phase 3 output)
+
 **Outputs (append to Phase 3 issue doc):**
 - `## Lookback (Phase 3 → Phase 4): Finalize slices + sequencing`
-  - Explicitly confirm:
-    - that the Decisions + Defaults list is current (Appendix C),
-    - that the Risk Register is current and mapped to slice ordering (Appendix D),
-    - that slice 1 does not propagate legacy authoring patterns (posture checklist above).
+  - Confirmed slice DAG (what blocks what; where pipeline deltas land)
+  - Any prework findings completed during planning (code-intel checks, boundary confirmation)
+  - Any remaining open decisions (should be rare; record options + default; update Appendix C)
+  - “First slice is safe” checklist:
+    - slice 1 deletes legacy paths (no dual implementation),
+    - slice 1 updates docs-as-code for touched contracts,
+    - slice 1 has deterministic tests or explicit test gaps recorded.
 
 **Gate (do not proceed until):**
+- [ ] Slice 1 is independently shippable (tests + docs + deletions included).
 - [ ] Remaining open decisions are explicit, scoped, and non-surprising.
 - [ ] No “silent backdoors” exist (e.g., tests or steps relying on deep imports that the target posture forbids without documenting why).
 
@@ -273,6 +410,14 @@ This means:
 
 **Outputs (append to Phase 3 issue doc):**
 - `## Lookback (Phase 4 → Phase 5): Stabilize and reconcile`
+  - Any plan drift (what changed and why)
+  - Any newly discovered cross-pipeline coupling (and how it was resolved)
+  - Any follow-up work explicitly deferred (with triggers)
+  - Final verification runbook adjustments (what is now the true “done” gate)
+
+**Gate (do not proceed until):**
+- [ ] The issue doc reflects the actual implementation outcome (no “paper plan” left behind).
+- [ ] All intentional deferrals are explicit (no silent TODOs).
 
 </step>
 
@@ -280,9 +425,40 @@ This means:
 
 **Objective:** Verify, cleanup, and submit the Foundation refactor branch.
 
-**Gate (do not proceed until):**
-- [ ] Verification runbook in the Phase 3 issue doc is executed and recorded.
-- [ ] Any intentional deferrals are explicit (with triggers).
+**Verification gates (must be green):**
+```bash
+pnpm -C packages/mapgen-core check
+pnpm -C packages/mapgen-core test
+pnpm -C mods/mod-swooper-maps check
+pnpm -C mods/mod-swooper-maps test
+pnpm -C mods/mod-swooper-maps build
+pnpm deploy:mods
+```
+
+**Submit:**
+```bash
+gt ss --draft
+```
+
+Include in PR notes:
+- what was deleted (deletion list),
+- what contracts changed (`requires/provides`, `artifacts.requires/provides`, stage-owned artifact contracts, config keys),
+- what tests were added and how to run them.
+
+**Worktree cleanup (after submission):**
+```bash
+git worktree list
+```
+
+Remove only the worktrees you created for this refactor.
+
+**Gate (done when):**
+- [ ] Full verification gates are green.
+- [ ] PR/stack is submitted.
+- [ ] Worktrees are cleaned up and `git worktree list` is sane.
+
+**References:**
+- Verification + guardrails: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/verification-and-guardrails.md`
 
 </step>
 
