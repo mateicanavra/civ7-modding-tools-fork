@@ -493,6 +493,35 @@ Changes:
 - Remove `publishStoryOverlay(...HOTSPOTS...)` from `morphology-post/islands`.
 - Ensure HOTSPOTS is published by a Narrative step (target: `narrative-pre/storyHotspots`) with explicit prerequisites (Foundation + Morphology artifacts as needed).
 
+**Acceptance Criteria (verifiable):**
+- [ ] No module under `swooper-src/recipes/standard/stages/morphology-*` publishes HOTSPOTS overlays.
+- [ ] Exactly one Narrative-owned producer remains for HOTSPOTS publication (current target: `narrative-pre/storyHotspots`).
+- [ ] Morphology steps may read HOTSPOTS overlays as inputs (data-only), but do not publish them.
+
+**Scope boundaries:**
+- In scope:
+  - Delete the misowned HOTSPOTS publication from Morphology.
+  - Ensure Narrative produces HOTSPOTS (no dual publication).
+  - Add guardrails that prevent HOTSPOTS publication from reappearing in Morphology.
+- Out of scope:
+  - Broader “overlay ownership” redesign (Gameplay refactor).
+  - Changing the conceptual hotspot model (Phase 2 is locked; this is ownership and wiring only).
+
+**Files (touchpoints):**
+```yaml
+files:
+  - path: swooper-src/recipes/standard/stages/morphology-post/steps/islands.ts
+    notes: "Delete `publishStoryOverlay(...HOTSPOTS...)`; keep island shaping logic intact."
+  - path: swooper-src/recipes/standard/stages/narrative-pre/steps/storyHotspots.ts
+    notes: "Confirm HOTSPOTS production is Narrative-owned; update prerequisites if needed (see Slice 2 contract migration)."
+  - path: swooper-test/morphology/contract-guard.test.ts
+    notes: "Extend to fail if Morphology publishes HOTSPOTS."
+```
+
+**Testing / Verification (executable):**
+- `pnpm -C mods/mod-swooper-maps test`
+- `rg -n \"publishStoryOverlay\\(.*STORY_OVERLAY_KEYS\\.HOTSPOTS\" mods/mod-swooper-maps/src/recipes/standard/stages/morphology-*` (expect zero hits)
+
 Guardrails:
 - Contract-guard test fails if HOTSPOTS is published outside Narrative-owned producer module(s).
 
