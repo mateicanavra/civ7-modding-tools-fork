@@ -87,6 +87,18 @@ Recommended “outside view” doc set (create only what you need; keep it small
 - **Docs-as-code is enforced:** any touched exported function/op/step/schema gets contextual JSDoc and/or TypeBox `description` updates (trace references before writing docs).
 - **Documentation pass is mandatory:** Phase 3 must include a dedicated documentation pass (slice or issue) that inventories every touched/created schema, function, op, step, stage, and contract, and updates JSDoc + schema descriptions with behavior, defaults, modes, and downstream impacts.
 
+### Implementation drift guardrails (locked decisions)
+
+- **Ops stay pure; steps own runtime binding.** Runtime/adapter concerns do not cross the op boundary.
+- **Trace is step-scoped by default.** Op-level trace requires explicit contract changes or step-wrapping.
+- **RNG crosses boundaries as data (seed), never callbacks/functions.** Steps derive seeds; ops build local RNGs.
+- **Defaults live in schemas; derived values live in normalize.** Avoid hidden runtime defaults or fallbacks.
+- **Do not snapshot/freeze at publish boundaries.** Enforce write-once + readonly-by-type instead.
+- **Derived knobs are not user-authored.** Expose semantic knobs; derive internal metrics in normalize.
+- **Avoid monolithic steps.** Step boundaries are the architecture; do not collapse stages into a mega-step.
+- **No silent compat.** Delete, or push compat downstream with explicit deprecation and a removal trigger.
+- **Schemas are the single source of truth.** Derive types from schemas; do not duplicate shapes manually.
+
 ## Principles (authoritative surfaces)
 
 Domains own their surfaces. The refactored domain must not retain legacy compat surfaces; update downstream consumers in the same refactor. If a downstream domain needs a transitional shim, it owns it and marks it as deprecated. Projections are presentation-only and must never shape the internal representation.
@@ -128,6 +140,7 @@ Repeat this loop until the model stabilizes:
 - **Skipping upstream intake:** continuing to consume legacy upstream surfaces without evaluating new authoritative inputs.
 - **Diagramless model:** locking a model without a conceptual narrative or current/target pipeline diagrams.
 - **Single-pass modeling:** locking the model without an iteration log and a refinement pass.
+- **Implementation drift:** “making it work” by preserving legacy nesting, collapsing steps, smuggling runtime concerns, or adding hidden defaults.
 
 Example anti-pattern (do not copy):
 ```ts
@@ -146,6 +159,15 @@ export const ComputePlatesContract = defineOp({
 ```
 
 Preferred posture: define a minimal op-owned schema and map any external bag at step normalization.
+
+## Drift response protocol (when you notice drift)
+
+If you detect drift or a locked decision gets violated, stop and do the following before continuing:
+
+1. **Hard stop + status report:** document what changed, what is in-flight, and what is next.
+2. **Rebuild the slice plan gates:** update the Phase 3 issue to insert the locked decision as a gate.
+3. **Split vague slices:** replace “later” buckets with explicit subissues + per-subissue branches.
+4. **Add guardrails:** add string/surface guard tests or checks so the violation cannot reappear.
 
 ## Phase gates (no phase bleed)
 
@@ -168,12 +190,15 @@ Phase 2 gate:
 - Architecture alignment note exists; conflicts are recorded and reconciled.
 - Research sources are cited when external research is used.
 - Iteration log exists; at least two modeling passes (or a justified single-pass exception) and diagrams/pipeline delta list reflect the final pass.
+- Decision points are explicit: compat vs delete, normalize vs runtime validation, trace/RNG boundary choices, derived knobs vs authored config.
 
 Phase 3 gate:
 - Implementation issue exists and includes an executable slice plan.
 - No model changes appear in the issue doc.
 - Sequencing refinement pass exists: slices are drafted, re-ordered for pipeline safety, and re-checked against downstream deltas before locking.
 - Documentation pass is explicitly scoped (dedicated slice or issue) and includes a doc inventory of all touched/created surfaces.
+- No “later” buckets: every slice is explicit and has a branch/subissue plan.
+- Guardrails are planned: contract-guard tests or string/surface checks for forbidden surfaces.
 
 ## Phase 3 sequencing refinement (required)
 
@@ -323,6 +348,7 @@ Workflow package references:
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/phase-2-modeling.md`
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/phase-3-implementation-plan.md`
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/implementation-reference.md`
+- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/implementation-traps-and-locked-decisions.md`
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/subflows/IMPLEMENTATION.md`
 
 Prior art / sequencing helpers:

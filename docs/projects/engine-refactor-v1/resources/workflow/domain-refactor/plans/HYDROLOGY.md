@@ -12,6 +12,7 @@ This is a **thin policy + index** plan for the Hydrology refactor. Modeling live
 
 Backbone workflow:
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/WORKFLOW.md`
+- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/implementation-traps-and-locked-decisions.md`
 
 Path roots (convention used here):
 - `/src/...` = `mods/mod-swooper-maps/src/...`
@@ -41,6 +42,15 @@ Research discipline:
 Planning + documentation discipline:
 - Phase 3 must include a sequencing refinement pass (re-order slices for pipeline safety, re-check downstream deltas, then lock).
 - Phase 3 must include a dedicated documentation pass (slice or issue) that inventories every touched/created schema/function/op/step/stage/contract and adds JSDoc + schema descriptions with behavior, defaults, modes, and downstream impacts.
+
+Implementation guardrails (locked decisions; see implementation-traps reference):
+- Ops stay pure; steps own runtime binding (no callbacks/functions across op boundaries).
+- Trace is step-scoped by default; op-level trace requires explicit contract changes.
+- RNG crosses boundaries as data (seed); ops build local RNGs.
+- Defaults live in schemas/normalize; no hidden runtime defaults.
+- Do not snapshot/freeze at publish boundaries.
+- Avoid monolithic steps; step boundaries are the architecture.
+- Schemas are the single source of truth; derive types from schemas.
 
 Compatibility and cleanup rules:
 - This refactor must not leave compat/projection surfaces in Hydrology. Downstream consumers must be updated as part of this refactor.

@@ -2,6 +2,9 @@
 
 This is the expanded reference used during Phase 4 implementation. Keep it close while coding.
 
+Also keep this stop-sign reference nearby:
+- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/implementation-traps-and-locked-decisions.md`
+
 ## Expanded constraints and invariants
 
 Canonical TypeScript rules (hard rules):

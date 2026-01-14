@@ -1,0 +1,125 @@
+# Implementation Traps & Locked Decisions (Domain Refactors)
+
+This reference distills recurring failure modes observed during domain-refactor implementation and turns them into reusable “stop signs”, invariants, and enforcement patterns that apply across domains.
+
+It is intentionally domain-agnostic: the examples are MapGen-flavored, but the rules are meant to generalize to any domain refactor in this repo.
+
+## When to Use This
+
+Use this as a checklist and prompt insert during:
+
+- Slice implementation (when touching ops/steps/contracts/config)
+- Downstream rebuilds (consumer migrations)
+- Ruthless cleanup sweeps (compat removal + guardrails)
+
+## Stop Signs (Pause + Reconcile Before You Continue)
+
+If any of these happen, stop and re-check the architecture + the current plan’s locked decisions:
+
+- You are “preserving patterns” or “matching existing nesting” primarily because it already exists.
+- You are introducing fallback/optionality/shims “just in case” without an explicit, recorded deferral trigger.
+- You are collapsing multiple steps into a single mega-step to “make migration easier.”
+- You are passing functions/callbacks across a boundary that claims to be “data-only” (e.g., step→op inputs).
+- You are manually “typing” or re-declaring shapes that already exist as a schema (TypeBox or equivalent).
+- You are adding defaults in runtime code instead of in config schemas / normalization hooks.
+- You are freezing/snapshotting objects at public boundaries to simulate immutability.
+
+## Locked Decisions (Generalizable Invariants)
+
+### 1) The runtime boundary is the step (ops stay pure)
+
+- Ops are “pure domain contracts”: `run(input, config) -> output` with data-only inputs/outputs, no runtime views or callback injection.
+- Steps own runtime binding (adapter reads/writes, artifact publication, logging/trace, seeded RNG derivation, side effects).
+
+Code touchpoints:
+- `packages/mapgen-core/src/authoring/op/types.ts`
+- `packages/mapgen-core/src/engine/PipelineExecutor.ts`
+
+### 2) Tracing/logging happens in steps (not inside ops by default)
+
+- Trace scope is established per-step at execution time; op signatures do not accept trace handles unless the op contract is explicitly changed.
+- If you want op-level trace semantics, wrap op calls inside the step and emit trace events there.
+
+Code touchpoints:
+- `packages/mapgen-core/src/engine/PipelineExecutor.ts`
+- `packages/mapgen-core/src/dev/logging.ts`
+
+### 3) RNG cannot cross a boundary as a callback
+
+- Never pass RNG functions through inputs/contracts across boundaries that are intended to stay serializable/data-only.
+- Steps derive deterministic seeds from runtime context and pass seeds as plain data; ops build local deterministic RNGs from the seed.
+
+Code touchpoints:
+- `packages/mapgen-core/src/core/types.ts` (`ctxRandom`, `ctxRandomLabel`)
+- `packages/mapgen-core/src/core/index.ts` / `packages/mapgen-core/src/lib/rng/label.ts` (`createLabelRng`)
+
+### 4) Defaults live in config; normalization lives in `normalize`
+
+- Do not “bake in hidden defaults” in run handlers.
+- Use schema defaults for basic defaults and `normalize` hooks for derived/scaled parameters.
+- Use run handlers for runtime validation that cannot be done at schema/normalize time (and keep it narrow).
+
+Code touchpoints:
+- `packages/mapgen-core/src/authoring/op/create.ts` (strategy `normalize`)
+- `packages/mapgen-core/src/authoring/step/create.ts` (step-level `normalize`)
+
+### 5) Do not snapshot/freeze at boundaries to emulate immutability
+
+- Publish should store references (write-once); consumers treat reads as readonly by convention + types.
+- Do not freeze outputs at publish/return boundaries; if internal freezing/copying is required, keep it strictly internal and local.
+
+Code touchpoints:
+- `packages/mapgen-core/src/authoring/artifact/runtime.ts` (publish is write-once; no deep freeze)
+
+### 6) “Derived” parameters should not be user-authored
+
+- If a config value is purely an internal derived metric (e.g., computed from map dimensions), do not expose it as an authored knob.
+- Prefer a higher-level author knob + normalization to derive the internal value.
+
+Enforcement pattern:
+- Strategy schema marks derived fields as optional + documented “derived in normalization (do not author directly)”.
+
+### 7) Avoid monolithic steps; step boundaries are the architecture
+
+- A refactor that collapses an entire stage into a single step tends to re-create monolithic config passing and makes consumer migration harder.
+- Prefer multiple, semantically scoped steps with explicit requires/provides and artifact boundaries.
+
+### 8) Do not preserve legacy/compat “optionality” during a strict refactor
+
+- Treat stray legacy shims, runtime overrides, and “optional” knobs that conflict with the authoritative model as code smells to delete, not accommodate.
+- If a compatibility escape hatch is truly needed, it must be owned downstream, explicitly isolated, deprecated, and tracked with a removal trigger (deferral).
+
+Guardrail pattern:
+- Add contract guard tests that fail if forbidden surfaces/strings reappear.
+
+Example pattern:
+- `mods/mod-swooper-maps/test/foundation/contract-guard.test.ts`
+
+### 9) Use schemas as the single source of truth (no duplicate TS typing)
+
+- If a schema exists, derive types from the schema (`Static<typeof Schema>`); do not manually retype the shape.
+- Prefer passing schemas via contracts rather than re-declaring shapes in multiple places.
+
+## Decision Points (Make Them Explicit)
+
+| Decision | Criteria | Options |
+|---|---|---|
+| Preserve compat vs delete | Is a consumer still live and blocking? | Delete now; or isolate + deprecate + add deferral trigger |
+| Where to normalize | Is it purely config-derived? | `normalize` (preferred); otherwise runtime validation in `run` |
+| RNG source | Is a deterministic seed required? | Derive seed in step (`ctxRandom`), pass seed to op, use `createLabelRng` |
+| Trace visibility | Need trace events at op boundaries? | Step wraps op call + emits trace; or extend op contract (explicit architecture change) |
+| “Derived knobs” | Is authoring the value meaningful? | Author a higher-level knob, derive internal metric in normalize |
+
+## Quality Gates (Per Slice)
+
+Treat these as “must pass before stacking the next slice”:
+
+- `rg`-style grep gates for forbidden surfaces (strings/symbols) aligned with the slice’s deletion mandates.
+- Contract guard tests to prevent reintroduction of forbidden imports/schemas/surfaces.
+- Package scripts for the touched workspace(s): typecheck/check + tests (and build where relevant).
+
+## Minimal Enforcement Patterns That Scale
+
+- **Contract-guard tests**: cheap string-based checks in the domain’s test suite for “must never reappear” surfaces.
+- **Runtime boundary assertions**: `require*` helpers to validate artifact shapes at boundaries (fail fast).
+- **Lib extraction**: move generic math/util helpers out of ops/steps to a `lib/` (domain-local) or shared core lib (cross-domain) to reduce copy/paste drift.

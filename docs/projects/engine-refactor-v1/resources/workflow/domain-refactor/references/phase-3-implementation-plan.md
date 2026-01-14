@@ -9,6 +9,7 @@ Convert the spikes into an executable slice plan and a single source-of-truth is
 - This is slice planning only. Do not change the model here.
 - Every slice must end in a pipeline-green state (no dual paths).
 - The refactored domain must not retain compat surfaces; downstream adjustments are part of the plan.
+- No “later” buckets. Every slice is explicit with deliverables and a branch/subissue plan.
 
 ## Required output
 
@@ -45,6 +46,7 @@ Re-checked downstream deltas against the new order and verified each slice ends 
 - Ops introduced/changed (ids + kinds + module paths)
 - Legacy entrypoints to delete (file paths / exports)
 - Tests to add/update (op contract test + thin integration edge)
+- Guardrail tests (string/surface checks or contract-guard tests for forbidden surfaces)
 - Guardrail scope (`REFRACTOR_DOMAINS=...`)
 - Pipeline deltas included (upstream/downstream contracts updated in that slice)
 - Documentation scope (what schemas/functions/ops/steps/stages/contracts are documented in this slice)
@@ -70,4 +72,5 @@ Re-checked downstream deltas against the new order and verified each slice ends 
 
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/op-and-config-design.md`
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/verification-and-guardrails.md`
+- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/implementation-traps-and-locked-decisions.md`
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/subflows/IMPLEMENTATION.md`

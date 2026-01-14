@@ -15,6 +15,7 @@ This sub-flow assumes you already produced:
 
 Keep open while implementing:
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/implementation-reference.md`
+- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/implementation-traps-and-locked-decisions.md`
 
 ## How to think about slicing (guardrails)
 
@@ -36,6 +37,14 @@ Anti-patterns (do not do this):
 - “One slice for the whole domain” unless the domain genuinely only has one step/op surface.
 - “One op that does everything” where the op id reads like a noun or a domain label rather than an action.
 - “We’ll keep the old path until the end” (dual paths = half-migration risk).
+
+## Drift response protocol (required if you notice drift)
+
+If you detect drift or a locked decision is violated, pause and:
+1. Write a short status report (what changed, what is in-flight, what is next).
+2. Update the Phase 3 issue to insert the locked decision as a gate.
+3. Replace “later” buckets with explicit subissues and branches.
+4. Add guardrails (string/surface checks or contract-guard tests) to prevent reintroduction.
 
 ## Slice planning artifact (required before coding)
 
