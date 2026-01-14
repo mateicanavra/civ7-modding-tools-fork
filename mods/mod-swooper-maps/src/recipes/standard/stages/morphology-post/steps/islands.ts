@@ -1,6 +1,5 @@
 import { createStep } from "@swooper/mapgen-core/authoring";
 import { addIslandChains } from "@mapgen/domain/morphology/islands/index.js";
-import { STORY_OVERLAY_KEYS, publishStoryOverlay } from "@mapgen/domain/narrative/overlays/index.js";
 import {
   readOverlayCorridors,
   readOverlayMotifsHotspots,
@@ -15,23 +14,10 @@ export default createStep(IslandsStepContract, {
     const margins = readOverlayMotifsMargins(overlays);
     const hotspots = readOverlayMotifsHotspots(overlays);
     const corridors = readOverlayCorridors(overlays);
-    const result = addIslandChains(width, height, context, config, {
+    addIslandChains(width, height, context, config, {
       margins,
       hotspots,
       corridors,
-    });
-    publishStoryOverlay(context, STORY_OVERLAY_KEYS.HOTSPOTS, {
-      kind: STORY_OVERLAY_KEYS.HOTSPOTS,
-      version: 1,
-      width,
-      height,
-      active: Array.from(result.motifs.points),
-      summary: {
-        points: result.motifs.points.size,
-        paradise: Array.from(result.motifs.paradise),
-        volcanic: Array.from(result.motifs.volcanic),
-        trails: result.motifs.trails ?? [],
-      },
     });
   },
 });
