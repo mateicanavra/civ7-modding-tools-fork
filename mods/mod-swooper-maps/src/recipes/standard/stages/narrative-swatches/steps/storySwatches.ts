@@ -15,11 +15,13 @@ export default createStep(StorySwatchesStepContract, {
     if (!directionality) {
       throw new Error("story-swatches requires env.directionality.");
     }
+    const dynamics = deps.artifacts.foundationDynamics.read(context);
     void deps.artifacts.overlays.read(context);
     storyTagClimateSwatches(context, {
       orogenyCache: getOrogenyCache(context),
       climate: config.climate,
       directionality,
+      dynamics,
     });
   },
 });

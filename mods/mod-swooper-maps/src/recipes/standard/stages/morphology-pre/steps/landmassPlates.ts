@@ -36,13 +36,13 @@ function assignContinentBounds(target: ContinentBounds, src: ContinentBounds): v
 
 export default createStep(LandmassPlatesStepContract, {
   run: (context, config, _ops, deps) => {
-    void deps.artifacts.foundationPlates.read(context);
+    const plates = deps.artifacts.foundationPlates.read(context);
     const runtime = getStandardRuntime(context);
     const { width, height } = context.dimensions;
     const landmassCfg = config.landmass as LandmassConfig;
     const oceanSeparationCfg = config.oceanSeparation;
 
-    const plateResult = createPlateDrivenLandmasses(width, height, context, {
+    const plateResult = createPlateDrivenLandmasses(width, height, context, plates, {
       landmassCfg,
       geometry: landmassCfg.geometry,
     });

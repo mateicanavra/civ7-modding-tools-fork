@@ -1,5 +1,5 @@
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
-import { assertFoundationDynamics } from "@swooper/mapgen-core";
+import type { FoundationDynamicsFields } from "@swooper/mapgen-core";
 import { inBounds as boundsCheck } from "@swooper/mapgen-core/lib/grid";
 import type { ClimateConfig, FoundationDirectionalityConfig, StoryConfig } from "@mapgen/domain/config";
 import type {
@@ -27,6 +27,7 @@ export function refineClimateEarthlike(
     climate?: ClimateConfig;
     story?: StoryConfig;
     directionality?: FoundationDirectionalityConfig;
+    dynamics?: FoundationDynamicsFields;
     rifts?: NarrativeMotifsRifts | null;
     hotspots?: NarrativeMotifsHotspots | null;
     riverAdjacency?: Uint8Array | null;
@@ -40,7 +41,10 @@ export function refineClimateEarthlike(
   const runtime = createClimateRuntime(width, height, ctx, {
     riverAdjacency: options.riverAdjacency,
   });
-  const dynamics = assertFoundationDynamics(ctx, "climate-refine");
+  const dynamics = options.dynamics;
+  if (!dynamics) {
+    throw new Error("refineClimateEarthlike requires foundation dynamics.");
+  }
 
   if (!options.climate) {
     throw new Error("refineClimateEarthlike requires climate config.");

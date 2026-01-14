@@ -8,7 +8,7 @@
  */
 
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
-import { assertFoundationPlates } from "@swooper/mapgen-core";
+import type { FoundationPlateFields } from "@swooper/mapgen-core";
 import type {
   CreateLandmassesOptions,
   GeometryConfig,
@@ -69,9 +69,9 @@ export function createPlateDrivenLandmasses(
   width: number,
   height: number,
   ctx: ExtendedMapContext,
+  plates: FoundationPlateFields,
   options: CreateLandmassesOptions = {}
 ): LandmassGenerationResult | null {
-  const plates = assertFoundationPlates(ctx, "landmass-plates");
   const { width: ctxWidth, height: ctxHeight } = ctx.dimensions;
   if (ctxWidth !== width || ctxHeight !== height) {
     throw new Error(

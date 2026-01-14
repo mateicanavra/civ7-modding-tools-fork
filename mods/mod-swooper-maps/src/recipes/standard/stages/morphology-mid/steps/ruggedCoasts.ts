@@ -6,10 +6,10 @@ import RuggedCoastsStepContract from "./ruggedCoasts.contract.js";
 export default createStep(RuggedCoastsStepContract, {
   run: (context, config, _ops, deps) => {
     const { width, height } = context.dimensions;
-    void deps.artifacts.foundationPlates.read(context);
+    const plates = deps.artifacts.foundationPlates.read(context);
     const overlays = deps.artifacts.overlays.read(context);
     const margins = readOverlayMotifsMargins(overlays);
     const corridors = readOverlayCorridors(overlays);
-    addRuggedCoasts(width, height, context, config, { margins, corridors });
+    addRuggedCoasts(width, height, context, config, plates, { margins, corridors });
   },
 });

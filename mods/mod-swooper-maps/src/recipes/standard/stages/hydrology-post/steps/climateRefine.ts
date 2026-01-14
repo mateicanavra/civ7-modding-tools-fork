@@ -12,6 +12,7 @@ export default createStep(ClimateRefineStepContract, {
     if (!directionality) {
       throw new Error("climate-refine requires env.directionality.");
     }
+    const dynamics = deps.artifacts.foundationDynamics.read(context);
     const overlays = deps.artifacts.overlays.read(context);
     const rifts = readOverlayMotifsRifts(overlays);
     const hotspots = readOverlayMotifsHotspots(overlays);
@@ -20,6 +21,7 @@ export default createStep(ClimateRefineStepContract, {
       climate: config.climate,
       story: config.story,
       directionality,
+      dynamics,
       rifts,
       hotspots,
       riverAdjacency,

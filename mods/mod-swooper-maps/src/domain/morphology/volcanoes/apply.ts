@@ -1,6 +1,6 @@
 import type { FeatureData } from "@civ7/adapter";
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
-import { assertFoundationPlates } from "@swooper/mapgen-core";
+import type { FoundationPlateFields } from "@swooper/mapgen-core";
 import { ctxRandom, writeHeightfield } from "@swooper/mapgen-core";
 import { idx } from "@swooper/mapgen-core/lib/grid";
 import { clamp } from "@swooper/mapgen-core/lib/math";
@@ -11,9 +11,9 @@ import { scoreVolcanoWeight } from "@mapgen/domain/morphology/volcanoes/scoring.
 
 export function layerAddVolcanoesPlateAware(
   ctx: ExtendedMapContext,
+  plates: FoundationPlateFields,
   options: Partial<VolcanoesConfig> = {}
 ): void {
-  const plates = assertFoundationPlates(ctx, "volcanoes");
   const {
     enabled = true,
     baseDensity = 1 / 170,

@@ -6,11 +6,11 @@ import VolcanoesStepContract from "./volcanoes.contract.js";
 
 export default createStep(VolcanoesStepContract, {
   run: (context, config, _ops, deps) => {
-    void deps.artifacts.foundationPlates.read(context);
+    const plates = deps.artifacts.foundationPlates.read(context);
     const { width, height } = context.dimensions;
     const volcanoOptions = config.volcanoes as VolcanoesConfig;
 
-    layerAddVolcanoesPlateAware(context, volcanoOptions);
+    layerAddVolcanoesPlateAware(context, plates, volcanoOptions);
 
     const volcanoId = context.adapter.getFeatureTypeIndex?.("FEATURE_VOLCANO") ?? -1;
     logVolcanoSummary(context.trace, context.adapter, width, height, volcanoId);

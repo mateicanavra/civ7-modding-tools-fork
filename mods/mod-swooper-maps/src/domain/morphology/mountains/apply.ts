@@ -1,5 +1,5 @@
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
-import { assertFoundationPlates } from "@swooper/mapgen-core";
+import type { FoundationPlateFields } from "@swooper/mapgen-core";
 import { writeHeightfield } from "@swooper/mapgen-core";
 import { devLogIf } from "@swooper/mapgen-core";
 import type { MountainsConfig } from "@mapgen/domain/morphology/mountains/types.js";
@@ -7,8 +7,11 @@ import { createIsWaterTile, selectTilesAboveThreshold } from "@mapgen/domain/mor
 import { applyRiftDepressions, computePlateBasedScores, HILL_FRACTAL, MOUNTAIN_FRACTAL } from "@mapgen/domain/morphology/mountains/scoring.js";
 import { MOUNTAIN_TERRAIN, HILL_TERRAIN, COAST_TERRAIN, OCEAN_TERRAIN } from "@swooper/mapgen-core";
 
-export function layerAddMountainsPhysics(ctx: ExtendedMapContext, options: Partial<MountainsConfig> = {}): void {
-  const plates = assertFoundationPlates(ctx, "mountains");
+export function layerAddMountainsPhysics(
+  ctx: ExtendedMapContext,
+  plates: FoundationPlateFields,
+  options: Partial<MountainsConfig> = {}
+): void {
   const {
     tectonicIntensity = 1.0,
     mountainThreshold = 0.58,
