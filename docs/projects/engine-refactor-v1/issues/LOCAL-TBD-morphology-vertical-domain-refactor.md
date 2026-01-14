@@ -543,6 +543,10 @@ Guardrails:
 Verification gates:
 - `pnpm -C mods/mod-swooper-maps test`
 
+Trace:
+- Implemented on branch `agent-BRODY-M8-MORPH-S4-hotspots-ownership`.
+- Draft PR: https://app.graphite.dev/submit/mateicanavra/civ7-modding-tools-fork/591
+
 ### Slice 5 — Morphology domain ops refactor (contract-first ops + step orchestration)
 
 Goal: migrate Morphology domain logic behind op contracts; steps become orchestration-only and no longer import Morphology implementations directly.
