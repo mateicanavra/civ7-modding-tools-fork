@@ -5,7 +5,8 @@ import {
   markLandmassId,
   resolveLandmassIds,
 } from "@swooper/mapgen-core";
-import { createStep } from "@swooper/mapgen-core/authoring";
+import type { MapDimensions } from "@civ7/adapter";
+import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import type { LandmassConfig } from "@mapgen/domain/config";
 import {
   applyLandmassPostAdjustments,
@@ -15,6 +16,53 @@ import {
 } from "@mapgen/domain/morphology/landmass/index.js";
 import { getStandardRuntime } from "../../../runtime.js";
 import LandmassPlatesStepContract from "./landmassPlates.contract.js";
+
+type ArtifactValidationIssue = Readonly<{ message: string }>;
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+
+function expectedSize(dimensions: MapDimensions): number {
+  return Math.max(0, (dimensions.width | 0) * (dimensions.height | 0));
+}
+
+function validateTypedArray(
+  errors: ArtifactValidationIssue[],
+  label: string,
+  value: unknown,
+  ctor: { new (...args: any[]): { length: number } },
+  expectedLength?: number
+): value is { length: number } {
+  if (!(value instanceof ctor)) {
+    errors.push({ message: `Expected ${label} to be ${ctor.name}.` });
+    return false;
+  }
+  if (expectedLength != null && value.length !== expectedLength) {
+    errors.push({
+      message: `Expected ${label} length ${expectedLength} (received ${value.length}).`,
+    });
+  }
+  return true;
+}
+
+function validateHeightfieldBuffer(value: unknown, dimensions: MapDimensions): ArtifactValidationIssue[] {
+  const errors: ArtifactValidationIssue[] = [];
+  if (!isRecord(value)) {
+    errors.push({ message: "Missing heightfield buffer." });
+    return errors;
+  }
+  const size = expectedSize(dimensions);
+  const candidate = value as {
+    elevation?: unknown;
+    terrain?: unknown;
+    landMask?: unknown;
+  };
+  validateTypedArray(errors, "topography.elevation", candidate.elevation, Int16Array, size);
+  validateTypedArray(errors, "topography.terrain", candidate.terrain, Uint8Array, size);
+  validateTypedArray(errors, "topography.landMask", candidate.landMask, Uint8Array, size);
+  return errors;
+}
 
 function windowToContinentBounds(window: LandmassWindow, continent: number): ContinentBounds {
   return {
@@ -35,6 +83,11 @@ function assignContinentBounds(target: ContinentBounds, src: ContinentBounds): v
 }
 
 export default createStep(LandmassPlatesStepContract, {
+  artifacts: implementArtifacts(LandmassPlatesStepContract.artifacts!.provides!, {
+    topography: {
+      validate: (value, context) => validateHeightfieldBuffer(value, context.dimensions),
+    },
+  }),
   run: (context, config, _ops, deps) => {
     const plates = deps.artifacts.foundationPlates.read(context);
     const runtime = getStandardRuntime(context);
@@ -107,5 +160,7 @@ export default createStep(LandmassPlatesStepContract, {
     context.adapter.stampContinents();
 
     logLandmassAscii(context.trace, context.adapter, width, height);
+
+    deps.artifacts.topography.publish(context, context.buffers.heightfield);
   },
 });

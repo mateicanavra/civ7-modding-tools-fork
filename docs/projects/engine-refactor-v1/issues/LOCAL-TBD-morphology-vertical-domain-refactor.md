@@ -21,6 +21,29 @@ swooper-src = mods/mod-swooper-maps/src
 swooper-test = mods/mod-swooper-maps/test
 mapgen-core = packages/mapgen-core
 
+## Implementation Decisions
+
+### Publish `morphologyArtifacts.coastlineMetrics` as adjacency masks
+- **Context:** Slice 1 requires publishing a derived coastline metrics artifact from `morphology-mid/rugged-coasts`, without introducing engine/projection semantics as canonical outputs.
+- **Options:** publish no metrics (violate AC), publish expensive/rich metrics (distance fields), publish minimal derived masks.
+- **Choice:** publish minimal masks: `coastalLand` and `coastalWater` as `Uint8Array` adjacency indicators derived from the canonical landMask buffer.
+- **Rationale:** Keeps Slice 1 additive and low-risk while making the artifact meaningful, deterministic, and independent of engine terrain ids.
+- **Risk:** If downstream later requires richer coastal metrics, schema extension/migration will be required (tracked by later slices).
+
+### Allow landmass bounding boxes to wrap at the map seam
+- **Context:** Landmasses are computed from a wrapped hex grid (OddQ) and may cross the west/east seam.
+- **Options:** treat x as non-wrapped (incorrect connectivity), force a non-wrapping bbox (lossy), allow `west > east` to represent wrap.
+- **Choice:** allow `west > east` in the `bbox` to represent a wrapped interval, and document this in the artifact schema.
+- **Rationale:** Preserves correct connectivity while keeping the artifact compact and downstream-owned projections explicit.
+- **Risk:** Downstream consumers must interpret wrapped bounds correctly (handled explicitly in Slice 3 projection work).
+
+### Export `HydrologyWindFieldSchema` from `@mapgen/domain/hydrology` to satisfy guardrails
+- **Context:** Guardrails forbid recipe/test deep-imports into `@mapgen/domain/*/ops/**`. `hydrology-pre/artifacts.ts` needs the wind-field schema.
+- **Options:** duplicate the schema in the stage (drift risk), add a stable domain-level export, add a new shared schema module.
+- **Choice:** export `HydrologyWindFieldSchema` from `mods/mod-swooper-maps/src/domain/hydrology/index.ts` and import it from `@mapgen/domain/hydrology`.
+- **Rationale:** Keeps schemas single-sourced while respecting the “no deep-imports from recipes” rule.
+- **Risk:** Slightly expands the domain entrypoint surface (acceptable; schema remains owned by the domain).
+
 ## Issue index (slice units; for breakout)
 
 ```yaml
@@ -255,14 +278,17 @@ Implementation (expected):
   - If Slice 1 derives landmasses from `adapter.isWater(...)` (temporary wiring), it must be replaced by a pure `topography.landMask`-based implementation by Slice 6 (no transitional allowed past this slice plan).
 
 **Acceptance Criteria (verifiable):**
-- [ ] `swooper-src/recipes/standard/stages/morphology-pre/artifacts.ts` exists and exports a `morphologyArtifacts` object containing:
+- [x] `swooper-src/recipes/standard/stages/morphology-pre/artifacts.ts` exists and exports a `morphologyArtifacts` object containing:
   - `topography`, `routing`, `substrate`, `coastlineMetrics`, `landmasses` with stable `.id` strings.
-- [ ] `morphology-pre/landmass-plates` publishes `morphologyArtifacts.topography` (publish-once posture).
-- [ ] `morphology-mid/rugged-coasts` publishes `morphologyArtifacts.coastlineMetrics`.
-- [ ] New step `morphology-post/landmasses` exists and publishes `morphologyArtifacts.landmasses`.
-- [ ] New test `swooper-test/morphology/contract-guard.test.ts` exists and fails if Morphology introduces:
+- [x] `morphology-pre/landmass-plates` publishes `morphologyArtifacts.topography` (publish-once posture).
+- [x] `morphology-mid/rugged-coasts` publishes `morphologyArtifacts.coastlineMetrics`.
+- [x] New step `morphology-post/landmasses` exists and publishes `morphologyArtifacts.landmasses`.
+- [x] New test `swooper-test/morphology/contract-guard.test.ts` exists and fails if Morphology introduces:
   - `westContinent`, `eastContinent`, `LandmassRegionId` in Morphology artifact schemas/contracts.
-- [ ] No downstream consumer contract changes ship in this slice (consumer migration begins in Slice 2), but publishing is non-breaking for existing consumers.
+- [x] No downstream consumer contract changes ship in this slice (consumer migration begins in Slice 2), but publishing is non-breaking for existing consumers.
+
+Trace:
+- Implemented on branch `agent-BRODY-M8-MORPH-S1-artifact-contracts`.
 
 **Scope boundaries:**
 - In scope:

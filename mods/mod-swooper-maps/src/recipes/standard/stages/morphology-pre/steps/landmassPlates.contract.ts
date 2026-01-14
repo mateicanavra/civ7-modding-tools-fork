@@ -3,6 +3,7 @@ import { LandmassConfigSchema, MorphologyConfigSchema } from "@mapgen/domain/con
 
 import { M4_EFFECT_TAGS } from "../../../tags.js";
 import { foundationArtifacts } from "../../foundation/artifacts.js";
+import { morphologyArtifacts } from "../artifacts.js";
 
 const LandmassPlatesStepContract = defineStep({
   id: "landmass-plates",
@@ -11,6 +12,7 @@ const LandmassPlatesStepContract = defineStep({
   provides: [M4_EFFECT_TAGS.engine.landmassApplied],
   artifacts: {
     requires: [foundationArtifacts.plates],
+    provides: [morphologyArtifacts.topography],
   },
   schema: Type.Object({
     landmass: LandmassConfigSchema,
