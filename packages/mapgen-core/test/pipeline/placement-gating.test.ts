@@ -60,7 +60,6 @@ function buildTestEnv(width: number, height: number) {
     seed: 0,
     dimensions: { width, height },
     latitudeBounds: { topLatitude: 80, bottomLatitude: -80 },
-    wrap: { wrapX: true, wrapY: false },
   };
 }
 
@@ -88,7 +87,7 @@ describe("placement step contracts", () => {
     const env = buildTestEnv(width, height);
     const adapter = createMockAdapter({ width, height, rng: () => 0 });
     const context = createExtendedMapContext(
-      { width, height, wrapX: true, wrapY: false, topLatitude: 80, bottomLatitude: -80 },
+      { width, height, topLatitude: 80, bottomLatitude: -80 },
       adapter,
       env
     );
@@ -147,7 +146,7 @@ describe("placement step contracts", () => {
     const env = buildTestEnv(width, height);
     const adapter = createMockAdapter({ width, height, rng: () => 0 });
     const context = createExtendedMapContext(
-      { width, height, wrapX: true, wrapY: false, topLatitude: 80, bottomLatitude: -80 },
+      { width, height, topLatitude: 80, bottomLatitude: -80 },
       adapter,
       env
     );
@@ -180,7 +179,7 @@ describe("placement step contracts", () => {
     const env = buildTestEnv(width, height);
     const adapter = createMockAdapter({ width, height, rng: () => 0 });
     const context = createExtendedMapContext(
-      { width, height, wrapX: true, wrapY: false, topLatitude: 80, bottomLatitude: -80 },
+      { width, height, topLatitude: 80, bottomLatitude: -80 },
       adapter,
       env
     );
@@ -211,7 +210,7 @@ describe("placement step contracts", () => {
     const env = buildTestEnv(width, height);
     const adapter = createMockAdapter({ width, height, rng: () => 0 });
     const context = createExtendedMapContext(
-      { width, height, wrapX: true, wrapY: false, topLatitude: 80, bottomLatitude: -80 },
+      { width, height, topLatitude: 80, bottomLatitude: -80 },
       adapter,
       env
     );
@@ -244,7 +243,7 @@ describe("placement step contracts", () => {
     const env = buildTestEnv(width, height);
     const adapter = createMockAdapter({ width, height, rng: () => 0 });
     const context = createExtendedMapContext(
-      { width, height, wrapX: true, wrapY: false, topLatitude: 80, bottomLatitude: -80 },
+      { width, height, topLatitude: 80, bottomLatitude: -80 },
       adapter,
       env
     );

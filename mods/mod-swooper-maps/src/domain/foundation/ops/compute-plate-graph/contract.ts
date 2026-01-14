@@ -1,20 +1,28 @@
 import { TypedArraySchemas, Type, defineOp } from "@swooper/mapgen-core/authoring";
 import type { Static } from "@swooper/mapgen-core/authoring";
-
-import type { RngFunction } from "../../types.js";
 import { FoundationMeshSchema } from "../compute-mesh/contract.js";
 import { FoundationCrustSchema } from "../compute-crust/contract.js";
 
 const StrategySchema = Type.Object(
   {
-    plateCount: Type.Optional(
-      Type.Integer({
-        default: 8,
-        minimum: 2,
-        maximum: 32,
-        description: "Number of plates used to seed the plate graph partition.",
-      })
-    ),
+    plateCount: Type.Integer({
+      default: 8,
+      minimum: 2,
+      maximum: 256,
+      description:
+        "Authored plate count (scaled to the runtime map size in normalization).",
+    }),
+    referenceArea: Type.Integer({
+      default: 4000,
+      minimum: 1,
+      description: "Reference map area (width*height) used for plateCount scaling.",
+    }),
+    plateScalePower: Type.Number({
+      default: 0.5,
+      minimum: 0,
+      maximum: 2,
+      description: "Exponent applied to (area/referenceArea) when scaling plateCount.",
+    }),
   },
   { additionalProperties: false }
 );
@@ -23,8 +31,8 @@ export const FoundationPlateSchema = Type.Object(
   {
     id: Type.Integer({ minimum: 0 }),
     kind: Type.Union([Type.Literal("major"), Type.Literal("minor")]),
-    seedX: Type.Number(),
-    seedY: Type.Number(),
+    seedX: Type.Number({ description: "Seed location X in mesh hex space." }),
+    seedY: Type.Number({ description: "Seed location Y in mesh hex space." }),
     velocityX: Type.Number(),
     velocityY: Type.Number(),
     rotation: Type.Number(),
@@ -35,7 +43,7 @@ export const FoundationPlateSchema = Type.Object(
 export const FoundationPlateGraphSchema = Type.Object(
   {
     cellToPlate: TypedArraySchemas.i16({ shape: null, description: "Plate id per mesh cell." }),
-    plates: Type.Array(FoundationPlateSchema),
+    plates: Type.Immutable(Type.Array(FoundationPlateSchema)),
   },
   { additionalProperties: false }
 );
@@ -47,8 +55,11 @@ const ComputePlateGraphContract = defineOp({
     {
       mesh: FoundationMeshSchema,
       crust: FoundationCrustSchema,
-      rng: Type.Unsafe<RngFunction>({ description: "Deterministic RNG wrapper (typically ctxRandom)." }),
-      trace: Type.Optional(Type.Any()),
+      rngSeed: Type.Integer({
+        minimum: 0,
+        maximum: 2_147_483_647,
+        description: "Deterministic RNG seed (derived in the step; pure data).",
+      }),
     },
     { additionalProperties: false }
   ),

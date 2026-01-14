@@ -31,7 +31,6 @@ const ComputeTectonicsContract = defineOp({
       mesh: FoundationMeshSchema,
       crust: FoundationCrustSchema,
       plateGraph: FoundationPlateGraphSchema,
-      trace: Type.Optional(Type.Any()),
     },
     { additionalProperties: false }
   ),

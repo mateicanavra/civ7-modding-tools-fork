@@ -20,32 +20,16 @@ import { wireStandardMapEntry } from "./_runtime/standard-entry.js";
 
 const config = {
   foundation: {
-    computeMesh: {
-      strategy: "default",
-      config: { plateCount: 28, relaxationSteps: 6 },
-    },
-    computePlateGraph: {
-      strategy: "default",
-      config: { plateCount: 28 },
-    },
-    computePlates: {
-      strategy: "default",
-      config: {
-        plateCount: 28,
-        convergenceMix: 0.7,
-        relaxationSteps: 6,
-        plateRotationMultiple: 1.5,
+    mesh: {
+      computeMesh: {
+        strategy: "default",
+        config: { plateCount: 28, cellsPerPlate: 2, relaxationSteps: 6 },
       },
     },
-    computeDynamics: {
-      strategy: "default",
-      config: {
-        windJetStreaks: 4,
-        windJetStrength: 0.9,
-        windVariance: 0.7,
-        mantleBumps: 5,
-        mantleAmplitude: 0.85,
-        mantleScale: 0.5,
+    "plate-graph": {
+      computePlateGraph: {
+        strategy: "default",
+        config: { plateCount: 28 },
       },
     },
   },
@@ -208,6 +192,14 @@ const config = {
   "hydrology-pre": {
     lakes: {},
     "climate-baseline": {
+      computeWindFields: {
+        strategy: "default",
+        config: {
+          windJetStreaks: 4,
+          windJetStrength: 0.9,
+          windVariance: 0.7,
+        },
+      },
       climate: {
         baseline: {
           blend: {

@@ -7,7 +7,7 @@ import ClimateRefineStepContract from "./climateRefine.contract.js";
 export default createStep(ClimateRefineStepContract, {
   run: (context, config, _ops, deps) => {
     const { width, height } = context.dimensions;
-    const dynamics = deps.artifacts.foundationDynamics.read(context);
+    const windField = deps.artifacts.windField.read(context);
     const overlays = deps.artifacts.overlays.read(context);
     const rifts = readOverlayMotifsRifts(overlays);
     const hotspots = readOverlayMotifsHotspots(overlays);
@@ -15,7 +15,7 @@ export default createStep(ClimateRefineStepContract, {
     refineClimateEarthlike(width, height, context, {
       climate: config.climate,
       story: config.story,
-      dynamics,
+      wind: windField,
       rifts,
       hotspots,
       riverAdjacency,

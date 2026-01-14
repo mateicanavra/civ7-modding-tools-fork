@@ -83,32 +83,16 @@ const volcanoesConfig = {
 };
 
 const foundationConfig = {
-  computeMesh: {
-    strategy: "default",
-    config: { plateCount: 23, relaxationSteps: 4 },
-  },
-  computePlateGraph: {
-    strategy: "default",
-    config: { plateCount: 23 },
-  },
-  computePlates: {
-    strategy: "default",
-    config: {
-      plateCount: 23,
-      convergenceMix: 0.55,
-      relaxationSteps: 4,
-      plateRotationMultiple: 1.77,
+  mesh: {
+    computeMesh: {
+      strategy: "default",
+      config: { plateCount: 23, cellsPerPlate: 2, relaxationSteps: 4 },
     },
   },
-  computeDynamics: {
-    strategy: "default",
-    config: {
-      windJetStreaks: 3,
-      windJetStrength: 1.0,
-      windVariance: 0.6,
-      mantleBumps: 4,
-      mantleAmplitude: 0.7,
-      mantleScale: 0.45,
+  "plate-graph": {
+    computePlateGraph: {
+      strategy: "default",
+      config: { plateCount: 23 },
     },
   },
 };
@@ -543,7 +527,17 @@ const standardConfig = {
   },
   "hydrology-pre": {
     lakes: {},
-    "climate-baseline": { climate: { baseline: climateConfig.baseline } },
+    "climate-baseline": {
+      climate: { baseline: climateConfig.baseline },
+      computeWindFields: {
+        strategy: "default",
+        config: {
+          windJetStreaks: 3,
+          windJetStrength: 1.0,
+          windVariance: 0.6,
+        },
+      },
+    },
   },
   "narrative-swatches": {
     "story-swatches": { climate: climateConfig },
@@ -589,7 +583,6 @@ describe("standard recipe execution", () => {
         topLatitude: mapInfo.MaxLatitude,
         bottomLatitude: mapInfo.MinLatitude,
       },
-      wrap: { wrapX: true, wrapY: false },
     };
 
     const adapter = createMockAdapter({ width, height, mapInfo, mapSizeId: 1 });

@@ -1,5 +1,6 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
 import { ClimateConfigSchema } from "@mapgen/domain/config";
+import hydrology from "@mapgen/domain/hydrology";
 
 import { hydrologyPreArtifacts } from "../artifacts.js";
 
@@ -10,7 +11,10 @@ const ClimateBaselineStepContract = defineStep({
   provides: [],
   artifacts: {
     requires: [hydrologyPreArtifacts.heightfield],
-    provides: [hydrologyPreArtifacts.climateField],
+    provides: [hydrologyPreArtifacts.climateField, hydrologyPreArtifacts.windField],
+  },
+  ops: {
+    computeWindFields: hydrology.ops.computeWindFields,
   },
   schema: Type.Object({
     climate: Type.Object({

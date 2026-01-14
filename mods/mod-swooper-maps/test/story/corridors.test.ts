@@ -18,7 +18,6 @@ describe("story/corridors", () => {
       seed: 0,
       dimensions: { width, height },
       latitudeBounds: { topLatitude: 0, bottomLatitude: 0 },
-      wrap: { wrapX: false, wrapY: false },
     };
     const adapter = createMockAdapter({ width, height, defaultTerrainType: OCEAN_TERRAIN });
     (adapter as any).fillWater(true);

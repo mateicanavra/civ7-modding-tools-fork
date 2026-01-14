@@ -1,7 +1,6 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
 import { ClimateConfigSchema, NarrativeConfigSchema } from "@mapgen/domain/config";
 
-import { foundationArtifacts } from "../../foundation/artifacts.js";
 import { hydrologyCoreArtifacts } from "../../hydrology-core/artifacts.js";
 import { hydrologyPreArtifacts } from "../../hydrology-pre/artifacts.js";
 import { narrativePreArtifacts } from "../../narrative-pre/artifacts.js";
@@ -15,9 +14,9 @@ const ClimateRefineStepContract = defineStep({
     requires: [
       hydrologyPreArtifacts.heightfield,
       hydrologyPreArtifacts.climateField,
+      hydrologyPreArtifacts.windField,
       narrativePreArtifacts.overlays,
       hydrologyCoreArtifacts.riverAdjacency,
-      foundationArtifacts.dynamics,
     ],
   },
   schema: Type.Object({

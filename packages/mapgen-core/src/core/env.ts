@@ -42,13 +42,6 @@ export const EnvSchema = Type.Object(
       },
       { additionalProperties: false }
     ),
-    wrap: Type.Object(
-      {
-        wrapX: Type.Boolean(),
-        wrapY: Type.Boolean(),
-      },
-      { additionalProperties: false }
-    ),
     metadata: Type.Optional(UnknownRecord),
     trace: Type.Optional(TraceConfigSchema),
   },

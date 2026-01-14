@@ -36,17 +36,14 @@ export type MapSizeId = string | number;
  * Map initialization parameters for Civ7's `SetMapInitData` engine call.
  *
  * These values establish the grid + latitude bounds for map generation.
- * Extra engine-provided fields (ex: mapSize) should be preserved when present.
+ * Wrap posture is Foundation-owned and is not configured at this boundary.
  */
 export interface MapInitParams {
   width: number;
   height: number;
   topLatitude?: number;
   bottomLatitude?: number;
-  wrapX?: boolean;
-  wrapY?: boolean;
   mapSize?: MapSizeId;
-  [key: string]: unknown;
 }
 
 /**

@@ -30,7 +30,6 @@ describe("plot effects (owned)", () => {
       seed: 0,
       dimensions: { width: input.width, height: input.height },
       latitudeBounds: { topLatitude: 0, bottomLatitude: 0 },
-      wrap: { wrapX: false, wrapY: false },
     };
     const selection = normalizeOpSelectionOrThrow(
       ecology.ops.planPlotEffects,

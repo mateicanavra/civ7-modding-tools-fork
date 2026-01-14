@@ -1,13 +1,9 @@
 import { TypedArraySchemas, Type, defineArtifact } from "@swooper/mapgen-core/authoring";
 import {
-  FOUNDATION_CONFIG_ARTIFACT_TAG,
-  FOUNDATION_DIAGNOSTICS_ARTIFACT_TAG,
-  FOUNDATION_DYNAMICS_ARTIFACT_TAG,
   FOUNDATION_CRUST_ARTIFACT_TAG,
   FOUNDATION_MESH_ARTIFACT_TAG,
   FOUNDATION_PLATE_GRAPH_ARTIFACT_TAG,
   FOUNDATION_PLATES_ARTIFACT_TAG,
-  FOUNDATION_SEED_ARTIFACT_TAG,
   FOUNDATION_TECTONICS_ARTIFACT_TAG,
 } from "@swooper/mapgen-core";
 
@@ -30,14 +26,15 @@ const FoundationPlatesArtifactSchema = Type.Object(
 const FoundationMeshArtifactSchema = Type.Object(
   {
     cellCount: Type.Integer({ minimum: 1, description: "Number of mesh cells." }),
-    siteX: TypedArraySchemas.f32({ shape: null, description: "X coordinate per mesh cell." }),
-    siteY: TypedArraySchemas.f32({ shape: null, description: "Y coordinate per mesh cell." }),
+    wrapWidth: Type.Number({ description: "Periodic wrap width in mesh-space units (hex space)." }),
+    siteX: TypedArraySchemas.f32({ shape: null, description: "X coordinate per mesh cell (hex space)." }),
+    siteY: TypedArraySchemas.f32({ shape: null, description: "Y coordinate per mesh cell (hex space)." }),
     neighborsOffsets: TypedArraySchemas.i32({
       shape: null,
       description: "CSR offsets into neighbors array (length = cellCount + 1).",
     }),
     neighbors: TypedArraySchemas.i32({ shape: null, description: "CSR neighbor indices." }),
-    areas: TypedArraySchemas.f32({ shape: null, description: "Cell area per mesh cell (units: bbox space)." }),
+    areas: TypedArraySchemas.f32({ shape: null, description: "Cell area per mesh cell (hex-space units)." }),
     bbox: Type.Object(
       {
         xl: Type.Number(),
@@ -47,7 +44,6 @@ const FoundationMeshArtifactSchema = Type.Object(
       },
       { additionalProperties: false }
     ),
-    wrapX: Type.Boolean({ description: "Whether the map wraps in X (cylindrical)." }),
   },
   { additionalProperties: false }
 );
@@ -69,18 +65,20 @@ const FoundationCrustArtifactSchema = Type.Object(
 const FoundationPlateGraphArtifactSchema = Type.Object(
   {
     cellToPlate: TypedArraySchemas.i16({ shape: null, description: "Plate id per mesh cell." }),
-    plates: Type.Array(
-      Type.Object(
-        {
-          id: Type.Integer({ minimum: 0 }),
-          kind: Type.Union([Type.Literal("major"), Type.Literal("minor")]),
-          seedX: Type.Number(),
-          seedY: Type.Number(),
-          velocityX: Type.Number(),
-          velocityY: Type.Number(),
-          rotation: Type.Number(),
-        },
-        { additionalProperties: false }
+    plates: Type.Immutable(
+      Type.Array(
+        Type.Object(
+          {
+            id: Type.Integer({ minimum: 0 }),
+            kind: Type.Union([Type.Literal("major"), Type.Literal("minor")]),
+            seedX: Type.Number(),
+            seedY: Type.Number(),
+            velocityX: Type.Number(),
+            velocityY: Type.Number(),
+            rotation: Type.Number(),
+          },
+          { additionalProperties: false }
+        )
       )
     ),
   },
@@ -106,16 +104,6 @@ const FoundationTectonicsArtifactSchema = Type.Object(
   { additionalProperties: false }
 );
 
-const FoundationDynamicsArtifactSchema = Type.Object(
-  {
-    windU: TypedArraySchemas.i8({ description: "Wind U component per tile (-127..127)." }),
-    windV: TypedArraySchemas.i8({ description: "Wind V component per tile (-127..127)." }),
-    currentU: TypedArraySchemas.i8({ description: "Current U component per tile (-127..127)." }),
-    currentV: TypedArraySchemas.i8({ description: "Current V component per tile (-127..127)." }),
-    pressure: TypedArraySchemas.u8({ description: "Mantle pressure per tile (0..255)." }),
-  },
-  { additionalProperties: false }
-);
 
 export const foundationArtifacts = {
   mesh: defineArtifact({
@@ -142,25 +130,5 @@ export const foundationArtifacts = {
     name: "foundationPlates",
     id: FOUNDATION_PLATES_ARTIFACT_TAG,
     schema: FoundationPlatesArtifactSchema,
-  }),
-  dynamics: defineArtifact({
-    name: "foundationDynamics",
-    id: FOUNDATION_DYNAMICS_ARTIFACT_TAG,
-    schema: FoundationDynamicsArtifactSchema,
-  }),
-  seed: defineArtifact({
-    name: "foundationSeed",
-    id: FOUNDATION_SEED_ARTIFACT_TAG,
-    schema: Type.Any(),
-  }),
-  diagnostics: defineArtifact({
-    name: "foundationDiagnostics",
-    id: FOUNDATION_DIAGNOSTICS_ARTIFACT_TAG,
-    schema: Type.Any(),
-  }),
-  config: defineArtifact({
-    name: "foundationConfig",
-    id: FOUNDATION_CONFIG_ARTIFACT_TAG,
-    schema: Type.Any(),
   }),
 } as const;

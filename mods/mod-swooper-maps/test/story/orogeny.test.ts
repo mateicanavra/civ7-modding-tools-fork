@@ -18,7 +18,6 @@ describe("story/orogeny", () => {
       seed: 0,
       dimensions: { width, height },
       latitudeBounds: { topLatitude: 0, bottomLatitude: 0 },
-      wrap: { wrapX: false, wrapY: false },
     };
     const adapter = createMockAdapter({ width, height });
 
@@ -44,15 +43,8 @@ describe("story/orogeny", () => {
       movementV: new Int8Array(size),
       rotation: new Int8Array(size),
     };
-    const dynamics = {
-      windU: new Int8Array(size),
-      windV: new Int8Array(size),
-      currentU: new Int8Array(size),
-      currentV: new Int8Array(size),
-      pressure: new Uint8Array(size),
-    };
 
-    storyTagOrogenyBelts(ctx, config.story, plates, dynamics);
+    storyTagOrogenyBelts(ctx, config.story, plates);
 
     const overlay = getStoryOverlay(ctx, STORY_OVERLAY_KEYS.OROGENY);
     expect(overlay).not.toBeNull();

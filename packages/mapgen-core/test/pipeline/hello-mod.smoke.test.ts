@@ -16,7 +16,6 @@ const baseSettings = {
   seed: 1,
   dimensions: { width: 8, height: 6 },
   latitudeBounds: { topLatitude: 90, bottomLatitude: -90 },
-  wrap: { wrapX: true, wrapY: false },
 };
 const EmptyKnobsSchema = Type.Object({}, { additionalProperties: false, default: {} });
 
