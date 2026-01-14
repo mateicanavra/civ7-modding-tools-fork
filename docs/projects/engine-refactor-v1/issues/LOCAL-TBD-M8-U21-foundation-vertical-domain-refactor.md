@@ -115,6 +115,19 @@ Post Slice 3 re-run (after removing ctx.artifacts.get coupling for Foundation co
 - `pnpm -C mods/mod-swooper-maps check`: pass
 - `pnpm -C mods/mod-swooper-maps test`: pass
 
+Post Slice 4 re-run (after directionality cutover to env-only + deletion sweep):
+- `pnpm -C packages/mapgen-core check`: pass
+- `pnpm -C packages/mapgen-core test`: pass
+- `pnpm -C mods/mod-swooper-maps check`: pass
+- `pnpm -C mods/mod-swooper-maps test`: pass
+- `pnpm -C mods/mod-swooper-maps build`: pass
+- `pnpm deploy:mods`: pass
+
+#### Slice 4: directionality is env-owned (schema hardening)
+- Context: directionality is a planetary boundary condition and should be owned by `env.directionality`; recipe config should not carry it as a hidden modeling knob.
+- Choice: remove `dynamics.directionality` from `FoundationConfigSchema`; maps/tests now pass directionality only via env construction (`wireStandardMapEntry(..., directionality)`).
+- Rationale: enforces the “env owns directionality” invariant at the compiler boundary (unknown-key errors if reintroduced).
+
 ### Implementation Decisions
 
 #### Slice 2: mesh-first artifact representation (scaffolding)
@@ -136,14 +149,14 @@ This slice plan is derived from the Phase 2 modeling spike Lookback (Phase 2 →
 Goal: route *existing* published outputs (`foundation.plates`, `foundation.dynamics`, trace artifacts) through the canonical ops + stage contract posture, without changing behavior.
 
 Checklist:
-- [ ] Declare op contracts:
+- [x] Declare op contracts:
   - `foundation/compute-plates-tensors`
   - `foundation/compute-dynamics-tensors`
-- [ ] Implement ops by delegating to existing algorithms (legacy code becomes a private implementation detail, not a public entrypoint).
-- [ ] Convert Foundation stage orchestration to call injected ops (no direct imports of Foundation implementation modules in the step runtime).
-- [ ] Tighten stage-owned artifact schemas:
+- [x] Implement ops by delegating to existing algorithms (legacy code becomes a private implementation detail, not a public entrypoint).
+- [x] Convert Foundation stage orchestration to call injected ops (no direct imports of Foundation implementation modules in the step runtime).
+- [x] Tighten stage-owned artifact schemas:
   - Replace `Type.Any()` posture with explicit typed-array schemas where feasible.
-- [ ] Lock boundary semantics export surface (stable contract import for `BOUNDARY_TYPE`):
+- [x] Lock boundary semantics export surface (stable contract import for `BOUNDARY_TYPE`):
   - Prevent new deep imports; keep consumer-facing meaning stable.
 
 #### Slice 2 — Add mesh-first artifacts as additive provides (model-first scaffolding)
@@ -151,33 +164,33 @@ Checklist:
 Goal: publish mesh/graph-first artifacts as additional provides without changing downstream requirements.
 
 Checklist:
-- [ ] Add stage-owned artifact contracts:
+- [x] Add stage-owned artifact contracts:
   - `foundation.mesh`, `foundation.crust`, `foundation.plateGraph`, `foundation.tectonics`.
-- [ ] Declare op contracts + implementations:
+- [x] Declare op contracts + implementations:
   - `foundation/compute-mesh`
   - `foundation/compute-crust`
   - `foundation/compute-plate-graph`
   - `foundation/compute-tectonics`
-- [ ] Publish additive artifacts from the Foundation step while keeping `foundation.plates/dynamics` stable as projections.
-- [ ] Add op-unit tests for each new op (determinism + invariants), even if initial implementations are thin wrappers.
+- [x] Publish additive artifacts from the Foundation step while keeping `foundation.plates/dynamics` stable as projections.
+- [x] Add op-unit tests for each new op (determinism + invariants), even if initial implementations are thin wrappers.
 
 #### Slice 3 — Remove cross-pipeline coupling (consumer migration)
 
 Goal: eliminate `ctx.artifacts.get(artifact:foundation.*)` and other non-canonical reads without changing step contracts.
 
 Checklist:
-- [ ] Remove/replace `packages/mapgen-core/src/core/assertions.ts` access patterns that fetch Foundation artifacts via `ctx.artifacts.get(...)`.
-- [ ] Update downstream domain logic call paths so plates/dynamics are passed explicitly or read through `deps` at step boundaries.
-- [ ] Add guardrails (lint and/or script checks) to prevent regressions (optional if equivalent rails already exist).
+- [x] Remove/replace `packages/mapgen-core/src/core/assertions.ts` access patterns that fetch Foundation artifacts via `ctx.artifacts.get(...)`.
+- [x] Update downstream domain logic call paths so plates/dynamics are passed explicitly or read through `deps` at step boundaries.
+- [x] Add guardrails (lint and/or script checks) to prevent regressions (optional if equivalent rails already exist).
 
 #### Slice 4 — Directionality cutover + deletion sweep
 
 Goal: enforce env ownership for directionality and delete the legacy monolith/compat surfaces.
 
 Checklist:
-- [ ] Ensure `env.directionality` is the only authoritative source (entry boundary constructs env; Foundation config does not “own” directionality as a hidden knob).
-- [ ] Delete the monolithic Foundation producer surfaces and any stale compat helpers that bypass the ops/stage contract boundary.
-- [ ] Re-run full pipeline gates and reconcile docs-as-code on any touched schema/exports.
+- [x] Ensure `env.directionality` is the only authoritative source (entry boundary constructs env; Foundation config does not “own” directionality as a hidden knob).
+- [x] Delete the monolithic Foundation producer surfaces and any stale compat helpers that bypass the ops/stage contract boundary.
+- [x] Re-run full pipeline gates and reconcile docs-as-code on any touched schema/exports.
 
 ## Lookback (Phase 3 → Phase 4): Finalize slices + sequencing
 
@@ -193,6 +206,6 @@ Pre-implementation confirmation to run (and record) before writing code:
   - Where the stable “boundary semantics contract surface” should live long-term if `@mapgen/domain/foundation/constants.js` is ever deprecated.
   - Whether directionality should remain configurable at the entry boundary or become fully derived from Foundation modeling (default: entry boundary provides it; env-owned).
 - First slice is safe checklist:
-  - [ ] Slice 1 deletes (or makes private) any legacy entrypoints it replaces (no dual implementation surfaces).
-  - [ ] Slice 1 updates docs-as-code for touched contracts/schemas.
-  - [ ] Slice 1 has deterministic tests (or explicit test gaps recorded with triggers).
+  - [x] Slice 1 deletes (or makes private) any legacy entrypoints it replaces (no dual implementation surfaces).
+  - [x] Slice 1 updates docs-as-code for touched contracts/schemas.
+  - [x] Slice 1 has deterministic tests (or explicit test gaps recorded with triggers).

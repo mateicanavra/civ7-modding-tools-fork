@@ -372,8 +372,6 @@ const FoundationDynamicsConfigSchema = Type.Object(
         { additionalProperties: false }
       )
     ),
-    /** Directionality controls for plates, winds, and currents alignment. */
-    directionality: Type.Optional(FoundationDirectionalityConfigSchema),
   },
   { additionalProperties: false }
 );
@@ -398,5 +396,4 @@ export type FoundationSeedConfig = Static<typeof FoundationConfigSchema["propert
 export type FoundationPlatesConfig = Static<typeof FoundationConfigSchema["properties"]["plates"]>;
 export type FoundationDynamicsConfig =
   Static<typeof FoundationConfigSchema["properties"]["dynamics"]>;
-export type FoundationDirectionalityConfig =
-  Static<typeof FoundationConfigSchema["properties"]["dynamics"]["properties"]["directionality"]>;
+export type FoundationDirectionalityConfig = Static<typeof FoundationDirectionalityConfigSchema>;
