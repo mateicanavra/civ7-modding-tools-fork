@@ -163,6 +163,15 @@ Phase 2 gate:
 Phase 3 gate:
 - Implementation issue exists and includes an executable slice plan.
 - No model changes appear in the issue doc.
+- Sequencing refinement pass exists: slices are drafted, re-ordered for pipeline safety, and re-checked against downstream deltas before locking.
+
+## Phase 3 sequencing refinement (required)
+
+Phase 3 is planning-only, but it is not single-pass. Run one explicit sequencing refinement:
+1. Draft the slice list from Phase 2 deltas.
+2. Re-order slices for pipeline safety (each slice ends green).
+3. Re-check downstream deltas and compat ownership against the re-ordered plan.
+4. Lock the plan and record the sequencing rationale.
 
 Phase 4 gate:
 - Each slice ends in a pipeline-green state (tests + guardrails + deletions complete).

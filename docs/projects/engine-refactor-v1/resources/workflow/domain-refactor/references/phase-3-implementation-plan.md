@@ -16,6 +16,13 @@ Required sections (minimum):
 - Acceptance + verification gates per slice
 - Migration checklist per slice
 - Cleanup ownership + triage links
+- Sequencing refinement note (how the slice order was re-checked for pipeline safety)
+
+Sequencing refinement pass (required; single pass):
+1. Draft the slice list from Phase 2 pipeline deltas.
+2. Re-order for pipeline safety (every slice ends green).
+3. Re-check downstream deltas and compat ownership against the new order.
+4. Lock and record the rationale.
 
 Slice plan requirements (per slice):
 - Step(s) included (ids + file paths)
@@ -31,6 +38,7 @@ Gate checklist (Phase 3 completion):
 - Any pipeline delta from Phase 2 is fully assigned to slices.
 - No model changes appear in the issue doc (modeling lives in Phase 2).
 - No compat surfaces remain in the refactored domain; any deprecated shims live in downstream domains and are explicitly marked.
+- Sequencing refinement pass is documented and reflects the final order.
 
 References:
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/op-and-config-design.md`
