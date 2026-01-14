@@ -10,6 +10,7 @@ Convert the spikes into an executable slice plan and a single source-of-truth is
 - Every slice must end in a pipeline-green state (no dual paths).
 - The refactored domain must not retain compat surfaces; downstream adjustments are part of the plan.
 - No “later” buckets. Every slice is explicit with deliverables and a branch/subissue plan.
+- Locked decisions must be test-backed in the same slice they are introduced.
 
 ## Required output
 
@@ -17,6 +18,9 @@ Convert the spikes into an executable slice plan and a single source-of-truth is
 
 ## Required sections (minimum)
 
+- Locked decisions + bans (and how each becomes a guardrail)
+- Step decomposition plan (causality spine → step boundaries → artifacts/buffers)
+- Consumer inventory + migration matrix (break/fix by slice)
 - Slice list with deliverables
 - Contract deltas per slice
 - Acceptance + verification gates per slice
@@ -50,6 +54,7 @@ Re-checked downstream deltas against the new order and verified each slice ends 
 - Guardrail scope (`REFRACTOR_DOMAINS=...`)
 - Pipeline deltas included (upstream/downstream contracts updated in that slice)
 - Documentation scope (what schemas/functions/ops/steps/stages/contracts are documented in this slice)
+- Locked decision guardrails added in this slice (test/scan)
 
 ## Documentation pass requirements (dedicated slice or issue)
 
@@ -67,6 +72,9 @@ Re-checked downstream deltas against the new order and verified each slice ends 
 - No compat surfaces remain in the refactored domain; any deprecated shims live in downstream domains and are explicitly marked.
 - Sequencing refinement pass is documented and reflects the final order.
 - Documentation pass is present and scoped with inventory + JSDoc/schema updates.
+- Locked decisions/bans are test-backed in the same slice they are introduced.
+- Step decomposition plan exists (spine → steps → artifacts/buffers).
+- Consumer inventory + migration matrix exists and assigns changes per slice.
 
 ## References
 

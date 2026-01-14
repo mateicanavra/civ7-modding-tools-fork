@@ -98,6 +98,7 @@ Recommended “outside view” doc set (create only what you need; keep it small
 - **Avoid monolithic steps.** Step boundaries are the architecture; do not collapse stages into a mega-step.
 - **No silent compat.** Delete, or push compat downstream with explicit deprecation and a removal trigger.
 - **Schemas are the single source of truth.** Derive types from schemas; do not duplicate shapes manually.
+- **Entry layers do not rewrite domain policy.** Runtime entry supplies facts; domain owns policy knobs and invariants.
 
 ## Principles (authoritative surfaces)
 
@@ -110,6 +111,7 @@ Config ownership is local and narrow. Op contracts must define op-owned strategy
 Phase 2 modeling is a research sprint. Treat it like a full-time investigation, not a cursory read-through. Record evidence in the modeling spike.
 
 - **Architecture alignment pass:** re-read the target architecture SPEC/ADR set and reconcile any conflicts (do not invent new contracts that contradict specs).
+- **Authority stack pass:** list which docs are canonical vs supporting; label PRDs as non-authoritative algorithmic inputs.
 - **Earth-physics pass:** model from first principles using domain + earth-physics references; if gaps exist, use external research and cite sources in the spike.
 - **Pipeline pass:** review upstream authoritative inputs and downstream consumers; document adopted inputs, deleted legacy reads, and required downstream changes.
 - **Model articulation pass:** produce a concise conceptual narrative plus diagrams that explain the domain as a subsystem (architecture view, data-flow, and producer/consumer map with current vs target pipeline adjustments).
@@ -141,6 +143,7 @@ Repeat this loop until the model stabilizes:
 - **Diagramless model:** locking a model without a conceptual narrative or current/target pipeline diagrams.
 - **Single-pass modeling:** locking the model without an iteration log and a refinement pass.
 - **Implementation drift:** “making it work” by preserving legacy nesting, collapsing steps, smuggling runtime concerns, or adding hidden defaults.
+- **Authority confusion:** treating PRDs or outdated references as canonical without an explicit authority stack.
 
 Example anti-pattern (do not copy):
 ```ts
@@ -167,7 +170,7 @@ If you detect drift or a locked decision gets violated, stop and do the followin
 1. **Hard stop + status report:** document what changed, what is in-flight, and what is next.
 2. **Rebuild the slice plan gates:** update the Phase 3 issue to insert the locked decision as a gate.
 3. **Split vague slices:** replace “later” buckets with explicit subissues + per-subissue branches.
-4. **Add guardrails:** add string/surface guard tests or checks so the violation cannot reappear.
+4. **Add guardrails:** add string/surface guard tests or checks so the violation cannot reappear (same slice).
 
 ## Phase gates (no phase bleed)
 
@@ -188,6 +191,7 @@ Phase 2 gate:
 - Downstream consumer impact scan is explicit; required downstream changes are listed.
 - Conceptual narrative and diagrams exist (architecture view, data-flow, producer/consumer mapping with current vs target adjustments).
 - Architecture alignment note exists; conflicts are recorded and reconciled.
+- Authority stack is explicit; PRDs are labeled non-authoritative.
 - Research sources are cited when external research is used.
 - Iteration log exists; at least two modeling passes (or a justified single-pass exception) and diagrams/pipeline delta list reflect the final pass.
 - Decision points are explicit: compat vs delete, normalize vs runtime validation, trace/RNG boundary choices, derived knobs vs authored config.
@@ -199,6 +203,9 @@ Phase 3 gate:
 - Documentation pass is explicitly scoped (dedicated slice or issue) and includes a doc inventory of all touched/created surfaces.
 - No “later” buckets: every slice is explicit and has a branch/subissue plan.
 - Guardrails are planned: contract-guard tests or string/surface checks for forbidden surfaces.
+- Locked decisions/bans are test-backed in the same slice they are introduced.
+- Step decomposition plan exists (causality spine → step boundaries).
+- Consumer inventory + migration matrix exists (break/fix per slice).
 
 ## Phase 3 sequencing refinement (required)
 
@@ -210,6 +217,7 @@ Phase 3 is planning-only, but it is not single-pass. Run one explicit sequencing
 
 Phase 4 gate:
 - Each slice ends in a pipeline-green state (tests + guardrails + deletions complete).
+- No dual-path compute persists unless an explicit deferral trigger is recorded.
 
 Phase 5 gate:
 - Full verification gates are green.

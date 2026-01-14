@@ -19,6 +19,7 @@ If any of these happen, stop and re-check the architecture + the current plan’
 - You are “preserving patterns” or “matching existing nesting” primarily because it already exists.
 - You are introducing fallback/optionality/shims “just in case” without an explicit, recorded deferral trigger.
 - You are collapsing multiple steps into a single mega-step to “make migration easier.”
+- A spec decision changed mid-flight and the plan/checklists did not get re-baselined.
 - You are passing functions/callbacks across a boundary that claims to be “data-only” (e.g., step→op inputs).
 - You are manually “typing” or re-declaring shapes that already exist as a schema (TypeBox or equivalent).
 - You are adding defaults in runtime code instead of in config schemas / normalization hooks.
@@ -100,6 +101,11 @@ Example pattern:
 - If a schema exists, derive types from the schema (`Static<typeof Schema>`); do not manually retype the shape.
 - Prefer passing schemas via contracts rather than re-declaring shapes in multiple places.
 
+### 10) Entry layers must not rewrite domain policy
+
+- Runtime entry layers should supply facts (seed, dimensions, pipeline context), not policy knobs that override domain invariants.
+- If a wrap/posture/constraint is part of the model, it belongs in the domain; entry layers must not “correct” it at runtime.
+
 ## Decision Points (Make Them Explicit)
 
 | Decision | Criteria | Options |
@@ -109,6 +115,7 @@ Example pattern:
 | RNG source | Is a deterministic seed required? | Derive seed in step (`ctxRandom`), pass seed to op, use `createLabelRng` |
 | Trace visibility | Need trace events at op boundaries? | Step wraps op call + emits trace; or extend op contract (explicit architecture change) |
 | “Derived knobs” | Is authoring the value meaningful? | Author a higher-level knob, derive internal metric in normalize |
+| Spec drift | Did a locked decision change mid-flight? | Stop → re-baseline the plan → add a guardrail in the same slice |
 
 ## Quality Gates (Per Slice)
 
@@ -117,6 +124,7 @@ Treat these as “must pass before stacking the next slice”:
 - `rg`-style grep gates for forbidden surfaces (strings/symbols) aligned with the slice’s deletion mandates.
 - Contract guard tests to prevent reintroduction of forbidden imports/schemas/surfaces.
 - Package scripts for the touched workspace(s): typecheck/check + tests (and build where relevant).
+- No dual-path compute: if old and new both produce the same concept, delete the old path in the same slice (or record an explicit deferral trigger).
 
 ## Minimal Enforcement Patterns That Scale
 

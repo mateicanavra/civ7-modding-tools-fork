@@ -32,6 +32,7 @@ Cross-pipeline posture:
 ## Research discipline (required passes)
 
 - Architecture alignment: reconcile the model with target SPEC/ADR docs and record any conflicts or constraints.
+- Authority stack: list which docs are canonical vs supporting; label PRDs as non-authoritative algorithmic inputs.
 - Earth-physics grounding: model from first principles using domain + earth-physics references; use external sources if needed and cite them in the spike.
 - Pipeline intake: review upstream authoritative inputs and downstream consumer expectations; document adopted inputs, legacy reads to delete, and required downstream changes.
 - Model articulation: write a concise conceptual narrative and include diagrams (architecture view, data-flow, producer/consumer map with current vs target pipeline adjustments).
@@ -56,6 +57,7 @@ Repeat this loop until the model stabilizes (minimum two passes):
 - Upstream handoff cleanup (remove upstream-introduced compat/legacy surfaces in this domain)
 - Downstream consumer impact scan (current usage + required changes)
 - Architecture alignment note (SPEC/ADR constraints and resolutions)
+- Authority stack (canonical vs supporting references; PRDs labeled non-authoritative)
 - Decisions + defaults (modeling decisions)
 - Risk register (modeling risks)
 - Golden path (authoritative)
@@ -81,6 +83,7 @@ Repeat this loop until the model stabilizes (minimum two passes):
 - Upstream handoff cleanup is explicit; no upstream compat/legacy surfaces remain in this domain.
 - Downstream consumer impact scan is explicit and complete.
 - Architecture alignment note exists and conflicts are reconciled or escalated.
+- Authority stack is explicit; PRDs are labeled non-authoritative.
 - Research sources are cited when external research is used.
 - Iteration log exists; at least two modeling passes (or a justified single-pass exception).
 

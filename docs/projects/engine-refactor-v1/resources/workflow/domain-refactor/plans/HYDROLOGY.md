@@ -38,10 +38,12 @@ Research discipline:
 - Modeling is research-driven: reconcile target SPEC/ADR docs with domain specs, use earth-physics references, and lean on MCP/code-intel + web research; cite sources in the Phase 2 spike.
 - Modeling is iterative: run the Phase 2 modeling loop (broad pipeline sweep -> deep domain dive -> synthesis -> refinement) and keep an iteration log; do not lock the model after a single pass.
 - Phase 2 must include a conceptual narrative + diagrams (architecture view, data-flow, producer/consumer map with current vs target pipeline adjustments).
+- Phase 2 must include an authority stack (canonical vs supporting; PRDs are non-authoritative).
 
 Planning + documentation discipline:
 - Phase 3 must include a sequencing refinement pass (re-order slices for pipeline safety, re-check downstream deltas, then lock).
 - Phase 3 must include a dedicated documentation pass (slice or issue) that inventories every touched/created schema/function/op/step/stage/contract and adds JSDoc + schema descriptions with behavior, defaults, modes, and downstream impacts.
+- Phase 3 must include locked decisions/bans with test-backed guardrails, a step decomposition plan (spine → steps → artifacts/buffers), and a consumer migration matrix (break/fix by slice).
 
 Implementation guardrails (locked decisions; see implementation-traps reference):
 - Ops stay pure; steps own runtime binding (no callbacks/functions across op boundaries).
