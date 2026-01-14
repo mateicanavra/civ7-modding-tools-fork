@@ -375,6 +375,20 @@ Verification gates:
 - `REFRACTOR_DOMAINS="morphology" ./scripts/lint/lint-domain-refactor-guardrails.sh`
 - `pnpm -C mods/mod-swooper-maps check && pnpm -C mods/mod-swooper-maps test`
 
+### Prework Results (Resolved)
+Minimal Morphology `artifacts.requires` per contract (based on actual land/water reads); non-Morphology requirements (plates, overlays, riverAdjacency) remain unchanged:
+
+| Contract | Morphology `artifacts.requires` | Evidence |
+| --- | --- | --- |
+| `swooper-src/recipes/standard/stages/narrative-pre/steps/storySeed.contract.ts` | `morphologyArtifacts.topography` | `storyTagContinentalMargins` uses `isCoastalLand` → `isWaterAt` (`mods/mod-swooper-maps/src/domain/narrative/tagging/margins.ts`, `mods/mod-swooper-maps/src/domain/narrative/utils/adjacency.ts`). |
+| `swooper-src/recipes/standard/stages/narrative-pre/steps/storyHotspots.contract.ts` | `morphologyArtifacts.topography` | `storyTagHotspotTrails` gates on `isWaterAt` and `isAdjacentToLand` (`mods/mod-swooper-maps/src/domain/narrative/tagging/hotspots.ts`). |
+| `swooper-src/recipes/standard/stages/narrative-pre/steps/storyCorridorsPre.contract.ts` | `morphologyArtifacts.topography` | Corridor tagging checks `ctx.adapter.isWater` throughout sea-lane/island-hop/land-corridor passes (`mods/mod-swooper-maps/src/domain/narrative/corridors/sea-lanes.ts`, `mods/mod-swooper-maps/src/domain/narrative/corridors/island-hop.ts`, `mods/mod-swooper-maps/src/domain/narrative/corridors/land-corridors.ts`). |
+| `swooper-src/recipes/standard/stages/narrative-pre/steps/storyRifts.contract.ts` | `morphologyArtifacts.topography` | `storyTagRiftValleys` filters by `isWaterAt` while reading plates (`mods/mod-swooper-maps/src/domain/narrative/tagging/rifts.ts`). |
+| `swooper-src/recipes/standard/stages/narrative-mid/steps/storyOrogeny.contract.ts` | `morphologyArtifacts.topography` | `storyTagOrogenyBelts` filters by `isWaterAt` while reading plates (`mods/mod-swooper-maps/src/domain/narrative/orogeny/belts.ts`). |
+| `swooper-src/recipes/standard/stages/narrative-post/steps/storyCorridorsPost.contract.ts` | `morphologyArtifacts.topography` | Post-river corridor tagging still uses `ctx.adapter.isWater` (`mods/mod-swooper-maps/src/domain/narrative/corridors/*.ts`). |
+| `swooper-src/recipes/standard/stages/hydrology-pre/steps/lakes.contract.ts` | `morphologyArtifacts.topography` | `generateLakes` runs on current terrain, then `syncHeightfield` copies land/terrain into buffers (`mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-pre/steps/lakes.ts`). |
+| `swooper-src/recipes/standard/stages/placement/steps/derive-placement-inputs/contract.ts` | `morphologyArtifacts.landmasses` | `buildPlacementInputs` consumes `getBaseStarts` (west/east bounds) from runtime; slice 3 replaces this with landmass-derived projections (`mods/mod-swooper-maps/src/recipes/standard/runtime.ts`). |
+
 ### Slice 3 — Remove hidden runtime continents; add explicit downstream projections (Civ7 interop)
 
 Goal: delete `StandardRuntime.westContinent/eastContinent` hidden coupling and replace it with explicit downstream projection steps that derive:
