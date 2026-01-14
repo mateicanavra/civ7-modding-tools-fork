@@ -2,39 +2,10 @@ import { createOp } from "@swooper/mapgen-core/authoring";
 import { wrapDeltaPeriodic } from "@swooper/mapgen-core/lib/math";
 import { createLabelRng } from "@swooper/mapgen-core/lib/rng";
 
-import type { FoundationMesh } from "../compute-mesh/contract.js";
-import type { FoundationCrust } from "../compute-crust/contract.js";
+import { requireEnvDimensions } from "../../lib/normalize.js";
+import { requireCrust, requireMesh } from "../../lib/require.js";
 import ComputePlateGraphContract from "./contract.js";
 import type { FoundationPlate } from "./contract.js";
-
-function requireMesh(mesh: FoundationMesh | undefined): FoundationMesh {
-  if (!mesh) {
-    throw new Error("[Foundation] Mesh not provided for foundation/compute-plate-graph.");
-  }
-  const cellCount = mesh.cellCount | 0;
-  if (cellCount <= 0) throw new Error("[Foundation] Invalid mesh.cellCount for plateGraph.");
-  if (!(mesh.siteX instanceof Float32Array) || mesh.siteX.length !== cellCount) {
-    throw new Error("[Foundation] Invalid mesh.siteX for plateGraph.");
-  }
-  if (!(mesh.siteY instanceof Float32Array) || mesh.siteY.length !== cellCount) {
-    throw new Error("[Foundation] Invalid mesh.siteY for plateGraph.");
-  }
-  if (typeof mesh.wrapWidth !== "number" || !Number.isFinite(mesh.wrapWidth) || mesh.wrapWidth <= 0) {
-    throw new Error("[Foundation] Invalid mesh.wrapWidth for plateGraph.");
-  }
-  return mesh;
-}
-
-function requireCrust(crust: FoundationCrust | undefined, expectedCellCount: number): FoundationCrust {
-  if (!crust) throw new Error("[Foundation] Crust not provided for foundation/compute-plate-graph.");
-  if (!(crust.type instanceof Uint8Array) || crust.type.length !== expectedCellCount) {
-    throw new Error("[Foundation] Invalid crust.type for plateGraph.");
-  }
-  if (!(crust.age instanceof Uint8Array) || crust.age.length !== expectedCellCount) {
-    throw new Error("[Foundation] Invalid crust.age for plateGraph.");
-  }
-  return crust;
-}
 
 function distanceSq(ax: number, ay: number, bx: number, by: number, wrapWidth: number): number {
   const dx = wrapDeltaPeriodic(ax - bx, wrapWidth);
@@ -57,8 +28,8 @@ const computePlateGraph = createOp(ComputePlateGraphContract, {
   strategies: {
     default: {
       normalize: (config, ctx) => {
-        const { width, height } = (ctx as any)?.env?.dimensions ?? {};
-        const area = Math.max(1, (Number(width) | 0) * (Number(height) | 0));
+        const { width, height } = requireEnvDimensions(ctx, "foundation/compute-plate-graph.normalize");
+        const area = Math.max(1, width * height);
 
         const referenceArea = Math.max(1, config.referenceArea | 0);
         const power = config.plateScalePower;
@@ -72,8 +43,8 @@ const computePlateGraph = createOp(ComputePlateGraphContract, {
         };
       },
       run: (input, config) => {
-        const mesh = requireMesh(input.mesh as unknown as FoundationMesh | undefined);
-        const crust = requireCrust(input.crust as unknown as FoundationCrust | undefined, mesh.cellCount | 0);
+        const mesh = requireMesh(input.mesh, "foundation/compute-plate-graph");
+        const crust = requireCrust(input.crust, mesh.cellCount | 0, "foundation/compute-plate-graph");
         void crust;
 
         const rngSeed = input.rngSeed | 0;
