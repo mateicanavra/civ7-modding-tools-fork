@@ -42,4 +42,27 @@ describe("morphology contract guardrails", () => {
       expect(text).not.toContain("LandmassRegionId");
     }
   });
+
+  it("does not require morphology effect tags in consumer contracts", () => {
+    const repoRoot = path.resolve(import.meta.dir, "../..");
+    const roots = [
+      path.join(repoRoot, "src/recipes/standard/stages/narrative-pre"),
+      path.join(repoRoot, "src/recipes/standard/stages/narrative-mid"),
+      path.join(repoRoot, "src/recipes/standard/stages/narrative-post"),
+      path.join(repoRoot, "src/recipes/standard/stages/placement/steps/derive-placement-inputs"),
+      path.join(repoRoot, "src/recipes/standard/stages/hydrology-pre/steps"),
+    ];
+
+    const files = roots.flatMap((root) =>
+      listFilesRecursive(root).filter((file) => file.endsWith("contract.ts"))
+    );
+
+    expect(files.length).toBeGreaterThan(0);
+
+    for (const file of files) {
+      const text = readFileSync(file, "utf8");
+      expect(text).not.toContain("M4_EFFECT_TAGS.engine.landmassApplied");
+      expect(text).not.toContain("M4_EFFECT_TAGS.engine.coastlinesApplied");
+    }
+  });
 });
