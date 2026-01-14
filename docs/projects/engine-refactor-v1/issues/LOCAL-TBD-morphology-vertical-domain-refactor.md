@@ -458,6 +458,10 @@ Consumer changes:
   - explicitly deprecated (`DEPRECATED:` in code/docs),
   - and has an explicit removal plan inside this refactor’s slice plan (no transitional can survive past Slice 6).
 
+Trace:
+- Implemented on branch `agent-BRODY-M8-MORPH-S3-landmass-region-projection`.
+- Draft PR: https://app.graphite.dev/submit/mateicanavra/civ7-modding-tools-fork/590
+
 **Scope boundaries:**
 - In scope:
   - Remove the hidden runtime coupling surfaces (`westContinent/eastContinent`) end-to-end: producer writes + all consumer reads.
