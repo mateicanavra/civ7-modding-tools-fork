@@ -15,59 +15,37 @@
 import "@swooper/mapgen-core/polyfills/text-encoder";
 import standardRecipe from "../recipes/standard/recipe.js";
 import type { StandardRecipeConfig } from "../recipes/standard/recipe.js";
-import type { FoundationDirectionalityConfig } from "@mapgen/domain/config";
 import type { MapRuntimeOptions } from "./_runtime/types.js";
 import { wireStandardMapEntry } from "./_runtime/standard-entry.js";
 
-const directionality: FoundationDirectionalityConfig = {
-  // Varied patterns for diverse island climates
-  cohesion: 0.18,
-  primaryAxes: {
-    plateAxisDeg: 30,
-    windBiasDeg: 25,
-    currentBiasDeg: 35,
-  },
-  interplay: {
-    windsFollowPlates: 0.2,
-    currentsFollowWinds: 0.65,
-    riftsFollowPlates: 0.75,
-  },
-  hemispheres: {
-    southernFlip: true,
-    monsoonBias: 0.85,
-    equatorBandDeg: 22,
-  },
-  variability: {
-    // High variability for island-specific climates
-    angleJitterDeg: 30,
-    magnitudeVariance: 0.6,
-  },
-};
-
 const config = {
   foundation: {
-    foundation: {
-      foundation: {
-        plates: {
-          // Maximum plates for island fragmentation
-          count: 32,
-          convergenceMix: 0.75,
-          relaxationSteps: 4,
-          plateRotationMultiple: 1.8,
-        },
-        dynamics: {
-          wind: {
-            jetStreaks: 5,
-            jetStrength: 0.85,
-            variance: 0.8,
-          },
-          mantle: {
-            // Strong upwelling for hotspot chains
-            bumps: 7,
-            amplitude: 0.9,
-            scale: 0.4,
-          },
-        },
+    computeMesh: {
+      strategy: "default",
+      config: { plateCount: 32, relaxationSteps: 4 },
+    },
+    computePlateGraph: {
+      strategy: "default",
+      config: { plateCount: 32 },
+    },
+    computePlates: {
+      strategy: "default",
+      config: {
+        plateCount: 32,
+        convergenceMix: 0.75,
+        relaxationSteps: 4,
+        plateRotationMultiple: 1.8,
+      },
+    },
+    computeDynamics: {
+      strategy: "default",
+      config: {
+        windJetStreaks: 5,
+        windJetStrength: 0.85,
+        windVariance: 0.8,
+        mantleBumps: 7,
+        mantleAmplitude: 0.9,
+        mantleScale: 0.4,
       },
     },
   },
@@ -735,6 +713,5 @@ wireStandardMapEntry({
   engine,
   recipe: standardRecipe,
   config,
-  directionality,
   options: runtimeOptions,
 });

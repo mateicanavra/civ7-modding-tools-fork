@@ -2,7 +2,6 @@ import { describe, it, expect } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
 import { createExtendedMapContext } from "@swooper/mapgen-core";
 import { implementArtifacts } from "@swooper/mapgen-core/authoring";
-import { FoundationDirectionalityConfigSchema } from "@mapgen/domain/config";
 import {
   compileExecutionPlan,
   PipelineExecutor,
@@ -13,18 +12,12 @@ import { hydrologyCoreArtifacts } from "../../src/recipes/standard/stages/hydrol
 import { computeRiverAdjacencyMask } from "../../src/recipes/standard/stages/hydrology-core/river-adjacency.js";
 import { hydrologyPreArtifacts } from "../../src/recipes/standard/stages/hydrology-pre/artifacts.js";
 import { M3_DEPENDENCY_TAGS, STANDARD_TAG_DEFINITIONS } from "../../src/recipes/standard/tags.js";
-import { normalizeStrictOrThrow } from "../support/compiler-helpers.js";
 
 const baseEnv = {
   seed: 0,
   dimensions: { width: 4, height: 3 },
   latitudeBounds: { topLatitude: 0, bottomLatitude: 0 },
   wrap: { wrapX: false, wrapY: false },
-  directionality: normalizeStrictOrThrow(
-    FoundationDirectionalityConfigSchema,
-    {},
-    "/env/directionality"
-  ),
 };
 
 function compilePlan<TContext>(

@@ -87,35 +87,12 @@ export interface PlateConfig {
   convergenceMix?: number;
   /** Multiplier for plate rotation influence */
   plateRotationMultiple?: number;
-  /** Optional directionality config */
-  directionality?: DirectionalityConfig | null;
   /** Use Civ's seed (engine) or a fixed seed value (fixed) */
   seedMode?: "engine" | "fixed";
   /** Seed value when seedMode is "fixed" */
   fixedSeed?: number;
   /** Integer offset applied to the chosen base seed */
   seedOffset?: number;
-}
-
-/** Directionality configuration for plates/winds/currents */
-export interface DirectionalityConfig {
-  cohesion?: number;
-  primaryAxes?: {
-    plateAxisDeg?: number;
-    windBiasDeg?: number;
-    currentBiasDeg?: number;
-  };
-  variability?: {
-    angleJitterDeg?: number;
-    magnitudeVariance?: number;
-  };
-  hemispheres?: {
-    southernFlip?: boolean;
-  };
-  interplay?: {
-    windsFollowPlates?: number;
-    currentsFollowWinds?: number;
-  };
 }
 
 /** Result of plate generation */

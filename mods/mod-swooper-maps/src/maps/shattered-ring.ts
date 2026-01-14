@@ -15,59 +15,37 @@
 import "@swooper/mapgen-core/polyfills/text-encoder";
 import standardRecipe from "../recipes/standard/recipe.js";
 import type { StandardRecipeConfig } from "../recipes/standard/recipe.js";
-import type { FoundationDirectionalityConfig } from "@mapgen/domain/config";
 import type { MapRuntimeOptions } from "./_runtime/types.js";
 import { wireStandardMapEntry } from "./_runtime/standard-entry.js";
 
-const directionality: FoundationDirectionalityConfig = {
-  // Lower coherence for radial patterns
-  cohesion: 0.12,
-  primaryAxes: {
-    plateAxisDeg: 45,
-    windBiasDeg: 20,
-    currentBiasDeg: 30,
-  },
-  interplay: {
-    windsFollowPlates: 0.25,
-    currentsFollowWinds: 0.5,
-    riftsFollowPlates: 0.75,
-  },
-  hemispheres: {
-    southernFlip: true,
-    monsoonBias: 0.7,
-    equatorBandDeg: 20,
-  },
-  variability: {
-    // High variability for radial flow patterns
-    angleJitterDeg: 25,
-    magnitudeVariance: 0.55,
-  },
-};
-
 const config = {
   foundation: {
-    foundation: {
-      foundation: {
-        plates: {
-          // High plate count for complex ring fracturing
-          count: 28,
-          convergenceMix: 0.7,
-          relaxationSteps: 6,
-          plateRotationMultiple: 1.5,
-        },
-        dynamics: {
-          wind: {
-            jetStreaks: 4,
-            jetStrength: 0.9,
-            variance: 0.7,
-          },
-          mantle: {
-            // Strong upwelling in crater center
-            bumps: 5,
-            amplitude: 0.85,
-            scale: 0.5,
-          },
-        },
+    computeMesh: {
+      strategy: "default",
+      config: { plateCount: 28, relaxationSteps: 6 },
+    },
+    computePlateGraph: {
+      strategy: "default",
+      config: { plateCount: 28 },
+    },
+    computePlates: {
+      strategy: "default",
+      config: {
+        plateCount: 28,
+        convergenceMix: 0.7,
+        relaxationSteps: 6,
+        plateRotationMultiple: 1.5,
+      },
+    },
+    computeDynamics: {
+      strategy: "default",
+      config: {
+        windJetStreaks: 4,
+        windJetStrength: 0.9,
+        windVariance: 0.7,
+        mantleBumps: 5,
+        mantleAmplitude: 0.85,
+        mantleScale: 0.5,
       },
     },
   },
@@ -737,6 +715,5 @@ wireStandardMapEntry({
   engine,
   recipe: standardRecipe,
   config,
-  directionality,
   options: runtimeOptions,
 });

@@ -21,13 +21,9 @@ function computePressure(
   const size = width * height;
   const pressure = new Uint8Array(size);
 
-  const mantleCfg = config.dynamics?.mantle;
-  if (!mantleCfg) {
-    throw new Error("[Foundation] Missing mantle dynamics config.");
-  }
-  const bumps = (mantleCfg.bumps! | 0);
-  const amp = mantleCfg.amplitude!;
-  const scl = mantleCfg.scale!;
+  const bumps = (config.mantleBumps ?? 4) | 0;
+  const amp = config.mantleAmplitude ?? 0.6;
+  const scl = config.mantleScale ?? 0.4;
   const sigma = Math.max(4, Math.floor(Math.min(width, height) * scl));
 
   const centers: Array<{ x: number; y: number; a: number }> = [];
@@ -82,13 +78,9 @@ function computeWinds(
   const windU = new Int8Array(size);
   const windV = new Int8Array(size);
 
-  const windCfg = config.dynamics?.wind;
-  if (!windCfg) {
-    throw new Error("[Foundation] Missing wind dynamics config.");
-  }
-  const streaks = (windCfg.jetStreaks! | 0);
-  const jetStrength = windCfg.jetStrength!;
-  const variance = windCfg.variance!;
+  const streaks = (config.windJetStreaks ?? 3) | 0;
+  const jetStrength = config.windJetStrength ?? 1;
+  const variance = config.windVariance ?? 0.6;
 
   const streakLats: number[] = [];
   for (let s = 0; s < streaks; s++) {

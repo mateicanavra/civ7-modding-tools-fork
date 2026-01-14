@@ -3,7 +3,7 @@
  * Story Orogeny — Mountain belt tagging and windward/lee cache.
  *
  * Ports legacy story/orogeny logic into a MapContext-friendly implementation:
- * - Uses FoundationContext tensors
+ * - Uses foundation artifact tensors
  * - Publishes an immutable overlay snapshot for Task Graph contracts
  *
  * Uses lazy provider pattern for test isolation.

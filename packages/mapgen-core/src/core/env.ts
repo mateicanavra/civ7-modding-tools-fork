@@ -49,7 +49,6 @@ export const EnvSchema = Type.Object(
       },
       { additionalProperties: false }
     ),
-    directionality: Type.Optional(UnknownRecord),
     metadata: Type.Optional(UnknownRecord),
     trace: Type.Optional(TraceConfigSchema),
   },

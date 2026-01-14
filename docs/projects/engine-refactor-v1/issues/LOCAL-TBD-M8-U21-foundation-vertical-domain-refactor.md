@@ -27,7 +27,7 @@ Lock this in: “authoritative first-principles model even if artifacts change�
 
 Non-negotiables for implementation:
 - Mesh/graph causality is canonical; tile-indexed tensors are projections for downstream compatibility, not the model.
-- `env.directionality` is authoritative; authored config only influences env construction at the entry boundary.
+- Directionality is deleted; orientation biases are derived from artifacts/buffers (plateGraph/tectonics + Hydrology winds/currents).
 - `foundation.seed/config/diagnostics` are trace-only; never required by downstream steps and never used as modeling inputs.
 - Typed-array payloads must not be “Type.Any by default”; prefer explicit typed-array schemas + runtime invariant validation (ADR-ER1-030).
 
@@ -58,6 +58,10 @@ Non-negotiables for implementation:
   - `pnpm deploy:mods`
 - [ ] No legacy artifact access paths remain:
   - `rg -n "ctx\\.artifacts\\.get\\(.*foundation\\." mods/mod-swooper-maps/src packages/mapgen-core` returns no hits (allowlist test harnesses only, if explicitly documented).
+- [ ] Directionality is fully removed:
+  - `rg -n "directionality" mods/mod-swooper-maps/src packages/mapgen-core/src` returns no hits.
+- [ ] Foundation op/step contracts do not import domain config bags:
+  - no `@mapgen/domain/config` imports or `Type.Partial(FoundationConfigSchema)` in Foundation ops/contracts.
 - [ ] Foundation step is orchestration-only:
   - No step runtime imports Foundation op implementations directly.
   - No step runtime calls the legacy monolithic producer (once deleted).
@@ -115,7 +119,7 @@ Post Slice 3 re-run (after removing ctx.artifacts.get coupling for Foundation co
 - `pnpm -C mods/mod-swooper-maps check`: pass
 - `pnpm -C mods/mod-swooper-maps test`: pass
 
-Post Slice 4 re-run (after directionality cutover to env-only + deletion sweep):
+Post Slice 4 re-run (after directionality removal + deletion sweep):
 - `pnpm -C packages/mapgen-core check`: pass
 - `pnpm -C packages/mapgen-core test`: pass
 - `pnpm -C mods/mod-swooper-maps check`: pass
@@ -123,12 +127,25 @@ Post Slice 4 re-run (after directionality cutover to env-only + deletion sweep):
 - `pnpm -C mods/mod-swooper-maps build`: pass
 - `pnpm deploy:mods`: pass
 
-#### Slice 4: directionality is env-owned (schema hardening)
-- Context: directionality is a planetary boundary condition and should be owned by `env.directionality`; recipe config should not carry it as a hidden modeling knob.
-- Choice: remove `dynamics.directionality` from `FoundationConfigSchema`; maps/tests now pass directionality only via env construction (`wireStandardMapEntry(..., directionality)`).
-- Rationale: enforces the “env owns directionality” invariant at the compiler boundary (unknown-key errors if reintroduced).
+Post Slice 5 re-run (after config purity + FoundationContext removal):
+- `pnpm -C packages/mapgen-core check`: pass
+- `pnpm -C packages/mapgen-core test`: pass
+- `pnpm -C mods/mod-swooper-maps check`: pass
+- `pnpm -C mods/mod-swooper-maps test`: pass
+
+#### Slice 4: directionality removal (schema hardening)
+- Context: directionality was a global knob that leaked across domains.
+- Choice: remove all directionality surfaces (env/config) and any runtime validation tied to it.
+- Rationale: keeps orientation bias derived from artifacts/buffers, not hidden config.
 
 ### Implementation Decisions
+
+#### Slice 5: stage-level public surface for foundation config
+- **Context:** Foundation config must not nest under `foundation.foundation` or propagate legacy wrappers; the stage should expose a clean public surface.
+- **Options:** (a) keep internal-only step schema and require nested step ids, (b) add a public stage schema mapped directly to the foundation step.
+- **Choice:** add a `public` schema + `compile` that maps stage config directly to the foundation step.
+- **Rationale:** keeps the recipe config surface clean while preserving step internals and op envelopes.
+- **Risk:** other stages may remain internal-only; future work might choose to expose similar public surfaces for consistency.
 
 #### Slice 2: mesh-first artifact representation (scaffolding)
 - Context: we need to publish `foundation.mesh/crust/plateGraph/tectonics` additively without changing downstream behavior (tiles remain projections).
@@ -183,14 +200,49 @@ Checklist:
 - [x] Update downstream domain logic call paths so plates/dynamics are passed explicitly or read through `deps` at step boundaries.
 - [x] Add guardrails (lint and/or script checks) to prevent regressions (optional if equivalent rails already exist).
 
-#### Slice 4 — Directionality cutover + deletion sweep
+#### Slice 4 — Directionality removal + deletion sweep
 
-Goal: enforce env ownership for directionality and delete the legacy monolith/compat surfaces.
+Goal: delete directionality everywhere and remove legacy monolith/compat surfaces.
 
 Checklist:
-- [x] Ensure `env.directionality` is the only authoritative source (entry boundary constructs env; Foundation config does not “own” directionality as a hidden knob).
+- [x] Remove all directionality surfaces (env/config) and runtime validation tied to it.
 - [x] Delete the monolithic Foundation producer surfaces and any stale compat helpers that bypass the ops/stage contract boundary.
 - [x] Re-run full pipeline gates and reconcile docs-as-code on any touched schema/exports.
+
+#### Slice 5 — Config purity + directionality purge (remediation)
+
+Goal: Foundation internals + op contracts are pristine; no domain config bag or directionality surfaces remain.
+
+Checklist:
+- [x] Delete `mods/mod-swooper-maps/src/domain/foundation/config.ts` and remove `@mapgen/domain/config` from Foundation op/step contracts.
+- [x] Ensure op configs are op-owned (TypeBox + `Static<typeof Schema>` only; no manual TS duplication).
+- [x] Remove directionality references from all steps/domains/tests/presets (artifact-derived signals only).
+- [x] Delete `FoundationContext` wrapper + tests; publish artifacts directly from step ops.
+
+#### Slice 6 — Derived projections + move winds/currents to Hydrology
+
+Goal: enforce the authoritative spine and move atmospheric/oceanic products out of Foundation.
+
+Checklist:
+- [ ] Make tile tensors pure projections of mesh/crust/plateGraph/tectonics (no parallel computation paths).
+- [ ] Move wind/currents into Hydrology-owned climate products/buffers; remove Foundation dynamics outputs.
+- [ ] Update consumers to read hydrology wind/current products instead of Foundation dynamics.
+
+#### Slice 7 — Downstream rebuild
+
+Goal: downstream domains consume authoritative surfaces only; no residual directionality assumptions.
+
+Checklist:
+- [ ] Narrative/Hydrology/Morphology read plates/tectonics projections or mesh-first artifacts (as appropriate).
+- [ ] Remove any ad-hoc directionality validations or config shims in downstream logic.
+
+#### Slice 8 — Ruthless deletion sweep
+
+Goal: remove all legacy/compat/unused modules, strategies, exports, and tests.
+
+Checklist:
+- [ ] Delete remaining legacy strategy IDs, compat modules, and unused artifacts/contracts.
+- [ ] Add/extend guardrails to prevent reintroducing config bags or directionality surfaces.
 
 ## Lookback (Phase 3 → Phase 4): Finalize slices + sequencing
 
@@ -198,13 +250,12 @@ Pre-implementation confirmation to run (and record) before writing code:
 - Confirmed slice DAG:
   - Slice 1 is required before any consumer migration (Slice 3) because it establishes the canonical access paths.
   - Slice 2 is additive and can land before or after Slice 3; default is before Slice 3 to make mesh-first contracts available early without forcing migration.
-  - Slice 4 is last because it deletes legacy surfaces and tightens directionality semantics.
+  - Slice 5 cleans config/directionality; Slice 6 moves dynamics to Hydrology; Slice 7 rebuilds downstream; Slice 8 is the ruthless deletion sweep.
 - Prework checks (done during planning; re-run if files moved):
   - Downstream `BOUNDARY_TYPE` imports currently come from `@mapgen/domain/foundation/constants.js` (treat this as the stable contract surface).
   - Legacy Foundation artifact reads are routed through `packages/mapgen-core/src/core/assertions.ts` (must be removed/migrated in Slice 3).
 - Open decisions (should remain rare):
   - Where the stable “boundary semantics contract surface” should live long-term if `@mapgen/domain/foundation/constants.js` is ever deprecated.
-  - Whether directionality should remain configurable at the entry boundary or become fully derived from Foundation modeling (default: entry boundary provides it; env-owned).
 - First slice is safe checklist:
   - [x] Slice 1 deletes (or makes private) any legacy entrypoints it replaces (no dual implementation surfaces).
   - [x] Slice 1 updates docs-as-code for touched contracts/schemas.

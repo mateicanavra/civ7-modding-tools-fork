@@ -1,7 +1,6 @@
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
-import type { FoundationDynamicsFields } from "@swooper/mapgen-core";
 import { clamp } from "@swooper/mapgen-core/lib/math";
-import type { ClimateConfig, FoundationDirectionalityConfig } from "@mapgen/domain/config";
+import type { ClimateConfig } from "@mapgen/domain/config";
 import type { ClimateSwatchResult, OrogenyCache } from "@mapgen/domain/hydrology/climate/types.js";
 import { createClimateRuntime } from "@mapgen/domain/hydrology/climate/runtime.js";
 import { chooseSwatchTypeWeighted } from "@mapgen/domain/hydrology/climate/swatches/chooser.js";
@@ -10,7 +9,6 @@ import { applyEquatorialRainbeltSwatch } from "@mapgen/domain/hydrology/climate/
 import { applyRainforestArchipelagoSwatch } from "@mapgen/domain/hydrology/climate/swatches/rainforest-archipelago.js";
 import { applyMountainForestsSwatch } from "@mapgen/domain/hydrology/climate/swatches/mountain-forests.js";
 import { applyGreatPlainsSwatch } from "@mapgen/domain/hydrology/climate/swatches/great-plains.js";
-import { applyMonsoonBiasPass } from "@mapgen/domain/hydrology/climate/swatches/monsoon-bias.js";
 import type { SwatchHelpers, SwatchRuntime, SwatchTypesConfig } from "@mapgen/domain/hydrology/climate/swatches/types.js";
 
 /**
@@ -23,8 +21,6 @@ export function applyClimateSwatches(
   options: {
     orogenyCache?: OrogenyCache;
     climate?: ClimateConfig;
-    directionality?: FoundationDirectionalityConfig;
-    dynamics?: FoundationDynamicsFields;
   } = {}
 ): ClimateSwatchResult {
   if (!ctx) {
@@ -40,14 +36,6 @@ export function applyClimateSwatches(
   const area = Math.max(1, width * height);
   const sqrtScale = Math.min(2.0, Math.max(0.6, Math.sqrt(area / 10000)));
 
-  if (!options.directionality) {
-    throw new Error("applyClimateSwatches requires env.directionality.");
-  }
-  const directionality = options.directionality;
-  const dynamics = options.dynamics;
-  if (!dynamics) {
-    throw new Error("applyClimateSwatches requires foundation dynamics.");
-  }
   const runtimeFull = createClimateRuntime(width, height, ctx);
   const { adapter, readRainfall, writeRainfall, rand, idx } = runtimeFull;
   const orogenyCache = options.orogenyCache as OrogenyCache;
@@ -91,7 +79,7 @@ export function applyClimateSwatches(
     w: Math.max(0, (types[key].weight as number) | 0),
   }));
 
-  const chosenKey = chooseSwatchTypeWeighted(entries, rand, directionality);
+  const chosenKey = chooseSwatchTypeWeighted(entries, rand);
 
   const kind = chosenKey;
   const t = types[kind];
@@ -114,8 +102,6 @@ export function applyClimateSwatches(
   } else if (kind === "greatPlains") {
     applied = applyGreatPlainsSwatch(width, height, runtime, helpers, t, widthMul);
   }
-
-  applyMonsoonBiasPass(width, height, runtime, helpers, directionality, dynamics);
 
   return { applied: applied > 0, kind, tiles: applied };
 }

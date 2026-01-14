@@ -1,11 +1,29 @@
 import { TypedArraySchemas, Type, defineOp } from "@swooper/mapgen-core/authoring";
 import type { Static } from "@swooper/mapgen-core/authoring";
 
-import { FoundationConfigSchema } from "@mapgen/domain/config";
-
 import type { BoundingBox, RngFunction, VoronoiUtilsInterface } from "../../types.js";
 
-const StrategySchema = Type.Partial(FoundationConfigSchema);
+const StrategySchema = Type.Object(
+  {
+    plateCount: Type.Optional(
+      Type.Integer({
+        default: 8,
+        minimum: 2,
+        maximum: 32,
+        description: "Target plate count used to derive a reasonable mesh cell count.",
+      })
+    ),
+    relaxationSteps: Type.Optional(
+      Type.Integer({
+        default: 2,
+        minimum: 0,
+        maximum: 50,
+        description: "Lloyd relaxation iterations applied to mesh sites.",
+      })
+    ),
+  },
+  { additionalProperties: false }
+);
 
 export const BoundingBoxSchema = Type.Object(
   {

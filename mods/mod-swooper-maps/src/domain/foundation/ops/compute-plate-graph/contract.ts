@@ -1,13 +1,23 @@
 import { TypedArraySchemas, Type, defineOp } from "@swooper/mapgen-core/authoring";
 import type { Static } from "@swooper/mapgen-core/authoring";
 
-import { FoundationConfigSchema } from "@mapgen/domain/config";
-
-import type { DirectionalityConfig, RngFunction } from "../../types.js";
+import type { RngFunction } from "../../types.js";
 import { FoundationMeshSchema } from "../compute-mesh/contract.js";
 import { FoundationCrustSchema } from "../compute-crust/contract.js";
 
-const StrategySchema = Type.Partial(FoundationConfigSchema);
+const StrategySchema = Type.Object(
+  {
+    plateCount: Type.Optional(
+      Type.Integer({
+        default: 8,
+        minimum: 2,
+        maximum: 32,
+        description: "Number of plates used to seed the plate graph partition.",
+      })
+    ),
+  },
+  { additionalProperties: false }
+);
 
 export const FoundationPlateSchema = Type.Object(
   {
@@ -37,9 +47,6 @@ const ComputePlateGraphContract = defineOp({
     {
       mesh: FoundationMeshSchema,
       crust: FoundationCrustSchema,
-      directionality: Type.Unsafe<DirectionalityConfig | null>({
-        description: "Directionality configuration (authoritative: env.directionality).",
-      }),
       rng: Type.Unsafe<RngFunction>({ description: "Deterministic RNG wrapper (typically ctxRandom)." }),
       trace: Type.Optional(Type.Any()),
     },

@@ -1,13 +1,11 @@
 import { TypedArraySchemas, Type, defineOp } from "@swooper/mapgen-core/authoring";
 import type { Static } from "@swooper/mapgen-core/authoring";
 
-import { FoundationConfigSchema } from "@mapgen/domain/config";
-
 import { FoundationMeshSchema } from "../compute-mesh/contract.js";
 import { FoundationCrustSchema } from "../compute-crust/contract.js";
 import { FoundationPlateGraphSchema } from "../compute-plate-graph/contract.js";
 
-const StrategySchema = Type.Partial(FoundationConfigSchema);
+const StrategySchema = Type.Object({}, { additionalProperties: false });
 
 export const FoundationTectonicsSchema = Type.Object(
   {

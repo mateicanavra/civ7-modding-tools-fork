@@ -274,10 +274,10 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
     - `docs/system/libs/mapgen/research/SPIKE-synthesis-earth-physics-systems-swooper-engine.md`
   - **Next check:** after M4 (or when updating `docs/system/libs/mapgen/*.md`).
 
-- **Revisit `FoundationContext` contract doc structure & enforcement** [Review by: end of M3]
-  - **Context:** M2 stable-slice contract at `resources/CONTRACT-foundation-context.md` (CIV-34 follow-up).
+- **Revisit foundation artifact contract doc structure & enforcement** [Review by: end of M3]
+  - **Context:** Foundation now publishes discrete `artifact:foundation.*` products; the legacy `FoundationContext` contract doc is obsolete.
   - **Type:** triage
-  - **Notes:** Re-evaluate whether to split into (1) a crisp, binding contract doc and (2) a separate aspirations/planning doc; tighten semantics as more M3 consumers land; implement enforcement ideas outlined in the contract doc (tests/CI/mutation guards) when the interface stabilizes.
+  - **Notes:** Re-evaluate whether to split into (1) a crisp, binding artifact contract doc and (2) a separate aspirations/planning doc; tighten semantics as more M3 consumers land; implement enforcement ideas (tests/CI/mutation guards) when the interface stabilizes.
   - **Next check:** after the first real M3 consumer steps ship (e.g., climate baseline) or at the end of M3.
 
 ## Backlog (definite, unsequenced)
@@ -286,7 +286,7 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
   - **Context:** System docs at `docs/system/libs/mapgen/*.md` vs implementation once `PipelineExecutor` / `MapGenStep` / `StepRegistry` and canonical products stabilize.
   - **Type:** backlog
   - **Notes:** Larger pass to fully reconcile “current vs target” details across canonical system docs (e.g., `architecture.md`, `foundation.md`, `hydrology.md`, plus adjacent system pages as needed), removing remaining mismatches once the M3 architecture lands. This is explicitly **not** part of `CIV-40` (which only adds framing + minimal current-state pointers).
-  - **Next check:** after Task Graph + step execution is implemented and key products (`FoundationContext`, `ClimateField`, narrative story entries) are stabilized.
+  - **Next check:** after Task Graph + step execution is implemented and key products (foundation artifacts, `ClimateField`, narrative story entries) are stabilized.
 
 - **~~Migrate `state:engine.*` → verified `effect:*` + reification~~** [Review by: early M4]  
   **Update (2025-12-21, M4 planning):** This work is now scheduled in M4 (effects verification + placement inputs). See `milestones/M4-target-architecture-cutover-legacy-cleanup.md`.

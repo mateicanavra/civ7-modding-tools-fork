@@ -166,7 +166,6 @@ export function longestWaterRunDiagDiff(
 export function tagSeaLanes(
   ctx: ExtendedMapContext,
   corridorsCfg: Record<string, unknown>,
-  directionality: Record<string, unknown>,
   state: CorridorState
 ): void {
   const cfg = corridorsCfg.sea as Record<string, unknown>;
@@ -182,59 +181,7 @@ export function tagSeaLanes(
   const laneSpacing = Math.max(0, Number((cfg.laneSpacing as number) ?? 6) | 0);
   const requiredMinWidth = Math.max(1, Number((cfg.minChannelWidth as number) ?? 3) | 0);
 
-  const DIR = directionality;
-  const cohesionRaw = Number(DIR.cohesion);
-  if (!Number.isFinite(cohesionRaw)) {
-    throw new Error("[Narrative] Invalid directionality cohesion.");
-  }
-  const cohesion = Math.max(0, Math.min(1, cohesionRaw));
-  const primaryAxes = DIR.primaryAxes as Record<string, number>;
-  const interplay = DIR.interplay as Record<string, number>;
-  if (!primaryAxes || !interplay) {
-    throw new Error("[Narrative] Missing directionality primaryAxes/interplay.");
-  }
-  const plateAxisDeg = Number(primaryAxes.plateAxisDeg);
-  let windAxisDeg = Number(primaryAxes.windBiasDeg);
-  let currentAxisDeg = Number(primaryAxes.currentBiasDeg);
-  if (!Number.isFinite(plateAxisDeg) || !Number.isFinite(windAxisDeg) || !Number.isFinite(currentAxisDeg)) {
-    throw new Error("[Narrative] Invalid directionality axis values.");
-  }
-  const windsFollowRaw = Number(interplay.windsFollowPlates);
-  const currentsFollowRaw = Number(interplay.currentsFollowWinds);
-  if (!Number.isFinite(windsFollowRaw) || !Number.isFinite(currentsFollowRaw)) {
-    throw new Error("[Narrative] Invalid directionality follow weights.");
-  }
-  const windsFollowPlates = Math.max(0, Math.min(1, windsFollowRaw)) * cohesion;
-  const currentsFollowWinds = Math.max(0, Math.min(1, currentsFollowRaw)) * cohesion;
-  windAxisDeg += Math.round(plateAxisDeg * windsFollowPlates);
-  currentAxisDeg += Math.round(plateAxisDeg * windsFollowPlates * 0.5);
-
-  const axisVec = (deg: number): { x: number; y: number } => {
-    const r = (deg * Math.PI) / 180;
-    return { x: Math.cos(r), y: Math.sin(r) };
-  };
-
-  const laneVec = (orient: Orient): { x: number; y: number } => {
-    if (orient === "col") return { x: 0, y: 1 };
-    if (orient === "row") return { x: 1, y: 0 };
-    if (orient === "diagNE") return { x: 1 / Math.SQRT2, y: -1 / Math.SQRT2 };
-    if (orient === "diagNW") return { x: 1 / Math.SQRT2, y: 1 / Math.SQRT2 };
-    return { x: 1, y: 0 };
-  };
-
-  const WV = axisVec(windAxisDeg);
-  const CV = axisVec(currentAxisDeg);
-
-  const directionalityBias = (orient: Orient): number => {
-    if (cohesion <= 0) return 0;
-    const L = laneVec(orient);
-    const dotWind = Math.abs(WV.x * L.x + WV.y * L.y);
-    const dotCurr = Math.abs(CV.x * L.x + CV.y * L.y);
-    const wW = 1.0;
-    const wC = 0.8 + 0.6 * currentsFollowWinds;
-    const align = (dotWind * wW + dotCurr * wC) / (wW + wC);
-    return Math.round(align * 25 * cohesion);
-  };
+  const laneBias = (_orient: Orient): number => 0;
 
   const candidates: Array<{ orient: Orient; index: number; start: number; end: number; len: number; minWidth: number; score: number }> = [];
 
@@ -253,7 +200,7 @@ export function tagSeaLanes(
     const minW = ok ? requiredMinWidth : 1;
     const coverage = run.len / height;
     let score = run.len + 3 * minW + Math.round(coverage * 10);
-    score += directionalityBias("col");
+    score += laneBias("col");
     candidates.push({ orient: "col", index: x, start: run.start, end: run.end, len: run.len, minWidth: minW, score });
   }
 
@@ -272,7 +219,7 @@ export function tagSeaLanes(
     const minW = ok ? requiredMinWidth : 1;
     const coverage = run.len / width;
     let score = run.len + 3 * minW + Math.round(coverage * 10);
-    score += directionalityBias("row");
+    score += laneBias("row");
     candidates.push({ orient: "row", index: y, start: run.start, end: run.end, len: run.len, minWidth: minW, score });
   }
 
@@ -294,7 +241,7 @@ export function tagSeaLanes(
       const minW = ok ? requiredMinWidth : 1;
       const coverage = run.len / run.axisLen;
       let score = run.len + 2 * minW + Math.round(coverage * 10);
-      score += directionalityBias("diagNE");
+      score += laneBias("diagNE");
       candidates.push({ orient: "diagNE", index: k, start: run.startX, end: run.endX, len: run.len, minWidth: minW, score });
     }
 
@@ -316,7 +263,7 @@ export function tagSeaLanes(
       const minW = ok ? requiredMinWidth : 1;
       const coverage = run.len / run.axisLen;
       let score = run.len + 2 * minW + Math.round(coverage * 10);
-      score += directionalityBias("diagNW");
+      score += laneBias("diagNW");
       candidates.push({ orient: "diagNW", index: d, start: run.startY, end: run.endY, len: run.len, minWidth: minW, score });
     }
   }

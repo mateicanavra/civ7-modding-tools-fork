@@ -1,8 +1,7 @@
 import { describe, it, expect } from "bun:test";
-import { FoundationDirectionalityConfigSchema } from "@mapgen/domain/config";
 import { BIOME_SYMBOL_TO_INDEX } from "@mapgen/domain/ecology";
 import ecology from "@mapgen/domain/ecology/ops";
-import { normalizeOpSelectionOrThrow, normalizeStrictOrThrow } from "../support/compiler-helpers.js";
+import { normalizeOpSelectionOrThrow } from "../support/compiler-helpers.js";
 
 const createInput = () => {
   const width = 2;
@@ -27,17 +26,11 @@ const createInput = () => {
 describe("plot effects (owned)", () => {
   it("places permanent snow plot effects when thresholds pass", () => {
     const input = createInput();
-    const directionality = normalizeStrictOrThrow(
-      FoundationDirectionalityConfigSchema,
-      {},
-      "/env/directionality"
-    );
     const env = {
       seed: 0,
       dimensions: { width: input.width, height: input.height },
       latitudeBounds: { topLatitude: 0, bottomLatitude: 0 },
       wrap: { wrapX: false, wrapY: false },
-      directionality,
     };
     const selection = normalizeOpSelectionOrThrow(
       ecology.ops.planPlotEffects,

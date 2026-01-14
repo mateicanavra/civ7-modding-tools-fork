@@ -1,13 +1,11 @@
 import type { MapDimensions } from "@civ7/adapter";
 import {
-  createFoundationContext,
   ctxRandom,
   validateFoundationConfigArtifact,
   validateFoundationDiagnosticsArtifact,
   validateFoundationDynamicsArtifact,
   validateFoundationPlatesArtifact,
   validateFoundationSeedArtifact,
-  validateFoundationContext,
 } from "@swooper/mapgen-core";
 import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import { foundationArtifacts } from "../artifacts.js";
@@ -176,24 +174,10 @@ export default createStep(FoundationStepContract, {
       },
     }
   ),
-  normalize: (config) => ({
-    ...config,
-    computeMesh: { strategy: "default" as const, config: config.foundation },
-    computeCrust: { strategy: "default" as const, config: config.foundation },
-    computePlateGraph: { strategy: "default" as const, config: config.foundation },
-    computeTectonics: { strategy: "default" as const, config: config.foundation },
-    computePlates: { strategy: "default" as const, config: config.foundation },
-    computeDynamics: { strategy: "default" as const, config: config.foundation },
-  }),
   run: (context, config, ops, deps) => {
     const { width, height } = context.dimensions;
     const size = Math.max(0, width * height) | 0;
     if (size <= 0) throw new Error("[Foundation] Invalid map dimensions.");
-
-    const directionality = context.env.directionality;
-    if (!directionality) {
-      throw new Error("[Foundation] Missing env.directionality.");
-    }
 
     const { adapter } = context;
     if (typeof adapter.getVoronoiUtils !== "function") {
@@ -247,7 +231,6 @@ export default createStep(FoundationStepContract, {
       {
         mesh: meshResult.mesh,
         crust: crustResult.crust,
-        directionality,
         rng,
         trace: context.trace,
       },
@@ -268,7 +251,6 @@ export default createStep(FoundationStepContract, {
       {
         width,
         height,
-        directionality,
         rng,
         voronoiUtils: adapter.getVoronoiUtils(),
         trace: context.trace,
@@ -287,39 +269,36 @@ export default createStep(FoundationStepContract, {
       config.computeDynamics
     );
 
-    const foundationContext = createFoundationContext(
-      {
-        plates: platesResult.plates,
-        dynamics: dynamicsResult.dynamics,
-        plateSeed: platesResult.plateSeed,
-        diagnostics: platesResult.diagnostics,
+    const foundationConfigSnapshot = {
+      seed: {
+        envSeed: context.env.seed ?? null,
       },
-      {
-        dimensions: context.dimensions,
-        config: {
-          seed: config.foundation.seed as Record<string, unknown>,
-          plates: config.foundation.plates as Record<string, unknown>,
-          dynamics: config.foundation.dynamics as Record<string, unknown>,
-          surface: {},
-          policy: {},
-          diagnostics: {},
-        },
-      }
-    );
-
-    validateFoundationContext(foundationContext, context.dimensions);
+      plates: {
+        computeMesh: config.computeMesh,
+        computeCrust: config.computeCrust,
+        computePlateGraph: config.computePlateGraph,
+        computeTectonics: config.computeTectonics,
+        computePlates: config.computePlates,
+      },
+      dynamics: {
+        computeDynamics: config.computeDynamics,
+      },
+      surface: {},
+      policy: {},
+      diagnostics: {},
+    };
 
     deps.artifacts.foundationMesh.publish(context, meshResult.mesh);
     deps.artifacts.foundationCrust.publish(context, crustResult.crust);
     deps.artifacts.foundationPlateGraph.publish(context, plateGraphResult.plateGraph);
     deps.artifacts.foundationTectonics.publish(context, tectonicsResult.tectonics);
-    deps.artifacts.foundationPlates.publish(context, foundationContext.plates);
-    deps.artifacts.foundationDynamics.publish(context, foundationContext.dynamics);
-    if (!foundationContext.plateSeed) {
+    deps.artifacts.foundationPlates.publish(context, platesResult.plates);
+    deps.artifacts.foundationDynamics.publish(context, dynamicsResult.dynamics);
+    if (!platesResult.plateSeed) {
       throw new Error("[Foundation] Missing plate seed snapshot.");
     }
-    deps.artifacts.foundationSeed.publish(context, foundationContext.plateSeed);
-    deps.artifacts.foundationDiagnostics.publish(context, foundationContext.diagnostics);
-    deps.artifacts.foundationConfig.publish(context, foundationContext.config);
+    deps.artifacts.foundationSeed.publish(context, platesResult.plateSeed);
+    deps.artifacts.foundationDiagnostics.publish(context, platesResult.diagnostics);
+    deps.artifacts.foundationConfig.publish(context, foundationConfigSnapshot);
   },
 });

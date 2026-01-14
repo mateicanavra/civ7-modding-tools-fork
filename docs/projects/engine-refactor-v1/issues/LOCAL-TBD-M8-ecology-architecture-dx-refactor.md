@@ -406,7 +406,7 @@ Non-canonical imports (bypass intended `@mapgen/domain/...` surfaces) that can s
 
 Already canonical (keep as-is):
 - `mods/mod-swooper-maps/test/ecology/*features-*.test.ts`, `mods/mod-swooper-maps/test/ecology/biomes-step.test.ts` already import `@mapgen/domain/ecology/ops`.
-- `@mapgen/domain/config` imports (e.g., `FoundationDirectionalityConfigSchema`) already use the intended surface.
+- `@mapgen/domain/config` imports (e.g., `ClimateConfigSchema`) already use the intended surface.
 
 Deep imports that appear required today (not exported via a contract entrypoint; OK, but should be treated as “exception, not norm” and documented inline if we touch the file):
 - Foundation runtime helpers used by tests:

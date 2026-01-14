@@ -1,4 +1,4 @@
-import type { FoundationContext } from "@swooper/mapgen-core";
+import type { FoundationDynamicsFields } from "@swooper/mapgen-core";
 import type { ClimateAdapter } from "@mapgen/domain/hydrology/climate/types.js";
 
 /**
@@ -37,7 +37,7 @@ export function hasUpwindBarrierWM(
   adapter: ClimateAdapter,
   width: number,
   height: number,
-  dynamics: FoundationContext["dynamics"]
+  dynamics: FoundationDynamicsFields
 ): number {
   const U = dynamics.windU;
   const V = dynamics.windV;
@@ -86,4 +86,3 @@ export function hasUpwindBarrierWM(
   }
   return 0;
 }
-

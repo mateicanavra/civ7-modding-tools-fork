@@ -100,13 +100,10 @@ describe("foundation mesh-first ops (slice 2)", () => {
     expect(crustA.type.length).toBe(mesh.cellCount);
     expect(crustA.age.length).toBe(mesh.cellCount);
 
-    const directionality = { cohesion: 0, primaryAxes: { plateAxisDeg: 0 } };
-
     const graphA = computePlateGraph.run(
       {
         mesh,
         crust: crustA,
-        directionality,
         rng: createDeterministicRng(4),
         trace: null,
       },
@@ -117,7 +114,6 @@ describe("foundation mesh-first ops (slice 2)", () => {
       {
         mesh,
         crust: crustA,
-        directionality,
         rng: createDeterministicRng(4),
         trace: null,
       },
@@ -158,4 +154,3 @@ describe("foundation mesh-first ops (slice 2)", () => {
     expect(tectA.cumulativeUplift.length).toBe(mesh.cellCount);
   });
 });
-
