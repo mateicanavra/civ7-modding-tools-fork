@@ -411,6 +411,12 @@ export interface EngineAdapter {
   ): number[];
 
   /**
+   * Set a single player start position by plot index.
+   * (Civ7: StartPositioner.setStartPosition)
+   */
+  setStartPosition(plotIndex: number, playerId: number): void;
+
+  /**
    * Generate discoveries on the map (post-starts)
    * Wraps /base-standard/maps/discovery-generator.js generateDiscoveries()
    */

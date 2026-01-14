@@ -44,21 +44,42 @@ mapgen-core = packages/mapgen-core
 - **Rationale:** Keeps schemas single-sourced while respecting the “no deep-imports from recipes” rule.
 - **Risk:** Slightly expands the domain entrypoint surface (acceptable; schema remains owned by the domain).
 
+### Project LandmassRegionId from Morphology landmasses using west/east centers
+- **Context:** Slice 3 requires a Gameplay-owned LandmassRegionId projection derived from canonical landmasses, with no runtime continent windows.
+- **Options:** reuse Civ7 continent windows, map by landmass area only, or assign by wrapped center position.
+- **Choice:** assign each landmass to WEST or EAST by its wrapped bbox center x and stamp every tile via `adapter.setLandmassRegionId(...)` using ids from `adapter.getLandmassId("WEST"|"EAST"|"NONE")`.
+- **Rationale:** Keeps projection deterministic and derived strictly from the canonical landmasses without reintroducing legacy window coupling.
+- **Risk:** Center-based partitioning can differ from area-based heuristics for asymmetric landmasses (acceptable for initial refactor; tunable later).
+
+### Placement owns start assignment and avoids Civ7 start-sector selection
+- **Context:** Start positions should be Gameplay/Placement-owned; delegating to Civ7’s `assignStartPositions` or `chooseStartSectors` reintroduces legacy behavior.
+- **Options:** call Civ7 assignment, proxy Civ7 start-sector selection, or implement a simple deterministic placement algorithm.
+- **Choice:** implement a greedy spacing-based selection in placement and set starts via `adapter.setStartPosition(...)`; `startSectors` default to empty and are used only if explicitly provided.
+- **Rationale:** Owns the algorithm while keeping the adapter available for modders who explicitly want Civ7 behavior.
+- **Risk:** Simplified start logic may differ from Civ7 bias heuristics (acceptable for refactor; tune in Gameplay phase).
+
+### Publish landmassIdByTile in morphology landmasses artifact
+- **Context:** LandmassRegionId projection and start selection need per-tile landmass membership without recomputing components downstream.
+- **Options:** recompute connected components downstream, add a separate artifact, or extend the landmasses artifact.
+- **Choice:** extend `artifact:morphology.landmasses` with `landmassIdByTile` (Int32Array, -1 for water).
+- **Rationale:** Keeps Morphology as the single source of truth for landmass decomposition while minimizing downstream recomputation.
+- **Risk:** Adds a required field to the artifact schema; downstream publishers must include it (handled in Slice 3).
+
 ## Issue index (slice units; for breakout)
 
 ```yaml
 issues:
   - id: MORPH-S1
     title: "Slice 1 — Morphology artifact contracts (additive) + minimal publishers"
-    status: planned
+    status: completed
     blocked_by: []
   - id: MORPH-S2
     title: "Slice 2 — Consumer cutover: effect-tag gating → artifact requires"
-    status: planned
+    status: completed
     blocked_by: [MORPH-S1]
   - id: MORPH-S3
     title: "Slice 3 — Delete runtime continents; add explicit downstream projections (Civ7 interop)"
-    status: planned
+    status: completed
     blocked_by: [MORPH-S2]
   - id: MORPH-S4
     title: "Slice 4 — HOTSPOTS ownership cutover (Narrative-owned)"
@@ -415,8 +436,8 @@ Downstream projection step(s) (Gameplay-owned):
   - reads `artifact:morphology.landmasses`,
   - selects a two-slot partition (primary/secondary) using explicit policy inputs,
   - writes LandmassRegionId via `adapter.setLandmassRegionId(...)` using ids obtained from `adapter.getLandmassId("WEST"|"EAST"|...)`,
-  - derives `ContinentBounds` projections (only if still required by `adapter.assignStartPositions(...)`),
-  - runs before `adapter.generateResources(...)` and `adapter.assignStartPositions(...)`.
+  - derives `ContinentBounds` projections only for deprecated config compatibility (placement no longer calls `adapter.assignStartPositions(...)`),
+  - runs before `adapter.generateResources(...)` and placement-owned start assignment (`adapter.setStartPosition(...)`).
 
 Consumer changes:
 - Delete all reads/writes of `runtime.westContinent/eastContinent`:
@@ -426,13 +447,13 @@ Consumer changes:
 - Update `mods/mod-swooper-maps/src/recipes/standard/runtime.ts` to remove the continent-bounds fields if no longer needed anywhere.
 
 **Acceptance Criteria (verifiable):**
-- [ ] No code in `swooper-src` reads or writes `runtime.westContinent` / `runtime.eastContinent`.
-- [ ] `markLandmassId(` is no longer called from Morphology/Hydrology steps.
-- [ ] A dedicated downstream projection (Gameplay-owned, implemented at/near the apply boundary) runs before:
+- [x] No code in `swooper-src` reads or writes `runtime.westContinent` / `runtime.eastContinent`.
+- [x] `markLandmassId(` is no longer called from Morphology/Hydrology steps.
+- [x] A dedicated downstream projection (Gameplay-owned, implemented at/near the apply boundary) runs before:
   - `adapter.generateResources(...)` and
-  - `adapter.assignStartPositions(...)`.
-- [ ] Projection writes LandmassRegionId via `adapter.setLandmassRegionId(...)` using ids obtained from adapter engine constants (no numeric literals).
-- [ ] If any `ContinentBounds` projection still exists after this slice, it is:
+  - placement-owned start assignment (`adapter.setStartPosition(...)`).
+- [x] Projection writes LandmassRegionId via `adapter.setLandmassRegionId(...)` using ids obtained from adapter engine constants (no numeric literals).
+- [x] If any `ContinentBounds` projection still exists after this slice, it is:
   - downstream-owned (NOT Morphology-owned),
   - explicitly deprecated (`DEPRECATED:` in code/docs),
   - and has an explicit removal plan inside this refactor’s slice plan (no transitional can survive past Slice 6).

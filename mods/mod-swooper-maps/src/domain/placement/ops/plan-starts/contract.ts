@@ -1,12 +1,27 @@
 import { Type, defineOp } from "@swooper/mapgen-core/authoring";
 
 const ContinentBoundsSchema = Type.Object({
-  west: Type.Number({ description: "Western bound for the continent placement window." }),
-  east: Type.Number({ description: "Eastern bound for the continent placement window." }),
-  south: Type.Number({ description: "Southern bound for the continent placement window." }),
-  north: Type.Number({ description: "Northern bound for the continent placement window." }),
+  west: Type.Number({
+    description:
+      "DEPRECATED: west bound for legacy continent placement windows (no longer used by placement).",
+  }),
+  east: Type.Number({
+    description:
+      "DEPRECATED: east bound for legacy continent placement windows (no longer used by placement).",
+  }),
+  south: Type.Number({
+    description:
+      "DEPRECATED: south bound for legacy continent placement windows (no longer used by placement).",
+  }),
+  north: Type.Number({
+    description:
+      "DEPRECATED: north bound for legacy continent placement windows (no longer used by placement).",
+  }),
   continent: Type.Optional(
-    Type.Number({ description: "Continent identifier used by the adapter for start placement." })
+    Type.Number({
+      description:
+        "DEPRECATED: legacy continent identifier (retained only for compatibility).",
+    })
   ),
 });
 
