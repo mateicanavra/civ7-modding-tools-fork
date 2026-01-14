@@ -265,33 +265,33 @@ This milestone is organized into 6 workstreams (A-F), each with detailed issue d
 
 | Workstream | Title | Estimate | Child Issues |
 |---|---|---|---|
-| [A](../issues/LOCAL-TBD-M7-A-compiler-foundation.md) | Compiler foundation | high complexity, medium parallelism | [A1](../issues/LOCAL-TBD-M7-A1-compiler-module-skeleton.md), [A2](../issues/LOCAL-TBD-M7-A2-compile-recipe-config-wiring.md) |
-| [B](../issues/LOCAL-TBD-M7-B-authoring-surface-upgrades.md) | Authoring surface upgrades | medium complexity, medium-high parallelism | [B1](../issues/LOCAL-TBD-M7-B1-step-id-kebab-case.md), [B2](../issues/LOCAL-TBD-M7-B2-stage-option-a.md), [B3](../issues/LOCAL-TBD-M7-B3-domain-ops-registries.md), [B4](../issues/LOCAL-TBD-M7-B4-op-normalize-semantics.md) |
-| [C](../issues/LOCAL-TBD-M7-C-recipe-boundary-config-model-cutover.md) | Recipe boundary + config model cutover | high complexity, low-medium parallelism | [C1](../issues/LOCAL-TBD-M7-C1-recipe-boundary-compilation.md), [C2](../issues/LOCAL-TBD-M7-C2-stage-step-config-shape.md), [C3](../issues/LOCAL-TBD-M7-C3-remove-runtime-fallbacks.md) |
-| [D](../issues/LOCAL-TBD-M7-D-engine-validate-only.md) | Engine becomes validate-only | high complexity, medium parallelism | [D1](../issues/LOCAL-TBD-M7-D1-executor-plan-only.md), [D2](../issues/LOCAL-TBD-M7-D2-planner-validate-only.md) |
-| [E](../issues/LOCAL-TBD-M7-E-ecology-canonical-exemplar.md) | Ecology as canonical exemplar | high complexity, low-medium parallelism | [E1](../issues/LOCAL-TBD-M7-E1-ecology-domain-entrypoint.md), [E2](../issues/LOCAL-TBD-M7-E2-ecology-steps-migration.md), [E3](../issues/LOCAL-TBD-M7-E3-ecology-stage-public-compile.md) |
-| [F](../issues/LOCAL-TBD-M7-F-cleanup-pass.md) | Cleanup pass (no legacy left) | medium complexity, high parallelism | [F1](../issues/LOCAL-TBD-M7-F1-verify-no-shims.md), [F2](../issues/LOCAL-TBD-M7-F2-final-hygiene.md) |
+| [A](../issues/_archive/LOCAL-TBD-M7-A-compiler-foundation.md) | Compiler foundation | high complexity, medium parallelis../issues/_archive/LOCAL-TBD-M7-A1-compiler-module-skeleton.m../issues/_archive/LOCAL-TBD-M7-A2-compile-recipe-config-wiring.mde-config-wiring.md) |
+| [B](../issues/_archive/LOCAL-TBD-M7-B-authoring-surface-upgrades.md) | Authoring surface upgrades | medium complexity, medium-high parallelis../issues/_archive/LOCAL-TBD-M7-B1-step-id-kebab-case.m../issues/_archive/LOCAL-TBD-M7-B2-stage-option-a.m../issues/_archive/LOCAL-TBD-M7-B3-domain-ops-registries.m../issues/_archive/LOCAL-TBD-M7-B4-op-normalize-semantics.md-TBD-M7-B4-op-normalize-semantics.md) |
+| [C](../issues/_archive/LOCAL-TBD-M7-C-recipe-boundary-config-model-cutover.md) | Recipe boundary + config model cutover | high complexity, low-medium parallelis../issues/_archive/LOCAL-TBD-M7-C1-recipe-boundary-compilation.m../issues/_archive/LOCAL-TBD-M7-C2-stage-step-config-shape.m../issues/_archive/LOCAL-TBD-M7-C3-remove-runtime-fallbacks.mdremove-runtime-fallbacks.md) |
+| [D](../issues/_archive/LOCAL-TBD-M7-D-engine-validate-only.md) | Engine becomes validate-only | high complexity, medium parallelis../issues/_archive/LOCAL-TBD-M7-D1-executor-plan-only.m../issues/_archive/LOCAL-TBD-M7-D2-planner-validate-only.mdr-validate-only.md) |
+| [E](../issues/_archive/LOCAL-TBD-M7-E-ecology-canonical-exemplar.md) | Ecology as canonical exemplar | high complexity, low-medium parallelis../issues/_archive/LOCAL-TBD-M7-E1-ecology-domain-entrypoint.m../issues/_archive/LOCAL-TBD-M7-E2-ecology-steps-migration.m../issues/_archive/LOCAL-TBD-M7-E3-ecology-stage-public-compile.mdogy-stage-public-compile.md) |
+| [F](../issues/_archive/LOCAL-TBD-M7-F-cleanup-pass.md) | Cleanup pass (no legacy left) | medium complexity, high parallelis../issues/_archive/LOCAL-TBD-M7-F1-verify-no-shims.m../issues/_archive/LOCAL-TBD-M7-F2-final-hygiene.md2-final-hygiene.md) |
 
 ### Issue Index (with dependencies)
 
 | ID | Title | blocked_by | Issue Doc | Status | Notes |
 |---|---|---|---|---|---|
-| A1 | Compiler module skeleton + strict normalization | [] | [LOCAL-TBD-M7-A1](../issues/LOCAL-TBD-M7-A1-compiler-module-skeleton.md) | [x] | branch `m7-t01-compiler-module-skeleton-strict-normalization` |
-| A2 | compileRecipeConfig end-to-end wiring | [A1] | [LOCAL-TBD-M7-A2](../issues/LOCAL-TBD-M7-A2-compile-recipe-config-wiring.md) | [x] | branch `m7-t02-compile-recipe-config-wiring` (PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/396) |
-| B1 | Step id convention: kebab-case enforced | [] | [LOCAL-TBD-M7-B1](../issues/LOCAL-TBD-M7-B1-step-id-kebab-case.md) | [x] | branch `m7-t03-step-id-kebab-case` (PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/397) |
-| B2 | Stage Option A: public+compile with computed surfaceSchema | [] | [LOCAL-TBD-M7-B2](../issues/LOCAL-TBD-M7-B2-stage-option-a.md) | [x] | branch `m7-t04-stage-option-a` (PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/398) |
-| B3 | Domain ops registries + binding helpers | [] | [LOCAL-TBD-M7-B3](../issues/LOCAL-TBD-M7-B3-domain-ops-registries.md) | [x] | branch `m7-t05-domain-ops-registries` (PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/399) |
-| B4 | Op normalization hook semantics: resolveConfig -> normalize | [] | [LOCAL-TBD-M7-B4](../issues/LOCAL-TBD-M7-B4-op-normalize-semantics.md) | [x] | branch `m7-t06-op-normalize-semantics` (PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/400) |
-| C1 | Introduce recipe boundary compilation | [A2, B2, B3, B4] | [LOCAL-TBD-M7-C1](../issues/LOCAL-TBD-M7-C1-recipe-boundary-compilation.md) | [x] | branch `m7-t07-recipe-boundary-compilation` (PR: https://app.graphite.dev/submit/mateicanavra/civ7-modding-tools-fork/401) |
-| C2 | Update stage+step authoring to new config shape | [C1, B1, B2] | [LOCAL-TBD-M7-C2](../issues/LOCAL-TBD-M7-C2-stage-step-config-shape.md) | [x] | branch `m7-t08-stage-step-config-shape` (PR: https://app.graphite.dev/submit/mateicanavra/civ7-modding-tools-fork/402) |
-| C3 | Remove runtime compilation fallbacks | [C2] | [LOCAL-TBD-M7-C3](../issues/LOCAL-TBD-M7-C3-remove-runtime-fallbacks.md) | [x] | branch `m7-t09-remove-runtime-fallbacks` (PR: https://app.graphite.dev/submit/mateicanavra/civ7-modding-tools-fork/403) |
-| D1 | Executor plan-only: remove runtime config synthesis | [C3] | [LOCAL-TBD-M7-D1](../issues/LOCAL-TBD-M7-D1-executor-plan-only.md) | [x] | branch `m7-t10-executor-plan-only` (PR: https://app.graphite.dev/submit/mateicanavra/civ7-modding-tools-fork/404) |
-| D2 | Planner validate-only: remove default/clean and step.resolveConfig | [C3] | [LOCAL-TBD-M7-D2](../issues/LOCAL-TBD-M7-D2-planner-validate-only.md) | [x] | branch `m7-t11-planner-validate-only` (PR: https://app.graphite.dev/submit/mateicanavra/civ7-modding-tools-fork/405) |
-| E1 | Ecology domain entrypoint refactor | [B3, B4] | [LOCAL-TBD-M7-E1](../issues/LOCAL-TBD-M7-E1-ecology-domain-entrypoint.md) | [x] | branch `m7-t12-ecology-domain-entrypoint` (PR: https://app.graphite.dev/submit/mateicanavra/civ7-modding-tools-fork/406) |
-| E2 | Ecology steps migration | [E1, C2] | [LOCAL-TBD-M7-E2](../issues/LOCAL-TBD-M7-E2-ecology-steps-migration.md) | [x] | branch `m7-t13-ecology-steps-migration` (PR: https://app.graphite.dev/submit/mateicanavra/civ7-modding-tools-fork/407) |
-| E3 | Ecology stage public view + compile | [E2] | [LOCAL-TBD-M7-E3](../issues/LOCAL-TBD-M7-E3-ecology-stage-public-compile.md) | [x] | branch `m7-t14-ecology-stage-public-compile` (PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/408) |
-| F1 | Verify no shims + remove dead paths | [A2, B4, C3, D2, E2] | [LOCAL-TBD-M7-F1](../issues/LOCAL-TBD-M7-F1-verify-no-shims.md) | [x] | branch `m7-t15-verify-no-shims` (PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/409) |
-| F2 | Final hygiene + enforcement tightening | [F1] | [LOCAL-TBD-M7-F2](../issues/LOCAL-TBD-M7-F2-final-hygiene.md) | [x] | branch `m7-t16-final-hygiene` (PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/410) |
+| A1 | Compiler module skeleton + strict normalization | [] | [LOCAL-TBD-M7-A1](../issues/_archive/LOCAL-TBD-M7-A1-compiler-module-skeleton.md) | [x] | branch `m7-t01-compiler-module-skeleton-strict-normalization` |
+| A2 | compileRecipeConfig end-to-end wiring | [A1] | [LOCAL-TBD-M7-A2](../issues/_archive/LOCAL-TBD-M7-A2-compile-recipe-config-wiring.md) | [x] | branch `m7-t02-compile-recipe-config-wiring` (PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/396) |
+| B1 | Step id convention: kebab-case enforced | [] | [LOCAL-TBD-M7-B1](../issues/_archive/LOCAL-TBD-M7-B1-step-id-kebab-case.md) | [x] | branch `m7-t03-step-id-kebab-case` (PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/397) |
+| B2 | Stage Option A: public+compile with computed surfaceSchema | [] | [LOCAL-TBD-M7-B2](../issues/_archive/LOCAL-TBD-M7-B2-stage-option-a.md) | [x] | branch `m7-t04-stage-option-a` (PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/398) |
+| B3 | Domain ops registries + binding helpers | [] | [LOCAL-TBD-M7-B3](../issues/_archive/LOCAL-TBD-M7-B3-domain-ops-registries.md) | [x] | branch `m7-t05-domain-ops-registries` (PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/399) |
+| B4 | Op normalization hook semantics: resolveConfig -> normalize | [] | [LOCAL-TBD-M7-B4](../issues/_archive/LOCAL-TBD-M7-B4-op-normalize-semantics.md) | [x] | branch `m7-t06-op-normalize-semantics` (PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/400) |
+| C1 | Introduce recipe boundary compilation | [A2, B2, B3, B4] | [LOCAL-TBD-M7-C1](../issues/_archive/LOCAL-TBD-M7-C1-recipe-boundary-compilation.md) | [x] | branch `m7-t07-recipe-boundary-compilation` (PR: https://app.graphite.dev/submit/mateicanavra/civ7-modding-tools-fork/401) |
+| C2 | Update stage+step authoring to new config shape | [C1, B1, B2] | [LOCAL-TBD-M7-C2](../issues/_archive/LOCAL-TBD-M7-C2-stage-step-config-shape.md) | [x] | branch `m7-t08-stage-step-config-shape` (PR: https://app.graphite.dev/submit/mateicanavra/civ7-modding-tools-fork/402) |
+| C3 | Remove runtime compilation fallbacks | [C2] | [LOCAL-TBD-M7-C3](../issues/_archive/LOCAL-TBD-M7-C3-remove-runtime-fallbacks.md) | [x] | branch `m7-t09-remove-runtime-fallbacks` (PR: https://app.graphite.dev/submit/mateicanavra/civ7-modding-tools-fork/403) |
+| D1 | Executor plan-only: remove runtime config synthesis | [C3] | [LOCAL-TBD-M7-D1](../issues/_archive/LOCAL-TBD-M7-D1-executor-plan-only.md) | [x] | branch `m7-t10-executor-plan-only` (PR: https://app.graphite.dev/submit/mateicanavra/civ7-modding-tools-fork/404) |
+| D2 | Planner validate-only: remove default/clean and step.resolveConfig | [C3] | [LOCAL-TBD-M7-D2](../issues/_archive/LOCAL-TBD-M7-D2-planner-validate-only.md) | [x] | branch `m7-t11-planner-validate-only` (PR: https://app.graphite.dev/submit/mateicanavra/civ7-modding-tools-fork/405) |
+| E1 | Ecology domain entrypoint refactor | [B3, B4] | [LOCAL-TBD-M7-E1](../issues/_archive/LOCAL-TBD-M7-E1-ecology-domain-entrypoint.md) | [x] | branch `m7-t12-ecology-domain-entrypoint` (PR: https://app.graphite.dev/submit/mateicanavra/civ7-modding-tools-fork/406) |
+| E2 | Ecology steps migration | [E1, C2] | [LOCAL-TBD-M7-E2](../issues/_archive/LOCAL-TBD-M7-E2-ecology-steps-migration.md) | [x] | branch `m7-t13-ecology-steps-migration` (PR: https://app.graphite.dev/submit/mateicanavra/civ7-modding-tools-fork/407) |
+| E3 | Ecology stage public view + compile | [E2] | [LOCAL-TBD-M7-E3](../issues/_archive/LOCAL-TBD-M7-E3-ecology-stage-public-compile.md) | [x] | branch `m7-t14-ecology-stage-public-compile` (PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/408) |
+| F1 | Verify no shims + remove dead paths | [A2, B4, C3, D2, E2] | [LOCAL-TBD-M7-F1](../issues/_archive/LOCAL-TBD-M7-F1-verify-no-shims.md) | [x] | branch `m7-t15-verify-no-shims` (PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/409) |
+| F2 | Final hygiene + enforcement tightening | [F1] | [LOCAL-TBD-M7-F2](../issues/_archive/LOCAL-TBD-M7-F2-final-hygiene.md) | [x] | branch `m7-t16-final-hygiene` (PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/410) |
 
 ### Workstream Summaries
 
@@ -299,37 +299,37 @@ This milestone is organized into 6 workstreams (A-F), each with detailed issue d
 
 Make the compiler pipeline a repo-real module with tests before any consuming code is rewritten. Phase ordering and helper behavior are pinned by the target spec (`02-compilation.md`) and mirrored by the spec's TypeScript reference implementation (`architecture/ts/compiler.ts`).
 
-See: [LOCAL-TBD-M7-A](../issues/LOCAL-TBD-M7-A-compiler-foundation.md)
+See: [LOCAL-TBD-M7-A](../issues/_archive/LOCAL-TBD-M7-A-compiler-foundation.md)
 
 #### B) Authoring surface upgrades (B1-B4)
 
 Upgrade the public authoring surface so the target architecture can be adopted without ad-hoc conventions. This includes kebab-case step IDs, Stage Option A (public+compile with computed surfaceSchema), domain ops registries, and renaming resolveConfig to normalize.
 
-See: [LOCAL-TBD-M7-B](../issues/LOCAL-TBD-M7-B-authoring-surface-upgrades.md)
+See: [LOCAL-TBD-M7-B](../issues/_archive/LOCAL-TBD-M7-B-authoring-surface-upgrades.md)
 
 #### C) Recipe boundary + config model cutover (C1-C3)
 
 Land compilation at the recipe boundary first, then migrate stages incrementally, then remove the bypass. This is where compilation becomes mandatory for any real runtime callsite.
 
-See: [LOCAL-TBD-M7-C](../issues/LOCAL-TBD-M7-C-recipe-boundary-config-model-cutover.md)
+See: [LOCAL-TBD-M7-C](../issues/_archive/LOCAL-TBD-M7-C-recipe-boundary-config-model-cutover.md)
 
 #### D) Engine becomes validate-only (D1-D2)
 
 Deferred until after compilation is mandatory at the recipe boundary. The engine then becomes a pure consumer of canonical configs with no defaulting, cleaning, or normalization.
 
-See: [LOCAL-TBD-M7-D](../issues/LOCAL-TBD-M7-D-engine-validate-only.md)
+See: [LOCAL-TBD-M7-D](../issues/_archive/LOCAL-TBD-M7-D-engine-validate-only.md)
 
 #### E) Ecology as canonical exemplar (E1-E3)
 
 Ecology is the reference implementation for domain exports, ops registries, step authoring patterns, and (optionally) a stage public view. This refactor is intentionally late so ecology can be migrated cleanly without introducing a second architecture.
 
-See: [LOCAL-TBD-M7-E](../issues/LOCAL-TBD-M7-E-ecology-canonical-exemplar.md)
+See: [LOCAL-TBD-M7-E](../issues/_archive/LOCAL-TBD-M7-E-ecology-canonical-exemplar.md)
 
 #### F) Cleanup pass (F1-F2)
 
 This milestone is complete only when there is one architecture and no lingering legacy scaffolding. Verify no shims remain, remove dead paths, and tighten enforcement.
 
-See: [LOCAL-TBD-M7-F](../issues/LOCAL-TBD-M7-F-cleanup-pass.md)
+See: [LOCAL-TBD-M7-F](../issues/_archive/LOCAL-TBD-M7-F-cleanup-pass.md)
 
 ---
 

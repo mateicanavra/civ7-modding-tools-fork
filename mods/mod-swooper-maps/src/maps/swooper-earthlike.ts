@@ -21,13 +21,31 @@ const config = {
     mesh: {
       computeMesh: {
         strategy: "default",
-        config: { plateCount: 23, cellsPerPlate: 2, relaxationSteps: 4 },
+        config: {
+          plateCount: 28,             // Reduced: Earth has ~15 major + minor plates
+          cellsPerPlate: 3,           // Increased: more detail per plate
+          relaxationSteps: 6,         // Smoother plate boundaries
+          referenceArea: 4000,        // Standard reference
+          plateScalePower: 0.5,       // Standard scaling
+        },
+      },
+    },
+    crust: {
+      computeCrust: {
+        strategy: "default",
+        config: {
+          continentalRatio: 0.29,     // Earth: ~29% continental crust
+        },
       },
     },
     "plate-graph": {
       computePlateGraph: {
         strategy: "default",
-        config: { plateCount: 23 },
+        config: {
+          plateCount: 28,             // Match mesh plateCount
+          referenceArea: 4000,
+          plateScalePower: 0.5,
+        },
       },
     },
   },
@@ -35,22 +53,26 @@ const config = {
     "landmass-plates": {
       landmass: {
         // Earth-like ocean dominance (~70% water).
-        baseWaterPercent: 68,
+        baseWaterPercent: 71,           // True Earth ratio
         waterScalar: 1,
+        // Continental distribution (Earth-like)
+        continentalFraction: 0.29,      // Match crust ratio
+        clusteringBias: 0.35,           // Balanced: some clustering, not Pangaea
+        microcontinentChance: 0.12,     // Occasional Zealandia/Madagascar-like shards
         // Crust-first height tuning to preserve water even with broken boundary fields.
-        crustEdgeBlend: 0.35,
-        crustNoiseAmplitude: 0.1,
-        continentalHeight: 0.4,
-        oceanicHeight: -0.75,
+        crustEdgeBlend: 0.38,           // Wider continental shelves (Earth-like)
+        crustNoiseAmplitude: 0.12,      // Slight variation in continental thickness
+        continentalHeight: 0.38,        // Slightly reduced for realistic hypsometry
+        oceanicHeight: -0.72,           // Slightly shallower ocean basins
         // Moderate margin bias: enough active coasts, plenty of passive shelves.
-        boundaryBias: 0.2,
-        boundaryShareTarget: 0.2,
+        boundaryBias: 0.22,             // Slightly higher for plate-driven coastlines
+        boundaryShareTarget: 0.18,      // ~18% land at plate boundaries
         tectonics: {
           // Favor coastal arcs (Andes/Ring of Fire) but keep thick interiors.
-          boundaryArcWeight: 0.37,
-          boundaryArcNoiseWeight: 0.35,
-          interiorNoiseWeight: 0.55,  // Reduced: smoother continental interiors
-          fractalGrain: 5,
+          boundaryArcWeight: 0.40,      // Slightly stronger coastal arcs
+          boundaryArcNoiseWeight: 0.32, // Less noise for cleaner arcs
+          interiorNoiseWeight: 0.52,    // Smoother continental interiors
+          fractalGrain: 4,              // Slightly coarser for larger landmass shapes
         },
       },
       oceanSeparation: {
@@ -119,6 +141,18 @@ const config = {
           bayNoiseBonus: 0.5,
           fjordWeight: 0.8,
         },
+        // Earth-like coastal features
+        bay: {
+          noiseGateAdd: 0.05,           // Slight noise gate for natural variation
+          rollDenActive: 5,             // Moderate bays on active margins
+          rollDenDefault: 6,            // Fewer bays on passive margins
+        },
+        fjord: {
+          baseDenom: 14,                // Less frequent fjords (Earth average)
+          activeBonus: 2,               // More fjords at convergent margins
+          passiveBonus: 1,              // Rare fjords on passive margins
+        },
+        minSeaLaneWidth: 3,             // Preserve navigable straits
       },
       corridors: {
         sea: {},
@@ -133,12 +167,20 @@ const config = {
   },
   "morphology-post": {
     islands: {
-      islands: {},
+      islands: {
+        // Earth-like island distribution
+        fractalThresholdPercent: 88,    // Moderate island density
+        minDistFromLandRadius: 3,       // Keep islands separate from continents
+        baseIslandDenNearActive: 4,     // More islands near subduction (Japan, Indonesia)
+        baseIslandDenElse: 8,           // Fewer islands in passive regions
+        hotspotSeedDenom: 2,            // Hawaii-style hotspot chains
+        clusterMax: 4,                  // Moderate archipelago sizes
+      },
       story: {
         hotspot: {
-          paradiseBias: 2,
-          volcanicBias: 1,
-          volcanicPeakChance: 0.33,
+          paradiseBias: 2.2,            // Slight paradise preference
+          volcanicBias: 1.3,            // Moderate volcanic activity
+          volcanicPeakChance: 0.35,     // Some volcanic peaks
         },
       },
       corridors: { sea: {} },
@@ -168,17 +210,20 @@ const config = {
     },
     volcanoes: {
       volcanoes: {
-        // Boundary-dominant volcanism with a modest hotspot tail.
-        baseDensity: 7 / 190,
-        minSpacing: 5,
-        boundaryThreshold: 0.35,
-        boundaryWeight: 1.2,
-        convergentMultiplier: 2.5,
-        transformMultiplier: 1.0,
-        divergentMultiplier: 0.4,
-        hotspotWeight: 0.18,
-        shieldPenalty: 0.4,
-        randomJitter: 0.08
+        // Boundary-dominant volcanism with a modest hotspot tail (Earth-like).
+        enabled: true,
+        baseDensity: 6 / 190,           // Slightly lower for Earth-like distribution
+        minSpacing: 5,                  // Good spacing between volcanoes
+        boundaryThreshold: 0.32,        // Slightly lower for more boundary influence
+        boundaryWeight: 1.15,           // Moderate boundary emphasis
+        convergentMultiplier: 2.8,      // Strong Ring of Fire emphasis
+        transformMultiplier: 0.9,       // Less transform volcanism
+        divergentMultiplier: 0.35,      // Low divergent volcanism (mostly underwater)
+        hotspotWeight: 0.20,            // Moderate hotspot chains (Hawaii, Iceland)
+        shieldPenalty: 0.45,            // Cratons suppress volcanism
+        randomJitter: 0.06,             // Less random, more plate-driven
+        minVolcanoes: 8,                // Ensure some volcanic activity
+        maxVolcanoes: 35,               // Cap total for Earth-like feel
       },
     },
   },
