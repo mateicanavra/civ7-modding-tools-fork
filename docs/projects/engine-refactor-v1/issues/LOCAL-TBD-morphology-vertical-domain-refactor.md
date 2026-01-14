@@ -254,6 +254,65 @@ Implementation (expected):
 - Publish `artifact:morphology.landmasses` from a new `morphology-post/landmasses` step.
   - If Slice 1 derives landmasses from `adapter.isWater(...)` (temporary wiring), it must be replaced by a pure `topography.landMask`-based implementation by Slice 6 (no transitional allowed past this slice plan).
 
+**Acceptance Criteria (verifiable):**
+- [ ] `swooper-src/recipes/standard/stages/morphology-pre/artifacts.ts` exists and exports a `morphologyArtifacts` object containing:
+  - `topography`, `routing`, `substrate`, `coastlineMetrics`, `landmasses` with stable `.id` strings.
+- [ ] `morphology-pre/landmass-plates` publishes `morphologyArtifacts.topography` (publish-once posture).
+- [ ] `morphology-mid/rugged-coasts` publishes `morphologyArtifacts.coastlineMetrics`.
+- [ ] New step `morphology-post/landmasses` exists and publishes `morphologyArtifacts.landmasses`.
+- [ ] New test `swooper-test/morphology/contract-guard.test.ts` exists and fails if Morphology introduces:
+  - `westContinent`, `eastContinent`, `LandmassRegionId` in Morphology artifact schemas/contracts.
+- [ ] No downstream consumer contract changes ship in this slice (consumer migration begins in Slice 2), but publishing is non-breaking for existing consumers.
+
+**Scope boundaries:**
+- In scope:
+  - Additive stage-owned artifact contracts for Morphology.
+  - Minimal publication wiring to existing Morphology steps (publish-once; no behavior rework).
+  - Contract-guard test to prevent introducing projection/compat surfaces into Morphology artifacts.
+- Out of scope:
+  - Removing effect-tag gating (Slice 2).
+  - Removing runtime continents / LandmassRegionId projection (Slice 3).
+  - Morphology op refactor and config overhaul (Slice 5).
+
+**Files (touchpoints):**
+```yaml
+files:
+  - path: swooper-src/recipes/standard/stages/morphology-pre/artifacts.ts
+    notes: "NEW: define `morphologyArtifacts.*` contracts (stage-owned)."
+  - path: swooper-src/recipes/standard/stages/morphology-pre/steps/landmassPlates.contract.ts
+    notes: "Add `artifacts.provides` for `morphologyArtifacts.topography`."
+  - path: swooper-src/recipes/standard/stages/morphology-pre/steps/landmassPlates.ts
+    notes: "Publish `morphologyArtifacts.topography` (publish-once)."
+  - path: swooper-src/recipes/standard/stages/morphology-mid/steps/ruggedCoasts.contract.ts
+    notes: "Add `artifacts.provides` for `morphologyArtifacts.coastlineMetrics`."
+  - path: swooper-src/recipes/standard/stages/morphology-mid/steps/ruggedCoasts.ts
+    notes: "Publish `morphologyArtifacts.coastlineMetrics` (derived metrics only)."
+  - path: swooper-src/recipes/standard/stages/morphology-post/steps/landmasses.contract.ts
+    notes: "NEW: step contract for `morphologyArtifacts.landmasses` publication."
+  - path: swooper-src/recipes/standard/stages/morphology-post/steps/landmasses.ts
+    notes: "NEW: compute/publish landmass decomposition artifact."
+  - path: swooper-src/recipes/standard/stages/morphology-post/steps/index.ts
+    notes: "Register new `landmasses` step id."
+  - path: swooper-test/morphology/contract-guard.test.ts
+    notes: "NEW: mirror `swooper-test/foundation/contract-guard.test.ts` patterns for forbidden surfaces."
+```
+
+**Testing / Verification (executable):**
+- `REFRACTOR_DOMAINS="morphology" ./scripts/lint/lint-domain-refactor-guardrails.sh`
+- `pnpm -C mods/mod-swooper-maps check`
+- `pnpm -C mods/mod-swooper-maps test`
+
+## Prework Prompt (Agent Brief) — Slice 1 landmasses publication source
+
+**Purpose:** Decide the minimal safe source for `artifact:morphology.landmasses` in Slice 1 without introducing a long-lived transitional dependency.
+
+**Expected Output:** A one-paragraph decision + concrete implementation plan for landmass decomposition publication in Slice 1, including (if transitional) the explicit deletion grep to run in Slice 6.
+
+**Sources to check:**
+- Existing terrain/landmask sources in the pipeline: `swooper-src/recipes/standard/stages/morphology-pre/**`, `swooper-src/recipes/standard/runtime.ts`.
+- Existing adapter capabilities: `packages/civ7-adapter/**`, `packages/mapgen-core/**`, `@civ7/adapter` types.
+- Phase 2 decision: `engine-refactor-v1/resources/spike/spike-morphology-modeling.md` (“Morphology publishes landmass decomposition”).
+
 Guardrails:
 - Add `mods/mod-swooper-maps/test/morphology/contract-guard.test.ts`:
   - Assert `morphologyArtifacts.*` ids exist and are stable strings.
