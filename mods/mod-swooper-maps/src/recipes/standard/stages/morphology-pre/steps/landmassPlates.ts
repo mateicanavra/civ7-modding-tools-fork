@@ -5,7 +5,7 @@ import {
   markLandmassId,
   resolveLandmassIds,
 } from "@swooper/mapgen-core";
-import { createStep } from "@swooper/mapgen-core/authoring";
+import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import type { LandmassConfig } from "@mapgen/domain/config";
 import {
   applyLandmassPostAdjustments,
@@ -14,6 +14,7 @@ import {
   type LandmassWindow,
 } from "@mapgen/domain/morphology/landmass/index.js";
 import { getStandardRuntime } from "../../../runtime.js";
+import { morphologyArtifacts } from "../artifacts.js";
 import LandmassPlatesStepContract from "./landmassPlates.contract.js";
 
 function windowToContinentBounds(window: LandmassWindow, continent: number): ContinentBounds {
@@ -35,6 +36,9 @@ function assignContinentBounds(target: ContinentBounds, src: ContinentBounds): v
 }
 
 export default createStep(LandmassPlatesStepContract, {
+  artifacts: implementArtifacts([morphologyArtifacts.topography], {
+    topography: {},
+  }),
   run: (context, config, _ops, deps) => {
     const plates = deps.artifacts.foundationPlates.read(context);
     const runtime = getStandardRuntime(context);
@@ -107,5 +111,6 @@ export default createStep(LandmassPlatesStepContract, {
     context.adapter.stampContinents();
 
     logLandmassAscii(context.trace, context.adapter, width, height);
+    deps.artifacts.topography.publish(context, context.buffers.heightfield);
   },
 });

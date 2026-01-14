@@ -1,6 +1,6 @@
 import { defineArtifact } from "@swooper/mapgen-core/authoring";
 import { Type } from "@swooper/mapgen-core/authoring";
-import { HydrologyWindFieldSchema } from "@mapgen/domain/hydrology/ops/compute-wind-fields/contract.js";
+import { HydrologyWindFieldSchema } from "@mapgen/domain/hydrology";
 
 export const HeightfieldArtifactSchema = Type.Object(
   {

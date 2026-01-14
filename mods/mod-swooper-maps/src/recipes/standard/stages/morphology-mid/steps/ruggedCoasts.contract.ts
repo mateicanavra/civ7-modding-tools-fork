@@ -4,6 +4,7 @@ import { MorphologyConfigSchema, NarrativeConfigSchema } from "@mapgen/domain/co
 import { M4_EFFECT_TAGS } from "../../../tags.js";
 import { foundationArtifacts } from "../../foundation/artifacts.js";
 import { narrativePreArtifacts } from "../../narrative-pre/artifacts.js";
+import { morphologyArtifacts } from "../../morphology-pre/artifacts.js";
 
 const RuggedCoastsStepContract = defineStep({
   id: "rugged-coasts",
@@ -17,6 +18,7 @@ const RuggedCoastsStepContract = defineStep({
       foundationArtifacts.plates,
       narrativePreArtifacts.overlays,
     ],
+    provides: [morphologyArtifacts.coastlineMetrics],
   },
   schema: Type.Object({
     coastlines: MorphologyConfigSchema.properties.coastlines,
