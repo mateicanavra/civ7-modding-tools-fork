@@ -1,29 +1,14 @@
 import { createOp } from "@swooper/mapgen-core/authoring";
 import { createLabelRng } from "@swooper/mapgen-core/lib/rng";
 
-import type { FoundationMesh } from "../compute-mesh/contract.js";
+import { requireMesh } from "../../lib/require.js";
 import ComputeCrustContract from "./contract.js";
-
-function requireMesh(mesh: FoundationMesh | undefined): FoundationMesh {
-  if (!mesh) {
-    throw new Error("[Foundation] Mesh not provided for foundation/compute-crust.");
-  }
-  const cellCount = mesh.cellCount | 0;
-  if (cellCount <= 0) throw new Error("[Foundation] Invalid mesh.cellCount for crust.");
-  if (!(mesh.siteX instanceof Float32Array) || mesh.siteX.length !== cellCount) {
-    throw new Error("[Foundation] Invalid mesh.siteX for crust.");
-  }
-  if (!(mesh.siteY instanceof Float32Array) || mesh.siteY.length !== cellCount) {
-    throw new Error("[Foundation] Invalid mesh.siteY for crust.");
-  }
-  return mesh;
-}
 
 const computeCrust = createOp(ComputeCrustContract, {
   strategies: {
     default: {
       run: (input, config) => {
-        const mesh = requireMesh(input.mesh as unknown as FoundationMesh | undefined);
+        const mesh = requireMesh(input.mesh, "foundation/compute-crust");
         const rngSeed = input.rngSeed | 0;
         const rng = createLabelRng(rngSeed);
 

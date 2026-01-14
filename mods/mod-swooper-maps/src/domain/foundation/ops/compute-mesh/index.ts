@@ -1,14 +1,15 @@
 import { createOp } from "@swooper/mapgen-core/authoring";
 import { buildDelaunayMesh } from "@swooper/mapgen-core/lib/mesh";
 
+import { requireEnvDimensions } from "../../lib/normalize.js";
 import ComputeMeshContract from "./contract.js";
 
 const computeMesh = createOp(ComputeMeshContract, {
   strategies: {
     default: {
       normalize: (config, ctx) => {
-        const { width, height } = (ctx as any)?.env?.dimensions ?? {};
-        const area = Math.max(1, (Number(width) | 0) * (Number(height) | 0));
+        const { width, height } = requireEnvDimensions(ctx, "foundation/compute-mesh.normalize");
+        const area = Math.max(1, width * height);
 
         const referenceArea = Math.max(1, config.referenceArea | 0);
         const power = config.plateScalePower;

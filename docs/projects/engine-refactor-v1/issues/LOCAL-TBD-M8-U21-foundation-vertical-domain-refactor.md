@@ -411,11 +411,11 @@ Acceptance criteria:
 - [ ] `pnpm -C mods/mod-swooper-maps check` passes (type-level surface is coherent).
 
 ##### Slice 6 gates (must pass before Slice 7)
-- [ ] `pnpm -C packages/mapgen-core check`
-- [ ] `pnpm -C packages/mapgen-core test`
-- [ ] `pnpm -C mods/mod-swooper-maps check`
-- [ ] `pnpm -C mods/mod-swooper-maps test`
-- [ ] `pnpm -C mods/mod-swooper-maps build`
+- [x] `pnpm -C packages/mapgen-core check`
+- [x] `pnpm -C packages/mapgen-core test`
+- [x] `pnpm -C mods/mod-swooper-maps check`
+- [x] `pnpm -C mods/mod-swooper-maps test`
+- [x] `pnpm -C mods/mod-swooper-maps build`
 
 #### Slice 7 — Downstream rebuild (authoritative surfaces only)
 
@@ -439,14 +439,14 @@ Checklist:
 - [ ] Replace any remaining orientation bias logic with artifact/buffer derived signals only (plate boundaries/tectonics + hydrology winds/currents).
 
 Acceptance criteria:
-- [ ] `rg -n \"directionality\" mods/mod-swooper-maps/src packages/mapgen-core/src` returns no hits.
+- [x] `rg -n \"directionality\" mods/mod-swooper-maps/src packages/mapgen-core/src` returns no hits.
 
 ##### Slice 7 gates
-- [ ] `pnpm -C packages/mapgen-core check`
-- [ ] `pnpm -C packages/mapgen-core test`
-- [ ] `pnpm -C mods/mod-swooper-maps check`
-- [ ] `pnpm -C mods/mod-swooper-maps test`
-- [ ] `pnpm -C mods/mod-swooper-maps build`
+- [x] `pnpm -C packages/mapgen-core check`
+- [x] `pnpm -C packages/mapgen-core test`
+- [x] `pnpm -C mods/mod-swooper-maps check`
+- [x] `pnpm -C mods/mod-swooper-maps test`
+- [x] `pnpm -C mods/mod-swooper-maps build`
 
 #### Slice 8 — Ruthless deletion sweep (no shims, no legacy, no compat)
 
