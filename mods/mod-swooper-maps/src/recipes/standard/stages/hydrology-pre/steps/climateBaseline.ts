@@ -1,5 +1,6 @@
 import {
   ctxRandom,
+  ctxRandomLabel,
   logElevationSummary,
   markLandmassId,
   resolveLandmassIds,
@@ -129,14 +130,15 @@ export default createStep(ClimateBaselineStepContract, {
       }
     }
 
-    const rng = (max: number, label = "Hydrology") => ctxRandom(context, label, max);
+    const stepId = `${ClimateBaselineStepContract.phase}/${ClimateBaselineStepContract.id}`;
+    const rngSeed = ctxRandom(context, ctxRandomLabel(stepId, "hydrology/compute-wind-fields"), 2_147_483_647);
     const windResult = ops.computeWindFields(
       {
         width,
         height,
         latitudeByRow,
         isWaterMask,
-        rng,
+        rngSeed,
       },
       config.computeWindFields
     );

@@ -37,13 +37,15 @@ describe("foundation contract guardrails", () => {
 
   it("does not import domain config bags from the foundation step contract", () => {
     const repoRoot = path.resolve(import.meta.dir, "../..");
-    const stepContract = path.join(
-      repoRoot,
-      "src/recipes/standard/stages/foundation/steps/foundation.contract.ts"
-    );
-    const text = readFileSync(stepContract, "utf8");
-    expect(text).not.toContain("@mapgen/domain/config");
-    expect(text).not.toContain("FoundationConfigSchema");
+    const stepsDir = path.join(repoRoot, "src/recipes/standard/stages/foundation/steps");
+    const contractFiles = listFilesRecursive(stepsDir).filter((file) => file.endsWith("contract.ts"));
+
+    expect(contractFiles.length).toBeGreaterThan(0);
+
+    for (const file of contractFiles) {
+      const text = readFileSync(file, "utf8");
+      expect(text).not.toContain("@mapgen/domain/config");
+      expect(text).not.toContain("FoundationConfigSchema");
+    }
   });
 });
-

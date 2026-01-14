@@ -1,17 +1,8 @@
 import { createOp } from "@swooper/mapgen-core/authoring";
-import { devLogIf } from "@swooper/mapgen-core";
-import type { TraceScope } from "@swooper/mapgen-core";
+import { createLabelRng } from "@swooper/mapgen-core/lib/rng";
 
-import type { RngFunction } from "../../types.js";
 import type { FoundationMesh } from "../compute-mesh/contract.js";
 import ComputeCrustContract from "./contract.js";
-
-function requireRng(rng: RngFunction | undefined): RngFunction {
-  if (!rng) {
-    throw new Error("[Foundation] RNG not provided for foundation/compute-crust.");
-  }
-  return rng;
-}
 
 function requireMesh(mesh: FoundationMesh | undefined): FoundationMesh {
   if (!mesh) {
@@ -31,22 +22,14 @@ function requireMesh(mesh: FoundationMesh | undefined): FoundationMesh {
 const computeCrust = createOp(ComputeCrustContract, {
   strategies: {
     default: {
-      run: (input) => {
+      run: (input, config) => {
         const mesh = requireMesh(input.mesh as unknown as FoundationMesh | undefined);
-        const rng = requireRng(input.rng as unknown as RngFunction | undefined);
-        const trace = (input.trace ?? null) as TraceScope | null;
+        const rngSeed = input.rngSeed | 0;
+        const rng = createLabelRng(rngSeed);
 
         const cellCount = mesh.cellCount | 0;
 
-        // Additive scaffolding: crust is model-first, but not yet a consumer surface.
-        // Keep it deterministic and shape-correct.
-        const continentalRatio = 0.3;
-
-        devLogIf(
-          trace,
-          "LOG_FOUNDATION_CRUST",
-          `[Foundation] Crust cellCount=${cellCount}, continentalRatio=${continentalRatio}`
-        );
+        const continentalRatio = config.continentalRatio;
 
         const type = new Uint8Array(cellCount);
         const age = new Uint8Array(cellCount);
@@ -59,7 +42,7 @@ const computeCrust = createOp(ComputeCrustContract, {
         }
 
         return {
-          crust: Object.freeze({ type, age }),
+          crust: { type, age },
         } as const;
       },
     },

@@ -583,7 +583,6 @@ describe("standard recipe execution", () => {
         topLatitude: mapInfo.MaxLatitude,
         bottomLatitude: mapInfo.MinLatitude,
       },
-      wrap: { wrapX: true, wrapY: false },
     };
 
     const adapter = createMockAdapter({ width, height, mapInfo, mapSizeId: 1 });

@@ -495,23 +495,21 @@ files:
 
   # Foundation stage boundary (source of truth for publish-once artifact contracts + step wiring)
   - path: /src/recipes/standard/stages/foundation/index.ts
-    notes: Stage module; currently contains one step (`foundation`).
+    notes: Stage module; multi-step spine (mesh/crust/plate-graph/tectonics/projection).
   - path: /src/recipes/standard/stages/foundation/artifacts.ts
-    notes: Stage-owned artifact contracts for foundation outputs (plates/dynamics/seed/diagnostics/config).
-  - path: /src/recipes/standard/stages/foundation/producer.ts
-    notes: Monolithic producer/orchestration; calls Foundation implementation modules directly.
-  - path: /src/recipes/standard/stages/foundation/steps/foundation.contract.ts
-    notes: Step contract; provides all foundation artifacts; schema includes FoundationConfigSchema.
-  - path: /src/recipes/standard/stages/foundation/steps/foundation.ts
-    notes: Step runtime; publishes artifacts via deps.artifacts.* and calls runFoundationStage (producer).
+    notes: Stage-owned artifact contracts for Foundation outputs (mesh/crust/plateGraph/tectonics/plates).
+  - path: /src/recipes/standard/stages/foundation/steps/*.contract.ts
+    notes: Step contracts; `artifacts.requires/provides` are explicit and step-local.
+  - path: /src/recipes/standard/stages/foundation/steps/*.ts
+    notes: Step runtimes; orchestration-only, publishing via `deps.artifacts.*`.
 
   # Foundation domain module (current state is not ops-first)
   - path: /src/domain/foundation/index.ts
-    notes: Domain entrypoint (`defineDomain({ id: \"foundation\", ops })`); exports types; ops router currently empty.
+    notes: Domain entrypoint (`defineDomain({ id: \"foundation\", ops })`); ops router is the authoritative surface.
   - path: /src/domain/foundation/ops/contracts.ts
-    notes: Empty op contract router (no declared ops).
+    notes: Op contract router (declared, contract-first ops).
   - path: /src/domain/foundation/ops/index.ts
-    notes: Empty op implementations router (no implementations).
+    notes: Op implementations router (createOp + strategies; ops are pure input+config).
   - path: /src/domain/foundation/ops.ts
     notes: createDomain(domain, implementations) wrapper; runtime ops surface exists but is empty.
   - path: /src/domain/foundation/plates.ts
@@ -570,39 +568,78 @@ For each step:
 
 ```yaml
 steps:
-  - id: foundation/foundation
-    title: "Publish Foundation mesh/plates + snapshots"
+  - id: foundation/mesh
+    title: "Generate canonical mesh"
     current:
       requires:
         artifacts: []
         buffers: []
         overlays: []
       provides:
-        artifacts:
-          - artifact:foundation.plates
-          - artifact:foundation.dynamics
-          - artifact:foundation.seed
-          - artifact:foundation.diagnostics
-          - artifact:foundation.config
+        artifacts: [artifact:foundation.mesh]
         buffers: []
         overlays: []
-    target:
+    target: { requires: { artifacts: [], buffers: [], overlays: [] }, provides: { artifacts: [artifact:foundation.mesh], buffers: [], overlays: [] } }
+    consumers: [foundation/crust, foundation/plate-graph, foundation/tectonics, foundation/projection]
+    notes: "Canonical substrate; wrapX is implied and encoded via mesh.wrapWidth (no entry/runtime toggles)."
+
+  - id: foundation/crust
+    title: "Generate canonical crust"
+    current:
       requires:
-        artifacts: []
+        artifacts: [artifact:foundation.mesh]
         buffers: []
         overlays: []
       provides:
-        artifacts:
-          - artifact:foundation.mesh
-          - artifact:foundation.crust
-          - artifact:foundation.plateGraph
-          - artifact:foundation.tectonics
-          - artifact:foundation.plates
-          - artifact:foundation.seed
-          - artifact:foundation.diagnostics
-          - artifact:foundation.config
+        artifacts: [artifact:foundation.crust]
         buffers: []
         overlays: []
+    target: { requires: { artifacts: [artifact:foundation.mesh], buffers: [], overlays: [] }, provides: { artifacts: [artifact:foundation.crust], buffers: [], overlays: [] } }
+    consumers: [foundation/plate-graph, foundation/tectonics]
+    notes: "Model-first placeholder until crust becomes a consumer input; remains deterministic and shape-correct."
+
+  - id: foundation/plate-graph
+    title: "Assign plates and plate kinematics (mesh-first)"
+    current:
+      requires:
+        artifacts: [artifact:foundation.mesh, artifact:foundation.crust]
+        buffers: []
+        overlays: []
+      provides:
+        artifacts: [artifact:foundation.plateGraph]
+        buffers: []
+        overlays: []
+    target: { requires: { artifacts: [artifact:foundation.mesh, artifact:foundation.crust], buffers: [], overlays: [] }, provides: { artifacts: [artifact:foundation.plateGraph], buffers: [], overlays: [] } }
+    consumers: [foundation/tectonics, foundation/projection]
+    notes: "Plate assignment uses wrap-aware mesh-space distances (wrapWidth)."
+
+  - id: foundation/tectonics
+    title: "Compute tectonic boundary fields (mesh-first)"
+    current:
+      requires:
+        artifacts: [artifact:foundation.mesh, artifact:foundation.crust, artifact:foundation.plateGraph]
+        buffers: []
+        overlays: []
+      provides:
+        artifacts: [artifact:foundation.tectonics]
+        buffers: []
+        overlays: []
+    target: { requires: { artifacts: [artifact:foundation.mesh, artifact:foundation.crust, artifact:foundation.plateGraph], buffers: [], overlays: [] }, provides: { artifacts: [artifact:foundation.tectonics], buffers: [], overlays: [] } }
+    consumers: [foundation/projection]
+    notes: "Tectonic vector math is wrap-aware via mesh.wrapWidth."
+
+  - id: foundation/projection
+    title: "Project canonical artifacts to tile-indexed tensors (compat surface)"
+    current:
+      requires:
+        artifacts: [artifact:foundation.mesh, artifact:foundation.plateGraph, artifact:foundation.tectonics]
+        buffers: []
+        overlays: []
+      provides:
+        artifacts: [artifact:foundation.plates]
+        buffers: []
+        overlays: []
+    target: { requires: { artifacts: [artifact:foundation.mesh, artifact:foundation.plateGraph, artifact:foundation.tectonics], buffers: [], overlays: [] }, provides: { artifacts: [artifact:foundation.plates], buffers: [], overlays: [] } }
     consumers:
       - morphology-pre/landmass-plates
       - morphology-mid/rugged-coasts
@@ -610,8 +647,7 @@ steps:
       - narrative-mid/story-orogeny
       - morphology-post/mountains
       - morphology-post/volcanoes
-      - hydrology-post/climate-refine (dynamics)
-    notes: "Current orchestration is monolithic producer (not contract-first ops). Hydrology owns winds/currents in target."
+    notes: "Tile tensors are projections only; no parallel tile-first plate computation exists."
 
   - id: morphology-pre/landmass-plates
     title: "Landmass generation (plate-driven)"
@@ -686,7 +722,7 @@ steps:
     title: "Story motifs: orogeny belts"
     current:
       requires:
-        artifacts: [artifact:foundation.plates, artifact:foundation.dynamics]
+        artifacts: [artifact:foundation.plates]
         buffers: []
         overlays: [artifact:storyOverlays]
       provides:
@@ -695,7 +731,7 @@ steps:
         overlays: [artifact:storyOverlays]
     target:
       requires:
-        artifacts: [artifact:foundation.plates, artifact:foundation.dynamics]
+        artifacts: [artifact:foundation.plates]
         buffers: []
         overlays: [artifact:storyOverlays]
       provides:
@@ -703,7 +739,7 @@ steps:
         buffers: []
         overlays: [artifact:storyOverlays]
     consumers: []
-    notes: "Consumes plates+dynamics; appends orogeny motifs into overlays."
+    notes: "Consumes plates; appends orogeny motifs into overlays."
 
   - id: narrative-swatches/story-swatches
     title: "Story overlays: climate swatches (hydrology-facing)"
@@ -730,7 +766,7 @@ steps:
     title: "Post-rivers climate refinement (earthlike)"
     current:
       requires:
-        artifacts: [artifact:foundation.dynamics, artifact:riverAdjacency]
+        artifacts: [artifact:windField, artifact:riverAdjacency]
         buffers: [artifact:heightfield, artifact:climateField]
         overlays: [artifact:storyOverlays]
       provides:
@@ -739,7 +775,7 @@ steps:
         overlays: []
     target:
       requires:
-        artifacts: [artifact:foundation.dynamics, artifact:riverAdjacency]
+        artifacts: [artifact:windField, artifact:riverAdjacency]
         buffers: [artifact:heightfield, artifact:climateField]
         overlays: [artifact:storyOverlays]
       provides:
@@ -747,7 +783,7 @@ steps:
         buffers: []
         overlays: []
     consumers: []
-    notes: "Refinement logic reads dynamics via assertFoundationDynamics(ctx, ...)."
+    notes: "Refinement logic reads winds via hydrology-pre `artifact:windField` (Hydrology-owned)."
 
   - id: morphology-post/mountains
     title: "Mountains placement (plate-aware physics)"
@@ -821,10 +857,10 @@ This list prevents “silent assumptions” from becoming accidental architectur
 - **Current contract surface:** `@mapgen/domain/foundation/constants.js` (backs onto `mods/mod-swooper-maps/src/domain/foundation/constants.ts`); treat this as stable for consumers.
 - **Trigger to revisit:** Only when Morphology refactor lands and no longer needs boundary constants from Foundation.
 
-### Default: Foundation trace artifacts are non-canonical
-- **Context:** `foundation.seed/config/diagnostics` are useful for replay/forensics but are not part of the physical model.
-- **Choice:** Keep them **trace-only** (non-required by downstream step contracts; never used as modeling inputs).
-- **Trigger to revisit:** Only if a trace artifact becomes a first-class, independently testable product with stable I/O that multiple steps/tools consume.
+### Default: Foundation trace artifacts do not exist
+- **Context:** Trace payloads should not be published as artifacts; they are not physical model outputs and they couple consumers to debugging surfaces.
+- **Choice:** Keep debug/forensics in step-level tracing/logging only; do not publish `foundation.seed`/`foundation.diagnostics`/`foundation.config` artifacts.
+- **Trigger to revisit:** Only if we introduce an explicit, independently testable debugging product with stable I/O and clear ownership (requires ADR).
 
 ### Default: Typed-array schemas are explicit (not `Type.Any`)
 - **Context:** Current artifact contracts use permissive `Type.Any()` while runtime validators enforce typed arrays.

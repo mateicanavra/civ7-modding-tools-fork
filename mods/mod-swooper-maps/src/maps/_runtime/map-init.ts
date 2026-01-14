@@ -107,15 +107,13 @@ function resolveMapInitDataWithAdapter(
     );
   }
 
-  const baseParams = initParams ? { ...initParams } : {};
+  const baseParams = initParams ?? {};
   const params: MapInitParams = {
     ...baseParams,
     width: resolvedWidth,
     height: resolvedHeight,
     topLatitude: resolvedTopLatitude,
     bottomLatitude: resolvedBottomLatitude,
-    wrapX: initParams?.wrapX ?? true,
-    wrapY: initParams?.wrapY ?? false,
   };
 
   return { mapSizeId, mapInfo, params };

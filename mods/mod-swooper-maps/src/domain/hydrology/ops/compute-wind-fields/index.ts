@@ -1,16 +1,9 @@
 import { clampInt, idx } from "@swooper/mapgen-core";
 import { createOp } from "@swooper/mapgen-core/authoring";
-import type { LabelRng } from "@swooper/mapgen-core/lib/rng";
+import { createLabelRng } from "@swooper/mapgen-core/lib/rng";
 
 import ComputeWindFieldsContract from "./contract.js";
 import type { ComputeWindFieldsConfig } from "./contract.js";
-
-function requireRng(rng: LabelRng | undefined, scope: string): LabelRng {
-  if (!rng) {
-    throw new Error(`[Hydrology] RNG not provided for ${scope}.`);
-  }
-  return rng;
-}
 
 function requireLatitudeByRow(value: unknown, height: number): Float32Array {
   if (!(value instanceof Float32Array) || value.length !== height) {
@@ -32,7 +25,7 @@ function computeWinds(
   height: number,
   config: ComputeWindFieldsConfig,
   latitudeByRow: Float32Array,
-  rng: LabelRng
+  rng: (max: number, label?: string) => number
 ): { windU: Int8Array; windV: Int8Array } {
   const size = width * height;
   const windU = new Int8Array(size);
@@ -122,24 +115,22 @@ const computeWindFields = createOp(ComputeWindFieldsContract, {
       run: (input, config) => {
         const width = input.width | 0;
         const height = input.height | 0;
-        const rng = requireRng(
-          input.rng as unknown as LabelRng | undefined,
-          "hydrology/compute-wind-fields"
-        );
+        const rngSeed = input.rngSeed | 0;
+        const rng = createLabelRng(rngSeed);
         const latitudeByRow = requireLatitudeByRow(input.latitudeByRow, height);
         const isWaterMask = requireWaterMask(input.isWaterMask, width, height);
 
         const { windU, windV } = computeWinds(
           width,
           height,
-          config as unknown as ComputeWindFieldsConfig,
+          config,
           latitudeByRow,
           rng
         );
         const { currentU, currentV } = computeCurrents(width, height, latitudeByRow, isWaterMask);
 
         return {
-          wind: Object.freeze({ windU, windV, currentU, currentV }),
+          wind: { windU, windV, currentU, currentV },
         } as const;
       },
     },

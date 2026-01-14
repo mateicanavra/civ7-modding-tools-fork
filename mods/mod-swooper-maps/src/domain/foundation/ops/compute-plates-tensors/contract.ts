@@ -7,38 +7,30 @@ import { FoundationTectonicsSchema } from "../compute-tectonics/contract.js";
 
 const StrategySchema = Type.Object(
   {
-    boundaryInfluenceDistance: Type.Optional(
-      Type.Integer({
-        default: 5,
-        minimum: 1,
-        maximum: 32,
-        description: "Tile-distance influence radius for boundary closeness.",
-      })
-    ),
-    boundaryDecay: Type.Optional(
-      Type.Number({
-        default: 0.55,
-        minimum: 0.05,
-        maximum: 1,
-        description: "Exponential decay applied to boundary closeness by distance.",
-      })
-    ),
-    movementScale: Type.Optional(
-      Type.Number({
-        default: 100,
-        minimum: 1,
-        maximum: 200,
-        description: "Scale factor mapping plate velocity to int8 tile fields.",
-      })
-    ),
-    rotationScale: Type.Optional(
-      Type.Number({
-        default: 100,
-        minimum: 1,
-        maximum: 200,
-        description: "Scale factor mapping plate rotation to int8 tile fields.",
-      })
-    ),
+    boundaryInfluenceDistance: Type.Integer({
+      default: 5,
+      minimum: 1,
+      maximum: 32,
+      description: "Tile-distance influence radius for boundary closeness.",
+    }),
+    boundaryDecay: Type.Number({
+      default: 0.55,
+      minimum: 0.05,
+      maximum: 1,
+      description: "Exponential decay applied to boundary closeness by distance.",
+    }),
+    movementScale: Type.Number({
+      default: 100,
+      minimum: 1,
+      maximum: 200,
+      description: "Scale factor mapping plate velocity to int8 tile fields.",
+    }),
+    rotationScale: Type.Number({
+      default: 100,
+      minimum: 1,
+      maximum: 200,
+      description: "Scale factor mapping plate rotation to int8 tile fields.",
+    }),
   },
   { additionalProperties: false }
 );
@@ -53,7 +45,6 @@ const ComputePlatesTensorsContract = defineOp({
       mesh: FoundationMeshSchema,
       plateGraph: FoundationPlateGraphSchema,
       tectonics: FoundationTectonicsSchema,
-      trace: Type.Optional(Type.Any()),
     },
     { additionalProperties: false }
   ),
@@ -74,8 +65,6 @@ const ComputePlatesTensorsContract = defineOp({
         },
         { additionalProperties: false }
       ),
-      plateSeed: Type.Any(),
-      diagnostics: Type.Any(),
     },
     { additionalProperties: false }
   ),

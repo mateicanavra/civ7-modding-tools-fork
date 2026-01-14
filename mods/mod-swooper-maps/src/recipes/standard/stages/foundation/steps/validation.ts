@@ -1,9 +1,5 @@
 import type { MapDimensions } from "@civ7/adapter";
-import {
-  validateFoundationDiagnosticsArtifact,
-  validateFoundationPlatesArtifact,
-  validateFoundationSeedArtifact,
-} from "@swooper/mapgen-core";
+import { validateFoundationPlatesArtifact } from "@swooper/mapgen-core";
 
 export type ArtifactValidationIssue = Readonly<{ message: string }>;
 
@@ -38,6 +34,7 @@ export function validateMeshArtifact(value: unknown): void {
   }
   const mesh = value as {
     cellCount?: number;
+    wrapWidth?: number;
     siteX?: unknown;
     siteY?: unknown;
     neighborsOffsets?: unknown;
@@ -47,6 +44,9 @@ export function validateMeshArtifact(value: unknown): void {
   const cellCount = typeof mesh.cellCount === "number" ? (mesh.cellCount | 0) : 0;
   if (cellCount <= 0) {
     throw new Error("[FoundationArtifact] Invalid foundation mesh cellCount.");
+  }
+  if (typeof mesh.wrapWidth !== "number" || !Number.isFinite(mesh.wrapWidth) || mesh.wrapWidth <= 0) {
+    throw new Error("[FoundationArtifact] Invalid foundation mesh.wrapWidth.");
   }
   if (!(mesh.siteX instanceof Float32Array) || mesh.siteX.length !== cellCount) {
     throw new Error("[FoundationArtifact] Invalid foundation mesh.siteX.");
@@ -123,5 +123,3 @@ export function validateTectonicsArtifact(value: unknown): void {
 }
 
 export const validatePlatesArtifact = validateFoundationPlatesArtifact;
-export const validateSeedArtifact = validateFoundationSeedArtifact;
-export const validateDiagnosticsArtifact = validateFoundationDiagnosticsArtifact;

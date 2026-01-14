@@ -19,7 +19,6 @@ export default createStep(TectonicsStepContract, {
         mesh,
         crust,
         plateGraph,
-        trace: context.trace,
       },
       config.computeTectonics
     );

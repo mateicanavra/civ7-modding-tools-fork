@@ -40,14 +40,12 @@ export function wireStandardMapEntry({
   engine.on("GenerateMap", () => {
     try {
       const init = mapInitData ?? resolveMapInitData(options);
-      const { width, height, topLatitude, bottomLatitude, wrapX, wrapY } = init.params;
+      const { width, height, topLatitude, bottomLatitude } = init.params;
       if (
         width == null ||
         height == null ||
         topLatitude == null ||
-        bottomLatitude == null ||
-        wrapX == null ||
-        wrapY == null
+        bottomLatitude == null
       ) {
         const prefix = options.logPrefix || "[SWOOPER_MOD]";
         throw new Error(`${prefix} Missing required map init params.`);
@@ -59,10 +57,6 @@ export function wireStandardMapEntry({
         latitudeBounds: {
           topLatitude,
           bottomLatitude,
-        },
-        wrap: {
-          wrapX,
-          wrapY,
         },
       };
 

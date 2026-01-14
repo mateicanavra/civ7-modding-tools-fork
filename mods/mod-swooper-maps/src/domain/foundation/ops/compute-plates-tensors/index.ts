@@ -1,8 +1,6 @@
 import { createOp } from "@swooper/mapgen-core/authoring";
-import { devLogIf } from "@swooper/mapgen-core";
-import type { TraceScope } from "@swooper/mapgen-core";
 
-import { projectPlatesFromModel } from "../../projections.js";
+import { projectPlatesFromModel } from "../../lib/project-plates.js";
 import type { FoundationMesh } from "../compute-mesh/contract.js";
 import type { FoundationPlateGraph } from "../compute-plate-graph/contract.js";
 import type { FoundationTectonics } from "../compute-tectonics/contract.js";
@@ -19,6 +17,9 @@ function requireMesh(mesh: FoundationMesh | undefined): FoundationMesh {
   }
   if (!(mesh.siteY instanceof Float32Array) || mesh.siteY.length !== cellCount) {
     throw new Error("[Foundation] Invalid mesh.siteY for plate projection.");
+  }
+  if (typeof mesh.wrapWidth !== "number" || !Number.isFinite(mesh.wrapWidth) || mesh.wrapWidth <= 0) {
+    throw new Error("[Foundation] Invalid mesh.wrapWidth for plate projection.");
   }
   return mesh;
 }
@@ -58,7 +59,6 @@ const computePlatesTensors = createOp(ComputePlatesTensorsContract, {
       run: (input, config) => {
         const width = input.width | 0;
         const height = input.height | 0;
-        const trace = (input.trace ?? null) as TraceScope | null;
         const mesh = requireMesh(input.mesh as unknown as FoundationMesh | undefined);
         const plateGraph = requirePlateGraph(input.plateGraph as unknown as FoundationPlateGraph | undefined, mesh.cellCount | 0);
         const tectonics = requireTectonics(input.tectonics as unknown as FoundationTectonics | undefined, mesh.cellCount | 0);
@@ -68,14 +68,7 @@ const computePlatesTensors = createOp(ComputePlatesTensorsContract, {
         const movementScale = config.movementScale;
         const rotationScale = config.rotationScale;
 
-        devLogIf(
-          trace,
-          "LOG_FOUNDATION_PLATES",
-          `[Foundation] Plate projection boundaryDistance=${boundaryInfluenceDistance}, decay=${boundaryDecay}, ` +
-            `movementScale=${movementScale}, rotationScale=${rotationScale}`
-        );
-
-        const { plates, diagnostics } = projectPlatesFromModel({
+        const { plates } = projectPlatesFromModel({
           width,
           height,
           mesh,
@@ -87,21 +80,8 @@ const computePlatesTensors = createOp(ComputePlatesTensorsContract, {
           rotationScale,
         });
 
-        const plateSeed = Object.freeze({
-          width,
-          height,
-          seedMode: "engine" as const,
-          seedLocations: plateGraph.plates.map((plate, id) => ({
-            id,
-            x: plate.seedX ?? 0,
-            y: plate.seedY ?? 0,
-          })),
-        });
-
         return {
           plates,
-          plateSeed,
-          diagnostics,
         } as const;
       },
     },

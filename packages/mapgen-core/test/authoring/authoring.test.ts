@@ -29,7 +29,6 @@ describe("authoring SDK", () => {
     seed: 42,
     dimensions: { width: 2, height: 2 },
     latitudeBounds: { topLatitude: 90, bottomLatitude: -90 },
-    wrap: { wrapX: true, wrapY: false },
   };
   const EmptyKnobsSchema = Type.Object({}, { additionalProperties: false, default: {} });
 

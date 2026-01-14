@@ -40,7 +40,6 @@ describe("pipeline tracing", () => {
           seed: 123,
           dimensions: { width: 4, height: 3 },
           latitudeBounds: { topLatitude: 80, bottomLatitude: -80 },
-          wrap: { wrapX: true, wrapY: false },
           trace: { enabled: true },
         },
       },
@@ -115,7 +114,6 @@ describe("pipeline tracing", () => {
           seed: 123,
           dimensions: { width: 4, height: 3 },
           latitudeBounds: { topLatitude: 80, bottomLatitude: -80 },
-          wrap: { wrapX: true, wrapY: false },
           trace: { steps: { alpha: "verbose", beta: "off" } },
         },
       },
@@ -148,7 +146,6 @@ describe("pipeline tracing", () => {
       seed: 5,
       dimensions: { width: 4, height: 3 },
       latitudeBounds: { topLatitude: 45, bottomLatitude: -45 },
-      wrap: { wrapX: true, wrapY: false },
       trace: { enabled: true },
     };
     const ctx = createExtendedMapContext({ width: 4, height: 3 }, adapter, env);

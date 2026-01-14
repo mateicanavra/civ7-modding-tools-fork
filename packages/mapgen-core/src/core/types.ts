@@ -103,36 +103,6 @@ export interface StoryOverlayRegistry {
   motifs: StoryOverlaySnapshot[];
 }
 
-// ============================================================================
-// Foundation Context Types
-// ============================================================================
-
-/**
- * RNG state snapshot (seed capture metadata).
- */
-export interface SeedRngState {
-  state?: bigint | number;
-  inc?: bigint | number;
-  [key: string]: unknown;
-}
-
-/**
- * Seed capture snapshot (foundation seed metadata).
- */
-export interface SeedSnapshot {
-  width: number;
-  height: number;
-  seedMode: "engine" | "fixed";
-  seedOffset?: number;
-  fixedSeed?: number;
-  timestamp?: number;
-  seed?: number;
-  rngState?: Readonly<SeedRngState>;
-  config?: Readonly<Record<string, unknown>>;
-  seedLocations?: ReadonlyArray<{ id: number; x: number; y: number }>;
-  sites?: ReadonlyArray<{ id: number; x: number; y: number }>;
-}
-
 /**
  * Plate-centric tensors emitted by the foundation stage.
  */
@@ -149,20 +119,11 @@ export interface FoundationPlateFields {
   rotation: Int8Array;
 }
 
-/**
- * Diagnostics payload accompanying the foundation tensors.
- */
-export interface FoundationDiagnosticsFields {
-  boundaryTree: unknown | null;
-}
-
 export const FOUNDATION_PLATES_ARTIFACT_TAG = "artifact:foundation.plates";
 export const FOUNDATION_MESH_ARTIFACT_TAG = "artifact:foundation.mesh";
 export const FOUNDATION_CRUST_ARTIFACT_TAG = "artifact:foundation.crust";
 export const FOUNDATION_PLATE_GRAPH_ARTIFACT_TAG = "artifact:foundation.plateGraph";
 export const FOUNDATION_TECTONICS_ARTIFACT_TAG = "artifact:foundation.tectonics";
-export const FOUNDATION_SEED_ARTIFACT_TAG = "artifact:foundation.seed";
-export const FOUNDATION_DIAGNOSTICS_ARTIFACT_TAG = "artifact:foundation.diagnostics";
 
 /**
  * Store of published artifacts keyed by dependency tag id.
@@ -449,31 +410,6 @@ export function validateFoundationPlatesArtifact(
   ensureTensor("plateMovementU", plates.movementU, size);
   ensureTensor("plateMovementV", plates.movementV, size);
   ensureTensor("plateRotation", plates.rotation, size);
-}
-
-
-export function validateFoundationSeedArtifact(
-  value: unknown,
-  dimensions: MapDimensions
-): asserts value is SeedSnapshot {
-  if (!value || typeof value !== "object") {
-    throw new Error("[FoundationArtifact] Missing foundation seed artifact payload.");
-  }
-  const seed = value as SeedSnapshot;
-  const width = dimensions.width | 0;
-  const height = dimensions.height | 0;
-  if ((seed.width | 0) !== width || (seed.height | 0) !== height) {
-    throw new Error(
-      `[FoundationArtifact] Seed snapshot dimensions mismatch (expected ${width}x${height}, received ${seed.width}x${seed.height}).`
-    );
-  }
-}
-
-export function validateFoundationDiagnosticsArtifact(value: unknown): asserts value is FoundationDiagnosticsFields {
-  if (!value || typeof value !== "object") {
-    throw new Error("[FoundationArtifact] Missing foundation diagnostics artifact payload.");
-  }
-  // boundaryTree is intentionally untyped/optional (diagnostics-only).
 }
 // ============================================================================
 // Sync Functions

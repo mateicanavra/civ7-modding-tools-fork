@@ -20,7 +20,6 @@ const baseEnv = {
   seed: 123,
   dimensions: { width: 10, height: 10 },
   latitudeBounds: { topLatitude: 80, bottomLatitude: -80 },
-  wrap: { wrapX: true, wrapY: false },
 };
 
 describe("compileExecutionPlan", () => {

@@ -10,7 +10,7 @@ const ProjectionStepContract = defineStep({
   provides: [],
   artifacts: {
     requires: [foundationArtifacts.mesh, foundationArtifacts.plateGraph, foundationArtifacts.tectonics],
-    provides: [foundationArtifacts.plates, foundationArtifacts.seed, foundationArtifacts.diagnostics],
+    provides: [foundationArtifacts.plates],
   },
   ops: {
     computePlates: foundation.ops.computePlatesTensors,

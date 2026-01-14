@@ -17,7 +17,6 @@ const baseEnv = {
   seed: 0,
   dimensions: { width: 4, height: 3 },
   latitudeBounds: { topLatitude: 0, bottomLatitude: 0 },
-  wrap: { wrapX: false, wrapY: false },
 };
 
 function compilePlan<TContext>(

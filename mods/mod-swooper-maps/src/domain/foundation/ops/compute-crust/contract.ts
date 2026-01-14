@@ -1,10 +1,18 @@
 import { TypedArraySchemas, Type, defineOp } from "@swooper/mapgen-core/authoring";
 import type { Static } from "@swooper/mapgen-core/authoring";
-
-import type { RngFunction } from "../../types.js";
 import { FoundationMeshSchema } from "../compute-mesh/contract.js";
 
-const StrategySchema = Type.Object({}, { additionalProperties: false });
+const StrategySchema = Type.Object(
+  {
+    continentalRatio: Type.Number({
+      default: 0.3,
+      minimum: 0,
+      maximum: 1,
+      description: "Fraction of cells assigned continental crust (remainder = oceanic).",
+    }),
+  },
+  { additionalProperties: false }
+);
 
 export const FoundationCrustSchema = Type.Object(
   {
@@ -26,8 +34,11 @@ const ComputeCrustContract = defineOp({
   input: Type.Object(
     {
       mesh: FoundationMeshSchema,
-      rng: Type.Unsafe<RngFunction>({ description: "Deterministic RNG wrapper (typically ctxRandom)." }),
-      trace: Type.Optional(Type.Any()),
+      rngSeed: Type.Integer({
+        minimum: 0,
+        maximum: 2_147_483_647,
+        description: "Deterministic RNG seed (derived in the step; pure data).",
+      }),
     },
     { additionalProperties: false }
   ),

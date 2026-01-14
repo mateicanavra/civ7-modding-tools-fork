@@ -1,4 +1,4 @@
-import { ctxRandom } from "@swooper/mapgen-core";
+import { ctxRandom, ctxRandomLabel } from "@swooper/mapgen-core";
 import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import { foundationArtifacts } from "../artifacts.js";
 import PlateGraphStepContract from "./plateGraph.contract.js";
@@ -13,14 +13,14 @@ export default createStep(PlateGraphStepContract, {
   run: (context, config, ops, deps) => {
     const mesh = deps.artifacts.foundationMesh.read(context);
     const crust = deps.artifacts.foundationCrust.read(context);
-    const rng = (max: number, label = "Foundation") => ctxRandom(context, label, max);
+    const stepId = `${PlateGraphStepContract.phase}/${PlateGraphStepContract.id}`;
+    const rngSeed = ctxRandom(context, ctxRandomLabel(stepId, "foundation/compute-plate-graph"), 2_147_483_647);
 
     const plateGraphResult = ops.computePlateGraph(
       {
         mesh,
         crust,
-        rng,
-        trace: context.trace,
+        rngSeed,
       },
       config.computePlateGraph
     );

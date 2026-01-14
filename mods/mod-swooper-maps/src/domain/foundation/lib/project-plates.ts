@@ -1,24 +1,20 @@
-import type { FoundationMesh } from "./ops/compute-mesh/contract.js";
-import type { FoundationPlateGraph } from "./ops/compute-plate-graph/contract.js";
-import type { FoundationTectonics } from "./ops/compute-tectonics/contract.js";
-import { BOUNDARY_TYPE } from "./constants.js";
+import { forEachHexNeighborOddQ, projectOddqToHexSpace } from "@swooper/mapgen-core/lib/grid";
+import { wrapAbsDeltaPeriodic } from "@swooper/mapgen-core/lib/math";
 
-const HEX_WIDTH = Math.sqrt(3);
-const HEX_HEIGHT = 1.5;
-const HALF_HEX_HEIGHT = HEX_HEIGHT / 2;
-
-function projectToHexSpace(x: number, y: number): { px: number; py: number } {
-  const px = x * HEX_WIDTH;
-  const py = y * HEX_HEIGHT + ((Math.floor(x) & 1) ? HALF_HEX_HEIGHT : 0);
-  return { px, py };
-}
+import type { FoundationMesh } from "../ops/compute-mesh/contract.js";
+import type { FoundationPlateGraph } from "../ops/compute-plate-graph/contract.js";
+import type { FoundationTectonics } from "../ops/compute-tectonics/contract.js";
+import { BOUNDARY_TYPE } from "../constants.js";
 
 function hexDistanceSq(
-  a: { px: number; py: number },
-  b: { px: number; py: number }
+  ax: number,
+  ay: number,
+  bx: number,
+  by: number,
+  wrapWidth: number
 ): number {
-  const dx = a.px - b.px;
-  const dy = a.py - b.py;
+  const dx = wrapAbsDeltaPeriodic(ax - bx, wrapWidth);
+  const dy = ay - by;
   return dx * dx + dy * dy;
 }
 
@@ -30,46 +26,7 @@ function clampInt8(value: number): number {
   return Math.max(-127, Math.min(127, Math.round(value))) | 0;
 }
 
-interface HexNeighbor {
-  x: number;
-  y: number;
-  i: number;
-}
-
-function getHexNeighbors(x: number, y: number, width: number, height: number): HexNeighbor[] {
-  const neighbors: HexNeighbor[] = [];
-  const isOddCol = (x & 1) === 1;
-  const offsets = isOddCol
-    ? [
-        [-1, 0],
-        [1, 0],
-        [0, -1],
-        [0, 1],
-        [-1, 1],
-        [1, 1],
-      ]
-    : [
-        [-1, 0],
-        [1, 0],
-        [0, -1],
-        [0, 1],
-        [-1, -1],
-        [1, -1],
-      ];
-
-  for (const [dx, dy] of offsets) {
-    const nx = x + dx;
-    const ny = y + dy;
-    const wrappedX = ((nx % width) + width) % width;
-    if (ny >= 0 && ny < height) {
-      neighbors.push({ x: wrappedX, y: ny, i: ny * width + wrappedX });
-    }
-  }
-
-  return neighbors;
-}
-
-function computeDistanceField(
+function computeHexWrappedDistanceField(
   isBoundary: Uint8Array,
   width: number,
   height: number,
@@ -89,64 +46,22 @@ function computeDistanceField(
 
   let head = 0;
   while (head < queue.length) {
-    const i = queue[head++];
-    const d = distance[i];
+    const i = queue[head++]!;
+    const d = distance[i]!;
     if (d >= maxDistance) continue;
 
     const x = i % width;
     const y = Math.floor(i / width);
-    const neighbors = getHexNeighbors(x, y, width, height);
-
-    for (const n of neighbors) {
-      if (distance[n.i] > d + 1) {
-        distance[n.i] = d + 1;
-        queue.push(n.i);
+    forEachHexNeighborOddQ(x, y, width, height, (nx, ny) => {
+      const ni = ny * width + nx;
+      if (distance[ni]! > d + 1) {
+        distance[ni] = (d + 1) as number;
+        queue.push(ni);
       }
-    }
+    });
   }
 
   return distance;
-}
-
-function summarizeBoundaryCoverage(
-  isBoundary: Uint8Array,
-  boundaryCloseness: Uint8Array
-): {
-  boundaryTileShare: number;
-  boundaryInfluenceShare: number;
-  avgCloseness: number;
-  avgInfluenceCloseness: number;
-  maxCloseness: number;
-  boundaryTiles: number;
-  influencedTiles: number;
-  totalTiles: number;
-} {
-  const size = isBoundary.length || 1;
-  let boundaryTiles = 0;
-  let influencedTiles = 0;
-  let closenessSum = 0;
-  let closenessInfluencedSum = 0;
-  let maxCloseness = 0;
-
-  for (let i = 0; i < size; i++) {
-    if (isBoundary[i]) boundaryTiles++;
-    const c = boundaryCloseness[i] | 0;
-    if (c > 0) influencedTiles++;
-    closenessSum += c;
-    if (c > 0) closenessInfluencedSum += c;
-    if (c > maxCloseness) maxCloseness = c;
-  }
-
-  return {
-    boundaryTileShare: boundaryTiles / size,
-    boundaryInfluenceShare: influencedTiles / size,
-    avgCloseness: closenessSum / size,
-    avgInfluenceCloseness: influencedTiles > 0 ? closenessInfluencedSum / influencedTiles : 0,
-    maxCloseness,
-    boundaryTiles,
-    influencedTiles,
-    totalTiles: size,
-  };
 }
 
 export function projectPlatesFromModel(input: {
@@ -172,7 +87,6 @@ export function projectPlatesFromModel(input: {
     movementV: Int8Array;
     rotation: Int8Array;
   };
-  diagnostics: { boundaryStats: ReturnType<typeof summarizeBoundaryCoverage> };
 } {
   const width = input.width | 0;
   const height = input.height | 0;
@@ -182,13 +96,9 @@ export function projectPlatesFromModel(input: {
   const tectonics = input.tectonics;
 
   const cellCount = mesh.cellCount | 0;
-  const meshHexX = new Float32Array(cellCount);
-  const meshHexY = new Float32Array(cellCount);
-  for (let i = 0; i < cellCount; i++) {
-    const hex = projectToHexSpace(mesh.siteX[i] ?? 0, mesh.siteY[i] ?? 0);
-    meshHexX[i] = Math.fround(hex.px);
-    meshHexY[i] = Math.fround(hex.py);
-  }
+  const wrapWidth = mesh.wrapWidth;
+  const meshHexX = mesh.siteX;
+  const meshHexY = mesh.siteY;
 
   const plateMovementU = new Int8Array(plateGraph.plates.length);
   const plateMovementV = new Int8Array(plateGraph.plates.length);
@@ -216,12 +126,12 @@ export function projectPlatesFromModel(input: {
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
       const i = y * width + x;
-      const tileHex = projectToHexSpace(x + 0.5, y + 0.5);
+      const tileHex = projectOddqToHexSpace(x + 0.5, y + 0.5);
 
       let bestCell = 0;
       let bestDist = Infinity;
       for (let c = 0; c < cellCount; c++) {
-        const dist = hexDistanceSq(tileHex, { px: meshHexX[c] ?? 0, py: meshHexY[c] ?? 0 });
+        const dist = hexDistanceSq(tileHex.x, tileHex.y, meshHexX[c] ?? 0, meshHexY[c] ?? 0, wrapWidth);
         if (dist < bestDist) {
           bestDist = dist;
           bestCell = c;
@@ -243,19 +153,18 @@ export function projectPlatesFromModel(input: {
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
       const i = y * width + x;
-      const myPlate = plateId[i];
-      const neighbors = getHexNeighbors(x, y, width, height);
-      for (const n of neighbors) {
-        if (plateId[n.i] !== myPlate) {
-          isBoundary[i] = 1;
-          break;
-        }
-      }
+      const myPlate = plateId[i]!;
+      let boundary = false;
+      forEachHexNeighborOddQ(x, y, width, height, (nx, ny) => {
+        const ni = ny * width + nx;
+        if (plateId[ni] !== myPlate) boundary = true;
+      });
+      isBoundary[i] = boundary ? 1 : 0;
     }
   }
 
   const maxDistance = Math.max(1, input.boundaryInfluenceDistance | 0);
-  const distanceField = computeDistanceField(isBoundary, width, height, maxDistance + 1);
+  const distanceField = computeHexWrappedDistanceField(isBoundary, width, height, maxDistance + 1);
   const decay = input.boundaryDecay;
 
   for (let i = 0; i < size; i++) {
@@ -263,7 +172,7 @@ export function projectPlatesFromModel(input: {
     const tectonicBoundary = tectonics.boundaryType[cellId] ?? BOUNDARY_TYPE.none;
     boundaryType[i] = isBoundary[i] ? tectonicBoundary : BOUNDARY_TYPE.none;
 
-    const dist = distanceField[i];
+    const dist = distanceField[i]!;
     if (dist >= maxDistance) {
       boundaryCloseness[i] = 0;
     } else {
@@ -273,17 +182,13 @@ export function projectPlatesFromModel(input: {
     upliftPotential[i] = tectonics.upliftPotential[cellId] ?? 0;
     riftPotential[i] = tectonics.riftPotential[cellId] ?? 0;
     const shear = tectonics.shearStress[cellId] ?? 0;
-    const stress = Math.max(upliftPotential[i], riftPotential[i], shear);
+    const stress = Math.max(upliftPotential[i]!, riftPotential[i]!, shear);
     tectonicStress[i] = clampByte(stress);
-    shieldStability[i] = 255 - boundaryCloseness[i];
+    shieldStability[i] = 255 - boundaryCloseness[i]!;
   }
 
-  const diagnostics = Object.freeze({
-    boundaryStats: summarizeBoundaryCoverage(isBoundary, boundaryCloseness),
-  });
-
   return {
-    plates: Object.freeze({
+    plates: {
       id: plateId,
       boundaryCloseness,
       boundaryType,
@@ -294,7 +199,6 @@ export function projectPlatesFromModel(input: {
       movementU,
       movementV,
       rotation,
-    }),
-    diagnostics,
+    },
   } as const;
 }

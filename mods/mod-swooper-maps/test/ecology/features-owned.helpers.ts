@@ -155,7 +155,6 @@ export function createFeaturesTestContext(options: FeaturesTestContextOptions) {
     seed: 0,
     dimensions: { width, height },
     latitudeBounds: { topLatitude: 0, bottomLatitude: 0 },
-    wrap: { wrapX: false, wrapY: false },
   };
   const ctx = createExtendedMapContext({ width, height }, adapter, env);
 

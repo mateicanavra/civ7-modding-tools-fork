@@ -4,14 +4,6 @@ import computeCrust from "../../src/domain/foundation/ops/compute-crust/index.js
 import computePlateGraph from "../../src/domain/foundation/ops/compute-plate-graph/index.js";
 import computeTectonics from "../../src/domain/foundation/ops/compute-tectonics/index.js";
 
-function createDeterministicRng(seed = 12345) {
-  let state = seed >>> 0;
-  return (max: number) => {
-    state = (state * 1664525 + 1013904223) >>> 0;
-    return max > 0 ? state % max : 0;
-  };
-}
-
 function neighborsFor(mesh: {
   neighborsOffsets: Int32Array;
   neighbors: Int32Array;
@@ -45,8 +37,7 @@ describe("foundation mesh-first ops (slice 2)", () => {
       {
         width,
         height,
-        rng: createDeterministicRng(1),
-        trace: null,
+        rngSeed: 1,
       },
       meshConfig
     );
@@ -55,8 +46,7 @@ describe("foundation mesh-first ops (slice 2)", () => {
       {
         width,
         height,
-        rng: createDeterministicRng(1),
-        trace: null,
+        rngSeed: 1,
       },
       meshConfig
     );
@@ -67,24 +57,32 @@ describe("foundation mesh-first ops (slice 2)", () => {
     expect(first.mesh.areas.length).toBe(first.mesh.cellCount);
     expect(first.mesh.neighborsOffsets.length).toBe(first.mesh.cellCount + 1);
 
+    expect(first.mesh.wrapWidth).toBeGreaterThan(0);
     expect(Array.from(first.mesh.siteX)).toEqual(Array.from(second.mesh.siteX));
     expect(Array.from(first.mesh.siteY)).toEqual(Array.from(second.mesh.siteY));
     expect(Array.from(first.mesh.areas)).toEqual(Array.from(second.mesh.areas));
     expect(Array.from(first.mesh.neighborsOffsets)).toEqual(Array.from(second.mesh.neighborsOffsets));
     expect(Array.from(first.mesh.neighbors)).toEqual(Array.from(second.mesh.neighbors));
 
-    const expectedArea = width * height;
+    const expectedArea =
+      (first.mesh.bbox.xr - first.mesh.bbox.xl) * (first.mesh.bbox.yb - first.mesh.bbox.yt);
     const totalArea = sumAreas(first.mesh.areas);
     expect(Math.abs(totalArea - expectedArea)).toBeLessThan(expectedArea * 0.05);
 
+    let hasSeamNeighbor = false;
     for (let i = 0; i < first.mesh.cellCount; i++) {
       const neighbors = neighborsFor(first.mesh, i);
       for (let j = 0; j < neighbors.length; j++) {
         const n = neighbors[j]!;
         const back = neighborsFor(first.mesh, n);
         expect(Array.from(back)).toContain(i);
+        if (Math.abs((first.mesh.siteX[n] ?? 0) - (first.mesh.siteX[i] ?? 0)) > first.mesh.wrapWidth * 0.5) {
+          hasSeamNeighbor = true;
+        }
       }
     }
+
+    expect(hasSeamNeighbor).toBe(true);
   });
 
   it("compute-crust/compute-plate-graph/compute-tectonics are deterministic and internally consistent", () => {
@@ -104,8 +102,7 @@ describe("foundation mesh-first ops (slice 2)", () => {
       {
         width,
         height,
-        rng: createDeterministicRng(2),
-        trace: null,
+        rngSeed: 2,
       },
       meshConfig
     ).mesh;
@@ -113,8 +110,7 @@ describe("foundation mesh-first ops (slice 2)", () => {
     const crustA = computeCrust.run(
       {
         mesh,
-        rng: createDeterministicRng(3),
-        trace: null,
+        rngSeed: 3,
       },
       computeCrust.defaultConfig
     ).crust;
@@ -122,8 +118,7 @@ describe("foundation mesh-first ops (slice 2)", () => {
     const crustB = computeCrust.run(
       {
         mesh,
-        rng: createDeterministicRng(3),
-        trace: null,
+        rngSeed: 3,
       },
       computeCrust.defaultConfig
     ).crust;
@@ -137,8 +132,7 @@ describe("foundation mesh-first ops (slice 2)", () => {
       {
         mesh,
         crust: crustA,
-        rng: createDeterministicRng(4),
-        trace: null,
+        rngSeed: 4,
       },
       computePlateGraph.defaultConfig
     ).plateGraph;
@@ -147,8 +141,7 @@ describe("foundation mesh-first ops (slice 2)", () => {
       {
         mesh,
         crust: crustA,
-        rng: createDeterministicRng(4),
-        trace: null,
+        rngSeed: 4,
       },
       computePlateGraph.defaultConfig
     ).plateGraph;
@@ -162,7 +155,6 @@ describe("foundation mesh-first ops (slice 2)", () => {
         mesh,
         crust: crustA,
         plateGraph: graphA,
-        trace: null,
       },
       computeTectonics.defaultConfig
     ).tectonics;
@@ -172,7 +164,6 @@ describe("foundation mesh-first ops (slice 2)", () => {
         mesh,
         crust: crustA,
         plateGraph: graphA,
-        trace: null,
       },
       computeTectonics.defaultConfig
     ).tectonics;

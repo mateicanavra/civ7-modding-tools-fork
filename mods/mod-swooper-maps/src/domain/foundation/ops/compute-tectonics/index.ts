@@ -1,6 +1,5 @@
 import { createOp } from "@swooper/mapgen-core/authoring";
-import { devLogIf } from "@swooper/mapgen-core";
-import type { TraceScope } from "@swooper/mapgen-core";
+import { wrapDeltaPeriodic } from "@swooper/mapgen-core/lib/math";
 
 import { BOUNDARY_TYPE } from "../../constants.js";
 import type { BoundaryType } from "../../constants.js";
@@ -26,6 +25,9 @@ function requireMesh(mesh: FoundationMesh | undefined): FoundationMesh {
   }
   if (!(mesh.neighbors instanceof Int32Array)) {
     throw new Error("[Foundation] Invalid mesh.neighbors for tectonics.");
+  }
+  if (typeof mesh.wrapWidth !== "number" || !Number.isFinite(mesh.wrapWidth) || mesh.wrapWidth <= 0) {
+    throw new Error("[Foundation] Invalid mesh.wrapWidth for tectonics.");
   }
   return mesh;
 }
@@ -66,10 +68,9 @@ const computeTectonics = createOp(ComputeTectonicsContract, {
           input.plateGraph as unknown as FoundationPlateGraph | undefined,
           mesh.cellCount | 0
         );
-        const trace = (input.trace ?? null) as TraceScope | null;
 
         const cellCount = mesh.cellCount | 0;
-        devLogIf(trace, "LOG_FOUNDATION_TECTONICS", `[Foundation] Tectonics cellCount=${cellCount}`);
+        const wrapWidth = mesh.wrapWidth;
 
         const boundaryType = new Uint8Array(cellCount);
         const upliftPotential = new Uint8Array(cellCount);
@@ -105,7 +106,7 @@ const computeTectonics = createOp(ComputeTectonicsContract, {
             const bx = mesh.siteX[j] ?? 0;
             const by = mesh.siteY[j] ?? 0;
 
-            const dx = bx - ax;
+            const dx = wrapDeltaPeriodic(bx - ax, wrapWidth);
             const dy = by - ay;
 
             const rvx = (plateB.velocityX ?? 0) - (plateA.velocityX ?? 0);
@@ -145,7 +146,7 @@ const computeTectonics = createOp(ComputeTectonicsContract, {
         }
 
         return {
-          tectonics: Object.freeze({
+          tectonics: {
             boundaryType,
             upliftPotential,
             riftPotential,
@@ -153,7 +154,7 @@ const computeTectonics = createOp(ComputeTectonicsContract, {
             volcanism,
             fracture,
             cumulativeUplift,
-          }),
+          },
         } as const;
       },
     },

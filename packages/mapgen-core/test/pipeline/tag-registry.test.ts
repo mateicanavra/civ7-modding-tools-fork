@@ -33,7 +33,6 @@ const baseEnv = {
   seed: 0,
   dimensions: { width: 2, height: 2 },
   latitudeBounds: { topLatitude: 0, bottomLatitude: 0 },
-  wrap: { wrapX: false, wrapY: false },
 };
 
 const EmptyKnobsSchema = Type.Object({}, { additionalProperties: false, default: {} });

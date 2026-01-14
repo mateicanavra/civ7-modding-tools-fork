@@ -1,5 +1,7 @@
 import { Delaunay } from "d3-delaunay";
+import { createLabelRng } from "@mapgen/lib/rng/label.js";
 import { rollUnit, type RngFn } from "@mapgen/lib/rng/unit.js";
+import { HEX_HEIGHT, HEX_WIDTH } from "@mapgen/lib/grid/hex-space.js";
 
 export type MeshBBox = {
   xl: number;
@@ -10,6 +12,7 @@ export type MeshBBox = {
 
 export type DelaunayMesh = {
   cellCount: number;
+  wrapWidth: number;
   siteX: Float32Array;
   siteY: Float32Array;
   neighborsOffsets: Int32Array;
@@ -23,7 +26,7 @@ export type DelaunayMeshInput = {
   height: number;
   cellCount: number;
   relaxationSteps: number;
-  rng: RngFn;
+  rngSeed: number;
   label?: string;
 };
 
@@ -79,6 +82,25 @@ function normalizePolygon(points: Polygon2D | null | undefined): Polygon2D | nul
   return points;
 }
 
+function wrapToSpan(x: number, span: number): number {
+  if (span <= 0) return x;
+  if (x < 0) return x + span;
+  if (x >= span) return x - span;
+  return x;
+}
+
+function buildExpandedSites(sites: Point2D[], wrapWidth: number): Point2D[] {
+  const count = sites.length;
+  const expanded = new Array<Point2D>(count * 3);
+  for (let i = 0; i < count; i++) {
+    const { x, y } = sites[i]!;
+    expanded[i] = { x: x - wrapWidth, y };
+    expanded[i + count] = { x, y };
+    expanded[i + count * 2] = { x: x + wrapWidth, y };
+  }
+  return expanded;
+}
+
 function buildNeighborsCsr(neighborsBySite: Array<number[]>): {
   offsets: Int32Array;
   values: Int32Array;
@@ -111,24 +133,29 @@ export function buildDelaunayMesh(input: DelaunayMeshInput): DelaunayMesh {
   const relaxationSteps = Math.max(0, input.relaxationSteps | 0);
   const label = input.label ?? "FoundationMesh";
 
-  const bbox: MeshBBox = { xl: 0, xr: width, yt: 0, yb: height };
-  const spanX = Math.max(1e-6, bbox.xr - bbox.xl);
-  const spanY = Math.max(1e-6, bbox.yb - bbox.yt);
+  const labelRng = createLabelRng(input.rngSeed | 0);
+  const rng: RngFn = (max, rngLabel) => labelRng(max, rngLabel);
+
+  const wrapWidth = width * HEX_WIDTH;
+  const spanY = height * HEX_HEIGHT;
+  const bbox: MeshBBox = { xl: 0, xr: wrapWidth, yt: 0, yb: spanY };
+  const spanX = Math.max(1e-6, wrapWidth);
 
   let sites: Point2D[] = Array.from({ length: cellCount }, () => ({ x: 0, y: 0 }));
   for (let i = 0; i < cellCount; i++) {
-    const x = bbox.xl + rollUnit(input.rng, `${label}:x`) * spanX;
-    const y = bbox.yt + rollUnit(input.rng, `${label}:y`) * spanY;
+    const x = rollUnit(rng, `${label}:x`) * spanX;
+    const y = rollUnit(rng, `${label}:y`) * spanY;
     sites[i] = { x, y };
   }
 
   for (let step = 0; step < relaxationSteps; step++) {
-    const delaunay = Delaunay.from(sites, (p) => p.x, (p) => p.y);
-    const voronoi = delaunay.voronoi([bbox.xl, bbox.yt, bbox.xr, bbox.yb]);
+    const expandedSites = buildExpandedSites(sites, wrapWidth);
+    const delaunay = Delaunay.from(expandedSites, (p) => p.x, (p) => p.y);
+    const voronoi = delaunay.voronoi([-wrapWidth, bbox.yt, wrapWidth * 2, bbox.yb]);
     const nextSites: Point2D[] = Array.from({ length: cellCount }, () => ({ x: 0, y: 0 }));
 
     for (let i = 0; i < cellCount; i++) {
-      const polygon = normalizePolygon(voronoi.cellPolygon(i));
+      const polygon = normalizePolygon(voronoi.cellPolygon(i + cellCount));
       if (!polygon) {
         nextSites[i] = sites[i]!;
         continue;
@@ -138,13 +165,17 @@ export function buildDelaunayMesh(input: DelaunayMeshInput): DelaunayMesh {
         nextSites[i] = sites[i]!;
         continue;
       }
-      nextSites[i] = { x: centroid.x, y: centroid.y };
+      nextSites[i] = {
+        x: wrapToSpan(centroid.x, wrapWidth),
+        y: centroid.y,
+      };
     }
 
     sites = nextSites;
   }
 
-  const delaunay = Delaunay.from(sites, (p) => p.x, (p) => p.y);
+  const expandedSites = buildExpandedSites(sites, wrapWidth);
+  const delaunay = Delaunay.from(expandedSites, (p) => p.x, (p) => p.y);
   const voronoi = delaunay.voronoi([bbox.xl, bbox.yt, bbox.xr, bbox.yb]);
 
   const siteX = new Float32Array(cellCount);
@@ -157,26 +188,31 @@ export function buildDelaunayMesh(input: DelaunayMeshInput): DelaunayMesh {
     siteX[i] = Math.fround(site.x);
     siteY[i] = Math.fround(site.y);
 
-    const polygon = normalizePolygon(voronoi.cellPolygon(i));
-    if (polygon) {
-      const area = polygonArea(polygon);
-      areas[i] = Math.fround(Math.abs(area));
-    } else {
-      areas[i] = 0;
-    }
-
     const neighborSet = new Set<number>();
-    for (const neighbor of delaunay.neighbors(i)) {
-      neighborSet.add(neighbor);
+    for (let r = 0; r < 3; r++) {
+      const replica = i + r * cellCount;
+      for (const neighbor of delaunay.neighbors(replica)) {
+        const base = neighbor % cellCount;
+        if (base !== i) neighborSet.add(base);
+      }
     }
     const sorted = Array.from(neighborSet).sort((a, b) => a - b);
     neighborsBySite[i] = sorted;
+
+    let area = 0;
+    for (let r = 0; r < 3; r++) {
+      const polygon = normalizePolygon(voronoi.cellPolygon(i + r * cellCount));
+      if (!polygon) continue;
+      area += Math.abs(polygonArea(polygon));
+    }
+    areas[i] = Math.fround(area);
   }
 
   const csr = buildNeighborsCsr(neighborsBySite);
 
   return {
     cellCount,
+    wrapWidth: Math.fround(wrapWidth),
     siteX,
     siteY,
     neighborsOffsets: csr.offsets,

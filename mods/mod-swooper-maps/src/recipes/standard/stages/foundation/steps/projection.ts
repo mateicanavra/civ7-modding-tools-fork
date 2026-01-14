@@ -1,29 +1,14 @@
 import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import { foundationArtifacts } from "../artifacts.js";
 import ProjectionStepContract from "./projection.contract.js";
-import {
-  validateDiagnosticsArtifact,
-  validatePlatesArtifact,
-  validateSeedArtifact,
-  wrapFoundationValidate,
-  wrapFoundationValidateNoDims,
-} from "./validation.js";
+import { validatePlatesArtifact, wrapFoundationValidate } from "./validation.js";
 
 export default createStep(ProjectionStepContract, {
-  artifacts: implementArtifacts(
-    [foundationArtifacts.plates, foundationArtifacts.seed, foundationArtifacts.diagnostics],
-    {
-      foundationPlates: {
-        validate: (value, context) => wrapFoundationValidate(value, context.dimensions, validatePlatesArtifact),
-      },
-      foundationSeed: {
-        validate: (value, context) => wrapFoundationValidate(value, context.dimensions, validateSeedArtifact),
-      },
-      foundationDiagnostics: {
-        validate: (value) => wrapFoundationValidateNoDims(value, validateDiagnosticsArtifact),
-      },
-    }
-  ),
+  artifacts: implementArtifacts([foundationArtifacts.plates], {
+    foundationPlates: {
+      validate: (value, context) => wrapFoundationValidate(value, context.dimensions, validatePlatesArtifact),
+    },
+  }),
   run: (context, config, ops, deps) => {
     const { width, height } = context.dimensions;
     const mesh = deps.artifacts.foundationMesh.read(context);
@@ -37,13 +22,10 @@ export default createStep(ProjectionStepContract, {
         mesh,
         plateGraph,
         tectonics,
-        trace: context.trace,
       },
       config.computePlates
     );
 
     deps.artifacts.foundationPlates.publish(context, platesResult.plates);
-    deps.artifacts.foundationSeed.publish(context, platesResult.plateSeed);
-    deps.artifacts.foundationDiagnostics.publish(context, platesResult.diagnostics);
   },
 });
