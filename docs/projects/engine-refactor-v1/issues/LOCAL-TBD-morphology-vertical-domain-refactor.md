@@ -560,6 +560,85 @@ Deletions:
 Guardrails:
 - Contract-guard test fails if any file under `mods/mod-swooper-maps/src/recipes/standard/stages/morphology-*` imports Morphology implementation entrypoints (allow only `@mapgen/domain/morphology` contract entrypoint).
 
+**Acceptance Criteria (verifiable):**
+- [ ] Morphology ops are contract-first and complete enough to run the standard pipeline without direct imports of legacy Morphology implementation modules from steps.
+- [ ] Morphology ops are compiled in the recipe (`compileOpsById` includes Morphology) and the standard recipe still compiles.
+- [ ] No step under `swooper-src/recipes/standard/stages/morphology-*` imports:
+  - `@mapgen/domain/config` (domain config bag), or
+  - `@mapgen/domain/morphology/<submodule>/...` implementation entrypoints.
+  Steps should only import Morphology op contract entrypoints and stage-local artifact contracts.
+- [ ] Config overhaul is complete and single-path:
+  - all author-facing config for morphology stages in `mods/mod-swooper-maps/src/maps/*.ts` is migrated to the new shape in this slice,
+  - legacy config bags (`swooper-src/domain/morphology/config.ts`, `swooper-src/domain/morphology/landmass/config.ts`) are either deleted or no longer reachable/imported by any Morphology step/op.
+- [ ] At least one Morphology op contract test exists using `runOpValidated` and validates:
+  - strategy selection / normalization is deterministic, and
+  - output shape matches the schema (`normalizeStrictOrThrow`).
+
+**Scope boundaries:**
+- In scope:
+  - Full Morphology boundary cutover to “ops + orchestration-only steps”.
+  - Recipe wiring so Morphology ops actually compile and are injectable into steps.
+  - Full Morphology config shape redesign + updating all authoring callsites to match (no dual config paths).
+  - Deleting legacy Morphology entrypoints in-scope per the ledger (no compat exports).
+- Out of scope:
+  - Gameplay projection domain absorption (only the minimal apply-boundary projection exists; Slice 3).
+  - Changing Phase 2 model content (this slice implements it).
+
+**Files (touchpoints):**
+```yaml
+files:
+  - path: swooper-src/domain/morphology/ops/contracts.ts
+    notes: "Replace the current empty export with the full Morphology op contract catalog (authoritative boundary)."
+  - path: swooper-src/domain/morphology/ops/index.ts
+    notes: "Ensure the Morphology ops module exports compile-time ops for recipe compilation."
+  - path: swooper-src/domain/morphology/ops/compute-base-topography/contract.ts
+    notes: "NEW: compute op contract (and implementation module) for base topography buffer."
+  - path: swooper-src/domain/morphology/ops/compute-landmask/contract.ts
+    notes: "NEW: compute op contract (and implementation module) for landmask/basin shaping."
+  - path: swooper-src/domain/morphology/ops/compute-landmasses/contract.ts
+    notes: "NEW: compute op contract (and implementation module) for landmass decomposition artifact."
+  - path: swooper-src/domain/morphology/config.ts
+    notes: "DELETE or replace entirely: legacy Morphology config bag (must not survive)."
+  - path: swooper-src/domain/morphology/landmass/config.ts
+    notes: "DELETE or replace entirely: legacy Landmass config bag (must not survive)."
+  - path: swooper-src/recipes/standard/recipe.ts
+    notes: "Add `morphologyDomain` to `compileOpsById`."
+  - path: swooper-src/recipes/standard/stages/morphology-pre/**/*
+    notes: "Steps become orchestration-only; consume ops; publish artifacts via deps."
+  - path: swooper-src/recipes/standard/stages/morphology-mid/**/*
+    notes: "Steps become orchestration-only; consume ops; publish artifacts via deps."
+  - path: swooper-src/recipes/standard/stages/morphology-post/**/*
+    notes: "Steps become orchestration-only; consume ops; publish artifacts via deps."
+  - path: mods/mod-swooper-maps/src/maps/swooper-earthlike.ts
+    notes: "Update authored Morphology config shape (and other maps below) to the new canonical config."
+  - path: mods/mod-swooper-maps/src/maps/shattered-ring.ts
+    notes: "Update authored Morphology config shape to the new canonical config."
+  - path: mods/mod-swooper-maps/src/maps/swooper-desert-mountains.ts
+    notes: "Update authored Morphology config shape to the new canonical config."
+  - path: mods/mod-swooper-maps/src/maps/sundered-archipelago.ts
+    notes: "Update authored Morphology config shape to the new canonical config."
+  - path: swooper-test/morphology/contract-guard.test.ts
+    notes: "Add bans for legacy config imports/keys and deep Morphology implementation imports from steps."
+```
+
+**Testing / Verification (executable):**
+- `REFRACTOR_DOMAINS="morphology" ./scripts/lint/lint-domain-refactor-guardrails.sh`
+- `pnpm -C packages/mapgen-core check && pnpm -C packages/mapgen-core test`
+- `pnpm -C mods/mod-swooper-maps check && pnpm -C mods/mod-swooper-maps test && pnpm -C mods/mod-swooper-maps build`
+- `pnpm test && pnpm build` (optional widening; run when slice is stable)
+- `rg -n \"@mapgen/domain/config\" mods/mod-swooper-maps/src/recipes/standard/stages/morphology-*` (expect zero hits)
+
+## Prework Prompt (Agent Brief) — Slice 5 config migration inventory
+
+**Purpose:** Identify every authoring site that currently supplies Morphology stage config (including stage names `morphology-pre/mid/post`) so the config overhaul is truly single-path (no dual legacy config).
+
+**Expected Output:** A checklist of callsites and files that must change in Slice 5, plus a “done when” grep list.
+
+**Sources to check:**
+- `mods/mod-swooper-maps/src/maps/*.ts` (stage config blocks).
+- Any other recipe-config sources in the mod (search for `"morphology-pre"`, `"morphology-mid"`, `"morphology-post"`).
+- Existing Morphology step contracts importing `MorphologyConfigSchema` / `LandmassConfigSchema`.
+
 Verification gates (full, per guardrails reference):
 - `REFRACTOR_DOMAINS="morphology" ./scripts/lint/lint-domain-refactor-guardrails.sh`
 - `pnpm -C packages/mapgen-core check && pnpm -C packages/mapgen-core test`
