@@ -322,6 +322,9 @@ Verification gates (minimum):
 - `REFRACTOR_DOMAINS="morphology" ./scripts/lint/lint-domain-refactor-guardrails.sh`
 - `pnpm -C mods/mod-swooper-maps test`
 
+### Prework Results (Resolved)
+Decision: publish `morphologyArtifacts.landmasses` from `context.buffers.heightfield.landMask` in the new `morphology-post/landmasses` step (connected components + attributes), and fail fast if the buffer is missing/invalid; do not fall back to `adapter.isWater`. Evidence: `createExtendedMapContext` always allocates `buffers.heightfield.landMask` and `writeHeightfield` updates it (`packages/mapgen-core/src/core/types.ts`), and `createPlateDrivenLandmasses` writes the landMask into the buffer (`mods/mod-swooper-maps/src/domain/morphology/landmass/index.ts`). This makes the final landMask available after islands (which call `writeHeightfield`), so place `landmasses` as the last Morphology-post step and avoid any transitional dependency.
+
 ### Slice 2 — Consumer cutover: effect-tag gating → artifact requires
 
 Goal: remove Morphology’s effect-tag gating from downstream steps and replace it with explicit artifact dependencies.
