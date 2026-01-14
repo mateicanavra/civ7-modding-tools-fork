@@ -5,6 +5,11 @@ import placement from "@mapgen/domain/placement";
 import type { DeepReadonly, Static } from "@swooper/mapgen-core/authoring";
 import { getStandardRuntime } from "../../../../runtime.js";
 import type { PlacementOutputsV1 } from "../../placement-outputs.js";
+import type { MorphologyLandmassesArtifact } from "../../../morphology-pre/artifacts.js";
+import {
+  applyLandmassRegionIds,
+  type LandmassRegionPolicy,
+} from "../../landmass-regions.js";
 
 type PlanFloodplainsOutput = Static<typeof placement.ops.planFloodplains["output"]>;
 type PlanStartsOutput = Static<typeof placement.ops.planStarts["output"]>;
@@ -12,6 +17,8 @@ type PlanWondersOutput = Static<typeof placement.ops.planWonders["output"]>;
 
 type ApplyPlacementArgs = {
   context: ExtendedMapContext;
+  landmasses: DeepReadonly<MorphologyLandmassesArtifact>;
+  landmassRegions: LandmassRegionPolicy;
   starts: DeepReadonly<PlanStartsOutput>;
   wonders: DeepReadonly<PlanWondersOutput>;
   floodplains: DeepReadonly<PlanFloodplainsOutput>;
@@ -20,6 +27,8 @@ type ApplyPlacementArgs = {
 
 export function applyPlacementPlan({
   context,
+  landmasses,
+  landmassRegions,
   starts,
   wonders,
   floodplains,
@@ -79,6 +88,20 @@ export function applyPlacementPlan({
   } catch (err) {
     emit({
       type: "placement.water.error",
+      error: err instanceof Error ? err.message : String(err),
+    });
+  }
+
+  try {
+    const projection = applyLandmassRegionIds(context, landmasses, landmassRegions);
+    emit({
+      type: "placement.landmassRegions.applied",
+      selection: projection.selection,
+      bounds: projection.bounds,
+    });
+  } catch (err) {
+    emit({
+      type: "placement.landmassRegions.error",
       error: err instanceof Error ? err.message : String(err),
     });
   }

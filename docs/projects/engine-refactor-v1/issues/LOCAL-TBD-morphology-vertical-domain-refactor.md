@@ -27,15 +27,15 @@ mapgen-core = packages/mapgen-core
 issues:
   - id: MORPH-S1
     title: "Slice 1 — Morphology artifact contracts (additive) + minimal publishers"
-    status: planned
+    status: done
     blocked_by: []
   - id: MORPH-S2
     title: "Slice 2 — Consumer cutover: effect-tag gating → artifact requires"
-    status: planned
+    status: done
     blocked_by: [MORPH-S1]
   - id: MORPH-S3
     title: "Slice 3 — Delete runtime continents; add explicit downstream projections (Civ7 interop)"
-    status: planned
+    status: done
     blocked_by: [MORPH-S2]
   - id: MORPH-S4
     title: "Slice 4 — HOTSPOTS ownership cutover (Narrative-owned)"
@@ -395,13 +395,13 @@ Consumer changes:
 - Update `mods/mod-swooper-maps/src/recipes/standard/runtime.ts` to remove the continent-bounds fields if no longer needed anywhere.
 
 **Acceptance Criteria (verifiable):**
-- [ ] No code in `swooper-src` reads or writes `runtime.westContinent` / `runtime.eastContinent`.
-- [ ] `markLandmassId(` is no longer called from Morphology/Hydrology steps.
-- [ ] A dedicated downstream projection (Gameplay-owned, implemented at/near the apply boundary) runs before:
+- [x] No code in `swooper-src` reads or writes `runtime.westContinent` / `runtime.eastContinent`.
+- [x] `markLandmassId(` is no longer called from Morphology/Hydrology steps.
+- [x] A dedicated downstream projection (Gameplay-owned, implemented at/near the apply boundary) runs before:
   - `adapter.generateResources(...)` and
   - `adapter.assignStartPositions(...)`.
-- [ ] Projection writes LandmassRegionId via `adapter.setLandmassRegionId(...)` using ids obtained from adapter engine constants (no numeric literals).
-- [ ] If any `ContinentBounds` projection still exists after this slice, it is:
+- [x] Projection writes LandmassRegionId via `adapter.setLandmassRegionId(...)` using ids obtained from adapter engine constants (no numeric literals).
+- [x] If any `ContinentBounds` projection still exists after this slice, it is:
   - downstream-owned (NOT Morphology-owned),
   - explicitly deprecated (`DEPRECATED:` in code/docs),
   - and has an explicit removal plan inside this refactor’s slice plan (no transitional can survive past Slice 6).
@@ -963,8 +963,7 @@ Resolved decisions (Phase 3 checkpoint):
 - Morphology config redesign is explicitly in-scope: destroy the legacy “bag” shape; “migrate” means semantics-only, not shape preservation.
 
 Remaining open questions (must be answered during Slice 3/5 implementation):
-- What is the default LandmassRegionId partition policy (e.g. “largest landmass = homelands”), and what is the explicit configuration surface for that policy (Gameplay-owned)?
-- Does the adapter/runtime require any explicit re-stamping/recalculation calls after applying LandmassRegionId for resources/starts correctness, or is that already covered by existing adapter methods?
+- None (resolved in Slice 3: default LandmassRegionId policy = largest landmass as WEST via placement config, and no extra post-stamping beyond existing placement calls).
 
 ## Implementation Decisions
 
@@ -981,6 +980,34 @@ Remaining open questions (must be answered during Slice 3/5 implementation):
 - **Choice:** B) landMask hex adjacency counts.
 - **Rationale:** Keeps metrics data-only and avoids engine terrain ids while reflecting current buffer state.
 - **Risk:** If buffers drift from engine terrain, metrics could diverge from adapter observations.
+
+### Choose largest landmass as WEST in LandmassRegionId projection
+- **Context:** Slice 3 needs an explicit policy for mapping landmasses to Civ7 LandmassRegionId slots.
+- **Options:** A) largest landmass = WEST, B) split by longitude, C) configurable custom partition.
+- **Choice:** A) largest landmass = WEST; ties break to the lowest landmass id.
+- **Rationale:** Uses stable, model-derived labels without introducing new spatial heuristics or config surfaces.
+- **Risk:** Edge cases with similarly sized landmasses may not match intended gameplay expectations.
+
+### Fallback east bounds to west bounds when only one landmass exists
+- **Context:** Slice 3 derives deprecated ContinentBounds for start placement from landmass labels.
+- **Options:** A) error when no secondary landmass, B) use empty bounds, C) reuse west bounds.
+- **Choice:** C) reuse west bounds as a fallback for east.
+- **Rationale:** Avoids downstream placement crashes while signaling a single-landmass map.
+- **Risk:** Starts on single-landmass maps treat both regions as identical until ContinentBounds are removed.
+
+### Apply LandmassRegionId projection at placement apply boundary
+- **Context:** Slice 3 removes runtime continents and must ensure LandmassRegionId is set before resources/starts.
+- **Options:** A) new dedicated step before placement, B) apply during placement apply, C) keep inside Morphology.
+- **Choice:** B) apply in placement apply before `generateResources` and `assignStartPositions`.
+- **Rationale:** Keeps projections downstream-owned while aligning with existing placement boundary order.
+- **Risk:** If placement apply sequencing changes, LandmassRegionId may need to move to a dedicated step.
+
+### Avoid extra restamping after LandmassRegionId projection
+- **Context:** Slice 3 asked whether additional adapter recalculation calls are required after region labeling.
+- **Options:** A) add explicit re-stamp/recalc after region assignment, B) rely on existing placement ordering.
+- **Choice:** B) rely on existing placement ordering (validate/recalculate/store water) and set LandmassRegionId before resources/starts.
+- **Rationale:** Avoids redundant engine work while keeping projection adjacent to existing placement prelude.
+- **Risk:** If the engine expects recalculation after region assignment, a follow-up fix may be needed.
 
 ## Lookback 4 (post-implementation)
 

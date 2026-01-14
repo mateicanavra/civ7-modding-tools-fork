@@ -3,6 +3,7 @@ import placement from "@mapgen/domain/placement";
 
 import { placementArtifacts } from "../../artifacts.js";
 import { morphologyArtifacts } from "../../../morphology-pre/artifacts.js";
+import { LandmassRegionPolicySchema } from "../../landmass-regions.js";
 import { M4_EFFECT_TAGS } from "../../../../tags.js";
 
 const DerivePlacementInputsContract = defineStep({
@@ -22,7 +23,12 @@ const DerivePlacementInputsContract = defineStep({
     floodplains: placement.ops.planFloodplains,
     starts: placement.ops.planStarts,
   },
-  schema: Type.Object({}),
+  schema: Type.Object(
+    {
+      landmassRegions: LandmassRegionPolicySchema,
+    },
+    { additionalProperties: false }
+  ),
 });
 
 export default DerivePlacementInputsContract;

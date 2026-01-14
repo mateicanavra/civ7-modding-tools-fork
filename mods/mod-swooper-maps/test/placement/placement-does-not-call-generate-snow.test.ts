@@ -3,9 +3,11 @@ import { createMockAdapter } from "@civ7/adapter";
 import { createExtendedMapContext } from "@swooper/mapgen-core";
 import { implementArtifacts } from "@swooper/mapgen-core/authoring";
 import placement from "../../src/domain/placement/ops.js";
-import { getBaseStarts, getStandardRuntime } from "../../src/recipes/standard/runtime.js";
+import { getStandardRuntime } from "../../src/recipes/standard/runtime.js";
+import type { MorphologyLandmassesArtifact } from "../../src/recipes/standard/stages/morphology-pre/artifacts.js";
 import { placementArtifacts } from "../../src/recipes/standard/stages/placement/artifacts.js";
 import { applyPlacementPlan } from "../../src/recipes/standard/stages/placement/steps/placement/apply.js";
+import { deriveContinentBounds, selectLandmassRegions } from "../../src/recipes/standard/stages/placement/landmass-regions.js";
 
 describe("placement", () => {
   it("does not call adapter.generateSnow", () => {
@@ -24,7 +26,19 @@ describe("placement", () => {
     });
     const context = createExtendedMapContext({ width: 4, height: 4 }, adapter, { seed: 0 });
     const runtime = getStandardRuntime(context);
-    const baseStarts = getBaseStarts(context);
+    const landmasses = buildLandmasses(4, 4);
+    const landmassRegions = { strategy: "largest" } as const;
+    const selection = selectLandmassRegions(landmasses, landmassRegions);
+    const { west, east } = deriveContinentBounds(4, 4, landmasses, selection);
+    const baseStarts = {
+      playersLandmass1: runtime.playersLandmass1,
+      playersLandmass2: runtime.playersLandmass2,
+      westContinent: west,
+      eastContinent: east,
+      startSectorRows: runtime.startSectorRows,
+      startSectorCols: runtime.startSectorCols,
+      startSectors: runtime.startSectors,
+    };
 
     const starts = placement.ops.planStarts.run(
       { baseStarts },
@@ -44,6 +58,8 @@ describe("placement", () => {
     });
     applyPlacementPlan({
       context,
+      landmasses,
+      landmassRegions,
       starts,
       wonders,
       floodplains,
@@ -53,3 +69,14 @@ describe("placement", () => {
     expect(adapter.calls.generateSnow.length).toBe(0);
   });
 });
+
+function buildLandmasses(width: number, height: number): MorphologyLandmassesArtifact {
+  const size = Math.max(0, width * height);
+  const tileToLandmass = new Int32Array(size);
+  tileToLandmass.fill(1);
+  return {
+    tileToLandmass,
+    landmasses: [{ id: 1, tiles: size }],
+    landTiles: size,
+  };
+}

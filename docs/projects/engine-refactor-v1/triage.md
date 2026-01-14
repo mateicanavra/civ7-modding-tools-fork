@@ -18,6 +18,12 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
 
 ## Triage (needs decision / research)
 
+- **LandmassRegionId projection policy (largest landmass = WEST)** [Source: LOCAL-TBD-morphology-vertical-domain-refactor]
+  - **Context:** Slice 3 introduces explicit LandmassRegionId projection and ContinentBounds fallback behavior.
+  - **Type:** triage
+  - **Notes:** Projection chooses the largest landmass as WEST (ties → lowest id); if only one landmass exists, east bounds reuse west bounds. Slice 3 assumes no extra engine recalculation after region assignment beyond the existing placement prelude. Revisit if gameplay needs a different partition strategy or if ContinentBounds are retired early.
+  - **Next check:** before Slice 6 removal of ContinentBounds or any gameplay tuning pass.
+
 - **Single-producer enforcement scoped to `artifacts.provides` in Phase 1** [Source: LOCAL-TBD-M8-U21]
   - **Context:** U21 Phase 1 adds artifact contracts without mod migration; legacy steps still declare artifact ids directly in `requires/provides`.
   - **Type:** triage

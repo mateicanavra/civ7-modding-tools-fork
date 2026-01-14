@@ -9,7 +9,8 @@ export default createStep(DerivePlacementInputsContract, {
     placementInputs: {},
   }),
   run: (context, config, ops, deps) => {
-    const inputs = buildPlacementInputs(context, config, ops);
+    const landmasses = deps.artifacts.landmasses.read(context);
+    const inputs = buildPlacementInputs(context, config, ops, landmasses);
     deps.artifacts.placementInputs.publish(context, inputs);
   },
 });

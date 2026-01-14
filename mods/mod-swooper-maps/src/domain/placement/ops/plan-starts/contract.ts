@@ -1,14 +1,32 @@
 import { Type, defineOp } from "@swooper/mapgen-core/authoring";
 
-const ContinentBoundsSchema = Type.Object({
-  west: Type.Number({ description: "Western bound for the continent placement window." }),
-  east: Type.Number({ description: "Eastern bound for the continent placement window." }),
-  south: Type.Number({ description: "Southern bound for the continent placement window." }),
-  north: Type.Number({ description: "Northern bound for the continent placement window." }),
-  continent: Type.Optional(
-    Type.Number({ description: "Continent identifier used by the adapter for start placement." })
-  ),
-});
+const ContinentBoundsSchema = Type.Object(
+  {
+    west: Type.Number({
+      description: "DEPRECATED: western bound for the continent placement window.",
+    }),
+    east: Type.Number({
+      description: "DEPRECATED: eastern bound for the continent placement window.",
+    }),
+    south: Type.Number({
+      description: "DEPRECATED: southern bound for the continent placement window.",
+    }),
+    north: Type.Number({
+      description: "DEPRECATED: northern bound for the continent placement window.",
+    }),
+    continent: Type.Optional(
+      Type.Number({
+        description:
+          "DEPRECATED: continent identifier used by the adapter for start placement.",
+      })
+    ),
+  },
+  {
+    additionalProperties: false,
+    description:
+      "DEPRECATED: continent bounds are a temporary projection for Civ7 start placement.",
+  }
+);
 
 const StartsConfigSchema = Type.Object({
   playersLandmass1: Type.Number({

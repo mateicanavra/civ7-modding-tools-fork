@@ -1,4 +1,4 @@
-import { Type, TypedArraySchemas, defineArtifact } from "@swooper/mapgen-core/authoring";
+import { Type, TypedArraySchemas, defineArtifact, type Static } from "@swooper/mapgen-core/authoring";
 
 const MorphologyTopographyArtifactSchema = Type.Object(
   {
@@ -58,6 +58,8 @@ const LandmassesArtifactSchema = Type.Object(
     description: "Connected-component landmass decomposition derived from landMask.",
   }
 );
+
+export type MorphologyLandmassesArtifact = Static<typeof LandmassesArtifactSchema>;
 
 export const morphologyArtifacts = {
   topography: defineArtifact({

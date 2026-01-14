@@ -1,9 +1,5 @@
-import type { ContinentBounds, EngineAdapter, MapInfo } from "@civ7/adapter";
+import type { EngineAdapter, MapInfo } from "@civ7/adapter";
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
-import placement from "@mapgen/domain/placement";
-import type { Static } from "@swooper/mapgen-core/authoring";
-
-type StartsConfig = Static<typeof placement.ops.planStarts["output"]>;
 
 export type StandardRuntime = {
   logPrefix: string;
@@ -13,8 +9,6 @@ export type StandardRuntime = {
   startSectorRows: number;
   startSectorCols: number;
   startSectors: unknown[];
-  westContinent: ContinentBounds;
-  eastContinent: ContinentBounds;
   startPositions: number[];
   storyEnabled: boolean;
 };
@@ -35,35 +29,8 @@ function resolveMapInfo(adapter: EngineAdapter): MapInfo {
   return mapInfo;
 }
 
-function createDefaultContinentBounds(
-  width: number,
-  height: number,
-  side: "west" | "east"
-): ContinentBounds {
-  const avoidSeamOffset = 4;
-  const polarWaterRows = 2;
-
-  if (side === "west") {
-    return {
-      west: avoidSeamOffset,
-      east: Math.floor(width / 2) - avoidSeamOffset,
-      south: polarWaterRows,
-      north: height - polarWaterRows,
-      continent: 0,
-    };
-  }
-
-  return {
-    west: Math.floor(width / 2) + avoidSeamOffset,
-    east: width - avoidSeamOffset,
-    south: polarWaterRows,
-    north: height - polarWaterRows,
-    continent: 1,
-  };
-}
-
 function createRuntime(context: ExtendedMapContext): StandardRuntime {
-  const { adapter, dimensions } = context;
+  const { adapter } = context;
   const mapInfo = resolveMapInfo(adapter);
   const playersLandmass1 = mapInfo.PlayersLandmass1 ?? 4;
   const playersLandmass2 = mapInfo.PlayersLandmass2 ?? 4;
@@ -86,8 +53,6 @@ function createRuntime(context: ExtendedMapContext): StandardRuntime {
     startSectorRows,
     startSectorCols,
     startSectors,
-    westContinent: createDefaultContinentBounds(dimensions.width, dimensions.height, "west"),
-    eastContinent: createDefaultContinentBounds(dimensions.width, dimensions.height, "east"),
     startPositions: [],
     storyEnabled: true,
   };
@@ -124,17 +89,4 @@ export function initializeStandardRuntime(
     );
   }
   return runtime;
-}
-
-export function getBaseStarts(context: ExtendedMapContext): StartsConfig {
-  const runtime = getStandardRuntime(context);
-  return {
-    playersLandmass1: runtime.playersLandmass1,
-    playersLandmass2: runtime.playersLandmass2,
-    westContinent: runtime.westContinent,
-    eastContinent: runtime.eastContinent,
-    startSectorRows: runtime.startSectorRows,
-    startSectorCols: runtime.startSectorCols,
-    startSectors: runtime.startSectors,
-  };
 }

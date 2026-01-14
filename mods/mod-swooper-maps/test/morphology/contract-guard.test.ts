@@ -65,4 +65,12 @@ describe("morphology contract guardrails", () => {
       expect(text).not.toContain("M4_EFFECT_TAGS.engine.coastlinesApplied");
     }
   });
+
+  it("does not reintroduce runtime continent windows", () => {
+    const repoRoot = path.resolve(import.meta.dir, "../..");
+    const runtimeFile = path.join(repoRoot, "src/recipes/standard/runtime.ts");
+    const text = readFileSync(runtimeFile, "utf8");
+    expect(text).not.toContain("westContinent");
+    expect(text).not.toContain("eastContinent");
+  });
 });

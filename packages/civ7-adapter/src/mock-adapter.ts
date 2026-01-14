@@ -259,6 +259,7 @@ export class MockAdapter implements EngineAdapter {
     generateResources: Array<{ width: number; height: number }>;
     generateLakes: Array<{ width: number; height: number; tilesPerLake: number }>;
     expandCoasts: Array<{ width: number; height: number }>;
+    setLandmassRegionId: Array<{ x: number; y: number; regionId: number }>;
     assignStartPositions: Array<{
       playersLandmass1: number;
       playersLandmass2: number;
@@ -315,6 +316,7 @@ export class MockAdapter implements EngineAdapter {
       generateResources: [],
       generateLakes: [],
       expandCoasts: [],
+      setLandmassRegionId: [],
       assignStartPositions: [],
       generateDiscoveries: [],
       assignAdvancedStartRegions: 0,
@@ -454,6 +456,7 @@ export class MockAdapter implements EngineAdapter {
 
   setLandmassRegionId(x: number, y: number, regionId: number): void {
     this.landmassRegionIds[this.idx(x, y)] = regionId;
+    this.calls.setLandmassRegionId.push({ x, y, regionId });
   }
 
   setLandmassId(x: number, y: number, regionId: number): void {
@@ -806,6 +809,7 @@ export class MockAdapter implements EngineAdapter {
     this.calls.generateResources.length = 0;
     this.calls.generateLakes.length = 0;
     this.calls.expandCoasts.length = 0;
+    this.calls.setLandmassRegionId.length = 0;
     this.calls.assignStartPositions.length = 0;
     this.calls.generateDiscoveries.length = 0;
     this.calls.assignAdvancedStartRegions = 0;

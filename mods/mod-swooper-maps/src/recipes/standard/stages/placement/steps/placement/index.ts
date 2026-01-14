@@ -10,10 +10,13 @@ export default createStep(PlacementStepContract, {
   }),
   run: (context, _config, _ops, deps) => {
     const placementInputs = deps.artifacts.placementInputs.read(context);
+    const landmasses = deps.artifacts.landmasses.read(context);
     const { starts, wonders, floodplains } = buildPlacementPlanInput(placementInputs);
 
     applyPlacementPlan({
       context,
+      landmasses,
+      landmassRegions: placementInputs.placementConfig.landmassRegions,
       starts,
       wonders,
       floodplains,

@@ -1,11 +1,13 @@
 import { Type, type Static } from "@swooper/mapgen-core/authoring";
 import placement from "@mapgen/domain/placement";
+import { LandmassRegionPolicySchema } from "./landmass-regions.js";
 
 export const PlacementInputsConfigSchema = Type.Object(
   {
     wonders: placement.ops.planWonders.config,
     floodplains: placement.ops.planFloodplains.config,
     starts: placement.ops.planStarts.config,
+    landmassRegions: LandmassRegionPolicySchema,
   },
   { additionalProperties: false }
 );
