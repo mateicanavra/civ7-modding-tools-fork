@@ -460,7 +460,7 @@ Consumer changes:
 
 Trace:
 - Implemented on branch `agent-BRODY-M8-MORPH-S3-landmass-region-projection`.
-- Draft PR: https://app.graphite.dev/submit/mateicanavra/civ7-modding-tools-fork/590
+- Draft PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/590
 
 **Scope boundaries:**
 - In scope:
