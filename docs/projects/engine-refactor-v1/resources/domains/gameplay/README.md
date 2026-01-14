@@ -11,6 +11,7 @@ Repo-specific wiring inventory and concrete planning artifacts live here (and in
 ## Contents
 
 - `GAMEPLAY.md`: Draft Gameplay domain refactor spec (ownership + boundaries + plan).
+- `IMPLEMENTATION-PLAN.md`: Migration slices for implementing Gameplay v1 (Placement-first, then Narrative absorption).
 - `OWNERSHIP-MAP.md`: Definitive mapping of what becomes Gameplay-owned vs stays physics-owned.
 - `DOMAIN-ABSORPTION-INVENTORY.md`: What code/content we would absorb from existing repo domains.
 - `STAGE-STEP-INVENTORY.md`: Current stage braid + gameplay-shaped steps snapshot.
