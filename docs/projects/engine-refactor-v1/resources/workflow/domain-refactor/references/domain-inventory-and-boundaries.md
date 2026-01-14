@@ -22,6 +22,8 @@ Use native tools only when semantics don’t matter:
 You must ground any decision in **repo evidence**:
 - a file path + symbol + callsite reference (no “I think” refactors).
 
+When you enter Phase 2 modeling, use external research if it helps ground the physics. Cite sources in the modeling spike.
+
 Minimum investigation outputs (you must produce these artifacts in the issue doc before coding):
 - A complete step map for the domain (all callsites).
 - A complete dependency contract list (requires/provides keys, ownership, validators, producers/consumers).
@@ -29,6 +31,7 @@ Minimum investigation outputs (you must produce these artifacts in the issue doc
 - A legacy surface inventory (every config property, rule/policy, and domain function with locations).
 - An upstream authoritative intake (prior domain Phase 2 model + pipeline deltas; adopted inputs vs legacy reads to delete).
 - An upstream handoff review (prior refactor changes to this domain: compat shims, temporary adapters, legacy pathways).
+- A downstream consumer inventory (current consumers + contract dependencies + expected impact).
 - A typed-array inventory (ctor + length coupling + where validation occurs).
 - A deletion list with “around-the-block” references (symbols + file paths that must go to zero).
 
@@ -111,6 +114,12 @@ Property ledger (required):
 Upstream handoff review (also required):
 - Identify any prior refactor changes to this domain’s surfaces (compat shims, temporary adapters, legacy pathways).
 - List the exact files/exports and the planned removal path in this refactor.
+
+### D2) Downstream consumer inventory (required; non-leaf domains)
+
+- Identify all downstream stages/steps that consume this domain’s outputs.
+- List the specific contracts/artifacts/buffers they depend on.
+- Note any consumer expectations that conflict with the authoritative model (to be resolved in Phase 2/3).
 
 ### E) Typed arrays + invariants
 

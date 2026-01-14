@@ -23,17 +23,26 @@ Cross-pipeline posture (required):
 - The domain model lives inside a pipeline; contract changes must be coherent end-to-end.
 - Plan upstream/downstream contract changes through stage-owned artifact contracts.
 
+Required research passes (Phase 2):
+- Architecture alignment: reconcile the model with target SPEC/ADR docs and record any conflicts or constraints.
+- Earth-physics grounding: model from first principles using domain + earth-physics references; use external sources if needed and cite them in the spike.
+- Pipeline intake: review upstream authoritative inputs and downstream consumer expectations; document adopted inputs, legacy reads to delete, and required downstream changes.
+- Codebase evidence: use MCP/code-intel + repo searches to validate current surfaces and invariants; link evidence in decisions.
+
 Required sections (minimum):
 - Canonical model + causality spine
 - Target contract matrix (buffers/artifacts/overlays classification)
 - Legacy disposition ledger (every config property/rule/function is keep/kill/migrate with rationale)
 - Upstream authoritative input selection (adopted inputs + legacy reads to delete)
 - Upstream handoff cleanup (remove upstream-introduced compat/legacy surfaces in this domain)
+- Downstream consumer impact scan (current usage + required changes)
+- Architecture alignment note (SPEC/ADR constraints and resolutions)
 - Decisions + defaults (modeling decisions)
 - Risk register (modeling risks)
 - Golden path (authoritative)
 - Projection policy (explicitly non-canonical)
 - Pipeline delta list (upstream/downstream contract changes implied by the model)
+- Research sources (external references used for modeling, if any)
 
 Additional required updates:
 - Update the domain modeling reference doc:
@@ -47,6 +56,9 @@ Gate checklist (Phase 2 completion):
 - Legacy disposition ledger is complete; any kept legacy invariants are explicit and justified.
 - Upstream authoritative input selection is explicit; legacy upstream reads are flagged for removal.
 - Upstream handoff cleanup is explicit; no upstream compat/legacy surfaces remain in this domain.
+- Downstream consumer impact scan is explicit and complete.
+- Architecture alignment note exists and conflicts are reconciled or escalated.
+- Research sources are cited when external research is used.
 
 References:
 - `docs/projects/engine-refactor-v1/resources/spec/SPEC-DOMAIN-MODELING-GUIDELINES.md`
