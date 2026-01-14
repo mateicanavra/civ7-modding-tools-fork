@@ -12,6 +12,7 @@ This is a **thin policy + index** plan for the Ecology refactor. Modeling lives 
 
 Backbone workflow:
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/WORKFLOW.md`
+- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/implementation-traps-and-locked-decisions.md`
 
 Path roots (convention used here):
 - `/src/...` = `mods/mod-swooper-maps/src/...`
@@ -24,13 +25,34 @@ Hard principle:
 - **All new work must be expressed through the canonical architecture and authoring surfaces.**
 
 Design principles (authoritative surfaces):
+
+Surface ownership + pipeline:
 - Ecology owns its surfaces. The refactor must not retain legacy compat surfaces; update downstream consumers in the same refactor. If downstream needs transitional shims, they live downstream and are explicitly marked as deprecated.
 - Projections are presentation-only and must never shape the internal representation.
 - Op config is op-owned and minimal; do not reuse a domain-wide config bag inside op contracts.
 - Every existing config property, rule/policy, and function must be explicitly accepted into the model or rejected as legacy (no silent carry-through).
 - Review the upstream Phase 2 models (Morphology, Hydrology, Foundation as needed), explicitly adopt authoritative inputs, and delete legacy reads. Also review any upstream refactor changes that touched Ecology surfaces and plan their removal.
 - Review downstream consumers (Placement/Narrative as applicable): document current dependencies, required changes, and plan downstream updates as part of this refactor.
+
+Research discipline:
 - Modeling is research-driven: reconcile target SPEC/ADR docs with domain specs, use earth-physics references, and lean on MCP/code-intel + web research; cite sources in the Phase 2 spike.
+- Modeling is iterative: run the Phase 2 modeling loop (broad pipeline sweep -> deep domain dive -> synthesis -> refinement) and keep an iteration log; do not lock the model after a single pass.
+- Phase 2 must include a conceptual narrative + diagrams (architecture view, data-flow, producer/consumer map with current vs target pipeline adjustments).
+- Phase 2 must include an authority stack (canonical vs supporting; PRDs are non-authoritative).
+
+Planning + documentation discipline:
+- Phase 3 must include a sequencing refinement pass (re-order slices for pipeline safety, re-check downstream deltas, then lock).
+- Phase 3 must include a dedicated documentation pass (slice or issue) that inventories every touched/created schema/function/op/step/stage/contract and adds JSDoc + schema descriptions with behavior, defaults, modes, and downstream impacts.
+- Phase 3 must include locked decisions/bans with test-backed guardrails, a step decomposition plan (spine → steps → artifacts/buffers), and a consumer migration matrix (break/fix by slice).
+
+Implementation guardrails (locked decisions; see implementation-traps reference):
+- Ops stay pure; steps own runtime binding (no callbacks/functions across op boundaries).
+- Trace is step-scoped by default; op-level trace requires explicit contract changes.
+- RNG crosses boundaries as data (seed); ops build local RNGs.
+- Defaults live in schemas/normalize; no hidden runtime defaults.
+- Do not snapshot/freeze at publish boundaries.
+- Avoid monolithic steps; step boundaries are the architecture.
+- Schemas are the single source of truth; derive types from schemas.
 
 Compatibility and cleanup rules:
 - This refactor must not leave compat/projection surfaces in Ecology. Downstream consumers must be updated as part of this refactor.

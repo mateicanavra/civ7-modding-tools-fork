@@ -43,6 +43,13 @@ The current stack-tip implementation diverges from that intent in multiple ways:
 - The step requires `adapter.getVoronoiUtils`, `adapter.getLatitude`, and `adapter.isWater`, which conflicts with the PRD’s “offline runnable, no engine reads” posture.
   - `mods/mod-swooper-maps/src/recipes/standard/stages/foundation/steps/foundation.ts`
 
+5) **wrapX is handled in tile-first plates, but not in mesh-first scaffolding.**
+- The legacy tile plate generator treats X as cylindrical (wrap-correct distances and neighbors).
+- Mesh-first artifacts do not encode wrap-correct adjacency, which will cause seam artifacts once projections depend on mesh-level tectonics.
+  - Tile-level wrap: `mods/mod-swooper-maps/src/domain/foundation/plates.ts`
+  - Mesh-level adjacency: `mods/mod-swooper-maps/src/domain/foundation/ops/compute-mesh/index.ts`
+  - Mesh-level tectonics: `mods/mod-swooper-maps/src/domain/foundation/ops/compute-tectonics/index.ts`
+
 ## Potential Shapes
 - **PRD-aligned mesh-first path:** Introduce a deterministic, engine-independent Delaunay/Voronoi backend (e.g., `d3-delaunay`) and derive `foundation.plates` by projecting from mesh/crust/plateGraph/tectonics artifacts.
 - **Hybrid path:** Keep adapter Voronoi for in-engine runs, but add a parallel, deterministic Voronoi implementation for offline tests and CLI runs; enforce consistent invariants across both.
@@ -53,7 +60,7 @@ Swap the mock adapter’s Voronoi stub for a real Voronoi backend (or a thin wra
 - Deterministic Lloyd relaxation (site convergence) under fixed seeds.
 
 ## Risks and Open Questions
-- **WrapX correctness:** Current Voronoi calls do not receive wrap semantics; wrap-aware Voronoi may need explicit strategy (replication/stitching/periodic distance).
+- **WrapX correctness:** Mesh-first projections require wrap-correct adjacency; periodic Voronoi handling must be specified (replication/stitching/periodic distance).
 - **Determinism:** Engine-global Voronoi vs pinned library affects reproducibility.
 - **Performance:** Archived docs cite `d3-delaunay` for perf; current adapter path is a black box.
 - **Transition intent:** Was it expected that `foundation.plates` would already be mesh-projected, or is the current “scaffolding-only” state intentional?

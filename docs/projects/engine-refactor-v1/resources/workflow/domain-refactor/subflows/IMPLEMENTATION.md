@@ -15,6 +15,7 @@ This sub-flow assumes you already produced:
 
 Keep open while implementing:
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/implementation-reference.md`
+- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/implementation-traps-and-locked-decisions.md`
 
 ## How to think about slicing (guardrails)
 
@@ -37,6 +38,14 @@ Anti-patterns (do not do this):
 - “One op that does everything” where the op id reads like a noun or a domain label rather than an action.
 - “We’ll keep the old path until the end” (dual paths = half-migration risk).
 
+## Drift response protocol (required if you notice drift)
+
+If you detect drift or a locked decision is violated, pause and:
+1. Write a short status report (what changed, what is in-flight, what is next).
+2. Update the Phase 3 issue to insert the locked decision as a gate.
+3. Replace “later” buckets with explicit subissues and branches.
+4. Add guardrails (string/surface checks or contract-guard tests) to prevent reintroduction.
+
 ## Slice planning artifact (required before coding)
 
 Before writing code, write a short slicing plan in the domain issue doc:
@@ -46,6 +55,9 @@ Before writing code, write a short slicing plan in the domain issue doc:
 - Legacy entrypoints to delete in that slice (file paths / exports)
 - Tests to add/update for that slice (op contract test + any thin integration edge)
 - Expected guardrail scope (which domains to run via `REFRACTOR_DOMAINS=...`)
+- Locked decisions + bans (and how each becomes a guardrail)
+- Step decomposition plan (causality spine → step boundaries → artifacts/buffers)
+- Consumer inventory + migration matrix (break/fix by slice)
 
 ## Slice completion checklist (repeat for each slice)
 
@@ -55,6 +67,7 @@ This is the “definition of done” for a slice. You must complete it before mo
 
 - Create/update the op module(s) needed by this slice under `mods/mod-swooper-maps/src/domain/<domain>/ops/**`.
 - Op contracts are POJO/POJO-ish only (typed arrays ok); no adapters/context/RNG callbacks cross the boundary.
+- Run handlers assume normalized config (no hidden defaults or fallback values).
 - Each op module is contract-first and follows the canonical shape:
   - `contract.ts` via `defineOp`
   - `types.ts` exporting a single `OpTypeBag`
@@ -78,6 +91,7 @@ This is the “definition of done” for a slice. You must complete it before mo
 - Delete the legacy entrypoints and helpers that the migrated step(s) used.
 - Do not leave compat exports or an “old/new” switch.
 - Remove any compat/projection surfaces from this domain. If downstream needs transitional compatibility, implement it downstream with explicit `DEPRECATED` / `DEPRECATE ME` markers.
+- No dual-path compute: if old and new both produce the same concept, delete the old path in this slice unless an explicit deferral trigger is recorded.
 
 ### 4) Tests for the slice
 
@@ -102,6 +116,8 @@ REFRACTOR_DOMAINS="<domain>[,<domain2>...]" ./scripts/lint/lint-domain-refactor-
 ```
 
 If it fails, iterate until clean (no exceptions).
+
+If a locked decision/banned surface was introduced in this slice, add a guardrail (test/scan) in the same slice.
 
 ### 7) Commit the slice (Graphite-only)
 

@@ -24,16 +24,6 @@ related_to: []
 - Phase 1 (current-state): `docs/projects/engine-refactor-v1/resources/spike/spike-foundation-current-state.md`
 - Phase 2 (model-first): `docs/projects/engine-refactor-v1/resources/spike/spike-foundation-modeling.md`
 
-## Authoritative posture (locked)
-
-Lock this in: “authoritative first-principles model even if artifacts change” (model-first).
-
-Non-negotiables for implementation:
-- Mesh/graph causality is canonical; tile-indexed tensors are projections for downstream compatibility, not the model.
-- Directionality is deleted; orientation biases are derived from artifacts/buffers (plateGraph/tectonics + Hydrology winds/currents).
-- No `foundation.seed`/`foundation.diagnostics`/`foundation.config` artifacts exist; debugging stays in step-level trace logs, not artifacts.
-- Typed-array payloads must not be “Type.Any by default”; prefer explicit typed-array schemas + runtime invariant validation (ADR-ER1-030).
-
 ## Scope and constraints
 - This issue implements the Phase 2 model; it does not redefine it.
 - All model changes must be recorded in the Phase 2 spike before implementation.
@@ -261,43 +251,15 @@ Post Slice 5 re-run (after config purity + FoundationContext removal):
 - **Rationale:** keeps backend ownership in mapgen-core and avoids changing the mesh artifact contract shape.
 - **Risk:** CSR representation stays as the canonical mesh adjacency shape; any consumer expecting array-of-arrays must adapt (none in-tree today).
 
-#### Slice 6: wrapX periodic Voronoi is required (no non-wrap path)
-- **Context:** Civ maps are cylindrical in X; the mesh-first model must be wrap-correct for seam adjacency and any mesh-level vector math, or tectonics/projections will artifact at the seam.
-- **Options:** (a) keep planar-only mesh and compensate downstream, (b) implement periodic Voronoi via replication (`x±wrapWidth`) and fold back adjacency/areas into the mesh artifact.
-- **Choice:** implement periodic wrapX Voronoi via replication + foldback in the canonical `d3-delaunay` backend, and remove wrap controls from entry/runtime layers (no authored knob, no alternate path).
-- **Rationale:** preserves a single authoritative mesh model and keeps seam correctness owned by the mesh layer, without leaking wrap toggles into runtime/entry code.
-- **Risk:** any downstream that previously relied on `env.wrap` must be updated; wrap is now an invariant inside Foundation only.
-
-#### Slice 6: remove wrap toggles from runtime/env surfaces
-- **Context:** Wrap behavior is a Foundation-owned invariant and should not live in entry/runtime env surfaces.
-- **Options:** (a) keep `env.wrap` and validate/override, (b) remove wrap from `Env` and from map init/runtime entry entirely.
-- **Choice:** remove wrap from `Env` and from map init/runtime entry; Foundation assumes wrapX and treats wrapY as unsupported.
-- **Rationale:** prevents wrap toggles from leaking outside the domain boundary and aligns with the “no optionality” directive.
-- **Risk:** tests and any callers must update their env fixtures to drop `wrap`.
-
-#### Slice 6: mesh contract wrap semantics surface
-- **Context:** WrapX is a Foundation-owned invariant; downstream math still needs the periodic span.
-- **Options:** (a) include `wrapX` + `wrapWidth` in the mesh contract, (b) include only `wrapWidth` and treat wrap as implicit.
-- **Choice:** include only `wrapWidth` in the mesh contract.
-- **Rationale:** downstream math needs the span but should not be tempted to branch on a wrap toggle; the span is sufficient.
-- **Risk:** any code expecting a `wrapX` flag in the mesh artifact must be updated to use `wrapWidth` alone.
-
-#### Slice 6: remove foundation seed/diagnostics artifacts
-- **Context:** `foundation.seed` / `foundation.diagnostics` are legacy surfaces with no active consumers in-tree.
-- **Options:** (a) keep them for potential debug consumers, (b) remove them and keep the projection output surface minimal.
-- **Choice:** remove both artifacts and associated tags/validators.
-- **Rationale:** aligns with the “ruthless deletion” directive and avoids carrying legacy surfaces without clear ownership.
-- **Risk:** any external tooling that relied on these tags will need to migrate or drop usage.
-
-#### Slice 6: run Delaunay/Voronoi in Civ hex space (not raw grid space)
-- **Context:** The PRD explicitly expects mesh sites and distances to live in a continuous coordinate space derived from Civ’s hex grid geometry so Euclidean distances correspond to hex adjacency.
-- **Options:** (a) treat `(x,y)` as raw grid coordinates (rectangular metric), (b) project into odd-q “hex space” for Delaunay/Voronoi and carry `wrapWidth` in those units.
-- **Choice:** compute Delaunay/Voronoi in odd-q hex space (as already used by legacy plate generation distance math) and treat `wrapWidth = width * sqrt(3)` as the periodic X span.
-- **Rationale:** keeps mesh adjacency, plate assignment, and tile projection distance consistent in the same metric space.
-- **Risk:** mesh “area” invariants must be expressed in the chosen mesh coordinate units (use bbox area, not `width * height` blindly).
+#### Slice 6: remove config snapshots from foundation seed artifacts
+- **Context:** Plate seed artifacts were embedding projection/config metadata; directive is to avoid config snapshots in artifacts.
+- **Options:** (a) keep config metadata inside `foundation.seed` for diagnostics, (b) remove config data entirely and keep only seed locations.
+- **Choice:** remove config payload from `foundation.seed`.
+- **Rationale:** enforces the “no config snapshot artifacts” rule and keeps artifacts strictly model outputs.
+- **Risk:** any downstream tooling that expected config metadata in the seed artifact loses that introspection.
 
 #### Slice 6: mesh area validation tolerance in tests
-- **Context:** Delaunay/Voronoi area sums should approximate the mesh bbox area (`(xr-xl) * (yb-yt)` in mesh coordinate units), but floating-point and clipping can introduce minor drift.
+- **Context:** Delaunay/Voronoi area sums should approximate `width * height` but floating-point and clipping can introduce minor drift.
 - **Options:** (a) strict equality, (b) small relative tolerance (1–5%).
 - **Choice:** 5% relative tolerance for mesh area sum checks in tests.
 - **Rationale:** keeps the invariant meaningful while avoiding false negatives from numeric drift.
@@ -325,7 +287,7 @@ Post Slice 5 re-run (after config purity + FoundationContext removal):
   - publish a tile-graph “mesh” (wrap-correct but violates mesh-first intent).
 - Choice: publish a typed-array+POJO mesh artifact; neighbors are best-effort reconstructed from Voronoi halfedges when available (mock adapter yields empty halfedges, so adjacency is empty in tests).
 - Rationale: keeps artifacts schema-able and deterministic while avoiding a second “tile mesh” model path.
-- Risk: adjacency/wrap semantics are not yet authoritative across adapters; tectonics fields are placeholder/invariant-focused until consumers migrate.
+- Risk: adjacency/wrap semantics are not yet authoritative in scaffolding; mesh-first wrap must be canonical before projections migrate.
 
 ### Slice plan (draft; executable checklists per slice)
 
@@ -339,25 +301,21 @@ These are trusted for algorithmic direction only. Canonical architecture remains
 - Audit (alignment gap): `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/SPIKE-FOUNDATION-PRD-AUDIT.md`
 - Feasibility spike: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/foundation/SPIKE-FOUNDATION-DELAUNAY-FEASIBILITY.md`
 - Canonical mesh spec: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/foundation/SPEC-FOUNDATION-DELAUNAY-VORONOI.md`
-- WrapX periodic implementation appendix: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/foundation/APPENDIX-WRAPX-PERIODIC-MESH-IMPLEMENTATION.md`
 
 Locked decisions for implementation (algorithmic):
 - Use `d3-delaunay` as the canonical Delaunay/Voronoi backend (no adapter, no fallback).
-- Mesh operates in odd-q hex space and must implement wrapX periodic adjacency (wrapY unsupported).
-- wrapX is not an authored knob and does not exist in entry/runtime env surfaces; Foundation assumes wrapX and exposes `mesh.wrapWidth` for downstream wrap-aware math.
-- Mesh distance semantics must align with Civ’s hex grid geometry: run the Delaunay/Voronoi in “hex space” (odd-q vertical layout), so Euclidean distances match downstream hex adjacency and tile projection.
+- Mesh operates in planar map-space (`0..width`, `0..height`) and must implement wrapX periodic adjacency when `env.wrapX` is true (wrapY unsupported).
 - Neighbor/adjacency comes from the backend’s neighbor iterator (no “halfedge inference” against empty mock data).
 - Plate counts are authored as base values and scaled to runtime map size during op normalization (no per-map manual retuning).
 - Mesh `cellCount` is derived during normalization from scaled `plateCount` and an authored `cellsPerPlate` factor; users do not author `cellCount` directly.
-- The mesh contract must include `wrapWidth` so downstream ops can compute wrap-correct distances without introducing wrap toggles.
 
 Spec alignment pass (mesh backend):
 - Spec: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/foundation/SPEC-FOUNDATION-DELAUNAY-VORONOI.md` (created from the same spikes; locks “wrapX required” and “no adapter/fallback”).
-- Alignment: the Slice 6 plan matches the spec’s key hard locks; the remaining deltas are now explicitly checklist items in Subissue 6.3/6.4:
-  - implement wrapX periodic Voronoi via site replication at `x±wrapWidth`, fold neighbors back to base indices, and clip polygons to the base domain for area/centroid (Appendix “WrapX Periodic Voronoi Strategy”)
-  - keep “no hidden defaults in run handlers”: all defaults/derivations happen in `normalize` (e.g. `plateCount → cellCount`), not in `run`
-  - derive adjacency only from the backend iterator (no halfedge inference against empty mock data)
-  - add validation criteria beyond symmetry (total area ~ mesh bbox area, determinism, wrapX seam adjacency)
+- Alignment: the Slice 6 plan already matches the spec’s key hard locks; the remaining deltas are now explicitly checklist items in Subissue 6.3/6.4:
+  - remove all implicit heuristics inside mesh ops (`plateCount → cellCount`, `cellDensity`, etc.); config must be explicit (`cellCount`, `relaxationSteps`)
+  - include wrapX semantics in the mesh contract and enforce wrap-correct adjacency
+  - remove halfedge-based neighbor inference and derive adjacency only from the backend iterator
+  - add validation criteria beyond symmetry (total area ~ `width * height`, determinism, wrapX seam adjacency)
 
 #### Slice 1 — Establish the contract-first spine (behavior-preserving)
 
@@ -431,22 +389,22 @@ Create a step-per-op spine in `mods/mod-swooper-maps/src/recipes/standard/stages
 - `projection` (requires: mesh+plateGraph+tectonics; ops: `computePlatesTensors`; provides: tile projections needed downstream)
 
 Checklist:
-- [x] Add step contract + runtime for each step (kebab-case step ids; no shared monolithic contract).
-- [x] Update `mods/mod-swooper-maps/src/recipes/standard/stages/foundation/index.ts` to register the new steps in order.
-- [x] Delete the old `foundation` monolith step and remove it from the stage index.
+- [ ] Add step contract + runtime for each step (kebab-case step ids; no shared monolithic contract).
+- [ ] Update `mods/mod-swooper-maps/src/recipes/standard/stages/foundation/index.ts` to register the new steps in order.
+- [ ] Delete the old `foundation` monolith step and remove it from the stage index.
 
 Acceptance criteria:
-- [x] There is no “single foundation step” in the recipe; the stage is explicitly multi-step with step-level contracts.
-- [x] Each step runtime is orchestration-only and calls injected ops; no step imports op implementations directly.
+- [ ] There is no “single foundation step” in the recipe; the stage is explicitly multi-step with step-level contracts.
+- [ ] Each step runtime is orchestration-only and calls injected ops; no step imports op implementations directly.
 
 ##### Subissue 6.2 — Delete config snapshots entirely (hard lock)
 
 Checklist:
-- [x] Delete any `foundation.config` artifact (definition + publish + validation).
-- [x] Remove any config snapshot types/validators in `packages/mapgen-core/src/core/types.ts` and `packages/mapgen-core/src/core/assertions.ts`.
+- [ ] Delete any `foundation.config` artifact (definition + publish + validation).
+- [ ] Remove any config snapshot types/validators in `packages/mapgen-core/src/core/types.ts` and `packages/mapgen-core/src/core/assertions.ts`.
 
 Acceptance criteria:
-- [x] No config payload is published as an artifact anywhere in Foundation.
+- [ ] No config payload is published as an artifact anywhere in Foundation.
 - [ ] `rg -n \"foundation\\.config\" mods/mod-swooper-maps/src packages/mapgen-core/src` returns no hits.
 
 ##### Subissue 6.3 — Make mesh generation PRD-aligned: use `d3-delaunay` (canonical-only backend)
@@ -455,22 +413,15 @@ Checklist:
 - [ ] Add `d3-delaunay` as a dependency in the canonical location (expected: `packages/mapgen-core`), and ensure it is bundled for builds.
 - [ ] Implement a deterministic, engine-independent Voronoi backend in mapgen-core per `SPEC-FOUNDATION-DELAUNAY-VORONOI`.
 - [ ] Update `foundation/compute-mesh` op to use the canonical backend and delete its dependency on adapter Voronoi utilities.
-- [ ] Remove wrap toggles from entry/runtime env layers:
-  - delete `wrapX/wrapY` from `mods/mod-swooper-maps/src/maps/_runtime/map-init.ts` and `standard-entry.ts`.
-  - remove `env.wrap` from the core env schema and test fixtures.
-  - do not introduce any Foundation config knob for wrap.
-- [ ] Ensure Delaunay/Voronoi is computed in “hex space” (odd-q vertical layout) so Euclidean distances correspond to tile geometry (PRD-plate-generation coordinate system).
-- [ ] Encode wrap semantics in the mesh contract (`wrapWidth` only) and implement periodic adjacency (wrapY unsupported).
-- [ ] Implement wrapX periodic Voronoi via site replication at `x±wrapWidth`, fold neighbors back to base indices, and clip polygons to the base domain for area/centroid (per spec Appendix “WrapX Periodic Voronoi Strategy”).
-- [ ] Keep mesh resolution internal: derive `cellCount` in `foundation/compute-mesh` normalization from scaled `plateCount` and authored `cellsPerPlate` (no run-handler defaults/derivations).
+- [ ] Encode wrapX semantics in the mesh contract and implement periodic adjacency when `env.wrapX` is true (wrapY unsupported).
+- [ ] Delete any implicit heuristics inside the mesh op (`plateCount → cellCount`, `cellDensity`, etc.); require explicit `cellCount` + `relaxationSteps` only.
 - [ ] Update the test harness so mock adapter does not need to emulate Voronoi halfedges (mesh tests must run offline deterministically).
 
 Acceptance criteria:
 - [ ] No Foundation op or step requires `adapter.getVoronoiUtils`.
 - [ ] Mesh neighbor symmetry invariants are validated under tests.
-- [ ] Mesh total area approximates the mesh bbox area (`(xr-xl) * (yb-yt)`) within tolerance under tests.
+- [ ] Mesh total area approximates `width * height` within tolerance under tests.
 - [ ] Mesh is deterministic for fixed seed + config under tests.
-- [ ] At least one seam-adjacent cell has neighbors across the seam (wrap-correct adjacency), and the mesh contract exposes `wrapWidth` for wrap-aware downstream distance math.
 - [ ] There is no “adapter Voronoi” fallback path (single canonical backend).
 
 ##### Subissue 6.4 — Make `foundation.plates` projections derived from canonical artifacts
@@ -478,10 +429,6 @@ Acceptance criteria:
 Checklist:
 - [ ] Ensure `foundation/compute-plates-tensors` consumes only mesh-first artifacts (`mesh/crust/plateGraph/tectonics`) and produces tile-indexed tensors strictly by projection (no adapter Voronoi inputs).
 - [ ] Remove any “parallel tile-first plate generation” path; no second algorithm should compute plates from unrelated inputs.
-- [ ] Make all mesh-space distance/vector math wrap-aware using the mesh contract’s `wrapWidth`:
-  - `foundation/compute-plate-graph`: plate assignment distances must use periodic X distance (no seam bias).
-  - `foundation/compute-tectonics`: boundary typing must use wrapped `dx` so dot-products are meaningful across the seam.
-  - `foundation/compute-plates-tensors` projection: nearest-cell assignment must use wrap-correct distance in hex space (either replicate sites at `x±wrapWidth` or implement wrapped distance directly).
 
 Acceptance criteria:
 - [ ] `foundation.plates` is derived solely from mesh-first artifacts and tectonics outputs (single-path causality).
@@ -511,11 +458,11 @@ Acceptance criteria:
 - [ ] `pnpm -C mods/mod-swooper-maps check` passes (type-level surface is coherent).
 
 ##### Slice 6 gates (must pass before Slice 7)
-- [x] `pnpm -C packages/mapgen-core check`
-- [x] `pnpm -C packages/mapgen-core test`
-- [x] `pnpm -C mods/mod-swooper-maps check`
-- [x] `pnpm -C mods/mod-swooper-maps test`
-- [x] `pnpm -C mods/mod-swooper-maps build`
+- [ ] `pnpm -C packages/mapgen-core check`
+- [ ] `pnpm -C packages/mapgen-core test`
+- [ ] `pnpm -C mods/mod-swooper-maps check`
+- [ ] `pnpm -C mods/mod-swooper-maps test`
+- [ ] `pnpm -C mods/mod-swooper-maps build`
 
 #### Slice 7 — Downstream rebuild (authoritative surfaces only)
 
@@ -539,14 +486,14 @@ Checklist:
 - [ ] Replace any remaining orientation bias logic with artifact/buffer derived signals only (plate boundaries/tectonics + hydrology winds/currents).
 
 Acceptance criteria:
-- [x] `rg -n \"directionality\" mods/mod-swooper-maps/src packages/mapgen-core/src` returns no hits.
+- [ ] `rg -n \"directionality\" mods/mod-swooper-maps/src packages/mapgen-core/src` returns no hits.
 
 ##### Slice 7 gates
-- [x] `pnpm -C packages/mapgen-core check`
-- [x] `pnpm -C packages/mapgen-core test`
-- [x] `pnpm -C mods/mod-swooper-maps check`
-- [x] `pnpm -C mods/mod-swooper-maps test`
-- [x] `pnpm -C mods/mod-swooper-maps build`
+- [ ] `pnpm -C packages/mapgen-core check`
+- [ ] `pnpm -C packages/mapgen-core test`
+- [ ] `pnpm -C mods/mod-swooper-maps check`
+- [ ] `pnpm -C mods/mod-swooper-maps test`
+- [ ] `pnpm -C mods/mod-swooper-maps build`
 
 #### Slice 8 — Ruthless deletion sweep (no shims, no legacy, no compat)
 

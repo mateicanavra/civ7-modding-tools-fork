@@ -54,6 +54,8 @@ Recommended “outside view” doc set (create only what you need; keep it small
 
 ## Hard rules (do not violate)
 
+### Architecture rules
+
 - **Contract-first:** All domain logic is behind op contracts (`mods/mod-swooper-maps/src/domain/<domain>/ops/**`).
 - **No op composition:** Ops are atomic; ops must not call other ops (composition happens in steps/stages).
 - **Steps are orchestration:** step modules must not import op implementations; they call injected ops in `run(ctx, config, ops, deps)`.
@@ -68,15 +70,35 @@ Recommended “outside view” doc set (create only what you need; keep it small
   - **Today (intentional compromise):** overlays are routed through artifact contracts for gating/typing; publish the overlays artifact **once**, then accumulate overlays via `ctx.overlays.*` (append-preferred; mutation is rare and intentional).
 - **Compile-time normalization:** defaults + `step.normalize` + `op.normalize`; runtime does not “fix up” config.
 - **Import discipline:** step `contract.ts` imports only `@mapgen/domain/<domain>` + stage-local contracts (e.g. `../artifacts.ts`); no deep imports under `@mapgen/domain/<domain>/**`, and no `@mapgen/domain/<domain>/ops`.
+
+### Legacy + pipeline ownership rules
+
 - **Do not propagate legacy patterns:** do not copy legacy authoring patterns forward. Implement changes only through the canonical architecture.
 - **Explicit legacy audit required:** every existing config property, rule/policy, and domain function must be inventoried and explicitly classified as model-relevant or legacy. Unclassified surfaces are a gate failure.
-- **Docs-as-code is enforced:** any touched exported function/op/step/schema gets contextual JSDoc and/or TypeBox `description` updates (trace references before writing docs).
 - **Authoritative modeling (not “code cleanup”):** prefer the physically grounded target model over preserving legacy behavior; delete/replace broken or nonsensical behavior as needed.
 - **Cross-pipeline consistency is required:** when the domain model changes contracts/artifacts, update downstream steps and stage-owned artifact contracts in the same refactor so the whole pipeline stays internally consistent (no “temporary mismatch”).
 - **Upstream model intake (non-root):** review the prior domain’s Phase 2 modeling spike and pipeline delta list, then explicitly document which authoritative inputs this domain will adopt and which legacy inputs will be deleted. Also review any upstream refactor changes that touched this domain (compat shims, temporary adapters, legacy pathways) and explicitly plan their removal.
 - **Downstream model intake (non-leaf):** review downstream domain docs and current consumer callsites, then explicitly document which downstream consumers must change to honor the authoritative model.
 - **No upstream compat surfaces:** the domain being refactored must not publish legacy compat or projection surfaces. If downstream needs transitional compatibility, it must be implemented in the downstream domain with explicit `DEPRECATED` / `DEPRECATE ME` markers. Upstream refactors must update downstream consumers in the same change.
 - **Compat cleanup ownership:** if any downstream deprecated compat surfaces remain, create a cleanup item in `docs/projects/engine-refactor-v1/triage.md`. If the immediate downstream domain can remove them safely and no other downstream consumers are affected, that downstream owns the cleanup and must have a dedicated issue; link it from triage.
+
+### Documentation rules
+
+- **Docs-as-code is enforced:** any touched exported function/op/step/schema gets contextual JSDoc and/or TypeBox `description` updates (trace references before writing docs).
+- **Documentation pass is mandatory:** Phase 3 must include a dedicated documentation pass (slice or issue) that inventories every touched/created schema, function, op, step, stage, and contract, and updates JSDoc + schema descriptions with behavior, defaults, modes, and downstream impacts.
+
+### Implementation drift guardrails (locked decisions)
+
+- **Ops stay pure; steps own runtime binding.** Runtime/adapter concerns do not cross the op boundary.
+- **Trace is step-scoped by default.** Op-level trace requires explicit contract changes or step-wrapping.
+- **RNG crosses boundaries as data (seed), never callbacks/functions.** Steps derive seeds; ops build local RNGs.
+- **Defaults live in schemas; derived values live in normalize.** Avoid hidden runtime defaults or fallbacks.
+- **Do not snapshot/freeze at publish boundaries.** Enforce write-once + readonly-by-type instead.
+- **Derived knobs are not user-authored.** Expose semantic knobs; derive internal metrics in normalize.
+- **Avoid monolithic steps.** Step boundaries are the architecture; do not collapse stages into a mega-step.
+- **No silent compat.** Delete, or push compat downstream with explicit deprecation and a removal trigger.
+- **Schemas are the single source of truth.** Derive types from schemas; do not duplicate shapes manually.
+- **Entry layers do not rewrite domain policy.** Runtime entry supplies facts; domain owns policy knobs and invariants.
 
 ## Principles (authoritative surfaces)
 
@@ -89,9 +111,22 @@ Config ownership is local and narrow. Op contracts must define op-owned strategy
 Phase 2 modeling is a research sprint. Treat it like a full-time investigation, not a cursory read-through. Record evidence in the modeling spike.
 
 - **Architecture alignment pass:** re-read the target architecture SPEC/ADR set and reconcile any conflicts (do not invent new contracts that contradict specs).
+- **Authority stack pass:** list which docs are canonical vs supporting; label PRDs as non-authoritative algorithmic inputs.
 - **Earth-physics pass:** model from first principles using domain + earth-physics references; if gaps exist, use external research and cite sources in the spike.
 - **Pipeline pass:** review upstream authoritative inputs and downstream consumers; document adopted inputs, deleted legacy reads, and required downstream changes.
+- **Model articulation pass:** produce a concise conceptual narrative plus diagrams that explain the domain as a subsystem (architecture view, data-flow, and producer/consumer map with current vs target pipeline adjustments).
 - **Codebase evidence pass:** use the code-intel MCP server and repo searches to validate current surfaces, callsites, and invariants; link evidence in decisions.
+
+## Modeling loop (required; Phase 2)
+
+Phase 2 is iterative. Do not lock the model after a single pass. Run at least two passes unless you can justify a single-pass exception in the iteration log.
+
+Repeat this loop until the model stabilizes:
+1. **Broad pipeline sweep:** what upstream stages produce today vs should produce; what downstream consumers need today vs should need. Identify legacy shims and compat reads.
+2. **Domain deep dive:** use internal specs, earth-physics research, code evidence, and external sources to refine the model.
+3. **Synthesis pass:** draft the canonical model, target contracts, pipeline deltas, and diagrams.
+4. **Fractal refinement:** ask if the model can be decomposed further, if any entities/boundaries should change, and if downstream consumers need alternate shapes. Update the model and diagrams.
+5. **Convergence:** record changes in the iteration log and explain why the model is now stable.
 
 ## Anti-patterns (avoid; common failure modes)
 
@@ -105,6 +140,10 @@ Phase 2 modeling is a research sprint. Treat it like a full-time investigation, 
 - **Config bag reuse inside ops:** using a domain-wide config bag in op strategy schemas instead of op-owned config.
 - **Silent legacy carry-through:** retaining legacy properties/rules/functions without an explicit model-relevance decision.
 - **Skipping upstream intake:** continuing to consume legacy upstream surfaces without evaluating new authoritative inputs.
+- **Diagramless model:** locking a model without a conceptual narrative or current/target pipeline diagrams.
+- **Single-pass modeling:** locking the model without an iteration log and a refinement pass.
+- **Implementation drift:** “making it work” by preserving legacy nesting, collapsing steps, smuggling runtime concerns, or adding hidden defaults.
+- **Authority confusion:** treating PRDs or outdated references as canonical without an explicit authority stack.
 
 Example anti-pattern (do not copy):
 ```ts
@@ -124,6 +163,15 @@ export const ComputePlatesContract = defineOp({
 
 Preferred posture: define a minimal op-owned schema and map any external bag at step normalization.
 
+## Drift response protocol (when you notice drift)
+
+If you detect drift or a locked decision gets violated, stop and do the following before continuing:
+
+1. **Hard stop + status report:** document what changed, what is in-flight, and what is next.
+2. **Rebuild the slice plan gates:** update the Phase 3 issue to insert the locked decision as a gate.
+3. **Split vague slices:** replace “later” buckets with explicit subissues + per-subissue branches.
+4. **Add guardrails:** add string/surface guard tests or checks so the violation cannot reappear (same slice).
+
 ## Phase gates (no phase bleed)
 
 Phase 1 gate:
@@ -141,15 +189,35 @@ Phase 2 gate:
 - Upstream authoritative inputs are selected and legacy upstream reads are marked for removal.
 - Upstream handoff cleanup is explicit; no upstream-introduced compat surfaces remain in this domain.
 - Downstream consumer impact scan is explicit; required downstream changes are listed.
+- Conceptual narrative and diagrams exist (architecture view, data-flow, producer/consumer mapping with current vs target adjustments).
 - Architecture alignment note exists; conflicts are recorded and reconciled.
+- Authority stack is explicit; PRDs are labeled non-authoritative.
 - Research sources are cited when external research is used.
+- Iteration log exists; at least two modeling passes (or a justified single-pass exception) and diagrams/pipeline delta list reflect the final pass.
+- Decision points are explicit: compat vs delete, normalize vs runtime validation, trace/RNG boundary choices, derived knobs vs authored config.
 
 Phase 3 gate:
 - Implementation issue exists and includes an executable slice plan.
 - No model changes appear in the issue doc.
+- Sequencing refinement pass exists: slices are drafted, re-ordered for pipeline safety, and re-checked against downstream deltas before locking.
+- Documentation pass is explicitly scoped (dedicated slice or issue) and includes a doc inventory of all touched/created surfaces.
+- No “later” buckets: every slice is explicit and has a branch/subissue plan.
+- Guardrails are planned: contract-guard tests or string/surface checks for forbidden surfaces.
+- Locked decisions/bans are test-backed in the same slice they are introduced.
+- Step decomposition plan exists (causality spine → step boundaries).
+- Consumer inventory + migration matrix exists (break/fix per slice).
+
+## Phase 3 sequencing refinement (required)
+
+Phase 3 is planning-only, but it is not single-pass. Run one explicit sequencing refinement:
+1. Draft the slice list from Phase 2 deltas.
+2. Re-order slices for pipeline safety (each slice ends green).
+3. Re-check downstream deltas and compat ownership against the re-ordered plan.
+4. Lock the plan and record the sequencing rationale.
 
 Phase 4 gate:
 - Each slice ends in a pipeline-green state (tests + guardrails + deletions complete).
+- No dual-path compute persists unless an explicit deferral trigger is recorded.
 
 Phase 5 gate:
 - Full verification gates are green.
@@ -288,6 +356,7 @@ Workflow package references:
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/phase-2-modeling.md`
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/phase-3-implementation-plan.md`
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/implementation-reference.md`
+- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/implementation-traps-and-locked-decisions.md`
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/subflows/IMPLEMENTATION.md`
 
 Prior art / sequencing helpers:

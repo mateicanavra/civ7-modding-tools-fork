@@ -16,6 +16,7 @@ Required sections (minimum):
 - Upstream authoritative input review (if non-root)
 - Upstream handoff review (changes to this domain made by the prior refactor)
 - Downstream consumer inventory (current usage + contract dependencies)
+- Current pipeline map (producer/consumer data-flow snapshot)
 - Decisions + defaults (initial)
 - Risk register (initial)
 - Golden path candidate
@@ -32,6 +33,7 @@ Inventory checklist (do not skip):
 - Upstream authoritative input review (prior domain Phase 2 model + pipeline delta list)
 - Upstream handoff review (prior refactor changes to this domain: compat shims, temporary adapters, legacy pathways)
 - Downstream consumer inventory (current consumers + the contracts they rely on)
+- Current pipeline map (producer/consumer data-flow snapshot)
 - Typed-array inventory (constructors, lengths, validators)
 - Deletion list (symbols + file paths that must go to zero)
 
@@ -43,6 +45,7 @@ Gate checklist (Phase 1 completion):
 - Upstream authoritative inputs are reviewed and logged (if the domain is not the pipeline root).
 - Upstream handoff review is explicit and lists upstream-introduced changes to remove.
 - Downstream consumer inventory is explicit and complete.
+- Current pipeline map exists and reflects current producers/consumers.
 
 References:
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/domain-inventory-and-boundaries.md`
