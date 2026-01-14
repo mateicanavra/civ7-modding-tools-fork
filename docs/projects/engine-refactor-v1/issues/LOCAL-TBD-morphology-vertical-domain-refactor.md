@@ -342,11 +342,15 @@ Consumer updates:
 - Hydrology `lakes`: remove `requires: effect:engine.landmassApplied`; add a single authoritative artifact prerequisite (either Morphology topography, or an existing heightfield artifact if that remains the true prerequisite). No dual prerequisites.
 
 **Acceptance Criteria (verifiable):**
-- [ ] No consumer step contract in scope *requires* `M4_EFFECT_TAGS.engine.landmassApplied` or `M4_EFFECT_TAGS.engine.coastlinesApplied`.
-- [ ] Narrative consumer contracts in scope declare `artifacts.requires` on the minimum Morphology artifact(s) they actually read.
-- [ ] Placement `derive-placement-inputs` declares `artifacts.requires` on `morphologyArtifacts.landmasses` (and any other Morphology artifacts it reads).
-- [ ] Hydrology `lakes` declares exactly one authoritative prerequisite (no dual effect-tag + artifact requires).
-- [ ] Contract-guard coverage exists that fails CI if any of the above effect-tag requires reappear in scope.
+- [x] No consumer step contract in scope *requires* `M4_EFFECT_TAGS.engine.landmassApplied` or `M4_EFFECT_TAGS.engine.coastlinesApplied`.
+- [x] Narrative consumer contracts in scope declare `artifacts.requires` on the minimum Morphology artifact(s) they actually read.
+- [x] Placement `derive-placement-inputs` declares `artifacts.requires` on `morphologyArtifacts.landmasses` (and any other Morphology artifacts it reads).
+- [x] Hydrology `lakes` declares exactly one authoritative prerequisite (no dual effect-tag + artifact requires).
+- [x] Contract-guard coverage exists that fails CI if any of the above effect-tag requires reappear in scope.
+
+Trace:
+- Implemented on branch `agent-BRODY-M8-MORPH-S2-consumer-cutover`.
+- Draft PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/589
 
 **Scope boundaries:**
 - In scope:
