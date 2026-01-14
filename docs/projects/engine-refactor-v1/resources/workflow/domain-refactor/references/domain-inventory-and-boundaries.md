@@ -26,6 +26,9 @@ Minimum investigation outputs (you must produce these artifacts in the issue doc
 - A complete step map for the domain (all callsites).
 - A complete dependency contract list (requires/provides keys, ownership, validators, producers/consumers).
 - A complete config map (schemas, defaults, resolvers, and any runtime fixups to delete).
+- A legacy surface inventory (every config property, rule/policy, and domain function with locations).
+- An upstream authoritative intake (prior domain Phase 2 model + pipeline deltas; adopted inputs vs legacy reads to delete).
+- An upstream handoff review (prior refactor changes to this domain: compat shims, temporary adapters, legacy pathways).
 - A typed-array inventory (ctor + length coupling + where validation occurs).
 - A deletion list with “around-the-block” references (symbols + file paths that must go to zero).
 
@@ -94,7 +97,22 @@ For each step and each candidate op:
 - any runtime merges/defaulting (must be eliminated)
 - any scaling semantics (must move into compile-time normalization: `step.normalize` and/or `op.normalize`)
 
-### D) Typed arrays + invariants
+Property ledger (required):
+- enumerate every config property in the domain boundary (schema path + file path)
+- list current usage sites (op/step/module)
+- mark as “legacy candidate” until Phase 2 disposition (keep/kill/migrate)
+
+### D) Upstream authoritative intake (required; non-root domains)
+
+- Identify the prior domain’s Phase 2 spike and pipeline delta list.
+- Enumerate the authoritative upstream inputs you will adopt (contract ids + file paths).
+- Enumerate legacy upstream reads to delete (callsite + replacement input).
+
+Upstream handoff review (also required):
+- Identify any prior refactor changes to this domain’s surfaces (compat shims, temporary adapters, legacy pathways).
+- List the exact files/exports and the planned removal path in this refactor.
+
+### E) Typed arrays + invariants
 
 Inventory every typed array used in the domain boundary:
 - ctor (`Uint8Array`, `Int16Array`, `Float32Array`, etc.)
@@ -104,13 +122,23 @@ Inventory every typed array used in the domain boundary:
 Policy:
 - typed arrays in op schemas use `TypedArraySchemas.*` and are validated via canonical validators (ADR-ER1-030).
 
-### E) Boundary violations to eliminate
+### F) Boundary violations to eliminate
 
 List and link every instance of:
 - adapter/context crossing into domain logic,
 - callback “views” passed into domain functions,
 - RNG callbacks/state crossing into domain logic (e.g. `options.rng`, `ctx.rng`),
-- runtime config fixups/merges inside op/domain code.
+- runtime config fixups/merges inside op/domain code,
+- consuming upstream compatibility shims or projection artifacts instead of authoritative upstream inputs.
+- retaining upstream-introduced compat surfaces inside this domain.
+
+### G) Rules/policies/functions inventory (required)
+
+For every rule, policy, or domain function:
+- identifier + file path
+- current callsites
+- the contract or buffer/artifact it operates on
+- mark as “legacy candidate” until Phase 2 disposition (keep/kill/migrate)
 
 ## Slicing plan (required before implementation)
 

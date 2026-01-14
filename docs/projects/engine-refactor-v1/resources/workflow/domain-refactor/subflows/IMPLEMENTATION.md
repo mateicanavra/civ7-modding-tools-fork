@@ -13,6 +13,9 @@ This sub-flow assumes you already produced:
 - a domain inventory (all callsites, contracts, config surfaces, typed arrays, deletions), and
 - a locked op catalog (ids, kinds, schema ownership, config resolution plan).
 
+Keep open while implementing:
+- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/implementation-reference.md`
+
 ## How to think about slicing (guardrails)
 
 You (the implementer) choose slices **ad hoc** based on the domain inventory. The workflow is not prescriptive about slice boundaries, but it is strict about slice **completion** (no half-migrations).
@@ -74,6 +77,7 @@ This is the “definition of done” for a slice. You must complete it before mo
 
 - Delete the legacy entrypoints and helpers that the migrated step(s) used.
 - Do not leave compat exports or an “old/new” switch.
+- Remove any compat/projection surfaces from this domain. If downstream needs transitional compatibility, implement it downstream with explicit `DEPRECATED` / `DEPRECATE ME` markers.
 
 ### 4) Tests for the slice
 
@@ -113,6 +117,7 @@ In the final slice, do the “around-the-block” cleanup:
 - remove now-unused shared helpers that existed only to support legacy paths,
 - remove obsolete exports/re-exports that bypass the op boundary,
 - update docs/presets/tests that referenced removed legacy structures.
+- if any downstream deprecated shims were added, add a cleanup item in `docs/projects/engine-refactor-v1/triage.md`, or open a dedicated downstream issue if the next domain can remove them safely (link the issue from triage).
 
 Then run the full verification gates:
 ```bash

@@ -14,12 +14,15 @@ blocked_by: []
 blocked: []
 related_to: []
 ---
-
-<!-- SECTION SCOPE [SYNC] -->
 ## TL;DR
-- Refactor Foundation into the canonical architecture: **contract-first ops + orchestration-only steps**, with **stage-owned artifact contracts** and **single-path `deps` access**.
-- Enforce the **authoritative, first-principles Foundation model** (mesh/graph-first); keep tile-indexed tensors as **projections** until downstream domains migrate.
-- Remove cross-pipeline coupling (no `ctx.artifacts.get(artifact:foundation.*)` reads and no deep imports that depend on Foundation module layout).
+- Implement the Phase 2 Foundation model through contract-first ops + orchestration-only steps.
+- Add mesh-first artifacts as additive provides while keeping plates/dynamics projections for current consumers.
+- Remove legacy coupling (`ctx.artifacts.get` and deep imports) and delete compat surfaces.
+
+## Phase artifact links
+- Plan: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/FOUNDATION.md`
+- Phase 1 (current-state): `docs/projects/engine-refactor-v1/resources/spike/spike-foundation-current-state.md`
+- Phase 2 (model-first): `docs/projects/engine-refactor-v1/resources/spike/spike-foundation-modeling.md`
 
 ## Authoritative posture (locked)
 
@@ -31,10 +34,10 @@ Non-negotiables for implementation:
 - No `foundation.seed`/`foundation.diagnostics`/`foundation.config` artifacts exist; debugging stays in step-level trace logs, not artifacts.
 - Typed-array payloads must not be “Type.Any by default”; prefer explicit typed-array schemas + runtime invariant validation (ADR-ER1-030).
 
-## Dependencies / Sources
-- Plan spine: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/FOUNDATION.md`
-- Phase 1 (current-state): `docs/projects/engine-refactor-v1/resources/spike/spike-foundation-current-state.md`
-- Phase 2 (model-first): `docs/projects/engine-refactor-v1/resources/spike/spike-foundation-modeling.md`
+## Scope and constraints
+- This issue implements the Phase 2 model; it does not redefine it.
+- All model changes must be recorded in the Phase 2 spike before implementation.
+- Phase 3 owns slice sequencing and verification gates.
 
 ## Deliverables
 - Foundation domain has a real op surface:
@@ -57,11 +60,7 @@ Non-negotiables for implementation:
   - `pnpm -C mods/mod-swooper-maps build`
   - `pnpm deploy:mods`
 - [ ] No legacy artifact access paths remain:
-  - `rg -n "ctx\\.artifacts\\.get\\(.*foundation\\." mods/mod-swooper-maps/src packages/mapgen-core` returns no hits (allowlist test harnesses only, if explicitly documented).
-- [ ] Directionality is fully removed:
-  - `rg -n "directionality" mods/mod-swooper-maps/src packages/mapgen-core/src` returns no hits.
-- [ ] Foundation op/step contracts do not import domain config bags:
-  - no `@mapgen/domain/config` imports or `Type.Partial(FoundationConfigSchema)` in Foundation ops/contracts.
+  - `rg -n "ctx\.artifacts\.get\(.*foundation\." mods/mod-swooper-maps/src packages/mapgen-core` returns no hits (allowlist test harnesses only, if explicitly documented).
 - [ ] Foundation step is orchestration-only:
   - No step runtime imports Foundation op implementations directly.
   - No step runtime calls the legacy monolithic producer (once deleted).
@@ -73,17 +72,115 @@ Non-negotiables for implementation:
 ## Testing / Verification
 - Slice-local targeted verification:
   - `pnpm -C mods/mod-swooper-maps test -- --testPathPattern foundation` (or the repo’s equivalent Foundation test selector)
-  - `rg -n "ctx\\.artifacts\\.get\\(.*foundation\\." mods/mod-swooper-maps/src packages/mapgen-core`
+  - `rg -n "ctx\.artifacts\.get\(.*foundation\." mods/mod-swooper-maps/src packages/mapgen-core`
 - Full gates (end of each slice, minimum once at the end):
   - `pnpm check`
   - `pnpm test`
   - `pnpm build`
   - `pnpm deploy:mods`
 
+## Slicing strategy (additive → migration → deletion)
+
+- Additive-first: publish mesh-first artifacts while keeping plates/dynamics stable.
+- Migration: move consumers off legacy access paths (deep imports, `ctx.artifacts.get`).
+- Deletion: remove legacy entrypoints and compat helpers once contracts are coherent.
+
+## Contract deltas by slice (summary)
+
+- Slice 1: no `requires/provides` changes; contract-first spine + schema tightening.
+- Slice 2: add mesh-first artifacts as additional provides.
+- Slice 3: no `requires/provides` changes; migrate off legacy access paths.
+- Slice 4: directionality cutover + delete legacy entrypoints/compat surfaces.
+
+## Slice plan (executable checklists per slice)
+
+This slice plan is derived from the Phase 2 lookback inputs. Each slice must be independently shippable and leave the pipeline coherent.
+
+### Slice 1 — Establish the contract-first spine (behavior-preserving)
+
+Goal: route existing outputs (`foundation.plates`, `foundation.dynamics`, trace artifacts) through canonical ops + stage contract posture without changing behavior.
+
+Checklist:
+- [ ] Declare op contracts:
+  - `foundation/compute-plates-tensors`
+  - `foundation/compute-dynamics-tensors`
+- [ ] Implement ops by delegating to existing algorithms (legacy code becomes a private implementation detail).
+- [ ] Convert Foundation stage orchestration to call injected ops (no direct imports of Foundation implementation modules in the step runtime).
+- [ ] Tighten stage-owned artifact schemas (remove `Type.Any()` for typed-array payloads where possible).
+- [ ] Lock boundary semantics export surface (stable contract import for `BOUNDARY_TYPE`).
+
+### Slice 2 — Add mesh-first artifacts as additive provides (model-first scaffolding)
+
+Goal: publish mesh/graph-first artifacts as additional provides without changing downstream requirements.
+
+Checklist:
+- [ ] Add stage-owned artifact contracts:
+  - `foundation.mesh`, `foundation.crust`, `foundation.plateGraph`, `foundation.tectonics`.
+- [ ] Declare op contracts + implementations:
+  - `foundation/compute-mesh`
+  - `foundation/compute-crust`
+  - `foundation/compute-plate-graph`
+  - `foundation/compute-tectonics`
+- [ ] Publish additive artifacts from the Foundation step while keeping `foundation.plates/dynamics` stable as projections.
+- [ ] Add op-unit tests for each new op (determinism + invariants).
+
+### Slice 3 — Remove cross-pipeline coupling (consumer migration)
+
+Goal: eliminate `ctx.artifacts.get(artifact:foundation.*)` and other non-canonical reads without changing step contracts.
+
+Checklist:
+- [ ] Remove/replace `packages/mapgen-core/src/core/assertions.ts` access patterns that fetch Foundation artifacts via `ctx.artifacts.get(...)`.
+- [ ] Update downstream domain logic call paths so plates/dynamics are passed explicitly or read through `deps` at step boundaries.
+- [ ] Add guardrails (lint and/or script checks) to prevent regressions (optional if equivalent rails already exist).
+
+### Slice 4 — Directionality cutover + deletion sweep
+
+Goal: enforce env ownership for directionality and delete the legacy monolith/compat surfaces.
+
+Checklist:
+- [ ] Ensure `env.directionality` is the only authoritative source (entry boundary constructs env; Foundation config does not own directionality).
+- [ ] Delete the monolithic Foundation producer surfaces and any stale compat helpers that bypass the ops/stage contract boundary.
+- [ ] Re-run full pipeline gates and reconcile docs-as-code on any touched schema/exports.
+
+## Test strategy notes
+
+- Op-unit tests (deterministic, fast): each `foundation/compute-*` op should have targeted tests that lock invariants.
+- Thin integration tests (pipeline sanity): keep at least one end-to-end “standard recipe runs” test that asserts:
+  - Foundation publishes required artifacts,
+  - downstream stages still consume plates/dynamics coherently,
+  - no `ctx.artifacts.get(artifact:foundation.*)` reads exist outside explicitly allowed legacy test harnesses.
+
+If determinism is not achievable for a given op, record the gap and require a follow-up slice to make it deterministic.
+
+## Cleanup ownership
+
+- If compat projections remain, add a cleanup item in `docs/projects/engine-refactor-v1/triage.md`.
+- If the immediate downstream domain can remove them safely and no other downstream consumers are affected, that downstream owns the cleanup and must have a dedicated issue; link it from triage.
+
+---
+
+## Lookback (Phase 3 → Phase 4): Finalize slices + sequencing
+
+Pre-implementation confirmation to run (and record) before writing code:
+- Confirmed slice DAG:
+  - Slice 1 is required before any consumer migration (Slice 3) because it establishes the canonical access paths.
+  - Slice 2 is additive and can land before or after Slice 3; default is before Slice 3 to make mesh-first contracts available early without forcing migration.
+  - Slice 4 is last because it deletes legacy surfaces and tightens directionality semantics.
+- Prework checks (done during planning; re-run if files moved):
+  - Downstream `BOUNDARY_TYPE` imports currently come from `@mapgen/domain/foundation/constants.js` (treat this as the stable contract surface).
+  - Legacy Foundation artifact reads are routed through `packages/mapgen-core/src/core/assertions.ts` (must be removed/migrated in Slice 3).
+- Open decisions (should remain rare):
+  - Where the stable “boundary semantics contract surface” should live long-term if `@mapgen/domain/foundation/constants.js` is ever deprecated.
+  - Whether directionality should remain configurable at the entry boundary or become fully derived from Foundation modeling (default: entry boundary provides it; env-owned).
+- First slice is safe checklist:
+  - [ ] Slice 1 deletes (or makes private) any legacy entrypoints it replaces (no dual implementation surfaces).
+  - [ ] Slice 1 updates docs-as-code for touched contracts/schemas.
+  - [ ] Slice 1 has deterministic tests (or explicit test gaps recorded with triggers).
+
 ---
 
 <!-- SECTION IMPLEMENTATION [NOSYNC] -->
-## Implementation Details (Local Only)
+## Implementation log (Phase 4; local only)
 
 Complexity × parallelism: high complexity × low parallelism (Foundation is upstream of everything).
 
@@ -119,14 +216,13 @@ Post Slice 3 re-run (after removing ctx.artifacts.get coupling for Foundation co
 - `pnpm -C mods/mod-swooper-maps check`: pass
 - `pnpm -C mods/mod-swooper-maps test`: pass
 
-Post Slice 4 re-run (after directionality removal + deletion sweep):
+Post Slice 4 re-run (after directionality cutover to env-only + deletion sweep):
 - `pnpm -C packages/mapgen-core check`: pass
 - `pnpm -C packages/mapgen-core test`: pass
 - `pnpm -C mods/mod-swooper-maps check`: pass
 - `pnpm -C mods/mod-swooper-maps test`: pass
 - `pnpm -C mods/mod-swooper-maps build`: pass
 - `pnpm deploy:mods`: pass
-
 Post Slice 5 re-run (after config purity + FoundationContext removal):
 - `pnpm -C packages/mapgen-core check`: pass
 - `pnpm -C packages/mapgen-core test`: pass
