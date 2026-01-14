@@ -61,6 +61,10 @@ Non-negotiables for implementation:
   - `pnpm deploy:mods`
 - [ ] No legacy artifact access paths remain:
   - `rg -n "ctx\.artifacts\.get\(.*foundation\." mods/mod-swooper-maps/src packages/mapgen-core` returns no hits (allowlist test harnesses only, if explicitly documented).
+- [ ] Directionality is fully removed:
+  - `rg -n "directionality" mods/mod-swooper-maps/src packages/mapgen-core/src` returns no hits.
+- [ ] Foundation op/step contracts do not import domain config bags:
+  - no `@mapgen/domain/config` imports or `Type.Partial(FoundationConfigSchema)` in Foundation ops/contracts.
 - [ ] Foundation step is orchestration-only:
   - No step runtime imports Foundation op implementations directly.
   - No step runtime calls the legacy monolithic producer (once deleted).
