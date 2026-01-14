@@ -605,6 +605,19 @@ Verification gates (full, per guardrails reference):
 - `pnpm deploy:mods`
 - `pnpm check && pnpm test && pnpm build`
 
+### Prework Results (Resolved)
+Config authoring sites that currently supply Morphology stage config (`morphology-pre/mid/post`) and must migrate in Slice 5:
+- `mods/mod-swooper-maps/src/maps/swooper-earthlike.ts`
+- `mods/mod-swooper-maps/src/maps/swooper-desert-mountains.ts`
+- `mods/mod-swooper-maps/src/maps/shattered-ring.ts`
+- `mods/mod-swooper-maps/src/maps/sundered-archipelago.ts`
+- `mods/mod-swooper-maps/test/standard-run.test.ts` (inline `standardConfig` block)
+
+Done-when greps (no legacy Morphology stage config remains):
+- `rg -n "\"morphology-(pre|mid|post)\"" mods/mod-swooper-maps/src/maps mods/mod-swooper-maps/test/standard-run.test.ts`
+- `rg -n "LandmassConfigSchema|MorphologyConfigSchema" mods/mod-swooper-maps/src/recipes/standard/stages/morphology-*`
+- `rg -n "@mapgen/domain/config" mods/mod-swooper-maps/src/recipes/standard/stages/morphology-*`
+
 ### Slice 6 — Ruthless cleanup + documentation pass
 
 Goal: scorched-earth deletion + docs inventory so no legacy surfaces remain.
