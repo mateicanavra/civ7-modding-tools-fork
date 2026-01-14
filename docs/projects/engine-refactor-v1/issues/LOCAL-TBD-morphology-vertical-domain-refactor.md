@@ -289,6 +289,7 @@ Implementation (expected):
 
 Trace:
 - Implemented on branch `agent-BRODY-M8-MORPH-S1-artifact-contracts`.
+- Draft PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/588
 
 **Scope boundaries:**
 - In scope:
