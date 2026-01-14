@@ -126,7 +126,7 @@ export function projectPlatesFromModel(input: {
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
       const i = y * width + x;
-      const tileHex = projectOddqToHexSpace(x + 0.5, y + 0.5);
+      const tileHex = projectOddqToHexSpace(x, y);
 
       let bestCell = 0;
       let bestDist = Infinity;
