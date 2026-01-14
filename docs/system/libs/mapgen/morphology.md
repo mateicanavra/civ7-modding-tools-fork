@@ -33,7 +33,10 @@ Prefer **field-based geomorphology** (solving on the graph) over **particle-base
 
 Morphology is fundamentally **buffer-oriented**: it refines shared, mutable world layers over multiple steps and often across domains.
 
-- The canonical example is the **elevation/heightfield**: it is iteratively refined (uplift → erosion → deposition → sea level) and then consumed broadly downstream.
+- The canonical example is the **topography** buffers: they are iteratively refined (uplift → erosion → deposition → sea level) and then consumed broadly downstream.
+  - `elevation` (signed height relative to datum)
+  - `bathymetry` (signed depth below datum; optional but highly valuable for ocean/climate realism)
+  - `landMask` / `seaLevel` (land/sea definition derived from elevation + sea level policy)
 - Under current pipeline constraints, a buffer may be **published once** as an artifact “handle” for gating/typed access, but the buffer itself remains a mutable working layer until the pipeline freezes it.
 
 ### Overlays (formation motifs for downstream consumers)
@@ -60,6 +63,19 @@ Data used to drive simulation and downstream Ecology.
 
 ```typescript
 interface MorphologyBuffers {
+  /**
+   * Canonical topography state (buffer truth).
+   *
+   * In practice, this may be split across multiple buffers under the hood; the
+   * modeling posture is that "topography" is a coherent causal layer.
+   */
+  topography: {
+    elevation: Float32Array;
+    bathymetry?: Float32Array;
+    landMask: Uint8Array;
+    seaLevel: number;
+  };
+
   /**
    * Per-cell coefficient K representing resistance to erosion.
    * Derived from crust type/age (granite is hard, sandstone is soft).
@@ -93,7 +109,10 @@ interface MorphologyBuffers {
 
 ### Outputs
 
-- Elevation/heightfield and land/ocean mask (canonical shared layers).
+- Topography buffers (elevation/bathymetry + land/sea definition).
+- Routing buffers (flow direction + accumulation).
+- Substrate buffers (erodibility + sediment depth).
+- Derived landmass decomposition (connected land components + attributes) as a stable downstream input.
 
 ## Conceptual steps
 
@@ -154,6 +173,16 @@ Define the coastline.
 - Sketch: `land = elevation > seaLevel`.
 - Sea level can be a global constant or a curve (planet types).
 
+### Landmass decomposition (derived product; not a projection)
+
+After sea level is applied, Morphology can derive a stable “landmass” decomposition:
+- connected components of land at the current sea level
+- per-component attributes (area, bounding box, coastline length, optional shelf share)
+
+Downstream usage:
+- Gameplay can derive “homeland vs distant lands” partitions from landmasses without requiring Morphology to publish start-region projections.
+- Civ7 interop: Gameplay owns the engine-facing LandmassRegionId projection (“primary/secondary hemisphere slots”) from that same partitioning (implemented at the apply boundary); see `docs/projects/engine-refactor-v1/resources/domains/gameplay/ISSUE-LANDMASS-REGION-ID-PROJECTION.md`.
+
 ## Tuning parameters (conceptual)
 
 ```typescript
@@ -180,3 +209,9 @@ interface MorphologyConfig {
   };
 }
 ```
+
+## Projection policy (explicitly non-canonical)
+
+Morphology must not treat downstream convenience shapes as canonical products:
+- “West/east continent windows” used for starts are downstream projections derived from landmasses.
+- Any engine-facing terrain/feature IDs are fields/projections applied downstream or at effect boundaries; they must not replace buffer truth.

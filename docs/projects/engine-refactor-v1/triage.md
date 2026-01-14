@@ -288,6 +288,13 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
   - **Notes:** Larger pass to fully reconcile “current vs target” details across canonical system docs (e.g., `architecture.md`, `foundation.md`, `hydrology.md`, plus adjacent system pages as needed), removing remaining mismatches once the M3 architecture lands. This is explicitly **not** part of `CIV-40` (which only adds framing + minimal current-state pointers).
   - **Next check:** after Task Graph + step execution is implemented and key products (foundation artifacts, `ClimateField`, narrative story entries) are stabilized.
 
+- **LandmassRegionId-first starts (remove `ContinentBounds` projection shim)** [Review by: next Placement/Gameplay refactor]
+  - **Context:** Morphology vertical refactor (Phase 3 Slice 3) removes hidden runtime continent windows and introduces an explicit downstream **Gameplay-owned** LandmassRegionId projection step. Civ7 interop still requires `adapter.assignStartPositions(...)`, which currently accepts `westContinent/eastContinent` bounds; keeping those bounds is a downstream-only projection shim.
+  - **Links:** Gameplay spec issue: `docs/projects/engine-refactor-v1/resources/domains/gameplay/ISSUE-LANDMASS-REGION-ID-PROJECTION.md`.
+  - **Type:** backlog
+  - **Notes:** Make start placement operate on explicit LandmassRegionId partitioning and remove `ContinentBounds` from Placement op contracts and runtime wiring. Keep any remaining “bounds” logic as an internal convenience (if needed) and ensure it never becomes a canonical contract surface.
+  - **Next check:** when starting the Placement/Gameplay domain refactor, or if the adapter/start-position surface changes.
+
 - **~~Migrate `state:engine.*` → verified `effect:*` + reification~~** [Review by: early M4]  
   **Update (2025-12-21, M4 planning):** This work is now scheduled in M4 (effects verification + placement inputs). See `milestones/M4-target-architecture-cutover-legacy-cleanup.md`.
   - **Context:** `CIV-41` Task Graph MVP; deferral at `docs/projects/engine-refactor-v1/deferrals.md` (DEF-008).

@@ -103,6 +103,15 @@ Instead:
 The adapter gap triage indicates Gameplay v1 likely does not require new adapter methods:
 - `ADAPTER-GAP-TRIAGE.md`
 
+---
+
+## Issue: LandmassRegionId projection (Homelands vs Distant Lands)
+
+Gameplay owns the `LandmassRegionId` projection (homelands vs distant lands) as an apply-boundary concern derived from `artifact:morphology.landmasses`.
+
+Dedicated issue doc:
+- `docs/projects/engine-refactor-v1/resources/domains/gameplay/ISSUE-LANDMASS-REGION-ID-PROJECTION.md`
+
 ## Open Questions (Intentionally Few)
 
 1) What is the intended fate of story modules that directly mutate physics buffers (e.g., paleo rainfall artifacts)?
