@@ -17,6 +17,7 @@ Required sections (minimum):
 - Migration checklist per slice
 - Cleanup ownership + triage links
 - Sequencing refinement note (how the slice order was re-checked for pipeline safety)
+- Documentation pass plan (dedicated slice or issue)
 
 Sequencing refinement pass (required; single pass):
 1. Draft the slice list from Phase 2 pipeline deltas.
@@ -39,6 +40,13 @@ Slice plan requirements (per slice):
 - Tests to add/update (op contract test + thin integration edge)
 - Guardrail scope (`REFRACTOR_DOMAINS=...`)
 - Pipeline deltas included (upstream/downstream contracts updated in that slice)
+- Documentation scope (what schemas/functions/ops/steps/stages/contracts are documented in this slice)
+
+Documentation pass requirements (dedicated slice or issue):
+- Inventory all touched/created schemas, functions, ops, steps, stages, and contracts.
+- Add/expand JSDoc for functions/ops/steps with behavior, defaults, modes, and downstream effects.
+- Add/expand schema `description` metadata with the same behavioral context and expectations.
+- Confirm documentation reflects any downstream changes implied by the model.
 
 Gate checklist (Phase 3 completion):
 - Slice plan is written and reviewable.
@@ -47,6 +55,7 @@ Gate checklist (Phase 3 completion):
 - No model changes appear in the issue doc (modeling lives in Phase 2).
 - No compat surfaces remain in the refactored domain; any deprecated shims live in downstream domains and are explicitly marked.
 - Sequencing refinement pass is documented and reflects the final order.
+- Documentation pass is present and scoped with inventory + JSDoc/schema updates.
 
 References:
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/op-and-config-design.md`

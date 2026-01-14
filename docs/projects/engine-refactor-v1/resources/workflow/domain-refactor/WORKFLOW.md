@@ -71,6 +71,7 @@ Recommended “outside view” doc set (create only what you need; keep it small
 - **Do not propagate legacy patterns:** do not copy legacy authoring patterns forward. Implement changes only through the canonical architecture.
 - **Explicit legacy audit required:** every existing config property, rule/policy, and domain function must be inventoried and explicitly classified as model-relevant or legacy. Unclassified surfaces are a gate failure.
 - **Docs-as-code is enforced:** any touched exported function/op/step/schema gets contextual JSDoc and/or TypeBox `description` updates (trace references before writing docs).
+- **Documentation pass is mandatory:** Phase 3 must include a dedicated documentation pass (slice or issue) that inventories every touched/created schema, function, op, step, stage, and contract, and updates JSDoc + schema descriptions with behavior, defaults, modes, and downstream impacts.
 - **Authoritative modeling (not “code cleanup”):** prefer the physically grounded target model over preserving legacy behavior; delete/replace broken or nonsensical behavior as needed.
 - **Cross-pipeline consistency is required:** when the domain model changes contracts/artifacts, update downstream steps and stage-owned artifact contracts in the same refactor so the whole pipeline stays internally consistent (no “temporary mismatch”).
 - **Upstream model intake (non-root):** review the prior domain’s Phase 2 modeling spike and pipeline delta list, then explicitly document which authoritative inputs this domain will adopt and which legacy inputs will be deleted. Also review any upstream refactor changes that touched this domain (compat shims, temporary adapters, legacy pathways) and explicitly plan their removal.
@@ -164,6 +165,7 @@ Phase 3 gate:
 - Implementation issue exists and includes an executable slice plan.
 - No model changes appear in the issue doc.
 - Sequencing refinement pass exists: slices are drafted, re-ordered for pipeline safety, and re-checked against downstream deltas before locking.
+- Documentation pass is explicitly scoped (dedicated slice or issue) and includes a doc inventory of all touched/created surfaces.
 
 ## Phase 3 sequencing refinement (required)
 
