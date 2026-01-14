@@ -331,6 +331,60 @@ Consumer updates:
 - Placement `derive-placement-inputs`: remove `requires: effect:engine.coastlinesApplied`; add `artifacts.requires: [morphologyArtifacts.landmasses]` (and any other required Morphology artifacts).
 - Hydrology `lakes`: remove `requires: effect:engine.landmassApplied`; add a single authoritative artifact prerequisite (either Morphology topography, or an existing heightfield artifact if that remains the true prerequisite). No dual prerequisites.
 
+**Acceptance Criteria (verifiable):**
+- [ ] No consumer step contract in scope *requires* `M4_EFFECT_TAGS.engine.landmassApplied` or `M4_EFFECT_TAGS.engine.coastlinesApplied`.
+- [ ] Narrative consumer contracts in scope declare `artifacts.requires` on the minimum Morphology artifact(s) they actually read.
+- [ ] Placement `derive-placement-inputs` declares `artifacts.requires` on `morphologyArtifacts.landmasses` (and any other Morphology artifacts it reads).
+- [ ] Hydrology `lakes` declares exactly one authoritative prerequisite (no dual effect-tag + artifact requires).
+- [ ] Contract-guard coverage exists that fails CI if any of the above effect-tag requires reappear in scope.
+
+**Scope boundaries:**
+- In scope:
+  - Consumer contract migrations (Narrative, Placement, Hydrology) from effect-tag gating to Morphology artifacts.
+  - Any minimal step-impl edits required to match contract changes (e.g., switching dependency reads from tags to artifacts).
+- Out of scope:
+  - Deleting the effect tags themselves (they may remain provided temporarily; deletion belongs to cleanup once no requires remain).
+  - Removing `StandardRuntime` continent coupling (Slice 3).
+
+**Files (touchpoints):**
+```yaml
+files:
+  - path: swooper-src/recipes/standard/stages/narrative-pre/steps/storySeed.contract.ts
+    notes: "Replace `requires: coastlinesApplied` with `artifacts.requires: [morphologyArtifacts.*]`."
+  - path: swooper-src/recipes/standard/stages/narrative-pre/steps/storyHotspots.contract.ts
+    notes: "Replace effect-tag requires with Morphology artifacts; keep HOTSPOTS ownership change for Slice 4."
+  - path: swooper-src/recipes/standard/stages/narrative-pre/steps/storyCorridorsPre.contract.ts
+    notes: "Replace effect-tag requires with Morphology artifacts."
+  - path: swooper-src/recipes/standard/stages/narrative-pre/steps/storyRifts.contract.ts
+    notes: "Replace effect-tag requires with Morphology artifacts."
+  - path: swooper-src/recipes/standard/stages/narrative-mid/steps/storyOrogeny.contract.ts
+    notes: "Replace effect-tag requires with Morphology artifacts."
+  - path: swooper-src/recipes/standard/stages/narrative-post/steps/storyCorridorsPost.contract.ts
+    notes: "Replace effect-tag requires with Morphology artifacts."
+  - path: swooper-src/recipes/standard/stages/placement/steps/derive-placement-inputs/contract.ts
+    notes: "Replace effect-tag requires with `morphologyArtifacts.landmasses` (and other Morphology artifacts actually used)."
+  - path: swooper-src/recipes/standard/stages/hydrology-pre/steps/lakes.contract.ts
+    notes: "Replace `landmassApplied` effect-tag requires with a single authoritative artifact prerequisite."
+  - path: swooper-test/morphology/contract-guard.test.ts
+    notes: "Extend to fail if any contract in scope still requires Morphology effect tags."
+```
+
+**Testing / Verification (executable):**
+- `REFRACTOR_DOMAINS="morphology" ./scripts/lint/lint-domain-refactor-guardrails.sh`
+- `pnpm -C mods/mod-swooper-maps check && pnpm -C mods/mod-swooper-maps test`
+- `rg -n \"requires: \\[M4_EFFECT_TAGS\\.engine\\.(landmassApplied|coastlinesApplied)\\]\" mods/mod-swooper-maps/src/recipes/standard/stages` (expect zero hits in the migrated contract files)
+
+## Prework Prompt (Agent Brief) — Slice 2 minimal artifact dependencies per consumer
+
+**Purpose:** For each consumer contract migrated in Slice 2, determine the minimal Morphology artifact(s) it truly depends on (based on the step implementation’s actual reads), so we don’t smuggle in unnecessary ordering constraints.
+
+**Expected Output:** A table mapping each updated `*.contract.ts` file to `artifacts.requires` entries, with 1–2 bullets of evidence per row (“reads X buffer / uses Y derived metric”).
+
+**Sources to check:**
+- All `*.contract.ts` files listed in Slice 2.
+- Their paired step implementations (`*.ts`) under the same step directory.
+- Newly introduced Morphology artifact contracts (Slice 1): `swooper-src/recipes/standard/stages/morphology-pre/artifacts.ts`.
+
 Guardrails:
 - Extend `contract-guard.test.ts` to fail if step contracts in scope still *require* `effect:engine.landmassApplied` or `effect:engine.coastlinesApplied` (they may still be *provided* temporarily for adapter verification until explicitly deleted).
 
