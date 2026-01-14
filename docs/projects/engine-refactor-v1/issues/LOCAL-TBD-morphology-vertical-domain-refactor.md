@@ -15,6 +15,42 @@ Scope guardrails:
 - Every slice ends pipeline-green (no dual paths).
 - The refactored Morphology domain must not retain compat surfaces; downstream adjustments are part of the plan.
 
+<!-- Path roots (use for file references) -->
+engine-refactor-v1 = docs/projects/engine-refactor-v1
+swooper-src = mods/mod-swooper-maps/src
+swooper-test = mods/mod-swooper-maps/test
+mapgen-core = packages/mapgen-core
+
+## Issue index (slice units; for breakout)
+
+```yaml
+issues:
+  - id: MORPH-S1
+    title: "Slice 1 — Morphology artifact contracts (additive) + minimal publishers"
+    status: planned
+    blocked_by: []
+  - id: MORPH-S2
+    title: "Slice 2 — Consumer cutover: effect-tag gating → artifact requires"
+    status: planned
+    blocked_by: [MORPH-S1]
+  - id: MORPH-S3
+    title: "Slice 3 — Delete runtime continents; add explicit downstream projections (Civ7 interop)"
+    status: planned
+    blocked_by: [MORPH-S2]
+  - id: MORPH-S4
+    title: "Slice 4 — HOTSPOTS ownership cutover (Narrative-owned)"
+    status: planned
+    blocked_by: [MORPH-S3]
+  - id: MORPH-S5
+    title: "Slice 5 — Morphology domain ops refactor + recipe wiring + config overhaul"
+    status: planned
+    blocked_by: [MORPH-S4]
+  - id: MORPH-S6
+    title: "Slice 6 — Ruthless cleanup + documentation pass"
+    status: planned
+    blocked_by: [MORPH-S5]
+```
+
 ---
 
 ## Authority stack (reminder)
