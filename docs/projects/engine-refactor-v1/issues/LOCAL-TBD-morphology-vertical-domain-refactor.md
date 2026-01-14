@@ -440,30 +440,6 @@ files:
 - `rg -n \"markLandmassId\\\\(\" mods/mod-swooper-maps/src` (expect zero hits)
 - `rg -n \"LandmassRegionId\" mods/mod-swooper-maps/src/domain/morphology mods/mod-swooper-maps/src/recipes/standard/stages/morphology-*` (expect zero hits)
 
-#### Prework Prompt (Agent Brief) — Slice 3 ContinentBounds necessity + removal posture
-
-**Purpose:** Determine whether `adapter.assignStartPositions(...)` still requires `ContinentBounds` inputs after LandmassRegionId projection exists, and if it does, how to eliminate that requirement by the end of this slice plan (no transitional survives past Slice 6).
-
-**Expected Output:**
-1) A yes/no decision: “ContinentBounds required?” with evidence.
-2) If “yes”: a concrete, slice-scoped plan for removing ContinentBounds by Slice 6 (or, if truly impossible without upstream API changes, an explicit stop-the-line escalation to re-baseline the slice plan).
-3) If “no”: a deletion plan for ContinentBounds inputs/outputs and any tests that enforce the deletion.
-
-**Sources to check:**
-- `swooper-src/recipes/standard/stages/placement/steps/placement/apply.ts` (call into adapter starts/resources).
-- Adapter surface for starts/resources: `packages/civ7-adapter/**`, `packages/mapgen-core/**`, and `@civ7/adapter` types used by the mod.
-- Phase 2 Civ7 audit evidence links in `engine-refactor-v1/resources/spike/spike-morphology-modeling.md`.
-
-Guardrails:
-- Contract-guard greps with allowlist (only dedicated projection step may mention these):
-  - `westContinent`, `eastContinent`, `markLandmassId(`
-- Add MockAdapter call tracking (if needed) for `setLandmassRegionId` so tests can assert the projection step executed.
-
-Verification gates:
-- `pnpm -C mods/mod-swooper-maps test` including a targeted test that:
-  - asserts some `setLandmassRegionId` activity occurred, and
-  - asserts region ids came from `getLandmassId("WEST"/"EAST")` (no numeric literals).
-
 ### Prework Results (Resolved)
 Decision: ContinentBounds are still required by `assignStartPositions` even after LandmassRegionId projection. Evidence: `applyPlacementPlan` passes `starts.westContinent/eastContinent` into `adapter.assignStartPositions` (`mods/mod-swooper-maps/src/recipes/standard/stages/placement/steps/placement/apply.ts`), and the adapter signature requires those bounds (`packages/civ7-adapter/src/types.ts`). Phase 2 notes `assign-starting-plots.js` uses left/right windows via `StartPositioner.divideMapIntoMajorRegions`, so the engine path still expects bounds (`docs/projects/engine-refactor-v1/resources/spike/spike-morphology-modeling.md`).
 Plan: In Slice 3, derive `ContinentBounds` as a downstream projection from `morphologyArtifacts.landmasses` (primary/secondary component bbox) and feed them into `assignStartPositions` at the placement apply boundary alongside LandmassRegionId stamping; mark the bounds as downstream-owned + deprecated and guardrail that only the projection step references them. Removal by Slice 6 would require replacing/overriding the engine `assign-starting-plots.js` path to use LandmassRegionId-only selection; if no engine override is planned, this is a stop-the-line escalation and should be recorded as a deferral with an explicit trigger.
