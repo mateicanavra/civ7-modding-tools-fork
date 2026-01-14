@@ -54,6 +54,8 @@ Recommended “outside view” doc set (create only what you need; keep it small
 
 ## Hard rules (do not violate)
 
+### Architecture rules
+
 - **Contract-first:** All domain logic is behind op contracts (`mods/mod-swooper-maps/src/domain/<domain>/ops/**`).
 - **No op composition:** Ops are atomic; ops must not call other ops (composition happens in steps/stages).
 - **Steps are orchestration:** step modules must not import op implementations; they call injected ops in `run(ctx, config, ops, deps)`.
@@ -68,16 +70,22 @@ Recommended “outside view” doc set (create only what you need; keep it small
   - **Today (intentional compromise):** overlays are routed through artifact contracts for gating/typing; publish the overlays artifact **once**, then accumulate overlays via `ctx.overlays.*` (append-preferred; mutation is rare and intentional).
 - **Compile-time normalization:** defaults + `step.normalize` + `op.normalize`; runtime does not “fix up” config.
 - **Import discipline:** step `contract.ts` imports only `@mapgen/domain/<domain>` + stage-local contracts (e.g. `../artifacts.ts`); no deep imports under `@mapgen/domain/<domain>/**`, and no `@mapgen/domain/<domain>/ops`.
+
+### Legacy + pipeline ownership rules
+
 - **Do not propagate legacy patterns:** do not copy legacy authoring patterns forward. Implement changes only through the canonical architecture.
 - **Explicit legacy audit required:** every existing config property, rule/policy, and domain function must be inventoried and explicitly classified as model-relevant or legacy. Unclassified surfaces are a gate failure.
-- **Docs-as-code is enforced:** any touched exported function/op/step/schema gets contextual JSDoc and/or TypeBox `description` updates (trace references before writing docs).
-- **Documentation pass is mandatory:** Phase 3 must include a dedicated documentation pass (slice or issue) that inventories every touched/created schema, function, op, step, stage, and contract, and updates JSDoc + schema descriptions with behavior, defaults, modes, and downstream impacts.
 - **Authoritative modeling (not “code cleanup”):** prefer the physically grounded target model over preserving legacy behavior; delete/replace broken or nonsensical behavior as needed.
 - **Cross-pipeline consistency is required:** when the domain model changes contracts/artifacts, update downstream steps and stage-owned artifact contracts in the same refactor so the whole pipeline stays internally consistent (no “temporary mismatch”).
 - **Upstream model intake (non-root):** review the prior domain’s Phase 2 modeling spike and pipeline delta list, then explicitly document which authoritative inputs this domain will adopt and which legacy inputs will be deleted. Also review any upstream refactor changes that touched this domain (compat shims, temporary adapters, legacy pathways) and explicitly plan their removal.
 - **Downstream model intake (non-leaf):** review downstream domain docs and current consumer callsites, then explicitly document which downstream consumers must change to honor the authoritative model.
 - **No upstream compat surfaces:** the domain being refactored must not publish legacy compat or projection surfaces. If downstream needs transitional compatibility, it must be implemented in the downstream domain with explicit `DEPRECATED` / `DEPRECATE ME` markers. Upstream refactors must update downstream consumers in the same change.
 - **Compat cleanup ownership:** if any downstream deprecated compat surfaces remain, create a cleanup item in `docs/projects/engine-refactor-v1/triage.md`. If the immediate downstream domain can remove them safely and no other downstream consumers are affected, that downstream owns the cleanup and must have a dedicated issue; link it from triage.
+
+### Documentation rules
+
+- **Docs-as-code is enforced:** any touched exported function/op/step/schema gets contextual JSDoc and/or TypeBox `description` updates (trace references before writing docs).
+- **Documentation pass is mandatory:** Phase 3 must include a dedicated documentation pass (slice or issue) that inventories every touched/created schema, function, op, step, stage, and contract, and updates JSDoc + schema descriptions with behavior, defaults, modes, and downstream impacts.
 
 ## Principles (authoritative surfaces)
 
