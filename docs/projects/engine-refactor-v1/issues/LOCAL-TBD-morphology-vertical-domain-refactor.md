@@ -415,6 +415,66 @@ Consumer changes:
   - Placement inputs derivation + apply (stop requiring runtime bounds; consume projection results)
 - Update `mods/mod-swooper-maps/src/recipes/standard/runtime.ts` to remove the continent-bounds fields if no longer needed anywhere.
 
+**Acceptance Criteria (verifiable):**
+- [ ] No code in `swooper-src` reads or writes `runtime.westContinent` / `runtime.eastContinent`.
+- [ ] `markLandmassId(` is no longer called from Morphology/Hydrology steps.
+- [ ] A dedicated downstream projection (Gameplay-owned, implemented at/near the apply boundary) runs before:
+  - `adapter.generateResources(...)` and
+  - `adapter.assignStartPositions(...)`.
+- [ ] Projection writes LandmassRegionId via `adapter.setLandmassRegionId(...)` using ids obtained from adapter engine constants (no numeric literals).
+- [ ] If any `ContinentBounds` projection still exists after this slice, it is:
+  - downstream-owned (NOT Morphology-owned),
+  - explicitly deprecated (`DEPRECATED:` in code/docs),
+  - and has an explicit removal plan inside this refactor’s slice plan (no transitional can survive past Slice 6).
+
+**Scope boundaries:**
+- In scope:
+  - Remove the hidden runtime coupling surfaces (`westContinent/eastContinent`) end-to-end: producer writes + all consumer reads.
+  - Replace with explicit downstream projection step(s) derived from `morphologyArtifacts.landmasses`.
+  - Add tests/guardrails to prevent reintroduction of the removed runtime coupling and numeric LandmassRegionId ids.
+- Out of scope:
+  - Morphology op refactor/config overhaul (Slice 5).
+  - Gameplay domain absorption/refactor (this is only a Gameplay-owned projection implemented where it is currently easiest to wire).
+
+**Files (touchpoints):**
+```yaml
+files:
+  - path: swooper-src/recipes/standard/runtime.ts
+    notes: "Delete `westContinent/eastContinent` fields if fully unused after cutover."
+  - path: swooper-src/recipes/standard/stages/morphology-pre/steps/landmassPlates.ts
+    notes: "Stop writing runtime continent bounds; stop calling `markLandmassId`."
+  - path: swooper-src/recipes/standard/stages/hydrology-pre/steps/climateBaseline.ts
+    notes: "Stop reading runtime bounds; delete any restamping via `markLandmassId`."
+  - path: swooper-src/recipes/standard/stages/placement/steps/derive-placement-inputs/inputs.ts
+    notes: "Stop reading runtime bounds; consume explicit projection outputs instead."
+  - path: swooper-src/recipes/standard/stages/placement/steps/placement/apply.ts
+    notes: "Ensure LandmassRegionId projection runs before starts/resources engine calls; integrate or call a dedicated step."
+  - path: swooper-test/morphology/contract-guard.test.ts
+    notes: "Extend to fail if `westContinent`, `eastContinent`, or `markLandmassId(` reappear in Morphology scope."
+  - path: swooper-test/placement/landmass-region-id-projection.test.ts
+    notes: "NEW: targeted test asserting `setLandmassRegionId` runs and uses adapter constants (no numeric literals)."
+```
+
+**Testing / Verification (executable):**
+- `pnpm -C mods/mod-swooper-maps test`
+- `rg -n \"\\\\bruntime\\\\.(westContinent|eastContinent)\\\\b\" mods/mod-swooper-maps/src` (expect zero hits)
+- `rg -n \"markLandmassId\\\\(\" mods/mod-swooper-maps/src` (expect zero hits)
+- `rg -n \"LandmassRegionId\" mods/mod-swooper-maps/src/domain/morphology mods/mod-swooper-maps/src/recipes/standard/stages/morphology-*` (expect zero hits)
+
+## Prework Prompt (Agent Brief) — Slice 3 ContinentBounds necessity + removal posture
+
+**Purpose:** Determine whether `adapter.assignStartPositions(...)` still requires `ContinentBounds` inputs after LandmassRegionId projection exists, and if it does, how to eliminate that requirement by the end of this slice plan (no transitional survives past Slice 6).
+
+**Expected Output:**
+1) A yes/no decision: “ContinentBounds required?” with evidence.
+2) If “yes”: a concrete, slice-scoped plan for removing ContinentBounds by Slice 6 (or, if truly impossible without upstream API changes, an explicit stop-the-line escalation to re-baseline the slice plan).
+3) If “no”: a deletion plan for ContinentBounds inputs/outputs and any tests that enforce the deletion.
+
+**Sources to check:**
+- `swooper-src/recipes/standard/stages/placement/steps/placement/apply.ts` (call into adapter starts/resources).
+- Adapter surface for starts/resources: `packages/civ7-adapter/**`, `packages/mapgen-core/**`, and `@civ7/adapter` types used by the mod.
+- Phase 2 Civ7 audit evidence links in `engine-refactor-v1/resources/spike/spike-morphology-modeling.md`.
+
 Guardrails:
 - Contract-guard greps with allowlist (only dedicated projection step may mention these):
   - `westContinent`, `eastContinent`, `markLandmassId(`
