@@ -302,7 +302,7 @@ files:
 - `pnpm -C mods/mod-swooper-maps check`
 - `pnpm -C mods/mod-swooper-maps test`
 
-## Prework Prompt (Agent Brief) — Slice 1 landmasses publication source
+#### Prework Prompt (Agent Brief) — Slice 1 landmasses publication source
 
 **Purpose:** Decide the minimal safe source for `artifact:morphology.landmasses` in Slice 1 without introducing a long-lived transitional dependency.
 
@@ -374,7 +374,7 @@ files:
 - `pnpm -C mods/mod-swooper-maps check && pnpm -C mods/mod-swooper-maps test`
 - `rg -n \"requires: \\[M4_EFFECT_TAGS\\.engine\\.(landmassApplied|coastlinesApplied)\\]\" mods/mod-swooper-maps/src/recipes/standard/stages` (expect zero hits in the migrated contract files)
 
-## Prework Prompt (Agent Brief) — Slice 2 minimal artifact dependencies per consumer
+#### Prework Prompt (Agent Brief) — Slice 2 minimal artifact dependencies per consumer
 
 **Purpose:** For each consumer contract migrated in Slice 2, determine the minimal Morphology artifact(s) it truly depends on (based on the step implementation’s actual reads), so we don’t smuggle in unnecessary ordering constraints.
 
@@ -461,7 +461,7 @@ files:
 - `rg -n \"markLandmassId\\\\(\" mods/mod-swooper-maps/src` (expect zero hits)
 - `rg -n \"LandmassRegionId\" mods/mod-swooper-maps/src/domain/morphology mods/mod-swooper-maps/src/recipes/standard/stages/morphology-*` (expect zero hits)
 
-## Prework Prompt (Agent Brief) — Slice 3 ContinentBounds necessity + removal posture
+#### Prework Prompt (Agent Brief) — Slice 3 ContinentBounds necessity + removal posture
 
 **Purpose:** Determine whether `adapter.assignStartPositions(...)` still requires `ContinentBounds` inputs after LandmassRegionId projection exists, and if it does, how to eliminate that requirement by the end of this slice plan (no transitional survives past Slice 6).
 
@@ -628,7 +628,7 @@ files:
 - `pnpm test && pnpm build` (optional widening; run when slice is stable)
 - `rg -n \"@mapgen/domain/config\" mods/mod-swooper-maps/src/recipes/standard/stages/morphology-*` (expect zero hits)
 
-## Prework Prompt (Agent Brief) — Slice 5 config migration inventory
+#### Prework Prompt (Agent Brief) — Slice 5 config migration inventory
 
 **Purpose:** Identify every authoring site that currently supplies Morphology stage config (including stage names `morphology-pre/mid/post`) so the config overhaul is truly single-path (no dual legacy config).
 
