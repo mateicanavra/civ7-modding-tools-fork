@@ -24,6 +24,14 @@ Sequencing refinement pass (required; single pass):
 3. Re-check downstream deltas and compat ownership against the new order.
 4. Lock and record the rationale.
 
+Example sequencing refinement note (illustrative only):
+
+Drafted slices from Phase 2 pipeline deltas as A) contract surface updates, B) op/step migrations, C) downstream consumer adjustments, D) legacy removals.
+
+After re-ordering for pipeline safety, downstream consumer updates moved earlier so no slice leaves a contract mismatch. Final order is A) update stage-owned contracts + artifacts, B) update downstream consumers to the new contracts, C) migrate domain ops/steps, D) remove legacy paths and confirm guardrails.
+
+Re-checked downstream deltas against the new order and verified each slice ends green. No model changes introduced; any transitional shims live downstream and are explicitly marked deprecated.
+
 Slice plan requirements (per slice):
 - Step(s) included (ids + file paths)
 - Ops introduced/changed (ids + kinds + module paths)
