@@ -1,4 +1,4 @@
-import { Type, type Static } from "typebox";
+import { Type, type Static } from "@swooper/mapgen-core/authoring";
 import { BiomeEngineBindingsSchema } from "./biome-bindings.js";
 import BiomeClassificationContract from "./ops/classify-biomes/contract.js";
 import PlanAquaticFeaturePlacementsContract from "./ops/plan-aquatic-feature-placements/contract.js";

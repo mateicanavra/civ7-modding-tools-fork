@@ -1,4 +1,4 @@
-import { Type, type Static } from "typebox";
+import { Type, type Static } from "@swooper/mapgen-core/authoring";
 import { EcologyConfigSchema } from "@mapgen/domain/ecology/config.js";
 
 /**

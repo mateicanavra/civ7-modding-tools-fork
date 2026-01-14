@@ -16,7 +16,7 @@ import type { CompileOpsById } from "../compiler/recipe-compile.js";
 import type { DomainOpRuntimeAny, OpsById } from "./bindings.js";
 import type { ArtifactContract } from "./artifact/contract.js";
 import type { ProvidedArtifactRuntime, RequiredArtifactRuntime } from "./artifact/runtime.js";
-import type { StepArtifactsDecl, StepContract } from "./step/contract.js";
+import type { StepArtifactsDecl, StepArtifactsDeclAny, StepContract } from "./step/contract.js";
 
 type ArtifactsByName<T extends readonly ArtifactContract[]> = {
   [Name in T[number]["name"] & string]: Extract<T[number], { name: Name }>;
@@ -31,7 +31,7 @@ type ArtifactByName<T extends readonly ArtifactContract[], K extends string> = E
 
 export type StepProvidedArtifactsRuntime<
   TContext extends ExtendedMapContext,
-  TArtifacts extends StepArtifactsDecl | undefined,
+  TArtifacts extends StepArtifactsDeclAny | undefined,
 > = TArtifacts extends StepArtifactsDecl<any, infer Provides>
   ? Provides extends readonly ArtifactContract[]
     ? {
@@ -44,7 +44,7 @@ type ArtifactListOrEmpty<T> = T extends readonly ArtifactContract[] ? T : readon
 
 type StepArtifactsSurface<
   TContext extends ExtendedMapContext,
-  TArtifacts extends StepArtifactsDecl | undefined,
+  TArtifacts extends StepArtifactsDeclAny | undefined,
 > =
   TArtifacts extends StepArtifactsDecl<infer Requires, infer Provides>
     ? {
@@ -62,7 +62,7 @@ type StepArtifactsSurface<
 
 export type StepDeps<
   TContext extends ExtendedMapContext,
-  TArtifacts extends StepArtifactsDecl | undefined,
+  TArtifacts extends StepArtifactsDeclAny | undefined,
 > = Readonly<{
   /**
    * Canonical dependency surface for artifacts.
@@ -80,7 +80,7 @@ export type Step<
   TContext extends ExtendedMapContext = ExtendedMapContext,
   TConfig = unknown,
   TOps = unknown,
-  TArtifacts extends StepArtifactsDecl | undefined = StepArtifactsDecl | undefined,
+  TArtifacts extends StepArtifactsDeclAny | undefined = StepArtifactsDeclAny | undefined,
 > = {
   readonly contract: StepContract<TObject, string, any, TArtifacts>;
   artifacts?: StepProvidedArtifactsRuntime<TContext, TArtifacts>;
@@ -249,7 +249,7 @@ export type StepModule<
   TContext extends ExtendedMapContext = ExtendedMapContext,
   TConfig = unknown,
   TOps = unknown,
-  TArtifacts extends StepArtifactsDecl | undefined = StepArtifactsDecl | undefined,
+  TArtifacts extends StepArtifactsDeclAny | undefined = StepArtifactsDeclAny | undefined,
 > = Step<TContext, TConfig, TOps, TArtifacts>;
 export type StageModule<
   TContext extends ExtendedMapContext = ExtendedMapContext,
