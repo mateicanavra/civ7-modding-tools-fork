@@ -302,26 +302,6 @@ files:
 - `pnpm -C mods/mod-swooper-maps check`
 - `pnpm -C mods/mod-swooper-maps test`
 
-#### Prework Prompt (Agent Brief) — Slice 1 landmasses publication source
-
-**Purpose:** Decide the minimal safe source for `artifact:morphology.landmasses` in Slice 1 without introducing a long-lived transitional dependency.
-
-**Expected Output:** A one-paragraph decision + concrete implementation plan for landmass decomposition publication in Slice 1, including (if transitional) the explicit deletion grep to run in Slice 6.
-
-**Sources to check:**
-- Existing terrain/landmask sources in the pipeline: `swooper-src/recipes/standard/stages/morphology-pre/**`, `swooper-src/recipes/standard/runtime.ts`.
-- Existing adapter capabilities: `packages/civ7-adapter/**`, `packages/mapgen-core/**`, `@civ7/adapter` types.
-- Phase 2 decision: `engine-refactor-v1/resources/spike/spike-morphology-modeling.md` (“Morphology publishes landmass decomposition”).
-
-Guardrails:
-- Add `mods/mod-swooper-maps/test/morphology/contract-guard.test.ts`:
-  - Assert `morphologyArtifacts.*` ids exist and are stable strings.
-  - Assert forbidden projection keys are absent from Morphology artifact payload schemas: `westContinent`, `eastContinent`, `LandmassRegionId`.
-
-Verification gates (minimum):
-- `REFRACTOR_DOMAINS="morphology" ./scripts/lint/lint-domain-refactor-guardrails.sh`
-- `pnpm -C mods/mod-swooper-maps test`
-
 ### Prework Results (Resolved)
 Decision: publish `morphologyArtifacts.landmasses` from `context.buffers.heightfield.landMask` in the new `morphology-post/landmasses` step (connected components + attributes), and fail fast if the buffer is missing/invalid; do not fall back to `adapter.isWater`. Evidence: `createExtendedMapContext` always allocates `buffers.heightfield.landMask` and `writeHeightfield` updates it (`packages/mapgen-core/src/core/types.ts`), and `createPlateDrivenLandmasses` writes the landMask into the buffer (`mods/mod-swooper-maps/src/domain/morphology/landmass/index.ts`). This makes the final landMask available after islands (which call `writeHeightfield`), so place `landmasses` as the last Morphology-post step and avoid any transitional dependency.
 
