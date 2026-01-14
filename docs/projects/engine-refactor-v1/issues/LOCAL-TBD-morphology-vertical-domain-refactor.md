@@ -357,24 +357,6 @@ files:
 - `pnpm -C mods/mod-swooper-maps check && pnpm -C mods/mod-swooper-maps test`
 - `rg -n \"requires: \\[M4_EFFECT_TAGS\\.engine\\.(landmassApplied|coastlinesApplied)\\]\" mods/mod-swooper-maps/src/recipes/standard/stages` (expect zero hits in the migrated contract files)
 
-#### Prework Prompt (Agent Brief) — Slice 2 minimal artifact dependencies per consumer
-
-**Purpose:** For each consumer contract migrated in Slice 2, determine the minimal Morphology artifact(s) it truly depends on (based on the step implementation’s actual reads), so we don’t smuggle in unnecessary ordering constraints.
-
-**Expected Output:** A table mapping each updated `*.contract.ts` file to `artifacts.requires` entries, with 1–2 bullets of evidence per row (“reads X buffer / uses Y derived metric”).
-
-**Sources to check:**
-- All `*.contract.ts` files listed in Slice 2.
-- Their paired step implementations (`*.ts`) under the same step directory.
-- Newly introduced Morphology artifact contracts (Slice 1): `swooper-src/recipes/standard/stages/morphology-pre/artifacts.ts`.
-
-Guardrails:
-- Extend `contract-guard.test.ts` to fail if step contracts in scope still *require* `effect:engine.landmassApplied` or `effect:engine.coastlinesApplied` (they may still be *provided* temporarily for adapter verification until explicitly deleted).
-
-Verification gates:
-- `REFRACTOR_DOMAINS="morphology" ./scripts/lint/lint-domain-refactor-guardrails.sh`
-- `pnpm -C mods/mod-swooper-maps check && pnpm -C mods/mod-swooper-maps test`
-
 ### Prework Results (Resolved)
 Minimal Morphology `artifacts.requires` per contract (based on actual land/water reads); non-Morphology requirements (plates, overlays, riverAdjacency) remain unchanged:
 
