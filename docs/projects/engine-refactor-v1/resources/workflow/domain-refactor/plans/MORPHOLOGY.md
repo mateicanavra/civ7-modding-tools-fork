@@ -31,6 +31,7 @@ Design principles (authoritative surfaces):
 - Review the upstream Phase 2 model (Foundation), explicitly adopt authoritative inputs, and delete legacy reads. Also review any upstream refactor changes that touched Morphology surfaces and plan their removal.
 - Review downstream consumers (Hydrology/Ecology/Narrative/Placement as applicable): document current dependencies, required changes, and plan downstream updates as part of this refactor.
 - Modeling is research-driven: reconcile target SPEC/ADR docs with domain specs, use earth-physics references, and lean on MCP/code-intel + web research; cite sources in the Phase 2 spike.
+- Modeling is iterative: run the Phase 2 modeling loop (broad pipeline sweep -> deep domain dive -> synthesis -> refinement) and keep an iteration log; do not lock the model after a single pass.
 - Phase 2 must include a conceptual narrative + diagrams (architecture view, data-flow, producer/consumer map with current vs target pipeline adjustments).
 
 Compatibility and cleanup rules:

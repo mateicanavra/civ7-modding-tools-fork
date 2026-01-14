@@ -94,6 +94,17 @@ Phase 2 modeling is a research sprint. Treat it like a full-time investigation, 
 - **Model articulation pass:** produce a concise conceptual narrative plus diagrams that explain the domain as a subsystem (architecture view, data-flow, and producer/consumer map with current vs target pipeline adjustments).
 - **Codebase evidence pass:** use the code-intel MCP server and repo searches to validate current surfaces, callsites, and invariants; link evidence in decisions.
 
+## Modeling loop (required; Phase 2)
+
+Phase 2 is iterative. Do not lock the model after a single pass. Run at least two passes unless you can justify a single-pass exception in the iteration log.
+
+Repeat this loop until the model stabilizes:
+1. **Broad pipeline sweep:** what upstream stages produce today vs should produce; what downstream consumers need today vs should need. Identify legacy shims and compat reads.
+2. **Domain deep dive:** use internal specs, earth-physics research, code evidence, and external sources to refine the model.
+3. **Synthesis pass:** draft the canonical model, target contracts, pipeline deltas, and diagrams.
+4. **Fractal refinement:** ask if the model can be decomposed further, if any entities/boundaries should change, and if downstream consumers need alternate shapes. Update the model and diagrams.
+5. **Convergence:** record changes in the iteration log and explain why the model is now stable.
+
 ## Anti-patterns (avoid; common failure modes)
 
 - **Phase bleed:** mixing Phase 2 modeling with Phase 3 slice planning or implementation detail.
@@ -107,6 +118,7 @@ Phase 2 modeling is a research sprint. Treat it like a full-time investigation, 
 - **Silent legacy carry-through:** retaining legacy properties/rules/functions without an explicit model-relevance decision.
 - **Skipping upstream intake:** continuing to consume legacy upstream surfaces without evaluating new authoritative inputs.
 - **Diagramless model:** locking a model without a conceptual narrative or current/target pipeline diagrams.
+- **Single-pass modeling:** locking the model without an iteration log and a refinement pass.
 
 Example anti-pattern (do not copy):
 ```ts
@@ -146,6 +158,7 @@ Phase 2 gate:
 - Conceptual narrative and diagrams exist (architecture view, data-flow, producer/consumer mapping with current vs target adjustments).
 - Architecture alignment note exists; conflicts are recorded and reconciled.
 - Research sources are cited when external research is used.
+- Iteration log exists; at least two modeling passes (or a justified single-pass exception) and diagrams/pipeline delta list reflect the final pass.
 
 Phase 3 gate:
 - Implementation issue exists and includes an executable slice plan.

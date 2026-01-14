@@ -30,6 +30,13 @@ Required research passes (Phase 2):
 - Model articulation: write a concise conceptual narrative and include diagrams (architecture view, data-flow, producer/consumer map with current vs target pipeline adjustments).
 - Codebase evidence: use MCP/code-intel + repo searches to validate current surfaces and invariants; link evidence in decisions.
 
+Modeling loop (repeat until stable; minimum two passes):
+1. Broad pipeline sweep: what upstream produces today vs should produce; what downstream needs today vs should need. Note legacy shims and compat reads.
+2. Domain deep dive: synthesize domain research, specs, and code evidence into a draft model.
+3. Synthesis pass: draft the canonical model, target contracts, pipeline deltas, and diagrams.
+4. Fractal refinement: ask if the model should be decomposed further, if boundaries should change, or if consumers need alternate shapes. Update the model and diagrams.
+5. Convergence: record what changed and why in the iteration log; explain why the model is now stable.
+
 Required sections (minimum):
 - Canonical model + causality spine
 - Conceptual narrative + diagrams (architecture view, data-flow, producer/consumer map; include current vs target pipeline adjustments)
@@ -45,6 +52,7 @@ Required sections (minimum):
 - Projection policy (explicitly non-canonical)
 - Pipeline delta list (upstream/downstream contract changes implied by the model)
 - Research sources (external references used for modeling, if any)
+- Iteration log (pass #, changes made, and why the model stabilized)
 
 Additional required updates:
 - Update the domain modeling reference doc:
@@ -62,6 +70,7 @@ Gate checklist (Phase 2 completion):
 - Downstream consumer impact scan is explicit and complete.
 - Architecture alignment note exists and conflicts are reconciled or escalated.
 - Research sources are cited when external research is used.
+- Iteration log exists; at least two modeling passes (or a justified single-pass exception).
 
 References:
 - `docs/projects/engine-refactor-v1/resources/spec/SPEC-DOMAIN-MODELING-GUIDELINES.md`
