@@ -655,11 +655,60 @@ Cleanup:
 - Remove dead helpers and obsolete exports in Morphology domain folders.
 - Remove unused config schema properties that have been killed, and delete stale docs references.
 
+**Acceptance Criteria (verifiable):**
+- [ ] No Morphology step contract in `swooper-src/recipes/standard/stages/morphology-*`:
+  - requires or provides `M4_EFFECT_TAGS.engine.landmassApplied` / `M4_EFFECT_TAGS.engine.coastlinesApplied`, and
+  - imports legacy config bag schemas (`@mapgen/domain/config`) or legacy Morphology config modules.
+- [ ] No Morphology-owned compat or projection surfaces remain:
+  - `runtime.westContinent/eastContinent` (deleted),
+  - `markLandmassId(` (deleted),
+  - `LandmassRegionId` mentions inside Morphology (deleted).
+- [ ] Any transitional wiring introduced in Slices 1–5 is removed by the end of Slice 6 (hard stop if not true).
+  - Example: if any code path used `adapter.isWater(...)` as a temporary landmask/landmass signal, it no longer exists after Slice 6.
+- [ ] If any downstream deprecated shim was introduced in Slice 3 (e.g. `ContinentBounds` projections), it is removed by the end of Slice 6 (per “no transitional survives past this slice plan”).
+- [ ] Documentation inventory is complete: every touched/created schema/function/op/step/stage/contract is listed and has definition-site docs.
+
+**Scope boundaries:**
+- In scope:
+  - Deleting remaining legacy entrypoints/config bags/exports in the Morphology domain scope.
+  - Deleting now-unused effect tags and any residual contract references (once consumers are migrated).
+  - Documentation pass: definition-site docs + canonical doc updates for Morphology ownership/outputs.
+- Out of scope:
+  - New model changes (Phase 2 locked).
+
+**Files (touchpoints):**
+```yaml
+files:
+  - path: swooper-src/domain/morphology/**
+    notes: "Scorched-earth cleanup: remove dead entrypoints, legacy configs, and unused helpers."
+  - path: swooper-src/recipes/standard/stages/morphology-pre/**
+    notes: "Remove effect tag provides, legacy imports, and any transitional paths."
+  - path: swooper-src/recipes/standard/stages/morphology-mid/**
+    notes: "Remove effect tag provides, legacy imports, and any transitional paths."
+  - path: swooper-src/recipes/standard/stages/morphology-post/**
+    notes: "Remove effect tag provides, legacy imports, and any transitional paths."
+  - path: swooper-src/recipes/standard/tags.ts
+    notes: "If `engine.landmassApplied` / `engine.coastlinesApplied` are unused after Slice 2, remove the tag definitions."
+  - path: docs/system/libs/mapgen/morphology.md
+    notes: "Update canonical Morphology doc to reflect final contracts and ownership posture."
+  - path: swooper-test/morphology/contract-guard.test.ts
+    notes: "Extend with final bans for any deleted surfaces/legacy keys so drift can’t reappear."
+```
+
 Documentation:
 - Inventory every touched/created schema/function/op/step/stage/contract in this refactor.
 - Add definition-site docs (JSDoc + TypeBox `description`) for all new/changed surfaces.
 - Update canonical docs if needed:
   - `docs/system/libs/mapgen/morphology.md`
+
+**Testing / Verification (executable):**
+- `REFRACTOR_DOMAINS="morphology" ./scripts/lint/lint-domain-refactor-guardrails.sh`
+- `pnpm -C packages/mapgen-core check && pnpm -C packages/mapgen-core test`
+- `pnpm -C mods/mod-swooper-maps check && pnpm -C mods/mod-swooper-maps test && pnpm -C mods/mod-swooper-maps build`
+- `pnpm deploy:mods`
+- `pnpm check && pnpm test && pnpm build`
+- `rg -n \"\\\\bwestContinent\\\\b|\\\\beastContinent\\\\b|LandmassRegionId|markLandmassId\\\\(\" mods/mod-swooper-maps/src` (expect zero hits)
+- `rg -n \"M4_EFFECT_TAGS\\.engine\\.(landmassApplied|coastlinesApplied)\" mods/mod-swooper-maps/src` (expect zero hits)
 
 Verification gates:
 - Full verification list in `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/verification-and-guardrails.md`
