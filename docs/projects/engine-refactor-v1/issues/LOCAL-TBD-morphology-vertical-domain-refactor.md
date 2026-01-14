@@ -752,10 +752,15 @@ For each slice:
 
 ## Cleanup ownership + triage links
 
-Downstream shims that are explicitly allowed (and must be deprecated if introduced):
-- `ContinentBounds` projections required by `adapter.assignStartPositions(...)` remain downstream-owned (Gameplay/Placement boundary) until starts are LandmassRegionId-first.
+Downstream shims that may exist temporarily during the slice plan:
+- `ContinentBounds` projections (if still required by `adapter.assignStartPositions(...)`) are downstream-owned (Gameplay/Placement boundary), and must be explicitly deprecated.
 
-If `ContinentBounds` remains after this refactor, add a triage/backlog item for its removal (see Phase 3 “Update triage” step).
+Hard constraint:
+- No transitional/deprecated shim introduced by this refactor may survive past the end of Slice 6.
+- If `ContinentBounds` cannot be eliminated by Slice 6, stop the line and re-baseline the slice plan (do not “punt to triage”).
+
+Triage usage:
+- Use `engine-refactor-v1/triage.md` to track cross-cutting risk/coordination, not as a deferral mechanism for leaving transitional surfaces in place.
 
 ---
 
