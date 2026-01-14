@@ -302,25 +302,8 @@ files:
 - `pnpm -C mods/mod-swooper-maps check`
 - `pnpm -C mods/mod-swooper-maps test`
 
-#### Prework Prompt (Agent Brief) — Slice 1 landmasses publication source
-
-**Purpose:** Decide the minimal safe source for `artifact:morphology.landmasses` in Slice 1 without introducing a long-lived transitional dependency.
-
-**Expected Output:** A one-paragraph decision + concrete implementation plan for landmass decomposition publication in Slice 1, including (if transitional) the explicit deletion grep to run in Slice 6.
-
-**Sources to check:**
-- Existing terrain/landmask sources in the pipeline: `swooper-src/recipes/standard/stages/morphology-pre/**`, `swooper-src/recipes/standard/runtime.ts`.
-- Existing adapter capabilities: `packages/civ7-adapter/**`, `packages/mapgen-core/**`, `@civ7/adapter` types.
-- Phase 2 decision: `engine-refactor-v1/resources/spike/spike-morphology-modeling.md` (“Morphology publishes landmass decomposition”).
-
-Guardrails:
-- Add `mods/mod-swooper-maps/test/morphology/contract-guard.test.ts`:
-  - Assert `morphologyArtifacts.*` ids exist and are stable strings.
-  - Assert forbidden projection keys are absent from Morphology artifact payload schemas: `westContinent`, `eastContinent`, `LandmassRegionId`.
-
-Verification gates (minimum):
-- `REFRACTOR_DOMAINS="morphology" ./scripts/lint/lint-domain-refactor-guardrails.sh`
-- `pnpm -C mods/mod-swooper-maps test`
+### Prework Results (Resolved)
+Decision: publish `morphologyArtifacts.landmasses` from `context.buffers.heightfield.landMask` in the new `morphology-post/landmasses` step (connected components + attributes), and fail fast if the buffer is missing/invalid; do not fall back to `adapter.isWater`. Evidence: `createExtendedMapContext` always allocates `buffers.heightfield.landMask` and `writeHeightfield` updates it (`packages/mapgen-core/src/core/types.ts`), and `createPlateDrivenLandmasses` writes the landMask into the buffer (`mods/mod-swooper-maps/src/domain/morphology/landmass/index.ts`). This makes the final landMask available after islands (which call `writeHeightfield`), so place `landmasses` as the last Morphology-post step and avoid any transitional dependency.
 
 ### Slice 2 — Consumer cutover: effect-tag gating → artifact requires
 
@@ -374,23 +357,19 @@ files:
 - `pnpm -C mods/mod-swooper-maps check && pnpm -C mods/mod-swooper-maps test`
 - `rg -n \"requires: \\[M4_EFFECT_TAGS\\.engine\\.(landmassApplied|coastlinesApplied)\\]\" mods/mod-swooper-maps/src/recipes/standard/stages` (expect zero hits in the migrated contract files)
 
-#### Prework Prompt (Agent Brief) — Slice 2 minimal artifact dependencies per consumer
+### Prework Results (Resolved)
+Minimal Morphology `artifacts.requires` per contract (based on actual land/water reads); non-Morphology requirements (plates, overlays, riverAdjacency) remain unchanged:
 
-**Purpose:** For each consumer contract migrated in Slice 2, determine the minimal Morphology artifact(s) it truly depends on (based on the step implementation’s actual reads), so we don’t smuggle in unnecessary ordering constraints.
-
-**Expected Output:** A table mapping each updated `*.contract.ts` file to `artifacts.requires` entries, with 1–2 bullets of evidence per row (“reads X buffer / uses Y derived metric”).
-
-**Sources to check:**
-- All `*.contract.ts` files listed in Slice 2.
-- Their paired step implementations (`*.ts`) under the same step directory.
-- Newly introduced Morphology artifact contracts (Slice 1): `swooper-src/recipes/standard/stages/morphology-pre/artifacts.ts`.
-
-Guardrails:
-- Extend `contract-guard.test.ts` to fail if step contracts in scope still *require* `effect:engine.landmassApplied` or `effect:engine.coastlinesApplied` (they may still be *provided* temporarily for adapter verification until explicitly deleted).
-
-Verification gates:
-- `REFRACTOR_DOMAINS="morphology" ./scripts/lint/lint-domain-refactor-guardrails.sh`
-- `pnpm -C mods/mod-swooper-maps check && pnpm -C mods/mod-swooper-maps test`
+| Contract | Morphology `artifacts.requires` | Evidence |
+| --- | --- | --- |
+| `swooper-src/recipes/standard/stages/narrative-pre/steps/storySeed.contract.ts` | `morphologyArtifacts.topography` | `storyTagContinentalMargins` uses `isCoastalLand` → `isWaterAt` (`mods/mod-swooper-maps/src/domain/narrative/tagging/margins.ts`, `mods/mod-swooper-maps/src/domain/narrative/utils/adjacency.ts`). |
+| `swooper-src/recipes/standard/stages/narrative-pre/steps/storyHotspots.contract.ts` | `morphologyArtifacts.topography` | `storyTagHotspotTrails` gates on `isWaterAt` and `isAdjacentToLand` (`mods/mod-swooper-maps/src/domain/narrative/tagging/hotspots.ts`). |
+| `swooper-src/recipes/standard/stages/narrative-pre/steps/storyCorridorsPre.contract.ts` | `morphologyArtifacts.topography` | Corridor tagging checks `ctx.adapter.isWater` throughout sea-lane/island-hop/land-corridor passes (`mods/mod-swooper-maps/src/domain/narrative/corridors/sea-lanes.ts`, `mods/mod-swooper-maps/src/domain/narrative/corridors/island-hop.ts`, `mods/mod-swooper-maps/src/domain/narrative/corridors/land-corridors.ts`). |
+| `swooper-src/recipes/standard/stages/narrative-pre/steps/storyRifts.contract.ts` | `morphologyArtifacts.topography` | `storyTagRiftValleys` filters by `isWaterAt` while reading plates (`mods/mod-swooper-maps/src/domain/narrative/tagging/rifts.ts`). |
+| `swooper-src/recipes/standard/stages/narrative-mid/steps/storyOrogeny.contract.ts` | `morphologyArtifacts.topography` | `storyTagOrogenyBelts` filters by `isWaterAt` while reading plates (`mods/mod-swooper-maps/src/domain/narrative/orogeny/belts.ts`). |
+| `swooper-src/recipes/standard/stages/narrative-post/steps/storyCorridorsPost.contract.ts` | `morphologyArtifacts.topography` | Post-river corridor tagging still uses `ctx.adapter.isWater` (`mods/mod-swooper-maps/src/domain/narrative/corridors/*.ts`). |
+| `swooper-src/recipes/standard/stages/hydrology-pre/steps/lakes.contract.ts` | `morphologyArtifacts.topography` | `generateLakes` runs on current terrain, then `syncHeightfield` copies land/terrain into buffers (`mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-pre/steps/lakes.ts`). |
+| `swooper-src/recipes/standard/stages/placement/steps/derive-placement-inputs/contract.ts` | `morphologyArtifacts.landmasses` | `buildPlacementInputs` consumes `getBaseStarts` (west/east bounds) from runtime; slice 3 replaces this with landmass-derived projections (`mods/mod-swooper-maps/src/recipes/standard/runtime.ts`). |
 
 ### Slice 3 — Remove hidden runtime continents; add explicit downstream projections (Civ7 interop)
 
@@ -461,29 +440,9 @@ files:
 - `rg -n \"markLandmassId\\\\(\" mods/mod-swooper-maps/src` (expect zero hits)
 - `rg -n \"LandmassRegionId\" mods/mod-swooper-maps/src/domain/morphology mods/mod-swooper-maps/src/recipes/standard/stages/morphology-*` (expect zero hits)
 
-#### Prework Prompt (Agent Brief) — Slice 3 ContinentBounds necessity + removal posture
-
-**Purpose:** Determine whether `adapter.assignStartPositions(...)` still requires `ContinentBounds` inputs after LandmassRegionId projection exists, and if it does, how to eliminate that requirement by the end of this slice plan (no transitional survives past Slice 6).
-
-**Expected Output:**
-1) A yes/no decision: “ContinentBounds required?” with evidence.
-2) If “yes”: a concrete, slice-scoped plan for removing ContinentBounds by Slice 6 (or, if truly impossible without upstream API changes, an explicit stop-the-line escalation to re-baseline the slice plan).
-3) If “no”: a deletion plan for ContinentBounds inputs/outputs and any tests that enforce the deletion.
-
-**Sources to check:**
-- `swooper-src/recipes/standard/stages/placement/steps/placement/apply.ts` (call into adapter starts/resources).
-- Adapter surface for starts/resources: `packages/civ7-adapter/**`, `packages/mapgen-core/**`, and `@civ7/adapter` types used by the mod.
-- Phase 2 Civ7 audit evidence links in `engine-refactor-v1/resources/spike/spike-morphology-modeling.md`.
-
-Guardrails:
-- Contract-guard greps with allowlist (only dedicated projection step may mention these):
-  - `westContinent`, `eastContinent`, `markLandmassId(`
-- Add MockAdapter call tracking (if needed) for `setLandmassRegionId` so tests can assert the projection step executed.
-
-Verification gates:
-- `pnpm -C mods/mod-swooper-maps test` including a targeted test that:
-  - asserts some `setLandmassRegionId` activity occurred, and
-  - asserts region ids came from `getLandmassId("WEST"/"EAST")` (no numeric literals).
+### Prework Results (Resolved)
+Decision: ContinentBounds are a temporary compatibility surface and must be removed by Slice 6. Evidence of current dependency remains: `applyPlacementPlan` passes `starts.westContinent/eastContinent` into `adapter.assignStartPositions` (`mods/mod-swooper-maps/src/recipes/standard/stages/placement/steps/placement/apply.ts`) and the adapter signature requires those bounds (`packages/civ7-adapter/src/types.ts`); Phase 2 notes `assign-starting-plots.js` uses left/right windows (`docs/projects/engine-refactor-v1/resources/spike/spike-morphology-modeling.md`).
+Plan: In Slice 3, stamp LandmassRegionId from `morphologyArtifacts.landmasses` and replace the starts assignment path with a LandmassRegionId-only implementation (override/replace `/base-standard/maps/assign-starting-plots.js` or introduce a mod-owned start assignment). Add guardrails so no code path reads/writes `westContinent/eastContinent` outside the projection removal work. If overriding Civ7 scripts is not available, this is a stop-the-line re-baseline item.
 
 ### Slice 4 — HOTSPOTS ownership cutover (Narrative-owned)
 
@@ -628,23 +587,18 @@ files:
 - `pnpm test && pnpm build` (optional widening; run when slice is stable)
 - `rg -n \"@mapgen/domain/config\" mods/mod-swooper-maps/src/recipes/standard/stages/morphology-*` (expect zero hits)
 
-#### Prework Prompt (Agent Brief) — Slice 5 config migration inventory
+### Prework Results (Resolved)
+Config authoring sites that currently supply Morphology stage config (`morphology-pre/mid/post`) and must migrate in Slice 5:
+- `mods/mod-swooper-maps/src/maps/swooper-earthlike.ts`
+- `mods/mod-swooper-maps/src/maps/swooper-desert-mountains.ts`
+- `mods/mod-swooper-maps/src/maps/shattered-ring.ts`
+- `mods/mod-swooper-maps/src/maps/sundered-archipelago.ts`
+- `mods/mod-swooper-maps/test/standard-run.test.ts` (inline `standardConfig` block)
 
-**Purpose:** Identify every authoring site that currently supplies Morphology stage config (including stage names `morphology-pre/mid/post`) so the config overhaul is truly single-path (no dual legacy config).
-
-**Expected Output:** A checklist of callsites and files that must change in Slice 5, plus a “done when” grep list.
-
-**Sources to check:**
-- `mods/mod-swooper-maps/src/maps/*.ts` (stage config blocks).
-- Any other recipe-config sources in the mod (search for `"morphology-pre"`, `"morphology-mid"`, `"morphology-post"`).
-- Existing Morphology step contracts importing `MorphologyConfigSchema` / `LandmassConfigSchema`.
-
-Verification gates (full, per guardrails reference):
-- `REFRACTOR_DOMAINS="morphology" ./scripts/lint/lint-domain-refactor-guardrails.sh`
-- `pnpm -C packages/mapgen-core check && pnpm -C packages/mapgen-core test`
-- `pnpm -C mods/mod-swooper-maps check && pnpm -C mods/mod-swooper-maps test && pnpm -C mods/mod-swooper-maps build`
-- `pnpm deploy:mods`
-- `pnpm check && pnpm test && pnpm build`
+Done-when greps (no legacy Morphology stage config remains):
+- `rg -n "\"morphology-(pre|mid|post)\"" mods/mod-swooper-maps/src/maps mods/mod-swooper-maps/test/standard-run.test.ts`
+- `rg -n "LandmassConfigSchema|MorphologyConfigSchema" mods/mod-swooper-maps/src/recipes/standard/stages/morphology-*`
+- `rg -n "@mapgen/domain/config" mods/mod-swooper-maps/src/recipes/standard/stages/morphology-*`
 
 ### Slice 6 — Ruthless cleanup + documentation pass
 
