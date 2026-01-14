@@ -464,6 +464,10 @@ Verification gates:
   - asserts some `setLandmassRegionId` activity occurred, and
   - asserts region ids came from `getLandmassId("WEST"/"EAST")` (no numeric literals).
 
+### Prework Results (Resolved)
+Decision: ContinentBounds are still required by `assignStartPositions` even after LandmassRegionId projection. Evidence: `applyPlacementPlan` passes `starts.westContinent/eastContinent` into `adapter.assignStartPositions` (`mods/mod-swooper-maps/src/recipes/standard/stages/placement/steps/placement/apply.ts`), and the adapter signature requires those bounds (`packages/civ7-adapter/src/types.ts`). Phase 2 notes `assign-starting-plots.js` uses left/right windows via `StartPositioner.divideMapIntoMajorRegions`, so the engine path still expects bounds (`docs/projects/engine-refactor-v1/resources/spike/spike-morphology-modeling.md`).
+Plan: In Slice 3, derive `ContinentBounds` as a downstream projection from `morphologyArtifacts.landmasses` (primary/secondary component bbox) and feed them into `assignStartPositions` at the placement apply boundary alongside LandmassRegionId stamping; mark the bounds as downstream-owned + deprecated and guardrail that only the projection step references them. Removal by Slice 6 would require replacing/overriding the engine `assign-starting-plots.js` path to use LandmassRegionId-only selection; if no engine override is planned, this is a stop-the-line escalation and should be recorded as a deferral with an explicit trigger.
+
 ### Slice 4 — HOTSPOTS ownership cutover (Narrative-owned)
 
 Goal: remove HOTSPOTS publication from Morphology and make Narrative the sole producer.
