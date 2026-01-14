@@ -48,4 +48,31 @@ describe("foundation contract guardrails", () => {
       expect(text).not.toContain("FoundationConfigSchema");
     }
   });
+
+  it("does not reintroduce removed foundation surfaces", () => {
+    const repoRoot = path.resolve(import.meta.dir, "../..");
+    const roots = [
+      path.join(repoRoot, "src/domain/foundation"),
+      path.join(repoRoot, "src/recipes/standard/stages/foundation"),
+      path.join(repoRoot, "src/maps/_runtime"),
+    ];
+
+    const files = roots.flatMap((root) =>
+      listFilesRecursive(root).filter((file) => file.endsWith(".ts"))
+    );
+
+    expect(files.length).toBeGreaterThan(0);
+
+    for (const file of files) {
+      const text = readFileSync(file, "utf8");
+      expect(text).not.toContain("directionality");
+      expect(text).not.toContain("foundation.dynamics");
+      expect(text).not.toContain("foundation.config");
+      expect(text).not.toContain("foundation.seed");
+      expect(text).not.toContain("foundation.diagnostics");
+      expect(text).not.toContain("wrap_x");
+      expect(text).not.toContain("wrap_y");
+      expect(text).not.toContain("environment_wrap");
+    }
+  });
 });

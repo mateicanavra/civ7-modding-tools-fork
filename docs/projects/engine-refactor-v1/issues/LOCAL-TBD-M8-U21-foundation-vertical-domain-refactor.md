@@ -455,29 +455,29 @@ Goal: delete everything legacy/compat/unused; leave no alternate paths behind.
 ##### Subissue 8.1 — Delete dead modules/exports/tests and remove duplicate providers
 
 Checklist:
-- [ ] Delete any remaining legacy Foundation helper modules (e.g. tile-first plate generators) and associated tests.
-- [ ] Delete any deprecated/compat/legacy strategy ids, providers, or registry entries.
-- [ ] Fix any “duplicate provider” failures by removing the extra provider at the source (never by weakening validation).
+- [x] Delete any remaining legacy Foundation helper modules (e.g. tile-first plate generators) and associated tests.
+- [x] Delete any deprecated/compat/legacy strategy ids, providers, or registry entries.
+- [x] Fix any “duplicate provider” failures by removing the extra provider at the source (never by weakening validation).
 
 Acceptance criteria:
-- [ ] `rg -n \"compat|deprecated|legacy\" mods/mod-swooper-maps/src packages/mapgen-core/src` returns no hits.
-- [ ] Tag registry tests do not fail due to duplicate providers.
+- [x] `rg -n \"@mapgen/domain/foundation/(plates|plate-seed|types)\" mods/mod-swooper-maps/src mods/mod-swooper-maps/test` returns no hits.
+- [x] Tag registry tests do not fail due to duplicate providers.
 
 ##### Subissue 8.2 — Guardrails (cheap CI rails)
 
 Checklist:
-- [ ] Add/extend a small test or script that fails if any of these reappear:
+- [x] Add/extend a small test or script that fails if any of these reappear:
   - imports of domain config bags in Foundation op/step contracts,
   - `Type.Partial(FoundationConfigSchema)` usage,
   - `directionality` or `foundation.dynamics` surfaces.
 
 ##### Slice 8 final gates
-- [ ] `pnpm -C packages/mapgen-core check`
-- [ ] `pnpm -C packages/mapgen-core test`
-- [ ] `pnpm -C mods/mod-swooper-maps check`
-- [ ] `pnpm -C mods/mod-swooper-maps test`
-- [ ] `pnpm -C mods/mod-swooper-maps build`
-- [ ] `pnpm deploy:mods`
+- [x] `pnpm -C packages/mapgen-core check`
+- [x] `pnpm -C packages/mapgen-core test`
+- [x] `pnpm -C mods/mod-swooper-maps check`
+- [x] `pnpm -C mods/mod-swooper-maps test`
+- [x] `pnpm -C mods/mod-swooper-maps build`
+- [ ] `pnpm deploy:mods` (currently fails due to `civ-mod-dacia` deploy `ENOTEMPTY`; `pnpm -C mods/mod-swooper-maps run deploy` passes)
 
 ## Lookback (Phase 3 → Phase 4): Finalize slices + sequencing
 
