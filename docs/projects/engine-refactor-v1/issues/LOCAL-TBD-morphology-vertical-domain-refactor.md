@@ -587,24 +587,6 @@ files:
 - `pnpm test && pnpm build` (optional widening; run when slice is stable)
 - `rg -n \"@mapgen/domain/config\" mods/mod-swooper-maps/src/recipes/standard/stages/morphology-*` (expect zero hits)
 
-#### Prework Prompt (Agent Brief) — Slice 5 config migration inventory
-
-**Purpose:** Identify every authoring site that currently supplies Morphology stage config (including stage names `morphology-pre/mid/post`) so the config overhaul is truly single-path (no dual legacy config).
-
-**Expected Output:** A checklist of callsites and files that must change in Slice 5, plus a “done when” grep list.
-
-**Sources to check:**
-- `mods/mod-swooper-maps/src/maps/*.ts` (stage config blocks).
-- Any other recipe-config sources in the mod (search for `"morphology-pre"`, `"morphology-mid"`, `"morphology-post"`).
-- Existing Morphology step contracts importing `MorphologyConfigSchema` / `LandmassConfigSchema`.
-
-Verification gates (full, per guardrails reference):
-- `REFRACTOR_DOMAINS="morphology" ./scripts/lint/lint-domain-refactor-guardrails.sh`
-- `pnpm -C packages/mapgen-core check && pnpm -C packages/mapgen-core test`
-- `pnpm -C mods/mod-swooper-maps check && pnpm -C mods/mod-swooper-maps test && pnpm -C mods/mod-swooper-maps build`
-- `pnpm deploy:mods`
-- `pnpm check && pnpm test && pnpm build`
-
 ### Prework Results (Resolved)
 Config authoring sites that currently supply Morphology stage config (`morphology-pre/mid/post`) and must migrate in Slice 5:
 - `mods/mod-swooper-maps/src/maps/swooper-earthlike.ts`
