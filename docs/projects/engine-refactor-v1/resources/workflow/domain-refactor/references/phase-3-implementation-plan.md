@@ -1,16 +1,21 @@
 # Phase 3 Implementation Plan (Template)
 
-Purpose: convert the spikes into an executable slice plan and a single source-of-truth issue doc.
+## Purpose
 
-Scope guardrails:
+Convert the spikes into an executable slice plan and a single source-of-truth issue doc.
+
+## Scope guardrails
+
 - This is slice planning only. Do not change the model here.
 - Every slice must end in a pipeline-green state (no dual paths).
 - The refactored domain must not retain compat surfaces; downstream adjustments are part of the plan.
 
-Required output:
+## Required output
+
 - `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-<milestone>-<domain>-*.md`
 
-Required sections (minimum):
+## Required sections (minimum)
+
 - Slice list with deliverables
 - Contract deltas per slice
 - Acceptance + verification gates per slice
@@ -19,7 +24,8 @@ Required sections (minimum):
 - Sequencing refinement note (how the slice order was re-checked for pipeline safety)
 - Documentation pass plan (dedicated slice or issue)
 
-Sequencing refinement pass (required; single pass):
+## Sequencing refinement pass (required; single pass)
+
 1. Draft the slice list from Phase 2 pipeline deltas.
 2. Re-order for pipeline safety (every slice ends green).
 3. Re-check downstream deltas and compat ownership against the new order.
@@ -33,7 +39,8 @@ After re-ordering for pipeline safety, downstream consumer updates moved earlier
 
 Re-checked downstream deltas against the new order and verified each slice ends green. No model changes introduced; any transitional shims live downstream and are explicitly marked deprecated.
 
-Slice plan requirements (per slice):
+## Slice plan requirements (per slice)
+
 - Step(s) included (ids + file paths)
 - Ops introduced/changed (ids + kinds + module paths)
 - Legacy entrypoints to delete (file paths / exports)
@@ -42,13 +49,15 @@ Slice plan requirements (per slice):
 - Pipeline deltas included (upstream/downstream contracts updated in that slice)
 - Documentation scope (what schemas/functions/ops/steps/stages/contracts are documented in this slice)
 
-Documentation pass requirements (dedicated slice or issue):
+## Documentation pass requirements (dedicated slice or issue)
+
 - Inventory all touched/created schemas, functions, ops, steps, stages, and contracts.
 - Add/expand JSDoc for functions/ops/steps with behavior, defaults, modes, and downstream effects.
 - Add/expand schema `description` metadata with the same behavioral context and expectations.
 - Confirm documentation reflects any downstream changes implied by the model.
 
-Gate checklist (Phase 3 completion):
+## Gate checklist (Phase 3 completion)
+
 - Slice plan is written and reviewable.
 - Every planned slice can end in a working state (no “we’ll delete later”).
 - Any pipeline delta from Phase 2 is fully assigned to slices.
@@ -57,7 +66,8 @@ Gate checklist (Phase 3 completion):
 - Sequencing refinement pass is documented and reflects the final order.
 - Documentation pass is present and scoped with inventory + JSDoc/schema updates.
 
-References:
+## References
+
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/op-and-config-design.md`
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/verification-and-guardrails.md`
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/subflows/IMPLEMENTATION.md`
