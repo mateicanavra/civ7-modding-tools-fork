@@ -11,6 +11,10 @@ export function applyRiverCorridorRefinement(
 
   const riverCorridor = refineCfg.riverCorridor as Record<string, number>;
   const lowBasinCfg = refineCfg.lowBasin as Record<string, number>;
+  const adjacencyRadius = Math.min(
+    6,
+    Math.max(1, ((riverCorridor.adjacencyRadius ?? 1) as number) | 0)
+  );
 
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
@@ -18,7 +22,7 @@ export function applyRiverCorridorRefinement(
       let rf = readRainfall(x, y);
       const elev = adapter.getElevation(x, y);
 
-      if (adapter.isAdjacentToRivers(x, y, 1)) {
+      if (adapter.isAdjacentToRivers(x, y, adjacencyRadius)) {
         rf +=
           elev < 250
             ? (riverCorridor.lowlandAdjacencyBonus as number)

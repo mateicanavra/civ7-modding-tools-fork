@@ -407,10 +407,10 @@ const config = {
             hi2Threshold: 420,
             hi2Bonus: 28,
           },
-          coastal: {
-            coastalLandBonus: 14,
-            spread: 3,
-          },
+	          coastal: {
+	            coastalLandBonus: 16,
+	            spread: 3,
+	          },
           noise: {
             baseSpanSmall: 4,
             spanLargeScaleFactor: 1.35,
@@ -480,7 +480,7 @@ const config = {
             lengthMulSqrt: 0,
           },
         },
-        refine: {
+	        refine: {
           waterGradient: {
             radius: 5,
             perRingBonus: 3,
@@ -491,10 +491,11 @@ const config = {
             reductionBase: 22,
             reductionPerStep: 12,
           },
-          riverCorridor: {
-            lowlandAdjacencyBonus: 28,
-            highlandAdjacencyBonus: 12,
-          },
+	          riverCorridor: {
+	            adjacencyRadius: 2,
+	            lowlandAdjacencyBonus: 24,
+	            highlandAdjacencyBonus: 10,
+	          },
           lowBasin: {
             radius: 4,
             delta: 24,
@@ -619,10 +620,10 @@ const config = {
             hi2Threshold: 380,
             hi2Bonus: 32,
           },
-          coastal: {
-            coastalLandBonus: 22,
-            spread: 3,
-          },
+	          coastal: {
+	            coastalLandBonus: 24,
+	            spread: 3,
+	          },
           noise: {
             baseSpanSmall: 4,
             spanLargeScaleFactor: 1.2,
@@ -648,10 +649,11 @@ const config = {
             reductionBase: 22,
             reductionPerStep: 12,
           },
-          riverCorridor: {
-            lowlandAdjacencyBonus: 30,
-            highlandAdjacencyBonus: 14,
-          },
+	          riverCorridor: {
+	            adjacencyRadius: 2,
+	            lowlandAdjacencyBonus: 26,
+	            highlandAdjacencyBonus: 12,
+	          },
           lowBasin: {
             radius: 4,
             delta: 24,
