@@ -736,6 +736,11 @@ Documentation:
 - `rg -n \"\\\\bwestContinent\\\\b|\\\\beastContinent\\\\b|LandmassRegionId|markLandmassId\\\\(\" mods/mod-swooper-maps/src` (expect zero hits)
 - `rg -n \"M4_EFFECT_TAGS\\.engine\\.(landmassApplied|coastlinesApplied)\" mods/mod-swooper-maps/src` (expect zero hits)
 
+Trace:
+- Implemented on branch `agent-BRODY-M8-MORPH-S6-ruthless-cleanup`.
+- Draft PR: https://app.graphite.dev/submit/mateicanavra/civ7-modding-tools-fork/593
+- Checks: `REFRACTOR_DOMAINS="morphology" ./scripts/lint/lint-domain-refactor-guardrails.sh`, `pnpm -C mods/mod-swooper-maps test`.
+
 Verification gates:
 - Full verification list in `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/verification-and-guardrails.md`
 
