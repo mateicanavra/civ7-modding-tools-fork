@@ -740,6 +740,7 @@ Trace:
 - Implemented on branch `agent-BRODY-M8-MORPH-S6-ruthless-cleanup`.
 - Draft PR: https://app.graphite.dev/submit/mateicanavra/civ7-modding-tools-fork/593
 - Checks: `REFRACTOR_DOMAINS="morphology" ./scripts/lint/lint-domain-refactor-guardrails.sh`, `pnpm -C mods/mod-swooper-maps test`.
+- Post-gate fix: commit `10aed0e13` (narrative hotspot type alias collision, landmask `bandPairs` default, geomorphology buffer writes); full verification gates re-run green.
 
 Verification gates:
 - Full verification list in `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/verification-and-guardrails.md`
