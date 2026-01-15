@@ -87,7 +87,7 @@ issues:
     blocked_by: [MORPH-S3]
   - id: MORPH-S5
     title: "Slice 5 — Morphology domain ops refactor + recipe wiring + config overhaul"
-    status: planned
+    status: completed
     blocked_by: [MORPH-S4]
   - id: MORPH-S6
     title: "Slice 6 — Ruthless cleanup + documentation pass"
@@ -580,16 +580,16 @@ Guardrails:
 - Contract-guard test fails if any file under `mods/mod-swooper-maps/src/recipes/standard/stages/morphology-*` imports Morphology implementation entrypoints (allow only `@mapgen/domain/morphology` contract entrypoint).
 
 **Acceptance Criteria (verifiable):**
-- [ ] Morphology ops are contract-first and complete enough to run the standard pipeline without direct imports of legacy Morphology implementation modules from steps.
-- [ ] Morphology ops are compiled in the recipe (`compileOpsById` includes Morphology) and the standard recipe still compiles.
-- [ ] No step under `swooper-src/recipes/standard/stages/morphology-*` imports:
+- [x] Morphology ops are contract-first and complete enough to run the standard pipeline without direct imports of legacy Morphology implementation modules from steps.
+- [x] Morphology ops are compiled in the recipe (`compileOpsById` includes Morphology) and the standard recipe still compiles.
+- [x] No step under `swooper-src/recipes/standard/stages/morphology-*` imports:
   - `@mapgen/domain/config` (domain config bag), or
   - `@mapgen/domain/morphology/<submodule>/...` implementation entrypoints.
   Steps should only import Morphology op contract entrypoints and stage-local artifact contracts.
-- [ ] Config overhaul is complete and single-path:
+- [x] Config overhaul is complete and single-path:
   - all author-facing config for morphology stages in `mods/mod-swooper-maps/src/maps/*.ts` is migrated to the new shape in this slice,
   - legacy config bags (`swooper-src/domain/morphology/config.ts`, `swooper-src/domain/morphology/landmass/config.ts`) are either deleted or no longer reachable/imported by any Morphology step/op.
-- [ ] At least one Morphology op contract test exists using `runOpValidated` and validates:
+- [x] At least one Morphology op contract test exists using `runOpValidated` and validates:
   - strategy selection / normalization is deterministic, and
   - output shape matches the schema (`normalizeStrictOrThrow`).
 
@@ -646,6 +646,11 @@ files:
 - `pnpm -C mods/mod-swooper-maps check && pnpm -C mods/mod-swooper-maps test && pnpm -C mods/mod-swooper-maps build`
 - `pnpm test && pnpm build` (optional widening; run when slice is stable)
 - `rg -n \"@mapgen/domain/config\" mods/mod-swooper-maps/src/recipes/standard/stages/morphology-*` (expect zero hits)
+
+Trace:
+- Implemented on branch `agent-BRODY-M8-MORPH-S5-ops-refactor`.
+- Draft PR: https://app.graphite.dev/submit/mateicanavra/civ7-modding-tools-fork/592
+- Checks: `REFRACTOR_DOMAINS="morphology" ./scripts/lint/lint-domain-refactor-guardrails.sh`, `pnpm -C mods/mod-swooper-maps test`.
 
 ### Prework Results (Resolved)
 Config authoring sites that currently supply Morphology stage config (`morphology-pre/mid/post`) and must migrate in Slice 5:
