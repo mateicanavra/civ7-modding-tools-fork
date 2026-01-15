@@ -1,21 +1,16 @@
 import { Type, TypedArraySchemas, defineOp } from "@swooper/mapgen-core/authoring";
 
-import { HotspotTunablesSchema, IslandsConfigSchema } from "../../config.js";
+import { HotspotBiasTunablesSchema, IslandsConfigSchema } from "../../config.js";
 
-const IslandChainsConfigSchema = Type.Object(
-  {
-    islands: IslandsConfigSchema,
-    hotspot: HotspotTunablesSchema,
-    seaLaneAvoidRadius: Type.Number({
-      description: "Radius (tiles) to avoid placing islands on sea lanes.",
-      default: 2,
-      minimum: 0,
-    }),
-  },
-  {
-    description: "Island chain planning knobs (hotspots + sea lane avoidance).",
-  }
-);
+const IslandChainsConfigSchema = Type.Object({
+  islands: IslandsConfigSchema,
+  hotspot: HotspotBiasTunablesSchema,
+  seaLaneAvoidRadius: Type.Number({
+    description: "Radius (tiles) to avoid placing islands on sea lanes.",
+    default: 2,
+    minimum: 0,
+  }),
+});
 
 const IslandEditSchema = Type.Object({
   index: Type.Integer({ minimum: 0, description: "Tile index in row-major order." }),

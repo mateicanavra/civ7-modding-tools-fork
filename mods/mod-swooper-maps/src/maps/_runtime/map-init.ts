@@ -93,8 +93,24 @@ function resolveMapInitDataWithAdapter(
 
   const resolvedWidth = initParams?.width ?? mapInfo.GridWidth;
   const resolvedHeight = initParams?.height ?? mapInfo.GridHeight;
-  const resolvedTopLatitude = initParams?.topLatitude ?? mapInfo.MaxLatitude;
-  const resolvedBottomLatitude = initParams?.bottomLatitude ?? mapInfo.MinLatitude;
+  let resolvedTopLatitude = initParams?.topLatitude ?? mapInfo.MaxLatitude;
+  let resolvedBottomLatitude = initParams?.bottomLatitude ?? mapInfo.MinLatitude;
+
+  if (options.latitudeBounds) {
+    const { topLatitude, bottomLatitude } = options.latitudeBounds;
+    if (topLatitude == null || bottomLatitude == null) {
+      throw new Error(
+        `${prefix} Incomplete latitudeBounds override. Provide both topLatitude and bottomLatitude.`
+      );
+    }
+    if (topLatitude <= bottomLatitude) {
+      throw new Error(
+        `${prefix} Invalid latitudeBounds override. topLatitude must be greater than bottomLatitude.`
+      );
+    }
+    resolvedTopLatitude = topLatitude;
+    resolvedBottomLatitude = bottomLatitude;
+  }
 
   if (resolvedWidth == null || resolvedHeight == null) {
     throw new Error(

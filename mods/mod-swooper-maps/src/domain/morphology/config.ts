@@ -728,7 +728,7 @@ export type MountainsConfig =
 export type VolcanoesConfig =
   Static<typeof LandformsConfigSchema["properties"]["volcanoes"]>;
 
-export const HotspotTunablesSchema = Type.Object(
+export const HotspotBiasTunablesSchema = Type.Object(
   {
     paradiseBias: Type.Number({
       description: "Bias applied to paradise hotspots when selecting island/volcanic behavior.",
@@ -749,4 +749,4 @@ export const HotspotTunablesSchema = Type.Object(
   }
 );
 
-export type HotspotTunables = Static<typeof HotspotTunablesSchema>;
+export type HotspotBiasTunables = Static<typeof HotspotBiasTunablesSchema>;

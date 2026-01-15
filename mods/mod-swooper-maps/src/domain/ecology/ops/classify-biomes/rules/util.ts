@@ -1,7 +1,10 @@
 export { clamp01 } from "@swooper/mapgen-core";
 
 /**
- * Computes the maximum absolute latitude, clamped to at least 1 to avoid divide-by-zero.
+ * Computes the maximum absolute latitude (degrees) used to normalize climate curves.
+ *
+ * We clamp to at least 90 degrees so map-level "latitude zoom" does not
+ * accidentally treat the map edges as polar latitudes.
  */
 export function computeMaxLatitude(latitude: Float32Array): number {
   let max = 0;
@@ -9,5 +12,5 @@ export function computeMaxLatitude(latitude: Float32Array): number {
     const val = Math.abs(latitude[i]);
     if (val > max) max = val;
   }
-  return Math.max(1, max);
+  return Math.max(90, max, 1);
 }

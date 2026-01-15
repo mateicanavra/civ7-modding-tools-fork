@@ -10,6 +10,10 @@ export interface MapRuntimeOptions {
   adapter?: EngineAdapter;
   createAdapter?: (width: number, height: number) => EngineAdapter;
   logPrefix?: string;
+  latitudeBounds?: {
+    topLatitude: number;
+    bottomLatitude: number;
+  };
   mapSizeDefaults?: MapSizeDefaults;
   traceSink?: TraceSink | null;
   traceSession?: TraceSession | null;

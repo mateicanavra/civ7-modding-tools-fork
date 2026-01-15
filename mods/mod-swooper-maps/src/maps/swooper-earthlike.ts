@@ -22,11 +22,11 @@ const config = {
       computeMesh: {
         strategy: "default",
         config: {
-          plateCount: 28,             // Reduced: Earth has ~15 major + minor plates
-          cellsPerPlate: 3,           // Increased: more detail per plate
-          relaxationSteps: 6,         // Smoother plate boundaries
+          plateCount: 32,             // Fewer plates to reduce boundary fragmentation
+          cellsPerPlate: 30,           // Larger plates with more internal area
+          relaxationSteps: 7,         // Smoother plate boundaries
           referenceArea: 4000,        // Standard reference
-          plateScalePower: 0.5,       // Standard scaling
+          plateScalePower: 0.75,       // Standard scaling
         },
       },
     },
@@ -34,7 +34,7 @@ const config = {
       computeCrust: {
         strategy: "default",
         config: {
-          continentalRatio: 0.29,     // Earth: ~29% continental crust
+          continentalRatio: 0.32,     // Earth: ~29% continental crust
         },
       },
     },
@@ -42,9 +42,26 @@ const config = {
       computePlateGraph: {
         strategy: "default",
         config: {
-          plateCount: 28,             // Match mesh plateCount
+          plateCount: 20,             // Match mesh plateCount
           referenceArea: 4000,
           plateScalePower: 0.5,
+        },
+      },
+    },
+    tectonics: {
+      computeTectonics: {
+        strategy: "default",
+        config: {},
+      },
+    },
+    projection: {
+      computePlates: {
+        strategy: "default",
+        config: {
+          boundaryInfluenceDistance: 4,
+          boundaryDecay: 0.6,
+          movementScale: 100,
+          rotationScale: 100,
         },
       },
     },
@@ -53,35 +70,41 @@ const config = {
     "landmass-plates": {
       substrate: {
         strategy: "default",
-        config: {},
+        config: {
+          baseErodibility: 0.6,
+          baseSediment: 0.2,
+          upliftErodibilityBoost: 0.37,
+          riftSedimentBoost: 0.37,
+        },
       },
       baseTopography: {
         strategy: "default",
         config: {
-          // Moderate margin bias: enough active coasts, plenty of passive shelves.
-          boundaryBias: 0.22,             // Slightly higher for plate-driven coastlines
-          clusteringBias: 0.35,           // Balanced: some clustering, not Pangaea
-          // Crust-first height tuning to preserve water even with broken boundary fields.
-          crustEdgeBlend: 0.38,           // Wider continental shelves (Earth-like)
-          crustNoiseAmplitude: 0.12,      // Slight variation in continental thickness
-          continentalHeight: 0.38,        // Slightly reduced for realistic hypsometry
-          oceanicHeight: -0.72,           // Slightly shallower ocean basins
+          // Continental bias for broad landmasses with a few major continents.
+          boundaryBias: 0.17,             // Further reduce boundary dominance to avoid arcs
+          clusteringBias: 0.70,           // Stronger clustering to favor contiguous continents
+          // Crust-first height tuning to avoid island-heavy hypsometry.
+          crustEdgeBlend: 0.5,            // Wider continental shelves (Earth-like)
+          crustNoiseAmplitude: 0.57,       // Smoother continental thickness
+          continentalHeight: 0.6,         // Taller continental surfaces for robust land cores
+          oceanicHeight: -0.87,           // Deeper ocean basins to keep coasts stable
           tectonics: {
-            // Favor coastal arcs (Andes/Ring of Fire) but keep thick interiors.
-            boundaryArcWeight: 0.40,      // Slightly stronger coastal arcs
-            boundaryArcNoiseWeight: 0.32, // Less noise for cleaner arcs
-            interiorNoiseWeight: 0.52,    // Smoother continental interiors
-            fractalGrain: 4,              // Slightly coarser for larger landmass shapes
+            // De-emphasize arcs so plate boundaries don't dominate land distribution.
+            boundaryArcWeight: 0.2,       // Reduce arc emphasis
+            boundaryArcNoiseWeight: 0.18, // Less boundary noise
+            interiorNoiseWeight: 0.7,     // Stronger continental interior shaping
+            fractalGrain: 3,              // Coarser grain for larger landmass shapes
           },
         },
       },
       seaLevel: {
         strategy: "default",
         config: {
-          // Earth-like ocean dominance (~70% water).
-          targetWaterPercent: 71,         // True Earth ratio
+          // Earth-like ocean dominance, tuned to avoid archipelago output.
+          targetWaterPercent: 67,         // Dial back to preserve contiguous continents
           targetScalar: 1,
-          boundaryShareTarget: 0.18,      // ~18% land at plate boundaries
+          variance: 0,
+          boundaryShareTarget: 0.1,       // Reduce boundary land share
           continentalFraction: 0.29,      // Match crust ratio
         },
       },
@@ -91,6 +114,7 @@ const config = {
           basinSeparation: {
             // Leave separation off; keep defaults earthlike if enabled later.
             enabled: false,
+            bandPairs: [],
             baseSeparationTiles: 0,
             boundaryClosenessMultiplier: 1.0,
             maxPerRowDelta: 3,
@@ -126,19 +150,60 @@ const config = {
     "story-hotspots": {
       story: {
         hotspot: {
+          maxTrails: 12,
+          steps: 15,
+          stepLen: 2,
+          minDistFromLand: 5,
+          minTrailSeparation: 12,
           paradiseBias: 2,
           volcanicBias: 1,
           volcanicPeakChance: 0.33,
         },
       },
     },
-    "story-rifts": { story: { rift: {} } },
+    "story-rifts": {
+      story: {
+        rift: {
+          maxRiftsPerMap: 3,
+          lineSteps: 18,
+          stepLen: 2,
+          shoulderWidth: 1,
+        },
+      },
+    },
     "story-corridors-pre": {
       corridors: {
-        sea: {},
-        land: {},
-        river: {},
-        islandHop: {},
+        sea: {
+          protection: "hard",
+          softChanceMultiplier: 0.5,
+          avoidRadius: 2,
+          maxLanes: 3,
+          scanStride: 6,
+          minLengthFrac: 0.7,
+          preferDiagonals: false,
+          laneSpacing: 6,
+          minChannelWidth: 3,
+        },
+        land: {
+          biomesBiasStrength: 0.6,
+          useRiftShoulders: true,
+          maxCorridors: 2,
+          minRunLength: 24,
+          spacing: 0,
+        },
+        river: {
+          biomesBiasStrength: 0.5,
+          maxChains: 2,
+          maxSteps: 80,
+          preferLowlandBelow: 300,
+          coastSeedRadius: 2,
+          minTiles: 0,
+          mustEndNearCoast: false,
+        },
+        islandHop: {
+          useHotspots: true,
+          maxArcs: 2,
+        },
       },
     },
   },
@@ -162,8 +227,8 @@ const config = {
             },
             // Earth-like coastal features
             bay: {
-              noiseGateAdd: 0.05,           // Slight noise gate for natural variation
-              rollDenActive: 5,             // Moderate bays on active margins
+              noiseGateAdd: 0.07,           // Slight noise gate for natural variation
+              rollDenActive: 4,             // Moderate bays on active margins
               rollDenDefault: 6,            // Fewer bays on passive margins
             },
             fjord: {
@@ -191,9 +256,18 @@ const config = {
         strategy: "default",
         config: {
           geomorphology: {
-            fluvial: {},
-            diffusion: {},
-            deposition: {},
+            fluvial: {
+              rate: 0.15,
+              m: 0.5,
+              n: 1.0,
+            },
+            diffusion: {
+              rate: 0.2,
+              talus: 0.5,
+            },
+            deposition: {
+              rate: 0.1,
+            },
             eras: 2,
           },
           worldAge: "mature",
@@ -202,7 +276,16 @@ const config = {
     },
   },
   "narrative-mid": {
-    "story-orogeny": { story: { orogeny: {} } },
+    "story-orogeny": {
+      story: {
+        orogeny: {
+          radius: 2,
+          beltMinLength: 30,
+          windwardBoost: 5,
+          leeDrynessAmplifier: 1.2,
+        },
+      },
+    },
   },
   "morphology-post": {
     islands: {
@@ -210,21 +293,21 @@ const config = {
         strategy: "default",
         config: {
           islands: {
-            // Earth-like island distribution
-            fractalThresholdPercent: 88,    // Moderate island density
-            minDistFromLandRadius: 3,       // Keep islands separate from continents
-            baseIslandDenNearActive: 4,     // More islands near subduction (Japan, Indonesia)
-            baseIslandDenElse: 8,           // Fewer islands in passive regions
-            hotspotSeedDenom: 2,            // Hawaii-style hotspot chains
-            clusterMax: 4,                  // Moderate archipelago sizes
-            microcontinentChance: 0.12,     // Occasional Zealandia/Madagascar-like shards
+            // Earth-like island distribution (reduced for continental dominance)
+            fractalThresholdPercent: 96,    // Fewer islands overall
+            minDistFromLandRadius: 4,       // Keep islands away from continental shores
+            baseIslandDenNearActive: 4,     // Moderate arc islands
+            baseIslandDenElse: 6,           // Light passive-margin islands
+            hotspotSeedDenom: 5,            // Sparse hotspot chains
+            clusterMax: 2,                  // Smaller archipelago clusters
+            microcontinentChance: 0.04,     // Rare continental shards
           },
           hotspot: {
-            paradiseBias: 2.2,            // Slight paradise preference
-            volcanicBias: 1.3,            // Moderate volcanic activity
-            volcanicPeakChance: 0.35,     // Some volcanic peaks
+            paradiseBias: 2.0,            // Moderate paradise preference
+            volcanicBias: 1.1,            // Modest volcanic activity
+            volcanicPeakChance: 0.3,      // Some volcanic peaks
           },
-          seaLaneAvoidRadius: 2,
+          seaLaneAvoidRadius: 3,
         },
       },
     },
@@ -233,24 +316,24 @@ const config = {
         strategy: "default",
         config: {
           // Earth-like prevalence: a few major ranges, not wall-to-wall mountains.
-          tectonicIntensity: 0.65,
-          mountainThreshold: 0.62,
-          hillThreshold: 0.36,           // Raised: fewer hills overall
-          upliftWeight: 0.25,
-          fractalWeight: 0.62,           // Reduced: less noisy elevation -> fewer scattered hills
+          tectonicIntensity: 0.62,
+          mountainThreshold: 0.65,       // Slightly more mountains to restore blockage
+          hillThreshold: 0.38,           // Modest hill recovery
+          upliftWeight: 0.22,
+          fractalWeight: 0.55,           // Restore some noise for natural chain breaks
           riftDepth: 0.25,
           boundaryWeight: 0.55,
-          boundaryGate: 0,
-          boundaryExponent: 1.15,
-          interiorPenaltyWeight: 0.15,
-          convergenceBonus: 0.6,
-          transformPenalty: 0.6,
-          riftPenalty: 0.76,
-          hillBoundaryWeight: 0.28,      // Reduced: fewer hills at boundaries
-          hillRiftBonus: 0.45,           // Reduced: fewer hills along rifts
-          hillConvergentFoothill: 0.28,  // Reduced: narrower foothills
-          hillInteriorFalloff: 0.14,     // KEY FIX: hills decay faster into interiors -> more plains
-          hillUpliftWeight: 0.18,        // Slightly reduced
+          boundaryGate: 0.12,            // Allow more margin influence
+          boundaryExponent: 1.25,        // Softer decay away from margins
+          interiorPenaltyWeight: 0.18,
+          convergenceBonus: 0.55,
+          transformPenalty: 0.7,
+          riftPenalty: 0.8,
+          hillBoundaryWeight: 0.26,      // Restore some boundary foothills
+          hillRiftBonus: 0.35,
+          hillConvergentFoothill: 0.25,  // Slightly wider foothills
+          hillInteriorFalloff: 0.18,     // Less aggressive interior decay
+          hillUpliftWeight: 0.15,
         },
       },
     },
@@ -300,13 +383,13 @@ const config = {
             bandWeight: 0.65,
           },
           seed: {
-            baseRainfall: 18,       // REDUCED from 30: interior continents are naturally dry
+            baseRainfall: 21,       // Slightly wetter base for stronger rainforest contrast
             coastalExponent: 1.4,   // Steeper falloff: sharper coast/interior contrast
           },
           bands: {
-            deg0to10: 125,
+            deg0to10: 140,
             deg10to20: 100,
-            deg20to35: 45,         // Raised from 25: less extreme deserts, more grassland/steppe transition
+            deg20to35: 35,         // Lower: stronger subtropical deserts
             deg35to55: 88,
             deg55to70: 75,
             deg70plus: 40,         // Slightly raised: more tundra variation
@@ -354,13 +437,13 @@ const config = {
             bandWeight: 0.8,
           },
           seed: {
-            baseRainfall: 40,
+            baseRainfall: 44,
             coastalExponent: 1.2,
           },
           bands: {
-            deg0to10: 125,
+            deg0to10: 140,
             deg10to20: 100,
-            deg20to35: 55,         // Moderate subtropical band
+            deg20to35: 40,         // Lower: stronger subtropical deserts
             deg35to55: 82,
             deg55to70: 68,
             deg70plus: 45,
@@ -430,6 +513,7 @@ const config = {
           },
           sizeScaling: {
             widthMulSqrt: 0.3,
+            lengthMulSqrt: 0,
           },
         },
         refine: {
@@ -464,15 +548,68 @@ const config = {
     },
   },
   "hydrology-core": {
-    rivers: { climate: { story: { paleo: {} } } },
+    rivers: {
+      climate: {
+        story: {
+          paleo: {
+            maxDeltas: 0,
+            deltaFanRadius: 0,
+            deltaMarshChance: 0.35,
+            maxOxbows: 0,
+            oxbowElevationMax: 280,
+            maxFossilChannels: 0,
+            fossilChannelLengthTiles: 6,
+            fossilChannelStep: 1,
+            fossilChannelHumidity: 0,
+            fossilChannelMinDistanceFromCurrentRivers: 0,
+            bluffWetReduction: 0,
+            sizeScaling: {
+              lengthMulSqrt: 0,
+            },
+            elevationCarving: {
+              enableCanyonRim: true,
+              rimWidth: 0,
+              canyonDryBonus: 0,
+            },
+          },
+        },
+      },
+    },
   },
   "narrative-post": {
     "story-corridors-post": {
       corridors: {
-        sea: {},
-        land: {},
-        river: {},
-        islandHop: {},
+        sea: {
+          protection: "hard",
+          softChanceMultiplier: 0.5,
+          avoidRadius: 2,
+          maxLanes: 3,
+          scanStride: 6,
+          minLengthFrac: 0.7,
+          preferDiagonals: false,
+          laneSpacing: 6,
+          minChannelWidth: 3,
+        },
+        land: {
+          biomesBiasStrength: 0.6,
+          useRiftShoulders: true,
+          maxCorridors: 2,
+          minRunLength: 24,
+          spacing: 0,
+        },
+        river: {
+          biomesBiasStrength: 0.5,
+          maxChains: 2,
+          maxSteps: 80,
+          preferLowlandBelow: 300,
+          coastSeedRadius: 2,
+          minTiles: 0,
+          mustEndNearCoast: false,
+        },
+        islandHop: {
+          useHotspots: true,
+          maxArcs: 2,
+        },
       },
     },
   },
@@ -561,6 +698,7 @@ const config = {
           },
           sizeScaling: {
             widthMulSqrt: 0.3,
+            lengthMulSqrt: 0,
           },
         },
         refine: {
@@ -592,26 +730,71 @@ const config = {
           },
         },
       },
-      story: { orogeny: {} },
+      story: {
+        orogeny: {
+          radius: 2,
+          beltMinLength: 30,
+          windwardBoost: 5,
+          leeDrynessAmplifier: 1.2,
+        },
+      },
     },
   },
   ecology: {
     // New ecology steps with strategy selections
     pedology: {
-      classify: { strategy: "default", config: {} },
+      classify: {
+        strategy: "default",
+        config: {
+          climateWeight: 1.2,
+          reliefWeight: 0.8,
+          sedimentWeight: 1.1,
+          bedrockWeight: 0.6,
+          fertilityCeiling: 0.95,
+        },
+      },
     },
     resourceBasins: {
-      plan: { strategy: "mixed", config: {} },  // Variety in resource distribution
-      score: { strategy: "default", config: {} },
+      plan: { strategy: "mixed", config: { resources: [] } },  // Variety in resource distribution
+      score: { strategy: "default", config: { minConfidence: 0.3, maxPerResource: 12 } },
     },
     biomeEdgeRefine: {
-      refine: { strategy: "gaussian", config: {} },  // Smoother Earth-like biome transitions
+      refine: { strategy: "gaussian", config: { radius: 1, iterations: 1 } },  // Smoother Earth-like biome transitions
     },
     featuresPlan: {
-      vegetation: { strategy: "clustered", config: {} },  // Natural forest grouping
-      wetlands: { strategy: "delta-focused", config: {} },  // River-mouth wetlands
-      reefs: { strategy: "default", config: {} },
-      ice: { strategy: "default", config: {} },
+      vegetation: {
+        strategy: "clustered",
+        config: {
+          baseDensity: 0.35,
+          fertilityWeight: 0.4,
+          moistureWeight: 0.6,
+          moistureNormalization: 230,
+          coldCutoff: -10,
+        },
+      },  // Natural forest grouping
+      wetlands: {
+        strategy: "delta-focused",
+        config: {
+          moistureThreshold: 0.75,
+          fertilityThreshold: 0.35,
+          moistureNormalization: 230,
+          maxElevation: 1200,
+        },
+      },  // River-mouth wetlands
+      reefs: {
+        strategy: "default",
+        config: {
+          warmThreshold: 12,
+          density: 0.35,
+        },
+      },
+      ice: {
+        strategy: "default",
+        config: {
+          seaIceThreshold: -8,
+          alpineThreshold: 2800,
+        },
+      },
     },
     biomes: {
       classify: {
@@ -626,7 +809,7 @@ const config = {
             polarCutoff: -5,
             tundraCutoff: 2,
             midLatitude: 12,
-            tropicalThreshold: 24,
+            tropicalThreshold: 22,
           },
           moisture: {
             thresholds: [50, 95, 140, 190] as [number, number, number, number],  // Widened: more graduated biome transitions
@@ -638,9 +821,9 @@ const config = {
             temperatureMax: 35,
             petBase: 20,           // Moderate evaporation demand
             petTemperatureWeight: 78,  // Moderate temperature effect
-            humidityDampening: 0.52,   // Humidity provides some protection
-            rainfallWeight: 0.95,  // Rainfall offsets aridity reasonably
-            bias: 3,               // Slight push toward aridity (was 8, too aggressive)
+            humidityDampening: 0.5,    // Slightly less humid buffering
+            rainfallWeight: 0.9,   // Rainfall offsets aridity reasonably
+            bias: 4.5,             // Slight push toward aridity (was 8, too aggressive)
             normalization: 118,    // More reasonable normalization
             moistureShiftThresholds: [0.42, 0.65] as [number, number],  // Less aggressive thresholds
             vegetationPenalty: 0.14,  // Moderate sparse vegetation in arid areas
@@ -661,7 +844,7 @@ const config = {
               temperateDry: { multiplier: 0.75, bonus: 0 },
               temperateHumid: { multiplier: 1, bonus: 0 },
               tropicalSeasonal: { multiplier: 1, bonus: 0 },
-              tropicalRainforest: { multiplier: 1, bonus: 0.25 },
+              tropicalRainforest: { multiplier: 1, bonus: 0.5 },
               desert: { multiplier: 0.12, bonus: 0 },
             },
           },
@@ -728,7 +911,7 @@ const config = {
             selector: {
               typeName: "PLOTEFFECT_SAND",
             },
-            chance: 18,            // Increased for more visible deserts
+            chance: 20,            // Increased for more visible deserts
             minAridity: 0.55,      // Lowered to catch more desert tiles
             minTemperature: 16,    // Lowered for cooler desert edges
             maxFreeze: 0.25,
@@ -758,12 +941,15 @@ const config = {
         },
       },
     },
+    featuresApply: {
+      apply: { strategy: "default", config: { maxPerTile: 1 } },
+    },
   },
   placement: {
     "derive-placement-inputs": {
       wonders: { strategy: "default", config: { wondersPlusOne: true } },
       floodplains: { strategy: "default", config: { minLength: 4, maxLength: 10 } },
-      starts: { strategy: "default", config: {} },
+      starts: { strategy: "default", config: { overrides: {} } },
     },
     placement: {},
   },
