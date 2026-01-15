@@ -3,6 +3,9 @@ import morphology from "@mapgen/domain/morphology";
 
 import { morphologyArtifacts } from "../../morphology-pre/artifacts.js";
 
+/**
+ * Computes routing buffers (flow direction/accumulation) from current topography.
+ */
 const RoutingStepContract = defineStep({
   id: "routing",
   phase: "morphology",

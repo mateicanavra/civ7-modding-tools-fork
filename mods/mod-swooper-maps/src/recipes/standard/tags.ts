@@ -17,8 +17,6 @@ export const M3_DEPENDENCY_TAGS = {
 
 export const M4_EFFECT_TAGS = {
   engine: {
-    landmassApplied: "effect:engine.landmassApplied",
-    coastlinesApplied: "effect:engine.coastlinesApplied",
     riversModeled: "effect:engine.riversModeled",
     biomesApplied: ENGINE_EFFECT_TAGS.biomesApplied,
     featuresApplied: ENGINE_EFFECT_TAGS.featuresApplied,

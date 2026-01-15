@@ -2,29 +2,42 @@ import { Type, TypedArraySchemas, defineOp } from "@swooper/mapgen-core/authorin
 
 import { CoastConfigSchema } from "../../config.js";
 
-const SeaLaneProtectionSchema = Type.Object({
-  mode: Type.Union([Type.Literal("none"), Type.Literal("soft"), Type.Literal("hard")], {
-    description: "Sea-lane protection mode applied to coastline carving.",
-    default: "soft",
-  }),
-  softChanceMultiplier: Type.Number({
-    description: "Chance multiplier applied to carving when protection mode is soft.",
-    default: 1,
-    minimum: 0,
-  }),
-});
+const SeaLaneProtectionSchema = Type.Object(
+  {
+    mode: Type.Union([Type.Literal("none"), Type.Literal("soft"), Type.Literal("hard")], {
+      description: "Sea-lane protection mode applied to coastline carving.",
+      default: "soft",
+    }),
+    softChanceMultiplier: Type.Number({
+      description: "Chance multiplier applied to carving when protection mode is soft.",
+      default: 1,
+      minimum: 0,
+    }),
+  },
+  {
+    description: "Sea lane protection policy for coastline carving.",
+  }
+);
 
-const CoastlineMetricsConfigSchema = Type.Object({
-  coast: CoastConfigSchema,
-  seaLanes: SeaLaneProtectionSchema,
-});
+const CoastlineMetricsConfigSchema = Type.Object(
+  {
+    coast: CoastConfigSchema,
+    seaLanes: SeaLaneProtectionSchema,
+  },
+  {
+    description: "Coastline carving controls, including sea lane protection policy.",
+  }
+);
 
+/**
+ * Derives coastline adjacency masks and updated land/coast masks.
+ */
 const ComputeCoastlineMetricsContract = defineOp({
   kind: "compute",
   id: "morphology/compute-coastline-metrics",
   input: Type.Object({
-    width: Type.Integer({ minimum: 1 }),
-    height: Type.Integer({ minimum: 1 }),
+    width: Type.Integer({ minimum: 1, description: "Map width in tiles." }),
+    height: Type.Integer({ minimum: 1, description: "Map height in tiles." }),
     landMask: TypedArraySchemas.u8({ description: "Land mask per tile (1=land, 0=water)." }),
     boundaryCloseness: TypedArraySchemas.u8({ description: "Boundary proximity per tile (0..255)." }),
     boundaryType: TypedArraySchemas.u8({ description: "Boundary type per tile (1=conv,2=div,3=trans)." }),

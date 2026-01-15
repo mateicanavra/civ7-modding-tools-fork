@@ -13,12 +13,15 @@ const LandmassBoundsSchema = Type.Object(
   }
 );
 
+/**
+ * Decomposes the final land mask into connected landmasses.
+ */
 const ComputeLandmassesContract = defineOp({
   kind: "compute",
   id: "morphology/compute-landmasses",
   input: Type.Object({
-    width: Type.Integer({ minimum: 1 }),
-    height: Type.Integer({ minimum: 1 }),
+    width: Type.Integer({ minimum: 1, description: "Map width in tiles." }),
+    height: Type.Integer({ minimum: 1, description: "Map height in tiles." }),
     landMask: TypedArraySchemas.u8({
       description: "Land mask per tile (1=land, 0=water).",
     }),
@@ -36,7 +39,12 @@ const ComputeLandmassesContract = defineOp({
     }),
   }),
   strategies: {
-    default: Type.Object({}),
+    default: Type.Object(
+      {},
+      {
+        description: "No strategy-specific tuning for landmass decomposition.",
+      }
+    ),
   },
 });
 

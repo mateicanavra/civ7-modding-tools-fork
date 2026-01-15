@@ -2,16 +2,24 @@ import { Type, TypedArraySchemas, defineOp } from "@swooper/mapgen-core/authorin
 
 import { OceanSeparationConfigSchema } from "../../config.js";
 
-const LandmaskConfigSchema = Type.Object({
-  basinSeparation: OceanSeparationConfigSchema,
-});
+const LandmaskConfigSchema = Type.Object(
+  {
+    basinSeparation: OceanSeparationConfigSchema,
+  },
+  {
+    description: "Landmask shaping controls, including ocean separation policy.",
+  }
+);
 
+/**
+ * Derives the land mask and coastline distance field from elevation and sea level.
+ */
 const ComputeLandmaskContract = defineOp({
   kind: "compute",
   id: "morphology/compute-landmask",
   input: Type.Object({
-    width: Type.Integer({ minimum: 1 }),
-    height: Type.Integer({ minimum: 1 }),
+    width: Type.Integer({ minimum: 1, description: "Map width in tiles." }),
+    height: Type.Integer({ minimum: 1, description: "Map height in tiles." }),
     elevation: TypedArraySchemas.i16({ description: "Elevation per tile (normalized units)." }),
     seaLevel: Type.Number({ description: "Sea level threshold." }),
     boundaryCloseness: TypedArraySchemas.u8({

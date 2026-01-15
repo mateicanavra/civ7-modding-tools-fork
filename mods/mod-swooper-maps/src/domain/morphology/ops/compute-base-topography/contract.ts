@@ -2,12 +2,15 @@ import { Type, TypedArraySchemas, defineOp } from "@swooper/mapgen-core/authorin
 
 import { ReliefConfigSchema } from "../../config.js";
 
+/**
+ * Converts tectonic uplift potentials into the initial elevation field.
+ */
 const ComputeBaseTopographyContract = defineOp({
   kind: "compute",
   id: "morphology/compute-base-topography",
   input: Type.Object({
-    width: Type.Integer({ minimum: 1 }),
-    height: Type.Integer({ minimum: 1 }),
+    width: Type.Integer({ minimum: 1, description: "Map width in tiles." }),
+    height: Type.Integer({ minimum: 1, description: "Map height in tiles." }),
     boundaryCloseness: TypedArraySchemas.u8({
       description: "Boundary proximity per tile (0..255).",
     }),

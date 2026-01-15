@@ -1,17 +1,13 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
 
-import { M4_EFFECT_TAGS } from "../../../tags.js";
-import { morphologyArtifacts } from "../artifacts.js";
-
+/**
+ * Applies engine-facing coastline expansion after land/sea definition.
+ */
 const CoastlinesStepContract = defineStep({
   id: "coastlines",
   phase: "morphology",
-  requires: [M4_EFFECT_TAGS.engine.landmassApplied],
-  provides: [M4_EFFECT_TAGS.engine.coastlinesApplied],
-  artifacts: {
-    requires: [morphologyArtifacts.topography],
-    provides: [morphologyArtifacts.coastlinesApplied],
-  },
+  requires: [],
+  provides: [],
   schema: Type.Object({}),
 });
 

@@ -3,6 +3,9 @@ import morphology from "@mapgen/domain/morphology";
 
 import { foundationArtifacts } from "../../foundation/artifacts.js";
 
+/**
+ * Plans ridge and foothill masks for mountain terrain accents.
+ */
 const MountainsStepContract = defineStep({
   id: "mountains",
   phase: "morphology",

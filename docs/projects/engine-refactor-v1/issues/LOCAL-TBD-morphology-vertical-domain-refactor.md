@@ -65,6 +65,13 @@ mapgen-core = packages/mapgen-core
 - **Rationale:** Keeps Morphology as the single source of truth for landmass decomposition while minimizing downstream recomputation.
 - **Risk:** Adds a required field to the artifact schema; downstream publishers must include it (handled in Slice 3).
 
+### Drop landmasses dependency from derive-placement-inputs after removing continent bounds
+- **Context:** Slice 6 removes deprecated `westContinent/eastContinent` bounds from placement inputs.
+- **Options:** keep `morphologyArtifacts.landmasses` as a gating dependency, or remove the requirement now that the bounds are gone.
+- **Choice:** remove the landmasses dependency and stop reading the artifact in `derive-placement-inputs`.
+- **Rationale:** Keeps the contract aligned with actual inputs while `placement` still requires landmasses for LandmassRegionId projection.
+- **Risk:** If start planning later needs landmass data, the artifact requirement must be reintroduced explicitly.
+
 ## Issue index (slice units; for breakout)
 
 ```yaml
@@ -91,7 +98,7 @@ issues:
     blocked_by: [MORPH-S4]
   - id: MORPH-S6
     title: "Slice 6 — Ruthless cleanup + documentation pass"
-    status: planned
+    status: completed
     blocked_by: [MORPH-S5]
 ```
 
@@ -675,17 +682,17 @@ Cleanup:
 - Remove unused config schema properties that have been killed, and delete stale docs references.
 
 **Acceptance Criteria (verifiable):**
-- [ ] No Morphology step contract in `swooper-src/recipes/standard/stages/morphology-*`:
+- [x] No Morphology step contract in `swooper-src/recipes/standard/stages/morphology-*`:
   - requires or provides `M4_EFFECT_TAGS.engine.landmassApplied` / `M4_EFFECT_TAGS.engine.coastlinesApplied`, and
   - imports legacy config bag schemas (`@mapgen/domain/config`) or legacy Morphology config modules.
-- [ ] No Morphology-owned compat or projection surfaces remain:
+- [x] No Morphology-owned compat or projection surfaces remain:
   - `runtime.westContinent/eastContinent` (deleted),
   - `markLandmassId(` (deleted),
   - `LandmassRegionId` mentions inside Morphology (deleted).
-- [ ] Any transitional wiring introduced in Slices 1–5 is removed by the end of Slice 6 (hard stop if not true).
+- [x] Any transitional wiring introduced in Slices 1–5 is removed by the end of Slice 6 (hard stop if not true).
   - Example: if any code path used `adapter.isWater(...)` as a temporary landmask/landmass signal, it no longer exists after Slice 6.
-- [ ] If any downstream deprecated shim was introduced in Slice 3 (e.g. `ContinentBounds` projections), it is removed by the end of Slice 6 (per “no transitional survives past this slice plan”).
-- [ ] Documentation inventory is complete: every touched/created schema/function/op/step/stage/contract is listed and has definition-site docs.
+- [x] If any downstream deprecated shim was introduced in Slice 3 (e.g. `ContinentBounds` projections), it is removed by the end of Slice 6 (per “no transitional survives past this slice plan”).
+- [x] Documentation inventory is complete: every touched/created schema/function/op/step/stage/contract is listed and has definition-site docs.
 
 **Scope boundaries:**
 - In scope:

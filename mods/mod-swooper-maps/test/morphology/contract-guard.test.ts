@@ -202,11 +202,43 @@ describe("morphology contract guardrails", () => {
     expect(publishers).toEqual(allowed);
   });
 
+  it("does not use morphology effect-tag gating in morphology steps or tags", () => {
+    const repoRoot = path.resolve(import.meta.dir, "../..");
+    const roots = [
+      path.join(repoRoot, "src/recipes/standard/stages/morphology-pre"),
+      path.join(repoRoot, "src/recipes/standard/stages/morphology-mid"),
+      path.join(repoRoot, "src/recipes/standard/stages/morphology-post"),
+      path.join(repoRoot, "src/recipes/standard/tags.ts"),
+    ];
+
+    const files = roots.flatMap((candidate) => {
+      try {
+        const stat = statSync(candidate);
+        if (stat.isDirectory()) {
+          return listFilesRecursive(candidate).filter((file) => file.endsWith(".ts"));
+        }
+        return [candidate];
+      } catch {
+        return [];
+      }
+    });
+
+    expect(files.length).toBeGreaterThan(0);
+
+    for (const file of files) {
+      const text = readFileSync(file, "utf8");
+      expect(text).not.toContain("landmassApplied");
+      expect(text).not.toContain("coastlinesApplied");
+      expect(text).not.toContain("effect:engine.landmassApplied");
+      expect(text).not.toContain("effect:engine.coastlinesApplied");
+    }
+  });
+
   it("does not use morphology effect-tag gating in migrated consumer contracts", () => {
     const repoRoot = path.resolve(import.meta.dir, "../..");
     const migratedContracts: Array<{
       file: string;
-      mustRequire: "topography" | "landmasses";
+      mustRequire: "topography";
     }> = [
       {
         file: path.join(repoRoot, "src/recipes/standard/stages/narrative-pre/steps/storySeed.contract.ts"),
@@ -236,10 +268,6 @@ describe("morphology contract guardrails", () => {
         file: path.join(repoRoot, "src/recipes/standard/stages/hydrology-pre/steps/lakes.contract.ts"),
         mustRequire: "topography",
       },
-      {
-        file: path.join(repoRoot, "src/recipes/standard/stages/placement/steps/derive-placement-inputs/contract.ts"),
-        mustRequire: "landmasses",
-      },
     ];
 
     for (const { file, mustRequire } of migratedContracts) {
@@ -249,8 +277,6 @@ describe("morphology contract guardrails", () => {
 
       if (mustRequire === "topography") {
         expect(text).toContain("morphologyArtifacts.topography");
-      } else {
-        expect(text).toContain("morphologyArtifacts.landmasses");
       }
     }
   });
