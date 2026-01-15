@@ -1,5 +1,5 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
-import { MorphologyConfigSchema, NarrativeConfigSchema } from "@mapgen/domain/config";
+import morphology from "@mapgen/domain/morphology";
 
 import { M4_EFFECT_TAGS } from "../../../tags.js";
 import { narrativePreArtifacts } from "../../narrative-pre/artifacts.js";
@@ -14,15 +14,10 @@ const IslandsStepContract = defineStep({
   artifacts: {
     requires: [narrativePreArtifacts.overlays],
   },
-  schema: Type.Object({
-    islands: MorphologyConfigSchema.properties.islands,
-    story: Type.Object({
-      hotspot: NarrativeConfigSchema.properties.story.properties.hotspot,
-    }),
-    corridors: Type.Object({
-      sea: NarrativeConfigSchema.properties.corridors.properties.sea,
-    }),
-  }),
+  ops: {
+    islands: morphology.ops.planIslandChains,
+  },
+  schema: Type.Object({}),
 });
 
 export default IslandsStepContract;

@@ -116,6 +116,74 @@ describe("morphology contract guardrails", () => {
     }
   });
 
+  it("does not import legacy config bags in morphology contracts or steps", () => {
+    const repoRoot = path.resolve(import.meta.dir, "../..");
+    const roots = [
+      path.join(repoRoot, "src/recipes/standard/stages/morphology-pre"),
+      path.join(repoRoot, "src/recipes/standard/stages/morphology-mid"),
+      path.join(repoRoot, "src/recipes/standard/stages/morphology-post"),
+    ];
+
+    const files = roots.flatMap((candidate) => {
+      try {
+        const stat = statSync(candidate);
+        if (stat.isDirectory()) {
+          return listFilesRecursive(candidate).filter((file) => file.endsWith(".ts"));
+        }
+        return [candidate];
+      } catch {
+        return [];
+      }
+    });
+
+    expect(files.length).toBeGreaterThan(0);
+
+    for (const file of files) {
+      const text = readFileSync(file, "utf8");
+      expect(text).not.toContain("@mapgen/domain/config");
+    }
+  });
+
+  it("does not reintroduce legacy morphology module imports", () => {
+    const repoRoot = path.resolve(import.meta.dir, "../..");
+    const srcRoot = path.join(repoRoot, "src");
+    const legacyImports = [
+      "@mapgen/domain/morphology/landmass",
+      "@mapgen/domain/morphology/coastlines",
+      "@mapgen/domain/morphology/islands",
+      "@mapgen/domain/morphology/mountains",
+      "@mapgen/domain/morphology/volcanoes",
+    ];
+
+    const files = listFilesRecursive(srcRoot).filter((file) => file.endsWith(".ts"));
+    expect(files.length).toBeGreaterThan(0);
+
+    for (const file of files) {
+      const text = readFileSync(file, "utf8");
+      for (const legacyImport of legacyImports) {
+        expect(text).not.toContain(legacyImport);
+      }
+    }
+  });
+
+  it("does not use legacy morphology config keys in map configs", () => {
+    const repoRoot = path.resolve(import.meta.dir, "../..");
+    const mapsRoot = path.join(repoRoot, "src/maps");
+    const candidates = [
+      ...listFilesRecursive(mapsRoot).filter((file) => file.endsWith(".ts")),
+      path.join(repoRoot, "test/standard-run.test.ts"),
+    ];
+
+    const legacyKeyPatterns = [/\blandmass\s*:/, /\boceanSeparation\s*:/];
+
+    for (const file of candidates) {
+      const text = readFileSync(file, "utf8");
+      for (const pattern of legacyKeyPatterns) {
+        expect(text).not.toMatch(pattern);
+      }
+    }
+  });
+
   it("publishes HOTSPOTS only from the narrative-owned producer", () => {
     const repoRoot = path.resolve(import.meta.dir, "../..");
     const srcRoot = path.join(repoRoot, "src");

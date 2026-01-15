@@ -1,5 +1,5 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
-import { MorphologyConfigSchema, NarrativeConfigSchema } from "@mapgen/domain/config";
+import morphology from "@mapgen/domain/morphology";
 
 import { M4_EFFECT_TAGS } from "../../../tags.js";
 import { foundationArtifacts } from "../../foundation/artifacts.js";
@@ -20,10 +20,10 @@ const RuggedCoastsStepContract = defineStep({
     ],
     provides: [morphologyArtifacts.coastlineMetrics],
   },
-  schema: Type.Object({
-    coastlines: MorphologyConfigSchema.properties.coastlines,
-    corridors: NarrativeConfigSchema.properties.corridors,
-  }),
+  ops: {
+    coastlines: morphology.ops.computeCoastlineMetrics,
+  },
+  schema: Type.Object({}),
 });
 
 export default RuggedCoastsStepContract;

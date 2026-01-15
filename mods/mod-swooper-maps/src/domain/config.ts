@@ -1,4 +1,3 @@
-export * from "./morphology/landmass/config.js";
 export * from "./morphology/config.js";
 export * from "./narrative/config.js";
 export * from "./hydrology/config.js";

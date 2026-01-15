@@ -2,6 +2,7 @@ import { collectCompileOps, createRecipe, type CompiledRecipeConfigOf, type Reci
 import ecologyDomain from "@mapgen/domain/ecology/ops";
 import foundationDomain from "@mapgen/domain/foundation/ops";
 import hydrologyDomain from "@mapgen/domain/hydrology/ops";
+import morphologyDomain from "@mapgen/domain/morphology/ops";
 import placementDomain from "@mapgen/domain/placement/ops";
 
 import ecology from "./stages/ecology/index.js";
@@ -41,6 +42,7 @@ export type StandardRecipeCompiledConfig = CompiledRecipeConfigOf<typeof stages>
 
 export const compileOpsById = collectCompileOps(
   foundationDomain,
+  morphologyDomain,
   hydrologyDomain,
   ecologyDomain,
   placementDomain

@@ -9,15 +9,12 @@ import { foundationArtifacts } from "../src/recipes/standard/stages/foundation/a
 import { hydrologyPreArtifacts } from "../src/recipes/standard/stages/hydrology-pre/artifacts.js";
 import { placementArtifacts } from "../src/recipes/standard/stages/placement/artifacts.js";
 
-const landmassConfig = {
-  baseWaterPercent: 68,
-  waterScalar: 1,
+const reliefConfig = {
   crustEdgeBlend: 0.35,
   crustNoiseAmplitude: 0.1,
   continentalHeight: 0.4,
   oceanicHeight: -0.75,
   boundaryBias: 0.2,
-  boundaryShareTarget: 0.2,
   tectonics: {
     boundaryArcWeight: 0.37,
     boundaryArcNoiseWeight: 0.35,
@@ -26,13 +23,19 @@ const landmassConfig = {
   },
 };
 
+const hypsometryConfig = {
+  targetWaterPercent: 68,
+  targetScalar: 1,
+  boundaryShareTarget: 0.2,
+};
+
 const marginsConfig = {
   activeFraction: 0.33,
   passiveFraction: 0.22,
   minSegmentLength: 12,
 };
 
-const coastlinesConfig = {
+const coastConfig = {
   plateBias: {
     threshold: 0.45,
     power: 1.25,
@@ -44,6 +47,14 @@ const coastlinesConfig = {
     bayNoiseBonus: 0.5,
     fjordWeight: 0.8,
   },
+  bay: {},
+  fjord: {},
+  minSeaLaneWidth: 3,
+};
+
+const seaLaneProtectionConfig = {
+  mode: "soft",
+  softChanceMultiplier: 1,
 };
 
 const mountainsConfig = {
@@ -97,12 +108,13 @@ const foundationConfig = {
   },
 };
 
-const oceanSeparationConfig = {
+const basinSeparationConfig = {
   enabled: false,
   baseSeparationTiles: 0,
   boundaryClosenessMultiplier: 1.0,
   maxPerRowDelta: 3,
   minChannelWidth: 4,
+  channelJitter: 0,
   respectSeaLanes: true,
   edgeWest: {
     enabled: false,
@@ -483,6 +495,18 @@ const corridorsConfig = {
 };
 
 const islandsConfig = {};
+const islandsPlanConfig = {
+  islands: islandsConfig,
+  hotspot: storyHotspotConfig,
+  seaLaneAvoidRadius: 2,
+};
+
+const geomorphologyConfig = {
+  fluvial: {},
+  diffusion: {},
+  deposition: {},
+  eras: 2,
+};
 const placementConfig = {
   wonders: { strategy: "default", config: { wondersPlusOne: true } },
   floodplains: { strategy: "default", config: { minLength: 4, maxLength: 10 } },
@@ -496,8 +520,13 @@ const standardConfig = {
   foundation: foundationConfig,
   "morphology-pre": {
     "landmass-plates": {
-      landmass: landmassConfig,
-      oceanSeparation: oceanSeparationConfig,
+      substrate: { strategy: "default", config: {} },
+      baseTopography: { strategy: "default", config: reliefConfig },
+      seaLevel: { strategy: "default", config: hypsometryConfig },
+      landmask: {
+        strategy: "default",
+        config: { basinSeparation: basinSeparationConfig },
+      },
     },
     coastlines: {},
   },
@@ -509,8 +538,25 @@ const standardConfig = {
   },
   "morphology-mid": {
     "rugged-coasts": {
-      coastlines: coastlinesConfig,
-      corridors: corridorsConfig,
+      coastlines: {
+        strategy: "default",
+        config: {
+          coast: coastConfig,
+          seaLanes: seaLaneProtectionConfig,
+        },
+      },
+    },
+    routing: {
+      routing: { strategy: "default", config: {} },
+    },
+    geomorphology: {
+      geomorphology: {
+        strategy: "default",
+        config: {
+          geomorphology: geomorphologyConfig,
+          worldAge: "mature",
+        },
+      },
     },
   },
   "narrative-mid": {
@@ -518,12 +564,11 @@ const standardConfig = {
   },
   "morphology-post": {
     islands: {
-      islands: islandsConfig,
-      story: { hotspot: storyHotspotConfig },
-      corridors: { sea: corridorsConfig.sea },
+      islands: { strategy: "default", config: islandsPlanConfig },
     },
-    mountains: { mountains: mountainsConfig },
-    volcanoes: { volcanoes: volcanoesConfig },
+    mountains: { mountains: { strategy: "default", config: mountainsConfig } },
+    volcanoes: { volcanoes: { strategy: "default", config: volcanoesConfig } },
+    landmasses: { landmasses: { strategy: "default", config: {} } },
   },
   "hydrology-pre": {
     lakes: {},

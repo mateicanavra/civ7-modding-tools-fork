@@ -1,5 +1,5 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
-import { MorphologyConfigSchema } from "@mapgen/domain/config";
+import morphology from "@mapgen/domain/morphology";
 
 import { foundationArtifacts } from "../../foundation/artifacts.js";
 
@@ -11,9 +11,10 @@ const MountainsStepContract = defineStep({
     requires: [foundationArtifacts.plates],
   },
   provides: [],
-  schema: Type.Object({
-    mountains: MorphologyConfigSchema.properties.mountains,
-  }),
+  ops: {
+    mountains: morphology.ops.planRidgesAndFoothills,
+  },
+  schema: Type.Object({}),
 });
 
 export default MountainsStepContract;

@@ -35,44 +35,62 @@ const config = {
   },
   "morphology-pre": {
     "landmass-plates": {
-      landmass: {
-        // Central crater sea with ring continent
-        baseWaterPercent: 62,
-        waterScalar: 1,
-        // Sharp continental edges from impact scarring
-        crustEdgeBlend: 0.15,
-        crustNoiseAmplitude: 0.12,
-        continentalHeight: 0.45,
-        oceanicHeight: -0.8,
-        // Strong plate-driven coasts for ring structure
-        boundaryBias: 0.45,
-        boundaryShareTarget: 0.35,
-        tectonics: {
-          // Strong coastal arcs for ring formation
-          boundaryArcWeight: 0.55,
-          boundaryArcNoiseWeight: 0.4,
-          interiorNoiseWeight: 0.6,
-          fractalGrain: 6,
+      substrate: {
+        strategy: "default",
+        config: {},
+      },
+      baseTopography: {
+        strategy: "default",
+        config: {
+          // Sharp continental edges from impact scarring
+          crustEdgeBlend: 0.15,
+          crustNoiseAmplitude: 0.12,
+          continentalHeight: 0.45,
+          oceanicHeight: -0.8,
+          // Strong plate-driven coasts for ring structure
+          boundaryBias: 0.45,
+          tectonics: {
+            // Strong coastal arcs for ring formation
+            boundaryArcWeight: 0.55,
+            boundaryArcNoiseWeight: 0.4,
+            interiorNoiseWeight: 0.6,
+            fractalGrain: 6,
+          },
         },
       },
-      oceanSeparation: {
-        enabled: false,
-        baseSeparationTiles: 0,
-        boundaryClosenessMultiplier: 1.0,
-        maxPerRowDelta: 4,
-        minChannelWidth: 5,
-        respectSeaLanes: true,
-        edgeWest: {
-          enabled: false,
-          baseTiles: 0,
-          boundaryClosenessMultiplier: 1.0,
-          maxPerRowDelta: 2,
+      seaLevel: {
+        strategy: "default",
+        config: {
+          // Central crater sea with ring continent
+          targetWaterPercent: 62,
+          targetScalar: 1,
+          boundaryShareTarget: 0.35,
         },
-        edgeEast: {
-          enabled: false,
-          baseTiles: 0,
-          boundaryClosenessMultiplier: 1.0,
-          maxPerRowDelta: 2,
+      },
+      landmask: {
+        strategy: "default",
+        config: {
+          basinSeparation: {
+            enabled: false,
+            baseSeparationTiles: 0,
+            boundaryClosenessMultiplier: 1.0,
+            maxPerRowDelta: 4,
+            minChannelWidth: 5,
+            channelJitter: 0,
+            respectSeaLanes: true,
+            edgeWest: {
+              enabled: false,
+              baseTiles: 0,
+              boundaryClosenessMultiplier: 1.0,
+              maxPerRowDelta: 2,
+            },
+            edgeEast: {
+              enabled: false,
+              baseTiles: 0,
+              boundaryClosenessMultiplier: 1.0,
+              maxPerRowDelta: 2,
+            },
+          },
         },
       },
     },
@@ -109,25 +127,51 @@ const config = {
   "morphology-mid": {
     "rugged-coasts": {
       coastlines: {
-        plateBias: {
-          threshold: 0.4,
-          power: 1.4,
-          // Strong convergent coasts for ring mountains
-          convergent: 2.2,
-          transform: 0.3,
-          divergent: -0.3,
-          interior: 0.5,
-          // Complex coastlines from fracturing
-          bayWeight: 0.9,
-          bayNoiseBonus: 0.6,
-          fjordWeight: 0.7,
+        strategy: "default",
+        config: {
+          coast: {
+            plateBias: {
+              threshold: 0.4,
+              power: 1.4,
+              // Strong convergent coasts for ring mountains
+              convergent: 2.2,
+              transform: 0.3,
+              divergent: -0.3,
+              interior: 0.5,
+              // Complex coastlines from fracturing
+              bayWeight: 0.9,
+              bayNoiseBonus: 0.6,
+              fjordWeight: 0.7,
+            },
+            bay: {},
+            fjord: {},
+            minSeaLaneWidth: 3,
+          },
+          seaLanes: {
+            mode: "soft",
+            softChanceMultiplier: 1,
+          },
         },
       },
-      corridors: {
-        sea: {},
-        land: {},
-        river: {},
-        islandHop: {},
+    },
+    routing: {
+      routing: {
+        strategy: "default",
+        config: {},
+      },
+    },
+    geomorphology: {
+      geomorphology: {
+        strategy: "default",
+        config: {
+          geomorphology: {
+            fluvial: {},
+            diffusion: {},
+            deposition: {},
+            eras: 2,
+          },
+          worldAge: "mature",
+        },
       },
     },
   },
@@ -136,56 +180,71 @@ const config = {
   },
   "morphology-post": {
     islands: {
-      islands: {},
-      story: {
-        hotspot: {
-          paradiseBias: 2,
-          volcanicBias: 2,
-          volcanicPeakChance: 0.4,
+      islands: {
+        strategy: "default",
+        config: {
+          islands: {},
+          hotspot: {
+            paradiseBias: 2,
+            volcanicBias: 2,
+            volcanicPeakChance: 0.4,
+          },
+          seaLaneAvoidRadius: 2,
         },
       },
-      corridors: { sea: {} },
     },
     mountains: {
       mountains: {
-        // High intensity for ring mountain formation
-        tectonicIntensity: 0.85,
-        mountainThreshold: 0.5,
-        hillThreshold: 0.3,
-        upliftWeight: 0.45,
-        fractalWeight: 0.25,
-        riftDepth: 0.35,
-        // Strong emphasis on plate boundaries for the ring
-        boundaryWeight: 1.2,
-        boundaryGate: 0.05,
-        boundaryExponent: 1.8,
-        interiorPenaltyWeight: 0.0,
-        convergenceBonus: 0.85,
-        transformPenalty: 0.5,
-        riftPenalty: 0.8,
-        hillBoundaryWeight: 0.4,
-        hillRiftBonus: 0.3,
-        hillConvergentFoothill: 0.45,
-        hillInteriorFalloff: 0.15,
-        hillUpliftWeight: 0.25,
+        strategy: "default",
+        config: {
+          // High intensity for ring mountain formation
+          tectonicIntensity: 0.85,
+          mountainThreshold: 0.5,
+          hillThreshold: 0.3,
+          upliftWeight: 0.45,
+          fractalWeight: 0.25,
+          riftDepth: 0.35,
+          // Strong emphasis on plate boundaries for the ring
+          boundaryWeight: 1.2,
+          boundaryGate: 0.05,
+          boundaryExponent: 1.8,
+          interiorPenaltyWeight: 0.0,
+          convergenceBonus: 0.85,
+          transformPenalty: 0.5,
+          riftPenalty: 0.8,
+          hillBoundaryWeight: 0.4,
+          hillRiftBonus: 0.3,
+          hillConvergentFoothill: 0.45,
+          hillInteriorFalloff: 0.15,
+          hillUpliftWeight: 0.25,
+        },
       },
     },
     volcanoes: {
       volcanoes: {
-        // High volcanic activity in crater sea
-        baseDensity: 1 / 140,
-        minSpacing: 3,
-        boundaryThreshold: 0.25,
-        boundaryWeight: 1.4,
-        convergentMultiplier: 2.8,
-        transformMultiplier: 1.2,
-        divergentMultiplier: 0.5,
-        // Strong hotspot activity for crater islands
-        hotspotWeight: 0.45,
-        shieldPenalty: 0.4,
-        randomJitter: 0.12,
-        minVolcanoes: 8,
-        maxVolcanoes: 40,
+        strategy: "default",
+        config: {
+          // High volcanic activity in crater sea
+          baseDensity: 1 / 140,
+          minSpacing: 3,
+          boundaryThreshold: 0.25,
+          boundaryWeight: 1.4,
+          convergentMultiplier: 2.8,
+          transformMultiplier: 1.2,
+          divergentMultiplier: 0.5,
+          // Strong hotspot activity for crater islands
+          hotspotWeight: 0.45,
+          shieldPenalty: 0.4,
+          randomJitter: 0.12,
+          minVolcanoes: 8,
+          maxVolcanoes: 40,
+        },
+      },
+    },
+    landmasses: {
+      landmasses: {
+        strategy: "default",
+        config: {},
       },
     },
   },
