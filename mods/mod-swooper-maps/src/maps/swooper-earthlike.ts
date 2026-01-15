@@ -32,7 +32,7 @@ wireStandardMapEntry({
             cellsPerPlate: 7,           // Larger plates with more internal area
             relaxationSteps: 4,         // Smoother plate boundaries
             referenceArea: 24000,        // Standard reference
-            plateScalePower: 0.55,       // Standard scaling
+            plateScalePower: 0.65,       // Standard scaling
           },
         },
       },
@@ -40,7 +40,7 @@ wireStandardMapEntry({
         computeCrust: {
           strategy: "default",
           config: {
-            continentalRatio: 0.29,     // Earth: ~29% continental crust
+            continentalRatio: 0.33,     // Earth: ~29% continental crust
           },
         },
       },
@@ -50,7 +50,7 @@ wireStandardMapEntry({
           config: {
             plateCount: 32,             // Match mesh plateCount
             referenceArea: 24000,
-            plateScalePower: 0.55,
+            plateScalePower: 0.65,
           },
         },
       },
@@ -66,8 +66,8 @@ wireStandardMapEntry({
           config: {
             boundaryInfluenceDistance: 5,
             boundaryDecay: 0.6,
-            movementScale: 100,
-            rotationScale: 80,
+            movementScale: 80,
+            rotationScale: 70,
           },
         },
       },
