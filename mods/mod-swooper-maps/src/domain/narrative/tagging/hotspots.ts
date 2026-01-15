@@ -8,7 +8,7 @@ import { rand } from "@mapgen/domain/narrative/utils/rng.js";
 import { isWaterAt } from "@mapgen/domain/narrative/utils/water.js";
 
 import type { HotspotTrailsSummary } from "@mapgen/domain/narrative/tagging/types.js";
-import type { HotspotTunables } from "@mapgen/domain/config";
+import type { NarrativeHotspotTunables } from "@mapgen/domain/config";
 
 export interface HotspotTrailsResult {
   summary: HotspotTrailsSummary;
@@ -17,10 +17,10 @@ export interface HotspotTrailsResult {
 
 export function storyTagHotspotTrails(
   ctx: ExtendedMapContext,
-  config: HotspotTunables = {}
+  config: NarrativeHotspotTunables | undefined
 ): HotspotTrailsResult {
   const { width, height } = getDims(ctx);
-  const hotspotCfg = config as Record<string, number>;
+  const hotspotCfg = (config ?? {}) as Record<string, number>;
 
   const areaHot = Math.max(1, width * height);
   const sqrtHot = Math.min(2.0, Math.max(0.6, Math.sqrt(areaHot / 10000)));

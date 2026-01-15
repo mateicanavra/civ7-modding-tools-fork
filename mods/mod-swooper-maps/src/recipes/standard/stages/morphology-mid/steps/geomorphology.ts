@@ -10,17 +10,20 @@ function clampInt16(value: number): number {
 
 export default createStep(GeomorphologyStepContract, {
   run: (context, config, ops, deps) => {
-    const topography = deps.artifacts.topography.read(context);
+    const heightfield = context.buffers.heightfield;
     const routing = deps.artifacts.routing.read(context);
-    const substrate = deps.artifacts.substrate.read(context);
+    const substrate = deps.artifacts.substrate.read(context) as {
+      erodibilityK: Float32Array;
+      sedimentDepth: Float32Array;
+    };
     const { width, height } = context.dimensions;
 
     const deltas = ops.geomorphology(
       {
         width,
         height,
-        elevation: topography.elevation,
-        landMask: topography.landMask,
+        elevation: heightfield.elevation,
+        landMask: heightfield.landMask,
         flowAccum: routing.flowAccum,
         erodibilityK: substrate.erodibilityK,
         sedimentDepth: substrate.sedimentDepth,
@@ -28,7 +31,7 @@ export default createStep(GeomorphologyStepContract, {
       config.geomorphology
     );
 
-    const elevation = topography.elevation;
+    const elevation = heightfield.elevation;
     const sedimentDepth = substrate.sedimentDepth;
 
     for (let i = 0; i < elevation.length; i++) {
