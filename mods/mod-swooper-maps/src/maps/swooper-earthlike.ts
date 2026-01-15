@@ -22,11 +22,11 @@ const config = {
       computeMesh: {
         strategy: "default",
         config: {
-          plateCount: 32,             // Fewer plates to reduce boundary fragmentation
-          cellsPerPlate: 30,           // Larger plates with more internal area
-          relaxationSteps: 7,         // Smoother plate boundaries
+          plateCount: 23,             // Fewer plates to reduce boundary fragmentation
+          cellsPerPlate: 5,           // Larger plates with more internal area
+          relaxationSteps: 5,         // Smoother plate boundaries
           referenceArea: 4000,        // Standard reference
-          plateScalePower: 0.75,       // Standard scaling
+          plateScalePower: 0.45,       // Standard scaling
         },
       },
     },
@@ -34,7 +34,7 @@ const config = {
       computeCrust: {
         strategy: "default",
         config: {
-          continentalRatio: 0.32,     // Earth: ~29% continental crust
+          continentalRatio: 0.29,     // Earth: ~29% continental crust
         },
       },
     },
@@ -42,9 +42,9 @@ const config = {
       computePlateGraph: {
         strategy: "default",
         config: {
-          plateCount: 20,             // Match mesh plateCount
+          plateCount: 23,             // Match mesh plateCount
           referenceArea: 4000,
-          plateScalePower: 0.5,
+          plateScalePower: 0.45,
         },
       },
     },
@@ -58,10 +58,10 @@ const config = {
       computePlates: {
         strategy: "default",
         config: {
-          boundaryInfluenceDistance: 4,
+          boundaryInfluenceDistance: 7,
           boundaryDecay: 0.6,
-          movementScale: 100,
-          rotationScale: 100,
+          movementScale: 80,
+          rotationScale: 80,
         },
       },
     },
@@ -766,7 +766,7 @@ const config = {
         strategy: "clustered",
         config: {
           baseDensity: 0.35,
-          fertilityWeight: 0.4,
+          fertilityWeight: 0.55,
           moistureWeight: 0.6,
           moistureNormalization: 230,
           coldCutoff: -10,
@@ -792,7 +792,7 @@ const config = {
         strategy: "default",
         config: {
           seaIceThreshold: -8,
-          alpineThreshold: 2800,
+          alpineThreshold: 2600,
         },
       },
     },
@@ -801,20 +801,20 @@ const config = {
         strategy: "default",
         config: {
           temperature: {
-            equator: 30,
-            pole: -8,
+            equator: 34,
+            pole: -12,
             lapseRate: 6.5,
             seaLevel: 0,
             bias: 0.5,             // Reduced from 2.5: allows more cold biomes (tundra, boreal)
             polarCutoff: -5,
-            tundraCutoff: 2,
+            tundraCutoff: 0,
             midLatitude: 12,
             tropicalThreshold: 22,
           },
           moisture: {
             thresholds: [50, 95, 140, 190] as [number, number, number, number],  // Widened: more graduated biome transitions
             bias: 0,               // Neutral: let rainfall bands drive distribution
-            humidityWeight: 0.35,
+            humidityWeight: 0.45,
           },
           aridity: {
             temperatureMin: 0,
@@ -823,22 +823,22 @@ const config = {
             petTemperatureWeight: 78,  // Moderate temperature effect
             humidityDampening: 0.5,    // Slightly less humid buffering
             rainfallWeight: 0.9,   // Rainfall offsets aridity reasonably
-            bias: 4.5,             // Slight push toward aridity (was 8, too aggressive)
+            bias: 3.3,             // Slight push toward aridity (was 8, too aggressive)
             normalization: 118,    // More reasonable normalization
             moistureShiftThresholds: [0.42, 0.65] as [number, number],  // Less aggressive thresholds
-            vegetationPenalty: 0.14,  // Moderate sparse vegetation in arid areas
+            vegetationPenalty: 0.08,  // Moderate sparse vegetation in arid areas
           },
           freeze: {
-            minTemperature: -12,
+            minTemperature: -8,
             maxTemperature: 2,
           },
           vegetation: {
-            base: 0.22,            // Reduced from 0.35: more contrast between lush and sparse areas
+            base: 0.35,            // Reduced from 0.35: more contrast between lush and sparse areas
             moistureWeight: 0.65,
             humidityWeight: 0.35,
             moistureNormalizationPadding: 60,
             biomeModifiers: {
-              snow: { multiplier: 0.6, bonus: 0 },
+              snow: { multiplier: 0.85, bonus: 1 },
               tundra: { multiplier: 0.5, bonus: 0 },
               boreal: { multiplier: 0.85, bonus: 0 },
               temperateDry: { multiplier: 0.75, bonus: 0 },
@@ -923,7 +923,7 @@ const config = {
             ],
           },
           burned: {
-            enabled: false,
+            enabled: true,
             selector: {
               typeName: "PLOTEFFECT_BURNED",
             },
