@@ -462,10 +462,10 @@ const config = {
             hi2Threshold: 420,
             hi2Bonus: 28,
           },
-          coastal: {
-            coastalLandBonus: 14,
-            spread: 3,
-          },
+	          coastal: {
+	            coastalLandBonus: 16,
+	            spread: 3,
+	          },
           noise: {
             baseSpanSmall: 4,
             spanLargeScaleFactor: 1.35,
