@@ -2,6 +2,8 @@ import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import { ecologyArtifacts } from "../../artifacts.js";
 import { validateFeatureIntentsArtifact } from "../../artifact-validation.js";
 import FeaturesPlanStepContract from "./contract.js";
+import { computeRiverAdjacencyMask } from "../../../hydrology-core/river-adjacency.js";
+import { deriveStepSeed } from "../helpers/seed.js";
 
 export default createStep(FeaturesPlanStepContract, {
   artifacts: implementArtifacts([ecologyArtifacts.featureIntents], {
@@ -15,19 +17,44 @@ export default createStep(FeaturesPlanStepContract, {
     const heightfield = deps.artifacts.heightfield.read(context);
 
     const { width, height } = context.dimensions;
-    const vegetationPlan = ops.vegetation(
-      {
-        width,
-        height,
-        biomeIndex: classification.biomeIndex,
-        vegetationDensity: classification.vegetationDensity,
-        effectiveMoisture: classification.effectiveMoisture,
-        surfaceTemperature: classification.surfaceTemperature,
-        fertility: pedology.fertility,
-        landMask: heightfield.landMask,
-      },
-      config.vegetation
-    );
+    const seed = deriveStepSeed(context.env.seed, "ecology:planFeatureIntents");
+    const size = width * height;
+    const emptyFeatureKeyField = (): Int16Array => new Int16Array(size).fill(-1);
+    const terrainType = heightfield.terrain;
+    const navigableRiverTerrain = context.adapter.getTerrainTypeIndex("TERRAIN_NAVIGABLE_RIVER");
+
+    const vegetationPlacements = config.vegetatedFeaturePlacements
+      ? ops.vegetatedFeaturePlacements(
+          {
+            width,
+            height,
+            seed,
+            biomeIndex: classification.biomeIndex,
+            vegetationDensity: classification.vegetationDensity,
+            effectiveMoisture: classification.effectiveMoisture,
+            surfaceTemperature: classification.surfaceTemperature,
+            aridityIndex: classification.aridityIndex,
+            freezeIndex: classification.freezeIndex,
+            landMask: heightfield.landMask,
+            terrainType,
+            featureKeyField: emptyFeatureKeyField(),
+            navigableRiverTerrain,
+          },
+          config.vegetatedFeaturePlacements
+        ).placements
+      : ops.vegetation(
+          {
+            width,
+            height,
+            biomeIndex: classification.biomeIndex,
+            vegetationDensity: classification.vegetationDensity,
+            effectiveMoisture: classification.effectiveMoisture,
+            surfaceTemperature: classification.surfaceTemperature,
+            fertility: pedology.fertility,
+            landMask: heightfield.landMask,
+          },
+          config.vegetation
+        ).placements;
 
     const wetlandsPlan = ops.wetlands(
       {
@@ -41,6 +68,39 @@ export default createStep(FeaturesPlanStepContract, {
       },
       config.wetlands
     );
+
+    const wetPlacements = config.wetFeaturePlacements
+      ? ops.wetFeaturePlacements(
+          {
+            width,
+            height,
+            seed,
+            biomeIndex: classification.biomeIndex,
+            surfaceTemperature: classification.surfaceTemperature,
+            landMask: heightfield.landMask,
+            terrainType,
+            featureKeyField: emptyFeatureKeyField(),
+            nearRiverMask: computeRiverAdjacencyMask(
+              context,
+              Math.max(
+                1,
+                Math.floor(config.wetFeaturePlacements.config?.rules?.nearRiverRadius ?? 2)
+              )
+            ),
+            isolatedRiverMask: computeRiverAdjacencyMask(
+              context,
+              Math.max(
+                1,
+                Math.floor(
+                  config.wetFeaturePlacements.config?.rules?.isolatedRiverRadius ?? 1
+                )
+              )
+            ),
+            navigableRiverTerrain,
+          },
+          config.wetFeaturePlacements
+        ).placements
+      : [];
 
     const reefsPlan = ops.reefs(
       {
@@ -64,8 +124,8 @@ export default createStep(FeaturesPlanStepContract, {
     );
 
     deps.artifacts.featureIntents.publish(context, {
-      vegetation: vegetationPlan.placements,
-      wetlands: wetlandsPlan.placements,
+      vegetation: vegetationPlacements,
+      wetlands: [...wetlandsPlan.placements, ...wetPlacements],
       reefs: reefsPlan.placements,
       ice: icePlan.placements,
     });

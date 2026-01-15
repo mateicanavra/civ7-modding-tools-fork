@@ -22,8 +22,8 @@ const config = {
       computeMesh: {
         strategy: "default",
         config: {
-          plateCount: 12,
-          cellsPerPlate: 4,
+          plateCount: 9,
+          cellsPerPlate: 5,
           relaxationSteps: 5,
           referenceArea: 4000,
           plateScalePower: 0.6,
@@ -42,7 +42,7 @@ const config = {
       computePlateGraph: {
         strategy: "default",
         config: {
-          plateCount: 12,
+          plateCount: 11,
           referenceArea: 4000,
           plateScalePower: 0.6,
         },
@@ -259,11 +259,11 @@ const config = {
               talus: 0.45,
             },
             deposition: {
-              rate: 0.06,
+              rate: 0.07,
             },
-            eras: 1,
+            eras: 3,
           },
-          worldAge: "young",
+          worldAge: "old",
         },
       },
     },
@@ -308,11 +308,11 @@ const config = {
         strategy: "default",
         config: {
           // Desert mountains: frequent peaks, strong rift relief, reduced erosion
-          tectonicIntensity: 0.68,
+          tectonicIntensity: 0.63,
           mountainThreshold: 0.64,
           hillThreshold: 0.36,
-          upliftWeight: 0.28,
-          fractalWeight: 0.75,
+          upliftWeight: 0.20,
+          fractalWeight: 0.90,
           riftDepth: 0.45,
           boundaryWeight: 0.38,
           boundaryGate: 0.14,
@@ -555,15 +555,15 @@ const config = {
           minChannelWidth: 3,
         },
         land: {
-          biomesBiasStrength: 0.6,
+          biomesBiasStrength: 0.75,
           useRiftShoulders: true,
-          maxCorridors: 2,
+          maxCorridors: 5,
           minRunLength: 24,
           spacing: 0,
         },
         river: {
           biomesBiasStrength: 0.5,
-          maxChains: 3,
+          maxChains: 6,
           maxSteps: 120,
           preferLowlandBelow: 420,
           coastSeedRadius: 3,
@@ -572,7 +572,7 @@ const config = {
         },
         islandHop: {
           useHotspots: true,
-          maxArcs: 2,
+          maxArcs: 6,
         },
       },
     },
@@ -708,6 +708,42 @@ const config = {
           coldCutoff: -10,
         },
       },  // Sparse desert vegetation
+      vegetatedFeaturePlacements: {
+        strategy: "default",
+        config: {
+          multiplier: 1.2,
+          chances: {
+            FEATURE_FOREST: 10,
+            FEATURE_RAINFOREST: 8,
+            FEATURE_TAIGA: 0,
+            FEATURE_SAVANNA_WOODLAND: 12,
+            FEATURE_SAGEBRUSH_STEPPE: 55,
+          },
+          rules: {
+            minVegetationByBiome: {
+              snow: 0.06,
+              tundra: 0.05,
+              boreal: 0.06,
+              temperateDry: 0.04,
+              temperateHumid: 0.05,
+              tropicalSeasonal: 0.05,
+              tropicalRainforest: 0.04,
+              desert: 0.01,
+            },
+            vegetationChanceScalar: 1.4,
+            desertSagebrushMinVegetation: 0.05,
+            desertSagebrushMaxAridity: 0.98,
+            tundraTaigaMinVegetation: 0.12,
+            tundraTaigaMinTemperature: -2,
+            tundraTaigaMaxFreeze: 0.95,
+            temperateDryForestMoisture: 150,
+            temperateDryForestMaxAridity: 0.5,
+            temperateDryForestVegetation: 0.55,
+            tropicalSeasonalRainforestMoisture: 150,
+            tropicalSeasonalRainforestMaxAridity: 0.55,
+          },
+        },
+      },
       wetlands: {
         strategy: "default",
         config: {
@@ -717,6 +753,30 @@ const config = {
           maxElevation: 1200,
         },
       },    // Minimal wetlands
+      wetFeaturePlacements: {
+        strategy: "default",
+        config: {
+          multiplier: 1,
+          chances: {
+            FEATURE_MARSH: 0,
+            FEATURE_TUNDRA_BOG: 0,
+            FEATURE_MANGROVE: 0,
+            FEATURE_OASIS: 14,
+            FEATURE_WATERING_HOLE: 10,
+          },
+          rules: {
+            nearRiverRadius: 2,
+            coldTemperatureMax: 2,
+            coldBiomeSymbols: ["snow", "tundra", "boreal"],
+            mangroveWarmTemperatureMin: 18,
+            mangroveWarmBiomeSymbols: ["tropicalRainforest", "tropicalSeasonal"],
+            coastalAdjacencyRadius: 1,
+            isolatedRiverRadius: 1,
+            isolatedSpacingRadius: 2,
+            oasisBiomeSymbols: ["desert", "temperateDry"],
+          },
+        },
+      },
       reefs: {
         strategy: "default",
         config: {
@@ -781,7 +841,7 @@ const config = {
               temperateHumid: { multiplier: 0.9, bonus: 0 },
               tropicalSeasonal: { multiplier: 0.9, bonus: 0 },
               tropicalRainforest: { multiplier: 1, bonus: 0.2 },
-              desert: { multiplier: 0.05, bonus: 0 },
+              desert: { multiplier: 0.18, bonus: 0.02 },
             },
           },
           noise: {
