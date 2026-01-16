@@ -23,11 +23,11 @@ export default createMap({
         computeMesh: {
           strategy: "default",
           config: {
-            plateCount: 32,             // Fewer plates to reduce boundary fragmentation
-            cellsPerPlate: 5,           // Larger plates with more internal area
-            relaxationSteps: 4,         // Smoother plate boundaries
+            plateCount: 28,             // Fewer, larger major plates plus some microplates
+            cellsPerPlate: 6,           // Slightly denser cells per plate for sharper margins
+            relaxationSteps: 5,         // Extra smoothing for coherent plate footprints
             referenceArea: 16000,        // Standard reference
-            plateScalePower: 0.55,       // Standard scaling
+            plateScalePower: 0.76,       // Still heavy-tailed but fewer tiny microplates
           },
         },
       },
@@ -35,7 +35,7 @@ export default createMap({
         computeCrust: {
           strategy: "default",
           config: {
-            continentalRatio: 0.29,     // Earth: ~29% continental crust
+            continentalRatio: 0.31,     // Earth-ish crust share while leaving room for shelves
           },
         },
       },
@@ -43,9 +43,9 @@ export default createMap({
         computePlateGraph: {
           strategy: "default",
           config: {
-            plateCount: 23,             // Match mesh plateCount
+            plateCount: 28,             // Match mesh plateCount
             referenceArea: 16000,
-            plateScalePower: 0.55,
+            plateScalePower: 0.82,
           },
         },
       },
@@ -59,10 +59,10 @@ export default createMap({
         computePlates: {
           strategy: "default",
           config: {
-            boundaryInfluenceDistance: 8,
-            boundaryDecay: 0.55,
-            movementScale: 95,
-            rotationScale: 90,
+            boundaryInfluenceDistance: 12, // Broader active margins for realistic orogeny belts
+            boundaryDecay: 0.5,            // Softer falloff so margins still dominate relief
+            movementScale: 60,             // Faster relative drift to energize boundaries
+            rotationScale: 110,            // More rotational variance for microplates/torques
           },
         },
       },
@@ -72,29 +72,29 @@ export default createMap({
         substrate: {
           strategy: "default",
           config: {
-            baseErodibility: 0.6,
-            baseSediment: 0.2,
-            upliftErodibilityBoost: 0.37,
-            riftSedimentBoost: 0.37,
+            baseErodibility: 0.58,        // Slightly tighter cohesion for broader lowlands
+            baseSediment: 0.24,          // More shelf/alluvial material
+            upliftErodibilityBoost: 0.35, // Keep mountains crisp without over-thinning
+            riftSedimentBoost: 0.34,      // Preserve inland basins without flooding shelves
           },
         },
         baseTopography: {
           strategy: "default",
           config: {
             // Continental bias for broad landmasses with a few major continents.
-            boundaryBias: 0.20,             // Slightly more boundary influence for varied margins
-            clusteringBias: 0.73,           // Reduced: allow more continental fragmentation
+            boundaryBias: 0.24,             // Keep margins active but not dominating
+            clusteringBias: 0.70,           // More stickiness to fuse fragments
             // Crust-first height tuning to avoid island-heavy hypsometry.
-            crustEdgeBlend: 0.55,           // Wider continental shelves (Earth-like)
-            crustNoiseAmplitude: 0.65,      // Higher: more varied coastline shapes
-            continentalHeight: 0.58,        // Slightly lower for more coastal variation
-            oceanicHeight: -0.85,           // Slightly shallower for shelf diversity
+            crustEdgeBlend: 0.60,           // Slightly smoother shelves to avoid speckle land
+            crustNoiseAmplitude: 0.36,      // Further cut coast speckle/ghost land
+            continentalHeight: 0.62,        // Moderate elevation for coastal gradients
+            oceanicHeight: -0.75,           // Shallower basins -> more shelf diversity
             tectonics: {
               // De-emphasize arcs so plate boundaries don't dominate land distribution.
-              boundaryArcWeight: 0.25,      // Slightly more arc presence
-              boundaryArcNoiseWeight: 0.22, // More boundary raggedness
-              interiorNoiseWeight: 0.65,    // Balanced interior shaping
-              fractalGrain: 2.5,            // Finer grain for more detailed shapes
+              boundaryArcWeight: 0.32,      // Strong convergent arcs without overpainting
+              boundaryArcNoiseWeight: 0.26, // Natural ragged margins
+              interiorNoiseWeight: 0.50,    // Calmer interiors to avoid ghost specks
+              fractalGrain: 3,              // Fine detail for believable coastlines
             },
           },
         },
@@ -102,11 +102,11 @@ export default createMap({
           strategy: "default",
           config: {
             // Earth-like ocean dominance, tuned to avoid archipelago output.
-            targetWaterPercent: 67,         // Dial back to preserve contiguous continents
+            targetWaterPercent: 58,         // Drain a bit more (~+30-50m) to expose shelves/connect fragments
             targetScalar: 1,
-            variance: 0,
-            boundaryShareTarget: 0.1,       // Reduce boundary land share
-            continentalFraction: 0.29,      // Match crust ratio
+            variance: 1.5,                  // Tighter solve to avoid stray blobs
+            boundaryShareTarget: 0.08,      // Lower boundary land share to trim edge speckle
+            continentalFraction: 0.31,      // Match crust ratio while honoring sea-level solve
           },
         },
         landmask: {
@@ -143,30 +143,30 @@ export default createMap({
     "narrative-pre": {
       "story-seed": {
         margins: {
-          activeFraction: 0.33,
-          passiveFraction: 0.22,
-          minSegmentLength: 12,
+          activeFraction: 0.28,
+          passiveFraction: 0.18,
+          minSegmentLength: 14,
         },
       },
       "story-hotspots": {
         story: {
           hotspot: {
-            maxTrails: 12,
-            steps: 15,
+            maxTrails: 8,
+            steps: 12,
             stepLen: 2,
-            minDistFromLand: 5,
-            minTrailSeparation: 12,
-            paradiseBias: 2,
-            volcanicBias: 1,
-            volcanicPeakChance: 0.33,
+            minDistFromLand: 6,
+            minTrailSeparation: 14,
+            paradiseBias: 1.2,
+            volcanicBias: 0.9,
+            volcanicPeakChance: 0.28,
           },
         },
       },
       "story-rifts": {
         story: {
           rift: {
-            maxRiftsPerMap: 3,
-            lineSteps: 18,
+            maxRiftsPerMap: 2,
+            lineSteps: 16,
             stepLen: 2,
             shoulderWidth: 1,
           },
@@ -176,27 +176,27 @@ export default createMap({
         corridors: {
           sea: {
             protection: "soft",
-            softChanceMultiplier: 0.5,
-            avoidRadius: 2,
-            maxLanes: 3,
+            softChanceMultiplier: 0.35,
+            avoidRadius: 3,
+            maxLanes: 2,
             scanStride: 6,
-            minLengthFrac: 0.7,
+            minLengthFrac: 0.65,
             preferDiagonals: false,
-            laneSpacing: 6,
+            laneSpacing: 7,
             minChannelWidth: 3,
           },
           land: {
             biomesBiasStrength: 0.6,
             useRiftShoulders: true,
             maxCorridors: 2,
-            minRunLength: 24,
-            spacing: 0,
+            minRunLength: 26,
+            spacing: 1,
           },
           river: {
             biomesBiasStrength: 0.5,
             maxChains: 2,
-            maxSteps: 80,
-            preferLowlandBelow: 300,
+            maxSteps: 90,
+            preferLowlandBelow: 340,
             coastSeedRadius: 2,
             minTiles: 0,
             mustEndNearCoast: false,
@@ -216,24 +216,24 @@ export default createMap({
             coast: {
               plateBias: {
                 // Close to crust-first defaults with a gentle nudge for Earth coasts.
-                threshold: 0.45,
-                power: 1.25,
-                convergent: 1.4,
-                transform: 0.4,
-                divergent: -0.4,
-                interior: 0.4,
-                bayWeight: 0.8,
-                bayNoiseBonus: 0.5,
-                fjordWeight: 0.8,
+                threshold: 0.42,
+                power: 1.3,
+                convergent: 1.5,
+                transform: 0.35,
+                divergent: -0.45,
+                interior: 0.35,
+                bayWeight: 0.9,
+                bayNoiseBonus: 0.45,
+                fjordWeight: 0.85,
               },
               // Earth-like coastal features
               bay: {
-                noiseGateAdd: 0.07,           // Slight noise gate for natural variation
+                noiseGateAdd: 0.05,           // Slight noise gate for natural variation
                 rollDenActive: 4,             // Moderate bays on active margins
-                rollDenDefault: 6,            // Fewer bays on passive margins
+                rollDenDefault: 7,            // Fewer bays on passive margins
               },
               fjord: {
-                baseDenom: 14,                // Less frequent fjords (Earth average)
+                baseDenom: 15,                // Less frequent fjords (Earth average)
                 activeBonus: 2,               // More fjords at convergent margins
                 passiveBonus: 1,              // Rare fjords on passive margins
               },
@@ -258,16 +258,16 @@ export default createMap({
           config: {
             geomorphology: {
               fluvial: {
-                rate: 0.22,
+                rate: 0.26,
                 m: 0.5,
                 n: 1.0,
               },
               diffusion: {
-                rate: 0.25,
-                talus: 0.45,
+                rate: 0.23,
+                talus: 0.5,
               },
               deposition: {
-                rate: 0.12,
+                rate: 0.11,
               },
               eras: 3,
             },
@@ -281,9 +281,9 @@ export default createMap({
         story: {
           orogeny: {
             radius: 2,
-            beltMinLength: 30,
-            windwardBoost: 5,
-            leeDrynessAmplifier: 1.2,
+            beltMinLength: 34,
+            windwardBoost: 6,
+            leeDrynessAmplifier: 1.15,
           },
         },
       },
@@ -295,20 +295,20 @@ export default createMap({
           config: {
             islands: {
               // Earth-like island distribution with microcontinents
-              fractalThresholdPercent: 94,    // Slightly more islands for variety
-              minDistFromLandRadius: 4,       // Keep islands away from continental shores
-              baseIslandDenNearActive: 4,     // Moderate arc islands
-              baseIslandDenElse: 5,           // More passive-margin islands
-              hotspotSeedDenom: 4,            // More hotspot chains (Hawaii, Galapagos)
-              clusterMax: 3,                  // Larger archipelago clusters
-              microcontinentChance: 0.12,     // More Madagascar/NZ-style shards
+              fractalThresholdPercent: 96,    // Reduce noise seeding
+              minDistFromLandRadius: 5,       // Allow closer shelves but avoid clutter
+              baseIslandDenNearActive: 2,     // Fewer arc chains
+              baseIslandDenElse: 2,           // Fewer passive-shelf archipelagos
+              hotspotSeedDenom: 3,            // Hotspot chains retained
+              clusterMax: 12,                 // Slightly smaller clusters
+              microcontinentChance: 0.12,     // Further reduce microcontinents to avoid ghost land
             },
             hotspot: {
-              paradiseBias: 2.0,            // Moderate paradise preference
-              volcanicBias: 1.1,            // Modest volcanic activity
-              volcanicPeakChance: 0.3,      // Some volcanic peaks
+              paradiseBias: 1.3,            // Moderate paradise preference
+              volcanicBias: 1.0,            // Modest volcanic activity
+              volcanicPeakChance: 0.28,     // Some volcanic peaks
             },
-            seaLaneAvoidRadius: 3,
+            seaLaneAvoidRadius: 4,
           },
         },
       },
@@ -317,23 +317,23 @@ export default createMap({
           strategy: "default",
           config: {
             // Earth-like: major ranges at margins, few interior mountains
-            tectonicIntensity: 0.68,
-            mountainThreshold: 0.62,       // More mountains at margins
-            hillThreshold: 0.35,           // More foothills for transitions
+            tectonicIntensity: 0.64,
+            mountainThreshold: 0.59,       // Higher: more breaks/passages in chains
+            hillThreshold: 0.44,           // Keep foothill skirts broad
             upliftWeight: 0.28,
-            fractalWeight: 0.48,           // Less noise for cleaner ranges
-            riftDepth: 0.28,
-            boundaryWeight: 0.65,
-            boundaryGate: 0.15,            // Concentrate at margins
-            boundaryExponent: 1.4,         // Sharper decay from margins
-            interiorPenaltyWeight: 0.28,   // Stronger: fewer interior mountains
-            convergenceBonus: 0.62,
+            fractalWeight: 0.72,           // Extra texture for gaps and saddles
+            riftDepth: 0.27,
+            boundaryWeight: 0.18,
+            boundaryGate: 0.11,            // Slight gate to keep margin focus but allow dips
+            boundaryExponent: 1.18,        // Softer decay from margins
+            interiorPenaltyWeight: 0.09,   // Allow occasional interior highs
+            convergenceBonus: 0.60,
             transformPenalty: 0.65,
-            riftPenalty: 0.75,
-            hillBoundaryWeight: 0.32,      // More boundary foothills
-            hillRiftBonus: 0.38,
-            hillConvergentFoothill: 0.30,  // Wider Himalayan-style foothills
-            hillInteriorFalloff: 0.25,     // Stronger interior decay
+            riftPenalty: 0.78,
+            hillBoundaryWeight: 0.32,      // Skirts remain but a bit lighter
+            hillRiftBonus: 0.36,
+            hillConvergentFoothill: 0.36,  // Slightly narrower foothill zones for passes
+            hillInteriorFalloff: 0.20,     // Allow more interior foothill bleed
             hillUpliftWeight: 0.18,
           },
         },
@@ -344,18 +344,18 @@ export default createMap({
           config: {
             // Boundary-dominant volcanism with hotspot trails (Earth-like).
             enabled: true,
-            baseDensity: 7 / 190,           // Slightly higher for visible volcanism
+            baseDensity: 1 / 160,           // Moderate volcanism; let convergent arcs lead
             minSpacing: 6,                  // Better spacing between volcanoes
-            boundaryThreshold: 0.30,        // Lower for stronger boundary influence
-            boundaryWeight: 1.25,           // Stronger boundary emphasis
-            convergentMultiplier: 3.0,      // Strong Ring of Fire emphasis
-            transformMultiplier: 0.85,      // Less transform volcanism
-            divergentMultiplier: 0.30,      // Lower divergent (mostly underwater)
-            hotspotWeight: 0.25,            // More hotspot chains (Hawaii, Iceland, Yellowstone)
-            shieldPenalty: 0.50,            // Stronger craton suppression
-            randomJitter: 0.05,             // Less random, more plate-driven
-            minVolcanoes: 10,               // Ensure visible volcanic activity
-            maxVolcanoes: 40,               // Allow more for larger maps
+            boundaryThreshold: 0.32,        // Lower for stronger boundary influence
+            boundaryWeight: 1.35,           // Stronger boundary emphasis
+            convergentMultiplier: 3.3,      // Strong Ring of Fire emphasis
+            transformMultiplier: 0.8,       // Less transform volcanism
+            divergentMultiplier: 0.32,      // Lower divergent (mostly underwater)
+            hotspotWeight: 0.32,            // More hotspot chains (Hawaii, Iceland, Yellowstone)
+            shieldPenalty: 0.55,            // Stronger craton suppression
+            randomJitter: 0.04,             // Less random, more plate-driven
+            minVolcanoes: 12,               // Ensure visible volcanic activity
+            maxVolcanoes: 42,               // Allow more for larger maps
           },
         },
       },
@@ -373,57 +373,57 @@ export default createMap({
           strategy: "default",
           config: {
             windJetStreaks: 3,
-            windJetStrength: 1.0,
-            windVariance: 0.6,
+            windJetStrength: 1.05,
+            windVariance: 0.55,
           },
         },
         climate: {
           baseline: {
             blend: {
-              baseWeight: 0.45,
-              bandWeight: 0.65,
+              baseWeight: 0.78,
+              bandWeight: 0.22,
             },
             seed: {
-              baseRainfall: 21,       // Slightly wetter base for stronger rainforest contrast
-              coastalExponent: 1.4,   // Steeper falloff: sharper coast/interior contrast
+              baseRainfall: 22,       // Slightly wetter base so bands have less dominance
+              coastalExponent: 1.3,   // Softer falloff: gentler coast/interior contrast
             },
             bands: {
-              deg0to10: 140,
-              deg10to20: 100,
-              deg20to35: 35,         // Lower: stronger subtropical deserts
-              deg35to55: 88,
-              deg55to70: 75,
-              deg70plus: 40,         // Slightly raised: more tundra variation
+              deg0to10: 205,
+              deg10to20: 170,
+              deg20to35: 45,          // Strong subtropical deserts
+              deg35to55: 95,
+              deg55to70: 78,
+              deg70plus: 88,          // Polar moisture mostly snow
               edges: {
-                deg0to10: 10,
-                deg10to20: 20,
-                deg20to35: 35,
-                deg35to55: 55,
+                deg0to10: 8,
+                deg10to20: 18,
+                deg20to35: 32,
+                deg35to55: 52,
                 deg55to70: 70,
               },
-              transitionWidth: 12,
+              transitionWidth: 20,
             },
             sizeScaling: {
-              baseArea: 10000,
+              baseArea: 16000,
               minScale: 0.6,
               maxScale: 2.0,
-              equatorBoostScale: 12,
-              equatorBoostTaper: 0.75,
+              equatorBoostScale: 8,
+              equatorBoostTaper: 0.65,
             },
             orographic: {
-              hi1Threshold: 300,     // Lower threshold: more tiles get uplift rainfall
-              hi1Bonus: 10,          // Increased: mountains wetter on windward side
-              hi2Threshold: 550,
+              hi1Threshold: 320,     // Slightly higher to focus uplift on real ranges
+              hi1Bonus: 11,          // Wet windward mountain belts
+              hi2Threshold: 620,
               hi2Bonus: 9,
             },
             coastal: {
-              coastalLandBonus: 24,  // Reduced: allow coastal deserts
-              spread: 4,             // Reduced: tighter coastal moisture band
+              coastalLandBonus: 18,  // Allow coastal deserts
+              spread: 4,             // Tighter coastal moisture band
             },
             noise: {
-              baseSpanSmall: 4,
-              spanLargeScaleFactor: 1.0,
-              scale: 0.13,
+              baseSpanSmall: 6,
+              spanLargeScaleFactor: 1.1,
+              scale: 0.15,
             },
           },
         },
@@ -434,50 +434,50 @@ export default createMap({
         climate: {
           baseline: {
             blend: {
-              baseWeight: 0.2,
-              bandWeight: 0.8,
+              baseWeight: 0.45,
+              bandWeight: 0.55,
             },
             seed: {
-              baseRainfall: 44,
-              coastalExponent: 1.2,
+              baseRainfall: 34,
+              coastalExponent: 1.25,
             },
             bands: {
-              deg0to10: 140,
-              deg10to20: 100,
-              deg20to35: 40,         // Lower: stronger subtropical deserts
-              deg35to55: 82,
-              deg55to70: 68,
-              deg70plus: 45,
+              deg0to10: 170,
+              deg10to20: 125,
+              deg20to35: 55,         // Subtropical deserts
+              deg35to55: 90,
+              deg55to70: 70,
+              deg70plus: 50,
               edges: {
-                deg0to10: 10,
-                deg10to20: 20,
-                deg20to35: 35,
-                deg35to55: 55,
+                deg0to10: 8,
+                deg10to20: 18,
+                deg20to35: 32,
+                deg35to55: 52,
                 deg55to70: 70,
               },
-              transitionWidth: 10,   // Slightly wider: smoother biome transitions
+              transitionWidth: 18,   // Smoother biome transitions
             },
             sizeScaling: {
               baseArea: 10000,
-              minScale: 0.6,
+              minScale: 0.65,
               maxScale: 2.0,
-              equatorBoostScale: 12,
+              equatorBoostScale: 10,
               equatorBoostTaper: 0.6,
             },
             orographic: {
-              hi1Threshold: 300,     // Lower threshold: more tiles get uplift rainfall
-              hi1Bonus: 10,          // Increased: mountains wetter on windward side
-              hi2Threshold: 550,
+              hi1Threshold: 320,     // Lower threshold: more tiles get uplift rainfall
+              hi1Bonus: 11,          // Increased: mountains wetter on windward side
+              hi2Threshold: 620,
               hi2Bonus: 9,
             },
             coastal: {
-              coastalLandBonus: 24,  // Reduced: allow coastal deserts
+              coastalLandBonus: 18,  // Reduced: allow coastal deserts
               spread: 4,             // Reduced: tighter coastal moisture band
             },
             noise: {
-              baseSpanSmall: 4,
+              baseSpanSmall: 5,
               spanLargeScaleFactor: 1.0,
-              scale: 0.13,
+              scale: 0.16,
             },
           },
           swatches: {
@@ -485,36 +485,36 @@ export default createMap({
             types: {
               // Desert band - stronger for Sahara/Arabian-scale deserts
               macroDesertBelt: {
-                weight: 28,
-                latitudeCenterDeg: 26,
-                halfWidthDeg: 10,
-                drynessDelta: 25,
+                weight: 24,
+                latitudeCenterDeg: 24,
+                halfWidthDeg: 9,
+                drynessDelta: 20,
               },
               // Continental interior drying
               greatPlains: {
-                weight: 22,
+                weight: 18,
                 latitudeCenterDeg: 42,
                 halfWidthDeg: 8,
-                dryDelta: 15,
-                lowlandMaxElevation: 320,
+                dryDelta: 12,
+                lowlandMaxElevation: 340,
               },
               // Wet mountains for contrast
               mountainForests: {
-                weight: 25,
-                elevationThreshold: 280,
-                wetBonus: 16,
+                weight: 18,
+                elevationThreshold: 320,
+                wetBonus: 12,
               },
               // Tropical rain variety - stronger for Amazon/Congo-scale rainforests
               equatorialRainbelt: {
-                weight: 25,
+                weight: 22,
                 latitudeCenterDeg: 5,
-                halfWidthDeg: 10,
-                wetnessDelta: 22,
+                halfWidthDeg: 9,
+                wetnessDelta: 18,
               },
             },
             sizeScaling: {
-              widthMulSqrt: 0.3,
-              lengthMulSqrt: 0,
+              widthMulSqrt: 0.25,
+              lengthMulSqrt: 0.05,
             },
           },
           refine: {
@@ -525,8 +525,8 @@ export default createMap({
             },
             orographic: {
               steps: 6,
-              reductionBase: 16,
-              reductionPerStep: 7,
+              reductionBase: 22,
+              reductionPerStep: 6,
             },
             riverCorridor: {
               lowlandAdjacencyBonus: 10,
@@ -539,10 +539,10 @@ export default createMap({
           },
           story: {
             rainfall: {
-              riftBoost: 8,
+              riftBoost: 6,
               riftRadius: 2,
-              paradiseDelta: 6,
-              volcanicDelta: 8,
+              paradiseDelta: 10,
+              volcanicDelta: 6,
             },
           },
         },
@@ -581,28 +581,28 @@ export default createMap({
       "story-corridors-post": {
         corridors: {
           sea: {
-            protection: "hard",
-            softChanceMultiplier: 0.5,
-            avoidRadius: 2,
-            maxLanes: 3,
+            protection: "soft",
+            softChanceMultiplier: 0.35,
+            avoidRadius: 3,
+            maxLanes: 2,
             scanStride: 6,
-            minLengthFrac: 0.7,
+            minLengthFrac: 0.65,
             preferDiagonals: false,
-            laneSpacing: 6,
+            laneSpacing: 7,
             minChannelWidth: 3,
           },
           land: {
             biomesBiasStrength: 0.6,
             useRiftShoulders: true,
             maxCorridors: 2,
-            minRunLength: 24,
-            spacing: 0,
+            minRunLength: 26,
+            spacing: 1,
           },
           river: {
             biomesBiasStrength: 0.5,
             maxChains: 2,
-            maxSteps: 80,
-            preferLowlandBelow: 300,
+            maxSteps: 90,
+            preferLowlandBelow: 340,
             coastSeedRadius: 2,
             minTiles: 0,
             mustEndNearCoast: false,
@@ -619,20 +619,20 @@ export default createMap({
         climate: {
           baseline: {
             blend: {
-              baseWeight: 0.2,
-              bandWeight: 0.8,
+              baseWeight: 0.75,
+              bandWeight: 0.22,
             },
             seed: {
-              baseRainfall: 40,
-              coastalExponent: 1.2,
+              baseRainfall: 21,
+              coastalExponent: 1.35,
             },
             bands: {
-              deg0to10: 140,
-              deg10to20: 100,
-              deg20to35: 35,         // Low subtropical band for desert formation
-              deg35to55: 82,
-              deg55to70: 68,
-              deg70plus: 45,
+              deg0to10: 205,
+              deg10to20: 170,
+              deg20to35: 45,         // Low subtropical band for desert formation
+              deg35to55: 95,
+              deg55to70: 78,
+              deg70plus: 88,
               edges: {
                 deg0to10: 10,
                 deg10to20: 20,
@@ -640,13 +640,13 @@ export default createMap({
                 deg35to55: 55,
                 deg55to70: 70,
               },
-              transitionWidth: 10,   // Slightly wider: smoother biome transitions
+              transitionWidth: 20,   // Cap to engine max
             },
             sizeScaling: {
-              baseArea: 10000,
+              baseArea: 16000,
               minScale: 0.6,
               maxScale: 2.0,
-              equatorBoostScale: 12,
+              equatorBoostScale: 8,
               equatorBoostTaper: 0.6,
             },
             orographic: {
@@ -660,13 +660,13 @@ export default createMap({
               spread: 4,             // Reduced: tighter coastal moisture band
             },
             noise: {
-              baseSpanSmall: 4,
+              baseSpanSmall: 6,
               spanLargeScaleFactor: 1.0,
-              scale: 0.13,
+              scale: 0.14,
             },
           },
           swatches: {
-            enabled: true,
+            enabled: false,
             types: {
               // Desert band - stronger for Sahara/Arabian-scale deserts
               macroDesertBelt: {
@@ -710,8 +710,8 @@ export default createMap({
             },
             orographic: {
               steps: 6,
-              reductionBase: 16,
-              reductionPerStep: 7,
+              reductionBase: 18,
+              reductionPerStep: 6,
             },
             riverCorridor: {
               lowlandAdjacencyBonus: 10,
@@ -724,19 +724,19 @@ export default createMap({
           },
           story: {
             rainfall: {
-              riftBoost: 8,
+              riftBoost: 6,
               riftRadius: 2,
-              paradiseDelta: 6,
-              volcanicDelta: 8,
+              paradiseDelta: 8,
+              volcanicDelta: 6,
             },
           },
         },
         story: {
           orogeny: {
             radius: 2,
-            beltMinLength: 30,
-            windwardBoost: 5,
-            leeDrynessAmplifier: 1.2,
+            beltMinLength: 34,
+            windwardBoost: 6,
+            leeDrynessAmplifier: 1.15,
           },
         },
       },
@@ -747,17 +747,17 @@ export default createMap({
         classify: {
           strategy: "default",
           config: {
-            climateWeight: 1.2,
-            reliefWeight: 0.8,
-            sedimentWeight: 1.1,
-            bedrockWeight: 0.6,
-            fertilityCeiling: 0.95,
+            climateWeight: 1.3,
+            reliefWeight: 0.9,
+            sedimentWeight: 1.0,
+            bedrockWeight: 0.7,
+            fertilityCeiling: 0.96,
           },
         },
       },
       resourceBasins: {
         plan: { strategy: "mixed", config: { resources: [] } },  // Variety in resource distribution
-        score: { strategy: "default", config: { minConfidence: 0.3, maxPerResource: 12 } },
+        score: { strategy: "default", config: { minConfidence: 0.32, maxPerResource: 14 } },
       },
       biomeEdgeRefine: {
         refine: { strategy: "gaussian", config: { radius: 1, iterations: 1 } },  // Smoother Earth-like biome transitions
@@ -790,10 +790,13 @@ export default createMap({
           },
         },
         ice: {
-          strategy: "default",
+          strategy: "continentality",
           config: {
-            seaIceThreshold: -8,
+            seaIceThreshold: -16,   // Colder to shrink ice band
             alpineThreshold: 2600,
+            featherC: 4,            // Slightly tighter fade
+            jitterC: 2.5,           // Add  ±2.5°C noise to break straight lines
+            densityScale: 0.25,     // ~75% reduction in ice coverage
           },
         },
       },
@@ -802,56 +805,56 @@ export default createMap({
           strategy: "default",
           config: {
             temperature: {
-              equator: 34,
-              pole: -12,
-              lapseRate: 6.5,
+              equator: 33,
+              pole: -22,
+              lapseRate: 7.5,
               seaLevel: 0,
-              bias: 0.5,             // Reduced from 2.5: allows more cold biomes (tundra, boreal)
-              polarCutoff: -5,
-              tundraCutoff: 0,
-              midLatitude: 12,
-              tropicalThreshold: 22,
+              bias: 0.5,              // Reduced: more mid/high-lat cold spread
+              polarCutoff: -6,
+              tundraCutoff: -1,
+              midLatitude: 11,
+              tropicalThreshold: 24,
             },
             moisture: {
-              thresholds: [50, 95, 140, 190] as [number, number, number, number],  // Widened: more graduated biome transitions
+              thresholds: [45, 90, 150, 210] as [number, number, number, number],  // Widened: more graduated biome transitions
               bias: 0,               // Neutral: let rainfall bands drive distribution
-              humidityWeight: 0.45,
+              humidityWeight: 0.42,
             },
             aridity: {
               temperatureMin: 0,
               temperatureMax: 35,
-              petBase: 20,           // Moderate evaporation demand
-              petTemperatureWeight: 78,  // Moderate temperature effect
-              humidityDampening: 0.5,    // Slightly less humid buffering
-              rainfallWeight: 0.9,   // Rainfall offsets aridity reasonably
-              bias: 3.3,             // Slight push toward aridity (was 8, too aggressive)
-              normalization: 118,    // More reasonable normalization
-              moistureShiftThresholds: [0.42, 0.65] as [number, number],  // Less aggressive thresholds
-              vegetationPenalty: 0.08,  // Moderate sparse vegetation in arid areas
+              petBase: 19,           // Moderate evaporation demand
+              petTemperatureWeight: 85,  // Moderate temperature effect
+              humidityDampening: 0.18,   // Slightly less humid buffering
+              rainfallWeight: 0.95,   // Rainfall offsets aridity reasonably
+              bias: 1.5,             // Slight push toward aridity
+              normalization: 112,    // More reasonable normalization
+              moistureShiftThresholds: [0.4, 0.68] as [number, number],  // Less aggressive thresholds
+              vegetationPenalty: 0.07,  // Moderate sparse vegetation in arid areas
             },
             freeze: {
-              minTemperature: -8,
-              maxTemperature: 2,
+              minTemperature: -10,
+              maxTemperature: 3,
             },
             vegetation: {
-              base: 0.35,            // Reduced from 0.35: more contrast between lush and sparse areas
-              moistureWeight: 0.65,
-              humidityWeight: 0.35,
+              base: 0.32,            // More contrast between lush and sparse areas
+              moistureWeight: 0.68,
+              humidityWeight: 0.32,
               moistureNormalizationPadding: 60,
               biomeModifiers: {
-                snow: { multiplier: 0.85, bonus: 1 },
-                tundra: { multiplier: 0.5, bonus: 0 },
-                boreal: { multiplier: 0.85, bonus: 0 },
+                snow: { multiplier: 3.2, bonus: 0.3 },
+                tundra: { multiplier: 0.55, bonus: 0 },
+                boreal: { multiplier: 0.9, bonus: 0 },
                 temperateDry: { multiplier: 0.75, bonus: 0 },
                 temperateHumid: { multiplier: 1, bonus: 0 },
                 tropicalSeasonal: { multiplier: 1, bonus: 0 },
-                tropicalRainforest: { multiplier: 1.1, bonus: 0.6 },
-                desert: { multiplier: 0.08, bonus: 0 },
+                tropicalRainforest: { multiplier: 2.3, bonus: 1.2 },
+                desert: { multiplier: 0.85, bonus: 0 },
               },
             },
             noise: {
-              amplitude: 0.03,
-              seed: 1337,
+              amplitude: 0.028,
+              seed: 53337,
             },
             overlays: {
               corridorMoistureBonus: 8,
@@ -888,7 +891,7 @@ export default createMap({
                   typeName: "PLOTEFFECT_SNOW_HEAVY_PERMANENT",
                 },
               },
-              coverageChance: 70,
+              coverageChance: 65,
               freezeWeight: 1.1,
               elevationWeight: 0.9,
               moistureWeight: 0.7,
@@ -900,11 +903,11 @@ export default createMap({
               elevationStrategy: "percentile" as const,
               elevationMin: 200,
               elevationMax: 2800,
-              elevationPercentileMin: 0.7,
+              elevationPercentileMin: 0.68,
               elevationPercentileMax: 0.98,
               moistureMin: 50,
               moistureMax: 170,
-              maxTemperature: 4,
+              maxTemperature: 3,
               maxAridity: 0.85,
             },
             sand: {
@@ -912,11 +915,11 @@ export default createMap({
               selector: {
                 typeName: "PLOTEFFECT_SAND",
               },
-              chance: 35,            // Higher for visible sandy deserts
-              minAridity: 0.5,       // Lowered to catch more desert tiles
-              minTemperature: 16,    // Lowered for cooler desert edges
-              maxFreeze: 0.25,
-              maxVegetation: 0.18,
+              chance: 32,            // Visible sandy deserts without overrun
+              minAridity: 0.48,      // Lowered to catch more desert tiles
+              minTemperature: 14,    // Allow cooler desert edges
+              maxFreeze: 0.3,
+              maxVegetation: 0.2,
               maxMoisture: 85,
               allowedBiomes: ["desert", "temperateDry"] as [
                 "desert",
@@ -928,11 +931,11 @@ export default createMap({
               selector: {
                 typeName: "PLOTEFFECT_BURNED",
               },
-              chance: 6,
-              minAridity: 0.5,
-              minTemperature: 22,
-              maxFreeze: 0.2,
-              maxVegetation: 0.25,
+              chance: 5,
+              minAridity: 0.48,
+              minTemperature: 21,
+              maxFreeze: 0.22,
+              maxVegetation: 0.27,
               maxMoisture: 100,
               allowedBiomes: ["temperateDry", "tropicalSeasonal"] as [
                 "temperateDry",

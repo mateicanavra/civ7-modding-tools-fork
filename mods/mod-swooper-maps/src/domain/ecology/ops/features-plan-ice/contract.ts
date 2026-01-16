@@ -18,10 +18,40 @@ const PlanIceContract = defineOp({
     default: Type.Object({
       seaIceThreshold: Type.Number({ default: -8 }),
       alpineThreshold: Type.Integer({ default: 2800 }),
+      featherC: Type.Number({
+        description: "Feather width (Celsius) above threshold for probabilistic edge.",
+        default: 4,
+        minimum: 0,
+      }),
+      jitterC: Type.Number({
+        description: "Random per-tile jitter applied to temperature when testing sea ice.",
+        default: 1.5,
+        minimum: 0,
+      }),
+      densityScale: Type.Number({
+        description: "Multiplier applied to ice placement weights (0 disables, 1 default).",
+        default: 1,
+        minimum: 0,
+      }),
     }),
     continentality: Type.Object({
       seaIceThreshold: Type.Number({ default: -8 }),
       alpineThreshold: Type.Integer({ default: 2800 }),
+      featherC: Type.Number({
+        description: "Feather width (Celsius) above threshold for probabilistic edge.",
+        default: 4,
+        minimum: 0,
+      }),
+      jitterC: Type.Number({
+        description: "Random per-tile jitter applied to temperature when testing sea ice.",
+        default: 1.5,
+        minimum: 0,
+      }),
+      densityScale: Type.Number({
+        description: "Multiplier applied to ice placement weights (0 disables, 1 default).",
+        default: 1,
+        minimum: 0,
+      }),
     }),
   },
 });

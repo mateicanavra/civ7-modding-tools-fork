@@ -21,11 +21,11 @@ const _badFoundationStepId: _FoundationStepIds = "definitely-not-a-step";
 // If the config surface degenerates to Record<string, ...> / an index signature,
 // these should STOP erroring.
 // @ts-expect-error - unknown stage id should not be indexable.
-type _NoBogusStage = StandardRecipeConfig["bogus-stage"]; // eslint-disable-line @typescript-eslint/no-unused-vars
+type _NoBogusStage = StandardRecipeConfig["bogus-stage"];
 
-type _FoundationConfig = NonNullable<StandardRecipeConfig["foundation"]>; // eslint-disable-line @typescript-eslint/no-unused-vars
+type _FoundationConfig = NonNullable<StandardRecipeConfig["foundation"]>;
 // @ts-expect-error - unknown step id should not be indexable.
-type _NoBogusStep = _FoundationConfig["bogus-step"]; // eslint-disable-line @typescript-eslint/no-unused-vars
+type _NoBogusStep = _FoundationConfig["bogus-step"];
 
 // Sanity check: op contract envelope types must be structurally typed (not `unknown`).
 type _ComputeMeshOp = typeof foundationDomain.ops.computeMesh;
