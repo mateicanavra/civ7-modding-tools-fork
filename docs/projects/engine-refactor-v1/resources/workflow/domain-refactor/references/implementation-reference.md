@@ -23,6 +23,7 @@ Non-negotiable invariants (target architecture):
 - Op contracts own schemas and default configs; step contracts declare which op contracts they use via `contract.ops`.
 - `defineStep({ ops })` merges declared op configs into the step schema automatically (step schemas only declare step-owned props).
 - Plan compilation produces final configs; runtime treats `node.config` as “the config” (no runtime defaulting merges).
+- Semantic knobs require an explicit contract: meaning, missing/empty/null behavior, and determinism expectations must be written down and test-locked (do not infer ad hoc during implementation).
 - No dual paths, shims, translators, DeepPartial override blobs, or fallback behaviors within scope.
 - Artifacts are contract-first and stage-owned:
   - contracts live at `stages/<stage>/artifacts.ts` (stable import surface),

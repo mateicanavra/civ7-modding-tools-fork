@@ -68,6 +68,7 @@ This is the “definition of done” for a slice. You must complete it before mo
 - Create/update the op module(s) needed by this slice under `mods/mod-swooper-maps/src/domain/<domain>/ops/**`.
 - Op contracts are POJO/POJO-ish only (typed arrays ok); no adapters/context/RNG callbacks cross the boundary.
 - Run handlers assume normalized config (no hidden defaults or fallback values).
+- If you touch a “semantic knob” (lists/pairs/weights/modes), ensure its meaning + missing/empty/null + determinism expectations are explicitly documented (Phase 2 semantics table) and enforced by tests; do not infer semantics ad hoc in `run(...)`.
 - Each op module is contract-first and follows the canonical shape:
   - `contract.ts` via `defineOp`
   - `types.ts` exporting a single `OpTypeBag`
@@ -98,6 +99,7 @@ This is the “definition of done” for a slice. You must complete it before mo
 - Add at least one op contract test for the op(s) introduced/changed in this slice.
 - If artifact/config contracts changed across steps, add one thin integration test that exercises the edge.
 - Keep tests deterministic (fixed seeds; no RNG callbacks crossing op boundary).
+- If the slice introduces or changes probabilistic behavior (weights), add a deterministic test that would fail if RNG/seed semantics drift.
 
 ### 5) Documentation for the slice (required)
 
@@ -118,6 +120,12 @@ REFRACTOR_DOMAINS="<domain>[,<domain2>...]" ./scripts/lint/lint-domain-refactor-
 If it fails, iterate until clean (no exceptions).
 
 If a locked decision/banned surface was introduced in this slice, add a guardrail (test/scan) in the same slice.
+
+### 6.5) Survivability validation (required for fixes and review-driven changes)
+
+Before committing the slice, confirm:
+- The fix is anchored at a stable interface (domain boundary / config normalization) rather than an implementation detail likely to be replaced in a later slice.
+- Any non-trivial config semantics touched are locked by tests (not just prose).
 
 ### 7) Commit the slice (Graphite-only)
 

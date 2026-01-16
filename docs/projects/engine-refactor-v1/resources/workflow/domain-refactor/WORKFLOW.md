@@ -12,27 +12,30 @@ This is the **canonical, end-to-end workflow** for refactoring **one MapGen doma
 - the target **contract-first ops + orchestration-only steps** architecture, and
 - a **physically grounded, first-principles domain model** (earth-physics-informed; legacy behavior is not sacred).
 
-This workflow is **orchestration and gating only**. Modeling lives in Phase 2 spikes. Slice planning lives in Phase 3 issues.
+This workflow is **orchestration and gating only**. Greenfield pre-work happens before current-state mapping and target-state modeling, modeling lives in Phase 2 spikes, and slice planning lives in Phase 3 issues.
 
 ## TL;DR (phase model)
 
 Phases are **adaptive**: each phase produces concrete artifacts, then a required lookback updates the next phase’s plan based on what you learned.
 
 1. **Phase 0: Setup** → worktree + baseline gates
-2. **Phase 1: Current-state spike** → `spike-<domain>-current-state.md`
-3. **Lookback 1** → append to Phase 1 spike
-4. **Phase 2: Modeling spike** → `spike-<domain>-modeling.md`
-5. **Lookback 2** → append to Phase 2 spike
-6. **Phase 3: Implementation plan + slice plan** → `LOCAL-TBD-<milestone>-<domain>-*.md`
-7. **Lookback 3** → append to Phase 3 issue
-8. **Phase 4: Implementation (slices)**
-9. **Lookback 4** → append to Phase 3 issue
-10. **Phase 5: Verification + cleanup + submit**
+2. **Phase 0.5: Greenfield pre-work spike** → `spike-<domain>-greenfield.md`
+3. **Lookback 0.5** → append to Phase 0.5 spike
+4. **Phase 1: Current-state spike** → `spike-<domain>-current-state.md`
+5. **Lookback 1** → append to Phase 1 spike
+6. **Phase 2: Modeling spike** → `spike-<domain>-modeling.md`
+7. **Lookback 2** → append to Phase 2 spike
+8. **Phase 3: Implementation plan + slice plan** → `LOCAL-TBD-<milestone>-<domain>-*.md`
+9. **Lookback 3** → append to Phase 3 issue
+10. **Phase 4: Implementation (slices)**
+11. **Lookback 4** → append to Phase 3 issue
+12. **Phase 5: Verification + cleanup + submit**
 
 ## Required artifacts (by phase)
 
 | Phase | Required artifact | Template / Reference |
 | --- | --- | --- |
+| Phase 0.5 | `docs/projects/engine-refactor-v1/resources/spike/spike-<domain>-greenfield.md` | `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/phase-0-greenfield-prework.md` |
 | Phase 1 | `docs/projects/engine-refactor-v1/resources/spike/spike-<domain>-current-state.md` | `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/phase-1-current-state.md` |
 | Phase 2 | `docs/projects/engine-refactor-v1/resources/spike/spike-<domain>-modeling.md` | `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/phase-2-modeling.md` |
 | Phase 3 | `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-<milestone>-<domain>-*.md` | `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/phase-3-implementation-plan.md` |
@@ -174,6 +177,11 @@ If you detect drift or a locked decision gets violated, stop and do the followin
 
 ## Phase gates (no phase bleed)
 
+Phase 0.5 gate:
+- Greenfield pre-work spike exists and is earth-physics-grounded (unconstrained by legacy code).
+- Upstream current vs ideal lists exist and a gap/diff is written (change candidates).
+- Downstream ideal outputs are described and downstream implications are listed (change candidates).
+
 Phase 1 gate:
 - Current-state spike exists and includes all “living artifacts.”
 - Boundary violations and deletions are explicit.
@@ -185,6 +193,8 @@ Phase 1 gate:
 Phase 2 gate:
 - Modeling spike exists and includes the canonical model + target contract matrix.
 - No slice plan content is present.
+- Config semantics are locked for semantic knobs: meaning, missing/empty/null behavior, and determinism expectations (with tests that lock non-trivial behavior).
+- “Default vs explicit” policy is explicit for authorable config: whether missing inherits evolving defaults vs explicit freezes behavior (with compatibility intent).
 - Legacy disposition ledger is complete (every property/rule/function is keep/kill/migrate with rationale).
 - Upstream authoritative inputs are selected and legacy upstream reads are marked for removal.
 - Upstream handoff cleanup is explicit; no upstream-introduced compat surfaces remain in this domain.
@@ -199,6 +209,7 @@ Phase 2 gate:
 Phase 3 gate:
 - Implementation issue exists and includes an executable slice plan.
 - No model changes appear in the issue doc.
+- Stable fix anchors are identified (preferred “config → normalized internal form” / domain boundary locations for durable fixes during implementation).
 - Sequencing refinement pass exists: slices are drafted, re-ordered for pipeline safety, and re-checked against downstream deltas before locking.
 - Documentation pass is explicitly scoped (dedicated slice or issue) and includes a doc inventory of all touched/created surfaces.
 - No “later” buckets: every slice is explicit and has a branch/subissue plan.
@@ -273,6 +284,17 @@ gt add -A
 gt modify --commit -am "refactor(<domain>): <slice or doc summary>"
 ```
 
+## Phase 0.5 greenfield pre-work (unconstrained domain sketch)
+
+Do this **before** Phase 1 current-state mapping to avoid inheriting legacy shapes as “the model”.
+
+Use the template:
+- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/phase-0-greenfield-prework.md`
+
+Required focus:
+- Earth-physics-first domain model sketch (what the domain should own and why).
+- Upstream/downstream **greenfield diff** (current available vs ideal needed; ideal outputs vs downstream enablement).
+
 ## Phase 5 verification + cleanup
 
 Verification gates (must be green):
@@ -312,7 +334,7 @@ Remove only the worktrees you created for this refactor.
 
 ## Reference index
 
-Read once before Phase 1:
+Read once before Phase 0.5:
 - `docs/projects/engine-refactor-v1/resources/repomix/gpt-config-architecture-converged.md`
 - `docs/projects/engine-refactor-v1/resources/spec/SPEC-step-domain-operation-modules.md`
 - `docs/projects/engine-refactor-v1/resources/spec/SPEC-DOMAIN-MODELING-GUIDELINES.md`
@@ -352,6 +374,7 @@ Workflow package references:
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/domain-inventory-and-boundaries.md`
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/op-and-config-design.md`
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/verification-and-guardrails.md`
+- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/phase-0-greenfield-prework.md`
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/phase-1-current-state.md`
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/phase-2-modeling.md`
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/phase-3-implementation-plan.md`

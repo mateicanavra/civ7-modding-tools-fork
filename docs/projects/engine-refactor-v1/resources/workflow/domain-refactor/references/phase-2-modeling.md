@@ -9,6 +9,10 @@ Define the authoritative, first-principles model for the domain and lock the tar
 - This is model-first. Do not include slice planning here.
 - Compatibility surfaces must not live in this domain. If transitional compat is required, it must be downstream-owned and explicitly deprecated.
 
+Prereq:
+- Phase 0.5 greenfield pre-work spike exists and is referenced explicitly:
+  - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/phase-0-greenfield-prework.md`
+
 ## Required output
 
 - `docs/projects/engine-refactor-v1/resources/spike/spike-<domain>-modeling.md`
@@ -34,6 +38,7 @@ Cross-pipeline posture:
 - Architecture alignment: reconcile the model with target SPEC/ADR docs and record any conflicts or constraints.
 - Authority stack: list which docs are canonical vs supporting; label PRDs as non-authoritative algorithmic inputs.
 - Earth-physics grounding: model from first principles using domain + earth-physics references; use external sources if needed and cite them in the spike.
+- Greenfield-first pass: start from the Phase 0.5 greenfield sketch, then refine it using Phase 1 evidence (do not let legacy structure become the model by default).
 - Pipeline intake: review upstream authoritative inputs and downstream consumer expectations; document adopted inputs, legacy reads to delete, and required downstream changes.
 - Model articulation: write a concise conceptual narrative and include diagrams (architecture view, data-flow, producer/consumer map with current vs target pipeline adjustments).
 - Codebase evidence: use MCP/code-intel + repo searches to validate current surfaces and invariants; link evidence in decisions.
@@ -52,6 +57,7 @@ Repeat this loop until the model stabilizes (minimum two passes):
 - Canonical model + causality spine
 - Conceptual narrative + diagrams (architecture view, data-flow, producer/consumer map; include current vs target pipeline adjustments)
 - Target contract matrix (buffers/artifacts/overlays classification)
+- Config semantics table (semantic knobs contract: meaning, missing/empty/null behavior, determinism expectations, and tests that lock non-trivial behavior)
 - Legacy disposition ledger (every config property/rule/function is keep/kill/migrate with rationale)
 - Upstream authoritative input selection (adopted inputs + legacy reads to delete)
 - Upstream handoff cleanup (remove upstream-introduced compat/legacy surfaces in this domain)
@@ -82,6 +88,7 @@ Repeat this loop until the model stabilizes (minimum two passes):
 - Upstream authoritative input selection is explicit; legacy upstream reads are flagged for removal.
 - Upstream handoff cleanup is explicit; no upstream compat/legacy surfaces remain in this domain.
 - Downstream consumer impact scan is explicit and complete.
+- Config semantics table exists and locks non-trivial semantics with tests; “default vs explicit” policy is stated where relevant.
 - Architecture alignment note exists and conflicts are reconciled or escalated.
 - Authority stack is explicit; PRDs are labeled non-authoritative.
 - Research sources are cited when external research is used.
@@ -91,4 +98,5 @@ Repeat this loop until the model stabilizes (minimum two passes):
 
 - `docs/projects/engine-refactor-v1/resources/spec/SPEC-DOMAIN-MODELING-GUIDELINES.md`
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/earth-physics-and-domain-specs.md`
+- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/op-and-config-design.md`
 - `docs/system/libs/mapgen/architecture.md`
