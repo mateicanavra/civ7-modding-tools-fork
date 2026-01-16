@@ -8,29 +8,40 @@ type BivariantCallback<Args extends unknown[], Return> = {
   bivarianceHack(...args: Args): Return;
 }["bivarianceHack"];
 
+type StrategiesLike = Readonly<Record<string, TSchema>>;
+
 export type OpContractLike = Readonly<{
   input: TSchema;
   output: TSchema;
-  strategies: Readonly<Record<string, TSchema>>;
+  strategies: StrategiesLike;
 }>;
 
-export type OpStrategyId<TContract extends OpContractLike> =
-  keyof TContract["strategies"] & string;
+export type OpStrategyId<TStrategies extends StrategiesLike> = keyof TStrategies & string;
 
-export type OpTypeBag<TContract extends OpContractLike> = Readonly<{
-  input: Static<TContract["input"]>;
-  output: Static<TContract["output"]>;
-  strategyId: OpStrategyId<TContract>;
+export type OpTypeBag<
+  InputSchema extends TSchema,
+  OutputSchema extends TSchema,
+  Strategies extends StrategiesLike,
+> = Readonly<{
+  input: Static<InputSchema>;
+  output: Static<OutputSchema>;
+  strategyId: OpStrategyId<Strategies>;
   config: Readonly<{
-    [K in OpStrategyId<TContract>]: Static<TContract["strategies"][K]>;
+    [K in OpStrategyId<Strategies>]: Static<Strategies[K]>;
   }>;
   envelope: {
-    [K in OpStrategyId<TContract>]: Readonly<{
+    [K in OpStrategyId<Strategies>]: Readonly<{
       strategy: K;
-      config: Static<TContract["strategies"][K]>;
+      config: Static<Strategies[K]>;
     }>;
-  }[OpStrategyId<TContract>];
+  }[OpStrategyId<Strategies>];
 }>;
+
+export type OpTypeBagOf<TContract extends OpContractLike> = OpTypeBag<
+  TContract["input"],
+  TContract["output"],
+  TContract["strategies"]
+>;
 
 export type OpConfigSchema<Strategies extends Record<string, { config: TSchema }>> = TUnsafe<
   StrategySelection<Strategies>

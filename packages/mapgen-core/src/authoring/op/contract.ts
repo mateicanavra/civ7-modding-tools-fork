@@ -7,18 +7,24 @@ import { buildOpEnvelopeSchema } from "./envelope.js";
 
 export type StrategyConfigSchemas = Readonly<Record<string, TSchema>>;
 
+type EnsureSchemaValues<T> = {
+  readonly [K in keyof T]: T[K] extends TSchema ? T[K] : never;
+};
+
 export type OpContractCore<
   Kind extends DomainOpKind,
   Id extends string,
   InputSchema extends TSchema,
   OutputSchema extends TSchema,
-  Strategies extends StrategyConfigSchemas & { default: TSchema },
+  // IMPORTANT: avoid constraining strategies to Record<string, TSchema> here.
+  // Doing so tends to widen `keyof strategies` to `string`, which destroys authoring DX.
+  Strategies extends Readonly<{ default: TSchema }>,
 > = Readonly<{
   kind: Kind;
   id: Id;
   input: InputSchema;
   output: OutputSchema;
-  strategies: Strategies;
+  strategies: EnsureSchemaValues<Strategies>;
 }>;
 
 export type OpContract<
@@ -26,10 +32,12 @@ export type OpContract<
   Id extends string,
   InputSchema extends TSchema,
   OutputSchema extends TSchema,
-  Strategies extends StrategyConfigSchemas & { default: TSchema },
+  Strategies extends Readonly<{ default: TSchema }>,
 > = OpContractCore<Kind, Id, InputSchema, OutputSchema, Strategies> &
   Readonly<{
-    config: TUnsafe<OpTypeBag<OpContractCore<Kind, Id, InputSchema, OutputSchema, Strategies>>["envelope"]>;
+    config: TUnsafe<
+      OpTypeBag<InputSchema, OutputSchema, EnsureSchemaValues<Strategies>>["envelope"]
+    >;
     defaultConfig: Readonly<{ strategy: "default"; config: Static<Strategies["default"]> }>;
   }>;
 
@@ -38,7 +46,7 @@ export function defineOp<
   const Id extends string,
   const InputSchema extends TSchema,
   const OutputSchema extends TSchema,
-  const Strategies extends StrategyConfigSchemas & { default: TSchema },
+  const Strategies extends Readonly<{ default: TSchema }>,
 >(def: OpContractCore<Kind, Id, InputSchema, OutputSchema, Strategies>) {
   applySchemaConventions(def.input, `op:${def.id}.input`);
   applySchemaConventions(def.output, `op:${def.id}.output`);
@@ -51,7 +59,7 @@ export function defineOp<
 
   return {
     ...def,
-    config: configSchema as unknown as TUnsafe<OpTypeBag<typeof def>["envelope"]>,
+    config: configSchema as unknown as TUnsafe<OpTypeBag<typeof def.input, typeof def.output, typeof def.strategies>["envelope"]>,
     defaultConfig: defaultConfig as unknown as OpContract<
       Kind,
       Id,

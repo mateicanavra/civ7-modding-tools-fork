@@ -1,18 +1,9 @@
-import type { Static, TSchema } from "typebox";
+import type { Static } from "typebox";
 
-import type { OpTypeBag } from "../op/types.js";
-import type { StrategyConfigSchemas } from "../op/contract.js";
-import type { DomainOpKind } from "../op/types.js";
+import type { OpContract } from "../op/contract.js";
+import type { OpTypeBagOf } from "../op/types.js";
 
-export type OpContractAny = Readonly<{
-  kind: DomainOpKind;
-  id: string;
-  input: TSchema;
-  output: TSchema;
-  strategies: StrategyConfigSchemas & { default: TSchema };
-  config: TSchema;
-  defaultConfig: Readonly<{ strategy: "default"; config: unknown }>;
-}>;
+export type OpContractAny = OpContract<any, any, any, any, any>;
 
 export type StepOpsDecl = Readonly<Record<string, OpContractAny>>;
 
@@ -21,7 +12,7 @@ type BivariantFn<Args extends unknown[], R> = {
 }["bivarianceHack"];
 
 export type RuntimeOpFromContract<C extends OpContractAny> = BivariantFn<
-  [input: Static<C["input"]>, config: OpTypeBag<C>["envelope"]],
+  [input: Static<C["input"]>, config: OpTypeBagOf<C>["envelope"]],
   Static<C["output"]>
 > &
   Readonly<{

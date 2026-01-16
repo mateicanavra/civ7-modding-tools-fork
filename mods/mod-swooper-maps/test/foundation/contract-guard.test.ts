@@ -54,7 +54,7 @@ describe("foundation contract guardrails", () => {
     const roots = [
       path.join(repoRoot, "src/domain/foundation"),
       path.join(repoRoot, "src/recipes/standard/stages/foundation"),
-      path.join(repoRoot, "src/maps/_runtime"),
+      path.join(repoRoot, "src/maps"),
     ];
 
     const files = roots.flatMap((root) =>

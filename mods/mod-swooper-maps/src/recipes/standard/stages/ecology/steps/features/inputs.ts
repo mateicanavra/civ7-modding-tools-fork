@@ -3,7 +3,7 @@ import type {
   ExtendedMapContext,
   HeightfieldBuffer,
 } from "@swooper/mapgen-core";
-import type { OpTypeBag, Static } from "@swooper/mapgen-core/authoring";
+import type { OpTypeBagOf, Static } from "@swooper/mapgen-core/authoring";
 import type {
   NarrativeMotifsHotspots,
   NarrativeMotifsMargins,
@@ -29,7 +29,7 @@ type AquaticPlacementInput =
 type IcePlacementInput = Static<typeof ecology.ops.planIceFeaturePlacements.input>;
 
 type WetInnerConfig =
-  OpTypeBag<typeof ecology.ops.planWetFeaturePlacements>["config"]["default"];
+  OpTypeBagOf<typeof ecology.ops.planWetFeaturePlacements>["config"]["default"];
 
 export type FeatureArtifactInputs = {
   heightfield: HeightfieldBuffer;

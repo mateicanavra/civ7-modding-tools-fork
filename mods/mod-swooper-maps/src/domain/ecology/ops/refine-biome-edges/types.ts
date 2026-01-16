@@ -1,3 +1,3 @@
-import type { OpTypeBag } from "@swooper/mapgen-core/authoring";
+import type { OpTypeBagOf } from "@swooper/mapgen-core/authoring";
 
-export type RefineBiomeEdgesTypes = OpTypeBag<typeof import("./contract.js").default>;
+export type RefineBiomeEdgesTypes = OpTypeBagOf<typeof import("./contract.js").default>;

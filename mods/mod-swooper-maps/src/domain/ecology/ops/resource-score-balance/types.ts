@@ -1,5 +1,5 @@
-import type { OpTypeBag } from "@swooper/mapgen-core/authoring";
+import type { OpTypeBagOf } from "@swooper/mapgen-core/authoring";
 
-export type ResourceScoreBalanceTypes = OpTypeBag<
+export type ResourceScoreBalanceTypes = OpTypeBagOf<
   typeof import("./contract.js").default
 >;
