@@ -1,8 +1,8 @@
 import { Type, createStage } from "@swooper/mapgen-core/authoring";
-import { ruggedCoasts } from "./steps/index.js";
+import { geomorphology, ruggedCoasts, routing } from "./steps/index.js";
 
 export default createStage({
   id: "morphology-mid",
-  knobsSchema: Type.Object({}, { additionalProperties: false }),
-  steps: [ruggedCoasts],
+  knobsSchema: Type.Object({}),
+  steps: [ruggedCoasts, routing, geomorphology],
 } as const);

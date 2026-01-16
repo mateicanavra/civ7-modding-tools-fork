@@ -1,5 +1,5 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
-import { LandmassConfigSchema, MorphologyConfigSchema } from "@mapgen/domain/config";
+import morphology from "@mapgen/domain/morphology";
 
 import { M4_EFFECT_TAGS } from "../../../tags.js";
 import { foundationArtifacts } from "../../foundation/artifacts.js";
@@ -12,12 +12,15 @@ const LandmassPlatesStepContract = defineStep({
   provides: [M4_EFFECT_TAGS.engine.landmassApplied],
   artifacts: {
     requires: [foundationArtifacts.plates],
-    provides: [morphologyArtifacts.topography],
+    provides: [morphologyArtifacts.topography, morphologyArtifacts.substrate],
   },
-  schema: Type.Object({
-    landmass: LandmassConfigSchema,
-    oceanSeparation: MorphologyConfigSchema.properties.oceanSeparation,
-  }),
+  ops: {
+    substrate: morphology.ops.computeSubstrate,
+    baseTopography: morphology.ops.computeBaseTopography,
+    seaLevel: morphology.ops.computeSeaLevel,
+    landmask: morphology.ops.computeLandmask,
+  },
+  schema: Type.Object({}),
 });
 
 export default LandmassPlatesStepContract;

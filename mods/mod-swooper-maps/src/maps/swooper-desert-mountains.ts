@@ -33,28 +33,47 @@ const config = {
   },
   "morphology-pre": {
     "landmass-plates": {
-      landmass: {
-        baseWaterPercent: 53,
-        waterScalar: 1,
+      substrate: {
+        strategy: "default",
+        config: {},
       },
-      oceanSeparation: {
-        enabled: false,
-        baseSeparationTiles: 3,
-        boundaryClosenessMultiplier: 0.9,
-        maxPerRowDelta: 10,
-        minChannelWidth: 3,
-        respectSeaLanes: true,
-        edgeWest: {
-          enabled: false,
-          baseTiles: 3,
-          boundaryClosenessMultiplier: 0.5,
-          maxPerRowDelta: 1,
+      baseTopography: {
+        strategy: "default",
+        config: {
+          tectonics: {},
         },
-        edgeEast: {
-          enabled: false,
-          baseTiles: 3,
-          boundaryClosenessMultiplier: 0.5,
-          maxPerRowDelta: 1,
+      },
+      seaLevel: {
+        strategy: "default",
+        config: {
+          targetWaterPercent: 53,
+          targetScalar: 1,
+        },
+      },
+      landmask: {
+        strategy: "default",
+        config: {
+          basinSeparation: {
+            enabled: false,
+            baseSeparationTiles: 3,
+            boundaryClosenessMultiplier: 0.9,
+            maxPerRowDelta: 10,
+            minChannelWidth: 3,
+            channelJitter: 0,
+            respectSeaLanes: true,
+            edgeWest: {
+              enabled: false,
+              baseTiles: 3,
+              boundaryClosenessMultiplier: 0.5,
+              maxPerRowDelta: 1,
+            },
+            edgeEast: {
+              enabled: false,
+              baseTiles: 3,
+              boundaryClosenessMultiplier: 0.5,
+              maxPerRowDelta: 1,
+            },
+          },
         },
       },
     },
@@ -90,23 +109,49 @@ const config = {
   "morphology-mid": {
     "rugged-coasts": {
       coastlines: {
-        plateBias: {
-          threshold: 0.15,
-          power: 1.3,
-          convergent: 3.0,
-          transform: 0.2,
-          divergent: 0.5,
-          interior: 0.35,
-          bayWeight: 0.75,
-          bayNoiseBonus: 0.1,
-          fjordWeight: 0.8,
+        strategy: "default",
+        config: {
+          coast: {
+            plateBias: {
+              threshold: 0.15,
+              power: 1.3,
+              convergent: 3.0,
+              transform: 0.2,
+              divergent: 0.5,
+              interior: 0.35,
+              bayWeight: 0.75,
+              bayNoiseBonus: 0.1,
+              fjordWeight: 0.8,
+            },
+            bay: {},
+            fjord: {},
+            minSeaLaneWidth: 3,
+          },
+          seaLanes: {
+            mode: "soft",
+            softChanceMultiplier: 1,
+          },
         },
       },
-      corridors: {
-        sea: {},
-        land: {},
-        river: {},
-        islandHop: {},
+    },
+    routing: {
+      routing: {
+        strategy: "default",
+        config: {},
+      },
+    },
+    geomorphology: {
+      geomorphology: {
+        strategy: "default",
+        config: {
+          geomorphology: {
+            fluvial: {},
+            diffusion: {},
+            deposition: {},
+            eras: 2,
+          },
+          worldAge: "mature",
+        },
       },
     },
   },
@@ -115,53 +160,68 @@ const config = {
   },
   "morphology-post": {
     islands: {
-      islands: {},
-      story: {
-        hotspot: {
-          paradiseBias: 1,
-          volcanicBias: 1,
-          volcanicPeakChance: 0.3,
+      islands: {
+        strategy: "default",
+        config: {
+          islands: {},
+          hotspot: {
+            paradiseBias: 1,
+            volcanicBias: 1,
+            volcanicPeakChance: 0.3,
+          },
+          seaLaneAvoidRadius: 2,
         },
       },
-      corridors: { sea: {} },
     },
     mountains: {
       mountains: {
-        // Balanced physics settings for plate-driven terrain
-        tectonicIntensity: 0.65,
-        mountainThreshold: 0.7,
-        hillThreshold: 0.35,
-        upliftWeight: 0.37,
-        fractalWeight: 0.37,
-        riftDepth: 0.75,
-        boundaryWeight: 0.8,
-        boundaryGate: 0,
-        boundaryExponent: 1.77,
-        interiorPenaltyWeight: 0.0,
-        convergenceBonus: 0.4,
-        transformPenalty: 0.6,
-        riftPenalty: 1.0,
-        hillBoundaryWeight: 0.35,
-        hillRiftBonus: 0.67,
-        hillConvergentFoothill: 0.35,
-        hillInteriorFalloff: 0.1,
-        hillUpliftWeight: 0.2,
+        strategy: "default",
+        config: {
+          // Balanced physics settings for plate-driven terrain
+          tectonicIntensity: 0.65,
+          mountainThreshold: 0.7,
+          hillThreshold: 0.35,
+          upliftWeight: 0.37,
+          fractalWeight: 0.37,
+          riftDepth: 0.75,
+          boundaryWeight: 0.8,
+          boundaryGate: 0,
+          boundaryExponent: 1.77,
+          interiorPenaltyWeight: 0.0,
+          convergenceBonus: 0.4,
+          transformPenalty: 0.6,
+          riftPenalty: 1.0,
+          hillBoundaryWeight: 0.35,
+          hillRiftBonus: 0.67,
+          hillConvergentFoothill: 0.35,
+          hillInteriorFalloff: 0.1,
+          hillUpliftWeight: 0.2,
+        },
       },
     },
     volcanoes: {
       volcanoes: {
-        baseDensity: 0.008,
-        minSpacing: 4,
-        boundaryThreshold: 0.3,
-        boundaryWeight: 1.2,
-        convergentMultiplier: 1.47,
-        transformMultiplier: 0.8,
-        divergentMultiplier: 0.3,
-        hotspotWeight: 0.4,
-        shieldPenalty: 0.2,
-        randomJitter: 0.1,
-        minVolcanoes: 5,
-        maxVolcanoes: 25,
+        strategy: "default",
+        config: {
+          baseDensity: 0.008,
+          minSpacing: 4,
+          boundaryThreshold: 0.3,
+          boundaryWeight: 1.2,
+          convergentMultiplier: 1.47,
+          transformMultiplier: 0.8,
+          divergentMultiplier: 0.3,
+          hotspotWeight: 0.4,
+          shieldPenalty: 0.2,
+          randomJitter: 0.1,
+          minVolcanoes: 5,
+          maxVolcanoes: 25,
+        },
+      },
+    },
+    landmasses: {
+      landmasses: {
+        strategy: "default",
+        config: {},
       },
     },
   },

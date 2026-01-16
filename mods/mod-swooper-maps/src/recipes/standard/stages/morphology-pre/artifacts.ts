@@ -15,7 +15,7 @@ const MorphologyTopographyArtifactSchema = Type.Object(
         "Land/water mask per tile (1=land, 0=water). Publish-once buffer handle; steps may mutate in-place via ctx.buffers.heightfield.",
     }),
   },
-  { additionalProperties: false, description: "Canonical morphology topography buffer handle (publish once)." }
+  { description: "Canonical morphology topography buffer handle (publish once)." }
 );
 
 const MorphologyCoastlinesAppliedArtifactSchema = Type.Object(
@@ -36,7 +36,7 @@ const MorphologyRoutingArtifactSchema = Type.Object(
       TypedArraySchemas.i32({ description: "Optional basin identifier per tile (or -1 when unassigned)." })
     ),
   },
-  { additionalProperties: false, description: "Morphology routing buffer handle (publish once)." }
+  { description: "Morphology routing buffer handle (publish once)." }
 );
 
 const MorphologySubstrateArtifactSchema = Type.Object(
@@ -48,7 +48,7 @@ const MorphologySubstrateArtifactSchema = Type.Object(
       description: "Loose sediment thickness proxy per tile (higher = deeper deposits).",
     }),
   },
-  { additionalProperties: false, description: "Morphology substrate buffer handle (publish once)." }
+  { description: "Morphology substrate buffer handle (publish once)." }
 );
 
 const MorphologyCoastlineMetricsArtifactSchema = Type.Object(
@@ -56,7 +56,7 @@ const MorphologyCoastlineMetricsArtifactSchema = Type.Object(
     coastalLand: TypedArraySchemas.u8({ description: "Mask (1/0): land tiles adjacent to water." }),
     coastalWater: TypedArraySchemas.u8({ description: "Mask (1/0): water tiles adjacent to land." }),
   },
-  { additionalProperties: false, description: "Derived coastline metrics snapshot (immutable)." }
+  { description: "Derived coastline metrics snapshot (immutable)." }
 );
 
 const MorphologyLandmassArtifactSchema = Type.Object(
@@ -77,7 +77,7 @@ const MorphologyLandmassArtifactSchema = Type.Object(
       }
     ),
   },
-  { additionalProperties: false, description: "One connected land component derived from the landMask." }
+  { description: "One connected land component derived from the landMask." }
 );
 
 const MorphologyLandmassesArtifactSchema = Type.Object(
@@ -88,7 +88,7 @@ const MorphologyLandmassesArtifactSchema = Type.Object(
         "Per-tile landmass component id (-1 for water). Values map to the landmasses[] entries.",
     }),
   },
-  { additionalProperties: false, description: "Landmass decomposition snapshot (immutable)." }
+  { description: "Landmass decomposition snapshot (immutable)." }
 );
 
 export const morphologyArtifacts = {

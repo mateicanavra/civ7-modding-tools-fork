@@ -1,4 +1,5 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
+import morphology from "@mapgen/domain/morphology";
 
 import { morphologyArtifacts } from "../../morphology-pre/artifacts.js";
 
@@ -11,8 +12,10 @@ const LandmassesStepContract = defineStep({
     requires: [morphologyArtifacts.topography],
     provides: [morphologyArtifacts.landmasses],
   },
-  schema: Type.Object({}, { additionalProperties: false }),
+  ops: {
+    landmasses: morphology.ops.computeLandmasses,
+  },
+  schema: Type.Object({}),
 });
 
 export default LandmassesStepContract;
-

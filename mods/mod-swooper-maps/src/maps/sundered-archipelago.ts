@@ -35,46 +35,64 @@ const config = {
   },
   "morphology-pre": {
     "landmass-plates": {
-      landmass: {
-        // Less water, but fragmented into islands not continents
-        baseWaterPercent: 65,
-        waterScalar: 1,
-        // Sharp edges to fragment land into islands
-        crustEdgeBlend: 0.2,
-        crustNoiseAmplitude: 0.25,
-        // Normal continental height (was too low before!)
-        continentalHeight: 0.45,
-        oceanicHeight: -0.7,
-        // Maximum boundary influence - all land at plate edges
-        boundaryBias: 0.75,
-        boundaryShareTarget: 0.65,
-        tectonics: {
-          // Maximum boundary arc weight - islands form along plate edges only
-          boundaryArcWeight: 0.85,
-          boundaryArcNoiseWeight: 0.7,
-          // Minimal interior weight - no continental cores
-          interiorNoiseWeight: 0.15,
-          fractalGrain: 8,
+      substrate: {
+        strategy: "default",
+        config: {},
+      },
+      baseTopography: {
+        strategy: "default",
+        config: {
+          // Sharp edges to fragment land into islands
+          crustEdgeBlend: 0.2,
+          crustNoiseAmplitude: 0.25,
+          // Normal continental height (was too low before!)
+          continentalHeight: 0.45,
+          oceanicHeight: -0.7,
+          // Maximum boundary influence - all land at plate edges
+          boundaryBias: 0.75,
+          tectonics: {
+            // Maximum boundary arc weight - islands form along plate edges only
+            boundaryArcWeight: 0.85,
+            boundaryArcNoiseWeight: 0.7,
+            // Minimal interior weight - no continental cores
+            interiorNoiseWeight: 0.15,
+            fractalGrain: 8,
+          },
         },
       },
-      oceanSeparation: {
-        enabled: false,
-        baseSeparationTiles: 0,
-        boundaryClosenessMultiplier: 1.0,
-        maxPerRowDelta: 5,
-        minChannelWidth: 3,
-        respectSeaLanes: true,
-        edgeWest: {
-          enabled: false,
-          baseTiles: 0,
-          boundaryClosenessMultiplier: 1.0,
-          maxPerRowDelta: 2,
+      seaLevel: {
+        strategy: "default",
+        config: {
+          // Less water, but fragmented into islands not continents
+          targetWaterPercent: 65,
+          targetScalar: 1,
+          boundaryShareTarget: 0.65,
         },
-        edgeEast: {
-          enabled: false,
-          baseTiles: 0,
-          boundaryClosenessMultiplier: 1.0,
-          maxPerRowDelta: 2,
+      },
+      landmask: {
+        strategy: "default",
+        config: {
+          basinSeparation: {
+            enabled: false,
+            baseSeparationTiles: 0,
+            boundaryClosenessMultiplier: 1.0,
+            maxPerRowDelta: 5,
+            minChannelWidth: 3,
+            channelJitter: 0,
+            respectSeaLanes: true,
+            edgeWest: {
+              enabled: false,
+              baseTiles: 0,
+              boundaryClosenessMultiplier: 1.0,
+              maxPerRowDelta: 2,
+            },
+            edgeEast: {
+              enabled: false,
+              baseTiles: 0,
+              boundaryClosenessMultiplier: 1.0,
+              maxPerRowDelta: 2,
+            },
+          },
         },
       },
     },
@@ -111,25 +129,51 @@ const config = {
   "morphology-mid": {
     "rugged-coasts": {
       coastlines: {
-        plateBias: {
-          threshold: 0.35,
-          power: 1.5,
-          // Strong convergent coasts for island arcs
-          convergent: 2.0,
-          transform: 0.5,
-          divergent: -0.2,
-          interior: 0.3,
-          // Very complex coastlines for island detail
-          bayWeight: 1.2,
-          bayNoiseBonus: 0.8,
-          fjordWeight: 0.9,
+        strategy: "default",
+        config: {
+          coast: {
+            plateBias: {
+              threshold: 0.35,
+              power: 1.5,
+              // Strong convergent coasts for island arcs
+              convergent: 2.0,
+              transform: 0.5,
+              divergent: -0.2,
+              interior: 0.3,
+              // Very complex coastlines for island detail
+              bayWeight: 1.2,
+              bayNoiseBonus: 0.8,
+              fjordWeight: 0.9,
+            },
+            bay: {},
+            fjord: {},
+            minSeaLaneWidth: 3,
+          },
+          seaLanes: {
+            mode: "soft",
+            softChanceMultiplier: 1,
+          },
         },
       },
-      corridors: {
-        sea: {},
-        land: {},
-        river: {},
-        islandHop: {},
+    },
+    routing: {
+      routing: {
+        strategy: "default",
+        config: {},
+      },
+    },
+    geomorphology: {
+      geomorphology: {
+        strategy: "default",
+        config: {
+          geomorphology: {
+            fluvial: {},
+            diffusion: {},
+            deposition: {},
+            eras: 2,
+          },
+          worldAge: "mature",
+        },
       },
     },
   },
@@ -138,56 +182,71 @@ const config = {
   },
   "morphology-post": {
     islands: {
-      islands: {},
-      story: {
-        hotspot: {
-          paradiseBias: 3,
-          volcanicBias: 3,
-          volcanicPeakChance: 0.5,
+      islands: {
+        strategy: "default",
+        config: {
+          islands: {},
+          hotspot: {
+            paradiseBias: 3,
+            volcanicBias: 3,
+            volcanicPeakChance: 0.5,
+          },
+          seaLaneAvoidRadius: 2,
         },
       },
-      corridors: { sea: {} },
     },
     mountains: {
       mountains: {
-        // Focused volcanic peaks rather than ranges
-        tectonicIntensity: 0.7,
-        mountainThreshold: 0.55,
-        hillThreshold: 0.28,
-        upliftWeight: 0.3,
-        fractalWeight: 0.35,
-        riftDepth: 0.4,
-        // Strong boundary influence for arc volcanism
-        boundaryWeight: 1.0,
-        boundaryGate: 0.05,
-        boundaryExponent: 1.5,
-        interiorPenaltyWeight: 0.1,
-        convergenceBonus: 0.9,
-        transformPenalty: 0.4,
-        riftPenalty: 0.6,
-        hillBoundaryWeight: 0.5,
-        hillRiftBonus: 0.35,
-        hillConvergentFoothill: 0.4,
-        hillInteriorFalloff: 0.2,
-        hillUpliftWeight: 0.3,
+        strategy: "default",
+        config: {
+          // Focused volcanic peaks rather than ranges
+          tectonicIntensity: 0.7,
+          mountainThreshold: 0.55,
+          hillThreshold: 0.28,
+          upliftWeight: 0.3,
+          fractalWeight: 0.35,
+          riftDepth: 0.4,
+          // Strong boundary influence for arc volcanism
+          boundaryWeight: 1.0,
+          boundaryGate: 0.05,
+          boundaryExponent: 1.5,
+          interiorPenaltyWeight: 0.1,
+          convergenceBonus: 0.9,
+          transformPenalty: 0.4,
+          riftPenalty: 0.6,
+          hillBoundaryWeight: 0.5,
+          hillRiftBonus: 0.35,
+          hillConvergentFoothill: 0.4,
+          hillInteriorFalloff: 0.2,
+          hillUpliftWeight: 0.3,
+        },
       },
     },
     volcanoes: {
       volcanoes: {
-        // High volcanic density for island chains
-        baseDensity: 1 / 100,
-        minSpacing: 2,
-        boundaryThreshold: 0.2,
-        boundaryWeight: 1.5,
-        convergentMultiplier: 3.0,
-        transformMultiplier: 1.3,
-        divergentMultiplier: 0.6,
-        // Maximum hotspot activity for volcanic chains
-        hotspotWeight: 0.55,
-        shieldPenalty: 0.3,
-        randomJitter: 0.15,
-        minVolcanoes: 12,
-        maxVolcanoes: 55,
+        strategy: "default",
+        config: {
+          // High volcanic density for island chains
+          baseDensity: 1 / 100,
+          minSpacing: 2,
+          boundaryThreshold: 0.2,
+          boundaryWeight: 1.5,
+          convergentMultiplier: 3.0,
+          transformMultiplier: 1.3,
+          divergentMultiplier: 0.6,
+          // Maximum hotspot activity for volcanic chains
+          hotspotWeight: 0.55,
+          shieldPenalty: 0.3,
+          randomJitter: 0.15,
+          minVolcanoes: 12,
+          maxVolcanoes: 55,
+        },
+      },
+    },
+    landmasses: {
+      landmasses: {
+        strategy: "default",
+        config: {},
       },
     },
   },
