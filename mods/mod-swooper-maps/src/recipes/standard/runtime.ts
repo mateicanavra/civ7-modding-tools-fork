@@ -9,7 +9,6 @@ export type StandardRuntime = {
   startSectorRows: number;
   startSectorCols: number;
   startSectors: unknown[];
-  startPositions: number[];
   storyEnabled: boolean;
 };
 
@@ -46,7 +45,6 @@ function createRuntime(context: ExtendedMapContext): StandardRuntime {
     startSectorRows,
     startSectorCols,
     startSectors,
-    startPositions: [],
     storyEnabled: true,
   };
 }

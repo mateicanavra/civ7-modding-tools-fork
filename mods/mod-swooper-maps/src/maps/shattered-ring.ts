@@ -12,13 +12,14 @@
 
 /// <reference types="@civ7/types" />
 
-import "@swooper/mapgen-core/polyfills/text-encoder";
+import { createMap } from "@swooper/mapgen-core/authoring/maps";
 import standardRecipe from "../recipes/standard/recipe.js";
-import type { StandardRecipeConfig } from "../recipes/standard/recipe.js";
-import type { MapRuntimeOptions } from "./_runtime/types.js";
-import { wireStandardMapEntry } from "./_runtime/standard-entry.js";
 
-const config = {
+export default createMap({
+  id: "shattered-ring",
+  name: "The Shattered Ring",
+  recipe: standardRecipe,
+  config: {
   foundation: {
     mesh: {
       computeMesh: {
@@ -979,13 +980,5 @@ const config = {
     },
     placement: {},
   },
-} satisfies StandardRecipeConfig;
-
-const runtimeOptions: MapRuntimeOptions = { logPrefix: "[SWOOPER_MOD]" };
-
-wireStandardMapEntry({
-  engine,
-  recipe: standardRecipe,
-  config,
-  options: runtimeOptions,
+  },
 });

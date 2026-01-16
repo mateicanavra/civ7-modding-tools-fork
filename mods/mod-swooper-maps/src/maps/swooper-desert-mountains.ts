@@ -10,13 +10,18 @@
 
 /// <reference types="@civ7/types" />
 
-import "@swooper/mapgen-core/polyfills/text-encoder";
+import { createMap } from "@swooper/mapgen-core/authoring/maps";
 import standardRecipe from "../recipes/standard/recipe.js";
-import type { StandardRecipeConfig } from "../recipes/standard/recipe.js";
-import type { MapRuntimeOptions } from "./_runtime/types.js";
-import { wireStandardMapEntry } from "./_runtime/standard-entry.js";
 
-const config = {
+export default createMap({
+  id: "swooper-desert-mountains",
+  name: "Swooper Desert Mountains",
+  recipe: standardRecipe,
+  latitudeBounds: {
+    topLatitude: 40,
+    bottomLatitude: -40,
+  },
+  config: {
   foundation: {
     mesh: {
       computeMesh: {
@@ -952,19 +957,5 @@ const config = {
     },
     placement: {},
   },
-} satisfies StandardRecipeConfig;
-
-const runtimeOptions: MapRuntimeOptions = {
-  logPrefix: "[SWOOPER_MOD]",
-  latitudeBounds: {
-    topLatitude: 40,
-    bottomLatitude: -40,
   },
-};
-
-wireStandardMapEntry({
-  engine,
-  recipe: standardRecipe,
-  config,
-  options: runtimeOptions,
 });
