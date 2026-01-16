@@ -24,10 +24,10 @@ export default createMap({
           strategy: "default",
           config: {
             plateCount: 32,             // Fewer plates to reduce boundary fragmentation
-            cellsPerPlate: 5,           // Larger plates with more internal area
+            cellsPerPlate: 7,           // Larger plates with more internal area
             relaxationSteps: 4,         // Smoother plate boundaries
             referenceArea: 16000,        // Standard reference
-            plateScalePower: 0.55,       // Standard scaling
+            plateScalePower: 0.65,       // Standard scaling
           },
         },
       },
@@ -35,7 +35,7 @@ export default createMap({
         computeCrust: {
           strategy: "default",
           config: {
-            continentalRatio: 0.29,     // Earth: ~29% continental crust
+            continentalRatio: 0.33,     // Earth: ~29% continental crust
           },
         },
       },
@@ -43,9 +43,9 @@ export default createMap({
         computePlateGraph: {
           strategy: "default",
           config: {
-            plateCount: 23,             // Match mesh plateCount
+            plateCount: 32,             // Match mesh plateCount
             referenceArea: 16000,
-            plateScalePower: 0.55,
+            plateScalePower: 0.65,
           },
         },
       },
@@ -59,9 +59,9 @@ export default createMap({
         computePlates: {
           strategy: "default",
           config: {
-            boundaryInfluenceDistance: 8,
+            boundaryInfluenceDistance: 11,
             boundaryDecay: 0.55,
-            movementScale: 95,
+            movementScale: 50,
             rotationScale: 90,
           },
         },
@@ -87,7 +87,7 @@ export default createMap({
             // Crust-first height tuning to avoid island-heavy hypsometry.
             crustEdgeBlend: 0.55,           // Wider continental shelves (Earth-like)
             crustNoiseAmplitude: 0.65,      // Higher: more varied coastline shapes
-            continentalHeight: 0.58,        // Slightly lower for more coastal variation
+            continentalHeight: 0.65,        // Slightly lower for more coastal variation
             oceanicHeight: -0.85,           // Slightly shallower for shelf diversity
             tectonics: {
               // De-emphasize arcs so plate boundaries don't dominate land distribution.
@@ -102,7 +102,7 @@ export default createMap({
           strategy: "default",
           config: {
             // Earth-like ocean dominance, tuned to avoid archipelago output.
-            targetWaterPercent: 67,         // Dial back to preserve contiguous continents
+            targetWaterPercent: 63,         // Dial back to preserve contiguous continents
             targetScalar: 1,
             variance: 0,
             boundaryShareTarget: 0.1,       // Reduce boundary land share
@@ -295,13 +295,13 @@ export default createMap({
           config: {
             islands: {
               // Earth-like island distribution with microcontinents
-              fractalThresholdPercent: 94,    // Slightly more islands for variety
-              minDistFromLandRadius: 4,       // Keep islands away from continental shores
-              baseIslandDenNearActive: 4,     // Moderate arc islands
-              baseIslandDenElse: 5,           // More passive-margin islands
+              fractalThresholdPercent: 97,    // Slightly more islands for variety
+              minDistFromLandRadius: 6,       // Keep islands away from continental shores
+              baseIslandDenNearActive: 2,     // Moderate arc islands
+              baseIslandDenElse: 3,           // More passive-margin islands
               hotspotSeedDenom: 4,            // More hotspot chains (Hawaii, Galapagos)
-              clusterMax: 3,                  // Larger archipelago clusters
-              microcontinentChance: 0.12,     // More Madagascar/NZ-style shards
+              clusterMax: 15,                  // Larger archipelago clusters
+              microcontinentChance: 0.3,     // More Madagascar/NZ-style shards
             },
             hotspot: {
               paradiseBias: 2.0,            // Moderate paradise preference
@@ -317,24 +317,24 @@ export default createMap({
           strategy: "default",
           config: {
             // Earth-like: major ranges at margins, few interior mountains
-            tectonicIntensity: 0.68,
-            mountainThreshold: 0.62,       // More mountains at margins
-            hillThreshold: 0.35,           // More foothills for transitions
+            tectonicIntensity: 0.63,
+            mountainThreshold: 0.67,       // More mountains at margins
+            hillThreshold: 0.37,           // More foothills for transitions
             upliftWeight: 0.28,
-            fractalWeight: 0.48,           // Less noise for cleaner ranges
+            fractalWeight: 0.80,           // Less noise for cleaner ranges
             riftDepth: 0.28,
-            boundaryWeight: 0.65,
-            boundaryGate: 0.15,            // Concentrate at margins
-            boundaryExponent: 1.4,         // Sharper decay from margins
-            interiorPenaltyWeight: 0.28,   // Stronger: fewer interior mountains
+            boundaryWeight: 0.15,
+            boundaryGate: 0.10,            // Concentrate at margins
+            boundaryExponent: 1.2,         // Sharper decay from margins
+            interiorPenaltyWeight: 0.10,   // Stronger: fewer interior mountains
             convergenceBonus: 0.62,
             transformPenalty: 0.65,
             riftPenalty: 0.75,
             hillBoundaryWeight: 0.32,      // More boundary foothills
-            hillRiftBonus: 0.38,
+            hillRiftBonus: 0.50,
             hillConvergentFoothill: 0.30,  // Wider Himalayan-style foothills
             hillInteriorFalloff: 0.25,     // Stronger interior decay
-            hillUpliftWeight: 0.18,
+            hillUpliftWeight: 0.2,
           },
         },
       },
@@ -380,20 +380,20 @@ export default createMap({
         climate: {
           baseline: {
             blend: {
-              baseWeight: 0.45,
-              bandWeight: 0.65,
+              baseWeight: 0.65,
+              bandWeight: 0.35,
             },
             seed: {
               baseRainfall: 21,       // Slightly wetter base for stronger rainforest contrast
               coastalExponent: 1.4,   // Steeper falloff: sharper coast/interior contrast
             },
             bands: {
-              deg0to10: 140,
-              deg10to20: 100,
-              deg20to35: 35,         // Lower: stronger subtropical deserts
+              deg0to10: 190,
+              deg10to20: 160,
+              deg20to35: 30,         // Lower: stronger subtropical deserts
               deg35to55: 88,
               deg55to70: 75,
-              deg70plus: 40,         // Slightly raised: more tundra variation
+              deg70plus: 90,         // Slightly raised: more tundra variation
               edges: {
                 deg0to10: 10,
                 deg10to20: 20,
@@ -401,10 +401,10 @@ export default createMap({
                 deg35to55: 55,
                 deg55to70: 70,
               },
-              transitionWidth: 12,
+              transitionWidth: 13,
             },
             sizeScaling: {
-              baseArea: 10000,
+              baseArea: 16000,
               minScale: 0.6,
               maxScale: 2.0,
               equatorBoostScale: 12,
@@ -418,7 +418,7 @@ export default createMap({
             },
             coastal: {
               coastalLandBonus: 24,  // Reduced: allow coastal deserts
-              spread: 4,             // Reduced: tighter coastal moisture band
+              spread: 5,             // Reduced: tighter coastal moisture band
             },
             noise: {
               baseSpanSmall: 4,
@@ -806,7 +806,7 @@ export default createMap({
               pole: -12,
               lapseRate: 6.5,
               seaLevel: 0,
-              bias: 0.5,             // Reduced from 2.5: allows more cold biomes (tundra, boreal)
+              bias: 0.7,             // Reduced from 2.5: allows more cold biomes (tundra, boreal)
               polarCutoff: -5,
               tundraCutoff: 0,
               midLatitude: 12,
@@ -821,10 +821,10 @@ export default createMap({
               temperatureMin: 0,
               temperatureMax: 35,
               petBase: 20,           // Moderate evaporation demand
-              petTemperatureWeight: 78,  // Moderate temperature effect
-              humidityDampening: 0.5,    // Slightly less humid buffering
-              rainfallWeight: 0.9,   // Rainfall offsets aridity reasonably
-              bias: 3.3,             // Slight push toward aridity (was 8, too aggressive)
+              petTemperatureWeight: 90,  // Moderate temperature effect
+              humidityDampening: 0.2,    // Slightly less humid buffering
+              rainfallWeight: 0.95,   // Rainfall offsets aridity reasonably
+              bias: 2,             // Slight push toward aridity (was 8, too aggressive)
               normalization: 118,    // More reasonable normalization
               moistureShiftThresholds: [0.42, 0.65] as [number, number],  // Less aggressive thresholds
               vegetationPenalty: 0.08,  // Moderate sparse vegetation in arid areas
@@ -839,14 +839,14 @@ export default createMap({
               humidityWeight: 0.35,
               moistureNormalizationPadding: 60,
               biomeModifiers: {
-                snow: { multiplier: 0.85, bonus: 1 },
+                snow: { multiplier: 2.5, bonus: 1 },
                 tundra: { multiplier: 0.5, bonus: 0 },
                 boreal: { multiplier: 0.85, bonus: 0 },
                 temperateDry: { multiplier: 0.75, bonus: 0 },
                 temperateHumid: { multiplier: 1, bonus: 0 },
                 tropicalSeasonal: { multiplier: 1, bonus: 0 },
-                tropicalRainforest: { multiplier: 1.1, bonus: 0.6 },
-                desert: { multiplier: 0.08, bonus: 0 },
+                tropicalRainforest: { multiplier: 2.5, bonus: 1.5 },
+                desert: { multiplier: 0.9, bonus: 0 },
               },
             },
             noise: {
