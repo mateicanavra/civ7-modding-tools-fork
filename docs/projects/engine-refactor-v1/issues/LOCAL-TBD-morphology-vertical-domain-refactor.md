@@ -83,7 +83,7 @@ issues:
     blocked_by: [MORPH-S2]
   - id: MORPH-S4
     title: "Slice 4 — HOTSPOTS ownership cutover (Narrative-owned)"
-    status: planned
+    status: completed
     blocked_by: [MORPH-S3]
   - id: MORPH-S5
     title: "Slice 5 — Morphology domain ops refactor + recipe wiring + config overhaul"
@@ -509,9 +509,9 @@ Changes:
 - Ensure HOTSPOTS is published by a Narrative step (target: `narrative-pre/storyHotspots`) with explicit prerequisites (Foundation + Morphology artifacts as needed).
 
 **Acceptance Criteria (verifiable):**
-- [ ] No module under `swooper-src/recipes/standard/stages/morphology-*` publishes HOTSPOTS overlays.
-- [ ] Exactly one Narrative-owned producer remains for HOTSPOTS publication (current target: `narrative-pre/storyHotspots`).
-- [ ] Morphology steps may read HOTSPOTS overlays as inputs (data-only), but do not publish them.
+- [x] No module under `swooper-src/recipes/standard/stages/morphology-*` publishes HOTSPOTS overlays.
+- [x] Exactly one Narrative-owned producer remains for HOTSPOTS publication (current target: `narrative-pre/storyHotspots`).
+- [x] Morphology steps may read HOTSPOTS overlays as inputs (data-only), but do not publish them.
 
 **Scope boundaries:**
 - In scope:
@@ -542,6 +542,10 @@ Guardrails:
 
 Verification gates:
 - `pnpm -C mods/mod-swooper-maps test`
+
+Trace:
+- Implemented on branch `agent-BRODY-M8-MORPH-S4-hotspots-ownership`.
+- Draft PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/591
 
 ### Slice 5 — Morphology domain ops refactor (contract-first ops + step orchestration)
 

@@ -84,6 +84,56 @@ describe("morphology contract guardrails", () => {
     }
   });
 
+  it("does not publish HOTSPOTS overlays from morphology steps", () => {
+    const repoRoot = path.resolve(import.meta.dir, "../..");
+    const roots = [
+      path.join(repoRoot, "src/recipes/standard/stages/morphology-pre"),
+      path.join(repoRoot, "src/recipes/standard/stages/morphology-mid"),
+      path.join(repoRoot, "src/recipes/standard/stages/morphology-post"),
+    ];
+
+    const files = roots.flatMap((candidate) => {
+      try {
+        const stat = statSync(candidate);
+        if (stat.isDirectory()) {
+          return listFilesRecursive(candidate).filter((file) => file.endsWith(".ts"));
+        }
+        return [candidate];
+      } catch {
+        return [];
+      }
+    });
+
+    expect(files.length).toBeGreaterThan(0);
+
+    for (const file of files) {
+      const text = readFileSync(file, "utf8");
+      const calls = Array.from(text.matchAll(/publishStoryOverlay\s*\([\s\S]{0,200}\)/g));
+      const publishesHotspots = calls.some((match) =>
+        /HOTSPOTS|["']hotspots["']/.test(match[0])
+      );
+      expect(publishesHotspots).toBe(false);
+    }
+  });
+
+  it("publishes HOTSPOTS only from the narrative-owned producer", () => {
+    const repoRoot = path.resolve(import.meta.dir, "../..");
+    const srcRoot = path.join(repoRoot, "src");
+    const allowed = ["src/domain/narrative/tagging/hotspots.ts"];
+
+    const files = listFilesRecursive(srcRoot).filter((file) => file.endsWith(".ts"));
+    const publishers = files
+      .filter((file) => {
+        const text = readFileSync(file, "utf8");
+        const calls = Array.from(text.matchAll(/publishStoryOverlay\s*\([\s\S]{0,200}\)/g));
+        return calls.some((match) => /HOTSPOTS|["']hotspots["']/.test(match[0]));
+      })
+      .map((file) => path.relative(repoRoot, file))
+      .sort();
+
+    expect(publishers).toEqual(allowed);
+  });
+
   it("does not use morphology effect-tag gating in migrated consumer contracts", () => {
     const repoRoot = path.resolve(import.meta.dir, "../..");
     const migratedContracts: Array<{
