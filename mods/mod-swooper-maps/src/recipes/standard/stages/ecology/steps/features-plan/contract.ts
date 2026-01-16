@@ -18,7 +18,9 @@ const FeaturesPlanStepContract = defineStep({
   },
   ops: {
     vegetation: ecology.ops.planVegetation,
+    vegetatedFeaturePlacements: ecology.ops.planVegetatedFeaturePlacements,
     wetlands: ecology.ops.planWetlands,
+    wetFeaturePlacements: ecology.ops.planWetFeaturePlacements,
     reefs: ecology.ops.planReefs,
     ice: ecology.ops.planIce,
   },

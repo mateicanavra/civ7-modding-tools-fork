@@ -23,13 +23,48 @@ const config = {
     mesh: {
       computeMesh: {
         strategy: "default",
-        config: { plateCount: 28, cellsPerPlate: 2, relaxationSteps: 6 },
+        config: {
+          plateCount: 28,
+          cellsPerPlate: 2,
+          relaxationSteps: 6,
+          referenceArea: 4000,
+          plateScalePower: 0.5,
+        },
+      },
+    },
+    crust: {
+      computeCrust: {
+        strategy: "default",
+        config: {
+          continentalRatio: 0.3,
+        },
       },
     },
     "plate-graph": {
       computePlateGraph: {
         strategy: "default",
-        config: { plateCount: 28 },
+        config: {
+          plateCount: 28,
+          referenceArea: 4000,
+          plateScalePower: 0.5,
+        },
+      },
+    },
+    tectonics: {
+      computeTectonics: {
+        strategy: "default",
+        config: {},
+      },
+    },
+    projection: {
+      computePlates: {
+        strategy: "default",
+        config: {
+          boundaryInfluenceDistance: 5,
+          boundaryDecay: 0.55,
+          movementScale: 100,
+          rotationScale: 100,
+        },
       },
     },
   },
@@ -37,24 +72,30 @@ const config = {
     "landmass-plates": {
       substrate: {
         strategy: "default",
-        config: {},
+        config: {
+          baseErodibility: 0.6,
+          baseSediment: 0.2,
+          upliftErodibilityBoost: 0.3,
+          riftSedimentBoost: 0.2,
+        },
       },
       baseTopography: {
         strategy: "default",
         config: {
           // Sharp continental edges from impact scarring
-          crustEdgeBlend: 0.15,
-          crustNoiseAmplitude: 0.12,
-          continentalHeight: 0.45,
-          oceanicHeight: -0.8,
+          clusteringBias: 0.15,
+          crustEdgeBlend: 0.18,
+          crustNoiseAmplitude: 0.18,
+          continentalHeight: 0.5,
+          oceanicHeight: -0.85,
           // Strong plate-driven coasts for ring structure
-          boundaryBias: 0.45,
+          boundaryBias: 0.6,
           tectonics: {
             // Strong coastal arcs for ring formation
-            boundaryArcWeight: 0.55,
-            boundaryArcNoiseWeight: 0.4,
-            interiorNoiseWeight: 0.6,
-            fractalGrain: 6,
+            boundaryArcWeight: 0.7,
+            boundaryArcNoiseWeight: 0.55,
+            interiorNoiseWeight: 0.4,
+            fractalGrain: 5,
           },
         },
       },
@@ -62,9 +103,11 @@ const config = {
         strategy: "default",
         config: {
           // Central crater sea with ring continent
-          targetWaterPercent: 62,
+          targetWaterPercent: 60,
           targetScalar: 1,
-          boundaryShareTarget: 0.35,
+          variance: 0,
+          boundaryShareTarget: 0.45,
+          continentalFraction: 0.3,
         },
       },
       landmask: {
@@ -72,6 +115,7 @@ const config = {
         config: {
           basinSeparation: {
             enabled: false,
+            bandPairs: [],
             baseSeparationTiles: 0,
             boundaryClosenessMultiplier: 1.0,
             maxPerRowDelta: 4,
@@ -108,19 +152,60 @@ const config = {
     "story-hotspots": {
       story: {
         hotspot: {
+          maxTrails: 12,
+          steps: 15,
+          stepLen: 2,
+          minDistFromLand: 5,
+          minTrailSeparation: 12,
           paradiseBias: 2,
           volcanicBias: 2,
           volcanicPeakChance: 0.4,
         },
       },
     },
-    "story-rifts": { story: { rift: {} } },
+    "story-rifts": {
+      story: {
+        rift: {
+          maxRiftsPerMap: 3,
+          lineSteps: 18,
+          stepLen: 2,
+          shoulderWidth: 1,
+        },
+      },
+    },
     "story-corridors-pre": {
       corridors: {
-        sea: {},
-        land: {},
-        river: {},
-        islandHop: {},
+        sea: {
+          protection: "hard",
+          softChanceMultiplier: 0.5,
+          avoidRadius: 2,
+          maxLanes: 3,
+          scanStride: 6,
+          minLengthFrac: 0.7,
+          preferDiagonals: false,
+          laneSpacing: 6,
+          minChannelWidth: 3,
+        },
+        land: {
+          biomesBiasStrength: 0.6,
+          useRiftShoulders: true,
+          maxCorridors: 2,
+          minRunLength: 24,
+          spacing: 0,
+        },
+        river: {
+          biomesBiasStrength: 0.5,
+          maxChains: 2,
+          maxSteps: 80,
+          preferLowlandBelow: 300,
+          coastSeedRadius: 2,
+          minTiles: 0,
+          mustEndNearCoast: false,
+        },
+        islandHop: {
+          useHotspots: true,
+          maxArcs: 2,
+        },
       },
     },
   },
@@ -143,8 +228,16 @@ const config = {
               bayNoiseBonus: 0.6,
               fjordWeight: 0.7,
             },
-            bay: {},
-            fjord: {},
+            bay: {
+              noiseGateAdd: 0,
+              rollDenActive: 4,
+              rollDenDefault: 5,
+            },
+            fjord: {
+              baseDenom: 12,
+              activeBonus: 1,
+              passiveBonus: 2,
+            },
             minSeaLaneWidth: 3,
           },
           seaLanes: {
@@ -165,9 +258,18 @@ const config = {
         strategy: "default",
         config: {
           geomorphology: {
-            fluvial: {},
-            diffusion: {},
-            deposition: {},
+            fluvial: {
+              rate: 0.15,
+              m: 0.5,
+              n: 1.0,
+            },
+            diffusion: {
+              rate: 0.2,
+              talus: 0.5,
+            },
+            deposition: {
+              rate: 0.1,
+            },
             eras: 2,
           },
           worldAge: "mature",
@@ -176,18 +278,35 @@ const config = {
     },
   },
   "narrative-mid": {
-    "story-orogeny": { story: { orogeny: {} } },
+    "story-orogeny": {
+      story: {
+        orogeny: {
+          radius: 2,
+          beltMinLength: 36,
+          windwardBoost: 6,
+          leeDrynessAmplifier: 1.4,
+        },
+      },
+    },
   },
   "morphology-post": {
     islands: {
       islands: {
         strategy: "default",
         config: {
-          islands: {},
+          islands: {
+            fractalThresholdPercent: 92,
+            minDistFromLandRadius: 2,
+            baseIslandDenNearActive: 4,
+            baseIslandDenElse: 5,
+            hotspotSeedDenom: 2,
+            clusterMax: 3,
+            microcontinentChance: 0.1,
+          },
           hotspot: {
             paradiseBias: 2,
-            volcanicBias: 2,
-            volcanicPeakChance: 0.4,
+            volcanicBias: 2.4,
+            volcanicPeakChance: 0.45,
           },
           seaLaneAvoidRadius: 2,
         },
@@ -202,21 +321,21 @@ const config = {
           mountainThreshold: 0.5,
           hillThreshold: 0.3,
           upliftWeight: 0.45,
-          fractalWeight: 0.25,
-          riftDepth: 0.35,
+          fractalWeight: 0.3,
+          riftDepth: 0.3,
           // Strong emphasis on plate boundaries for the ring
-          boundaryWeight: 1.2,
-          boundaryGate: 0.05,
-          boundaryExponent: 1.8,
-          interiorPenaltyWeight: 0.0,
-          convergenceBonus: 0.85,
+          boundaryWeight: 1.35,
+          boundaryGate: 0.1,
+          boundaryExponent: 2.0,
+          interiorPenaltyWeight: 0.1,
+          convergenceBonus: 0.95,
           transformPenalty: 0.5,
-          riftPenalty: 0.8,
-          hillBoundaryWeight: 0.4,
-          hillRiftBonus: 0.3,
-          hillConvergentFoothill: 0.45,
-          hillInteriorFalloff: 0.15,
-          hillUpliftWeight: 0.25,
+          riftPenalty: 0.7,
+          hillBoundaryWeight: 0.45,
+          hillRiftBonus: 0.35,
+          hillConvergentFoothill: 0.5,
+          hillInteriorFalloff: 0.2,
+          hillUpliftWeight: 0.3,
         },
       },
     },
@@ -224,20 +343,21 @@ const config = {
       volcanoes: {
         strategy: "default",
         config: {
+          enabled: true,
           // High volcanic activity in crater sea
-          baseDensity: 1 / 140,
+          baseDensity: 1 / 120,
           minSpacing: 3,
-          boundaryThreshold: 0.25,
-          boundaryWeight: 1.4,
-          convergentMultiplier: 2.8,
-          transformMultiplier: 1.2,
-          divergentMultiplier: 0.5,
+          boundaryThreshold: 0.22,
+          boundaryWeight: 1.5,
+          convergentMultiplier: 3.0,
+          transformMultiplier: 1.1,
+          divergentMultiplier: 0.45,
           // Strong hotspot activity for crater islands
-          hotspotWeight: 0.45,
-          shieldPenalty: 0.4,
-          randomJitter: 0.12,
-          minVolcanoes: 8,
-          maxVolcanoes: 40,
+          hotspotWeight: 0.55,
+          shieldPenalty: 0.35,
+          randomJitter: 0.14,
+          minVolcanoes: 10,
+          maxVolcanoes: 45,
         },
       },
     },
@@ -266,18 +386,18 @@ const config = {
             bandWeight: 0.8,
           },
           seed: {
-            baseRainfall: 35,
-            coastalExponent: 1.3,
+            baseRainfall: 30,
+            coastalExponent: 1.25,
           },
           bands: {
             // Moderate tropical due to ring disruption
-            deg0to10: 108,
-            deg10to20: 90,
+            deg0to10: 110,
+            deg10to20: 95,
             // Strong ring mountain rain shadow
-            deg20to35: 40,
-            deg35to55: 78,
-            deg55to70: 55,
-            deg70plus: 35,
+            deg20to35: 35,
+            deg35to55: 70,
+            deg55to70: 50,
+            deg70plus: 30,
             edges: {
               deg0to10: 10,
               deg10to20: 20,
@@ -285,29 +405,29 @@ const config = {
               deg35to55: 55,
               deg55to70: 70,
             },
-            transitionWidth: 7,
+            transitionWidth: 6,
           },
           sizeScaling: {
             baseArea: 10000,
-            minScale: 0.7,
+            minScale: 0.65,
             maxScale: 2.0,
-            equatorBoostScale: 8,
-            equatorBoostTaper: 0.5,
+            equatorBoostScale: 9,
+            equatorBoostTaper: 0.55,
           },
           orographic: {
-            hi1Threshold: 300,
-            hi1Bonus: 9,
-            hi2Threshold: 550,
-            hi2Bonus: 10,
+            hi1Threshold: 280,
+            hi1Bonus: 10,
+            hi2Threshold: 520,
+            hi2Bonus: 12,
           },
           coastal: {
-            coastalLandBonus: 24,
-            spread: 4,
+            coastalLandBonus: 28,
+            spread: 5,
           },
           noise: {
             baseSpanSmall: 4,
             spanLargeScaleFactor: 1.1,
-            scale: 0.12,
+            scale: 0.13,
           },
         },
       },
@@ -322,18 +442,18 @@ const config = {
             bandWeight: 0.8,
           },
           seed: {
-            baseRainfall: 35,
-            coastalExponent: 1.3,
+            baseRainfall: 30,
+            coastalExponent: 1.25,
           },
           bands: {
             // Moderate tropical due to ring disruption
-            deg0to10: 108,
-            deg10to20: 90,
+            deg0to10: 110,
+            deg10to20: 95,
             // Strong ring mountain rain shadow
-            deg20to35: 40,
-            deg35to55: 78,
-            deg55to70: 55,
-            deg70plus: 35,
+            deg20to35: 35,
+            deg35to55: 70,
+            deg55to70: 50,
+            deg70plus: 30,
             edges: {
               deg0to10: 10,
               deg10to20: 20,
@@ -341,29 +461,29 @@ const config = {
               deg35to55: 55,
               deg55to70: 70,
             },
-            transitionWidth: 7,
+            transitionWidth: 6,
           },
           sizeScaling: {
             baseArea: 10000,
-            minScale: 0.7,
+            minScale: 0.65,
             maxScale: 2.0,
-            equatorBoostScale: 8,
-            equatorBoostTaper: 0.5,
+            equatorBoostScale: 9,
+            equatorBoostTaper: 0.55,
           },
           orographic: {
-            hi1Threshold: 300,
-            hi1Bonus: 9,
-            hi2Threshold: 550,
-            hi2Bonus: 10,
+            hi1Threshold: 280,
+            hi1Bonus: 10,
+            hi2Threshold: 520,
+            hi2Bonus: 12,
           },
           coastal: {
-            coastalLandBonus: 24,
-            spread: 4,
+            coastalLandBonus: 28,
+            spread: 5,
           },
           noise: {
             baseSpanSmall: 4,
             spanLargeScaleFactor: 1.1,
-            scale: 0.12,
+            scale: 0.13,
           },
         },
         swatches: {
@@ -443,15 +563,68 @@ const config = {
     },
   },
   "hydrology-core": {
-    rivers: { climate: { story: { paleo: {} } } },
+    rivers: {
+      climate: {
+        story: {
+          paleo: {
+            maxDeltas: 0,
+            deltaFanRadius: 0,
+            deltaMarshChance: 0.35,
+            maxOxbows: 0,
+            oxbowElevationMax: 280,
+            maxFossilChannels: 0,
+            fossilChannelLengthTiles: 6,
+            fossilChannelStep: 1,
+            fossilChannelHumidity: 0,
+            fossilChannelMinDistanceFromCurrentRivers: 0,
+            bluffWetReduction: 0,
+            sizeScaling: {
+              lengthMulSqrt: 0,
+            },
+            elevationCarving: {
+              enableCanyonRim: true,
+              rimWidth: 0,
+              canyonDryBonus: 0,
+            },
+          },
+        },
+      },
+    },
   },
   "narrative-post": {
     "story-corridors-post": {
       corridors: {
-        sea: {},
-        land: {},
-        river: {},
-        islandHop: {},
+        sea: {
+          protection: "hard",
+          softChanceMultiplier: 0.5,
+          avoidRadius: 2,
+          maxLanes: 3,
+          scanStride: 6,
+          minLengthFrac: 0.7,
+          preferDiagonals: false,
+          laneSpacing: 6,
+          minChannelWidth: 3,
+        },
+        land: {
+          biomesBiasStrength: 0.6,
+          useRiftShoulders: true,
+          maxCorridors: 2,
+          minRunLength: 24,
+          spacing: 0,
+        },
+        river: {
+          biomesBiasStrength: 0.5,
+          maxChains: 2,
+          maxSteps: 80,
+          preferLowlandBelow: 300,
+          coastSeedRadius: 2,
+          minTiles: 0,
+          mustEndNearCoast: false,
+        },
+        islandHop: {
+          useHotspots: true,
+          maxArcs: 2,
+        },
       },
     },
   },
@@ -582,58 +755,103 @@ const config = {
           },
         },
       },
-      story: { orogeny: {} },
+      story: {
+        orogeny: {
+          radius: 2,
+          beltMinLength: 30,
+          windwardBoost: 5,
+          leeDrynessAmplifier: 1.2,
+        },
+      },
     },
   },
   ecology: {
     // New ecology steps with strategy selections for volcanic ring world
     pedology: {
-      classify: { strategy: "orogeny-boosted", config: {} },  // Volcanic terrain soils
+      classify: {
+        strategy: "orogeny-boosted",
+        config: {
+          climateWeight: 1.2,
+          reliefWeight: 0.8,
+          sedimentWeight: 1.1,
+          bedrockWeight: 0.6,
+          fertilityCeiling: 0.95,
+        },
+      },  // Volcanic terrain soils
     },
     resourceBasins: {
-      plan: { strategy: "default", config: {} },
-      score: { strategy: "default", config: {} },
+      plan: { strategy: "default", config: { resources: [] } },
+      score: { strategy: "default", config: { minConfidence: 0.3, maxPerResource: 12 } },
     },
     biomeEdgeRefine: {
-      refine: { strategy: "default", config: {} },
+      refine: { strategy: "default", config: { radius: 1, iterations: 1 } },
     },
     featuresPlan: {
-      vegetation: { strategy: "clustered", config: {} },     // Volcanic forest clusters
-      wetlands: { strategy: "delta-focused", config: {} },   // Volcanic valley wetlands
-      reefs: { strategy: "default", config: {} },
-      ice: { strategy: "default", config: {} },
+      vegetation: {
+        strategy: "clustered",
+        config: {
+          baseDensity: 0.32,
+          fertilityWeight: 0.4,
+          moistureWeight: 0.55,
+          moistureNormalization: 230,
+          coldCutoff: -10,
+        },
+      },     // Volcanic forest clusters
+      wetlands: {
+        strategy: "delta-focused",
+        config: {
+          moistureThreshold: 0.8,
+          fertilityThreshold: 0.35,
+          moistureNormalization: 230,
+          maxElevation: 1200,
+        },
+      },   // Volcanic valley wetlands
+      reefs: {
+        strategy: "default",
+        config: {
+          warmThreshold: 12,
+          density: 0.4,
+        },
+      },
+      ice: {
+        strategy: "default",
+        config: {
+          seaIceThreshold: -6,
+          alpineThreshold: 2800,
+        },
+      },
     },
     biomes: {
       classify: {
         strategy: "default",
         config: {
           temperature: {
-            equator: 30,
-            pole: -8,
-            lapseRate: 7.5,
+            equator: 29,
+            pole: -10,
+            lapseRate: 7.0,
             seaLevel: 0,
-            bias: 1.5,
+            bias: 1.2,
             polarCutoff: -5,
             tundraCutoff: 2,
-            midLatitude: 12,
-            tropicalThreshold: 24,
+            midLatitude: 11,
+            tropicalThreshold: 23,
           },
           moisture: {
-            thresholds: [75, 105, 140, 185] as [number, number, number, number],
-            bias: 0.1,
+            thresholds: [70, 100, 135, 180] as [number, number, number, number],
+            bias: 0.05,
             humidityWeight: 0.35,
           },
           aridity: {
             temperatureMin: 0,
             temperatureMax: 35,
             petBase: 20,
-            petTemperatureWeight: 80,
-            humidityDampening: 0.5,
+            petTemperatureWeight: 78,
+            humidityDampening: 0.48,
             rainfallWeight: 1,
-            bias: 3,
-            normalization: 115,
+            bias: 4,
+            normalization: 110,
             moistureShiftThresholds: [0.42, 0.68] as [number, number],
-            vegetationPenalty: 0.16,
+            vegetationPenalty: 0.18,
           },
           freeze: {
             minTemperature: -10,
@@ -749,12 +967,15 @@ const config = {
         },
       },
     },
+    featuresApply: {
+      apply: { strategy: "default", config: { maxPerTile: 1 } },
+    },
   },
   placement: {
     "derive-placement-inputs": {
       wonders: { strategy: "default", config: { wondersPlusOne: true } },
       floodplains: { strategy: "default", config: { minLength: 4, maxLength: 10 } },
-      starts: { strategy: "default", config: {} },
+      starts: { strategy: "default", config: { overrides: {} } },
     },
     placement: {},
   },

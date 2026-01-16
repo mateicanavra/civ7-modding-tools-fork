@@ -10,13 +10,13 @@ function clampInt16(value: number): number {
 
 export default createStep(GeomorphologyStepContract, {
   run: (context, config, ops, deps) => {
-    const heightfield = context.buffers.heightfield;
     const routing = deps.artifacts.routing.read(context);
     const substrate = deps.artifacts.substrate.read(context) as {
       erodibilityK: Float32Array;
       sedimentDepth: Float32Array;
     };
     const { width, height } = context.dimensions;
+    const heightfield = context.buffers.heightfield;
 
     const deltas = ops.geomorphology(
       {

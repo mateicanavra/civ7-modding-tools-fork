@@ -426,6 +426,14 @@ const ClimateRefineOrographicSchema = Type.Object(
  */
 const ClimateRefineRiverCorridorSchema = Type.Object(
   {
+    /** Adjacency radius (in tiles) used to treat tiles as "near a river". Default: 1. */
+    adjacencyRadius: Type.Optional(
+      Type.Number({
+        description:
+          "Adjacency radius (in tiles) used to treat tiles as 'near a river'.",
+        default: 1,
+      })
+    ),
     /** Humidity bonus next to rivers in lowlands (typically 8-18 units). */
     lowlandAdjacencyBonus: Type.Optional(
       Type.Number({

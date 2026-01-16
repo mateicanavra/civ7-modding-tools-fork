@@ -57,17 +57,26 @@ export function resolveAdapter(
     // undefined, the climate code's local fallbacks will execute instead of
     // receiving stubbed `() => false` values that block the fallback path.
     isAdjacentToRivers: (x, y, radius) => {
-      if (radius !== 1) {
-        throw new Error(
-          "ClimateEngine: isAdjacentToRivers only supports radius=1 via the river adjacency mask."
-        );
-      }
       if (!hasRiverAdjacencyArtifact) {
         throw new Error(
           "ClimateEngine: Missing river adjacency mask (required for climate refinement)."
         );
       }
-      return (riverAdjacency as Uint8Array)[idx(x, y, width)] === 1;
+
+      const r = Math.max(1, (radius as number) | 0);
+      if (r === 1) return (riverAdjacency as Uint8Array)[idx(x, y, width)] === 1;
+
+      const rr = r - 1;
+      for (let dy = -rr; dy <= rr; dy++) {
+        const ny = y + dy;
+        if (ny < 0 || ny >= height) continue;
+        for (let dx = -rr; dx <= rr; dx++) {
+          const nx = x + dx;
+          if (nx < 0 || nx >= width) continue;
+          if ((riverAdjacency as Uint8Array)[idx(nx, ny, width)] === 1) return true;
+        }
+      }
+      return false;
     },
     getRainfall: (x, y) => engineAdapter.getRainfall(x, y),
     setRainfall: (x, y, rf) => engineAdapter.setRainfall(x, y, rf),
