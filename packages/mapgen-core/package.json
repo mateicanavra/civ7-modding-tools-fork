@@ -22,6 +22,10 @@
       "types": "./dist/authoring/index.d.ts",
       "import": "./dist/authoring/index.js"
     },
+    "./authoring/maps": {
+      "types": "./dist/authoring/maps/index.d.ts",
+      "import": "./dist/authoring/maps/index.js"
+    },
     "./compiler/normalize": {
       "types": "./dist/compiler/normalize.d.ts",
       "import": "./dist/compiler/normalize.js"

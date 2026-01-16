@@ -29,15 +29,12 @@ import type {
   RecipeConfigInputOf,
   RecipeDefinition,
   RecipeModule,
-  Stage,
+  StageContract,
   Step,
   StepDeps,
 } from "./types.js";
 
-type AnyStage<TContext extends ExtendedMapContext> = Stage<
-  TContext,
-  readonly Step<TContext, any, any, any>[]
->;
+type AnyStage<TContext extends ExtendedMapContext> = StageContract<any, TContext, any, any, any, any>;
 
 type StepOccurrence<TContext> = {
   stageId: string;
@@ -92,7 +89,7 @@ function createRequiredArtifactRuntime<
 }
 
 function resolveProvidedArtifactRuntime<TContext extends ExtendedMapContext>(
-  authored: Step<TContext, any, any, any>,
+  authored: Step<TContext, any>,
   contract: ArtifactContract,
   fullStepId: string,
   recipeId: string
@@ -107,7 +104,7 @@ function resolveProvidedArtifactRuntime<TContext extends ExtendedMapContext>(
 }
 
 function buildArtifactDeps<TContext extends ExtendedMapContext>(
-  authored: Step<TContext, any, any, any>,
+  authored: Step<TContext, any>,
   fullStepId: string,
   recipeId: string
 ): StepDeps<TContext, any>["artifacts"] {
@@ -132,7 +129,7 @@ function buildArtifactDeps<TContext extends ExtendedMapContext>(
 }
 
 function buildStepDeps<TContext extends ExtendedMapContext>(
-  authored: Step<TContext, any, any, any>,
+  authored: Step<TContext, any>,
   fullStepId: string,
   recipeId: string
 ): StepDeps<TContext, typeof authored.contract.artifacts> {
@@ -303,11 +300,7 @@ export function createRecipe<
   const TStages extends readonly AnyStage<TContext>[],
 >(
   input: RecipeDefinition<TContext, TStages>
-): RecipeModule<
-  TContext,
-  RecipeConfigInputOf<TStages> | null,
-  CompiledRecipeConfigOf<TStages>
-> {
+): RecipeModule<TContext, RecipeConfigInputOf<TStages>, CompiledRecipeConfigOf<TStages>> {
   assertTagDefinitions(input.tagDefinitions);
 
   const runtimeOpsById =
@@ -370,14 +363,11 @@ export function createRecipe<
     };
   }
 
-  function compileConfig(
-    env: Env,
-    config?: RecipeConfigInputOf<TStages> | null
-  ): CompiledRecipeConfigOf<TStages> {
+  function compileConfig(env: Env, config?: RecipeConfigInputOf<TStages>): CompiledRecipeConfigOf<TStages> {
     return compileRecipeConfig({
       env,
       recipe: { stages: input.stages },
-      config: config as RecipeConfigInputOf<any> | null | undefined,
+      config: config as RecipeConfigInputOf<any> | undefined,
       compileOpsById: input.compileOpsById,
     }) as CompiledRecipeConfigOf<TStages>;
   }
@@ -386,7 +376,7 @@ export function createRecipe<
     return { recipe: instantiate(config), env };
   }
 
-  function compile(env: Env, config?: RecipeConfigInputOf<TStages> | null): ExecutionPlan {
+  function compile(env: Env, config?: RecipeConfigInputOf<TStages>): ExecutionPlan {
     const compiled = compileConfig(env, config);
     return compileExecutionPlan(runRequest(env, compiled), registry);
   }
@@ -394,7 +384,7 @@ export function createRecipe<
   function run(
     context: TContext,
     env: Env,
-    config?: RecipeConfigInputOf<TStages> | null,
+    config?: RecipeConfigInputOf<TStages>,
     options: { trace?: TraceSession | null; traceSink?: TraceSink | null; log?: (message: string) => void } = {}
   ): void {
     const plan = compile(env, config);

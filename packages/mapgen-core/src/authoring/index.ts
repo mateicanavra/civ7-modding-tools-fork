@@ -82,6 +82,7 @@ export type {
   OpStrategy,
   OpStrategyId,
   OpTypeBag,
+  OpTypeBagOf,
   StrategyConfigSchemas,
   StrategyImpl,
   StrategyImplFor,

@@ -9,7 +9,7 @@ export type DomainContract<Id extends string, Ops extends StepOpsDecl> = Readonl
 
 export type DomainContractAny = DomainContract<string, StepOpsDecl>;
 
-export function defineDomain<Id extends string, Ops extends StepOpsDecl>(
+export function defineDomain<const Id extends string, const Ops extends StepOpsDecl>(
   def: DomainContract<Id, Ops>
 ): typeof def {
   return def;

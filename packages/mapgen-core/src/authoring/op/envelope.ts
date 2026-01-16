@@ -11,7 +11,7 @@ export type OpEnvelopeBuildResult = Readonly<{
 
 export function buildOpEnvelopeSchema(
   contractId: string,
-  strategySchemas: StrategyConfigSchemas & { default: TSchema }
+  strategySchemas: StrategyConfigSchemas
 ): OpEnvelopeBuildResult {
   if (!Object.prototype.hasOwnProperty.call(strategySchemas, "default")) {
     throw new Error(`op(${contractId}) missing required "default" strategy schema`);

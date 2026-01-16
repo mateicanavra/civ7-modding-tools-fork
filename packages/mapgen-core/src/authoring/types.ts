@@ -76,31 +76,69 @@ export type StepDeps<
   effects: unknown;
 }>;
 
+type StepContractAny = StepContract<any, any, any, any>;
+
+type StepArtifactsDeclOfContract<C extends StepContractAny> =
+  C extends StepContract<any, any, any, infer A> ? A : undefined;
+
+export type StepModule<
+  TContext extends ExtendedMapContext = ExtendedMapContext,
+  C extends StepContractAny = StepContractAny,
+> = Readonly<{
+  contract: C;
+  artifacts?: StepProvidedArtifactsRuntime<TContext, StepArtifactsDeclOfContract<C>>;
+  normalize?: (config: unknown, ctx: NormalizeContext) => unknown;
+  run: (
+    context: TContext,
+    config: unknown,
+    ops: unknown,
+    deps: StepDeps<TContext, StepArtifactsDeclOfContract<C>>
+  ) => void | Promise<void>;
+}>;
+
 export type Step<
   TContext extends ExtendedMapContext = ExtendedMapContext,
-  TConfig = unknown,
-  TOps = unknown,
-  TArtifacts extends StepArtifactsDeclAny | undefined = StepArtifactsDeclAny | undefined,
-> = {
-  readonly contract: StepContract<TObject, string, any, TArtifacts>;
-  artifacts?: StepProvidedArtifactsRuntime<TContext, TArtifacts>;
-  normalize?: (config: TConfig, ctx: NormalizeContext) => TConfig;
-  run: (context: TContext, config: TConfig, ops: TOps, deps: StepDeps<TContext, TArtifacts>) => void | Promise<void>;
-};
+  C extends StepContractAny = StepContractAny,
+> = StepModule<TContext, C>;
 
 export const RESERVED_STAGE_KEY = "knobs" as const;
 export type ReservedStageKey = typeof RESERVED_STAGE_KEY;
 
-type StepsArray<TContext extends ExtendedMapContext> = readonly Step<TContext, any>[];
+type StepSurface = Readonly<{
+  contract: Readonly<{
+    id: string;
+    schema: TSchema;
+  }>;
+}>;
+
+type StepsArray<TContext extends ExtendedMapContext> = readonly StepSurface[];
 type StepIdOf<TSteps extends StepsArray<any>> = TSteps[number]["contract"]["id"] & string;
 type NonReservedStepIdOf<TSteps extends StepsArray<any>> = Exclude<StepIdOf<TSteps>, ReservedStageKey>;
 
-type StepConfigInputById<
-  TSteps extends StepsArray<any>,
-  TStepId extends StepIdOf<TSteps>,
-> = Extract<TSteps[number], { contract: { id: TStepId } }> extends Step<any, infer TConfig>
-  ? TConfig
-  : unknown;
+type StepSchemaOf<TStep> = TStep extends { contract: { schema: infer Schema } } ? Schema : never;
+
+type DeepPartial<T> =
+  T extends (...args: any[]) => any
+    ? T
+    : T extends ReadonlyArray<infer U>
+      ? ReadonlyArray<DeepPartial<U>>
+      : T extends object
+        ? { [K in keyof T]?: DeepPartial<T[K]> }
+        : T;
+
+type StepConfigRuntimeOf<TStep> =
+  StepSchemaOf<TStep> extends TSchema ? Static<StepSchemaOf<TStep>> : unknown;
+
+// Authoring config should accept partial overrides since compilation applies schema defaults.
+// Runtime step implementations still receive the fully normalized/validated config.
+type StepConfigInputOf<TStep> = DeepPartial<StepConfigRuntimeOf<TStep>>;
+
+type StepIdOfStep<TStep> = TStep extends { contract: { id: infer Id } } ? (Id & string) : never;
+
+type StepConfigInputsById<TSteps extends readonly unknown[]> = Partial<{
+  [S in TSteps[number] as StepIdOfStep<S> extends ReservedStageKey ? never : StepIdOfStep<S>]:
+    StepConfigInputOf<S>;
+}>;
 
 export type StageToInternalResult<StepId extends string, Knobs> = Readonly<{
   knobs: Knobs;
@@ -113,6 +151,43 @@ export type StageCompileFn<PublicSchema extends TObject, StepId extends string, 
   config: Static<PublicSchema>;
 }) => Partial<Record<StepId, unknown>>;
 
+type StageDefBase<
+  Id extends string,
+  TContext extends ExtendedMapContext,
+  KnobsSchema extends TObject,
+  Knobs,
+  TSteps extends StepsArray<TContext>,
+> = Readonly<{
+  id: Id;
+  steps: TSteps;
+  knobsSchema: KnobsSchema;
+}>;
+
+type StageDefInternal<
+  Id extends string,
+  TContext extends ExtendedMapContext,
+  KnobsSchema extends TObject,
+  Knobs,
+  TSteps extends StepsArray<TContext>,
+> = StageDefBase<Id, TContext, KnobsSchema, Knobs, TSteps> &
+  Readonly<{
+    public?: undefined;
+    compile?: undefined;
+  }>;
+
+type StageDefPublic<
+  Id extends string,
+  TContext extends ExtendedMapContext,
+  KnobsSchema extends TObject,
+  Knobs,
+  TSteps extends StepsArray<TContext>,
+  PublicSchema extends TObject,
+> = StageDefBase<Id, TContext, KnobsSchema, Knobs, TSteps> &
+  Readonly<{
+    public: PublicSchema;
+    compile: StageCompileFn<PublicSchema, NonReservedStepIdOf<TSteps>, Knobs>;
+  }>;
+
 export type StageDef<
   Id extends string,
   TContext extends ExtendedMapContext,
@@ -120,15 +195,9 @@ export type StageDef<
   Knobs = Static<KnobsSchema>,
   TSteps extends StepsArray<TContext> = StepsArray<TContext>,
   PublicSchema extends TObject | undefined = undefined,
-> = Readonly<{
-  id: Id;
-  steps: TSteps;
-  knobsSchema: KnobsSchema;
-  public?: PublicSchema;
-  compile?: PublicSchema extends TObject
-    ? StageCompileFn<PublicSchema, NonReservedStepIdOf<TSteps>, Knobs>
-    : undefined;
-}>;
+> = PublicSchema extends TObject
+  ? StageDefPublic<Id, TContext, KnobsSchema, Knobs, TSteps, PublicSchema>
+  : StageDefInternal<Id, TContext, KnobsSchema, Knobs, TSteps>;
 
 export type StageContract<
   Id extends string,
@@ -146,73 +215,80 @@ export type StageContract<
     >;
   }>;
 
-export type StageContractAny = StageContract<string, ExtendedMapContext, any, any, any, any>;
+export type StageContractAny = StageContract<any, ExtendedMapContext, any, any, any, any>;
 
 export type Stage<
   TContext extends ExtendedMapContext = ExtendedMapContext,
   TSteps extends StepsArray<TContext> = StepsArray<TContext>,
   KnobsSchema extends TObject = TObject,
   PublicSchema extends TObject | undefined = TObject | undefined,
-> = StageContract<string, TContext, KnobsSchema, Static<KnobsSchema>, TSteps, PublicSchema>;
+> = StageContract<any, TContext, KnobsSchema, Static<KnobsSchema>, TSteps, PublicSchema>;
 
 export type RecipeConfig = Readonly<Record<string, Readonly<Record<string, unknown>>>>;
 
-type UnionToIntersection<T> = (T extends unknown ? (x: T) => void : never) extends (
-  x: infer I
-) => void
-  ? I
-  : never;
+type StepsOfStage<S> = S extends { steps: infer Steps } ? Steps : never;
 
-type StepConfigById<
-  TStage extends Stage<any, readonly Step<any, any>[]>,
-  TStepId extends string,
-> = Extract<TStage["steps"][number], { contract: { id: TStepId } }> extends Step<any, infer TConfig>
-  ? TConfig
-  : unknown;
-
-export type StageConfigInputOf<TStage extends Stage<any, readonly Step<any, any>[]>> =
-  Readonly<{ knobs?: Partial<Static<TStage["knobsSchema"]>> }> &
-    (TStage["public"] extends TObject
-      ? Static<TStage["public"]>
-      : Partial<{
-          [K in NonReservedStepIdOf<TStage["steps"]>]: StepConfigInputById<TStage["steps"], K>;
-        }>);
-
-export type RecipeConfigOf<TStages extends readonly Stage<any, readonly Step<any, any>[]>[]> =
-  UnionToIntersection<
-    TStages[number] extends infer TStage
-      ? TStage extends Stage<any, readonly Step<any, any>[]>
-        ? Readonly<
-          Record<
-            TStage["id"],
-            Readonly<{
-              [K in TStage["steps"][number]["contract"]["id"]]: StepConfigById<TStage, K>;
-            }>
-          >
-        >
+type StepIdUnionOfStage<S> =
+  StepsOfStage<S> extends readonly (infer Step)[]
+    ? Step extends { contract: { id: infer Id } }
+      ? (Id & string)
       : never
-    : never
+    : never;
+
+type StepConfigRuntimeById<S, K extends string> = StepConfigRuntimeOf<
+  Extract<Extract<StepsOfStage<S>, readonly unknown[]>[number], { contract: { id: K } }>
 >;
 
-export type RecipeConfigInputOf<TStages extends readonly Stage<any, readonly Step<any, any>[]>[]> =
-  UnionToIntersection<
-    TStages[number] extends infer TStage
-      ? TStage extends Stage<any, readonly Step<any, any>[]>
-        ? Readonly<Partial<Record<TStage["id"], StageConfigInputOf<TStage>>>>
-        : never
-      : never
-  >;
+type StageIdOf<S> = S extends { id: infer Id } ? (Id & string) : never;
 
-export type CompiledRecipeConfigOf<
-  TStages extends readonly Stage<any, readonly Step<any, any>[]>[],
-> = RecipeConfigOf<TStages>;
+type StageStepsOf<S> = Extract<StepsOfStage<S>, StepsArray<any>>;
+
+type StageKnobsSchemaOf<S> = S extends { knobsSchema: infer KS } ? KS : never;
+
+type StagePublicSchemaOf<S> = S extends { public: infer PS } ? PS : never;
+
+type StageHasPublic<S> = S extends { public: TObject } ? true : false;
+
+export type StageConfigInputOf<S> = S extends {
+  knobsSchema: TObject;
+  steps: readonly unknown[];
+}
+  ? Readonly<{
+      knobs?: Partial<Static<Extract<StageKnobsSchemaOf<S>, TObject>>>;
+    }> &
+      (StageHasPublic<S> extends true
+        ? DeepPartial<Static<Extract<StagePublicSchemaOf<S>, TObject>>>
+        : StepConfigInputsById<StageStepsOf<S>> )
+  : never;
+
+type StageUnion<TStages extends readonly unknown[]> = TStages[number];
+
+export type RecipeConfigOf<TStages extends readonly unknown[]> = Readonly<{
+  [S in StageUnion<TStages> as StageIdOf<S>]: Readonly<{
+    [K in StepIdUnionOfStage<S>]: StepConfigRuntimeById<S, K>;
+  }>;
+}>;
+
+export type RecipeConfigInputOf<TStages extends readonly unknown[]> = Readonly<
+  Partial<{
+    [S in StageUnion<TStages> as StageIdOf<S>]: StageConfigInputOf<S>;
+  }>
+>;
+
+export type CompiledRecipeConfigOf<TStages extends readonly unknown[]> = RecipeConfigOf<TStages>;
+
+type StageListOf<TContext extends ExtendedMapContext> = readonly StageContract<
+  any,
+  TContext,
+  any,
+  any,
+  any,
+  any
+>[];
 
 export type RecipeDefinition<
   TContext extends ExtendedMapContext = ExtendedMapContext,
-  TStages extends readonly Stage<TContext, readonly Step<TContext, any>[]>[] = readonly Stage<
-    TContext,
-    readonly Step<TContext, any>[]
-  >[],
+  TStages extends StageListOf<TContext> = StageListOf<TContext>,
 > = Readonly<{
   id: string;
   namespace?: string;
@@ -224,7 +300,7 @@ export type RecipeDefinition<
 
 export type RecipeModule<
   TContext extends ExtendedMapContext = ExtendedMapContext,
-  TConfigInput = RecipeConfigInputOf<any> | null,
+  TConfigInput = RecipeConfigInputOf<any>,
   TConfigCompiled = RecipeConfig,
 > = {
   readonly id: string;
@@ -245,13 +321,12 @@ export type RecipeModule<
   ) => void;
 };
 
-export type StepModule<
-  TContext extends ExtendedMapContext = ExtendedMapContext,
-  TConfig = unknown,
-  TOps = unknown,
-  TArtifacts extends StepArtifactsDeclAny | undefined = StepArtifactsDeclAny | undefined,
-> = Step<TContext, TConfig, TOps, TArtifacts>;
+
 export type StageModule<
   TContext extends ExtendedMapContext = ExtendedMapContext,
-  TSteps extends readonly Step<TContext, any>[] = readonly Step<TContext, any>[],
-> = Stage<TContext, TSteps>;
+  Id extends string = string,
+  KnobsSchema extends TObject = TObject,
+  Knobs = Static<KnobsSchema>,
+  TSteps extends StepsArray<TContext> = StepsArray<TContext>,
+  PublicSchema extends TObject | undefined = undefined,
+> = StageContract<Id, TContext, KnobsSchema, Knobs, TSteps, PublicSchema>;

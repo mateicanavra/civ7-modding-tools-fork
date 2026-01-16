@@ -1,4 +1,6 @@
-import { Type, type TObject, type TSchema } from "typebox";
+import { Type, type Static, type TObject, type TSchema } from "typebox";
+
+import type { ExtendedMapContext } from "@mapgen/core/types.js";
 
 import {
   RESERVED_STAGE_KEY,
@@ -65,23 +67,40 @@ function buildPublicSurfaceSchema(publicSchema: TObject, knobsSchema: TObject): 
   );
 }
 
-type StageContractOf<TDef extends StageDef<string, any, TObject, any, any, TObject | undefined>> =
-  TDef extends StageDef<
-    infer Id,
-    infer TContext,
-    infer KnobsSchema,
-    infer Knobs,
-    infer TSteps,
-    infer PublicSchema
-  >
-    ? StageContract<Id, TContext, KnobsSchema, Knobs, TSteps, PublicSchema>
-    : never;
+type StepsArray<TContext extends ExtendedMapContext> = readonly Readonly<{
+  contract: Readonly<{
+    id: string;
+    schema: TSchema;
+  }>;
+}>[];
 
 export function createStage<
-  const TDef extends StageDef<string, any, TObject, any, any, TObject | undefined>,
+  const Id extends string,
+  TContext extends ExtendedMapContext,
+  const KnobsSchema extends TObject,
+  const TSteps extends StepsArray<TContext> = StepsArray<TContext>,
+  Knobs = Static<KnobsSchema>,
 >(
-  def: TDef
-): StageContractOf<TDef> {
+  def: StageDef<Id, TContext, KnobsSchema, Knobs, TSteps, undefined> & {
+    public?: undefined;
+    compile?: undefined;
+  }
+): StageContract<Id, TContext, KnobsSchema, Knobs, TSteps, undefined>;
+
+export function createStage<
+  const Id extends string,
+  TContext extends ExtendedMapContext,
+  const KnobsSchema extends TObject,
+  const PublicSchema extends TObject,
+  const TSteps extends StepsArray<TContext> = StepsArray<TContext>,
+  Knobs = Static<KnobsSchema>,
+>(
+  def: StageDef<Id, TContext, KnobsSchema, Knobs, TSteps, PublicSchema> & {
+    public: PublicSchema;
+  }
+): StageContract<Id, TContext, KnobsSchema, Knobs, TSteps, PublicSchema>;
+
+export function createStage(def: any): any {
   const stepIds = (def.steps as ReadonlyArray<{ contract: { id: string } }>).map(
     (step) => step.contract.id
   );
