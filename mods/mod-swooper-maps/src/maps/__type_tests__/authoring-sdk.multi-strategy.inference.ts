@@ -37,26 +37,20 @@ const MultiStrategyOp = defineOp({
 type _StrategyIds = keyof (typeof MultiStrategyOp)["strategies"] & string;
 // If strategies are constrained via an index signature, keyof will widen to `string`.
 // This MUST remain narrow or IntelliSense degenerates.
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type _StrategyIdsAreNarrow = string extends _StrategyIds ? false : true;
 const _strategyIdsAreNarrow: _StrategyIdsAreNarrow = true;
 
 // The op envelope type should be a discriminated union over `strategy`.
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type _Envelope = Static<(typeof MultiStrategyOp)["config"]>;
 
 type _EnvelopeStrategy = _Envelope["strategy"];
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type _EnvelopeStrategyIsNarrow = string extends _EnvelopeStrategy ? false : true;
 const _envelopeStrategyIsNarrow: _EnvelopeStrategyIsNarrow = true;
 
 // OpTypeBagOf is the canonical authoring surface for runtime ops;
 // it MUST preserve the envelope union (strategy + config shapes).
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type _BagEnvelope = OpTypeBagOf<typeof MultiStrategyOp>["envelope"];
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type _BagEnvelopeStrategy = _BagEnvelope["strategy"];
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type _BagEnvelopeStrategyIsNarrow = string extends _BagEnvelopeStrategy ? false : true;
 const _bagEnvelopeStrategyIsNarrow: _BagEnvelopeStrategyIsNarrow = true;
 
@@ -64,20 +58,16 @@ type _DefaultConfig = Extract<_Envelope, { strategy: "default" }>["config"];
 type _FastConfig = Extract<_Envelope, { strategy: "fast" }>["config"];
 
 // Discriminated branches must preserve their own config shapes.
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type _DefaultHasPlateauCount = "plateauCount" extends keyof _DefaultConfig ? true : false;
 const _defaultHasPlateauCount: _DefaultHasPlateauCount = true;
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type _FastHasTurbo = "turbo" extends keyof _FastConfig ? true : false;
 const _fastHasTurbo: _FastHasTurbo = true;
 
 // And MUST NOT pick up each other's keys.
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type _DefaultHasTurbo = "turbo" extends keyof _DefaultConfig ? true : false;
 const _defaultHasTurbo: _DefaultHasTurbo = false;
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type _FastHasPlateauCount = "plateauCount" extends keyof _FastConfig ? true : false;
 const _fastHasPlateauCount: _FastHasPlateauCount = false;
 
@@ -115,24 +105,18 @@ const MultiOpStepContract = defineStep({
 type _StepRuntimeConfig = Static<(typeof MultiOpStepContract)["schema"]>;
 
 // Step schema should include the op envelope property.
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type _StepHasMulti = "multi" extends keyof _StepRuntimeConfig ? true : false;
 const _stepHasMulti: _StepHasMulti = true;
 
 // And it should match the op's envelope type (i.e. be discriminated, not `unknown`).
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type _StepMultiEnvelope = _StepRuntimeConfig["multi"];
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type _StepMultiEnvelopeIsNotUnknown = unknown extends _StepMultiEnvelope ? false : true;
 const _stepMultiEnvelopeIsNotUnknown: _StepMultiEnvelopeIsNotUnknown = true;
 
 // Step runtime ops must receive the typed envelope (not unknown/any).
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type _RuntimeOps = StepRuntimeOps<{ multi: typeof MultiStrategyOp }>;
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type _RuntimeOpConfigParam = Parameters<_RuntimeOps["multi"]>[1];
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type _RuntimeOpConfigHasStrategy = "strategy" extends keyof _RuntimeOpConfigParam ? true : false;
 const _runtimeOpConfigHasStrategy: _RuntimeOpConfigHasStrategy = true;
 
@@ -161,26 +145,23 @@ type _ConfigInput = typeof TypeTestRecipe extends RecipeModule<any, infer TConfi
 
 // Accessing unknown stage ids should be a type error (no index signature).
 // @ts-expect-error - unknown stage id should not be indexable.
-type _NoBogusStage = _ConfigInput["bogus-stage"]; // eslint-disable-line @typescript-eslint/no-unused-vars
+type _NoBogusStage = _ConfigInput["bogus-stage"];
 
 type _TypeTestStageConfig = NonNullable<_ConfigInput["type-test"]>;
 
 // @ts-expect-error - unknown step id should not be indexable.
-type _NoBogusStep = _TypeTestStageConfig["bogus-step"]; // eslint-disable-line @typescript-eslint/no-unused-vars
+type _NoBogusStep = _TypeTestStageConfig["bogus-step"];
 
 type _TypeTestStepConfig = NonNullable<_TypeTestStageConfig["multi-op-step"]>;
 
 // Step config should include the op envelope authoring surface.
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type _StepConfigHasMulti = "multi" extends keyof _TypeTestStepConfig ? true : false;
 const _stepConfigHasMulti: _StepConfigHasMulti = true;
 
 type _AuthoredMultiEnvelope = NonNullable<_TypeTestStepConfig["multi"]>;
 
 // The authored envelope should still keep strategy ids narrow.
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type _AuthoredStrategy = _AuthoredMultiEnvelope extends { strategy?: infer S } ? S : never;
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type _AuthoredStrategyIsNarrow = string extends Exclude<_AuthoredStrategy, undefined> ? false : true;
 const _authoredStrategyIsNarrow: _AuthoredStrategyIsNarrow = true;
 
