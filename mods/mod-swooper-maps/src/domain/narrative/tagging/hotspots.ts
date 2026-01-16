@@ -1,5 +1,5 @@
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
-import { inBounds, storyKey } from "@swooper/mapgen-core";
+import { ctxRandom, inBounds, storyKey } from "@swooper/mapgen-core";
 import type { NarrativeMotifsHotspots } from "@mapgen/domain/narrative/models.js";
 import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
 import { isAdjacentToLand } from "@mapgen/domain/narrative/utils/adjacency.js";
@@ -105,19 +105,41 @@ export function storyTagHotspotTrails(
 
   const summary = { trails: trailsMade, points: totalPoints };
 
+  const paradise = new Set<string>();
+  const volcanic = new Set<string>();
+
+  const paradiseWeight = Math.max(0, Math.round((hotspotCfg.paradiseBias ?? 2) * 100));
+  const volcanicWeight = Math.max(0, Math.round((hotspotCfg.volcanicBias ?? 1) * 100));
+  const bucket = paradiseWeight + volcanicWeight;
+  if (bucket > 0) {
+    for (const key of hotspotPoints) {
+      const roll = ctxRandom(ctx, `HotspotKind:${key}`, bucket);
+      if (roll < paradiseWeight) {
+        paradise.add(key);
+      } else {
+        volcanic.add(key);
+      }
+    }
+  }
+
   publishStoryOverlay(ctx, STORY_OVERLAY_KEYS.HOTSPOTS, {
     kind: STORY_OVERLAY_KEYS.HOTSPOTS,
     version: 1,
     width,
     height,
     active: Array.from(hotspotPoints),
-    summary: { trails: summary.trails, points: summary.points },
+    summary: {
+      trails: summary.trails,
+      points: summary.points,
+      paradise: Array.from(paradise),
+      volcanic: Array.from(volcanic),
+    },
   });
 
   const motifs: NarrativeMotifsHotspots = {
     points: new Set(hotspotPoints),
-    paradise: new Set(),
-    volcanic: new Set(),
+    paradise,
+    volcanic,
   };
 
   return { summary, motifs };
