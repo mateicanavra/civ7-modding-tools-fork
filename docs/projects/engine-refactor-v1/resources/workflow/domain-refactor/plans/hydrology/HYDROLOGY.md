@@ -86,24 +86,22 @@ North-star references:
 | Phase | Artifact | Status |
 | --- | --- | --- |
 | Phase 0.5 | `docs/projects/engine-refactor-v1/resources/spike/spike-hydrology-greenfield.md` | complete |
-| Phase 1 | `docs/projects/engine-refactor-v1/resources/spike/spike-hydrology-current-state.md` | not started |
+| Phase 1 | `docs/projects/engine-refactor-v1/resources/spike/spike-hydrology-current-state.md` | complete |
 | Phase 2 | `docs/projects/engine-refactor-v1/resources/spike/spike-hydrology-modeling.md` | not started |
 | Phase 3 | `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-hydrology-vertical-domain-refactor.md` | not started |
 
 ## Phase 1 hypotheses to validate (current-state)
 
-- Hydrology is split across multiple recipe stages:
+Validated/updated in Phase 1 spike:
+- Hydrology is split across recipe stages:
   - `/src/recipes/standard/stages/hydrology-pre/`
   - `/src/recipes/standard/stages/hydrology-core/`
   - `/src/recipes/standard/stages/hydrology-post/`
-- These stages appear to still use legacy stage/step authoring posture (no stage-owned `artifacts.ts`, legacy tag-based `requires`/`provides`, direct imports of `.../artifacts.js`).
-- `/src/domain/hydrology/ops/contracts.ts` is currently empty (not contract-first in practice).
-- Current steps perform climate and water work directly:
-  - `lakes`, `climate-baseline` (pre)
-  - `rivers` (core)
-  - `climate-refine` (post)
-- Cross-domain coupling to make explicit in the contract matrix:
-  - Climate refine consumes `env.directionality` and narrative motifs (`rifts`, `hotspots`) plus river adjacency.
+- Stage-owned artifacts exist for `hydrology-pre` and `hydrology-core` (`artifacts.ts`), but several artifact schemas remain `Type.Any()` (typed-array strictness is enforced ad-hoc in step impls today).
+- Hydrology ops are present (not empty): `hydrology/compute-wind-fields` (contract + implementation).
+- Cross-domain coupling to make explicit in Phase 2:
+  - Narrative `story-swatches` calls Hydrology `applyClimateSwatches` (coupling inversion).
+  - Hydrology refine consumes narrative motifs (rifts/hotspots) via overlays + consumes river adjacency + wind fields.
 
 ## Notes
 
