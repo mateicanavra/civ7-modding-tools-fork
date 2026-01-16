@@ -28,7 +28,7 @@ export function applyBasinSeparation(
   const base = Math.max(0, Math.round(config.baseSeparationTiles));
   if (base <= 0) return;
 
-  const bandPairs = config.bandPairs;
+  const bandPairs = config.bandPairs ?? [];
   let maxBand = 1;
   for (const [a, b] of bandPairs) {
     maxBand = Math.max(maxBand, a, b);
@@ -36,7 +36,20 @@ export function applyBasinSeparation(
   const bands = Math.max(2, maxBand + 1);
   const half = Math.max(1, Math.floor(base / 2));
 
-  for (let band = 1; band < bands; band++) {
+  const boundaries = new Set<number>();
+  for (const [a, b] of bandPairs) {
+    const boundary = Math.max(a | 0, b | 0);
+    if (boundary > 0 && boundary < bands) boundaries.add(boundary);
+  }
+  if (boundaries.size === 0) {
+    for (let boundary = 1; boundary < bands; boundary++) {
+      boundaries.add(boundary);
+    }
+  }
+
+  const sortedBoundaries = Array.from(boundaries).sort((a, b) => a - b);
+
+  for (const band of sortedBoundaries) {
     const center = Math.round((band / bands) * width);
     const start = Math.max(0, center - half);
     const end = Math.min(width - 1, center + half);
