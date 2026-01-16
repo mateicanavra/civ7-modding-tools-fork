@@ -1,6 +1,6 @@
-import type { OpTypeBag } from "@swooper/mapgen-core/authoring";
+import type { OpTypeBagOf } from "@swooper/mapgen-core/authoring";
 
 type Contract = typeof import("./contract.js").default;
 
-export type PlanIceFeaturePlacementsTypes = OpTypeBag<Contract>;
+export type PlanIceFeaturePlacementsTypes = OpTypeBagOf<Contract>;
 

@@ -4,7 +4,6 @@ import { wrapDeltaPeriodic } from "@swooper/mapgen-core/lib/math";
 
 import placement from "@mapgen/domain/placement";
 import type { DeepReadonly, Static } from "@swooper/mapgen-core/authoring";
-import { getStandardRuntime } from "../../../../runtime.js";
 import type { PlacementOutputsV1 } from "../../placement-outputs.js";
 
 type PlanFloodplainsOutput = Static<typeof placement.ops.planFloodplains["output"]>;
@@ -117,26 +116,30 @@ export function applyPlacementPlan({
       starts,
       projection,
     });
-    startPositions.push(...positions);
 
     const totalPlayers = positions.length;
     const successCount = assigned;
 
-    if (successCount === totalPlayers) {
-      emit({ type: "placement.starts.assigned", successCount, totalPlayers });
-    } else {
+    if (totalPlayers > 0 && successCount !== totalPlayers) {
       emit({
         type: "placement.starts.partial",
         successCount,
         totalPlayers,
         failures: Math.max(0, totalPlayers - successCount),
       });
+      throw new Error(
+        `[SWOOPER_MOD] Failed to assign start positions for all players (assigned ${successCount}/${totalPlayers}).`
+      );
     }
+
+    startPositions.push(...positions);
+    emit({ type: "placement.starts.assigned", successCount, totalPlayers });
   } catch (err) {
     emit({
       type: "placement.starts.error",
       error: err instanceof Error ? err.message : String(err),
     });
+    throw err;
   }
 
   try {
@@ -170,9 +173,6 @@ export function applyPlacementPlan({
 
   logTerrainStats(trace, adapter, width, height, "Final");
   logAsciiMap(trace, adapter, width, height);
-
-  const runtime = getStandardRuntime(context);
-  runtime.startPositions.push(...startPositions);
 
   const startsAssigned = startPositions.filter((pos) => Number.isFinite(pos) && pos >= 0).length;
   const outputs: PlacementOutputsV1 = {

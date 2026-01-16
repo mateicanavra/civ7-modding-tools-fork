@@ -1,5 +1,5 @@
-import type { OpTypeBag } from "@swooper/mapgen-core/authoring";
+import type { OpTypeBagOf } from "@swooper/mapgen-core/authoring";
 
 type Contract = typeof import("./contract.js").default;
 
-export type ComputeSeaLevelTypes = OpTypeBag<Contract>;
+export type ComputeSeaLevelTypes = OpTypeBagOf<Contract>;
