@@ -88,7 +88,7 @@ export default createMap({
             crustEdgeBlend: 0.55,           // Wider continental shelves (Earth-like)
             crustNoiseAmplitude: 0.65,      // Higher: more varied coastline shapes
             continentalHeight: 0.65,        // Slightly lower for more coastal variation
-            oceanicHeight: -0.85,           // Slightly shallower for shelf diversity
+            oceanicHeight: -0.81,           // Slightly shallower for shelf diversity
             tectonics: {
               // De-emphasize arcs so plate boundaries don't dominate land distribution.
               boundaryArcWeight: 0.25,      // Slightly more arc presence
@@ -317,11 +317,11 @@ export default createMap({
           strategy: "default",
           config: {
             // Earth-like: major ranges at margins, few interior mountains
-            tectonicIntensity: 0.63,
-            mountainThreshold: 0.67,       // More mountains at margins
-            hillThreshold: 0.37,           // More foothills for transitions
+            tectonicIntensity: 0.67,
+            mountainThreshold: 0.57,       // More mountains at margins
+            hillThreshold: 0.43,           // More foothills for transitions
             upliftWeight: 0.28,
-            fractalWeight: 0.80,           // Less noise for cleaner ranges
+            fractalWeight: 0.65,           // Less noise for cleaner ranges
             riftDepth: 0.28,
             boundaryWeight: 0.15,
             boundaryGate: 0.10,            // Concentrate at margins
@@ -331,8 +331,8 @@ export default createMap({
             transformPenalty: 0.65,
             riftPenalty: 0.75,
             hillBoundaryWeight: 0.32,      // More boundary foothills
-            hillRiftBonus: 0.50,
-            hillConvergentFoothill: 0.30,  // Wider Himalayan-style foothills
+            hillRiftBonus: 0.37,
+            hillConvergentFoothill: 0.37,  // Wider Himalayan-style foothills
             hillInteriorFalloff: 0.25,     // Stronger interior decay
             hillUpliftWeight: 0.2,
           },
@@ -481,7 +481,7 @@ export default createMap({
             },
           },
           swatches: {
-            enabled: true,
+            enabled: false,
             types: {
               // Desert band - stronger for Sahara/Arabian-scale deserts
               macroDesertBelt: {
@@ -525,7 +525,7 @@ export default createMap({
             },
             orographic: {
               steps: 6,
-              reductionBase: 16,
+              reductionBase: 24,
               reductionPerStep: 7,
             },
             riverCorridor: {
@@ -541,7 +541,7 @@ export default createMap({
             rainfall: {
               riftBoost: 8,
               riftRadius: 2,
-              paradiseDelta: 6,
+              paradiseDelta: 24,
               volcanicDelta: 8,
             },
           },
@@ -581,7 +581,7 @@ export default createMap({
       "story-corridors-post": {
         corridors: {
           sea: {
-            protection: "hard",
+            protection: "soft",
             softChanceMultiplier: 0.5,
             avoidRadius: 2,
             maxLanes: 3,
@@ -619,12 +619,12 @@ export default createMap({
         climate: {
           baseline: {
             blend: {
-              baseWeight: 0.2,
-              bandWeight: 0.8,
+              baseWeight: 0.5,
+              bandWeight: 0.45,
             },
             seed: {
-              baseRainfall: 40,
-              coastalExponent: 1.2,
+              baseRainfall: 20,
+              coastalExponent: 1.4,
             },
             bands: {
               deg0to10: 140,
@@ -640,10 +640,10 @@ export default createMap({
                 deg35to55: 55,
                 deg55to70: 70,
               },
-              transitionWidth: 10,   // Slightly wider: smoother biome transitions
+              transitionWidth: 13,   // Slightly wider: smoother biome transitions
             },
             sizeScaling: {
-              baseArea: 10000,
+              baseArea: 16000,
               minScale: 0.6,
               maxScale: 2.0,
               equatorBoostScale: 12,
@@ -666,7 +666,7 @@ export default createMap({
             },
           },
           swatches: {
-            enabled: true,
+            enabled: false,
             types: {
               // Desert band - stronger for Sahara/Arabian-scale deserts
               macroDesertBelt: {
@@ -803,10 +803,10 @@ export default createMap({
           config: {
             temperature: {
               equator: 34,
-              pole: -12,
-              lapseRate: 6.5,
+              pole: -20,
+              lapseRate: 8.5,
               seaLevel: 0,
-              bias: 0.7,             // Reduced from 2.5: allows more cold biomes (tundra, boreal)
+              bias: 0.55,             // Reduced from 2.5: allows more cold biomes (tundra, boreal)
               polarCutoff: -5,
               tundraCutoff: 0,
               midLatitude: 12,
@@ -839,7 +839,7 @@ export default createMap({
               humidityWeight: 0.35,
               moistureNormalizationPadding: 60,
               biomeModifiers: {
-                snow: { multiplier: 2.5, bonus: 1 },
+                snow: { multiplier: 3.5, bonus: 0.35 },
                 tundra: { multiplier: 0.5, bonus: 0 },
                 boreal: { multiplier: 0.85, bonus: 0 },
                 temperateDry: { multiplier: 0.75, bonus: 0 },
@@ -851,7 +851,7 @@ export default createMap({
             },
             noise: {
               amplitude: 0.03,
-              seed: 1337,
+              seed: 53337,
             },
             overlays: {
               corridorMoistureBonus: 8,
