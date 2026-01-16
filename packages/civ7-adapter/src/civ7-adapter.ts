@@ -452,6 +452,18 @@ export class Civ7Adapter implements EngineAdapter {
     return Array.isArray(result) ? result : [];
   }
 
+  setStartPosition(plotIndex: number, playerId: number): void {
+    const startPositioner = (
+      globalThis as typeof globalThis & {
+        StartPositioner?: { setStartPosition?: (plot: number, player: number) => void };
+      }
+    ).StartPositioner;
+    if (startPositioner?.setStartPosition) {
+      startPositioner.setStartPosition(plotIndex, playerId);
+      this.recordPlacementEffect();
+    }
+  }
+
   chooseStartSectors(
     players1: number,
     players2: number,

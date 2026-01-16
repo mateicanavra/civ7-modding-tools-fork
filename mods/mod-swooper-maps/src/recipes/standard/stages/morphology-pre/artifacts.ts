@@ -83,6 +83,10 @@ const MorphologyLandmassArtifactSchema = Type.Object(
 const MorphologyLandmassesArtifactSchema = Type.Object(
   {
     landmasses: Type.Immutable(Type.Array(MorphologyLandmassArtifactSchema)),
+    landmassIdByTile: TypedArraySchemas.i32({
+      description:
+        "Per-tile landmass component id (-1 for water). Values map to the landmasses[] entries.",
+    }),
   },
   { additionalProperties: false, description: "Landmass decomposition snapshot (immutable)." }
 );

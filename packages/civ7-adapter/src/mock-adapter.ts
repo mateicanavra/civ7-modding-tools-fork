@@ -265,6 +265,7 @@ export class MockAdapter implements EngineAdapter {
       startSectorRows: number;
       startSectorCols: number;
     }>;
+    setStartPosition: Array<{ plotIndex: number; playerId: number }>;
     generateDiscoveries: Array<{ width: number; height: number; startPositions: number[] }>;
     assignAdvancedStartRegions: number;
     addFloodplains: Array<{ minLength: number; maxLength: number }>;
@@ -316,6 +317,7 @@ export class MockAdapter implements EngineAdapter {
       generateLakes: [],
       expandCoasts: [],
       assignStartPositions: [],
+      setStartPosition: [],
       generateDiscoveries: [],
       assignAdvancedStartRegions: 0,
       addFloodplains: [],
@@ -728,6 +730,11 @@ export class MockAdapter implements EngineAdapter {
     return Array.from({ length: totalPlayers }, (_, i) => i * 100);
   }
 
+  setStartPosition(plotIndex: number, playerId: number): void {
+    this.calls.setStartPosition.push({ plotIndex, playerId });
+    this.recordPlacementEffect();
+  }
+
   generateDiscoveries(width: number, height: number, startPositions: number[]): void {
     this.calls.generateDiscoveries.push({ width, height, startPositions: [...startPositions] });
     // Mock: no-op
@@ -807,6 +814,7 @@ export class MockAdapter implements EngineAdapter {
     this.calls.generateLakes.length = 0;
     this.calls.expandCoasts.length = 0;
     this.calls.assignStartPositions.length = 0;
+    this.calls.setStartPosition.length = 0;
     this.calls.generateDiscoveries.length = 0;
     this.calls.assignAdvancedStartRegions = 0;
     this.calls.addFloodplains.length = 0;

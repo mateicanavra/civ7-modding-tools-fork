@@ -20,6 +20,9 @@ function validateLandmassesSnapshot(value: unknown): ArtifactValidationIssue[] {
   if (!Array.isArray(candidate.landmasses)) {
     errors.push({ message: "Expected landmasses.landmasses to be an array." });
   }
+  if (!((candidate as { landmassIdByTile?: unknown }).landmassIdByTile instanceof Int32Array)) {
+    errors.push({ message: "Expected landmasses.landmassIdByTile to be an Int32Array." });
+  }
 
   return errors;
 }
@@ -84,6 +87,7 @@ function computeLandmasses(width: number, height: number, landMask: Uint8Array):
     tileCount: number;
     bbox: { west: number; east: number; south: number; north: number };
   }[];
+  landmassIdByTile: Int32Array;
 } {
   const size = Math.max(0, (width | 0) * (height | 0));
   if (landMask.length !== size) {
@@ -91,6 +95,8 @@ function computeLandmasses(width: number, height: number, landMask: Uint8Array):
   }
 
   const visited = new Uint8Array(size);
+  const landmassIdByTile = new Int32Array(size);
+  landmassIdByTile.fill(-1);
   const components: Array<{
     id: number;
     tileCount: number;
@@ -104,9 +110,11 @@ function computeLandmasses(width: number, height: number, landMask: Uint8Array):
     if ((landMask[i] | 0) !== 1) continue;
     if ((visited[i] | 0) === 1) continue;
 
+    const componentId = components.length;
     visited[i] = 1;
     queue.length = 0;
     queue.push(i);
+    landmassIdByTile[i] = componentId;
     columnsUsed.fill(0);
 
     let tileCount = 0;
@@ -128,6 +136,7 @@ function computeLandmasses(width: number, height: number, landMask: Uint8Array):
         if ((visited[ni] | 0) === 1) return;
         if ((landMask[ni] | 0) !== 1) return;
         visited[ni] = 1;
+        landmassIdByTile[ni] = componentId;
         queue.push(ni);
       });
     }
@@ -145,12 +154,22 @@ function computeLandmasses(width: number, height: number, landMask: Uint8Array):
     });
   }
 
-  components.sort((a, b) => b.tileCount - a.tileCount);
-  for (let i = 0; i < components.length; i++) {
-    components[i] = { ...components[i], id: i };
+  const ordered = components
+    .map((component, index) => ({ component, index }))
+    .sort((a, b) => b.component.tileCount - a.component.tileCount);
+  const remap = new Int32Array(components.length);
+  const sortedComponents: typeof components = [];
+  for (let i = 0; i < ordered.length; i++) {
+    const { component, index } = ordered[i];
+    remap[index] = i;
+    sortedComponents.push({ ...component, id: i });
+  }
+  for (let i = 0; i < landmassIdByTile.length; i++) {
+    const previous = landmassIdByTile[i];
+    if (previous >= 0) landmassIdByTile[i] = remap[previous];
   }
 
-  return { landmasses: components };
+  return { landmasses: sortedComponents, landmassIdByTile };
 }
 
 export default createStep(LandmassesStepContract, {

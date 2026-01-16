@@ -3,7 +3,7 @@ import { createMockAdapter } from "@civ7/adapter";
 import { createExtendedMapContext } from "@swooper/mapgen-core";
 import { implementArtifacts } from "@swooper/mapgen-core/authoring";
 import placement from "../../src/domain/placement/ops.js";
-import { getBaseStarts, getStandardRuntime } from "../../src/recipes/standard/runtime.js";
+import { getStandardRuntime } from "../../src/recipes/standard/runtime.js";
 import { placementArtifacts } from "../../src/recipes/standard/stages/placement/artifacts.js";
 import { applyPlacementPlan } from "../../src/recipes/standard/stages/placement/steps/placement/apply.js";
 
@@ -24,7 +24,15 @@ describe("placement", () => {
     });
     const context = createExtendedMapContext({ width: 4, height: 4 }, adapter, { seed: 0 });
     const runtime = getStandardRuntime(context);
-    const baseStarts = getBaseStarts(context);
+    const baseStarts = {
+      playersLandmass1: runtime.playersLandmass1,
+      playersLandmass2: runtime.playersLandmass2,
+      westContinent: { west: 0, east: 2, south: 0, north: 3, continent: 0 },
+      eastContinent: { west: 2, east: 3, south: 0, north: 3, continent: 1 },
+      startSectorRows: runtime.startSectorRows,
+      startSectorCols: runtime.startSectorCols,
+      startSectors: runtime.startSectors,
+    };
 
     const starts = placement.ops.planStarts.run(
       { baseStarts },
@@ -47,6 +55,12 @@ describe("placement", () => {
       starts,
       wonders,
       floodplains,
+      landmasses: {
+        landmasses: [
+          { id: 0, tileCount: 16, bbox: { west: 0, east: 3, south: 0, north: 3 } },
+        ],
+        landmassIdByTile: new Int32Array(16).fill(0),
+      },
       publishOutputs: (outputs) => placementRuntime.placementOutputs.publish(context, outputs),
     });
 

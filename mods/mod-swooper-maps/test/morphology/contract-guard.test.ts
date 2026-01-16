@@ -52,6 +52,38 @@ describe("morphology contract guardrails", () => {
     }
   });
 
+  it("does not reintroduce runtime-continent or LandmassRegionId surfaces in morphology/hydrology steps", () => {
+    const repoRoot = path.resolve(import.meta.dir, "../..");
+    const roots = [
+      path.join(repoRoot, "src/recipes/standard/stages/morphology-pre"),
+      path.join(repoRoot, "src/recipes/standard/stages/morphology-mid"),
+      path.join(repoRoot, "src/recipes/standard/stages/morphology-post"),
+      path.join(repoRoot, "src/recipes/standard/stages/hydrology-pre/steps"),
+    ];
+
+    const files = roots.flatMap((candidate) => {
+      try {
+        const stat = statSync(candidate);
+        if (stat.isDirectory()) {
+          return listFilesRecursive(candidate).filter((file) => file.endsWith(".ts"));
+        }
+        return [candidate];
+      } catch {
+        return [];
+      }
+    });
+
+    expect(files.length).toBeGreaterThan(0);
+
+    for (const file of files) {
+      const text = readFileSync(file, "utf8");
+      expect(text).not.toContain("westContinent");
+      expect(text).not.toContain("eastContinent");
+      expect(text).not.toContain("LandmassRegionId");
+      expect(text).not.toContain("markLandmassId(");
+    }
+  });
+
   it("does not use morphology effect-tag gating in migrated consumer contracts", () => {
     const repoRoot = path.resolve(import.meta.dir, "../..");
     const migratedContracts: Array<{
