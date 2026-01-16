@@ -85,6 +85,7 @@ North-star references:
 
 | Phase | Artifact | Status |
 | --- | --- | --- |
+| Phase 0.5 | `docs/projects/engine-refactor-v1/resources/spike/spike-hydrology-greenfield.md` | complete |
 | Phase 1 | `docs/projects/engine-refactor-v1/resources/spike/spike-hydrology-current-state.md` | not started |
 | Phase 2 | `docs/projects/engine-refactor-v1/resources/spike/spike-hydrology-modeling.md` | not started |
 | Phase 3 | `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-hydrology-vertical-domain-refactor.md` | not started |
