@@ -1,12 +1,20 @@
 import { createStrategy } from "@swooper/mapgen-core/authoring";
+import { createLabelRng } from "@swooper/mapgen-core/lib/rng";
 import FeaturesApplyContract from "../contract.js";
 type Placement = { x: number; y: number; feature: string; weight?: number };
 
 export const defaultStrategy = createStrategy(FeaturesApplyContract, "default", {
   run: (input, config) => {
+    const rng = createLabelRng(1337);
     const seen = new Map<number, Placement[]>();
     const merge = (placements: Placement[]) => {
       for (const placement of placements) {
+        const weight = placement.weight ?? 1;
+        if (weight <= 0) continue;
+        if (weight < 1) {
+          const r = rng(1_000_000, `feature:${placement.feature}:${placement.x},${placement.y}`) / 1_000_000;
+          if (r >= weight) continue;
+        }
         const key = placement.y * 65536 + placement.x;
         const list = seen.get(key) ?? [];
         if (list.length >= config.maxPerTile) continue;
