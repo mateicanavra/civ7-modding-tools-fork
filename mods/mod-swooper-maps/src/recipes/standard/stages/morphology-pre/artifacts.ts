@@ -18,6 +18,14 @@ const MorphologyTopographyArtifactSchema = Type.Object(
   { additionalProperties: false, description: "Canonical morphology topography buffer handle (publish once)." }
 );
 
+const MorphologyCoastlinesAppliedArtifactSchema = Type.Object(
+  {},
+  {
+    additionalProperties: false,
+    description: "Marker indicating engine coastline expansion has been applied.",
+  }
+);
+
 const MorphologyRoutingArtifactSchema = Type.Object(
   {
     flowDir: TypedArraySchemas.i32({
@@ -85,6 +93,11 @@ export const morphologyArtifacts = {
     id: "artifact:morphology.topography",
     schema: MorphologyTopographyArtifactSchema,
   }),
+  coastlinesApplied: defineArtifact({
+    name: "coastlinesApplied",
+    id: "artifact:morphology.coastlinesApplied",
+    schema: MorphologyCoastlinesAppliedArtifactSchema,
+  }),
   routing: defineArtifact({
     name: "routing",
     id: "artifact:morphology.routing",
@@ -106,4 +119,3 @@ export const morphologyArtifacts = {
     schema: MorphologyLandmassesArtifactSchema,
   }),
 } as const;
-

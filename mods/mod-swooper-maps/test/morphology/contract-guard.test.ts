@@ -51,5 +51,57 @@ describe("morphology contract guardrails", () => {
       expect(text).not.toContain("LandmassRegionId");
     }
   });
-});
 
+  it("does not use morphology effect-tag gating in migrated consumer contracts", () => {
+    const repoRoot = path.resolve(import.meta.dir, "../..");
+    const migratedContracts: Array<{
+      file: string;
+      mustRequire: "topography" | "landmasses";
+    }> = [
+      {
+        file: path.join(repoRoot, "src/recipes/standard/stages/narrative-pre/steps/storySeed.contract.ts"),
+        mustRequire: "topography",
+      },
+      {
+        file: path.join(repoRoot, "src/recipes/standard/stages/narrative-pre/steps/storyHotspots.contract.ts"),
+        mustRequire: "topography",
+      },
+      {
+        file: path.join(repoRoot, "src/recipes/standard/stages/narrative-pre/steps/storyCorridorsPre.contract.ts"),
+        mustRequire: "topography",
+      },
+      {
+        file: path.join(repoRoot, "src/recipes/standard/stages/narrative-pre/steps/storyRifts.contract.ts"),
+        mustRequire: "topography",
+      },
+      {
+        file: path.join(repoRoot, "src/recipes/standard/stages/narrative-mid/steps/storyOrogeny.contract.ts"),
+        mustRequire: "topography",
+      },
+      {
+        file: path.join(repoRoot, "src/recipes/standard/stages/narrative-post/steps/storyCorridorsPost.contract.ts"),
+        mustRequire: "topography",
+      },
+      {
+        file: path.join(repoRoot, "src/recipes/standard/stages/hydrology-pre/steps/lakes.contract.ts"),
+        mustRequire: "topography",
+      },
+      {
+        file: path.join(repoRoot, "src/recipes/standard/stages/placement/steps/derive-placement-inputs/contract.ts"),
+        mustRequire: "landmasses",
+      },
+    ];
+
+    for (const { file, mustRequire } of migratedContracts) {
+      const text = readFileSync(file, "utf8");
+      expect(text).not.toContain("M4_EFFECT_TAGS.engine.coastlinesApplied");
+      expect(text).not.toContain("M4_EFFECT_TAGS.engine.landmassApplied");
+
+      if (mustRequire === "topography") {
+        expect(text).toContain("morphologyArtifacts.topography");
+      } else {
+        expect(text).toContain("morphologyArtifacts.landmasses");
+      }
+    }
+  });
+});
