@@ -115,6 +115,9 @@ Example pattern:
 | RNG source | Is a deterministic seed required? | Derive seed in step (`ctxRandom`), pass seed to op, use `createLabelRng` |
 | Trace visibility | Need trace events at op boundaries? | Step wraps op call + emits trace; or extend op contract (explicit architecture change) |
 | “Derived knobs” | Is authoring the value meaningful? | Author a higher-level knob, derive internal metric in normalize |
+| Missing vs empty vs null | Is a field absent / `[]` / `null` meaningful? | Lock a policy per field: missing inherits defaults vs explicit freeze; define `[]`/`null` meaning; enforce with tests |
+| Weights/probabilistic knobs | Does a config imply randomness? | Define determinism policy (seed source + allowed randomness layer); make behavior test-locked and reproducible |
+| Fix placement durability | Will the code you’re changing be replaced in the next slice? | Prefer stable anchors (domain boundary / config normalization) over ephemeral implementation details; add a survivability check |
 | Spec drift | Did a locked decision change mid-flight? | Stop → re-baseline the plan → add a guardrail in the same slice |
 
 ## Quality Gates (Per Slice)

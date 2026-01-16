@@ -35,6 +35,7 @@ Requirements (within refactor scope):
 - Any touched exported op/step/schema must have high-quality, behavior-oriented documentation at the definition site:
   - JSDoc for exported functions/objects where it improves comprehension.
   - TypeBox `description` for schema fields (especially config) describing behavioral impact and interactions.
+- For any “semantic knob” (lists/pairs/weights/modes), schema `description` must also state missing/empty/null meaning and determinism expectations where relevant.
 - Documentation updates must be contextual:
   - Trace callsites/references first (code-intel) so docs reflect how the symbol is actually used.
   - Avoid duplicating contradictory docs across layers; keep docs consistent between schema descriptions and definition-site docs.

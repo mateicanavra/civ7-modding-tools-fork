@@ -150,6 +150,35 @@ Rules:
 - Put **env/knobs-derived defaults** in `strategy.normalize` (composed via `op.normalize` and executed by the compiler).
 - Do not implement meaning-level defaults in runtime step or op `run(...)` (`?? {}` merges and `Value.Default(...)` in runtime paths are migration smells).
 
+### Semantic knobs must have a contract (meaning, defaults, empty/null, determinism)
+
+If a config field is “semantic” (it encodes meaning, not just a scalar):
+- concatenated lists/pairs/bands,
+- weights/probabilities,
+- “modes” that change behavior,
+- fields whose absence/emptiness is itself meaningful,
+
+then it must have an explicit contract recorded in Phase 2 and enforced by tests.
+
+Minimum contract fields (write them down; do not infer ad hoc during implementation):
+- **Meaning:** what the field represents in the model.
+- **Defaulting policy:** what “missing” means (inherit evolving defaults vs freeze behavior).
+- **Empty/null policy:** what `[]`/`null` means (disable, explicit no-op, or “use defaults”).
+- **Determinism policy:** if the field implies randomness (weights), define seed/RNG expectations and where randomness is allowed to live.
+
+Recommended deliverable (Phase 2 spike): a “config semantics table”:
+
+| Field | Meaning | Missing default | Empty/null | Determinism | Examples | Test that locks it |
+|---|---|---|---|---|---|---|
+| `<field>` | `<...>` | `<...>` | `<...>` | `<...>` | `<...>` | `<...>` |
+
+### Prefer normalization as the stable “interpretation boundary”
+
+For any complex config semantics, prefer an explicit “interpret config → normalized internal form” function authored in `normalize`:
+- it centralizes meaning-level interpretation,
+- it is a stable anchor point for later fixes (survivability across slices),
+- it makes tests tighter (assert on normalized form and downstream behavior).
+
 ### Resolution location (colocation + composition)
 
 Domain-owned scaling semantics live with the op:

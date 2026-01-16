@@ -1,10 +1,14 @@
 # Phase 1 Current-State Spike (Template)
 
-Purpose: produce a grounded current-state spike for a single domain so Phase 2 modeling starts from evidence, not assumptions.
+Purpose: produce a grounded current-state spike for a single domain so Phase 2 modeling can reconcile **greenfield intent** with **evidence**, not assumptions.
 
 Scope guardrails:
 - This is current-state only. No modeling or slice planning here.
 - Capture facts, boundary violations, and deletions; defer design choices to Phase 2.
+
+Prereq:
+- Phase 0.5 greenfield pre-work spike exists:
+  - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/phase-0-greenfield-prework.md`
 
 Required output:
 - `docs/projects/engine-refactor-v1/resources/spike/spike-<domain>-current-state.md`
@@ -17,6 +21,7 @@ Required sections (minimum):
 - Upstream handoff review (changes to this domain made by the prior refactor)
 - Downstream consumer inventory (current usage + contract dependencies)
 - Current pipeline map (producer/consumer data-flow snapshot)
+- Greenfield delta notes (what current-state evidence contradicts or constrains from the Phase 0.5 greenfield sketch)
 - Decisions + defaults (initial)
 - Risk register (initial)
 - Golden path candidate
