@@ -27,8 +27,6 @@ describe("placement", () => {
     const baseStarts = {
       playersLandmass1: runtime.playersLandmass1,
       playersLandmass2: runtime.playersLandmass2,
-      westContinent: { west: 0, east: 2, south: 0, north: 3, continent: 0 },
-      eastContinent: { west: 2, east: 3, south: 0, north: 3, continent: 1 },
       startSectorRows: runtime.startSectorRows,
       startSectorCols: runtime.startSectorCols,
       startSectors: runtime.startSectors,

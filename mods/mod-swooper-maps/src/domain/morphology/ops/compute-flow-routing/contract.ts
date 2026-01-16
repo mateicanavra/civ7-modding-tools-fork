@@ -1,13 +1,21 @@
 import { Type, TypedArraySchemas, defineOp } from "@swooper/mapgen-core/authoring";
 
-const RoutingConfigSchema = Type.Object({});
+const RoutingConfigSchema = Type.Object(
+  {},
+  {
+    description: "Routing configuration (currently no tunable knobs).",
+  }
+);
 
+/**
+ * Computes flow routing and accumulation buffers from elevation and land mask.
+ */
 const ComputeFlowRoutingContract = defineOp({
   kind: "compute",
   id: "morphology/compute-flow-routing",
   input: Type.Object({
-    width: Type.Integer({ minimum: 1 }),
-    height: Type.Integer({ minimum: 1 }),
+    width: Type.Integer({ minimum: 1, description: "Map width in tiles." }),
+    height: Type.Integer({ minimum: 1, description: "Map height in tiles." }),
     elevation: TypedArraySchemas.i16({ description: "Elevation per tile (normalized units)." }),
     landMask: TypedArraySchemas.u8({ description: "Land mask per tile (1=land, 0=water)." }),
   }),

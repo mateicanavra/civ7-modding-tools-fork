@@ -472,8 +472,7 @@ export type StoryConfig = Static<typeof NarrativeConfigSchema["properties"]["sto
 export type CorridorsConfig = Static<typeof NarrativeConfigSchema["properties"]["corridors"]>;
 export type ContinentalMarginsConfig =
   Static<typeof NarrativeConfigSchema["properties"]["margins"]>;
-export type HotspotTunables =
-  Static<typeof NarrativeConfigSchema["properties"]["story"]["properties"]["hotspot"]>;
+export type NarrativeHotspotTunables = Static<typeof HotspotTunablesSchema>;
 export type RiftTunables =
   Static<typeof NarrativeConfigSchema["properties"]["story"]["properties"]["rift"]>;
 export type OrogenyTunables =

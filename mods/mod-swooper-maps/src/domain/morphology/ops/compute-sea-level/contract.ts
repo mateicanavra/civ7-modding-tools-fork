@@ -2,12 +2,15 @@ import { Type, TypedArraySchemas, defineOp } from "@swooper/mapgen-core/authorin
 
 import { HypsometryConfigSchema } from "../../config.js";
 
+/**
+ * Selects the sea level threshold based on hypsometry targets.
+ */
 const ComputeSeaLevelContract = defineOp({
   kind: "compute",
   id: "morphology/compute-sea-level",
   input: Type.Object({
-    width: Type.Integer({ minimum: 1 }),
-    height: Type.Integer({ minimum: 1 }),
+    width: Type.Integer({ minimum: 1, description: "Map width in tiles." }),
+    height: Type.Integer({ minimum: 1, description: "Map height in tiles." }),
     elevation: TypedArraySchemas.i16({ description: "Base elevation per tile (normalized units)." }),
     boundaryCloseness: TypedArraySchemas.u8({
       description: "Boundary proximity per tile (0..255).",

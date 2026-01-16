@@ -2,17 +2,25 @@ import { Type, TypedArraySchemas, defineOp } from "@swooper/mapgen-core/authorin
 
 import { GeomorphologyConfigSchema, WorldAgeSchema } from "../../config.js";
 
-const GeomorphicCycleConfigSchema = Type.Object({
-  geomorphology: GeomorphologyConfigSchema,
-  worldAge: WorldAgeSchema,
-});
+const GeomorphicCycleConfigSchema = Type.Object(
+  {
+    geomorphology: GeomorphologyConfigSchema,
+    worldAge: WorldAgeSchema,
+  },
+  {
+    description: "Geomorphic relaxation configuration by world age.",
+  }
+);
 
+/**
+ * Computes elevation and sediment deltas for a geomorphic relaxation pass.
+ */
 const ComputeGeomorphicCycleContract = defineOp({
   kind: "compute",
   id: "morphology/compute-geomorphic-cycle",
   input: Type.Object({
-    width: Type.Integer({ minimum: 1 }),
-    height: Type.Integer({ minimum: 1 }),
+    width: Type.Integer({ minimum: 1, description: "Map width in tiles." }),
+    height: Type.Integer({ minimum: 1, description: "Map height in tiles." }),
     elevation: TypedArraySchemas.i16({ description: "Elevation per tile (normalized units)." }),
     landMask: TypedArraySchemas.u8({ description: "Land mask per tile (1=land, 0=water)." }),
     flowAccum: TypedArraySchemas.f32({ description: "Flow accumulation per tile." }),

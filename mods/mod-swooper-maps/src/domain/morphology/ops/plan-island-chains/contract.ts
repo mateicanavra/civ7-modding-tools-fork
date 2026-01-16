@@ -2,15 +2,20 @@ import { Type, TypedArraySchemas, defineOp } from "@swooper/mapgen-core/authorin
 
 import { HotspotTunablesSchema, IslandsConfigSchema } from "../../config.js";
 
-const IslandChainsConfigSchema = Type.Object({
-  islands: IslandsConfigSchema,
-  hotspot: HotspotTunablesSchema,
-  seaLaneAvoidRadius: Type.Number({
-    description: "Radius (tiles) to avoid placing islands on sea lanes.",
-    default: 2,
-    minimum: 0,
-  }),
-});
+const IslandChainsConfigSchema = Type.Object(
+  {
+    islands: IslandsConfigSchema,
+    hotspot: HotspotTunablesSchema,
+    seaLaneAvoidRadius: Type.Number({
+      description: "Radius (tiles) to avoid placing islands on sea lanes.",
+      default: 2,
+      minimum: 0,
+    }),
+  },
+  {
+    description: "Island chain planning knobs (hotspots + sea lane avoidance).",
+  }
+);
 
 const IslandEditSchema = Type.Object({
   index: Type.Integer({ minimum: 0, description: "Tile index in row-major order." }),
@@ -19,12 +24,15 @@ const IslandEditSchema = Type.Object({
   }),
 });
 
+/**
+ * Plans island chain edits to apply after base land/sea shaping.
+ */
 const PlanIslandChainsContract = defineOp({
   kind: "plan",
   id: "morphology/plan-island-chains",
   input: Type.Object({
-    width: Type.Integer({ minimum: 1 }),
-    height: Type.Integer({ minimum: 1 }),
+    width: Type.Integer({ minimum: 1, description: "Map width in tiles." }),
+    height: Type.Integer({ minimum: 1, description: "Map height in tiles." }),
     landMask: TypedArraySchemas.u8({ description: "Land mask per tile (1=land, 0=water)." }),
     seaLaneMask: TypedArraySchemas.u8({ description: "Mask of protected sea lanes (1=protected)." }),
     activeMarginMask: TypedArraySchemas.u8({ description: "Mask of active margin tiles (1=active)." }),

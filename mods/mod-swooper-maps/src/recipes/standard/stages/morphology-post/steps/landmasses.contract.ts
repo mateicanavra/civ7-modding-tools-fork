@@ -3,6 +3,9 @@ import morphology from "@mapgen/domain/morphology";
 
 import { morphologyArtifacts } from "../../morphology-pre/artifacts.js";
 
+/**
+ * Publishes the landmass decomposition artifact from the final land mask.
+ */
 const LandmassesStepContract = defineStep({
   id: "landmasses",
   phase: "morphology",

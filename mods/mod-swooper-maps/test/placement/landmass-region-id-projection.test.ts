@@ -49,8 +49,6 @@ describe("placement landmass region projection", () => {
     const baseStarts = {
       playersLandmass1: runtime.playersLandmass1,
       playersLandmass2: runtime.playersLandmass2,
-      westContinent: { west: 0, east: 1, south: 0, north: 1, continent: 0 },
-      eastContinent: { west: 2, east: 3, south: 0, north: 1, continent: 1 },
       startSectorRows: runtime.startSectorRows,
       startSectorCols: runtime.startSectorCols,
       startSectors: runtime.startSectors,

@@ -41,8 +41,6 @@ describe("placement plan operations", () => {
     const baseStarts = {
       playersLandmass1: 1,
       playersLandmass2: 1,
-      westContinent: { west: 0, east: 10, south: 0, north: 10, continent: 0 },
-      eastContinent: { west: 10, east: 20, south: 0, north: 10, continent: 1 },
       startSectorRows: 2,
       startSectorCols: 2,
       startSectors: [1, 2],

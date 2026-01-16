@@ -6,12 +6,15 @@ const VolcanoPlanSchema = Type.Object({
   index: Type.Integer({ minimum: 0, description: "Tile index in row-major order." }),
 });
 
+/**
+ * Plans volcanic placements driven by boundary and hotspot signals.
+ */
 const PlanVolcanoesContract = defineOp({
   kind: "plan",
   id: "morphology/plan-volcanoes",
   input: Type.Object({
-    width: Type.Integer({ minimum: 1 }),
-    height: Type.Integer({ minimum: 1 }),
+    width: Type.Integer({ minimum: 1, description: "Map width in tiles." }),
+    height: Type.Integer({ minimum: 1, description: "Map height in tiles." }),
     landMask: TypedArraySchemas.u8({ description: "Land mask per tile (1=land, 0=water)." }),
     boundaryCloseness: TypedArraySchemas.u8({ description: "Boundary proximity per tile (0..255)." }),
     boundaryType: TypedArraySchemas.u8({ description: "Boundary type per tile (1=conv,2=div,3=trans)." }),

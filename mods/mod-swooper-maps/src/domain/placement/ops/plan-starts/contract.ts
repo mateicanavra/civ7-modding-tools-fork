@@ -1,53 +1,34 @@
 import { Type, defineOp } from "@swooper/mapgen-core/authoring";
 
-const ContinentBoundsSchema = Type.Object({
-  west: Type.Number({
-    description:
-      "DEPRECATED: west bound for legacy continent placement windows (no longer used by placement).",
-  }),
-  east: Type.Number({
-    description:
-      "DEPRECATED: east bound for legacy continent placement windows (no longer used by placement).",
-  }),
-  south: Type.Number({
-    description:
-      "DEPRECATED: south bound for legacy continent placement windows (no longer used by placement).",
-  }),
-  north: Type.Number({
-    description:
-      "DEPRECATED: north bound for legacy continent placement windows (no longer used by placement).",
-  }),
-  continent: Type.Optional(
-    Type.Number({
-      description:
-        "DEPRECATED: legacy continent identifier (retained only for compatibility).",
-    })
-  ),
-});
-
-const StartsConfigSchema = Type.Object({
-  playersLandmass1: Type.Number({
-    description: "Player count allocated to the primary landmass band.",
-  }),
-  playersLandmass2: Type.Number({
-    description: "Player count allocated to the secondary landmass band (if present).",
-  }),
-  westContinent: ContinentBoundsSchema,
-  eastContinent: ContinentBoundsSchema,
-  startSectorRows: Type.Number({
-    description: "Number of sector rows used when partitioning the map for starts.",
-  }),
-  startSectorCols: Type.Number({
-    description: "Number of sector columns used when partitioning the map for starts.",
-  }),
-  startSectors: Type.Array(Type.Unknown(), {
-    default: [],
-    description: "Explicit start sector descriptors passed directly to placement logic.",
-  }),
-});
+const StartsConfigSchema = Type.Object(
+  {
+    playersLandmass1: Type.Number({
+      description: "Player count allocated to the primary landmass band.",
+    }),
+    playersLandmass2: Type.Number({
+      description: "Player count allocated to the secondary landmass band (if present).",
+    }),
+    startSectorRows: Type.Number({
+      description: "Number of sector rows used when partitioning the map for starts.",
+    }),
+    startSectorCols: Type.Number({
+      description: "Number of sector columns used when partitioning the map for starts.",
+    }),
+    startSectors: Type.Array(Type.Unknown(), {
+      default: [],
+      description: "Explicit start sector descriptors passed directly to placement logic.",
+    }),
+  },
+  {
+    description: "Start placement inputs supplied by runtime + authored overrides.",
+  }
+);
 
 const StartsOverrideSchema = Type.Partial(StartsConfigSchema);
 
+/**
+ * Merges authored start overrides with runtime-provided start allocation inputs.
+ */
 const PlanStartsContract = defineOp({
   kind: "plan",
   id: "placement/plan-starts",
@@ -56,13 +37,11 @@ const PlanStartsContract = defineOp({
   }),
   output: Type.Object({
     playersLandmass1: Type.Number({
-      description: "Player count allocated to the primary landmass band.",
-    }),
-    playersLandmass2: Type.Number({
-      description: "Player count allocated to the secondary landmass band (if present).",
-    }),
-    westContinent: ContinentBoundsSchema,
-    eastContinent: ContinentBoundsSchema,
+    description: "Player count allocated to the primary landmass band.",
+  }),
+  playersLandmass2: Type.Number({
+    description: "Player count allocated to the secondary landmass band (if present).",
+  }),
     startSectorRows: Type.Number({
       description: "Number of sector rows used when partitioning the map for starts.",
     }),

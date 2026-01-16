@@ -4,6 +4,9 @@ import morphology from "@mapgen/domain/morphology";
 import { foundationArtifacts } from "../../foundation/artifacts.js";
 import { narrativePreArtifacts } from "../../narrative-pre/artifacts.js";
 
+/**
+ * Plans and applies volcanic placements.
+ */
 const VolcanoesStepContract = defineStep({
   id: "volcanoes",
   phase: "morphology",

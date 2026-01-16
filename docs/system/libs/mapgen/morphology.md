@@ -15,10 +15,12 @@ Unlike approaches that simply add noise to a heightmap, Morphology follows a **g
 ### Core responsibilities
 
 1. **Uplift integration:** Convert tectonic forces and history into an initial elevation field.
-2. **Erosion:** Carve valleys using the stream power law.
-3. **Diffusion:** Smooth rugged slopes into hills (thermal erosion / slope diffusion).
-4. **Sedimentation:** Deposit eroded material to form plains and deltas.
-5. **Land definition:** Apply sea level to determine the land/ocean mask.
+2. **Sea level + land definition:** Apply hypsometry targets to determine the land/ocean mask.
+3. **Coastline structuring:** Derive coastline metrics and coastal shaping signals.
+4. **Routing:** Compute flow direction and accumulation from current elevation.
+5. **Geomorphic shaping:** Carve valleys (incision), smooth slopes (diffusion), and deposit sediment.
+6. **Landform accents:** Plan islands, ridges, foothills, and volcanic chains.
+7. **Landmass decomposition:** Publish connected land components for downstream projections.
 
 ### Design philosophy: field-based vs particle-based
 
@@ -112,6 +114,7 @@ interface MorphologyBuffers {
 - Topography buffers (elevation/bathymetry + land/sea definition).
 - Routing buffers (flow direction + accumulation).
 - Substrate buffers (erodibility + sediment depth).
+- Coastline metrics (adjacency masks for coastal land/water + coast terrain mask).
 - Derived landmass decomposition (connected land components + attributes) as a stable downstream input.
 
 ## Conceptual steps
@@ -171,7 +174,7 @@ Add specific volcanic forms.
 Define the coastline.
 
 - Sketch: `land = elevation > seaLevel`.
-- Sea level can be a global constant or a curve (planet types).
+- Sea level is selected via hypsometry targets (global + jittered variance).
 
 ### Landmass decomposition (derived product; not a projection)
 
@@ -183,32 +186,20 @@ Downstream usage:
 - Gameplay can derive “homeland vs distant lands” partitions from landmasses without requiring Morphology to publish start-region projections.
 - Civ7 interop: Gameplay owns the engine-facing LandmassRegionId projection (“primary/secondary hemisphere slots”) from that same partitioning (implemented at the apply boundary); see `docs/projects/engine-refactor-v1/resources/domains/gameplay/ISSUE-LANDMASS-REGION-ID-PROJECTION.md`.
 
-## Tuning parameters (conceptual)
+## Tuning parameters (op-scoped)
 
-```typescript
-interface MorphologyConfig {
-  /** Global sea level (meters relative to datum) */
-  seaLevel: number;
+Morphology tuning is op-scoped rather than a single global config bag. Each op owns its
+schema and defaults (see `mods/mod-swooper-maps/src/domain/morphology/config.ts`).
 
-  /** Erosion parameters */
-  erosion: {
-    /** Global erosion rate multiplier */
-    rate: number;
-    /** Stream power exponent m (area influence) */
-    m: number;
-    /** Stream power exponent n (slope influence) */
-    n: number;
-  };
-
-  /** Time simulation */
-  history: {
-    /** Number of erosion passes */
-    erosionSteps: number;
-    /** Strength of diffusion (hill rounding) */
-    diffusionScale: number;
-  };
-}
-```
+High-level categories:
+- Substrate (erodibility + sediment baselines).
+- Base topography (tectonic uplift -> elevation).
+- Sea level (hypsometry targets + jitter).
+- Landmask shaping (ocean separation, channels, sea lanes).
+- Coastline metrics (bay/fjord carving + sea lane protection).
+- Routing (flow direction + accumulation).
+- Geomorphic cycle (incision/diffusion/deposition by world age).
+- Landform accents (islands, ridges/foothills, volcanoes).
 
 ## Projection policy (explicitly non-canonical)
 
