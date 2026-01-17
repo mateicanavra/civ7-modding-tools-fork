@@ -12,7 +12,15 @@ const LakesStepContract = defineStep({
     requires: [morphologyArtifacts.topography],
     provides: [hydrologyPreArtifacts.heightfield],
   },
-  schema: Type.Object({}),
+  schema: Type.Object({
+    tilesPerLakeMultiplier: Type.Number({
+      description:
+        "Multiplier applied to the engine lake frequency (higher = fewer lakes; lower = more lakes).",
+      default: 1,
+      minimum: 0.25,
+      maximum: 4,
+    }),
+  }),
 });
 
 export default LakesStepContract;

@@ -51,7 +51,7 @@ export default createStep(RiversStepContract, {
       validate: (value, context) => validateRiverAdjacencyMask(value, context.dimensions),
     },
   }),
-  run: (context, _config, _ops, deps) => {
+  run: (context, config, _ops, deps) => {
     const navigableRiverTerrain = NAVIGABLE_RIVER_TERRAIN;
     const { width, height } = context.dimensions;
     const logStats = (label: string) => {
@@ -91,7 +91,7 @@ export default createStep(RiversStepContract, {
     };
 
     logStats("PRE-RIVERS");
-    context.adapter.modelRivers(5, 15, navigableRiverTerrain);
+    context.adapter.modelRivers(config.minLength, config.maxLength, navigableRiverTerrain);
     logStats("POST-MODELRIVERS");
     context.adapter.validateAndFixTerrain();
     logStats("POST-VALIDATE");

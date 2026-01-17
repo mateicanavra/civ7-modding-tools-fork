@@ -362,71 +362,26 @@ export default createMap({
     },
   },
   "hydrology-pre": {
-    lakes: {},
-    "climate-baseline": {
-      computeWindFields: {
-        strategy: "default",
-        config: {
-          windJetStreaks: 3,
-          windJetStrength: 1.0,
-          windVariance: 0.5,
-        },
-      },
-      climate: {
-        baseline: {
-          blend: {
-            baseWeight: 0.15,
-            bandWeight: 0.85,
-          },
-          seed: {
-            baseRainfall: 8,
-            coastalExponent: 1.6,
-          },
-          bands: {
-            // Desert-leaning bands with dry subtropics.
-            deg0to10: 16,
-            deg10to20: 12,
-            deg20to35: 7,
-            deg35to55: 14,
-            deg55to70: 12,
-            deg70plus: 10,
-            edges: {
-              deg0to10: 10,
-              deg10to20: 20,
-              deg20to35: 35,
-              deg35to55: 55,
-              deg55to70: 70,
-            },
-            transitionWidth: 6,
-          },
-          sizeScaling: {
-            baseArea: 10000,
-            minScale: 0.5,
-            maxScale: 1.8,
-            equatorBoostScale: 4,
-            equatorBoostTaper: 0.35,
-          },
-          orographic: {
-            hi1Threshold: 220,
-            hi1Bonus: 14,
-            hi2Threshold: 420,
-            hi2Bonus: 28,
-          },
-	          coastal: {
-	            coastalLandBonus: 16,
-	            spread: 3,
-	          },
-          noise: {
-            baseSpanSmall: 4,
-            spanLargeScaleFactor: 1.35,
-            scale: 0.26,
-          },
-        },
-      },
+    knobs: {
+      dryness: "dry",
+      temperature: "hot",
+      seasonality: "low",
+      oceanCoupling: "off",
+      cryosphere: "off",
+      riverDensity: "sparse",
+      lakeiness: "few",
     },
   },
   "hydrology-core": {
-    rivers: {},
+    knobs: {
+      dryness: "dry",
+      temperature: "hot",
+      seasonality: "low",
+      oceanCoupling: "off",
+      cryosphere: "off",
+      riverDensity: "sparse",
+      lakeiness: "few",
+    },
   },
   "narrative-post": {
     "story-corridors-post": {
@@ -466,81 +421,16 @@ export default createMap({
     },
   },
   "hydrology-post": {
-    "climate-refine": {
-      climate: {
-        baseline: {
-          blend: {
-            baseWeight: 0.15,
-            bandWeight: 0.85,
-          },
-          seed: {
-            baseRainfall: 15,
-            coastalExponent: 1.3,
-          },
-          bands: {
-            // Desert-leaning bands with dry subtropics.
-            deg0to10: 26,
-            deg10to20: 19,
-            deg20to35: 9,
-            deg35to55: 20,
-            deg55to70: 18,
-            deg70plus: 14,
-            edges: {
-              deg0to10: 10,
-              deg10to20: 20,
-              deg20to35: 35,
-              deg35to55: 55,
-              deg55to70: 70,
-            },
-            transitionWidth: 6,
-          },
-          sizeScaling: {
-            baseArea: 10000,
-            minScale: 0.6,
-            maxScale: 2.0,
-            equatorBoostScale: 5,
-            equatorBoostTaper: 0.35,
-          },
-          orographic: {
-            hi1Threshold: 200,
-            hi1Bonus: 16,
-            hi2Threshold: 380,
-            hi2Bonus: 32,
-          },
-	          coastal: {
-	            coastalLandBonus: 24,
-	            spread: 3,
-	          },
-	          noise: {
-	            baseSpanSmall: 4,
-	            spanLargeScaleFactor: 1.2,
-	            scale: 0.22,
-	          },
-	        },
-	        refine: {
-	          waterGradient: {
-	            radius: 5,
-	            perRingBonus: 3,
-	            lowlandBonus: 6,
-          },
-          orographic: {
-            steps: 4,
-            reductionBase: 22,
-            reductionPerStep: 12,
-          },
-	          riverCorridor: {
-	            adjacencyRadius: 2,
-	            lowlandAdjacencyBonus: 26,
-	            highlandAdjacencyBonus: 12,
-	          },
-	          lowBasin: {
-	            radius: 4,
-	            delta: 24,
-	          },
-	        },
-	      },
-	    },
-	  },
+    knobs: {
+      dryness: "dry",
+      temperature: "hot",
+      seasonality: "low",
+      oceanCoupling: "off",
+      cryosphere: "off",
+      riverDensity: "sparse",
+      lakeiness: "few",
+    },
+  },
   ecology: {
     // New ecology steps with strategy selections for arid mountain world
     pedology: {

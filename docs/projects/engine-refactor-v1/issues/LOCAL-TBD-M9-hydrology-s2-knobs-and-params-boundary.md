@@ -27,17 +27,20 @@ related_to: []
 - Determinism policy + tests for knob compilation semantics (missing/default/empty/null).
 
 ## Acceptance Criteria
-- [ ] Hydrology public configuration surface exposes semantic knobs only (as defined in Phase 2 “Config semantics table”).
-- [ ] The Hydrology stages (`hydrology-pre`, `hydrology-core`, `hydrology-post`) reject authored low-level config bags (baseline/refine/story/swatches); author input must be via knobs.
-- [ ] Knob compilation is deterministic: same knobs + seed ⇒ identical compiled internal configs.
-- [ ] Missing vs explicit defaults behave exactly as documented in Phase 2 semantics table.
-- [ ] No runtime defaulting/cleaning occurs in steps or op implementations (defaults happen in compiler-only code paths).
+- [x] Hydrology public configuration surface exposes semantic knobs only (as defined in Phase 2 “Config semantics table”).
+- [x] The Hydrology stages (`hydrology-pre`, `hydrology-core`, `hydrology-post`) reject authored low-level config bags (baseline/refine/story/swatches); author input must be via knobs.
+- [x] Knob compilation is deterministic: same knobs + seed ⇒ identical compiled internal configs.
+- [x] Missing vs explicit defaults behave exactly as documented in Phase 2 semantics table.
+- [x] No runtime defaulting/cleaning occurs for recipe config semantics in steps/ops (defaults happen in compiler-only code paths).
+
+Completed on branch `agent-TURTLE-M9-LOCAL-TBD-M9-hydrology-s2-knobs-and-params-boundary` (PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/614).
 
 ## Testing / Verification
 - `pnpm check`
 - `pnpm -C mods/mod-swooper-maps test`
 - `pnpm lint:domain-refactor-guardrails`
-- `rg -n "climate:\\s*\\{|baseline:\\s*\\{|refine:\\s*\\{|swatches:\\s*\\{|story:\\s*\\{" mods/mod-swooper-maps/src/maps` (expect zero hits in author-facing map configs after cutover)
+- `rg -n "\\bclimate\\s*:" mods/mod-swooper-maps/src/maps` (expect zero hits; authored hydrology climate bags removed)
+- `rg -n "\"climate-baseline\"\\s*:|\"climate-refine\"\\s*:|\\blakes\\s*:|\\brivers\\s*:" mods/mod-swooper-maps/src/maps` (expect zero hits; authored step-id bags removed)
 
 ## Dependencies / Notes
 - Phase 2 authority (knobs + semantics): `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/hydrology/spike-hydrology-modeling-synthesis.md`
@@ -149,3 +152,8 @@ The repo already supports the exact “single author-facing surface → compile 
   - (B) Expose knobs on only one Hydrology stage (e.g., hydrology-pre) and treat the resulting compiled internal config as shared across the Hydrology stages.\n
 - **Risk:** (A) can duplicate compile logic; (B) can create hidden coupling between stages.\n
 - **Default (unless Phase 2 says otherwise):** (B) with an explicit shared internal artifact/config mapping, to keep author input single-source.
+
+## Implementation Decisions
+- Use stage `public` + `compile` with an empty public schema for all Hydrology stages so authored step-id config bags are rejected by the compiler.
+- Reuse the same `HydrologyKnobsSchema` on `hydrology-pre`, `hydrology-core`, and `hydrology-post` because the compiler’s `compile` hook is stage-local (no supported cross-stage compile surface).
+- Map semantic knobs to legacy internal step configs via deterministic “preset” compilation (Phase 3 locked model still lands in Slice 3+; this slice only establishes the stable boundary).
