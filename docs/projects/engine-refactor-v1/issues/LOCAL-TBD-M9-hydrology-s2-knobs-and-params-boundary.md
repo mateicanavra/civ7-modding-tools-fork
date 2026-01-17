@@ -104,14 +104,6 @@ Once cutover lands, “bag config” usage should be mechanically detectable:
 - Map author configs under `swooper-src/maps/**` should not include `climate: { ... }` bags; they should specify hydrology knobs only.
 - Runtime code (steps/ops) must not call `Value.Default` or `?? {}` to merge config (per recipe-compile invariants).
 
-### Prework Prompt (Agent Brief)
-**Purpose:** Validate how stage-level public schema + compile hooks are expressed in the current authoring API, and identify an existing exemplar.\n
-**Expected Output:** A minimal example (file path + excerpt references) of a stage using a `public` view + compile hook, and the exact API surface to implement it for Hydrology.\n
-**Sources to Check:**\n
-- `docs/projects/engine-refactor-v1/resources/spec/recipe-compile/architecture/03-authoring-patterns.md`\n
-- `packages/mapgen-core/src/authoring` (`createStage`, compilation pipeline)\n
-- `rg -n \"public\" packages/mapgen-core/src/authoring -S`\n
-
 ### Prework Results (Resolved)
 
 The repo already supports the exact “single author-facing surface → compile to internal step configs” pattern this slice needs.
