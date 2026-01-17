@@ -2,8 +2,8 @@ import { Type, defineStep } from "@swooper/mapgen-core/authoring";
 import hydrology from "@mapgen/domain/hydrology";
 
 import { M4_EFFECT_TAGS } from "../../../tags.js";
-import { hydrologyCoreArtifacts } from "../artifacts.js";
-import { hydrologyPreArtifacts } from "../../hydrology-pre/artifacts.js";
+import { hydrologyHydrographyArtifacts } from "../artifacts.js";
+import { hydrologyClimateBaselineArtifacts } from "../../hydrology-climate-baseline/artifacts.js";
 import { morphologyArtifacts } from "../../morphology-pre/artifacts.js";
 
 /**
@@ -60,11 +60,11 @@ const RiversStepContract = defineStep({
   ],
   artifacts: {
     requires: [
-      hydrologyPreArtifacts.heightfield,
-      hydrologyPreArtifacts.climateField,
+      hydrologyClimateBaselineArtifacts.heightfield,
+      hydrologyClimateBaselineArtifacts.climateField,
       morphologyArtifacts.routing,
     ],
-    provides: [hydrologyCoreArtifacts.riverAdjacency, hydrologyCoreArtifacts.hydrography],
+    provides: [hydrologyHydrographyArtifacts.riverAdjacency, hydrologyHydrographyArtifacts.hydrography],
   },
   ops: {
     accumulateDischarge: hydrology.ops.accumulateDischarge,

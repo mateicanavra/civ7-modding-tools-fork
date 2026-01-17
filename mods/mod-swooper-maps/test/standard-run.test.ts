@@ -7,9 +7,9 @@ import standardRecipe from "../src/recipes/standard/recipe.js";
 import type { StandardRecipeConfig } from "../src/recipes/standard/recipe.js";
 import { initializeStandardRuntime } from "../src/recipes/standard/runtime.js";
 import { foundationArtifacts } from "../src/recipes/standard/stages/foundation/artifacts.js";
-import { hydrologyCoreArtifacts } from "../src/recipes/standard/stages/hydrology-core/artifacts.js";
-import { hydrologyPreArtifacts } from "../src/recipes/standard/stages/hydrology-pre/artifacts.js";
-import { hydrologyPostArtifacts } from "../src/recipes/standard/stages/hydrology-post/artifacts.js";
+import { hydrologyHydrographyArtifacts } from "../src/recipes/standard/stages/hydrology-hydrography/artifacts.js";
+import { hydrologyClimateBaselineArtifacts } from "../src/recipes/standard/stages/hydrology-climate-baseline/artifacts.js";
+import { hydrologyClimateRefineArtifacts } from "../src/recipes/standard/stages/hydrology-climate-refine/artifacts.js";
 import { placementArtifacts } from "../src/recipes/standard/stages/placement/artifacts.js";
 
 const reliefConfig = {
@@ -492,7 +492,7 @@ const standardConfig = {
     volcanoes: { volcanoes: { strategy: "default", config: volcanoesConfig } },
     landmasses: { landmasses: { strategy: "default", config: {} } },
   },
-  "hydrology-pre": {
+  "hydrology-climate-baseline": {
     knobs: {
       dryness: "mix",
       temperature: "temperate",
@@ -503,7 +503,7 @@ const standardConfig = {
       lakeiness: "normal",
     },
   },
-  "hydrology-core": {
+  "hydrology-hydrography": {
     knobs: {
       dryness: "mix",
       temperature: "temperate",
@@ -517,7 +517,7 @@ const standardConfig = {
   "narrative-post": {
     "story-corridors-post": { corridors: corridorsConfig },
   },
-  "hydrology-post": {
+  "hydrology-climate-refine": {
     knobs: {
       dryness: "mix",
       temperature: "temperate",
@@ -567,10 +567,10 @@ describe("standard recipe execution", () => {
 	    initializeStandardRuntime(context, { mapInfo, logPrefix: "[test]", storyEnabled: true });
 	    standardRecipe.run(context, env, standardConfig, { log: () => {} });
 
-	    const hydrography = context.artifacts.get(hydrologyCoreArtifacts.hydrography.id) as
+	    const hydrography = context.artifacts.get(hydrologyHydrographyArtifacts.hydrography.id) as
 	      | { discharge?: Float32Array; riverClass?: Uint8Array }
 	      | undefined;
-	    const riverAdjacency = context.artifacts.get(hydrologyCoreArtifacts.riverAdjacency.id) as Uint8Array | undefined;
+	    const riverAdjacency = context.artifacts.get(hydrologyHydrographyArtifacts.riverAdjacency.id) as Uint8Array | undefined;
 	    const size = width * height;
 	    if (!(hydrography?.discharge instanceof Float32Array) || hydrography.discharge.length !== size) {
 	      throw new Error("Missing artifact:hydrology.hydrography discharge buffer.");
@@ -582,7 +582,7 @@ describe("standard recipe execution", () => {
 	      throw new Error("Missing artifact:riverAdjacency buffer.");
 	    }
 
-	    const climateField = context.artifacts.get(hydrologyPreArtifacts.climateField.id) as
+	    const climateField = context.artifacts.get(hydrologyClimateBaselineArtifacts.climateField.id) as
 	      | { rainfall?: Uint8Array; humidity?: Uint8Array }
 	      | undefined;
     const rainfall = climateField?.rainfall;
@@ -591,13 +591,13 @@ describe("standard recipe execution", () => {
       throw new Error("Missing artifact:climateField rainfall/humidity buffers.");
     }
 
-    const climateIndices = context.artifacts.get(hydrologyPostArtifacts.climateIndices.id) as
+    const climateIndices = context.artifacts.get(hydrologyClimateRefineArtifacts.climateIndices.id) as
       | { surfaceTemperatureC?: Float32Array; pet?: Float32Array; aridityIndex?: Float32Array; freezeIndex?: Float32Array }
       | undefined;
-    const cryosphere = context.artifacts.get(hydrologyPostArtifacts.cryosphere.id) as
+    const cryosphere = context.artifacts.get(hydrologyClimateRefineArtifacts.cryosphere.id) as
       | { snowCover?: Uint8Array; seaIceCover?: Uint8Array; albedo?: Uint8Array }
       | undefined;
-    const diagnostics = context.artifacts.get(hydrologyPostArtifacts.climateDiagnostics.id) as
+    const diagnostics = context.artifacts.get(hydrologyClimateRefineArtifacts.climateDiagnostics.id) as
       | { rainShadowIndex?: Float32Array; continentalityIndex?: Float32Array; convergenceIndex?: Float32Array }
       | undefined;
 
@@ -709,7 +709,7 @@ describe("standard recipe execution", () => {
       standardRecipe.run(context, env, config, { log: () => {} })
     ).not.toThrow();
 
-    const climateField = context.artifacts.get(hydrologyPreArtifacts.climateField.id) as
+    const climateField = context.artifacts.get(hydrologyClimateBaselineArtifacts.climateField.id) as
       | { humidity?: Uint8Array }
       | undefined;
     const humidity = climateField?.humidity;
@@ -717,7 +717,7 @@ describe("standard recipe execution", () => {
     expect(humidity?.length).toBe(width * height);
     expect(humidity?.some((value) => value > 0)).toBe(true);
 
-    const indices = context.artifacts.get(hydrologyPostArtifacts.climateIndices.id) as
+    const indices = context.artifacts.get(hydrologyClimateRefineArtifacts.climateIndices.id) as
       | { surfaceTemperatureC?: Float32Array; aridityIndex?: Float32Array; freezeIndex?: Float32Array }
       | undefined;
     expect(indices?.surfaceTemperatureC instanceof Float32Array).toBe(true);
@@ -725,7 +725,7 @@ describe("standard recipe execution", () => {
     expect(indices?.aridityIndex instanceof Float32Array).toBe(true);
     expect(indices?.freezeIndex instanceof Float32Array).toBe(true);
 
-    const cryosphere = context.artifacts.get(hydrologyPostArtifacts.cryosphere.id) as
+    const cryosphere = context.artifacts.get(hydrologyClimateRefineArtifacts.cryosphere.id) as
       | { snowCover?: Uint8Array; seaIceCover?: Uint8Array }
       | undefined;
     expect(cryosphere?.snowCover instanceof Uint8Array).toBe(true);
@@ -748,24 +748,24 @@ describe("standard recipe execution", () => {
 
     const configCold: StandardRecipeConfig = {
       ...standardConfig,
-      "hydrology-pre": {
-        ...standardConfig["hydrology-pre"],
-        knobs: { ...standardConfig["hydrology-pre"].knobs, temperature: "cold" },
+      "hydrology-climate-baseline": {
+        ...standardConfig["hydrology-climate-baseline"],
+        knobs: { ...standardConfig["hydrology-climate-baseline"].knobs, temperature: "cold" },
       },
-      "hydrology-post": {
-        ...standardConfig["hydrology-post"],
-        knobs: { ...standardConfig["hydrology-post"].knobs, temperature: "cold" },
+      "hydrology-climate-refine": {
+        ...standardConfig["hydrology-climate-refine"],
+        knobs: { ...standardConfig["hydrology-climate-refine"].knobs, temperature: "cold" },
       },
     };
     const configHot: StandardRecipeConfig = {
       ...standardConfig,
-      "hydrology-pre": {
-        ...standardConfig["hydrology-pre"],
-        knobs: { ...standardConfig["hydrology-pre"].knobs, temperature: "hot" },
+      "hydrology-climate-baseline": {
+        ...standardConfig["hydrology-climate-baseline"],
+        knobs: { ...standardConfig["hydrology-climate-baseline"].knobs, temperature: "hot" },
       },
-      "hydrology-post": {
-        ...standardConfig["hydrology-post"],
-        knobs: { ...standardConfig["hydrology-post"].knobs, temperature: "hot" },
+      "hydrology-climate-refine": {
+        ...standardConfig["hydrology-climate-refine"],
+        knobs: { ...standardConfig["hydrology-climate-refine"].knobs, temperature: "hot" },
       },
     };
 
@@ -792,7 +792,7 @@ describe("standard recipe execution", () => {
       const context = createExtendedMapContext({ width, height }, adapter, env);
       initializeStandardRuntime(context, { mapInfo, logPrefix: "[test]", storyEnabled: true });
       standardRecipe.run(context, env, cfg, { log: () => {} });
-      const indices = context.artifacts.get(hydrologyPostArtifacts.climateIndices.id) as
+      const indices = context.artifacts.get(hydrologyClimateRefineArtifacts.climateIndices.id) as
         | { freezeIndex?: Float32Array }
         | undefined;
       const freeze = indices?.freezeIndex;
@@ -814,16 +814,16 @@ describe("standard recipe execution", () => {
 
 	    const configDense: StandardRecipeConfig = {
 	      ...standardConfig,
-	      "hydrology-core": {
-	        ...standardConfig["hydrology-core"],
-	        knobs: { ...standardConfig["hydrology-core"].knobs, riverDensity: "dense" },
+	      "hydrology-hydrography": {
+	        ...standardConfig["hydrology-hydrography"],
+	        knobs: { ...standardConfig["hydrology-hydrography"].knobs, riverDensity: "dense" },
 	      },
 	    };
 	    const configSparse: StandardRecipeConfig = {
 	      ...standardConfig,
-	      "hydrology-core": {
-	        ...standardConfig["hydrology-core"],
-	        knobs: { ...standardConfig["hydrology-core"].knobs, riverDensity: "sparse" },
+	      "hydrology-hydrography": {
+	        ...standardConfig["hydrology-hydrography"],
+	        knobs: { ...standardConfig["hydrology-hydrography"].knobs, riverDensity: "sparse" },
 	      },
 	    };
 
@@ -850,7 +850,7 @@ describe("standard recipe execution", () => {
 	      const context = createExtendedMapContext({ width, height }, adapter, env);
 	      initializeStandardRuntime(context, { mapInfo, logPrefix: "[test]", storyEnabled: true });
 	      standardRecipe.run(context, env, cfg, { log: () => {} });
-	      const hydrography = context.artifacts.get(hydrologyCoreArtifacts.hydrography.id) as
+	      const hydrography = context.artifacts.get(hydrologyHydrographyArtifacts.hydrography.id) as
 	        | { riverClass?: Uint8Array }
 	        | undefined;
 	      const riverClass = hydrography?.riverClass;

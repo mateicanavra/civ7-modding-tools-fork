@@ -7,7 +7,7 @@ import {
 } from "@swooper/mapgen-core";
 import type { MapDimensions } from "@civ7/adapter";
 import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
-import { hydrologyPreArtifacts } from "../artifacts.js";
+import { hydrologyClimateBaselineArtifacts } from "../artifacts.js";
 import ClimateBaselineStepContract from "./climateBaseline.contract.js";
 
 type ArtifactValidationIssue = Readonly<{ message: string }>;
@@ -56,7 +56,9 @@ function validateClimateFieldBuffer(
 }
 
 export default createStep(ClimateBaselineStepContract, {
-  artifacts: implementArtifacts([hydrologyPreArtifacts.climateField, hydrologyPreArtifacts.windField], {
+  artifacts: implementArtifacts(
+    [hydrologyClimateBaselineArtifacts.climateField, hydrologyClimateBaselineArtifacts.windField],
+    {
     climateField: {
       validate: (value, context) => validateClimateFieldBuffer(value, context.dimensions),
     },
@@ -80,7 +82,8 @@ export default createStep(ClimateBaselineStepContract, {
         return errors;
       },
     },
-  }),
+  }
+  ),
   normalize: (config, ctx) => {
     const knobs = isRecord(ctx.knobs) ? ctx.knobs : {};
     const drynessRaw = knobs.dryness;

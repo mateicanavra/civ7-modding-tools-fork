@@ -5,7 +5,7 @@ import {
 } from "@mapgen/domain/hydrology/knobs.js";
 
 export default createStage({
-  id: "hydrology-core",
+  id: "hydrology-hydrography",
   knobsSchema: HydrologyKnobsSchema,
   steps: [rivers],
 } as const);

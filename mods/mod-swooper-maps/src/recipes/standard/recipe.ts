@@ -7,9 +7,9 @@ import placementDomain from "@mapgen/domain/placement/ops";
 
 import ecology from "./stages/ecology/index.js";
 import foundation from "./stages/foundation/index.js";
-import hydrologyCore from "./stages/hydrology-core/index.js";
-import hydrologyPost from "./stages/hydrology-post/index.js";
-import hydrologyPre from "./stages/hydrology-pre/index.js";
+import hydrologyClimateBaseline from "./stages/hydrology-climate-baseline/index.js";
+import hydrologyClimateRefine from "./stages/hydrology-climate-refine/index.js";
+import hydrologyHydrography from "./stages/hydrology-hydrography/index.js";
 import morphologyMid from "./stages/morphology-mid/index.js";
 import morphologyPost from "./stages/morphology-post/index.js";
 import morphologyPre from "./stages/morphology-pre/index.js";
@@ -27,10 +27,10 @@ const stages = [
   morphologyMid,
   narrativeMid,
   morphologyPost,
-  hydrologyPre,
-  hydrologyCore,
+  hydrologyClimateBaseline,
+  hydrologyHydrography,
   narrativePost,
-  hydrologyPost,
+  hydrologyClimateRefine,
   ecology,
   placement,
 ] as const;

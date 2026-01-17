@@ -44,32 +44,32 @@ Practical guidance:
 ## Stages, steps, and step configs (recipe-facing)
 
 Hydrology stages (standard recipe):
-- `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-pre/`
-- `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-core/`
-- `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-post/`
+- `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-baseline/`
+- `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-hydrography/`
+- `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-refine/`
 
 Stage public config:
-- `hydrology-pre`, `hydrology-core`, `hydrology-post` expose an **empty** public schema (no stage-local public config).
-- Behavior is driven by knobs compiled into op strategy configs in each stage’s `compile(...)`.
+- `hydrology-climate-baseline`, `hydrology-hydrography`, `hydrology-climate-refine` accept `knobs` plus optional advanced step/op config.
+- Knobs provide the author-facing semantic surface; advanced config can override the internal defaults directly.
 
 Step config schemas:
-- Lakes: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-pre/steps/lakes.contract.ts` (`tilesPerLakeMultiplier`)
-- Climate baseline: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-pre/steps/climateBaseline.contract.ts` (empty; knobs only)
-- Rivers: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-core/steps/rivers.contract.ts` (`minLength`/`maxLength`, engine projection-only)
-- Climate refine: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-post/steps/climateRefine.contract.ts` (empty; knobs only)
+- Lakes: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-baseline/steps/lakes.contract.ts` (`tilesPerLakeMultiplier`)
+- Climate baseline: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-baseline/steps/climateBaseline.contract.ts` (empty; knobs only)
+- Rivers: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-hydrography/steps/rivers.contract.ts` (`minLength`/`maxLength`, engine projection-only)
+- Climate refine: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-refine/steps/climateRefine.contract.ts` (empty; knobs only)
 
 ## Artifacts (published products)
 
 Hydrology publishes typed artifacts for dependency gating and stable consumption:
 
-- `artifact:heightfield`: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-pre/artifacts.ts` (`HeightfieldArtifactSchema`)
-- `artifact:climateField`: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-pre/artifacts.ts` (`ClimateFieldArtifactSchema`)
-- `artifact:windField`: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-pre/artifacts.ts` (`HydrologyWindFieldSchema`)
-- `artifact:riverAdjacency`: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-core/artifacts.ts` (`RiverAdjacencyArtifactSchema`, projection-only)
-- `artifact:hydrology.hydrography`: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-core/artifacts.ts` (`HydrologyHydrographyArtifactSchema`, canonical read path)
-- `artifact:hydrology.climateIndices`: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-post/artifacts.ts` (`HydrologyClimateIndicesSchema`)
-- `artifact:hydrology.cryosphere`: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-post/artifacts.ts` (`HydrologyCryosphereSchema`)
-- `artifact:hydrology.climateDiagnostics`: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-post/artifacts.ts` (`HydrologyClimateDiagnosticsSchema`, advisory)
+- `artifact:heightfield`: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-baseline/artifacts.ts` (`HeightfieldArtifactSchema`)
+- `artifact:climateField`: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-baseline/artifacts.ts` (`ClimateFieldArtifactSchema`)
+- `artifact:windField`: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-baseline/artifacts.ts` (`HydrologyWindFieldSchema`)
+- `artifact:riverAdjacency`: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-hydrography/artifacts.ts` (`RiverAdjacencyArtifactSchema`, projection-only)
+- `artifact:hydrology.hydrography`: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-hydrography/artifacts.ts` (`HydrologyHydrographyArtifactSchema`, canonical read path)
+- `artifact:hydrology.climateIndices`: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-refine/artifacts.ts` (`HydrologyClimateIndicesSchema`)
+- `artifact:hydrology.cryosphere`: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-refine/artifacts.ts` (`HydrologyCryosphereSchema`)
+- `artifact:hydrology.climateDiagnostics`: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-refine/artifacts.ts` (`HydrologyClimateDiagnosticsSchema`, advisory)
 
 Notes:
 - Some artifacts act as **buffer handles** routed through artifacts for gating/typing (publish once, then refine in place).
@@ -103,4 +103,3 @@ Contracts live under `mods/mod-swooper-maps/src/domain/hydrology/ops/*/contract.
 - Domain refactor workflow: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/WORKFLOW.md`
 - Implementation contract: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/IMPLEMENTATION.md`
 - Hydrology implementation prompt (Phases 4–5): `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/prompts/HYDROLOGY-IMPLEMENTATION.md`
-

@@ -2,7 +2,7 @@ import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import { ecologyArtifacts } from "../../artifacts.js";
 import { validateFeatureIntentsArtifact } from "../../artifact-validation.js";
 import FeaturesPlanStepContract from "./contract.js";
-import { computeRiverAdjacencyMask } from "../../../hydrology-core/river-adjacency.js";
+import { computeRiverAdjacencyMask } from "../../../hydrology-hydrography/river-adjacency.js";
 import { deriveStepSeed } from "../helpers/seed.js";
 
 export default createStep(FeaturesPlanStepContract, {
