@@ -84,14 +84,6 @@ files:
 - Any feedback loop must be expressed as **N fixed iterations** with deterministic tie-breaking, not “iterate until convergence”.
 - Randomness is forbidden in cryosphere/aridity ops unless seeded explicitly via numeric seed input; prefer no randomness.
 
-### Prework Prompt (Agent Brief)
-**Purpose:** Determine the smallest set of cryosphere/PET artifacts that provide real downstream value (Ecology) while staying lightweight for performance.\n
-**Expected Output:** Proposed artifact list (ids + schemas + what downstream could do with them) and a test strategy that locks determinism.\n
-**Sources to Check:**\n
-- Phase 2 “Config semantics table” and op catalog\n
-- Existing Ecology consumers of `artifact:climateField` contracts\n
-- `scripts/lint/lint-domain-refactor-guardrails.sh` for schema/documentation expectations\n
-
 ### Prework Results (Resolved)
 
 Phase 2 explicitly requires downstream-facing surfaces for:
