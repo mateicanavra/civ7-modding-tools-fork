@@ -9,7 +9,6 @@ import {
   isDependencyTagSatisfied,
 } from "@swooper/mapgen-core/engine";
 import { hydrologyHydrographyArtifacts } from "../../src/recipes/standard/stages/hydrology-hydrography/artifacts.js";
-import { computeRiverAdjacencyMask } from "../../src/recipes/standard/stages/hydrology-hydrography/river-adjacency.js";
 import { hydrologyClimateBaselineArtifacts } from "../../src/recipes/standard/stages/hydrology-climate-baseline/artifacts.js";
 import { M3_DEPENDENCY_TAGS, STANDARD_TAG_DEFINITIONS } from "../../src/recipes/standard/tags.js";
 
@@ -134,37 +133,40 @@ describe("pipeline artifacts", () => {
     expect(stepResults[0]?.error).toContain("did not satisfy declared provides");
   });
 
-  it("accepts provides when a step publishes artifact:riverAdjacency", () => {
+  it("accepts provides when a step publishes artifact:hydrology.hydrography", () => {
     const adapter = createMockAdapter({ width: 4, height: 3, rng: () => 0 });
-    (adapter as unknown as { isAdjacentToRivers: (x: number, y: number) => boolean }).isAdjacentToRivers =
-      (x, y) => x === 1 && y === 1;
-
     const ctx = createExtendedMapContext(
       { width: 4, height: 3 },
       adapter,
       baseEnv
     );
-    const riverArtifacts = implementArtifacts([hydrologyHydrographyArtifacts.riverAdjacency], {
-      riverAdjacency: {},
+    const hydrographyArtifacts = implementArtifacts([hydrologyHydrographyArtifacts.hydrography], {
+      hydrography: {},
     });
 
     const registry = new StepRegistry<typeof ctx>();
     registry.registerTags([
       ...STANDARD_TAG_DEFINITIONS,
       {
-        id: hydrologyHydrographyArtifacts.riverAdjacency.id,
+        id: hydrologyHydrographyArtifacts.hydrography.id,
         kind: "artifact",
-        satisfies: riverArtifacts.riverAdjacency.satisfies,
+        satisfies: hydrographyArtifacts.hydrography.satisfies,
       },
     ]);
     registry.register({
       id: "rivers",
       phase: "hydrology",
       requires: [],
-      provides: [hydrologyHydrographyArtifacts.riverAdjacency.id],
+      provides: [hydrologyHydrographyArtifacts.hydrography.id],
       run: (_context, _config) => {
-        const mask = computeRiverAdjacencyMask(ctx);
-        riverArtifacts.riverAdjacency.publish(ctx, mask);
+        const size = ctx.dimensions.width * ctx.dimensions.height;
+        hydrographyArtifacts.hydrography.publish(ctx, {
+          runoff: new Float32Array(size),
+          discharge: new Float32Array(size),
+          riverClass: new Uint8Array(size),
+          sinkMask: new Uint8Array(size),
+          outletMask: new Uint8Array(size),
+        });
       },
     });
 
@@ -173,6 +175,13 @@ describe("pipeline artifacts", () => {
     const { stepResults } = executor.executePlanReport(ctx, plan);
 
     expect(stepResults[0]?.success).toBe(true);
-    expect(ctx.artifacts.get(hydrologyHydrographyArtifacts.riverAdjacency.id)).toBeInstanceOf(Uint8Array);
+    const hydro = ctx.artifacts.get(hydrologyHydrographyArtifacts.hydrography.id) as
+      | { runoff?: unknown; discharge?: unknown; riverClass?: unknown; sinkMask?: unknown; outletMask?: unknown }
+      | undefined;
+    expect(hydro?.runoff).toBeInstanceOf(Float32Array);
+    expect(hydro?.discharge).toBeInstanceOf(Float32Array);
+    expect(hydro?.riverClass).toBeInstanceOf(Uint8Array);
+    expect(hydro?.sinkMask).toBeInstanceOf(Uint8Array);
+    expect(hydro?.outletMask).toBeInstanceOf(Uint8Array);
   });
 });

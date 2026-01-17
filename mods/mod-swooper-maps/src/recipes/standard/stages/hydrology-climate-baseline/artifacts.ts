@@ -56,7 +56,7 @@ export const hydrologyClimateBaselineArtifacts = {
   }),
   windField: defineArtifact({
     name: "windField",
-    id: "artifact:windField",
+    id: "artifact:hydrology._internal.windField",
     schema: HydrologyWindFieldSchema,
   }),
 } as const;

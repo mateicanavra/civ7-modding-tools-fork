@@ -33,7 +33,7 @@ const ClimateRefineStepContract = defineStep({
       hydrologyClimateBaselineArtifacts.heightfield,
       hydrologyClimateBaselineArtifacts.climateField,
       hydrologyClimateBaselineArtifacts.windField,
-      hydrologyHydrographyArtifacts.riverAdjacency,
+      hydrologyHydrographyArtifacts.hydrography,
     ],
     provides: [
       hydrologyClimateRefineArtifacts.climateIndices,

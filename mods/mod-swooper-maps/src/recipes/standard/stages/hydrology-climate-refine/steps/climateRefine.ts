@@ -2,6 +2,7 @@ import { ctxRandom, ctxRandomLabel, logRainfallStats, writeClimateField } from "
 import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import ClimateRefineStepContract from "./climateRefine.contract.js";
 import { hydrologyClimateRefineArtifacts } from "../artifacts.js";
+import { computeRiverAdjacencyMaskFromRiverClass } from "../../hydrology-hydrography/river-adjacency.js";
 
 type ArtifactValidationIssue = Readonly<{ message: string }>;
 
@@ -200,7 +201,7 @@ export default createStep(ClimateRefineStepContract, {
   run: (context, config, ops, deps) => {
     const { width, height } = context.dimensions;
     const windField = deps.artifacts.windField.read(context);
-    const riverAdjacency = deps.artifacts.riverAdjacency.read(context);
+    const hydrography = deps.artifacts.hydrography.read(context) as { riverClass: Uint8Array };
     const heightfield = deps.artifacts.heightfield.read(context) as {
       elevation: Int16Array;
       terrain: Uint8Array;
@@ -227,6 +228,16 @@ export default createStep(ClimateRefineStepContract, {
       ctxRandomLabel(stepId, "hydrology/compute-precipitation/noise"),
       2_147_483_647
     );
+
+    const riverAdjacency = computeRiverAdjacencyMaskFromRiverClass({
+      width,
+      height,
+      riverClass: hydrography.riverClass,
+      radius:
+        config.computePrecipitation.strategy === "refine"
+          ? config.computePrecipitation.config.riverCorridor.adjacencyRadius
+          : 1,
+    });
 
     const refined = ops.computePrecipitation(
       {
