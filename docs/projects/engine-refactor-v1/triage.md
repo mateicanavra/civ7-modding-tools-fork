@@ -18,6 +18,12 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
 
 ## Triage (needs decision / research)
 
+- **Hydrology climate refinement still uses river adjacency** [Source: LOCAL-TBD-M9-hydrology-s3-op-spine-climate-ocean]
+  - **Context:** Slice 3 refactors climate into ops but retains a post-rivers refine pass that adds rainfall/humidity near rivers using `artifact:hydrologyCore.riverAdjacency`.
+  - **Type:** triage
+  - **Notes:** Phase 2 causality spine targets removing “rivers drive climate” feedback; revisit during Slice 5 cutover to replace with discharge/wetness-owned projections (or delete entirely if consumers are migrated).
+  - **Next check:** when starting `LOCAL-TBD-M9-hydrology-s5-hydrography-cutover`.
+
 - **Morphology coastline marker artifact renamed + published** [Source: LOCAL-TBD-M9-hydrology-s1-delete-authored-interventions]
   - **Context:** Slice 1 enforcement work needed a stable, contract-first “coastlines complete” gate for Narrative seed steps.
   - **Type:** triage

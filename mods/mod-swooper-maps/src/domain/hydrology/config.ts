@@ -498,7 +498,7 @@ const ClimateRefineSchema = Type.Object(
   { additionalProperties: false }
 );
 
-export const ClimateConfigSchema = Type.Object(
+const ClimateConfigSchema = Type.Object(
   {
     /** Baseline rainfall and local bonuses. */
     baseline: Type.Optional(ClimateBaselineSchema),
@@ -507,34 +507,6 @@ export const ClimateConfigSchema = Type.Object(
   },
   { additionalProperties: false }
 );
-
-export type ClimateConfig = Static<typeof ClimateConfigSchema>;
-export type ClimateBaseline = Static<typeof ClimateConfigSchema["properties"]["baseline"]>;
-export type ClimateBaselineBands =
-  Static<typeof ClimateConfigSchema["properties"]["baseline"]["properties"]["bands"]>;
-export type ClimateBaselineBandEdges =
-  Static<typeof ClimateConfigSchema["properties"]["baseline"]["properties"]["bands"]["properties"]["edges"]>;
-export type ClimateBaselineBlend =
-  Static<typeof ClimateConfigSchema["properties"]["baseline"]["properties"]["blend"]>;
-export type ClimateBaselineSeed =
-  Static<typeof ClimateConfigSchema["properties"]["baseline"]["properties"]["seed"]>;
-export type ClimateBaselineOrographic =
-  Static<typeof ClimateConfigSchema["properties"]["baseline"]["properties"]["orographic"]>;
-export type ClimateBaselineCoastal =
-  Static<typeof ClimateConfigSchema["properties"]["baseline"]["properties"]["coastal"]>;
-export type ClimateBaselineNoise =
-  Static<typeof ClimateConfigSchema["properties"]["baseline"]["properties"]["noise"]>;
-export type ClimateBaselineSizeScaling =
-  Static<typeof ClimateConfigSchema["properties"]["baseline"]["properties"]["sizeScaling"]>;
-export type ClimateRefine = Static<typeof ClimateConfigSchema["properties"]["refine"]>;
-export type ClimateRefineWaterGradient =
-  Static<typeof ClimateConfigSchema["properties"]["refine"]["properties"]["waterGradient"]>;
-export type ClimateRefineOrographic =
-  Static<typeof ClimateConfigSchema["properties"]["refine"]["properties"]["orographic"]>;
-export type ClimateRefineRiverCorridor =
-  Static<typeof ClimateConfigSchema["properties"]["refine"]["properties"]["riverCorridor"]>;
-export type ClimateRefineLowBasin =
-  Static<typeof ClimateConfigSchema["properties"]["refine"]["properties"]["lowBasin"]>;
 
 /**
  * Biome nudge thresholds that fine-tune terrain assignment.
