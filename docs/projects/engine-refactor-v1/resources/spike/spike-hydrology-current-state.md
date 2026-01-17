@@ -13,10 +13,6 @@ Scope guardrails (do not violate):
 - Capture **facts** (file paths, callsites, contract ids); defer design choices to Phase 2/3.
 - “Greenfield delta notes” may describe *constraints* on Phase 0.5 ideas, but must not become Phase 2 modeling.
 
-Important note (avoid Phase bleed):
-- The current system includes **author-driven climate interventions** (notably “swatches” and story motifs) that directly perturb climate buffers.
-- This spike inventories those surfaces as **current-state evidence only**. Phase 2 modeling must treat them as legacy intervention mechanisms, not as acceptable target capabilities for a physics-first Hydrology domain.
-
 ---
 
 ## Authority stack (for Phase 1)
@@ -63,7 +59,7 @@ Hydrology currently includes a climate module subtree that is invoked from Hydro
 - `@mapgen/domain/hydrology/climate/index.ts`
   - Entry points:
     - `applyClimateBaseline(...)` (baseline pass)
-    - `applyClimateSwatches(...)` (legacy author-driven macro swatch pass; non-physics intervention surface)
+    - `applyClimateSwatches(...)` (macro swatch pass)
     - `refineClimateEarthlike(...)` (refine pass)
 - Core runtime:
   - `@mapgen/domain/hydrology/climate/runtime.ts`
@@ -82,7 +78,7 @@ Hydrology currently includes a climate module subtree that is invoked from Hydro
     - `applyRiftHumidityRefinement`
     - `applyOrogenyBeltsRefinement`
     - `applyHotspotMicroclimatesRefinement`
-- Legacy swatch pass (author-driven; non-physics intervention surface):
+- Swatch pass:
   - `@mapgen/domain/hydrology/climate/swatches/index.ts` (`applyClimateSwatches`)
   - Swatch implementations (exported):
     - `applyMacroDesertBeltSwatch`
@@ -641,7 +637,7 @@ A minimal “golden path” through current Hydrology behavior that should remai
 
 1) Produce Morphology topography (`morphology-pre/landmass-plates`).
 2) Publish Hydrology heightfield (`hydrology-pre/lakes`) and baseline climate + wind (`hydrology-pre/climate-baseline`).
-3) (Legacy current-state) Apply swatches (Narrative stage calling Hydrology swatches pass): `narrative-swatches/story-swatches`.
+3) Apply swatches (Narrative stage calling Hydrology swatches pass): `narrative-swatches/story-swatches`.
 4) Model rivers + publish river adjacency + satisfy `effect:engine.riversModeled`: `hydrology-core/rivers`.
 5) Refine climate using overlays + winds + river adjacency: `hydrology-post/climate-refine`.
 6) Consume climate outputs downstream (Ecology and Placement stages).
@@ -664,7 +660,7 @@ This list is concrete (symbols + file paths) but **not a Phase 2 decision**; it 
   - (Disposition TBD: delete vs rename vs migrate to direct `artifact:morphology.topography` usage.)
 - Coupling inversion where Narrative calls Hydrology swatches pass:
   - `mods/mod-swooper-maps/src/domain/narrative/swatches.ts` (calls `applyClimateSwatches`)
-  - (Disposition is intentionally not decided here; Phase 2 must explicitly model Hydrology without this intervention mechanism and plan a deletion/replacement.)
+  - (Disposition TBD: keep as consumer integration or move swatches ownership.)
 
 ---
 

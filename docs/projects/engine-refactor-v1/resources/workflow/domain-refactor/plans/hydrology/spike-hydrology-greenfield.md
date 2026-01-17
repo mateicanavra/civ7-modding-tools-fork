@@ -70,7 +70,7 @@ Hydrology is a **producer of authoritative climate + water signals**. It should 
 | Morphology | topography + coastal geometry + substrate (geomorph) | elevation + land/sea + (ideally) bathymetry + routing geometry | Foundation drivers |
 | **Hydrology (this)** | climate system abstraction + water-cycle signals | wind/temperature/moisture/precipitation fields; runoff/discharge; rivers/lakes; cryosphere state | Morphology topography + coast + optional routing geometry |
 | Ecology | biosphere interpretation + biomes/features/resources | biome classification + vegetation/soils/features | Hydrology climate + wetness + substrate |
-| Narrative | story overlays + playability motifs | overlays (corridors/swatches/motifs) | upstream physics products for biasing |
+| Narrative | story overlays + playability motifs | overlays (corridors/motifs) | consumes upstream physics products for tagging and playability (no feedback into Hydrology) |
 | Placement | final starts/wonders/resources placement | placements + diagnostics | ecology + hydrology + narrative signals |
 
 Hydrology–Ecology boundary: Hydrology provides **continuous** climate/hydrology fields and indices (e.g., aridity, seasonality, freeze index), but does not classify biomes. Ecology owns biome classification and vegetation/soil processes.
@@ -178,7 +178,7 @@ From `docs/system/libs/mapgen/morphology.md` (conceptual current upstream produc
 From `docs/system/libs/mapgen/architecture.md` (pipeline-wide signals):
 - region mesh / neighbor graph,
 - latitude + wrap semantics (world topology),
-- overlays container (if narrative publishes motifs prior to Hydrology; not assumed).
+- overlays container (cross-cutting, downstream). Hydrology’s physics model does not consume overlays.
 
 From Foundation (optional; conceptual):
 - large-scale tectonic/relief hints and crust properties (used mainly by Morphology).
