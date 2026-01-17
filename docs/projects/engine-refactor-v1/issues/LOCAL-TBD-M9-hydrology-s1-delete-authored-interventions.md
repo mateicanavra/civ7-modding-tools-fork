@@ -137,3 +137,61 @@ This slice should add enforcement for the hydrology-specific bans in one of two 
 - `rg -n "storyTagClimatePaleo|\\.story\\s*\\.|paleo" mods/mod-swooper-maps/src`\n
 - `rg -n "deps\\.artifacts\\.overlays|artifact:overlays" mods/mod-swooper-maps/src`\n
 
+### Prework Results (Resolved)
+
+This is a complete inventory of the known “thumb on the scale” Hydrology climate intervention surfaces in `mods/mod-swooper-maps` (code + tests). Any enforcement added via `scripts/lint/lint-domain-refactor-guardrails.sh` should scope to `mods/mod-swooper-maps/{src,test}` (and optionally `mods/mod-swooper-maps/src/maps`) and avoid scanning `docs/**`, since archived reviews intentionally mention swatches/paleo.
+
+**Hit list (by surface)**
+
+- Stage `narrative-swatches` / step `story-swatches`
+  - Standard braid inclusion:
+    - `/mods/mod-swooper-maps/src/recipes/standard/recipe.ts` (imports + includes `narrativeSwatches`)
+  - Stage definition + step wiring:
+    - `/mods/mod-swooper-maps/src/recipes/standard/stages/narrative-swatches/index.ts` (stage `id: "narrative-swatches"`)
+    - `/mods/mod-swooper-maps/src/recipes/standard/stages/narrative-swatches/steps/storySwatches.ts` (reads overlays; calls `storyTagClimateSwatches(...)`)
+    - `/mods/mod-swooper-maps/src/recipes/standard/stages/narrative-swatches/steps/storySwatches.contract.ts` (requires `narrativePreArtifacts.overlays`)
+  - Config surfaces (map presets + test fixtures):
+    - `/mods/mod-swooper-maps/src/maps/swooper-earthlike.ts` (stage config block `"narrative-swatches": {...}`)
+    - `/mods/mod-swooper-maps/src/maps/shattered-ring.ts` (stage config block `"narrative-swatches": {...}`)
+    - `/mods/mod-swooper-maps/src/maps/sundered-archipelago.ts` (stage config block `"narrative-swatches": {...}`)
+    - `/mods/mod-swooper-maps/src/maps/swooper-desert-mountains.ts` (stage config block `"narrative-swatches": {...}`)
+    - `/mods/mod-swooper-maps/test/standard-run.test.ts` (stage config block `"narrative-swatches": {...}`)
+    - `/mods/mod-swooper-maps/test/standard-recipe.test.ts` (expects `narrative-swatches` stage id)
+
+- `applyClimateSwatches(...)` (Hydrology climate swatch pass)
+  - Primary implementation (Hydrology domain):
+    - `/mods/mod-swooper-maps/src/domain/hydrology/climate/swatches/index.ts` (defines `applyClimateSwatches(...)`)
+    - `/mods/mod-swooper-maps/src/domain/hydrology/climate/index.ts` (imports/re-exports `applyClimateSwatches`)
+  - Consumer/call chain (Narrative → Hydrology inversion today):
+    - `/mods/mod-swooper-maps/src/domain/narrative/swatches.ts` (`storyTagClimateSwatches(...)` calls `applyClimateSwatches(...)`)
+    - `/mods/mod-swooper-maps/src/recipes/standard/stages/narrative-swatches/steps/storySwatches.ts` (invokes `storyTagClimateSwatches(...)`)
+
+- `storyTagClimatePaleo(...)` (Narrative paleo hook called from Hydrology rivers)
+  - Defined (Narrative domain):
+    - `/mods/mod-swooper-maps/src/domain/narrative/swatches.ts` (defines `storyTagClimatePaleo(...)`; calls `storyTagPaleoHydrology(...)`; publishes overlay key `PALEO`)
+  - Called (Hydrology stage):
+    - Stage `hydrology-core` / step `rivers`:
+      - `/mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-core/steps/rivers.ts` (calls `storyTagClimatePaleo(...)` when `runtime.storyEnabled && config.climate?.story?.paleo != null`)
+  - Config surfaces (map presets + test fixtures):
+    - `/mods/mod-swooper-maps/src/maps/swooper-earthlike.ts` (`climate.story.paleo` config)
+    - `/mods/mod-swooper-maps/src/maps/shattered-ring.ts` (`climate.story.paleo` config)
+    - `/mods/mod-swooper-maps/src/maps/sundered-archipelago.ts` (`climate.story.paleo` config)
+    - `/mods/mod-swooper-maps/src/maps/swooper-desert-mountains.ts` (`climate.story.paleo` config)
+    - `/mods/mod-swooper-maps/test/standard-run.test.ts` (`rivers: { climate: { story: { paleo: ... }}}`)
+    - `/mods/mod-swooper-maps/test/story/paleo.test.ts` (directly tests `storyTagPaleoHydrology(...)`)
+
+- `STORY_OVERLAY_KEYS.(SWATCHES|PALEO)` (overlay key surface + registry/mapping)
+  - Key definition:
+    - `/mods/mod-swooper-maps/src/domain/narrative/overlays/keys.ts` (exports `STORY_OVERLAY_KEYS.SWATCHES` and `.PALEO`)
+  - Publications:
+    - `/mods/mod-swooper-maps/src/domain/narrative/swatches.ts` (publishes overlays for both keys)
+  - Registry/mapping:
+    - `/mods/mod-swooper-maps/src/domain/narrative/overlays/registry.ts` (maps both keys → `"swatches"`)
+    - `/mods/mod-swooper-maps/src/recipes/standard/overlays.ts` (maps both keys → `"swatches"`)
+  - Tests:
+    - `/mods/mod-swooper-maps/test/story/overlays.test.ts` (asserts both keys exist + publish/get behaviors)
+
+- Hydrology reads of overlays (Narrative motif feedback into climate)
+  - Stage `hydrology-post` / step `climate-refine`:
+    - `/mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-post/steps/climateRefine.ts` (reads `deps.artifacts.overlays` and extracts `rifts`/`hotspots`)
+    - `/mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-post/steps/climateRefine.contract.ts` (requires `narrativePreArtifacts.overlays`)
