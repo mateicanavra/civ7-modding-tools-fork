@@ -1,6 +1,6 @@
 id: LOCAL-TBD-hydrology-vertical-domain-refactor
 title: Hydrology Vertical Domain Refactor — Phase 3 Implementation Plan (M9)
-state: planned
+state: done
 priority: 1
 estimate: 16
 project: engine-refactor-v1
@@ -50,11 +50,17 @@ related_to:
 - [x] Slice 3 — Contract-first op spine (climate + ocean coupling) (`docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M9-hydrology-s3-op-spine-climate-ocean.md`) (branch: `agent-TURTLE-M9-LOCAL-TBD-M9-hydrology-s3-op-spine-climate-ocean`, PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/615)
 - [x] Slice 4 — Cryosphere + aridity + diagnostics (`docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M9-hydrology-s4-cryosphere-aridity-diagnostics.md`) (branch: `agent-TURTLE-M9-LOCAL-TBD-M9-hydrology-s4-cryosphere-aridity-diagnostics`, PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/616)
 - [x] Slice 5 — Hydrography ownership cutover (`docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M9-hydrology-s5-hydrography-cutover.md`) (branch: `agent-TURTLE-M9-LOCAL-TBD-M9-hydrology-s5-hydrography-cutover`, PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/617)
+- [x] Phase 5 — Verification + cleanup + workflow hardening (branch: `agent-TURTLE-M9-phase5-verification-cleanup-workflow`, PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/618)
 
 ## Testing / Verification
-- `pnpm lint:domain-refactor-guardrails`
-- `pnpm -C mods/mod-swooper-maps test`
+- `REFRACTOR_DOMAINS="hydrology" ./scripts/lint/lint-domain-refactor-guardrails.sh`
 - `pnpm check`
+- `pnpm -C packages/mapgen-core check`
+- `pnpm -C packages/mapgen-core test`
+- `pnpm -C mods/mod-swooper-maps check`
+- `pnpm -C mods/mod-swooper-maps test`
+- `pnpm -C mods/mod-swooper-maps build`
+- `pnpm deploy:mods`
 
 ## Dependencies / Notes
 - Phase 2 authority (locked model; do not change here): `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/hydrology/spike-hydrology-modeling-synthesis.md`
@@ -254,6 +260,15 @@ To be completed immediately before Phase 4 implementation begins:
 
 ## Lookback 4 (post-implementation retro)
 
-To be completed after Phase 4 slices land:
-- Summarize what changed vs plan, and why.
-- Record any deferred work with triggers in `engine-refactor-v1/deferrals.md`.
+Plan vs actual summary:
+- The slice sequence (1–5) held; the Phase 2 Hydrology model remained authoritative (no opportunistic model edits).
+- Biggest “physics vs engine” constraint was confirmed and operationalized: Civ7 adapter surfaces do not support explicit river/lake stamping, so engine hydrography remains projection-only while Hydrology artifacts are canonical truth.
+  - Deferred explicitly as `DEF-020` in `engine-refactor-v1/deferrals.md` (trigger: add an adapter stamping capability).
+- Downstream stability goals held: `artifact:riverAdjacency` remains available (now projected from discharge-derived hydrography), and Placement’s `effect:engine.riversModeled` gating remains intact.
+
+Phase 5 gates executed (all green):
+- `pnpm check` (includes domain refactor guardrails)
+- `REFRACTOR_DOMAINS="hydrology" ./scripts/lint/lint-domain-refactor-guardrails.sh`
+- `pnpm -C packages/mapgen-core check && pnpm -C packages/mapgen-core test`
+- `pnpm -C mods/mod-swooper-maps check && pnpm -C mods/mod-swooper-maps test && pnpm -C mods/mod-swooper-maps build`
+- `pnpm deploy:mods`

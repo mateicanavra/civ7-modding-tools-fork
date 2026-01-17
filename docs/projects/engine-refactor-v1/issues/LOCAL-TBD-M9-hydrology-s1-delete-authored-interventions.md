@@ -1,6 +1,6 @@
 id: LOCAL-TBD-M9-hydrology-s1-delete-authored-interventions
 title: "M9 / Slice 1 — Delete authored climate interventions + add guardrails"
-state: planned
+state: done
 priority: 1
 estimate: 8
 project: engine-refactor-v1

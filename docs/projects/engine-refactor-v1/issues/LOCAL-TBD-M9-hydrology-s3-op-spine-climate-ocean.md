@@ -1,6 +1,6 @@
 id: LOCAL-TBD-M9-hydrology-s3-op-spine-climate-ocean
 title: "M9 / Slice 3 — Contract-first op spine (climate + ocean coupling)"
-state: planned
+state: done
 priority: 1
 estimate: 16
 project: engine-refactor-v1

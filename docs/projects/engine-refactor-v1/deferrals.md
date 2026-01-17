@@ -52,6 +52,21 @@ Each deferral follows this structure:
 
 ---
 
+## DEF-020: Discharge-Driven Hydrography Stamping (Engine Projection vs. Hydrology Truth)
+
+**Deferred:** 2026-01-17  
+**Trigger:** When the adapter/engine surface can accept explicit river/lake geometry (or when we add an `EngineAdapter` capability that can stamp hydrography derived from Hydrology artifacts).  
+**Context:** M9 makes Hydrology the canonical owner of hydrography via discharge + routing-derived artifacts. Civ7 adapter surfaces currently support only engine-driven river/lake generation (`modelRivers(...)`, `generateLakes(...)`) and do not expose explicit “set river network / set lake mask” stamping. To keep the pipeline green without lying about ownership, engine hydrography is treated as projection-only while downstream consumes Hydrology’s typed hydrography artifacts as truth.  
+**Scope:**
+- Introduce an explicit `EngineAdapter` capability for stamping hydrography from Hydrology artifacts (rivers + lakes).
+- Implement the capability in Civ adapter and `MockAdapter` (so determinism + monotonicity can be tested engine-free).
+- Migrate Hydrology engine projection calls to the stamping capability and deprecate any reliance on `modelRivers(...)` / `generateLakes(...)` as truth-bearing mechanisms.  
+**Impact:**
+- Engine rivers/lakes may not exactly reflect discharge-derived hydrography; this is an acknowledged projection limitation.
+- Downstream logic must treat Hydrology artifacts as canonical truth; engine surfaces remain compatibility/visualization.  
+
+---
+
 ## DEF-005: River Graph Product Deferred (Adjacency Mask Only in M3)
 
 **Deferred:** 2025-12-14  
