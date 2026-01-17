@@ -72,12 +72,12 @@ export default createStage({
           config: cryosphereOn
             ? {}
             : {
-                landSnowStartC: -999,
-                landSnowFullC: -1000,
-                seaIceStartC: -999,
-                seaIceFullC: -1000,
-                freezeIndexStartC: -999,
-                freezeIndexFullC: -1000,
+                landSnowStartC: -60,
+                landSnowFullC: -80,
+                seaIceStartC: -60,
+                seaIceFullC: -80,
+                freezeIndexStartC: -60,
+                freezeIndexFullC: -80,
                 precipitationInfluence: 0,
                 snowAlbedoBoost: 0,
                 seaIceAlbedoBoost: 0,
