@@ -6,7 +6,19 @@ import {
   type HydrologyKnobs,
 } from "@mapgen/domain/hydrology/knobs.js";
 
-const publicSchema = Type.Object({}, { additionalProperties: false });
+/**
+ * Hydrology-pre stage has no stage-local public config.
+ *
+ * All author-facing control flows through `knobsSchema` (semantic intent), which compiles into op strategy configs.
+ */
+const publicSchema = Type.Object(
+  {},
+  {
+    additionalProperties: false,
+    description:
+      "Hydrology-pre stage public config (empty). Use Hydrology knobs to affect behavior deterministically.",
+  }
+);
 type PublicConfig = Static<typeof publicSchema>;
 
 export default createStage({

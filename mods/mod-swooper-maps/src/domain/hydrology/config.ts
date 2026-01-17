@@ -164,7 +164,10 @@ const ClimateBaselineSizeScalingSchema = Type.Object(
       })
     ),
   },
-  { additionalProperties: false }
+  {
+    additionalProperties: false,
+    description: "Map-size scaling parameters for baseline climate (latitude boosts and noise scaling).",
+  }
 );
 
 /**
@@ -352,7 +355,10 @@ const ClimateBaselineSchema = Type.Object(
     /** Rainfall noise/jitter parameters. */
     noise: Type.Optional(ClimateBaselineNoiseSchema),
   },
-  { additionalProperties: false }
+  {
+    additionalProperties: false,
+    description: "Baseline climate configuration (seed + latitude bands + local bonuses + deterministic noise).",
+  }
 );
 
 /**
@@ -495,7 +501,10 @@ const ClimateRefineSchema = Type.Object(
     /** Enclosed basin humidity retention (valleys trap moisture). */
     lowBasin: Type.Optional(ClimateRefineLowBasinSchema),
   },
-  { additionalProperties: false }
+  {
+    additionalProperties: false,
+    description: "Refinement parameters layered on top of baseline climate (earthlike preset).",
+  }
 );
 
 const ClimateConfigSchema = Type.Object(
@@ -505,9 +514,8 @@ const ClimateConfigSchema = Type.Object(
     /** Earthlike refinement parameters (rain shadow, river corridors, etc.). */
     refine: Type.Optional(ClimateRefineSchema),
   },
-  { additionalProperties: false }
+  {
+    additionalProperties: false,
+    description: "Climate configuration (baseline + optional refinement layers).",
+  }
 );
-
-/**
- * Biome nudge thresholds that fine-tune terrain assignment.
- */
