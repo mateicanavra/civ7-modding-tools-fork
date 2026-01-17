@@ -71,7 +71,7 @@ Anti-patterns (concise; see WORKFLOW for full list):
 Hydrology/Climate sits immediately downstream of Morphology and publishes the authoritative climate + surface-water signals that Ecology/Narrative/Placement consume.
 
 - It is buffer-heavy (shared, mutable, iterative layers like climate fields and routing indices).
-- It is cross-domain aware (consumes upstream morphology layers and optionally narrative motifs that bias climate).
+- It is cross-domain aware (consumes upstream morphology layers; does not consume narrative overlays/motifs in the physics-first model).
 
 North-star references:
 - `docs/system/libs/mapgen/hydrology.md`
@@ -87,7 +87,7 @@ North-star references:
 | --- | --- | --- |
 | Phase 0.5 | `docs/projects/engine-refactor-v1/resources/spike/spike-hydrology-greenfield.md` | complete |
 | Phase 1 | `docs/projects/engine-refactor-v1/resources/spike/spike-hydrology-current-state.md` | complete |
-| Phase 2 | `docs/projects/engine-refactor-v1/resources/spike/spike-hydrology-modeling.md` | not started |
+| Phase 2 | `docs/projects/engine-refactor-v1/resources/spike/spike-hydrology-modeling.md` | complete |
 | Phase 3 | `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-hydrology-vertical-domain-refactor.md` | not started |
 
 ## Phase 1 hypotheses to validate (current-state)
