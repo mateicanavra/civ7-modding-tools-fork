@@ -20,6 +20,8 @@ export default createStage({
     const resolved = resolveHydrologyKnobs(knobs);
 
     const wetnessScale = resolved.dryness === "wet" ? 1.15 : resolved.dryness === "dry" ? 0.85 : 1.0;
+    const baseTemperatureC = resolved.temperature === "cold" ? 6 : resolved.temperature === "hot" ? 22 : 14;
+    const cryosphereOn = resolved.cryosphere !== "off";
 
     return {
       "climate-refine": {
@@ -40,6 +42,37 @@ export default createStage({
             },
           },
         },
+        computeRadiativeForcing: { strategy: "default", config: {} },
+        computeThermalState: {
+          strategy: "default",
+          config: { baseTemperatureC },
+        },
+        applyAlbedoFeedback: {
+          strategy: "default",
+          config: {
+            iterations: cryosphereOn ? 4 : 0,
+            snowCoolingC: 4,
+            seaIceCoolingC: 6,
+          },
+        },
+        computeCryosphereState: {
+          strategy: "default",
+          config: cryosphereOn
+            ? {}
+            : {
+                landSnowStartC: -999,
+                landSnowFullC: -1000,
+                seaIceStartC: -999,
+                seaIceFullC: -1000,
+                freezeIndexStartC: -999,
+                freezeIndexFullC: -1000,
+                precipitationInfluence: 0,
+                snowAlbedoBoost: 0,
+                seaIceAlbedoBoost: 0,
+              },
+        },
+        computeLandWaterBudget: { strategy: "default", config: {} },
+        computeClimateDiagnostics: { strategy: "default", config: {} },
       },
     };
   },

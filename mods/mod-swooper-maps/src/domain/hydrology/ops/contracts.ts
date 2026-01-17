@@ -5,6 +5,10 @@ import ComputeOceanSurfaceCurrentsContract from "./compute-ocean-surface-current
 import ComputeEvaporationSourcesContract from "./compute-evaporation-sources/contract.js";
 import TransportMoistureContract from "./transport-moisture/contract.js";
 import ComputePrecipitationContract from "./compute-precipitation/contract.js";
+import ComputeCryosphereStateContract from "./compute-cryosphere-state/contract.js";
+import ApplyAlbedoFeedbackContract from "./apply-albedo-feedback/contract.js";
+import ComputeLandWaterBudgetContract from "./compute-land-water-budget/contract.js";
+import ComputeClimateDiagnosticsContract from "./compute-climate-diagnostics/contract.js";
 
 export const contracts = {
   computeRadiativeForcing: ComputeRadiativeForcingContract,
@@ -14,6 +18,10 @@ export const contracts = {
   computeEvaporationSources: ComputeEvaporationSourcesContract,
   transportMoisture: TransportMoistureContract,
   computePrecipitation: ComputePrecipitationContract,
+  computeCryosphereState: ComputeCryosphereStateContract,
+  applyAlbedoFeedback: ApplyAlbedoFeedbackContract,
+  computeLandWaterBudget: ComputeLandWaterBudgetContract,
+  computeClimateDiagnostics: ComputeClimateDiagnosticsContract,
 } as const;
 
 export default contracts;

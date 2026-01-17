@@ -27,11 +27,11 @@ related_to: []
 - Typed artifact schemas (no `Type.Any()` for new additive artifacts).
 
 ## Acceptance Criteria
-- [ ] Cryosphere feedback uses explicit fixed iteration counts (no convergence loops) and is deterministic for the same knobs + seed.
-- [ ] New artifacts are additive: existing consumers (Ecology, Placement) remain unbroken if they ignore them.
-- [ ] New artifacts are typed and validated (TypeBox schemas match runtime typed arrays).
-- [ ] Diagnostics are documented as advisory (projections) and do not become internal truth for Hydrology (projections never define internal representation).
-- [ ] `pnpm check` and `pnpm -C mods/mod-swooper-maps test` pass.
+- [x] Cryosphere feedback uses explicit fixed iteration counts (no convergence loops) and is deterministic for the same knobs + seed.
+- [x] New artifacts are additive: existing consumers (Ecology, Placement) remain unbroken if they ignore them.
+- [x] New artifacts are typed and validated (TypeBox schemas match runtime typed arrays).
+- [x] Diagnostics are documented as advisory (projections) and do not become internal truth for Hydrology (projections never define internal representation).
+- [x] `pnpm check` and `pnpm -C mods/mod-swooper-maps test` pass.
 
 ## Testing / Verification
 - `pnpm check`
@@ -41,6 +41,11 @@ related_to: []
 ## Dependencies / Notes
 - Phase 2 authority (cryosphere + PET/aridity semantics): `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/hydrology/spike-hydrology-modeling-synthesis.md`
 - Parent plan: `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-hydrology-vertical-domain-refactor.md`
+
+## Implementation Decisions
+- Additive artifact ids are stage-owned in `hydrology-post`: `artifact:hydrology.climateIndices`, `artifact:hydrology.cryosphere`, `artifact:hydrology.climateDiagnostics`.
+- Cryosphere “off” knob posture still publishes typed artifacts but forces a no-ice solution deterministically (fixed `iterations: 0` for albedo feedback + extreme thresholds for cryosphere state).
+- Climate diagnostics are explicitly advisory projections and are not consumed as Hydrology internal truth.
 
 ---
 
