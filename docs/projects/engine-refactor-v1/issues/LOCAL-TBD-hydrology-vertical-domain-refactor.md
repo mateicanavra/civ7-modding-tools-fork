@@ -45,7 +45,7 @@ related_to:
 - [x] Phase 3 introduces no Phase 2 model changes; all model authority references point to the Phase 2 modeling synthesis.
 
 ## Milestone Tasks
-- [x] Slice 1 — Delete authored interventions + guardrails (`docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M9-hydrology-s1-delete-authored-interventions.md`) (branch: `agent-TURTLE-M9-LOCAL-TBD-M9-hydrology-s1-delete-authored-interventions`)
+- [x] Slice 1 — Delete authored interventions + guardrails (`docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M9-hydrology-s1-delete-authored-interventions.md`) (branch: `agent-TURTLE-M9-LOCAL-TBD-M9-hydrology-s1-delete-authored-interventions`, PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/613)
 - [ ] Slice 2 — Semantic knobs + normalized params boundary (`docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M9-hydrology-s2-knobs-and-params-boundary.md`)
 - [ ] Slice 3 — Contract-first op spine (climate + ocean coupling) (`docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M9-hydrology-s3-op-spine-climate-ocean.md`)
 - [ ] Slice 4 — Cryosphere + aridity + diagnostics (`docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M9-hydrology-s4-cryosphere-aridity-diagnostics.md`)
