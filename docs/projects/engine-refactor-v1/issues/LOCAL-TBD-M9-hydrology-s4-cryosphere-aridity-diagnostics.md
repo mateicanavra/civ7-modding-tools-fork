@@ -1,0 +1,94 @@
+id: LOCAL-TBD-M9-hydrology-s4-cryosphere-aridity-diagnostics
+title: "M9 / Slice 4 — Cryosphere + aridity + diagnostics (additive artifacts)"
+state: planned
+priority: 1
+estimate: 16
+project: engine-refactor-v1
+milestone: null
+assignees: [codex]
+labels: [hydrology, domain-refactor, slice-4]
+parent: LOCAL-TBD-hydrology-vertical-domain-refactor
+children: []
+blocked_by:
+  - LOCAL-TBD-M9-hydrology-s3-op-spine-climate-ocean
+blocked:
+  - LOCAL-TBD-M9-hydrology-s5-hydrography-cutover
+related_to: []
+---
+
+<!-- SECTION SCOPE [SYNC] -->
+## TL;DR
+- Add the high-fidelity physics surfaces (cryosphere, PET/aridity, diagnostics) as deterministic, bounded, additive Hydrology artifacts without forcing immediate downstream migration.
+
+## Deliverables
+- Cryosphere buffers + ops (snow/ice state) and bounded albedo feedback (fixed iteration count; deterministic tie-breaking).
+- PET/aridity computation (evapotranspiration proxy + aridity index) as Hydrology ops.
+- Diagnostics fields (rain shadow / continentality / convergence proxies) published as additive artifacts.
+- Typed artifact schemas (no `Type.Any()` for new additive artifacts).
+
+## Acceptance Criteria
+- [ ] Cryosphere feedback uses explicit fixed iteration counts (no convergence loops) and is deterministic for the same knobs + seed.
+- [ ] New artifacts are additive: existing consumers (Ecology, Placement) remain unbroken if they ignore them.
+- [ ] New artifacts are typed and validated (TypeBox schemas match runtime typed arrays).
+- [ ] Diagnostics are documented as advisory (projections) and do not become internal truth for Hydrology (projections never define internal representation).
+- [ ] `pnpm check` and `pnpm -C mods/mod-swooper-maps test` pass.
+
+## Testing / Verification
+- `pnpm check`
+- `pnpm -C mods/mod-swooper-maps test`
+- Add/extend tests to assert bounded feedback determinism (e.g., checksum of ice index after N fixed iterations).
+
+## Dependencies / Notes
+- Phase 2 authority (cryosphere + PET/aridity semantics): `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/hydrology/spike-hydrology-modeling-synthesis.md`
+- Parent plan: `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-hydrology-vertical-domain-refactor.md`
+
+---
+
+<!-- SECTION IMPLEMENTATION [NOSYNC] -->
+## Implementation Details (Local Only)
+
+### Quick Navigation
+- [TL;DR](#tldr)
+- [Deliverables](#deliverables)
+- [Acceptance Criteria](#acceptance-criteria)
+- [Testing / Verification](#testing--verification)
+- [Dependencies / Notes](#dependencies--notes)
+
+<!-- Path roots -->
+swooper-src = mods/mod-swooper-maps/src
+
+### Artifact posture (additive, typed)
+
+Slice 4 publishes new Hydrology artifacts that downstream consumers can adopt when ready, without breaking existing expectations:
+- keep `artifact:climateField` stable (rainfall/humidity baseline projection),
+- add new typed artifacts (names/ids to be decided during implementation, but must be stable once introduced):
+  - temperature field (or thermal index),
+  - PET / aridity field,
+  - cryosphere indices (snow cover, sea ice, albedo proxy),
+  - diagnostics (rain shadow index, continentality index, convergence proxy).
+
+### Files (expected touchpoints)
+
+```yaml
+files:
+  - path: /mods/mod-swooper-maps/src/domain/hydrology/ops
+    notes: Add compute ops for cryosphere, albedo feedback, PET/aridity, and diagnostics.
+  - path: /mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-pre/artifacts.ts
+    notes: Add typed artifact definitions for additive outputs (or create stage-appropriate artifacts module if better aligned).
+  - path: /mods/mod-swooper-maps/test
+    notes: Add determinism tests for bounded feedback (fixed iters) and basic validity checks for new artifacts.
+```
+
+### Determinism constraints (non-negotiable)
+
+- Any feedback loop must be expressed as **N fixed iterations** with deterministic tie-breaking, not “iterate until convergence”.
+- Randomness is forbidden in cryosphere/aridity ops unless seeded explicitly via numeric seed input; prefer no randomness.
+
+### Prework Prompt (Agent Brief)
+**Purpose:** Determine the smallest set of cryosphere/PET artifacts that provide real downstream value (Ecology) while staying lightweight for performance.\n
+**Expected Output:** Proposed artifact list (ids + schemas + what downstream could do with them) and a test strategy that locks determinism.\n
+**Sources to Check:**\n
+- Phase 2 “Config semantics table” and op catalog\n
+- Existing Ecology consumers of `artifact:climateField` contracts\n
+- `scripts/lint/lint-domain-refactor-guardrails.sh` for schema/documentation expectations\n
+
