@@ -51,7 +51,7 @@ related_to:
 - [x] Slice 4 — Cryosphere + aridity + diagnostics (`docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M9-hydrology-s4-cryosphere-aridity-diagnostics.md`) (branch: `agent-TURTLE-M9-LOCAL-TBD-M9-hydrology-s4-cryosphere-aridity-diagnostics`, PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/616)
 - [x] Slice 5 — Hydrography ownership cutover (`docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M9-hydrology-s5-hydrography-cutover.md`) (branch: `agent-TURTLE-M9-LOCAL-TBD-M9-hydrology-s5-hydrography-cutover`, PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/617)
 - [x] Phase 5 — Verification + cleanup + workflow hardening (branch: `agent-TURTLE-M9-phase5-verification-cleanup-workflow`, PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/618)
-- [x] Phase 5.1 — Docs commenting pass + Hydrology API/schema doc (branch: `agent-TURTLE-M9-phase5-1-docs-commenting-pass`, PR: pending)
+- [x] Phase 5.1 — Docs commenting pass + Hydrology API/schema doc (branch: `agent-TURTLE-M9-phase5-1-docs-commenting-pass`, PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/619)
 
 ## Testing / Verification
 - `REFRACTOR_DOMAINS="hydrology" ./scripts/lint/lint-domain-refactor-guardrails.sh`
