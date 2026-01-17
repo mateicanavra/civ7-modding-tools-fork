@@ -72,4 +72,61 @@ describe("hydrology knobs compilation", () => {
     });
     expect(compiled["hydrology-climate-baseline"].lakes.tilesPerLakeMultiplier).toBe(1);
   });
+
+  it("treats explicit advanced config as higher precedence than knobs", () => {
+    const compiled = standardRecipe.compileConfig(env, {
+      "hydrology-climate-baseline": {
+        knobs: { dryness: "wet", seasonality: "high", oceanCoupling: "off", lakeiness: "many" },
+        "climate-baseline": {
+          computePrecipitation: {
+            strategy: "default",
+            config: {
+              rainfallScale: 123,
+              humidityExponent: 1,
+              noiseAmplitude: 6,
+              noiseScale: 0.12,
+              waterGradient: {},
+              orographic: {},
+            },
+          },
+        },
+        lakes: { tilesPerLakeMultiplier: 2 },
+      },
+      "hydrology-hydrography": {
+        knobs: { riverDensity: "dense" },
+        rivers: { minLength: 11, maxLength: 11 },
+      },
+      "hydrology-climate-refine": {
+        knobs: { dryness: "wet", temperature: "hot", cryosphere: "on" },
+        "climate-refine": {
+          computePrecipitation: {
+            strategy: "refine",
+            config: {
+              riverCorridor: {
+                adjacencyRadius: 1,
+                lowlandAdjacencyBonus: 44,
+                highlandAdjacencyBonus: 10,
+                lowlandElevationMax: 250,
+              },
+              lowBasin: {
+                radius: 2,
+                delta: 6,
+                elevationMax: 200,
+                openThresholdM: 20,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    expect(compiled["hydrology-climate-baseline"].lakes.tilesPerLakeMultiplier).toBe(2);
+    expect(compiled["hydrology-climate-baseline"]["climate-baseline"].computePrecipitation.config.rainfallScale).toBe(123);
+    expect(compiled["hydrology-hydrography"].rivers.minLength).toBe(11);
+    expect(compiled["hydrology-hydrography"].rivers.maxLength).toBe(11);
+    expect(
+      compiled["hydrology-climate-refine"]["climate-refine"].computePrecipitation.config.riverCorridor
+        .lowlandAdjacencyBonus
+    ).toBe(44);
+  });
 });
