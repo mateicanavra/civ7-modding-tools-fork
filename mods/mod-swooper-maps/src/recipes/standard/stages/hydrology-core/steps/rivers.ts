@@ -6,7 +6,7 @@ import {
   syncHeightfield,
 } from "@swooper/mapgen-core";
 import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
-import { computeRiverAdjacencyMask } from "../river-adjacency.js";
+import { computeRiverAdjacencyMaskFromRiverClass } from "../river-adjacency.js";
 import { hydrologyCoreArtifacts } from "../artifacts.js";
 import RiversStepContract from "./rivers.contract.js";
 
@@ -45,13 +45,40 @@ function validateRiverAdjacencyMask(
   return errors;
 }
 
+function validateHydrography(value: unknown, dimensions: MapDimensions): ArtifactValidationIssue[] {
+  const errors: ArtifactValidationIssue[] = [];
+  const size = expectedSize(dimensions);
+  if (value === null || typeof value !== "object" || Array.isArray(value)) {
+    errors.push({ message: "Missing hydrology hydrography artifact payload." });
+    return errors;
+  }
+  const candidate = value as {
+    runoff?: unknown;
+    discharge?: unknown;
+    riverClass?: unknown;
+    sinkMask?: unknown;
+    outletMask?: unknown;
+    basinId?: unknown;
+  };
+  validateTypedArray(errors, "hydrography.runoff", candidate.runoff, Float32Array, size);
+  validateTypedArray(errors, "hydrography.discharge", candidate.discharge, Float32Array, size);
+  validateTypedArray(errors, "hydrography.riverClass", candidate.riverClass, Uint8Array, size);
+  validateTypedArray(errors, "hydrography.sinkMask", candidate.sinkMask, Uint8Array, size);
+  validateTypedArray(errors, "hydrography.outletMask", candidate.outletMask, Uint8Array, size);
+  if (candidate.basinId != null) validateTypedArray(errors, "hydrography.basinId", candidate.basinId, Int32Array, size);
+  return errors;
+}
+
 export default createStep(RiversStepContract, {
-  artifacts: implementArtifacts([hydrologyCoreArtifacts.riverAdjacency], {
+  artifacts: implementArtifacts([hydrologyCoreArtifacts.riverAdjacency, hydrologyCoreArtifacts.hydrography], {
     riverAdjacency: {
       validate: (value, context) => validateRiverAdjacencyMask(value, context.dimensions),
     },
+    hydrography: {
+      validate: (value, context) => validateHydrography(value, context.dimensions),
+    },
   }),
-  run: (context, config, _ops, deps) => {
+  run: (context, config, ops, deps) => {
     const navigableRiverTerrain = NAVIGABLE_RIVER_TERRAIN;
     const { width, height } = context.dimensions;
     const logStats = (label: string) => {
@@ -90,6 +117,57 @@ export default createStep(RiversStepContract, {
       }));
     };
 
+    const heightfield = deps.artifacts.heightfield.read(context) as {
+      landMask: Uint8Array;
+    };
+    const climateField = deps.artifacts.climateField.read(context) as {
+      rainfall: Uint8Array;
+      humidity: Uint8Array;
+    };
+    const routing = deps.artifacts.routing.read(context) as {
+      flowDir: Int32Array;
+      basinId?: Int32Array;
+    };
+
+    const discharge = ops.accumulateDischarge(
+      {
+        width,
+        height,
+        landMask: heightfield.landMask,
+        flowDir: routing.flowDir,
+        rainfall: climateField.rainfall,
+        humidity: climateField.humidity,
+      },
+      config.accumulateDischarge
+    );
+
+    const projected = ops.projectRiverNetwork(
+      {
+        width,
+        height,
+        landMask: heightfield.landMask,
+        discharge: discharge.discharge,
+      },
+      config.projectRiverNetwork
+    );
+
+    deps.artifacts.hydrography.publish(context, {
+      runoff: discharge.runoff,
+      discharge: discharge.discharge,
+      riverClass: projected.riverClass,
+      sinkMask: discharge.sinkMask,
+      outletMask: discharge.outletMask,
+      ...(routing.basinId instanceof Int32Array ? { basinId: routing.basinId } : {}),
+    });
+
+    const riverAdjacency = computeRiverAdjacencyMaskFromRiverClass({
+      width,
+      height,
+      riverClass: projected.riverClass,
+      radius: 1,
+    });
+    deps.artifacts.riverAdjacency.publish(context, riverAdjacency);
+
     logStats("PRE-RIVERS");
     context.adapter.modelRivers(config.minLength, config.maxLength, navigableRiverTerrain);
     logStats("POST-MODELRIVERS");
@@ -97,8 +175,5 @@ export default createStep(RiversStepContract, {
     logStats("POST-VALIDATE");
     syncHeightfield(context);
     context.adapter.defineNamedRivers();
-
-    const riverAdjacency = computeRiverAdjacencyMask(context);
-    deps.artifacts.riverAdjacency.publish(context, riverAdjacency);
   },
 });

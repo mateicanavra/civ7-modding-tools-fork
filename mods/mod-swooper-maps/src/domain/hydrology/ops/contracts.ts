@@ -9,6 +9,8 @@ import ComputeCryosphereStateContract from "./compute-cryosphere-state/contract.
 import ApplyAlbedoFeedbackContract from "./apply-albedo-feedback/contract.js";
 import ComputeLandWaterBudgetContract from "./compute-land-water-budget/contract.js";
 import ComputeClimateDiagnosticsContract from "./compute-climate-diagnostics/contract.js";
+import AccumulateDischargeContract from "./accumulate-discharge/contract.js";
+import ProjectRiverNetworkContract from "./project-river-network/contract.js";
 
 export const contracts = {
   computeRadiativeForcing: ComputeRadiativeForcingContract,
@@ -22,6 +24,8 @@ export const contracts = {
   applyAlbedoFeedback: ApplyAlbedoFeedbackContract,
   computeLandWaterBudget: ComputeLandWaterBudgetContract,
   computeClimateDiagnostics: ComputeClimateDiagnosticsContract,
+  accumulateDischarge: AccumulateDischargeContract,
+  projectRiverNetwork: ProjectRiverNetworkContract,
 } as const;
 
 export default contracts;

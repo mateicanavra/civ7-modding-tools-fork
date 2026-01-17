@@ -27,13 +27,18 @@ related_to: []
   - keep `artifact:riverAdjacency` as a projection derived from the new hydrography (preferred for pipeline safety), or replace it with a richer successor and migrate consumers in-slice.
 
 ## Acceptance Criteria
-- [ ] Hydrology does not use engine-provided river adjacency (`adapter.isAdjacentToRivers`) as internal truth for hydrography; internal truth is discharge + routing derived fields.
-- [ ] Hydrology consumes `artifact:morphology.routing` (or an equivalent Morphology-owned routing artifact) and does not re-compute flow direction in Hydrology.
-- [ ] Major/minor river projections are deterministic for the same knobs + seed and exhibit monotonicity with `riverDensity` knob.
-- [ ] Downstream remains pipeline-green:
+- [x] Hydrology does not use engine-provided river adjacency (`adapter.isAdjacentToRivers`) as internal truth for hydrography; internal truth is discharge + routing derived fields.
+- [x] Hydrology consumes `artifact:morphology.routing` (or an equivalent Morphology-owned routing artifact) and does not re-compute flow direction in Hydrology.
+- [x] Major/minor river projections are deterministic for the same knobs + seed and exhibit monotonicity with `riverDensity` knob.
+- [x] Downstream remains pipeline-green:
   - Narrative post and any other consumers either continue to receive `artifact:riverAdjacency` or are migrated to the new hydrography artifact in this slice.
   - Placement’s `effect:engine.riversModeled` gating is preserved (either via continuing engine projection or explicitly re-owning the effect semantics).
-- [ ] `pnpm check` and `pnpm -C mods/mod-swooper-maps test` pass.
+- [x] `pnpm check` and `pnpm -C mods/mod-swooper-maps test` pass.
+
+## Implementation Decisions
+- Preserve engine river modeling as projection-only (`adapter.modelRivers(...)`) for pipeline safety, but publish Hydrology truth as discharge-derived artifacts and never read `adapter.isAdjacentToRivers(...)` in Hydrology hydrography ownership.
+- Keep `artifact:riverAdjacency` stable for downstream by projecting it from discharge-derived `riverClass` (radius=1); introduce `artifact:hydrology.hydrography` additively for consumers that want richer hydrography.
+- Compile minor/major river thresholds deterministically from the discharge distribution using knob-driven percentiles (`riverDensity`), and lock monotonicity via tests.
 
 ## Testing / Verification
 - `pnpm check`
