@@ -128,15 +128,6 @@ This slice should add enforcement for the hydrology-specific bans in one of two 
 ### B) Minimum: keep mechanical `rg` checks in CI scripts
 - If guardrails linter changes are deferred, ensure the slice adds a dedicated test or script that executes the `rg` checks from the Verification section.
 
-### Prework Prompt (Agent Brief)
-**Purpose:** Ensure there are no remaining “authored intervention” paths beyond the known stage/step modules.\n
-**Expected Output:** A complete hit list (paths + owning stage) for: `narrative-swatches`, `applyClimateSwatches`, `storyTagClimatePaleo`, `STORY_OVERLAY_KEYS.(SWATCHES|PALEO)`, and any Hydrology reads of overlays.\n
-**Sources to Check:**\n
-- `rg -n "\"narrative-swatches\"" mods/mod-swooper-maps/src`\n
-- `rg -n "applyClimateSwatches|ClimateSwatches" mods/mod-swooper-maps/src`\n
-- `rg -n "storyTagClimatePaleo|\\.story\\s*\\.|paleo" mods/mod-swooper-maps/src`\n
-- `rg -n "deps\\.artifacts\\.overlays|artifact:overlays" mods/mod-swooper-maps/src`\n
-
 ### Prework Results (Resolved)
 
 This is a complete inventory of the known “thumb on the scale” Hydrology climate intervention surfaces in `mods/mod-swooper-maps` (code + tests). Any enforcement added via `scripts/lint/lint-domain-refactor-guardrails.sh` should scope to `mods/mod-swooper-maps/{src,test}` (and optionally `mods/mod-swooper-maps/src/maps`) and avoid scanning `docs/**`, since archived reviews intentionally mention swatches/paleo.
