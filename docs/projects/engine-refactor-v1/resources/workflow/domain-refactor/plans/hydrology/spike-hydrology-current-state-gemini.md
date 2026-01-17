@@ -21,7 +21,7 @@ The domain is currently split between domain/ logic and recipes/ orchestration.
 | Location | Path | Responsibility |
 | --- | --- | --- |
 | Domain Logic | src/domain/hydrology/index.ts | Barrel file. |
-| Domain Logic | src/domain/hydrology/config.ts | Config definitions (HydrologyConfig). |
+| Domain Logic | src/domain/hydrology/config.ts | (Deleted during M9 refactor) Legacy config bag. |
 | Domain Logic | src/domain/hydrology/ops.ts | Op definitions. |
 | Climate Logic | src/domain/hydrology/climate/baseline.ts | Generates initial Temp/Moisture bands. |
 | Climate Logic | src/domain/hydrology/climate/distance-to-water.ts | BFS for coastal distance. |

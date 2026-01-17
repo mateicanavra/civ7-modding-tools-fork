@@ -16,6 +16,10 @@ function expectedSize(dimensions: MapDimensions): number {
   return Math.max(0, (dimensions.width | 0) * (dimensions.height | 0));
 }
 
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+
 function validateTypedArray(
   errors: ArtifactValidationIssue[],
   label: string,
@@ -78,6 +82,52 @@ export default createStep(RiversStepContract, {
       validate: (value, context) => validateHydrography(value, context.dimensions),
     },
   }),
+  normalize: (config, ctx) => {
+    const knobs = isRecord(ctx.knobs) ? ctx.knobs : {};
+    const riverDensityRaw = knobs.riverDensity;
+    const riverDensity =
+      riverDensityRaw === "sparse" || riverDensityRaw === "normal" || riverDensityRaw === "dense"
+        ? riverDensityRaw
+        : "normal";
+
+    const next = { ...config };
+
+    if (next.minLength === 5 && next.maxLength === 15) {
+      const lengths =
+        riverDensity === "dense"
+          ? { minLength: 3, maxLength: 12 }
+          : riverDensity === "sparse"
+            ? { minLength: 7, maxLength: 18 }
+            : { minLength: 5, maxLength: 15 };
+      next.minLength = lengths.minLength;
+      next.maxLength = lengths.maxLength;
+    }
+
+    if (next.projectRiverNetwork.strategy === "default") {
+      if (next.projectRiverNetwork.config.minorPercentile === 0.85) {
+        next.projectRiverNetwork = {
+          ...next.projectRiverNetwork,
+          config: {
+            ...next.projectRiverNetwork.config,
+            minorPercentile:
+              riverDensity === "dense" ? 0.75 : riverDensity === "sparse" ? 0.88 : 0.82,
+          },
+        };
+      }
+      if (next.projectRiverNetwork.config.majorPercentile === 0.95) {
+        next.projectRiverNetwork = {
+          ...next.projectRiverNetwork,
+          config: {
+            ...next.projectRiverNetwork.config,
+            majorPercentile:
+              riverDensity === "dense" ? 0.9 : riverDensity === "sparse" ? 0.97 : 0.94,
+          },
+        };
+      }
+    }
+
+    return next;
+  },
   run: (context, config, ops, deps) => {
     const navigableRiverTerrain = NAVIGABLE_RIVER_TERRAIN;
     const { width, height } = context.dimensions;

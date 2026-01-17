@@ -84,14 +84,12 @@ mapgen-core = packages/mapgen-core
 
 ### Current-state evidence (what gets replaced)
 
-Hydrology currently mixes “legacy climate module calls” with one existing op:
+Hydrology current posture (after the refactor):
 - `swooper-src/recipes/standard/stages/hydrology-pre/steps/climateBaseline.ts`:
-  - calls op `hydrology/compute-wind-fields` via `ops.computeWindFields(...)`
-  - calls legacy `applyClimateBaseline(...)` from `swooper-src/domain/hydrology/climate/baseline.ts` (latitude bands + modifiers)
+  - orchestrates over contract-first ops (`hydrology/compute-*`, `hydrology/transport-moisture`)
   - publishes `artifact:climateField` and `artifact:windField`
 - `swooper-src/recipes/standard/stages/hydrology-post/steps/climateRefine.ts`:
-  - calls legacy `refineClimateEarthlike(...)` from `swooper-src/domain/hydrology/climate/refine/index.ts`
-  - currently depends on narrative overlays + story config (removed in Slice 1)
+  - orchestrates over contract-first ops (precip refine, cryosphere, diagnostics)
 
 Slice 3’s target posture: legacy module functions become ops (pure input/output); steps become orchestration-only.
 
@@ -124,7 +122,7 @@ Minimum spine (suggested grouping; exact contracts owned by Phase 2 doc):
   - `hydrology/compute-radiative-forcing` (compute)
   - `hydrology/compute-thermal-state` (compute)
 - Atmospheric circulation:
-  - evolve `hydrology/compute-wind-fields` into a more explicit “circulation scaffold” op (or add a successor op)
+  - `hydrology/compute-atmospheric-circulation` (compute)
 - Ocean coupling proxy:
   - `hydrology/compute-ocean-surface-currents` (compute) (even if simplified in v1; must be deterministic + data-only)
   - `hydrology/compute-evaporation-sources` (compute) (land/sea moisture sourcing)

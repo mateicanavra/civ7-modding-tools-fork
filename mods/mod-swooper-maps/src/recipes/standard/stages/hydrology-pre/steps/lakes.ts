@@ -61,6 +61,23 @@ export default createStep(LakesStepContract, {
       validate: (value, context) => validateHeightfieldBuffer(value, context.dimensions),
     },
   }),
+  normalize: (config, ctx) => {
+    if (config.tilesPerLakeMultiplier !== 1) return config;
+
+    const knobs = isRecord(ctx.knobs) ? ctx.knobs : {};
+    const lakeinessRaw = knobs.lakeiness;
+    const lakeiness =
+      lakeinessRaw === "few" || lakeinessRaw === "normal" || lakeinessRaw === "many"
+        ? lakeinessRaw
+        : "normal";
+
+    const tilesPerLakeMultiplier =
+      lakeiness === "many" ? 0.7 : lakeiness === "few" ? 1.5 : 1.0;
+
+    return tilesPerLakeMultiplier === 1
+      ? config
+      : { ...config, tilesPerLakeMultiplier };
+  },
   run: (context, config, _ops, deps) => {
     const runtime = getStandardRuntime(context);
     const { width, height } = context.dimensions;

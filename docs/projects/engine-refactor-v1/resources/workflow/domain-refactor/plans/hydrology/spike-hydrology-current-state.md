@@ -41,20 +41,13 @@ This is the set of modules and exports that constitute the current Hydrology “
 
 - `@mapgen/domain/hydrology` → `mods/mod-swooper-maps/src/domain/hydrology/index.ts`
   - Defines `domain = defineDomain({ id: "hydrology", ops })`.
-  - Exposes `hydrology.ops.computeWindFields` (via `ops/contracts.ts` + `ops/index.ts`).
-  - Re-exports `HydrologyWindFieldSchema` from `hydrology/ops/compute-wind-fields/contract.ts`.
+  - Historical note: prior to M9, this surface included `hydrology.ops.computeWindFields`; it is now replaced by `hydrology.ops.computeAtmosphericCirculation` + `hydrology.ops.computeOceanSurfaceCurrents`.
+  - Re-exports `HydrologyWindFieldSchema` from `mods/mod-swooper-maps/src/domain/hydrology/ops/shared/wind-field.ts`.
 
 ### B) Hydrology ops (contract-first, but minimal)
 
 - `mods/mod-swooper-maps/src/domain/hydrology/ops/contracts.ts`
-  - `contracts.computeWindFields` → `hydrology/compute-wind-fields/contract.ts`
-- `mods/mod-swooper-maps/src/domain/hydrology/ops/compute-wind-fields/contract.ts`
-  - Op id: `hydrology/compute-wind-fields`
-  - Input (typed arrays): `latitudeByRow: f32[]`, `isWaterMask: u8[]`, plus `width/height/rngSeed`
-  - Output: `{ wind: { windU/windV/currentU/currentV: i8[] } }`
-  - Strategy config (schema): `windJetStreaks`, `windJetStrength`, `windVariance`
-- `mods/mod-swooper-maps/src/domain/hydrology/ops/compute-wind-fields/index.ts`
-  - Implementation uses a deterministic labeled RNG seeded by `rngSeed`.
+  - Historical note: references to `compute-wind-fields` below reflect pre-M9 state; current contracts are under `mods/mod-swooper-maps/src/domain/hydrology/ops/**/contract.ts`.
 
 ### C) “Climate engine” code under Hydrology
 
@@ -141,8 +134,7 @@ From `mods/mod-swooper-maps/src/recipes/standard/recipe.ts`:
   - Implementation: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-pre/steps/climateBaseline.ts`
   - Calls:
     - Multiple engine-backed mutation calls prior to baseline (`recalculateAreas`, `buildElevation`, `stampContinents`, etc.)
-    - Hydrology op: `hydrology.ops.computeWindFields(...)` (via step ops wiring)
-    - Hydrology climate: `applyClimateBaseline(width, height, context, config.climate)`
+    - Historical note: prior to M9, this step called `hydrology.ops.computeWindFields(...)` and legacy `applyClimateBaseline(...)`; the refactor replaces these with contract-first climate/ocean ops.
   - Publishes: `artifact:climateField`, `artifact:windField`
 
 **Stage `hydrology-core`**
@@ -275,29 +267,17 @@ This section inventories the “legacy” authoring and runtime surfaces that mu
 
 **Hydrology climate schema**
 - Barrel entry: `@mapgen/domain/config` → `mods/mod-swooper-maps/src/domain/config.ts` (schema/type-only re-export)
-- Hydrology climate schema definition: `mods/mod-swooper-maps/src/domain/hydrology/config.ts`
-  - Exports:
-    - `ClimateConfigSchema` (TypeBox)
-    - Types derived from it (`ClimateBaseline*`, `ClimateRefine*`, `ClimateStoryPaleo*`, etc.)
+- Hydrology climate schema definition (historical): formerly `mods/mod-swooper-maps/src/domain/hydrology/config.ts` (deleted during M9 refactor)
 
 **Hydrology op strategy schema**
-- `hydrology/compute-wind-fields` strategy schema:
-  - `mods/mod-swooper-maps/src/domain/hydrology/ops/compute-wind-fields/contract.ts`
-  - Strategy `default` config keys:
-    - `windJetStreaks` (int)
-    - `windJetStrength` (number)
-    - `windVariance` (number)
+- Current contracts live under: `mods/mod-swooper-maps/src/domain/hydrology/ops/**/contract.ts`
 
 **Important current-state contract observation (schema vs runtime)**
-- `hydrology-pre/climate-baseline` step implementation reads `config.computeWindFields` in `climateBaseline.ts`.
-- The step contract schema in `climateBaseline.contract.ts` only declares:
-  - `schema: { climate: { baseline: ClimateConfigSchema.properties.baseline } }`
-- Current-state implication: the step config object includes op strategy config under `config.<opName>` by authoring convention (not declared in the step schema literal).
-  - This must be validated in Phase 1/2 as a contract rule: where op config lives, and how defaults are applied.
+- Historical note: this spike predates the contract-first op schema posture; the refactor moves all op configs into step schemas via `defineStep({ ops: ... })` and relies on compiler defaulting.
 
 ### B) Config property ledger (Hydrology climate)
 
-Source of truth for current keys: `mods/mod-swooper-maps/src/domain/hydrology/config.ts`.
+Source of truth for historical keys (deleted): formerly `mods/mod-swooper-maps/src/domain/hydrology/config.ts`.
 
 Top-level:
 - `climate.baseline.*`
@@ -438,7 +418,7 @@ These are behaviorally meaningful policies embedded in current Hydrology climate
 This is the **current function surface** relevant to Hydrology behavior (exported functions + step-local glue).
 
 **Hydrology domain exports**
-- `hydrology.ops.computeWindFields` (op implementation)
+- Historical note: prior to M9, `hydrology.ops.computeWindFields` existed (deleted); current ops include `hydrology.ops.computeAtmosphericCirculation` and `hydrology.ops.computeOceanSurfaceCurrents` among others.
 - `HydrologyWindFieldSchema` (schema)
 
 **Hydrology climate exports**
