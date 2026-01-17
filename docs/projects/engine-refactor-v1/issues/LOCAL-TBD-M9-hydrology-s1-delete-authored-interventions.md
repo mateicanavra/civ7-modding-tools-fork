@@ -116,8 +116,8 @@ files:
     notes: Delete `applyClimateSwatches` export and any swatches-module wiring.
   - path: /mods/mod-swooper-maps/src/domain/hydrology/climate/swatches/index.ts
     notes: Delete swatches implementation (authored macro overrides).
-  - path: /mods/mod-swooper-maps/src/domain/hydrology/config.ts
-    notes: Remove `climate.swatches` and `climate.story.paleo` from Hydrology public surface (no authored interventions).
+  - path: /mods/mod-swooper-maps/src/domain/hydrology/knobs.ts
+    notes: Ensure no authored interventions leak into the public knobs surface.
   - path: /mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-core/steps/rivers.ts
     notes: Remove `storyTagClimatePaleo` usage and any `config.climate.story` gating.
   - path: /mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-post/steps/climateRefine.ts

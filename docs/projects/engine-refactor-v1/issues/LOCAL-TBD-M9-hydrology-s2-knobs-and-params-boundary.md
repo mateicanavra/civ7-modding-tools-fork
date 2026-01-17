@@ -91,8 +91,14 @@ files:
     notes: Same posture as hydrology-pre; keep author input knobs-only.
   - path: /mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-post/index.ts
     notes: Same posture as hydrology-pre; keep author input knobs-only.
-  - path: /mods/mod-swooper-maps/src/domain/hydrology/config.ts
-    notes: Replace/relocate public climate config bags; retain only what remains truly internal after compilation.
+  - path: /mods/mod-swooper-maps/src/domain/hydrology/knobs.ts
+    notes: Author-facing semantic knobs (defaults + determinism contract).
+  - path: /mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-pre/steps/climateBaseline.ts
+    notes: Knobs compile into internal op configs via step-level normalize (post-defaulting).
+  - path: /mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-core/steps/rivers.ts
+    notes: Knobs compile into internal op configs via step-level normalize (post-defaulting).
+  - path: /mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-post/steps/climateRefine.ts
+    notes: Knobs compile into internal op configs via step-level normalize (post-defaulting).
   - path: /mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-pre/steps/climateBaseline.contract.ts
     notes: Schema should accept internal canonical config only (no author-facing bag).
   - path: /mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-post/steps/climateRefine.contract.ts

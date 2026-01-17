@@ -66,11 +66,10 @@ describe("hydrology knobs compilation", () => {
     expect(normal["hydrology-core"].rivers.minLength).toBeGreaterThan(dense["hydrology-core"].rivers.minLength);
   });
 
-  it("rejects authored step-id bag config in hydrology stages", () => {
-    expect(() =>
-      standardRecipe.compileConfig(env, {
-        "hydrology-pre": { lakes: {} } as any,
-      })
-    ).toThrow();
+  it("allows optional advanced step config in hydrology stages", () => {
+    const compiled = standardRecipe.compileConfig(env, {
+      "hydrology-pre": { lakes: {} },
+    });
+    expect(compiled["hydrology-pre"].lakes.tilesPerLakeMultiplier).toBe(1);
   });
 });
