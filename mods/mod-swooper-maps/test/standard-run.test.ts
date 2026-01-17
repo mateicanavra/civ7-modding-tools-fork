@@ -498,20 +498,12 @@ const standardConfig = {
       temperature: "temperate",
       seasonality: "normal",
       oceanCoupling: "earthlike",
-      cryosphere: "on",
-      riverDensity: "normal",
       lakeiness: "normal",
     },
   },
   "hydrology-hydrography": {
     knobs: {
-      dryness: "mix",
-      temperature: "temperate",
-      seasonality: "normal",
-      oceanCoupling: "earthlike",
-      cryosphere: "on",
       riverDensity: "normal",
-      lakeiness: "normal",
     },
   },
   "narrative-post": {
@@ -521,11 +513,7 @@ const standardConfig = {
     knobs: {
       dryness: "mix",
       temperature: "temperate",
-      seasonality: "normal",
-      oceanCoupling: "earthlike",
       cryosphere: "on",
-      riverDensity: "normal",
-      lakeiness: "normal",
     },
   },
   ecology: {
