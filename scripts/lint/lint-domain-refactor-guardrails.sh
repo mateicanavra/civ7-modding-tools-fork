@@ -177,7 +177,7 @@ stage_roots_for_domain() {
     ecology) echo "mods/mod-swooper-maps/src/recipes/standard/stages/ecology" ;;
     foundation) echo "mods/mod-swooper-maps/src/recipes/standard/stages/foundation" ;;
     morphology) echo "mods/mod-swooper-maps/src/recipes/standard/stages/morphology-pre mods/mod-swooper-maps/src/recipes/standard/stages/morphology-mid mods/mod-swooper-maps/src/recipes/standard/stages/morphology-post" ;;
-    narrative) echo "mods/mod-swooper-maps/src/recipes/standard/stages/narrative-pre mods/mod-swooper-maps/src/recipes/standard/stages/narrative-mid mods/mod-swooper-maps/src/recipes/standard/stages/narrative-swatches mods/mod-swooper-maps/src/recipes/standard/stages/narrative-post" ;;
+    narrative) echo "mods/mod-swooper-maps/src/recipes/standard/stages/narrative-pre mods/mod-swooper-maps/src/recipes/standard/stages/narrative-mid mods/mod-swooper-maps/src/recipes/standard/stages/narrative-post" ;;
     hydrology) echo "mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-pre mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-core mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-post" ;;
     placement) echo "mods/mod-swooper-maps/src/recipes/standard/stages/placement" ;;
     *)
@@ -225,6 +225,23 @@ for domain in "${DOMAINS[@]}"; do
   run_rg "Literal dependency keys in requires (${domain})" "requires:\\s*\\[[^\\]]*['\\\"](artifact|field|effect):" -U -- "${stage_roots[@]}"
   run_rg "Literal dependency keys in provides (${domain})" "provides:\\s*\\[[^\\]]*['\\\"](artifact|field|effect):" -U -- "${stage_roots[@]}"
   run_rg "Runtime config merges in steps (${domain})" "\\?\\?\\s*\\{\\}|\\bValue\\.Default\\(" -- "${stage_roots[@]}"
+
+  if [ "$domain" = "hydrology" ]; then
+    run_rg "Authored climate interventions (hydrology)" "climate\\.swatches\\b|climate\\.story\\b" -- \
+      "mods/mod-swooper-maps/src/domain/hydrology" \
+      "mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-pre" \
+      "mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-core" \
+      "mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-post"
+    run_rg "Narrative domain imports (hydrology)" "@mapgen/domain/narrative/" -- \
+      "mods/mod-swooper-maps/src/domain/hydrology" \
+      "mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-pre" \
+      "mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-core" \
+      "mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-post"
+    run_rg "Narrative swatches stage exists" "\"narrative-swatches\"" -- \
+      "mods/mod-swooper-maps/src/recipes/standard" \
+      "mods/mod-swooper-maps/src/maps" \
+      "mods/mod-swooper-maps/test"
+  fi
 
   # Ecology is the canonical exemplar for the stricter op/step module rules.
   if [ "$domain" = "ecology" ]; then

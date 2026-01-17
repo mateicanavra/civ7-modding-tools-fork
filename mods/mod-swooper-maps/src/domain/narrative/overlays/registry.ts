@@ -15,8 +15,6 @@ export function resetStoryOverlays(ctx: OverlayContext | null | undefined): void
 
 const OVERLAY_COLLECTION_BY_KEY: Record<StoryOverlayKey, keyof StoryOverlayRegistry> = {
   [STORY_OVERLAY_KEYS.CORRIDORS]: "corridors",
-  [STORY_OVERLAY_KEYS.SWATCHES]: "swatches",
-  [STORY_OVERLAY_KEYS.PALEO]: "swatches",
   [STORY_OVERLAY_KEYS.MARGINS]: "motifs",
   [STORY_OVERLAY_KEYS.HOTSPOTS]: "motifs",
   [STORY_OVERLAY_KEYS.RIFTS]: "motifs",

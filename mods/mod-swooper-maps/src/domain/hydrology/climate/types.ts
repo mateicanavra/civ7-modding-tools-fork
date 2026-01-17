@@ -27,10 +27,3 @@ export interface OrogenyCache {
   windward?: Set<string>;
   lee?: Set<string>;
 }
-
-export interface ClimateSwatchResult {
-  applied: boolean;
-  kind: string;
-  tiles?: number;
-}
-

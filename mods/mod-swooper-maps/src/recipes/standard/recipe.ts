@@ -16,7 +16,6 @@ import morphologyPre from "./stages/morphology-pre/index.js";
 import narrativeMid from "./stages/narrative-mid/index.js";
 import narrativePost from "./stages/narrative-post/index.js";
 import narrativePre from "./stages/narrative-pre/index.js";
-import narrativeSwatches from "./stages/narrative-swatches/index.js";
 import placement from "./stages/placement/index.js";
 import { STANDARD_TAG_DEFINITIONS } from "./tags.js";
 
@@ -29,7 +28,6 @@ const stages = [
   narrativeMid,
   morphologyPost,
   hydrologyPre,
-  narrativeSwatches,
   hydrologyCore,
   narrativePost,
   hydrologyPost,

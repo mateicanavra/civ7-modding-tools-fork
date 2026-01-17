@@ -2,7 +2,10 @@ import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import CoastlinesStepContract from "./coastlines.contract.js";
 
 export default createStep(CoastlinesStepContract, {
-  run: (context, _config, _ops) => {
+  artifacts: implementArtifacts(CoastlinesStepContract.artifacts!.provides!, {
+    coastlinesExpanded: {},
+  }),
+  run: (context, _config, _ops, deps) => {
     const { width, height } = context.dimensions;
     context.adapter.expandCoasts(width, height);
 
@@ -17,5 +20,7 @@ export default createStep(CoastlinesStepContract, {
         heightfield.landMask[i] = context.adapter.isWater(x, y) ? 0 : 1;
       }
     }
+
+    deps.artifacts.coastlinesExpanded.publish(context, {});
   },
 });
