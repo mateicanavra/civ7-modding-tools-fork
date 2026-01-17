@@ -73,6 +73,7 @@ Same inputs + seed must yield identical outputs; bounded feedback (cryosphere/al
 
 **Guardrails (Slice 2+):**
 - Determinism tests for key ops (golden-map regression; seed fixed).
+- Boundary-guard: ops accept **numeric seeds only** (no RNG objects/functions across boundaries); steps derive/pass seeds and ops instantiate local RNGs deterministically.
 - Explicit iteration-count constants validated in tests.
 
 ---
@@ -114,6 +115,7 @@ These anchors are intended to survive later slices by keeping fixes at stable bo
 ### C) Domain boundary: ops are pure + contract-first
 - Anchor: `swooper-src/domain/hydrology/ops/**`
   - Introduce the Phase 2 op catalog as atomic ops; steps orchestrate and wire buffers/artifacts.
+  - Guardrail: repo scan/lint forbids any `context.*` usage and any recipe/runtime/adapter imports in `domain/hydrology/ops/**` (engine integration is step-only).
 
 ### D) Forbidden dependency boundary: Narrative → Hydrology and Hydrology → Narrative
 - Anchors:
