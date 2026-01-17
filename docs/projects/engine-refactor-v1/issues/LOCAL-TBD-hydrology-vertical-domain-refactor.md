@@ -45,8 +45,8 @@ related_to:
 - [ ] Phase 3 introduces no Phase 2 model changes; all model authority references point to the Phase 2 modeling synthesis.
 
 ## Testing / Verification
-- `pnpm lint:doc-ambiguity`
-- `pnpm lint:adrs`
+- `pnpm lint:domain-refactor-guardrails`
+- `pnpm -C mods/mod-swooper-maps test`
 - `pnpm check`
 
 ## Dependencies / Notes
