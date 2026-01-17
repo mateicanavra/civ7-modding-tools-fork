@@ -22,12 +22,21 @@ export const defaultStrategy = createStrategy(ProjectRiverNetworkContract, "defa
       throw new Error("[Hydrology] Invalid discharge for hydrology/project-river-network.");
     }
 
+    const riverClass = new Uint8Array(size);
+
     const landDischarge: number[] = [];
     for (let i = 0; i < size; i++) {
       if (input.landMask[i] !== 1) continue;
-      landDischarge.push(input.discharge[i] ?? 0);
+      const d = input.discharge[i] ?? 0;
+      if (d > 0) landDischarge.push(d);
     }
     landDischarge.sort((a, b) => a - b);
+
+    if (landDischarge.length === 0) {
+      const minorThreshold = Math.max(0, config.minMinorDischarge);
+      const majorThreshold = Math.max(minorThreshold, config.minMajorDischarge);
+      return { riverClass, minorThreshold, majorThreshold } as const;
+    }
 
     const rawMinor = percentileThreshold(landDischarge, config.minorPercentile);
     const rawMajor = percentileThreshold(landDischarge, config.majorPercentile);
@@ -35,17 +44,13 @@ export const defaultStrategy = createStrategy(ProjectRiverNetworkContract, "defa
     const minorThreshold = Math.max(0, config.minMinorDischarge, rawMinor);
     const majorThreshold = Math.max(minorThreshold, config.minMajorDischarge, rawMajor);
 
-    const riverClass = new Uint8Array(size);
     for (let i = 0; i < size; i++) {
-      if (input.landMask[i] !== 1) {
-        riverClass[i] = 0;
-        continue;
-      }
+      if (input.landMask[i] !== 1) continue;
       const d = input.discharge[i] ?? 0;
+      if (d <= 0) continue;
       riverClass[i] = d >= majorThreshold ? 2 : d >= minorThreshold ? 1 : 0;
     }
 
     return { riverClass, minorThreshold, majorThreshold } as const;
   },
 });
-
