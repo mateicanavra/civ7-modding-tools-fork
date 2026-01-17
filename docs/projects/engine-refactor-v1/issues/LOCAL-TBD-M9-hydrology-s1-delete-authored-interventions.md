@@ -35,6 +35,8 @@ related_to: []
 - [x] No remaining references to swatches or paleo in Hydrology climate code paths.
 - [x] `pnpm check` passes (includes `pnpm lint:domain-refactor-guardrails`).
 
+Completed on branch `agent-TURTLE-M9-LOCAL-TBD-M9-hydrology-s1-delete-authored-interventions` (PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/613).
+
 ## Testing / Verification
 - `pnpm check`
 - `pnpm -C mods/mod-swooper-maps test`
