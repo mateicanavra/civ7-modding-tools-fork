@@ -5,6 +5,24 @@ import { hydrologyCoreArtifacts } from "../../hydrology-core/artifacts.js";
 import { hydrologyPreArtifacts } from "../../hydrology-pre/artifacts.js";
 import { hydrologyPostArtifacts } from "../artifacts.js";
 
+/**
+ * Hydrology refinement + diagnostics step (bounded, deterministic).
+ *
+ * This step refines rainfall/temperature locally (still mechanism-driven), computes land water budget indices,
+ * runs bounded cryosphere feedback when enabled, and publishes diagnostic and derived index artifacts.
+ *
+ * Configuration posture:
+ * - No step-local config. All author-facing control flows through Hydrology knobs compiled at stage compile time.
+ */
+const ClimateRefineStepConfigSchema = Type.Object(
+  {},
+  {
+    additionalProperties: false,
+    description:
+      "Climate refine step config (empty). Use Hydrology knobs (dryness/temperature/cryosphere) to influence behavior deterministically.",
+  }
+);
+
 const ClimateRefineStepContract = defineStep({
   id: "climate-refine",
   phase: "hydrology",
@@ -32,7 +50,7 @@ const ClimateRefineStepContract = defineStep({
     computeLandWaterBudget: hydrology.ops.computeLandWaterBudget,
     computeClimateDiagnostics: hydrology.ops.computeClimateDiagnostics,
   },
-  schema: Type.Object({}, { additionalProperties: false }),
+  schema: ClimateRefineStepConfigSchema,
 });
 
 export default ClimateRefineStepContract;
