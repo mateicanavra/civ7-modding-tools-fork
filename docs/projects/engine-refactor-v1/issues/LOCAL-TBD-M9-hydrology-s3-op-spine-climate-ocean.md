@@ -132,13 +132,6 @@ All ops must be deterministic and purely driven by:
 - compiled normalized params (from Slice 2),
 - a seed value where randomness is needed (seed must be computed in steps, passed as a number; do not pass RNG objects).
 
-### Prework Prompt (Agent Brief)
-**Purpose:** Identify a minimal “climate regression signature” that can be used as a golden-map test for determinism without overfitting.\n
-**Expected Output:** A proposed test file + metric(s) (e.g., checksum of rainfall/humidity arrays; summary stats) and where to plug it into existing mod tests.\n
-**Sources to Check:**\n
-- `mods/mod-swooper-maps/test/standard-run.test.ts` (existing execution harness)\n
-- `rg -n \"checksum|hash|snapshot\" mods/mod-swooper-maps/test -S`\n
-
 ### Prework Results (Resolved)
 
 There is no existing “climate checksum” test yet, but the test harness already exists and the climate projection buffers are already typed/validated as `Uint8Array`s.
