@@ -64,8 +64,7 @@ Hydrology publishes typed artifacts for dependency gating and stable consumption
 
 - `artifact:heightfield`: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-baseline/artifacts.ts` (`HeightfieldArtifactSchema`)
 - `artifact:climateField`: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-baseline/artifacts.ts` (`ClimateFieldArtifactSchema`)
-- `artifact:windField`: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-baseline/artifacts.ts` (`HydrologyWindFieldSchema`)
-- `artifact:riverAdjacency`: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-hydrography/artifacts.ts` (`RiverAdjacencyArtifactSchema`, projection-only)
+- `artifact:hydrology._internal.windField`: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-baseline/artifacts.ts` (`HydrologyWindFieldSchema`, internal)
 - `artifact:hydrology.hydrography`: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-hydrography/artifacts.ts` (`HydrologyHydrographyArtifactSchema`, canonical read path)
 - `artifact:hydrology.climateIndices`: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-refine/artifacts.ts` (`HydrologyClimateIndicesSchema`)
 - `artifact:hydrology.cryosphere`: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-refine/artifacts.ts` (`HydrologyCryosphereSchema`)

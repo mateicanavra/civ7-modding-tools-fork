@@ -5,7 +5,7 @@ import StoryCorridorsPostStepContract from "./storyCorridorsPost.contract.js";
 
 export default createStep(StoryCorridorsPostStepContract, {
   run: (context, config, _ops, deps) => {
-    void deps.artifacts.riverAdjacency.read(context);
+    void deps.artifacts.hydrography.read(context);
     const overlays = deps.artifacts.overlays.read(context);
     const corridors = readOverlayCorridors(overlays);
     storyTagStrategicCorridors(
