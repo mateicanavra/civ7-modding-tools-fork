@@ -1,9 +1,9 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
 import hydrology from "@mapgen/domain/hydrology";
 
-import { hydrologyCoreArtifacts } from "../../hydrology-core/artifacts.js";
-import { hydrologyPreArtifacts } from "../../hydrology-pre/artifacts.js";
-import { hydrologyPostArtifacts } from "../artifacts.js";
+import { hydrologyHydrographyArtifacts } from "../../hydrology-hydrography/artifacts.js";
+import { hydrologyClimateBaselineArtifacts } from "../../hydrology-climate-baseline/artifacts.js";
+import { hydrologyClimateRefineArtifacts } from "../artifacts.js";
 
 /**
  * Hydrology refinement + diagnostics step (bounded, deterministic).
@@ -30,15 +30,15 @@ const ClimateRefineStepContract = defineStep({
   provides: [],
   artifacts: {
     requires: [
-      hydrologyPreArtifacts.heightfield,
-      hydrologyPreArtifacts.climateField,
-      hydrologyPreArtifacts.windField,
-      hydrologyCoreArtifacts.riverAdjacency,
+      hydrologyClimateBaselineArtifacts.heightfield,
+      hydrologyClimateBaselineArtifacts.climateField,
+      hydrologyClimateBaselineArtifacts.windField,
+      hydrologyHydrographyArtifacts.riverAdjacency,
     ],
     provides: [
-      hydrologyPostArtifacts.climateIndices,
-      hydrologyPostArtifacts.cryosphere,
-      hydrologyPostArtifacts.climateDiagnostics,
+      hydrologyClimateRefineArtifacts.climateIndices,
+      hydrologyClimateRefineArtifacts.cryosphere,
+      hydrologyClimateRefineArtifacts.climateDiagnostics,
     ],
   },
   ops: {

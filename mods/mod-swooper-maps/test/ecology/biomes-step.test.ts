@@ -7,7 +7,7 @@ import ecology from "@mapgen/domain/ecology/ops";
 import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
 
 import biomesStep from "../../src/recipes/standard/stages/ecology/steps/biomes/index.js";
-import { hydrologyPreArtifacts } from "../../src/recipes/standard/stages/hydrology-pre/artifacts.js";
+import { hydrologyClimateBaselineArtifacts } from "../../src/recipes/standard/stages/hydrology-climate-baseline/artifacts.js";
 import { narrativePreArtifacts } from "../../src/recipes/standard/stages/narrative-pre/artifacts.js";
 import { normalizeOpSelectionOrThrow } from "../support/compiler-helpers.js";
 import { buildTestDeps } from "../support/step-deps.js";
@@ -37,7 +37,7 @@ describe("biomes step", () => {
     ctx.buffers.climate.humidity.fill(80);
 
     const hydrologyArtifacts = implementArtifacts(
-      [hydrologyPreArtifacts.heightfield, hydrologyPreArtifacts.climateField],
+      [hydrologyClimateBaselineArtifacts.heightfield, hydrologyClimateBaselineArtifacts.climateField],
       { heightfield: {}, climateField: {} }
     );
     hydrologyArtifacts.heightfield.publish(ctx, ctx.buffers.heightfield);

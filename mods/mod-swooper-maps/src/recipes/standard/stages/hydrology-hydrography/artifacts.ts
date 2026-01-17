@@ -50,7 +50,7 @@ export const HydrologyHydrographyArtifactSchema = Type.Object(
   }
 );
 
-export const hydrologyCoreArtifacts = {
+export const hydrologyHydrographyArtifacts = {
   riverAdjacency: defineArtifact({
     name: "riverAdjacency",
     id: "artifact:riverAdjacency",

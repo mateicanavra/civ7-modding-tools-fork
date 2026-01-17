@@ -1,7 +1,7 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
 import { NarrativeConfigSchema } from "@mapgen/domain/config";
 
-import { hydrologyCoreArtifacts } from "../../hydrology-core/artifacts.js";
+import { hydrologyHydrographyArtifacts } from "../../hydrology-hydrography/artifacts.js";
 import { morphologyArtifacts } from "../../morphology-pre/artifacts.js";
 import { narrativePreArtifacts } from "../../narrative-pre/artifacts.js";
 
@@ -14,7 +14,7 @@ const StoryCorridorsPostStepContract = defineStep({
     requires: [
       morphologyArtifacts.topography,
       narrativePreArtifacts.overlays,
-      hydrologyCoreArtifacts.riverAdjacency,
+      hydrologyHydrographyArtifacts.riverAdjacency,
     ],
   },
   schema: Type.Object({

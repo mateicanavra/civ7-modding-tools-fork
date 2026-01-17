@@ -8,9 +8,9 @@ import {
   StepRegistry,
   isDependencyTagSatisfied,
 } from "@swooper/mapgen-core/engine";
-import { hydrologyCoreArtifacts } from "../../src/recipes/standard/stages/hydrology-core/artifacts.js";
-import { computeRiverAdjacencyMask } from "../../src/recipes/standard/stages/hydrology-core/river-adjacency.js";
-import { hydrologyPreArtifacts } from "../../src/recipes/standard/stages/hydrology-pre/artifacts.js";
+import { hydrologyHydrographyArtifacts } from "../../src/recipes/standard/stages/hydrology-hydrography/artifacts.js";
+import { computeRiverAdjacencyMask } from "../../src/recipes/standard/stages/hydrology-hydrography/river-adjacency.js";
+import { hydrologyClimateBaselineArtifacts } from "../../src/recipes/standard/stages/hydrology-climate-baseline/artifacts.js";
 import { M3_DEPENDENCY_TAGS, STANDARD_TAG_DEFINITIONS } from "../../src/recipes/standard/tags.js";
 
 const baseEnv = {
@@ -44,7 +44,7 @@ describe("pipeline artifacts", () => {
       adapter,
       baseEnv
     );
-    const climateArtifacts = implementArtifacts([hydrologyPreArtifacts.climateField], {
+    const climateArtifacts = implementArtifacts([hydrologyClimateBaselineArtifacts.climateField], {
       climateField: {},
     });
 
@@ -52,7 +52,7 @@ describe("pipeline artifacts", () => {
     registry.registerTags([
       ...STANDARD_TAG_DEFINITIONS,
       {
-        id: hydrologyPreArtifacts.climateField.id,
+        id: hydrologyClimateBaselineArtifacts.climateField.id,
         kind: "artifact",
         satisfies: climateArtifacts.climateField.satisfies,
       },
@@ -60,7 +60,7 @@ describe("pipeline artifacts", () => {
     const tagRegistry = registry.getTagRegistry();
 
     expect(
-      isDependencyTagSatisfied(hydrologyPreArtifacts.climateField.id, ctx, {
+      isDependencyTagSatisfied(hydrologyClimateBaselineArtifacts.climateField.id, ctx, {
         satisfied: new Set(),
       }, tagRegistry)
     ).toBe(false);
@@ -68,8 +68,8 @@ describe("pipeline artifacts", () => {
     climateArtifacts.climateField.publish(ctx, ctx.buffers.climate);
 
     expect(
-      isDependencyTagSatisfied(hydrologyPreArtifacts.climateField.id, ctx, {
-        satisfied: new Set([hydrologyPreArtifacts.climateField.id]),
+      isDependencyTagSatisfied(hydrologyClimateBaselineArtifacts.climateField.id, ctx, {
+        satisfied: new Set([hydrologyClimateBaselineArtifacts.climateField.id]),
       }, tagRegistry)
     ).toBe(true);
   });
@@ -105,7 +105,7 @@ describe("pipeline artifacts", () => {
       adapter,
       baseEnv
     );
-    const climateArtifacts = implementArtifacts([hydrologyPreArtifacts.climateField], {
+    const climateArtifacts = implementArtifacts([hydrologyClimateBaselineArtifacts.climateField], {
       climateField: {},
     });
 
@@ -113,7 +113,7 @@ describe("pipeline artifacts", () => {
     registry.registerTags([
       ...STANDARD_TAG_DEFINITIONS,
       {
-        id: hydrologyPreArtifacts.climateField.id,
+        id: hydrologyClimateBaselineArtifacts.climateField.id,
         kind: "artifact",
         satisfies: climateArtifacts.climateField.satisfies,
       },
@@ -122,7 +122,7 @@ describe("pipeline artifacts", () => {
       id: "climate-baseline",
       phase: "hydrology",
       requires: [],
-      provides: [hydrologyPreArtifacts.climateField.id],
+      provides: [hydrologyClimateBaselineArtifacts.climateField.id],
       run: (_context, _config) => {},
     });
 
@@ -144,7 +144,7 @@ describe("pipeline artifacts", () => {
       adapter,
       baseEnv
     );
-    const riverArtifacts = implementArtifacts([hydrologyCoreArtifacts.riverAdjacency], {
+    const riverArtifacts = implementArtifacts([hydrologyHydrographyArtifacts.riverAdjacency], {
       riverAdjacency: {},
     });
 
@@ -152,7 +152,7 @@ describe("pipeline artifacts", () => {
     registry.registerTags([
       ...STANDARD_TAG_DEFINITIONS,
       {
-        id: hydrologyCoreArtifacts.riverAdjacency.id,
+        id: hydrologyHydrographyArtifacts.riverAdjacency.id,
         kind: "artifact",
         satisfies: riverArtifacts.riverAdjacency.satisfies,
       },
@@ -161,7 +161,7 @@ describe("pipeline artifacts", () => {
       id: "rivers",
       phase: "hydrology",
       requires: [],
-      provides: [hydrologyCoreArtifacts.riverAdjacency.id],
+      provides: [hydrologyHydrographyArtifacts.riverAdjacency.id],
       run: (_context, _config) => {
         const mask = computeRiverAdjacencyMask(ctx);
         riverArtifacts.riverAdjacency.publish(ctx, mask);
@@ -173,6 +173,6 @@ describe("pipeline artifacts", () => {
     const { stepResults } = executor.executePlanReport(ctx, plan);
 
     expect(stepResults[0]?.success).toBe(true);
-    expect(ctx.artifacts.get(hydrologyCoreArtifacts.riverAdjacency.id)).toBeInstanceOf(Uint8Array);
+    expect(ctx.artifacts.get(hydrologyHydrographyArtifacts.riverAdjacency.id)).toBeInstanceOf(Uint8Array);
   });
 });

@@ -361,7 +361,7 @@ export default createMap({
       },
     },
   },
-  "hydrology-pre": {
+  "hydrology-climate-baseline": {
     knobs: {
       dryness: "dry",
       temperature: "hot",
@@ -372,7 +372,7 @@ export default createMap({
       lakeiness: "few",
     },
   },
-  "hydrology-core": {
+  "hydrology-hydrography": {
     knobs: {
       dryness: "dry",
       temperature: "hot",
@@ -420,7 +420,7 @@ export default createMap({
       },
     },
   },
-  "hydrology-post": {
+  "hydrology-climate-refine": {
     knobs: {
       dryness: "dry",
       temperature: "hot",

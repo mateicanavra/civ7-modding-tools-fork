@@ -1,7 +1,7 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
 import ecology from "@mapgen/domain/ecology";
 import { ecologyArtifacts } from "../../artifacts.js";
-import { hydrologyPreArtifacts } from "../../../hydrology-pre/artifacts.js";
+import { hydrologyClimateBaselineArtifacts } from "../../../hydrology-climate-baseline/artifacts.js";
 
 const BiomeEdgeRefineStepContract = defineStep({
   id: "biome-edge-refine",
@@ -9,7 +9,7 @@ const BiomeEdgeRefineStepContract = defineStep({
   requires: [],
   provides: [],
   artifacts: {
-    requires: [ecologyArtifacts.biomeClassification, hydrologyPreArtifacts.heightfield],
+    requires: [ecologyArtifacts.biomeClassification, hydrologyClimateBaselineArtifacts.heightfield],
   },
   ops: {
     refine: ecology.ops.refineBiomeEdges,

@@ -25,7 +25,7 @@ export const HeightfieldArtifactSchema = Type.Object(
 );
 
 /**
- * Climate field produced by Hydrology-pre baseline climate.
+ * Climate field produced by Hydrology climate-baseline.
  *
  * This artifact is a *buffer handle* routed through artifacts for gating/typing: it may be refined later in-place.
  */
@@ -43,7 +43,7 @@ export const ClimateFieldArtifactSchema = Type.Object(
   }
 );
 
-export const hydrologyPreArtifacts = {
+export const hydrologyClimateBaselineArtifacts = {
   heightfield: defineArtifact({
     name: "heightfield",
     id: "artifact:heightfield",

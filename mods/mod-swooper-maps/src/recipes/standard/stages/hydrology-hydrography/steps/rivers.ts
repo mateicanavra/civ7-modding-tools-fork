@@ -7,7 +7,7 @@ import {
 } from "@swooper/mapgen-core";
 import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import { computeRiverAdjacencyMaskFromRiverClass } from "../river-adjacency.js";
-import { hydrologyCoreArtifacts } from "../artifacts.js";
+import { hydrologyHydrographyArtifacts } from "../artifacts.js";
 import RiversStepContract from "./rivers.contract.js";
 
 type ArtifactValidationIssue = Readonly<{ message: string }>;
@@ -74,7 +74,7 @@ function validateHydrography(value: unknown, dimensions: MapDimensions): Artifac
 }
 
 export default createStep(RiversStepContract, {
-  artifacts: implementArtifacts([hydrologyCoreArtifacts.riverAdjacency, hydrologyCoreArtifacts.hydrography], {
+  artifacts: implementArtifacts([hydrologyHydrographyArtifacts.riverAdjacency, hydrologyHydrographyArtifacts.hydrography], {
     riverAdjacency: {
       validate: (value, context) => validateRiverAdjacencyMask(value, context.dimensions),
     },

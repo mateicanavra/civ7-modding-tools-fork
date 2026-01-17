@@ -58,7 +58,7 @@ describe("morphology contract guardrails", () => {
       path.join(repoRoot, "src/recipes/standard/stages/morphology-pre"),
       path.join(repoRoot, "src/recipes/standard/stages/morphology-mid"),
       path.join(repoRoot, "src/recipes/standard/stages/morphology-post"),
-      path.join(repoRoot, "src/recipes/standard/stages/hydrology-pre/steps"),
+      path.join(repoRoot, "src/recipes/standard/stages/hydrology-climate-baseline/steps"),
     ];
 
     const files = roots.flatMap((candidate) => {
@@ -265,7 +265,7 @@ describe("morphology contract guardrails", () => {
         mustRequire: "topography",
       },
       {
-        file: path.join(repoRoot, "src/recipes/standard/stages/hydrology-pre/steps/lakes.contract.ts"),
+        file: path.join(repoRoot, "src/recipes/standard/stages/hydrology-climate-baseline/steps/lakes.contract.ts"),
         mustRequire: "topography",
       },
     ];

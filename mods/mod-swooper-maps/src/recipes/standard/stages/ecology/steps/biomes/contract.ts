@@ -3,7 +3,7 @@ import ecology, { BiomeEngineBindingsSchema } from "@mapgen/domain/ecology";
 
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../../tags.js";
 import { ecologyArtifacts } from "../../artifacts.js";
-import { hydrologyPreArtifacts } from "../../../hydrology-pre/artifacts.js";
+import { hydrologyClimateBaselineArtifacts } from "../../../hydrology-climate-baseline/artifacts.js";
 import { narrativePreArtifacts } from "../../../narrative-pre/artifacts.js";
 
 const BiomesStepContract = defineStep({
@@ -16,8 +16,8 @@ const BiomesStepContract = defineStep({
   ],
   artifacts: {
     requires: [
-      hydrologyPreArtifacts.climateField,
-      hydrologyPreArtifacts.heightfield,
+      hydrologyClimateBaselineArtifacts.climateField,
+      hydrologyClimateBaselineArtifacts.heightfield,
       narrativePreArtifacts.overlays,
     ],
     provides: [ecologyArtifacts.biomeClassification],

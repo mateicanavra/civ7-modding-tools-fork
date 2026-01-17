@@ -7,7 +7,7 @@ import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrativ
 import { normalizeOpSelectionOrThrow } from "../support/compiler-helpers.js";
 
 import { ecologyArtifacts } from "../../src/recipes/standard/stages/ecology/artifacts.js";
-import { hydrologyPreArtifacts } from "../../src/recipes/standard/stages/hydrology-pre/artifacts.js";
+import { hydrologyClimateBaselineArtifacts } from "../../src/recipes/standard/stages/hydrology-climate-baseline/artifacts.js";
 import { narrativePreArtifacts } from "../../src/recipes/standard/stages/narrative-pre/artifacts.js";
 
 export const disabledEmbellishmentsConfig = {
@@ -191,7 +191,7 @@ export function createFeaturesTestContext(options: FeaturesTestContextOptions) {
   const fertility = new Float32Array(size).fill(defaultFertility);
 
   const hydrologyArtifacts = implementArtifacts(
-    [hydrologyPreArtifacts.heightfield, hydrologyPreArtifacts.climateField],
+    [hydrologyClimateBaselineArtifacts.heightfield, hydrologyClimateBaselineArtifacts.climateField],
     { heightfield: {}, climateField: {} }
   );
   hydrologyArtifacts.heightfield.publish(ctx, ctx.buffers.heightfield);
