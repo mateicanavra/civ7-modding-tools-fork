@@ -6,8 +6,8 @@ export const swooperEarthlikeConfig = {
       computeMesh: {
         strategy: "default",
         config: {
-          plateCount: 32, // Fewer, larger major plates plus some microplates
-          cellsPerPlate: 9, // Slightly denser cells per plate for sharper margins
+          plateCount: 17, // Fewer, larger major plates plus some microplates
+          cellsPerPlate: 13, // Slightly denser cells per plate for sharper margins
           relaxationSteps: 5, // Extra smoothing for coherent plate footprints
           referenceArea: 16000, // Standard reference
           plateScalePower: 0.91, // Still heavy-tailed but fewer tiny microplates
@@ -447,10 +447,10 @@ export const swooperEarthlikeConfig = {
               tundra: 0.08,
               boreal: 0.05,
               temperateDry: 0.04,
-              temperateHumid: 0.05,
+              temperateHumid: 0.1,
               tropicalSeasonal: 0.05,
-              tropicalRainforest: 0.05,
-              desert: 0.02,
+              tropicalRainforest: 0.1,
+              desert: 0.03,
             },
             vegetationChanceScalar: 1.1,
             desertSagebrushMinVegetation: 0.08,
@@ -529,32 +529,32 @@ export const swooperEarthlikeConfig = {
             bias: 0.5,
             polarCutoff: -6,
             tundraCutoff: -1,
-            midLatitude: 11,
-            tropicalThreshold: 24,
+            midLatitude: 10,
+            tropicalThreshold: 18,
           },
           moisture: {
-            thresholds: [45, 130, 150, 210] as [number, number, number, number],
+            thresholds: [55, 130, 150, 210] as [number, number, number, number],
             bias: 0,
             humidityWeight: 0.42,
           },
           aridity: {
             temperatureMin: 0,
-            temperatureMax: 35,
+            temperatureMax: 37,
             petBase: 19,
-            petTemperatureWeight: 85,
+            petTemperatureWeight: 120,
             humidityDampening: 0.18,
-            rainfallWeight: 0.95,
+            rainfallWeight: 1.1,
             bias: 1.5,
-            normalization: 112,
-            moistureShiftThresholds: [0.05, 0.1] as [number, number],
-            vegetationPenalty: 0.07,
+            normalization: 100,
+            moistureShiftThresholds: [0.32, 0.44] as [number, number],
+            vegetationPenalty: 0.0,
           },
           freeze: {
             minTemperature: -10,
             maxTemperature: 3,
           },
           vegetation: {
-            base: 0.32,
+            base: 0.72,
             moistureWeight: 0.68,
             humidityWeight: 0.32,
             moistureNormalizationPadding: 60,
@@ -565,8 +565,8 @@ export const swooperEarthlikeConfig = {
               temperateDry: { multiplier: 0.75, bonus: 0 },
               temperateHumid: { multiplier: 1, bonus: 0 },
               tropicalSeasonal: { multiplier: 1, bonus: 0 },
-              tropicalRainforest: { multiplier: 2.3, bonus: 1.2 },
-              desert: { multiplier: 0.85, bonus: 0 },
+              tropicalRainforest: { multiplier: 5, bonus: 1.2 },
+              desert: { multiplier: 5, bonus: 0.25 },
             },
           },
           noise: {
