@@ -39,6 +39,20 @@ When running a domain refactor with multiple draft variants per phase (e.g., mul
 Recommended posture: treat the per‑domain package directory as the place reviewers go to understand the refactor end‑to‑end:
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/<domain>/`
 
+## Execution posture (how to run Phases 3–5)
+
+This workflow is strict about architecture and contracts, but it should feel straightforward to execute.
+
+- Work end-to-end. Keep each slice pipeline-green with migrations, deletions, docs/tests, and guardrails complete before starting the next slice.
+- Prefer durable fix anchors. Land fixes at stable boundaries (schemas/contracts/normalize) rather than patching internals likely to churn next slice.
+- Stop the line on drift. If a locked decision is violated or a contract is ambiguous, pause, update the Phase 3 issue, and add a guardrail before continuing.
+- Keep diffs reviewable. Default to one branch/PR per slice; if a slice grows, split into explicit subissues/branches rather than “and also” accretion.
+
+Keep close during execution:
+- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/IMPLEMENTATION.md`
+- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/implementation-reference.md`
+- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/implementation-traps-and-locked-decisions.md`
+
 ## Required artifacts (by phase)
 
 | Phase | Required artifact | Template / Reference |

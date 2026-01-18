@@ -17,6 +17,13 @@ Keep open while implementing:
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/implementation-reference.md`
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/implementation-traps-and-locked-decisions.md`
 
+## Execution posture (directional guidance)
+
+- Keep slices end-to-end and pipeline-green. Do not carry partial migrations forward “until cleanup.”
+- Prefer durable fix anchors. When a behavior is wrong, fix it at contracts/schemas/normalize boundaries first.
+- Default to deletions. Within scope, remove legacy surfaces, compat, placeholders, and dead bags; do not preserve them “just in case.”
+- If a locked decision is threatened, stop the line: update the Phase 3 issue and add a guardrail before proceeding.
+
 ## How to think about slicing (guardrails)
 
 You (the implementer) choose slices **ad hoc** based on the domain inventory. The workflow is not prescriptive about slice boundaries, but it is strict about slice **completion** (no half-migrations).

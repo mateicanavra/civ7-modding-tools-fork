@@ -13,7 +13,10 @@ Canonical TypeScript rules (hard rules):
 - `rules/**` must not import `../contract.js` (type-only or runtime). Use `../types.js` for types and core SDK packages for utilities.
 
 Execution posture:
-- Proceed end-to-end; only stop if continuing would cause dangerous side effects (data loss, breaking public contracts without updating consumers, or violating the canonical spec/ADRs).
+- Proceed end-to-end per slice: migrations, deletions, docs/tests, and guardrails ship together; each slice ends pipeline-green.
+- Prefer durable fix anchors: land fixes at contracts/schemas/normalize boundaries rather than patching internals likely to churn next slice.
+- Stop the line on drift: if a locked decision is threatened or a contract is ambiguous, pause, update the Phase 3 issue, and add a guardrail before continuing.
+- Keep diffs reviewable: default to one Graphite branch/PR per slice; split broad slices into explicit subissues/branches.
 - Router compliance: before editing any file, read the closest `AGENTS.md` router that scopes that file.
 
 Non-negotiable invariants (target architecture):
@@ -92,7 +95,7 @@ flowchart LR
   StepContract["Step contract\ncontract.ts\n- ops: { key: domain.ops.<opContract> }\n- artifacts: { requires/provides }\n- schema: step-owned props only\n(defineStep merges op config schemas)"]
   DomainImpl["@mapgen/domain/<domain>/ops\n(implementation entrypoint)\nexport default { <opKey>: createOp(...) }"]
   Compiler["compileRecipeConfig\nprefillOpDefaults -> normalizeStrict -> step.normalize -> op.normalize fanout"]
-  StepModule["Step module\ncreateStep(contract, { artifacts?, run(ctx, config, ops, deps) })\nctx.buffers.* = mutable working layers\n ctx.overlays.* = append-preferred story overlays\n deps.artifacts.* = published contracts"]
+  StepModule["Step module\ncreateStep(contract, { artifacts?, run(ctx, config, ops, deps) })\nctx.buffers.* = mutable working layers\n deps.artifacts.* = published contracts"]
   ArtifactRuntime["implementArtifacts(contract.artifacts.provides, impl)\n-> deps.artifacts wrappers + satisfiers"]
   Recipe["createRecipe\ncollect step modules -> bindRuntimeOps + bindRuntimeDeps\n(auto-wire artifact tag defs + satisfiers)"]
 
