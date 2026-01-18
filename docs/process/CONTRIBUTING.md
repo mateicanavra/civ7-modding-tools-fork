@@ -71,8 +71,12 @@ These are independent; local dev runs source via Bun; global link runs installed
 - Defaults:
   - Base outputs: `.civ7/outputs`
   - Zip archives: `.civ7/outputs/archives`
-  - Unzip directory: `.civ7/outputs/resources`
+  - Unzip directory: `.civ7/outputs/resources` (**git submodule**)
   - Graph exports: `.civ7/outputs/graph/<seed>`
+- The unzip directory is a git submodule that publishes snapshots to `mateicanavra/civ7-official-resources`.
+  - One-time setup: `pnpm setup:git-hooks`
+  - Init on a fresh clone: `pnpm resources:init` (or `git submodule update --init --recursive`)
+  - `civ7 data unzip` writes into the submodule working tree; diffs show up in the submodule and are auto-committed/pushed on monorepo commit (via `scripts/git-hooks/pre-commit`).
 - Docs: served directly from `apps/docs/site` (no build/dist by default)
 - SDK: emits to `packages/sdk/dist`
 - Playground: generated content remains under its app directory
