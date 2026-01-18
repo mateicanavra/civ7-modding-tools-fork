@@ -20,10 +20,10 @@ export function computeEffectiveMoisture(params: {
   humidity: number;
   bias: number;
   humidityWeight: number;
-  overlayBonus: number;
+  moistureBonus: number;
   noise: number;
   noiseScale: number;
 }): number {
-  const { rainfall, humidity, bias, humidityWeight, overlayBonus, noise, noiseScale } = params;
-  return rainfall + humidityWeight * humidity + bias + overlayBonus + noise * noiseScale;
+  const { rainfall, humidity, bias, humidityWeight, moistureBonus, noise, noiseScale } = params;
+  return rainfall + humidityWeight * humidity + bias + moistureBonus + noise * noiseScale;
 }
