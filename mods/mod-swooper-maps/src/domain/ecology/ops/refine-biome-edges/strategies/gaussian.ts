@@ -4,7 +4,7 @@ export const gaussianStrategy = createStrategy(RefineBiomeEdgesContract, "gaussi
   run: (input, config) => {
     const { width, height } = input;
     const size = width * height;
-    if (input.biomeIndex.length !== size) {
+    if (input.biomeIndex.length !== size || input.landMask.length !== size) {
       throw new Error("Refine biome edges (gaussian): invalid input size.");
     }
 
@@ -25,7 +25,13 @@ export const gaussianStrategy = createStrategy(RefineBiomeEdgesContract, "gaussi
       const next = new Uint8Array(size);
       for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
-          let weighted: Record<number, number> = {};
+          const idx = y * width + x;
+          if (input.landMask[idx] === 0) {
+            next[idx] = 255;
+            continue;
+          }
+
+          const weighted: Record<number, number> = Object.create(null);
           let idxKernel = 0;
           for (let dy = -radius; dy <= radius; dy++) {
             const ny = y + dy;
@@ -39,13 +45,18 @@ export const gaussianStrategy = createStrategy(RefineBiomeEdgesContract, "gaussi
                 idxKernel += 1;
                 continue;
               }
+              const nIdx = ny * width + nx;
+              if (input.landMask[nIdx] === 0) {
+                idxKernel += 1;
+                continue;
+              }
               const weight = kernel[idxKernel]!;
-              const biome = working[ny * width + nx]!;
+              const biome = working[nIdx]!;
               weighted[biome] = (weighted[biome] ?? 0) + weight;
               idxKernel += 1;
             }
           }
-          let bestBiome = working[y * width + x]!;
+          let bestBiome = working[idx]!;
           let bestScore = -1;
           for (const [biome, score] of Object.entries(weighted)) {
             if (score > bestScore) {
@@ -53,7 +64,7 @@ export const gaussianStrategy = createStrategy(RefineBiomeEdgesContract, "gaussi
               bestBiome = Number(biome);
             }
           }
-          next[y * width + x] = bestBiome;
+          next[idx] = bestBiome;
         }
       }
       working = next;
