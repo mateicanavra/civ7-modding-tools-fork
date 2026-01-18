@@ -367,43 +367,6 @@ export const swooperEarthlikeConfig = {
       riverDensity: "dense",
     },
   },
-  "narrative-post": {
-    "story-corridors-post": {
-      corridors: {
-        sea: {
-          protection: "soft",
-          softChanceMultiplier: 0.35,
-          avoidRadius: 3,
-          maxLanes: 2,
-          scanStride: 6,
-          minLengthFrac: 0.65,
-          preferDiagonals: false,
-          laneSpacing: 7,
-          minChannelWidth: 3,
-        },
-        land: {
-          biomesBiasStrength: 0.6,
-          useRiftShoulders: true,
-          maxCorridors: 2,
-          minRunLength: 26,
-          spacing: 1,
-        },
-        river: {
-          biomesBiasStrength: 0.5,
-          maxChains: 2,
-          maxSteps: 90,
-          preferLowlandBelow: 340,
-          coastSeedRadius: 2,
-          minTiles: 0,
-          mustEndNearCoast: false,
-        },
-        islandHop: {
-          useHotspots: true,
-          maxArcs: 2,
-        },
-      },
-    },
-  },
   "hydrology-climate-refine": {
     knobs: {
       dryness: "wet",
