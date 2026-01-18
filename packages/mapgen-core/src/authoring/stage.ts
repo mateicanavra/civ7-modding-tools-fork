@@ -2,7 +2,6 @@ import { Type, type Static, type TObject, type TSchema } from "typebox";
 
 import type { ExtendedMapContext } from "@mapgen/core/types.js";
 
-import { applySchemaConventions } from "./schema.js";
 import {
   RESERVED_STAGE_KEY,
   type StageContract,
@@ -116,18 +115,12 @@ export function createStage(def: any): any {
     assertSchema(step.contract.schema, step.contract.id, def.id);
   }
 
-  applySchemaConventions(def.knobsSchema, `stage:${def.id}.knobs`);
-  if (def.public) {
-    applySchemaConventions(def.public, `stage:${def.id}.public`);
-  }
-
   const surfaceSchema = def.public
     ? buildPublicSurfaceSchema(def.public, def.knobsSchema)
     : buildInternalAsPublicSurfaceSchema(
         stepIds.filter((id: string) => id !== RESERVED_STAGE_KEY),
         def.knobsSchema
       );
-  applySchemaConventions(surfaceSchema, `stage:${def.id}.surface`);
 
   const toInternal = ({
     env,
