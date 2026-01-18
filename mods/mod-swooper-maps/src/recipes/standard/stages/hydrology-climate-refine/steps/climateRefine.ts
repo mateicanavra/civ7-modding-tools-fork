@@ -5,11 +5,13 @@ import { hydrologyClimateRefineArtifacts } from "../artifacts.js";
 import { computeRiverAdjacencyMaskFromRiverClass } from "../../hydrology-hydrography/river-adjacency.js";
 import {
   HYDROLOGY_DRYNESS_WETNESS_SCALE,
-  HYDROLOGY_REFINE_LOW_BASIN_DELTA_BASE,
-  HYDROLOGY_REFINE_RIVER_CORRIDOR_HIGHLAND_ADJACENCY_BONUS_BASE,
-  HYDROLOGY_REFINE_RIVER_CORRIDOR_LOWLAND_ADJACENCY_BONUS_BASE,
   HYDROLOGY_TEMPERATURE_BASE_TEMPERATURE_C,
 } from "@mapgen/domain/hydrology/shared/knob-multipliers.js";
+import type {
+  HydrologyCryosphereKnob,
+  HydrologyDrynessKnob,
+  HydrologyTemperatureKnob,
+} from "@mapgen/domain/hydrology/shared/knobs.js";
 
 type ArtifactValidationIssue = Readonly<{ message: string }>;
 
@@ -94,103 +96,51 @@ export default createStep(ClimateRefineStepContract, {
     }
   ),
   normalize: (config, ctx) => {
-    const knobs = isRecord(ctx.knobs) ? ctx.knobs : {};
-    const drynessRaw = knobs.dryness;
-    const dryness =
-      drynessRaw === "wet" || drynessRaw === "mix" || drynessRaw === "dry" ? drynessRaw : "mix";
-    const temperatureRaw = knobs.temperature;
-    const temperature =
-      temperatureRaw === "cold" || temperatureRaw === "temperate" || temperatureRaw === "hot"
-        ? temperatureRaw
-        : "temperate";
-    const cryosphereRaw = knobs.cryosphere;
-    const cryosphere = cryosphereRaw === "off" || cryosphereRaw === "on" ? cryosphereRaw : "on";
+    const { dryness, temperature, cryosphere } = ctx.knobs as {
+      dryness: HydrologyDrynessKnob;
+      temperature: HydrologyTemperatureKnob;
+      cryosphere: HydrologyCryosphereKnob;
+    };
 
     const wetnessScale = HYDROLOGY_DRYNESS_WETNESS_SCALE[dryness];
     const baseTemperatureC = HYDROLOGY_TEMPERATURE_BASE_TEMPERATURE_C[temperature];
-    const cryosphereOn = cryosphere !== "off";
 
     const next = { ...config };
 
-    if (next.computePrecipitation.strategy !== "refine") {
+    if (next.computeThermalState.strategy === "default") {
+      const deltaC = baseTemperatureC - HYDROLOGY_TEMPERATURE_BASE_TEMPERATURE_C.temperate;
+      if (deltaC !== 0) {
+        next.computeThermalState = {
+          ...next.computeThermalState,
+          config: {
+            ...next.computeThermalState.config,
+            baseTemperatureC: next.computeThermalState.config.baseTemperatureC + deltaC,
+          },
+        };
+      }
+    }
+
+    if (next.computePrecipitation.strategy === "refine") {
+      const cur = next.computePrecipitation.config;
       next.computePrecipitation = {
-        strategy: "refine",
+        ...next.computePrecipitation,
         config: {
+          ...cur,
           riverCorridor: {
-            adjacencyRadius: 1,
-            lowlandAdjacencyBonus: 14,
-            highlandAdjacencyBonus: 10,
-            lowlandElevationMax: 250,
+            ...cur.riverCorridor,
+            lowlandAdjacencyBonus: Math.round(cur.riverCorridor.lowlandAdjacencyBonus * wetnessScale),
+            highlandAdjacencyBonus: Math.round(cur.riverCorridor.highlandAdjacencyBonus * wetnessScale),
           },
           lowBasin: {
-            radius: 2,
-            delta: 6,
-            elevationMax: 200,
-            openThresholdM: 20,
+            ...cur.lowBasin,
+            delta: Math.round(cur.lowBasin.delta * wetnessScale),
           },
         },
       };
     }
 
-    if (
-      next.computeThermalState.strategy === "default" &&
-      next.computeThermalState.config.baseTemperatureC === HYDROLOGY_TEMPERATURE_BASE_TEMPERATURE_C.temperate
-    ) {
-      next.computeThermalState = {
-        ...next.computeThermalState,
-        config: { ...next.computeThermalState.config, baseTemperatureC },
-      };
-    }
-
-    if (next.computePrecipitation.strategy === "refine") {
-      const cur = next.computePrecipitation.config;
-      if (
-        cur.riverCorridor.lowlandAdjacencyBonus == null ||
-        cur.riverCorridor.lowlandAdjacencyBonus === HYDROLOGY_REFINE_RIVER_CORRIDOR_LOWLAND_ADJACENCY_BONUS_BASE
-      ) {
-        const lowlandAdjacencyBonus = Math.round(
-          HYDROLOGY_REFINE_RIVER_CORRIDOR_LOWLAND_ADJACENCY_BONUS_BASE * wetnessScale
-        );
-        next.computePrecipitation = {
-          ...next.computePrecipitation,
-          config: {
-            ...next.computePrecipitation.config,
-            riverCorridor: { ...next.computePrecipitation.config.riverCorridor, lowlandAdjacencyBonus },
-          },
-        };
-      }
-      if (
-        cur.riverCorridor.highlandAdjacencyBonus == null ||
-        cur.riverCorridor.highlandAdjacencyBonus === HYDROLOGY_REFINE_RIVER_CORRIDOR_HIGHLAND_ADJACENCY_BONUS_BASE
-      ) {
-        const highlandAdjacencyBonus = Math.round(
-          HYDROLOGY_REFINE_RIVER_CORRIDOR_HIGHLAND_ADJACENCY_BONUS_BASE * wetnessScale
-        );
-        next.computePrecipitation = {
-          ...next.computePrecipitation,
-          config: {
-            ...next.computePrecipitation.config,
-            riverCorridor: { ...next.computePrecipitation.config.riverCorridor, highlandAdjacencyBonus },
-          },
-        };
-      }
-      if (
-        cur.lowBasin.delta == null ||
-        cur.lowBasin.delta === HYDROLOGY_REFINE_LOW_BASIN_DELTA_BASE
-      ) {
-        const delta = Math.round(HYDROLOGY_REFINE_LOW_BASIN_DELTA_BASE * wetnessScale);
-        next.computePrecipitation = {
-          ...next.computePrecipitation,
-          config: {
-            ...next.computePrecipitation.config,
-            lowBasin: { ...next.computePrecipitation.config.lowBasin, delta },
-          },
-        };
-      }
-    }
-
-    if (!cryosphereOn) {
-      if (next.applyAlbedoFeedback.strategy === "default" && next.applyAlbedoFeedback.config.iterations !== 0) {
+    if (cryosphere === "off") {
+      if (next.applyAlbedoFeedback.strategy === "default") {
         next.applyAlbedoFeedback = {
           ...next.applyAlbedoFeedback,
           config: { ...next.applyAlbedoFeedback.config, iterations: 0 },
