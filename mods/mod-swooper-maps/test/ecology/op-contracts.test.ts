@@ -168,7 +168,7 @@ describe("ecology op contract surfaces", () => {
     const size = width * height;
     const selection = normalizeOpSelectionOrThrow(ecology.ops.classifyBiomes, {
       strategy: "default",
-      config: {},
+      config: { riparian: {} },
     });
 
     const result = ecology.ops.classifyBiomes.run(
@@ -180,8 +180,7 @@ describe("ecology op contract surfaces", () => {
         elevation: new Int16Array(size).fill(400),
         latitude: new Float32Array(size).fill(20),
         landMask: new Uint8Array(size).fill(1),
-        corridorMask: new Uint8Array(size).fill(0),
-        riftShoulderMask: new Uint8Array(size).fill(0),
+        riverClass: new Uint8Array(size).fill(0),
       },
       selection
     );
