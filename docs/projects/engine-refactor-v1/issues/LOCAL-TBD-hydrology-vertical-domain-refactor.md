@@ -52,6 +52,11 @@ related_to:
 - [x] Slice 5 — Hydrography ownership cutover (`docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M9-hydrology-s5-hydrography-cutover.md`) (branch: `agent-TURTLE-M9-LOCAL-TBD-M9-hydrology-s5-hydrography-cutover`, PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/617)
 - [x] Phase 5 — Verification + cleanup + workflow hardening (branch: `agent-TURTLE-M9-phase5-verification-cleanup-workflow`, PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/618)
 - [x] Phase 5.1 — Docs commenting pass + Hydrology API/schema doc (branch: `agent-TURTLE-M9-phase5-1-docs-commenting-pass`, PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/619)
+- [x] Phase 5.2 — Knobs semantics (overrides-first transforms) (branch: `agent-TURTLE-M9-t09-hydrology-knob-multipliers-explicit`, PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/632)
+- [x] Phase 5.3 — Workflow docs: knobs overrides-first contract (branch: `agent-TURTLE-M9-t11-docs-knobs-overrides-first`, PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/633)
+- [x] Phase 5.4 — Core: default knobs once (branch: `agent-TURTLE-M9-t13-mapgen-core-default-knobs-once`, PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/634)
+- [x] Phase 5.5 — Core: per-step op defaultStrategy (branch: `agent-TURTLE-M9-t13b-mapgen-core-opref-default-strategy`, PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/635)
+- [x] Phase 5.6 — Hydrology: apply knobs in normalize (branch: `agent-TURTLE-M9-t14-hydrology-knobs-apply-in-normalize`, PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/636)
 
 ## Testing / Verification
 - `REFRACTOR_DOMAINS="hydrology" ./scripts/lint/lint-domain-refactor-guardrails.sh`
