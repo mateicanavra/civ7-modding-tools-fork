@@ -375,43 +375,6 @@ export default createMap({
       riverDensity: "sparse",
     },
   },
-  "narrative-post": {
-    "story-corridors-post": {
-      corridors: {
-        sea: {
-          protection: "hard",
-          softChanceMultiplier: 0.5,
-          avoidRadius: 2,
-          maxLanes: 3,
-          scanStride: 6,
-          minLengthFrac: 0.7,
-          preferDiagonals: false,
-          laneSpacing: 6,
-          minChannelWidth: 3,
-        },
-        land: {
-          biomesBiasStrength: 0.75,
-          useRiftShoulders: true,
-          maxCorridors: 5,
-          minRunLength: 24,
-          spacing: 0,
-        },
-        river: {
-          biomesBiasStrength: 0.5,
-          maxChains: 6,
-          maxSteps: 120,
-          preferLowlandBelow: 420,
-          coastSeedRadius: 3,
-          minTiles: 0,
-          mustEndNearCoast: false,
-        },
-        islandHop: {
-          useHotspots: true,
-          maxArcs: 6,
-        },
-      },
-    },
-  },
   "hydrology-climate-refine": {
     knobs: {
       dryness: "dry",
