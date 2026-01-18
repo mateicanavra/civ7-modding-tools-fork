@@ -105,10 +105,12 @@ Recommended “outside view” doc set (create only what you need; keep it small
 - **Trace is step-scoped by default.** Op-level trace requires explicit contract changes or step-wrapping.
 - **RNG crosses boundaries as data (seed), never callbacks/functions.** Steps derive seeds; ops build local RNGs.
 - **Defaults live in schemas; derived values live in normalize.** Avoid hidden runtime defaults or fallbacks.
+- **No hidden multipliers/constants/defaults.** Do not embed unnamed behavior-shaping numeric values in compile/normalize/run paths. Any multiplier/threshold/curve parameter MUST be either (a) an author-facing knob/config field, or (b) a clearly named internal constant with explicit intent (and referenced in docs/tests where it affects semantics). Knob transforms cannot smuggle “magic scaling”.
 - **Do not snapshot/freeze at publish boundaries.** Enforce write-once + readonly-by-type instead.
 - **Derived knobs are not user-authored.** Expose semantic knobs; derive internal metrics in normalize.
 - **Avoid monolithic steps.** Step boundaries are the architecture; do not collapse stages into a mega-step.
 - **No silent compat.** Delete, or push compat downstream with explicit deprecation and a removal trigger.
+- **No placeholders / dead bags.** Do not merge empty directories, placeholder modules, empty config bags, or “future scaffolding”. If something is not used, delete it. If something is superseded, remove it in the same refactor or create an explicit, linked cleanup item (placeholders/dead bags are not deferrable).
 - **Schemas are the single source of truth.** Derive types from schemas; do not duplicate shapes manually.
 - **Entry layers do not rewrite domain policy.** Runtime entry supplies facts; domain owns policy knobs and invariants.
 
@@ -311,7 +313,7 @@ Required focus:
 ## Phase 5 verification + cleanup
 
 Phase 5 is where we make the refactor **ruthless and pure**:
-- prove the architecture invariants (no silent coupling, no dual-path compute, no hidden defaults),
+- prove the architecture invariants (no silent coupling, no dual-path compute, no hidden defaults/multipliers/constants, no placeholders/dead bags),
 - remove any remaining refactor scaffolding or legacy shadows, and
 - leave a clean, reviewable stack that can merge without follow-up “cleanup PRs”.
 
@@ -320,6 +322,9 @@ Phase 5 is where we make the refactor **ruthless and pure**:
 - No Phase 2 model changes. If you discover a model problem, stop and open a modeling follow-up; do not “patch the model” opportunistically during cleanup.
 - No dual-path compute. If something still depends on an old path, either migrate it now or record an explicit deferral with a trigger.
 - No domain-local compatibility. Temporary compatibility lives downstream (explicit shims), not inside the refactored domain.
+- No hidden multipliers/constants/defaults. If you find an unnamed multiplier/threshold/default, either expose it as config/knob or convert it to a named internal constant with explicit intent (then update docs/tests as needed).
+- No placeholders / dead bags. Delete any placeholder directories/files and remove any empty or unused config bags/schemas/modules. This is not optional and not deferrable.
+- No implicit cleanup. Any superseded or deprecated surface (legacy entrypoint, shim, adapter, compatibility layer) that remains MUST be explicitly listed with its removal status; if it cannot be removed in this refactor, it MUST have a concrete tracking item (issue/sub-issue) and a trigger/owner.
 
 ### Verification gates (must be green)
 

@@ -24,6 +24,8 @@ If any of these happen, stop and re-check the architecture + the current plan’
 - You are manually “typing” or re-declaring shapes that already exist as a schema (TypeBox or equivalent).
 - You are adding defaults in runtime code instead of in config schemas / normalization hooks.
 - You are applying knobs conditionally based on “presence” or “equals default” checks (compare-to-default gating).
+- You are introducing or retaining unnamed multipliers/thresholds/defaults that change behavior (magic numbers) in compile/normalize/run paths.
+- You are leaving placeholder directories/modules, empty config bags, or other “dead scaffolding” in the tree.
 - You are freezing/snapshotting objects at public boundaries to simulate immutability.
 
 ## Locked Decisions (Generalizable Invariants)
@@ -60,6 +62,13 @@ Code touchpoints:
 - Do not “bake in hidden defaults” in run handlers.
 - Use schema defaults for basic defaults and `normalize` hooks for derived/scaled parameters.
 - Use run handlers for runtime validation that cannot be done at schema/normalize time (and keep it narrow).
+
+Hard ban (non-optional): no hidden multipliers/constants/defaults.
+- Do not encode semantics as unnamed numeric literals in compile/normalize/run paths.
+- Any behavior-shaping multiplier/threshold/curve parameter MUST be either:
+  - an author-facing knob/config field, or
+  - a clearly named internal constant with explicit intent.
+- Knob transforms cannot smuggle scaling factors (no “magic multipliers” hidden in normalize).
 
 If the domain has both knobs + advanced config, lock their composition as a single contract:
 - Advanced config is the typed/defaulted baseline.
@@ -122,6 +131,17 @@ Example pattern:
 
 - Runtime entry layers should supply facts (seed, dimensions, pipeline context), not policy knobs that override domain invariants.
 - If a wrap/posture/constraint is part of the model, it belongs in the domain; entry layers must not “correct” it at runtime.
+
+### 11) No placeholders / dead bags (non-negotiable)
+
+This is a hard rule:
+- Do not merge empty directories, placeholder modules, empty config bags, or “future scaffolding” into the repo.
+- If something is not used, it must not exist.
+- If something is superseded, it must be removed in the same refactor or explicitly tracked as a cleanup item with owner + trigger (placeholders/dead bags are not deferrable).
+
+Enforcement pattern (minimum):
+- Each slice’s plan includes a deletion list (symbols + file paths) that is expected to go to zero in that slice.
+- Phase 5 cleanup confirms the tree contains no placeholder scaffolding and no dead bags inside refactor scope.
 
 ## Decision Points (Make Them Explicit)
 

@@ -37,7 +37,7 @@ Minimum investigation outputs (you must produce these artifacts in the issue doc
 - A typed-array inventory (ctor + length coupling + where validation occurs).
 - A deletion list with “around-the-block” references (symbols + file paths that must go to zero).
 
-## Repo map + placeholders (this repo)
+## Repo map + copy/paste search variables (this repo)
 
 Copy/paste shell variables for searches:
 ```bash
@@ -100,7 +100,7 @@ For each step and each candidate op:
 - config schema location (op `contract.ts`, step `contract.ts`)
 - schema defaults (TypeBox defaults)
 - any runtime merges/defaulting (must be eliminated)
-- any scaling semantics (must move into compile-time normalization: `step.normalize` and/or `op.normalize`)
+- any scaling semantics (must move into compile-time normalization: `step.normalize` and/or `op.normalize`, and must not be hidden as unnamed multipliers/thresholds/defaults — use config/knobs or named constants)
 
 Property ledger (required):
 - enumerate every config property in the domain boundary (schema path + file path)
