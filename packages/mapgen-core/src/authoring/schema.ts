@@ -52,9 +52,18 @@ function enforceSchemaConventions(schema: TSchema, path: string): void {
     const props = typed.properties ?? {};
     const hasPropertyDefaults = Object.values(props).some(schemaProvidesDefaults);
     if (typed.default !== undefined && hasPropertyDefaults) {
-      throw new Error(
-        `schema(${path}) defines an object default while properties already declare defaults`
-      );
+      if (isPlainObject(typed.default) && Object.keys(typed.default).length === 0) {
+        // TypeBox sometimes attaches `{}` defaults to objects. That suppresses property defaults when
+        // we later materialize defaults (it short-circuits to the object default).
+        //
+        // We treat empty object defaults as noise and rely on per-property defaults as the true
+        // source of truth.
+        delete typed.default;
+      } else {
+        throw new Error(
+          `schema(${path}) defines an object default while properties already declare defaults`
+        );
+      }
     }
     if (typed.additionalProperties === undefined) {
       typed.additionalProperties = false;

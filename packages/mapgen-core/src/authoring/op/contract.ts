@@ -38,7 +38,9 @@ export type OpContract<
     config: TUnsafe<
       OpTypeBag<InputSchema, OutputSchema, EnsureSchemaValues<Strategies>>["envelope"]
     >;
-    defaultConfig: Readonly<{ strategy: "default"; config: Static<Strategies["default"]> }>;
+    defaultConfig: Readonly<
+      OpTypeBag<InputSchema, OutputSchema, EnsureSchemaValues<Strategies>>["envelope"]
+    >;
   }>;
 
 export function defineOp<
