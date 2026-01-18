@@ -6,6 +6,9 @@
 >
 > **This doc is not:** SDK wiring guidance (step/stage file layout, authoring mechanics, adapters).
 
+See also:
+- `docs/system/libs/mapgen/hydrology-api.md` (code-facing schema/API reference)
+
 ## Overview
 
 Hydrology/Climate turns landforms + oceans + planetary forcing into gameplay-relevant **climate fields** and **surface-water signals**.

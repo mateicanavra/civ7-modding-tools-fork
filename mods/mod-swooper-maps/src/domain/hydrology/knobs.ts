@@ -50,17 +50,78 @@ const LakeinessSchema = Type.Union([Type.Literal("few"), Type.Literal("normal"),
   default: "normal",
 });
 
+/**
+ * Author-facing Hydrology knobs (semantic intent only).
+ *
+ * These knobs are the only supported public configuration for Hydrology. They are intentionally high-level:
+ * they influence internal strategy parameters at the stage compile boundary and never act as “paint” that directly
+ * sets local climate/river outcomes.
+ *
+ * Semantics contract (Phase 2):
+ * - Missing/undefined: treated as “use default” per knob.
+ * - Empty object `{}`: treated as “all defaults”.
+ * - `null`: invalid at the schema boundary; some call sites accept `null` and treat it as “missing” before validation.
+ * - Determinism: knobs are pure inputs. Same knobs + same seeds ⇒ identical Hydrology outputs.
+ *
+ * Practical guidance (“if X then Y”):
+ * - If you want the map globally wetter/drier, change `dryness` (this scales rainfall and moisture sources globally).
+ * - If you want colder/hotter climates (snowline shifts, PET changes), change `temperature`.
+ * - If you want more/less seasonal texture (wind variability and rainfall noise), change `seasonality`.
+ * - If you want weaker/stronger coastal/ocean influence, change `oceanCoupling` (affects currents + transport iterations).
+ * - If you want less/more ice feedback, change `cryosphere` (turns cryosphere ops on/off; does not add compat paths).
+ * - If you want fewer/more rivers *in projection*, change `riverDensity` (thresholding on discharge-derived fields).
+ * - If you want fewer/more lakes, change `lakeiness` (lake projection frequency only; routing truth is unchanged).
+ */
 export const HydrologyKnobsSchema = Type.Object(
   {
+    /**
+     * Global moisture availability bias (not regional).
+     *
+     * If you need “more rainforest everywhere”, prefer `dryness: "wet"` over tweaking algorithm parameters.
+     */
     dryness: Type.Optional(DrynessSchema),
+    /**
+     * Global thermal bias.
+     *
+     * If you need larger polar caps / more mountain snow, prefer `temperature: "cold"`.
+     */
     temperature: Type.Optional(TemperatureSchema),
+    /**
+     * Seasonal amplitude intent.
+     *
+     * If you need higher climatic variability / more textured wind + rainfall noise, prefer `seasonality: "high"`.
+     */
     seasonality: Type.Optional(SeasonalitySchema),
+    /**
+     * Ocean influence preset.
+     *
+     * If you want less coastal moderation and weaker ocean-driven moisture transport, use `"off"` or `"simple"`.
+     */
     oceanCoupling: Type.Optional(OceanCouplingSchema),
+    /**
+     * Cryosphere enablement.
+     *
+     * If you want to remove bounded albedo feedback and disable cryosphere products entirely, use `"off"`.
+     */
     cryosphere: Type.Optional(CryosphereSchema),
+    /**
+     * River network projection density.
+     *
+     * If you want fewer/more projected rivers while keeping Hydrology’s discharge truth intact, adjust this knob.
+     */
     riverDensity: Type.Optional(RiverDensitySchema),
+    /**
+     * Lake frequency bias.
+     *
+     * If you want more/less lakes without changing discharge routing truth, adjust this knob.
+     */
     lakeiness: Type.Optional(LakeinessSchema),
   },
-  { additionalProperties: false }
+  {
+    additionalProperties: false,
+    description:
+      "Hydrology author-facing knobs (semantic intent). Missing values use defaults; determinism is preserved across seeds.",
+  }
 );
 
 export type HydrologyKnobs = Static<typeof HydrologyKnobsSchema>;
@@ -85,6 +146,17 @@ export const DEFAULT_HYDROLOGY_KNOBS: ResolvedHydrologyKnobs = {
   lakeiness: "normal",
 } as const;
 
+/**
+ * Normalizes a partial Hydrology knobs object into a fully-resolved set of defaults.
+ *
+ * Semantics:
+ * - `undefined` / missing keys → default for that key
+ * - `null` → treated as missing (convenience at compile boundary)
+ *
+ * Notes:
+ * - This function is deterministic and side-effect free.
+ * - It must not implement “compat” fallbacks for legacy Hydrology surfaces; consumers must migrate downstream.
+ */
 export function resolveHydrologyKnobs(knobs: Partial<HydrologyKnobs> | null | undefined): ResolvedHydrologyKnobs {
   const input = knobs ?? {};
   return {
