@@ -38,11 +38,18 @@ related_to:
 - Concrete “Guardrails → Enforcement” checklist that maps locked decisions to executable verification commands.
 
 ## Acceptance Criteria
-- [ ] All child slice issue docs (Slice 1–5) exist and are linked from this issue.
-- [ ] Consumer scan and migration matrix include Placement’s dependency on `effect:engine.riversModeled` and `effect:engine.featuresApplied`.
-- [ ] Each slice doc contains: explicit scope boundaries, verifiable acceptance criteria, and verification commands grounded in repo scripts.
-- [ ] Locked bans are explicit and mechanically checkable (at least via `rg` commands until a stricter linter rule exists).
-- [ ] Phase 3 introduces no Phase 2 model changes; all model authority references point to the Phase 2 modeling synthesis.
+- [x] All child slice issue docs (Slice 1–5) exist and are linked from this issue.
+- [x] Consumer scan and migration matrix include Placement’s dependency on `effect:engine.riversModeled` and `effect:engine.featuresApplied`.
+- [x] Each slice doc contains: explicit scope boundaries, verifiable acceptance criteria, and verification commands grounded in repo scripts.
+- [x] Locked bans are explicit and mechanically checkable (at least via `rg` commands until a stricter linter rule exists).
+- [x] Phase 3 introduces no Phase 2 model changes; all model authority references point to the Phase 2 modeling synthesis.
+
+## Milestone Tasks
+- [x] Slice 1 — Delete authored interventions + guardrails (`docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M9-hydrology-s1-delete-authored-interventions.md`) (branch: `agent-TURTLE-M9-LOCAL-TBD-M9-hydrology-s1-delete-authored-interventions`, PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/613)
+- [ ] Slice 2 — Semantic knobs + normalized params boundary (`docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M9-hydrology-s2-knobs-and-params-boundary.md`)
+- [ ] Slice 3 — Contract-first op spine (climate + ocean coupling) (`docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M9-hydrology-s3-op-spine-climate-ocean.md`)
+- [ ] Slice 4 — Cryosphere + aridity + diagnostics (`docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M9-hydrology-s4-cryosphere-aridity-diagnostics.md`)
+- [ ] Slice 5 — Hydrography ownership cutover (`docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M9-hydrology-s5-hydrography-cutover.md`)
 
 ## Testing / Verification
 - `pnpm lint:domain-refactor-guardrails`
