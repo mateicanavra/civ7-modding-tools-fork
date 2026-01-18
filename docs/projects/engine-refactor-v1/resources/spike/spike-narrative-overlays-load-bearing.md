@@ -145,3 +145,47 @@ If the project’s design goal is “no authored narrative thumbs on the scale�
 - Replace `hotspots/volcanic` with a physics-derived volcanic potential (plates boundary type/closeness, stress/uplift, or separate volcanic field).
 - Replace any corridor land-biasing from `rifts` with plate/terrain-derived mobility constraints if still desired.
 
+## Synthesis: “story” load-bearing today, repositioned tomorrow
+
+### Current state (standard recipe)
+
+Today, the story system is load-bearing in the standard execution path:
+- Narrative stages publish overlays (`margins`, `hotspots`, `corridors`, `rifts`, `orogeny`), and downstream stages read them.
+- In practice, Morphology and Ecology currently *require* story layers to supply steering masks/targets (see “Downstream consumers” above).
+- Removing story stages without first refactoring those consumers would either break contracts/compilation or silently change behavior in ways that aren’t “physics-only by design”.
+
+### What must change to make “physics-only standard” accurate and safe
+
+To make the standard recipe honest (core correctness does not depend on story), refactor or redesign the current story consumers so they derive their needed signals from canonical artifacts:
+- Morphology steps (`ruggedCoasts`, `islands`, `volcanoes`) must stop reading `margins/hotspots/corridors` overlays (and stop expecting them in overlay contracts).
+- Ecology features planning must stop reading `margins/hotspots` overlays and instead use physics-derived inputs or drop those biases explicitly.
+- Any story-internal dependency (e.g., `corridors` seeding from `rifts`) becomes irrelevant only after the corridor overlay itself is removed or replaced.
+
+Guardrails for a safe cutover:
+- Update contracts/overlay plumbing so the standard pipeline does not publish/parse story-layer requirements as part of the core “engine” contract surface.
+- Update map configs/tests in lockstep so “physics-only” does not rely on story config blocks or story-derived overlays existing.
+- Add tests that prevent silent drift: core stage outputs should be invariant to presence/absence of story stages/config in the physics-only standard recipe.
+
+### Target design (future): story is bidirectional, but optional
+
+The desired future shape is not “delete story forever”, but “decouple core correctness from story while keeping story able to steer”:
+- Story stages should be both:
+  - Consumers of upstream artifacts (especially physics-derived artifacts), and
+  - Producers of story-layer artifacts that downstream stages *may* choose to read.
+- Downstream consumers (e.g., Morphology) can use story layers to modulate/steer outcomes (mountain chains, gaps, thematic corridors), but those layers must not be hard requirements for the core pipeline to function.
+
+Concrete framing:
+- “Physics-only standard recipe” should not require story layers at all.
+- “Story-enabled recipe” (or an explicitly optional/variant stage) can publish story layers; downstream stages can opt into consuming them, but must have a well-defined physics-derived baseline behavior when story layers are absent.
+
+### Parking strategy (remove from path, keep concept)
+
+If the goal is to simplify the current process without permanently killing story:
+- Remove narrative stages from the current standard execution path (and remove their contracts/config expectations from standard configs/tests).
+- Keep the story system code in-repo, but reintroduce it only via an explicit recipe variant or optional stage bundle that is allowed to influence output while remaining non-load-bearing for core correctness.
+
+### Hidden dependencies / edge cases to watch
+
+The primary “hidden” risk is silent coupling through contracts/config/tests rather than runtime hooks:
+- Some overlays are “indirectly load-bearing” (e.g., `rifts` only matters because `corridors` consumes it); ensure removals follow the actual dataflow.
+- `orogeny` appears unused downstream today; if that remains true, it is the lowest-risk removal candidate even before broader refactors.
