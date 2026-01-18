@@ -96,7 +96,6 @@ export const readOverlayCorridors = (
   const seaLanes = toStringSet(summary?.seaLane);
   const islandHops = toStringSet(summary?.islandHop);
   const landCorridors = toStringSet(summary?.landOpen);
-  const riverCorridors = toStringSet(summary?.riverChain);
   const kindByTile = new Map<string, CorridorKind>();
   const styleByTile = new Map<string, CorridorStyle>();
   const attributesByTile = new Map<string, NarrativeCorridorAttributes>();
@@ -133,7 +132,6 @@ export const readOverlayCorridors = (
     seaLanes,
     islandHops,
     landCorridors,
-    riverCorridors,
     kindByTile,
     styleByTile,
     attributesByTile,
