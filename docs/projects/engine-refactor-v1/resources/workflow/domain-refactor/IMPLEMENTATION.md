@@ -110,6 +110,109 @@ This is the “definition of done” for a slice. You must complete it before mo
 - For any touched TypeBox schema field (especially config):
   - Ensure it has a meaningful `description` explaining behavioral impact and interactions (not just type).
 
+#### Knobs + defaults: durable good/bad practices (with examples)
+
+These are the highest-frequency failure modes when refactoring domains that have:
+- **knobs** (semantic author intent), and
+- **advanced config** (explicit numeric/structural overrides).
+
+The intent is to keep the pipeline deterministic, keep the “advanced overrides win” contract enforceable, and avoid
+hidden defaults that silently change behavior.
+
+##### ✅ Good: decide precedence at a stable boundary (stage compile), using *presence*, not value equality
+
+If advanced config overrides knobs, you must be able to distinguish:
+- “missing / undefined” (author did not specify) vs.
+- “explicitly provided” (author specified, even if equal to the default).
+
+Do this at the **stage compile boundary**, where you still have access to the author’s raw inputs.
+
+```ts
+// GOOD: presence-based override (no compare-to-default sentinels)
+const advanced = publicConfig.computePrecipitation ?? {};
+const hasRainfallScale = Object.prototype.hasOwnProperty.call(advanced, "rainfallScale");
+
+const internal = { ...defaultInternalConfig }; // defaulted by schema/defaultConfig
+internal.computePrecipitation.rainfallScale = hasRainfallScale
+  ? advanced.rainfallScale
+  : rainfallScaleFromKnobs(knobs);
+```
+
+##### ❌ Bad: “compare-to-default” gating (a.k.a. deep-merge-by-hand)
+
+Avoid patterns that only apply knob logic “if the config still equals a particular default number”.
+This hides behavior and fails when an author explicitly sets a value equal to the default.
+
+```ts
+// BAD: compare-to-default sentinel gating (breaks "advanced overrides win")
+if (cfg.computeThermalState.config.baseTemperatureC === 14) {
+  cfg.computeThermalState.config.baseTemperatureC = baseTempFromKnobs(knobs);
+}
+```
+
+##### ✅ Good: rely on schema defaulting; normalize should not re-parse and re-default
+
+In this codebase, step schemas are validated and defaulted before `step.normalize(...)` runs.
+`step.normalize` should therefore be reserved for **pure derived values** (if any), not:
+- interpreting unknown/invalid knob values,
+- “helpfully” defaulting missing fields,
+- adding fallback semantics after validation.
+
+```ts
+// GOOD: normalize assumes validated/defaulted shape; only derives a value.
+normalize: (cfg) => ({ ...cfg, derived: derive(cfg) })
+```
+
+```ts
+// BAD: normalize re-parses knobs and silently defaults (drift-prone and undocumented).
+normalize: (_cfg, ctx) => ({ ..._cfg, foo: isRecord(ctx.knobs) ? ctx.knobs.foo ?? "x" : "x" })
+```
+
+##### ✅ Good: multipliers and mappings are named, documented constants (or explicit inputs)
+
+If a knob implies numeric scaling, do not bury multipliers as “magic numbers” deep in normalization logic.
+Choose one of:
+- **Internal constant** (if it must not be tuned): name it and document the rationale.
+- **Explicit input** (if it is a tuning degree of freedom): surface it as advanced config or an intensity knob.
+
+```ts
+// GOOD: named constant, documented once, reused everywhere
+export const DRYNESS_RAINFALL_SCALE = { wet: 1.15, mix: 1.0, dry: 0.85 } as const;
+```
+
+```ts
+// BAD: magic numbers scattered throughout step.normalize/run
+const drynessScale = dryness === "wet" ? 1.15 : dryness === "dry" ? 0.85 : 1.0;
+```
+
+##### ✅ Good: schema reuse only for *meaningfully identical* knobs; otherwise define stage-local knobs
+
+If a knob has the same meaning across stages, define a single canonical leaf schema and reuse it.
+If the meaning differs by stage, define **stage-local** knobs with stage-local docs (do not share a name).
+
+Also: if your project requires “redundant” docs, do it deliberately:
+- keep shared leaf schemas for type/validation,
+- re-declare stage knob objects so each **property** can have stage-scoped JSDoc + `description`.
+
+```ts
+// GOOD: shared leaf schema + stage-local object docs
+const DrynessSchema = Type.Union([...], { description: "...", default: "mix" });
+export const ClimateBaselineKnobsSchema = Type.Object(
+  {
+    /** Used to scale baseline rainfall only (does not affect hydrography thresholds). */
+    dryness: Type.Optional(DrynessSchema),
+  },
+  { description: "Knobs for climate baseline only." }
+);
+```
+
+```ts
+// BAD: reusing schema.properties is convenient, but blocks stage-scoped per-property JSDoc.
+export const ClimateBaselineKnobsSchema = Type.Object({
+  dryness: HydrologyKnobsSchema.properties.dryness,
+});
+```
+
 ### 6) Guardrails for the slice
 
 Single must-run guardrail gate:
