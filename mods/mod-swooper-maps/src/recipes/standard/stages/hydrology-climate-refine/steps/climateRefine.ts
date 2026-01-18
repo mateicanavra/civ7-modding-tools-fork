@@ -205,7 +205,7 @@ export default createStep(ClimateRefineStepContract, {
       riverClass: hydrography.riverClass,
       radius:
         config.computePrecipitation.strategy === "refine"
-          ? config.computePrecipitation.config.riverCorridor.adjacencyRadius
+          ? 0
           : 1,
     });
 
