@@ -85,6 +85,105 @@ export default createStep(ClimateRefineStepContract, {
       },
     }
   ),
+  normalize: (config, ctx) => {
+    const knobs = isRecord(ctx.knobs) ? ctx.knobs : {};
+    const drynessRaw = knobs.dryness;
+    const dryness =
+      drynessRaw === "wet" || drynessRaw === "mix" || drynessRaw === "dry" ? drynessRaw : "mix";
+    const temperatureRaw = knobs.temperature;
+    const temperature =
+      temperatureRaw === "cold" || temperatureRaw === "temperate" || temperatureRaw === "hot"
+        ? temperatureRaw
+        : "temperate";
+    const cryosphereRaw = knobs.cryosphere;
+    const cryosphere = cryosphereRaw === "off" || cryosphereRaw === "on" ? cryosphereRaw : "on";
+
+    const wetnessScale = dryness === "wet" ? 1.15 : dryness === "dry" ? 0.85 : 1.0;
+    const baseTemperatureC = temperature === "cold" ? 6 : temperature === "hot" ? 22 : 14;
+    const cryosphereOn = cryosphere !== "off";
+
+    const next = { ...config };
+
+    if (next.computePrecipitation.strategy !== "refine") {
+      next.computePrecipitation = {
+        strategy: "refine",
+        config: { riverCorridor: {}, lowBasin: {} },
+      };
+    }
+
+    if (
+      next.computeThermalState.strategy === "default" &&
+      next.computeThermalState.config.baseTemperatureC === 14
+    ) {
+      next.computeThermalState = {
+        ...next.computeThermalState,
+        config: { ...next.computeThermalState.config, baseTemperatureC },
+      };
+    }
+
+    if (next.computePrecipitation.strategy === "refine") {
+      const cur = next.computePrecipitation.config;
+      if (cur.riverCorridor.lowlandAdjacencyBonus == null || cur.riverCorridor.lowlandAdjacencyBonus === 14) {
+        const lowlandAdjacencyBonus = Math.round(14 * wetnessScale);
+        next.computePrecipitation = {
+          ...next.computePrecipitation,
+          config: {
+            ...next.computePrecipitation.config,
+            riverCorridor: { ...next.computePrecipitation.config.riverCorridor, lowlandAdjacencyBonus },
+          },
+        };
+      }
+      if (cur.riverCorridor.highlandAdjacencyBonus == null || cur.riverCorridor.highlandAdjacencyBonus === 10) {
+        const highlandAdjacencyBonus = Math.round(10 * wetnessScale);
+        next.computePrecipitation = {
+          ...next.computePrecipitation,
+          config: {
+            ...next.computePrecipitation.config,
+            riverCorridor: { ...next.computePrecipitation.config.riverCorridor, highlandAdjacencyBonus },
+          },
+        };
+      }
+      if (cur.lowBasin.delta == null || cur.lowBasin.delta === 6) {
+        const delta = Math.round(6 * wetnessScale);
+        next.computePrecipitation = {
+          ...next.computePrecipitation,
+          config: {
+            ...next.computePrecipitation.config,
+            lowBasin: { ...next.computePrecipitation.config.lowBasin, delta },
+          },
+        };
+      }
+    }
+
+    if (!cryosphereOn) {
+      if (next.applyAlbedoFeedback.strategy === "default" && next.applyAlbedoFeedback.config.iterations !== 0) {
+        next.applyAlbedoFeedback = {
+          ...next.applyAlbedoFeedback,
+          config: { ...next.applyAlbedoFeedback.config, iterations: 0 },
+        };
+      }
+
+      if (next.computeCryosphereState.strategy === "default") {
+        next.computeCryosphereState = {
+          ...next.computeCryosphereState,
+          config: {
+            ...next.computeCryosphereState.config,
+            landSnowStartC: -60,
+            landSnowFullC: -80,
+            seaIceStartC: -60,
+            seaIceFullC: -80,
+            freezeIndexStartC: -60,
+            freezeIndexFullC: -80,
+            precipitationInfluence: 0,
+            snowAlbedoBoost: 0,
+            seaIceAlbedoBoost: 0,
+          },
+        };
+      }
+    }
+
+    return next;
+  },
   run: (context, config, ops, deps) => {
     const { width, height } = context.dimensions;
     const windField = deps.artifacts.windField.read(context);

@@ -30,7 +30,7 @@ Primary code evidence (paths):
 
 ## A) Public config properties (Hydrology)
 
-Source: `mods/mod-swooper-maps/src/domain/hydrology/config.ts` (`ClimateConfigSchema`) and `mods/mod-swooper-maps/src/domain/hydrology/ops/compute-wind-fields/contract.ts` strategy config.
+Source: historical Hydrology config bag (formerly `mods/mod-swooper-maps/src/domain/hydrology/config.ts`, deleted) plus current Hydrology op contracts under `mods/mod-swooper-maps/src/domain/hydrology/ops/**/contract.ts`.
 
 Phase 2 posture recap (authoritative; do not restate model beyond this):
 - Public config becomes **semantic knobs only**.
@@ -157,9 +157,10 @@ Disposition rule:
 | `climate.story.paleo.elevationCarving.rimWidth` | Kill | See `climate.story.paleo`. |
 | `climate.story.paleo.elevationCarving.canyonDryBonus` | Kill | See `climate.story.paleo`. |
 
-### A.5 Op strategy config: `hydrology/compute-wind-fields` (current)
+### A.5 Op strategy config: `hydrology/compute-wind-fields` (historical; deleted)
 
-Source: `mods/mod-swooper-maps/src/domain/hydrology/ops/compute-wind-fields/contract.ts`
+Source (historical): formerly `mods/mod-swooper-maps/src/domain/hydrology/ops/compute-wind-fields/contract.ts` (deleted during M9 refactor).
+Successor surface: `hydrology/compute-atmospheric-circulation` (`mods/mod-swooper-maps/src/domain/hydrology/ops/compute-atmospheric-circulation/contract.ts`).
 
 Disposition rule:
 - The *existence* of a circulation op is kept, but the specific config and implementation migrates to the Phase 2 circulation + ocean coupling catalog.
@@ -188,12 +189,11 @@ Source:
 
 Source:
 - `mods/mod-swooper-maps/src/domain/hydrology/ops/contracts.ts`
-- `mods/mod-swooper-maps/src/domain/hydrology/ops/compute-wind-fields/**`
+- `mods/mod-swooper-maps/src/domain/hydrology/ops/compute-atmospheric-circulation/**`
 
 | Surface | Disposition | Notes |
 | --- | --- | --- |
-| `hydrology.ops.computeWindFields` contract | Migrate | Becomes the Phase 2 circulation op (`hydrology/compute-atmospheric-circulation`); keep a contract-first op, but replace implementation and id as part of the refactor. |
-| `hydrology/compute-wind-fields` implementation | Kill | Latitude-band winds/currents are a stopgap; replaced by the Phase 2 climate/circulation model. |
+| `hydrology.ops.computeAtmosphericCirculation` contract | Keep | Contract-first circulation op (Phase 2 posture). |
 
 ### B.3 Climate module exports
 
@@ -217,4 +217,3 @@ These are not domain exports, but they directly affect Hydrology outputs today a
 | `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-post/steps/climateRefine.ts` overlay reads (`readOverlayMotifs*`) | Kill | Remove narrative motif inputs to Hydrology climate mutation. |
 | `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-core/steps/rivers.ts` `storyTagClimatePaleo(...)` | Kill | Remove; paleo hydrology is not a Hydrology input. |
 | `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-core/artifacts.ts` `RiverAdjacencyArtifactSchema = Type.Any()` | Migrate | Tighten to typed arrays or replace with a richer hydrography artifact as part of Slice 5. |
-
