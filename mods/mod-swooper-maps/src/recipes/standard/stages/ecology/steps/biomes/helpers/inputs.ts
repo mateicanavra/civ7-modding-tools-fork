@@ -1,42 +1,6 @@
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
 
 /**
- * Builds a binary mask for tiles listed in a coordinate set.
- */
-export function maskFromCoordSet(
-  source: ReadonlySet<string> | null | undefined,
-  width: number,
-  height: number
-): Uint8Array {
-  const mask = new Uint8Array(width * height);
-  if (!source) return mask;
-
-  for (const key of source) {
-    const [xStr, yStr] = key.split(",");
-    const x = Number.parseInt(xStr ?? "", 10);
-    const y = Number.parseInt(yStr ?? "", 10);
-    if (Number.isInteger(x) && Number.isInteger(y) && x >= 0 && y >= 0 && x < width && y < height) {
-      mask[y * width + x] = 1;
-    }
-  }
-
-  return mask;
-}
-
-/**
- * Merges the river corridor mask into the base corridor mask in-place.
- */
-export function combineCorridorMasks(
-  corridorMask: Uint8Array,
-  riverCorridorMask: Uint8Array
-): Uint8Array {
-  for (let i = 0; i < corridorMask.length; i++) {
-    if (riverCorridorMask[i] === 1) corridorMask[i] = 1;
-  }
-  return corridorMask;
-}
-
-/**
  * Builds a latitude field by sampling the adapter at each tile.
  */
 export function buildLatitudeField(
