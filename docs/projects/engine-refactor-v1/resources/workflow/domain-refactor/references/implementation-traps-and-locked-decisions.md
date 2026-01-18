@@ -23,6 +23,7 @@ If any of these happen, stop and re-check the architecture + the current plan’
 - You are passing functions/callbacks across a boundary that claims to be “data-only” (e.g., step→op inputs).
 - You are manually “typing” or re-declaring shapes that already exist as a schema (TypeBox or equivalent).
 - You are adding defaults in runtime code instead of in config schemas / normalization hooks.
+- You are applying knobs conditionally based on “presence” or “equals default” checks (compare-to-default gating).
 - You are freezing/snapshotting objects at public boundaries to simulate immutability.
 
 ## Locked Decisions (Generalizable Invariants)
@@ -59,6 +60,11 @@ Code touchpoints:
 - Do not “bake in hidden defaults” in run handlers.
 - Use schema defaults for basic defaults and `normalize` hooks for derived/scaled parameters.
 - Use run handlers for runtime validation that cannot be done at schema/normalize time (and keep it narrow).
+
+If the domain has both knobs + advanced config, lock their composition as a single contract:
+- Advanced config is the typed/defaulted baseline.
+- Knobs apply **after** as deterministic transforms over that baseline (“knobs last”).
+- Ban presence detection and compare-to-default gating; once schema defaulting has run for a field, you cannot reliably infer whether it was explicitly set vs defaulted.
 
 Code touchpoints:
 - `packages/mapgen-core/src/authoring/op/create.ts` (strategy `normalize`)
@@ -112,6 +118,7 @@ Example pattern:
 |---|---|---|
 | Preserve compat vs delete | Is a consumer still live and blocking? | Delete now; or isolate + deprecate + add deferral trigger |
 | Where to normalize | Is it purely config-derived? | `normalize` (preferred); otherwise runtime validation in `run` |
+| Knobs + advanced config composition | Does the domain have both knobs and advanced config? | Treat as a single locked contract: baseline is advanced config; knobs apply last as transforms; lock via tests (include explicitly-set-to-default edge case); ban presence/compare-to-default gating |
 | RNG source | Is a deterministic seed required? | Derive seed in step (`ctxRandom`), pass seed to op, use `createLabelRng` |
 | Trace visibility | Need trace events at op boundaries? | Step wraps op call + emits trace; or extend op contract (explicit architecture change) |
 | “Derived knobs” | Is authoring the value meaningful? | Author a higher-level knob, derive internal metric in normalize |

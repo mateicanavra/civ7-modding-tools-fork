@@ -110,17 +110,27 @@ This is the “definition of done” for a slice. You must complete it before mo
 - For any touched TypeBox schema field (especially config):
   - Ensure it has a meaningful `description` explaining behavioral impact and interactions (not just type).
 
-#### Knobs + defaults: durable good/bad practices (with examples)
+#### Knobs + advanced config composition: locked contract (with examples)
 
-These are the highest-frequency failure modes when refactoring domains that have:
+This is the highest-frequency failure mode when refactoring domains that have:
 - **knobs** (author intent; scenario-level controls), and
 - **advanced config** (explicit typed numeric/structural tuning).
 
-The intent is to keep the pipeline deterministic and eliminate hidden, undocumented behavior.
+Treat knobs + advanced config as a **single locked author contract**. It must be:
+- predictable for authors (knobs-only and advanced-config+knobs behave the same way),
+- stable for implementers (no “intent inference” hacks),
+- and test-locked (so semantics can’t drift during later slices).
+
+Rationale (author mental model):
+- Knobs are the primary surface most authors will use when they are not editing advanced config directly.
+- Advanced config is always available and editable; knobs operate **on top of whatever advanced config is set**.
+- A knob is intentionally a broader brush: one knob may influence multiple parameters at once.
+- Despite that, composition must remain deterministic and auditable: knobs are layered over advanced config in a controlled, test-locked way.
 
 Canonical contract (single rule; no ambiguity):
 - **Step config is the typed/defaulted baseline** (schemas + `defaultConfig`).
 - **Knobs apply after** as deterministic transforms over that baseline (not “fill missing”, not “presence-based precedence”).
+- **Bans:** presence detection, compare-to-default gating, and any attempt to infer “author intent” from whether a value was explicitly set vs defaulted.
 
 ##### ✅ Good: apply knobs as pure transforms after schema defaulting
 
@@ -156,6 +166,19 @@ if (cfg.computeThermalState.config.baseTemperatureC === 14) {
   cfg.computeThermalState.config.baseTemperatureC = baseTempFromKnobs(knobs);
 }
 ```
+
+##### How to lock the contract with tests (minimum framing)
+
+You do not need a huge test suite, but you do need at least one test that would fail if “knobs last” drifts.
+
+Minimum cases to cover (name the tests in the Phase 3 issue doc):
+- Knobs-only: baseline defaults + knob transform applies.
+- Advanced-config + knobs: baseline overrides + knob transform still applies.
+- Explicitly-set-to-default edge case: author sets a value equal to its default + knob transform still applies (this is what compare-to-default gating breaks).
+
+Where to assert:
+- Prefer asserting on the post-normalization config (compiled plan config / `step.normalize(...)` output), not on emergent runtime outcomes.
+- Add a cheap contract-guard test for forbidden patterns if the domain has a history of regressing here (e.g., compare-to-default sentinels for specific fields).
 
 ##### ✅ Good: rely on schema defaulting; normalize should not re-parse and re-default
 

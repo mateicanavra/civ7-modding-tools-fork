@@ -147,8 +147,37 @@ Plan compilation defaults and cleans config via TypeBox `Value.*` utilities (ADR
 
 Rules:
 - Put **local, unconditional defaults** in the schema (TypeBox `default`).
-- Put **env/knobs-derived defaults** in `strategy.normalize` (composed via `op.normalize` and executed by the compiler).
+- Put **env-derived defaults and knob transforms** in `strategy.normalize` (composed via `op.normalize` and executed by the compiler).
 - Do not implement meaning-level defaults in runtime step or op `run(...)` (`?? {}` merges and `Value.Default(...)` in runtime paths are migration smells).
+
+### Knobs + advanced config composition is a locked contract (knobs apply last)
+
+If your domain has both:
+- **knobs** (author intent; scenario-level controls), and
+- **advanced config** (typed numeric/structural tuning),
+
+then treat their composition as a **single locked contract**:
+- Advanced config is the typed/defaulted baseline.
+- Knobs apply **after** as deterministic transforms over that baseline (“knobs last”).
+- Do not build a second precedence system (no “knobs fill missing”, no “advanced overrides knobs”, no “only apply if unchanged”).
+
+Hard bans (these are almost always wrong once schema defaulting exists):
+- Presence detection (“did the author explicitly set this vs did it default?”).
+- Compare-to-default gating (“only apply knob if value equals a default sentinel”).
+- Deep-merge-by-hand of user config into defaults to simulate intent.
+
+Rationale:
+- Schema defaulting (for a field) removes the ability to reliably infer author intent from field presence.
+- Authors must be able to set advanced config (including values equal to defaults) and still get predictable knob behavior.
+- Implementers need a stable, test-lockable model that doesn’t encourage ad hoc config hacks.
+
+Where this logic belongs:
+- If a knob influences a single op, it can live in that op’s `strategy.normalize`.
+- If a knob influences multiple ops (or cross-op coupling matters), prefer `step.normalize` so the transform is centralized and auditable.
+
+Minimum test framing:
+- One test that would fail if “knobs last” drifts, including the explicitly-set-to-default edge case.
+- Prefer assertions on normalized config / compiled plan config over emergent runtime outcomes.
 
 ### Semantic knobs must have a contract (meaning, defaults, empty/null, determinism)
 

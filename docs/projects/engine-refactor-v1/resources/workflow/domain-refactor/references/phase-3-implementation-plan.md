@@ -20,6 +20,10 @@ Convert the spikes into an executable slice plan and a single source-of-truth is
 
 - Locked decisions + bans (and how each becomes a guardrail)
 - Config semantics (link to the Phase 2 table; include default vs explicit policy, missing/empty/null interpretation rules, and determinism expectations for any probabilistic knobs)
+  - Restate the locked **knobs + advanced config composition contract** in the issue doc (do not assume reviewers remember it):
+    - Advanced config is the typed/defaulted baseline.
+    - Knobs apply **after** as deterministic transforms over that baseline (“knobs last”).
+    - Ban “presence”/“compare-to-default” gating and any “fill missing” precedence system.
 - Determinism boundary policy (seed-only across boundaries; no RNG objects/functions crossing op boundaries)
 - Stable fix anchors (preferred “config → normalized internal form” / boundary locations where implementation fixes should land to survive later slices)
 - Step decomposition plan (causality spine → step boundaries → artifacts/buffers)
@@ -52,6 +56,10 @@ Re-checked downstream deltas against the new order and verified each slice ends 
 - Step(s) included (ids + file paths)
 - Ops introduced/changed (ids + kinds + module paths)
 - Any semantic knobs touched (and where their semantics are locked: Phase 2 table + test names)
+- If a slice touches knob behavior, include at least one concrete “knobs + advanced config compose” example case and name the test(s) that lock it:
+  - knobs-only authoring (baseline schema defaults + knobs last),
+  - advanced-config + knobs authoring (baseline overrides + knobs last),
+  - explicitly set-to-default edge case (a config value equal to its default still composes correctly; no compare-to-default gating).
 - Legacy entrypoints to delete (file paths / exports)
 - Tests to add/update (op contract test + thin integration edge)
 - Guardrail tests (string/surface checks or contract-guard tests for forbidden surfaces)
@@ -78,6 +86,7 @@ Re-checked downstream deltas against the new order and verified each slice ends 
 - Documentation pass is present and scoped with inventory + JSDoc/schema updates.
 - Locked decisions/bans are test-backed in the same slice they are introduced.
 - Config semantics are referenced (Phase 2 table) and any semantic knob touched by the plan has a test that locks its non-trivial behavior.
+- Knobs + advanced config composition is explicitly restated as a locked contract (“knobs last”) and the plan names tests that cover the explicitly-set-to-default edge case.
 - Step decomposition plan exists (spine → steps → artifacts/buffers).
 - Consumer inventory + migration matrix exists and assigns changes per slice.
 
