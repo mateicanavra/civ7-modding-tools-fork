@@ -187,7 +187,11 @@ const drynessScale = dryness === "wet" ? 1.15 : dryness === "dry" ? 0.85 : 1.0;
 
 ##### ✅ Good: schema reuse only for *meaningfully identical* knobs; otherwise define stage-local knobs
 
-If a knob has the same meaning across stages, define a single canonical leaf schema and reuse it.
+Schema definition convention (keep one clean standard):
+- Prefer **inline knob schemas at the stage boundary** (next to `createStage({ knobsSchema: ... })`), so the schema and its docs stay colocated with the stage that consumes it.
+- Only define schemas out-of-line if they are actually imported elsewhere. In that case, put them under a shared folder (e.g. `domain/<domain>/shared/**`) and import them.
+
+If a knob has the same meaning across stages, reuse the same leaf schema (shared meaning).
 If the meaning differs by stage, define **stage-local** knobs with stage-local docs (do not share a name).
 
 Also: if your project requires “redundant” docs, do it deliberately:
@@ -195,21 +199,41 @@ Also: if your project requires “redundant” docs, do it deliberately:
 - re-declare stage knob objects so each **property** can have stage-scoped JSDoc + `description`.
 
 ```ts
-// GOOD: shared leaf schema + stage-local object docs
-const DrynessSchema = Type.Union([...], { description: "...", default: "mix" });
-export const ClimateBaselineKnobsSchema = Type.Object(
-  {
-    /** Used to scale baseline rainfall only (does not affect hydrography thresholds). */
-    dryness: Type.Optional(DrynessSchema),
-  },
-  { description: "Knobs for climate baseline only." }
-);
+// GOOD: stage-local knobs schema defined inline; leaf schema can be inline or imported if truly shared.
+createStage({
+  id: "hydrology-climate-baseline",
+  knobsSchema: Type.Object(
+    {
+      /**
+       * Global moisture availability bias (not regional).
+       *
+       * Stage scope:
+       * - Used to scale baseline rainfall/moisture sourcing only.
+       * - Must not change hydrography projection thresholds.
+       */
+      dryness: Type.Optional(
+        Type.Union([Type.Literal("wet"), Type.Literal("mix"), Type.Literal("dry")], {
+          default: "mix",
+          description: "Global moisture availability preset (used by climate baseline only).",
+        })
+      ),
+    },
+    { description: "Hydrology climate-baseline knobs." }
+  ),
+  steps: [/* ... */],
+});
 ```
 
 ```ts
-// BAD: reusing schema.properties is convenient, but blocks stage-scoped per-property JSDoc.
+// BAD: defining a monolithic exported KnobsSchema just to pluck `.properties.*` later.
+// This pattern encourages central docs that drift from stage behavior and makes stage schemas look undocumented.
+export const HydrologyKnobsSchema = Type.Object({
+  dryness: Type.Optional(Type.Union([/* ... */])),
+  /* ...many unrelated knobs... */
+});
 export const ClimateBaselineKnobsSchema = Type.Object({
   dryness: HydrologyKnobsSchema.properties.dryness,
+  /* ... */
 });
 ```
 
