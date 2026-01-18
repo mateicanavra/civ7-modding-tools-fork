@@ -6,8 +6,8 @@ export const swooperEarthlikeConfig = {
       computeMesh: {
         strategy: "default",
         config: {
-          plateCount: 32, // Fewer, larger major plates plus some microplates
-          cellsPerPlate: 9, // Slightly denser cells per plate for sharper margins
+          plateCount: 17, // Fewer, larger major plates plus some microplates
+          cellsPerPlate: 13, // Slightly denser cells per plate for sharper margins
           relaxationSteps: 5, // Extra smoothing for coherent plate footprints
           referenceArea: 16000, // Standard reference
           plateScalePower: 0.91, // Still heavy-tailed but fewer tiny microplates
@@ -447,10 +447,10 @@ export const swooperEarthlikeConfig = {
               tundra: 0.08,
               boreal: 0.05,
               temperateDry: 0.04,
-              temperateHumid: 0.05,
+              temperateHumid: 0.1,
               tropicalSeasonal: 0.05,
-              tropicalRainforest: 0.05,
-              desert: 0.02,
+              tropicalRainforest: 0.1,
+              desert: 0.03,
             },
             vegetationChanceScalar: 1.1,
             desertSagebrushMinVegetation: 0.08,
