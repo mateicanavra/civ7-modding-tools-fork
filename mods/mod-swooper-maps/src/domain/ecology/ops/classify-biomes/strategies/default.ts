@@ -6,13 +6,13 @@ import {
   aridityShiftForIndex,
   biomeSymbolForZones,
   clamp01,
+  computeRiparianMoistureBonus,
   computeAridityIndex,
   computeEffectiveMoisture,
   computeFreezeIndex,
   computeMaxLatitude,
   computeTemperature,
   moistureZoneOf,
-  overlayMoistureBonus,
   pseudoRandom01,
   shiftMoistureZone,
   temperatureZoneOf,
@@ -30,8 +30,7 @@ export const defaultStrategy = createStrategy(BiomeClassificationContract, "defa
     const elevation = input.elevation as Int16Array;
     const latitude = input.latitude as Float32Array;
     const landMask = input.landMask as Uint8Array;
-    const corridorMask = input.corridorMask as Uint8Array;
-    const riftShoulderMask = input.riftShoulderMask as Uint8Array;
+    const riverClass = input.riverClass as Uint8Array;
 
     const biomeIndex = new Uint8Array(size).fill(255);
     const vegetationDensity = new Float32Array(size);
@@ -45,6 +44,13 @@ export const defaultStrategy = createStrategy(BiomeClassificationContract, "defa
     const noiseScale = resolvedConfig.noise.amplitude * 255;
     const moistureNormalization =
       humidThreshold + resolvedConfig.vegetation.moistureNormalizationPadding;
+
+    const riparianBonusByTile = computeRiparianMoistureBonus({
+      width,
+      height,
+      riverClass,
+      cfg: resolvedConfig.riparian,
+    });
 
     const biomeModifiers = resolvedConfig.vegetation
       .biomeModifiers as Record<BiomeSymbol, { multiplier: number; bonus: number }>;
@@ -76,17 +82,13 @@ export const defaultStrategy = createStrategy(BiomeClassificationContract, "defa
       freezeIndex[i] = computeFreezeIndex(temperature, resolvedConfig.freeze);
 
       const noise = (pseudoRandom01(i, resolvedConfig.noise.seed) - 0.5) * 2;
-      const overlayBonus = overlayMoistureBonus(
-        corridorMask[i],
-        riftShoulderMask[i],
-        resolvedConfig.overlays
-      );
+      const moistureBonus = riparianBonusByTile[i] ?? 0;
       const moisture = computeEffectiveMoisture({
         rainfall: rainfall[i],
         humidity: humidity[i],
         bias: resolvedConfig.moisture.bias,
         humidityWeight: resolvedConfig.moisture.humidityWeight,
-        overlayBonus,
+        moistureBonus,
         noise,
         noiseScale,
       });

@@ -6,9 +6,9 @@ import { AriditySchema } from "./rules/aridity.schema.js";
 import { FreezeSchema } from "./rules/freeze.schema.js";
 import { VegetationSchema } from "./rules/vegetation.schema.js";
 import { NoiseSchema } from "./rules/noise.schema.js";
-import { OverlaySchema } from "./rules/overlays.schema.js";
+import { RiparianSchema } from "./rules/riparian.schema.js";
 
-/** Biome classification parameters for temperature, moisture, vegetation, and overlays. */
+/** Biome classification parameters for temperature, moisture, vegetation, and riparian moisture. */
 
 const BiomeClassificationContract = defineOp({
   kind: "compute",
@@ -21,8 +21,9 @@ const BiomeClassificationContract = defineOp({
     elevation: TypedArraySchemas.i16({ description: "Elevation per tile (meters)." }),
     latitude: TypedArraySchemas.f32({ description: "Latitude per tile (degrees)." }),
     landMask: TypedArraySchemas.u8({ description: "Land mask per tile (1=land, 0=water)." }),
-    corridorMask: TypedArraySchemas.u8({ description: "Narrative corridor mask per tile." }),
-    riftShoulderMask: TypedArraySchemas.u8({ description: "Rift shoulder mask per tile." }),
+    riverClass: TypedArraySchemas.u8({
+      description: "Hydrology river class per tile (0=none, 1=minor, 2=major).",
+    }),
   }),
   output: Type.Object({
     biomeIndex: TypedArraySchemas.u8({ description: "Biome symbol indices per tile." }),
@@ -51,12 +52,12 @@ const BiomeClassificationContract = defineOp({
         vegetation: VegetationSchema,
         /** Noise settings for moisture variation. */
         noise: NoiseSchema,
-        /** Narrative overlay moisture bonuses. */
-        overlays: OverlaySchema,
+        /** Moisture bonuses near hydrology rivers. */
+        riparian: RiparianSchema,
       },
       {
         description:
-          "Biome classification parameters for temperature, moisture, vegetation, and overlays.",
+          "Biome classification parameters for temperature, moisture, vegetation, and riparian moisture.",
       }
     ),
   },
