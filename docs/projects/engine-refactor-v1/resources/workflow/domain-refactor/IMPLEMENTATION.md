@@ -113,38 +113,45 @@ This is the “definition of done” for a slice. You must complete it before mo
 #### Knobs + defaults: durable good/bad practices (with examples)
 
 These are the highest-frequency failure modes when refactoring domains that have:
-- **knobs** (semantic author intent), and
-- **advanced config** (explicit numeric/structural overrides).
+- **knobs** (author intent; scenario-level controls), and
+- **advanced config** (explicit typed numeric/structural tuning).
 
-The intent is to keep the pipeline deterministic, keep the “advanced overrides win” contract enforceable, and avoid
-hidden defaults that silently change behavior.
+The intent is to keep the pipeline deterministic and eliminate hidden, undocumented behavior.
 
-##### ✅ Good: decide precedence at a stable boundary (stage compile), using *presence*, not value equality
+Canonical contract (single rule; no ambiguity):
+- **Step config is the typed/defaulted baseline** (schemas + `defaultConfig`).
+- **Knobs apply after** as deterministic transforms over that baseline (not “fill missing”, not “presence-based precedence”).
 
-If advanced config overrides knobs, you must be able to distinguish:
-- “missing / undefined” (author did not specify) vs.
-- “explicitly provided” (author specified, even if equal to the default).
+##### ✅ Good: apply knobs as pure transforms after schema defaulting
 
-Do this at the **stage compile boundary**, where you still have access to the author’s raw inputs.
+In this codebase, step schemas are validated and defaulted before `step.normalize(...)` runs.
+That makes `step.normalize` the stable boundary for applying knob transforms: it always sees a fully-shaped config.
 
 ```ts
-// GOOD: presence-based override (no compare-to-default sentinels)
-const advanced = publicConfig.computePrecipitation ?? {};
-const hasRainfallScale = Object.prototype.hasOwnProperty.call(advanced, "rainfallScale");
-
-const internal = { ...defaultInternalConfig }; // defaulted by schema/defaultConfig
-internal.computePrecipitation.rainfallScale = hasRainfallScale
-  ? advanced.rainfallScale
-  : rainfallScaleFromKnobs(knobs);
+// GOOD: knobs apply after normalization as a deterministic transform.
+// No "only-if-missing", no presence checks, no compare-to-default sentinels.
+normalize: (cfg, ctx) => {
+  const wetnessScale = DRYNESS_WETNESS_SCALE[ctx.knobs.dryness];
+  return {
+    ...cfg,
+    computePrecipitation: {
+      ...cfg.computePrecipitation,
+      config: {
+        ...cfg.computePrecipitation.config,
+        rainfallScale: cfg.computePrecipitation.config.rainfallScale * wetnessScale,
+      },
+    },
+  };
+}
 ```
 
 ##### ❌ Bad: “compare-to-default” gating (a.k.a. deep-merge-by-hand)
 
-Avoid patterns that only apply knob logic “if the config still equals a particular default number”.
-This hides behavior and fails when an author explicitly sets a value equal to the default.
+Avoid patterns that apply knob logic only “if the config still equals a particular default number”.
+This hides behavior, violates the “knobs apply last” contract, and breaks when an author explicitly sets a value equal to the default.
 
 ```ts
-// BAD: compare-to-default sentinel gating (breaks "advanced overrides win")
+// BAD: compare-to-default sentinel gating (breaks "knobs apply last")
 if (cfg.computeThermalState.config.baseTemperatureC === 14) {
   cfg.computeThermalState.config.baseTemperatureC = baseTempFromKnobs(knobs);
 }

@@ -34,6 +34,9 @@ Semantics:
 - `{}` → all defaults.
 - `null` → invalid at schema boundary (some compile call sites treat it as “missing” before validation).
 - Determinism: same knobs + same seeds ⇒ identical Hydrology outputs.
+- Combination rule (overrides-first; knobs-last):
+  - Step configs are validated and defaulted first (schemas + `defaultConfig`).
+  - Knobs apply after as deterministic transforms over the defaulted baseline (knobs can modify author-provided advanced config values; they are not “fill missing”).
 
 Practical guidance:
 - `dryness`: global wet/dry bias (scales rainfall + moisture supply; not regional “paint”).
@@ -78,7 +81,7 @@ Hydrology stages (standard recipe):
 
 Stage public config:
 - `hydrology-climate-baseline`, `hydrology-hydrography`, `hydrology-climate-refine` accept `knobs` plus optional advanced step/op config.
-- Knobs provide the author-facing semantic surface; advanced config can override the internal defaults directly.
+- Advanced config defines the baseline (defaults + explicit tuning); knobs apply after as deterministic transforms.
 
 Step config schemas:
 - Lakes: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-baseline/steps/lakes.contract.ts` (`tilesPerLakeMultiplier`)
