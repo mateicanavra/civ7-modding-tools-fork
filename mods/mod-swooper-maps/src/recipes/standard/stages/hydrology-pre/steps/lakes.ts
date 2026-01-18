@@ -61,11 +61,12 @@ export default createStep(LakesStepContract, {
       validate: (value, context) => validateHeightfieldBuffer(value, context.dimensions),
     },
   }),
-  run: (context, _config, _ops, deps) => {
+  run: (context, config, _ops, deps) => {
     const runtime = getStandardRuntime(context);
     const { width, height } = context.dimensions;
-    const iTilesPerLake = Math.max(10, (runtime.mapInfo.LakeGenerationFrequency ?? 5) * 2);
-    context.adapter.generateLakes(width, height, iTilesPerLake);
+    const baseTilesPerLake = Math.max(10, (runtime.mapInfo.LakeGenerationFrequency ?? 5) * 2);
+    const tilesPerLake = Math.max(10, Math.round(baseTilesPerLake * config.tilesPerLakeMultiplier));
+    context.adapter.generateLakes(width, height, tilesPerLake);
     syncHeightfield(context);
     deps.artifacts.heightfield.publish(context, context.buffers.heightfield);
   },

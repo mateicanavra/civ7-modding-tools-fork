@@ -370,72 +370,26 @@ export default createMap({
     },
   },
   "hydrology-pre": {
-    lakes: {},
-    "climate-baseline": {
-      computeWindFields: {
-        strategy: "default",
-        config: {
-          windJetStreaks: 4,
-          windJetStrength: 0.9,
-          windVariance: 0.7,
-        },
-      },
-      climate: {
-        baseline: {
-          blend: {
-            baseWeight: 0.2,
-            bandWeight: 0.8,
-          },
-          seed: {
-            baseRainfall: 30,
-            coastalExponent: 1.25,
-          },
-          bands: {
-            // Moderate tropical due to ring disruption
-            deg0to10: 110,
-            deg10to20: 95,
-            // Strong ring mountain rain shadow
-            deg20to35: 35,
-            deg35to55: 70,
-            deg55to70: 50,
-            deg70plus: 30,
-            edges: {
-              deg0to10: 10,
-              deg10to20: 20,
-              deg20to35: 35,
-              deg35to55: 55,
-              deg55to70: 70,
-            },
-            transitionWidth: 6,
-          },
-          sizeScaling: {
-            baseArea: 10000,
-            minScale: 0.65,
-            maxScale: 2.0,
-            equatorBoostScale: 9,
-            equatorBoostTaper: 0.55,
-          },
-          orographic: {
-            hi1Threshold: 280,
-            hi1Bonus: 10,
-            hi2Threshold: 520,
-            hi2Bonus: 12,
-          },
-          coastal: {
-            coastalLandBonus: 28,
-            spread: 5,
-          },
-          noise: {
-            baseSpanSmall: 4,
-            spanLargeScaleFactor: 1.1,
-            scale: 0.13,
-          },
-        },
-      },
+    knobs: {
+      dryness: "mix",
+      temperature: "temperate",
+      seasonality: "high",
+      oceanCoupling: "simple",
+      cryosphere: "on",
+      riverDensity: "normal",
+      lakeiness: "normal",
     },
   },
   "hydrology-core": {
-    rivers: {},
+    knobs: {
+      dryness: "mix",
+      temperature: "temperate",
+      seasonality: "high",
+      oceanCoupling: "simple",
+      cryosphere: "on",
+      riverDensity: "normal",
+      lakeiness: "normal",
+    },
   },
   "narrative-post": {
     "story-corridors-post": {
@@ -475,79 +429,14 @@ export default createMap({
     },
   },
   "hydrology-post": {
-    "climate-refine": {
-      climate: {
-        baseline: {
-          blend: {
-            baseWeight: 0.2,
-            bandWeight: 0.8,
-          },
-          seed: {
-            baseRainfall: 35,
-            coastalExponent: 1.3,
-          },
-          bands: {
-            // Moderate tropical due to ring disruption
-            deg0to10: 108,
-            deg10to20: 90,
-            // Strong ring mountain rain shadow
-            deg20to35: 40,
-            deg35to55: 78,
-            deg55to70: 55,
-            deg70plus: 35,
-            edges: {
-              deg0to10: 10,
-              deg10to20: 20,
-              deg20to35: 35,
-              deg35to55: 55,
-              deg55to70: 70,
-            },
-            transitionWidth: 7,
-          },
-          sizeScaling: {
-            baseArea: 10000,
-            minScale: 0.7,
-            maxScale: 2.0,
-            equatorBoostScale: 8,
-            equatorBoostTaper: 0.5,
-          },
-          orographic: {
-            hi1Threshold: 300,
-            hi1Bonus: 9,
-            hi2Threshold: 550,
-            hi2Bonus: 10,
-          },
-          coastal: {
-            coastalLandBonus: 24,
-            spread: 4,
-          },
-          noise: {
-            baseSpanSmall: 4,
-            spanLargeScaleFactor: 1.1,
-            scale: 0.12,
-          },
-        },
-        refine: {
-          waterGradient: {
-            radius: 5,
-            perRingBonus: 3,
-            lowlandBonus: 4,
-          },
-          orographic: {
-            steps: 4,
-            reductionBase: 12,
-            reductionPerStep: 7,
-          },
-          riverCorridor: {
-            lowlandAdjacencyBonus: 15,
-            highlandAdjacencyBonus: 6,
-          },
-          lowBasin: {
-            radius: 3,
-            delta: 8,
-          },
-        },
-      },
+    knobs: {
+      dryness: "mix",
+      temperature: "temperate",
+      seasonality: "high",
+      oceanCoupling: "simple",
+      cryosphere: "on",
+      riverDensity: "normal",
+      lakeiness: "normal",
     },
   },
   ecology: {

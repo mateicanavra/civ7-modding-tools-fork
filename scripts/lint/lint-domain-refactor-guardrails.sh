@@ -241,6 +241,10 @@ for domain in "${DOMAINS[@]}"; do
       "mods/mod-swooper-maps/src/recipes/standard" \
       "mods/mod-swooper-maps/src/maps" \
       "mods/mod-swooper-maps/test"
+    run_rg "Hydrology bag configs in maps" "\\bclimate\\s*:" -- \
+      "mods/mod-swooper-maps/src/maps"
+    run_rg "Hydrology step-id configs in maps" "\"climate-baseline\"\\s*:|\"climate-refine\"\\s*:|\\blakes\\s*:|\\brivers\\s*:" -- \
+      "mods/mod-swooper-maps/src/maps"
   fi
 
   # Ecology is the canonical exemplar for the stricter op/step module rules.

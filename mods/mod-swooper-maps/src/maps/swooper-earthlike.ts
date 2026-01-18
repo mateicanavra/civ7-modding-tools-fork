@@ -367,70 +367,26 @@ export default createMap({
       },
     },
     "hydrology-pre": {
-      lakes: {},
-      "climate-baseline": {
-        computeWindFields: {
-          strategy: "default",
-          config: {
-            windJetStreaks: 3,
-            windJetStrength: 1.05,
-            windVariance: 0.55,
-          },
-        },
-        climate: {
-          baseline: {
-            blend: {
-              baseWeight: 0.78,
-              bandWeight: 0.22,
-            },
-            seed: {
-              baseRainfall: 22,       // Slightly wetter base so bands have less dominance
-              coastalExponent: 1.3,   // Softer falloff: gentler coast/interior contrast
-            },
-            bands: {
-              deg0to10: 205,
-              deg10to20: 170,
-              deg20to35: 45,          // Strong subtropical deserts
-              deg35to55: 95,
-              deg55to70: 78,
-              deg70plus: 88,          // Polar moisture mostly snow
-              edges: {
-                deg0to10: 8,
-                deg10to20: 18,
-                deg20to35: 32,
-                deg35to55: 52,
-                deg55to70: 70,
-              },
-              transitionWidth: 20,
-            },
-            sizeScaling: {
-              baseArea: 16000,
-              minScale: 0.6,
-              maxScale: 2.0,
-              equatorBoostScale: 8,
-              equatorBoostTaper: 0.65,
-            },
-            orographic: {
-              hi1Threshold: 320,     // Slightly higher to focus uplift on real ranges
-              hi1Bonus: 11,          // Wet windward mountain belts
-              hi2Threshold: 620,
-              hi2Bonus: 9,
-            },
-            coastal: {
-              coastalLandBonus: 18,  // Allow coastal deserts
-              spread: 4,             // Tighter coastal moisture band
-            },
-            noise: {
-              baseSpanSmall: 6,
-              spanLargeScaleFactor: 1.1,
-              scale: 0.15,
-            },
-          },
-        },
+      knobs: {
+        dryness: "mix",
+        temperature: "temperate",
+        seasonality: "normal",
+        oceanCoupling: "earthlike",
+        cryosphere: "on",
+        riverDensity: "normal",
+        lakeiness: "normal",
       },
     },
     "hydrology-core": {
-      rivers: {},
+      knobs: {
+        dryness: "mix",
+        temperature: "temperate",
+        seasonality: "normal",
+        oceanCoupling: "earthlike",
+        cryosphere: "on",
+        riverDensity: "normal",
+        lakeiness: "normal",
+      },
     },
     "narrative-post": {
       "story-corridors-post": {
@@ -470,77 +426,14 @@ export default createMap({
       },
     },
     "hydrology-post": {
-      "climate-refine": {
-        climate: {
-          baseline: {
-            blend: {
-              baseWeight: 0.75,
-              bandWeight: 0.22,
-            },
-            seed: {
-              baseRainfall: 21,
-              coastalExponent: 1.35,
-            },
-            bands: {
-              deg0to10: 205,
-              deg10to20: 170,
-              deg20to35: 45,         // Low subtropical band for desert formation
-              deg35to55: 95,
-              deg55to70: 78,
-              deg70plus: 88,
-              edges: {
-                deg0to10: 10,
-                deg10to20: 20,
-                deg20to35: 35,
-                deg35to55: 55,
-                deg55to70: 70,
-              },
-              transitionWidth: 20,   // Cap to engine max
-            },
-            sizeScaling: {
-              baseArea: 16000,
-              minScale: 0.6,
-              maxScale: 2.0,
-              equatorBoostScale: 8,
-              equatorBoostTaper: 0.6,
-            },
-            orographic: {
-              hi1Threshold: 300,     // Lower threshold: more tiles get uplift rainfall
-              hi1Bonus: 10,          // Increased: mountains wetter on windward side
-              hi2Threshold: 550,
-              hi2Bonus: 9,
-            },
-            coastal: {
-              coastalLandBonus: 24,  // Reduced: allow coastal deserts
-              spread: 4,             // Reduced: tighter coastal moisture band
-            },
-            noise: {
-              baseSpanSmall: 6,
-              spanLargeScaleFactor: 1.0,
-              scale: 0.14,
-            },
-          },
-          refine: {
-            waterGradient: {
-              radius: 4,
-              perRingBonus: 3,
-              lowlandBonus: 4,
-            },
-            orographic: {
-              steps: 6,
-              reductionBase: 18,
-              reductionPerStep: 6,
-            },
-            riverCorridor: {
-              lowlandAdjacencyBonus: 10,
-              highlandAdjacencyBonus: 4,
-            },
-            lowBasin: {
-              radius: 2,
-              delta: 5,
-            },
-          },
-        },
+      knobs: {
+        dryness: "mix",
+        temperature: "temperate",
+        seasonality: "normal",
+        oceanCoupling: "earthlike",
+        cryosphere: "on",
+        riverDensity: "normal",
+        lakeiness: "normal",
       },
     },
     ecology: {

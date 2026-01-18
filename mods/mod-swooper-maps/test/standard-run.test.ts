@@ -130,77 +130,6 @@ const basinSeparationConfig = {
   },
 };
 
-const climateConfig = {
-  baseline: {
-    blend: {
-      baseWeight: 0.2,
-      bandWeight: 0.8,
-    },
-    seed: {
-      baseRainfall: 40,
-      coastalExponent: 1.2,
-    },
-    bands: {
-      deg0to10: 125,
-      deg10to20: 105,
-      deg20to35: 55,
-      deg35to55: 75,
-      deg55to70: 60,
-      deg70plus: 42,
-      edges: {
-        deg0to10: 10,
-        deg10to20: 20,
-        deg20to35: 35,
-        deg35to55: 55,
-        deg55to70: 70,
-      },
-      transitionWidth: 8,
-    },
-    sizeScaling: {
-      baseArea: 10000,
-      minScale: 0.6,
-      maxScale: 2.0,
-      equatorBoostScale: 12,
-      equatorBoostTaper: 0.6,
-    },
-    orographic: {
-      hi1Threshold: 350,
-      hi1Bonus: 8,
-      hi2Threshold: 600,
-      hi2Bonus: 7,
-    },
-    coastal: {
-      coastalLandBonus: 26,
-      spread: 5,
-    },
-    noise: {
-      baseSpanSmall: 4,
-      spanLargeScaleFactor: 1.0,
-      scale: 0.13,
-    },
-  },
-  refine: {
-    waterGradient: {
-      radius: 6,
-      perRingBonus: 4,
-      lowlandBonus: 5,
-    },
-    orographic: {
-      steps: 4,
-      reductionBase: 9,
-      reductionPerStep: 5,
-    },
-    riverCorridor: {
-      lowlandAdjacencyBonus: 15,
-      highlandAdjacencyBonus: 6,
-    },
-    lowBasin: {
-      radius: 3,
-      delta: 7,
-    },
-  },
-};
-
 const storyHotspotConfig = {
   paradiseBias: 2,
   volcanicBias: 1,
@@ -561,27 +490,40 @@ const standardConfig = {
     landmasses: { landmasses: { strategy: "default", config: {} } },
   },
   "hydrology-pre": {
-    lakes: {},
-    "climate-baseline": {
-      climate: { baseline: climateConfig.baseline },
-      computeWindFields: {
-        strategy: "default",
-        config: {
-          windJetStreaks: 3,
-          windJetStrength: 1.0,
-          windVariance: 0.6,
-        },
-      },
+    knobs: {
+      dryness: "mix",
+      temperature: "temperate",
+      seasonality: "normal",
+      oceanCoupling: "earthlike",
+      cryosphere: "on",
+      riverDensity: "normal",
+      lakeiness: "normal",
     },
   },
   "hydrology-core": {
-    rivers: {},
+    knobs: {
+      dryness: "mix",
+      temperature: "temperate",
+      seasonality: "normal",
+      oceanCoupling: "earthlike",
+      cryosphere: "on",
+      riverDensity: "normal",
+      lakeiness: "normal",
+    },
   },
   "narrative-post": {
     "story-corridors-post": { corridors: corridorsConfig },
   },
   "hydrology-post": {
-    "climate-refine": { climate: climateConfig },
+    knobs: {
+      dryness: "mix",
+      temperature: "temperate",
+      seasonality: "normal",
+      oceanCoupling: "earthlike",
+      cryosphere: "on",
+      riverDensity: "normal",
+      lakeiness: "normal",
+    },
   },
   ecology: {
     biomes: { classify: biomesConfig, bindings: biomeBindingsConfig },

@@ -11,10 +11,10 @@ export function applyRiverCorridorRefinement(
 
   const riverCorridor = refineCfg.riverCorridor as Record<string, number>;
   const lowBasinCfg = refineCfg.lowBasin as Record<string, number>;
-  const adjacencyRadius = Math.min(
-    6,
-    Math.max(1, ((riverCorridor.adjacencyRadius ?? 1) as number) | 0)
-  );
+  if (typeof riverCorridor.adjacencyRadius !== "number") {
+    throw new Error("applyRiverCorridorRefinement requires refineCfg.riverCorridor.adjacencyRadius");
+  }
+  const adjacencyRadius = Math.min(6, Math.max(1, (riverCorridor.adjacencyRadius as number) | 0));
 
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {

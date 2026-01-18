@@ -372,71 +372,26 @@ export default createMap({
     },
   },
   "hydrology-pre": {
-    lakes: {},
-    "climate-baseline": {
-      computeWindFields: {
-        strategy: "default",
-        config: {
-          windJetStreaks: 5,
-          windJetStrength: 0.85,
-          windVariance: 0.8,
-        },
-      },
-      climate: {
-        baseline: {
-          blend: {
-            baseWeight: 0.25,
-            bandWeight: 0.75,
-          },
-          seed: {
-            baseRainfall: 70,
-            coastalExponent: 1.0,
-          },
-          bands: {
-            // Very wet tropical maritime climate
-            deg0to10: 165,
-            deg10to20: 145,
-            deg20to35: 115,
-            deg35to55: 85,
-            deg55to70: 65,
-            deg70plus: 40,
-            edges: {
-              deg0to10: 10,
-              deg10to20: 20,
-              deg20to35: 35,
-              deg35to55: 55,
-              deg55to70: 70,
-            },
-            transitionWidth: 9,
-          },
-          sizeScaling: {
-            baseArea: 10000,
-            minScale: 0.6,
-            maxScale: 2.2,
-            equatorBoostScale: 14,
-            equatorBoostTaper: 0.7,
-          },
-          orographic: {
-            hi1Threshold: 250,
-            hi1Bonus: 9,
-            hi2Threshold: 500,
-            hi2Bonus: 8,
-          },
-          coastal: {
-            coastalLandBonus: 36,
-            spread: 7,
-          },
-          noise: {
-            baseSpanSmall: 4,
-            spanLargeScaleFactor: 1.0,
-            scale: 0.12,
-          },
-        },
-      },
+    knobs: {
+      dryness: "wet",
+      temperature: "hot",
+      seasonality: "high",
+      oceanCoupling: "earthlike",
+      cryosphere: "off",
+      riverDensity: "dense",
+      lakeiness: "many",
     },
   },
   "hydrology-core": {
-    rivers: {},
+    knobs: {
+      dryness: "wet",
+      temperature: "hot",
+      seasonality: "high",
+      oceanCoupling: "earthlike",
+      cryosphere: "off",
+      riverDensity: "dense",
+      lakeiness: "many",
+    },
   },
   "narrative-post": {
     "story-corridors-post": {
@@ -476,78 +431,14 @@ export default createMap({
     },
   },
   "hydrology-post": {
-    "climate-refine": {
-      climate: {
-        baseline: {
-          blend: {
-            baseWeight: 0.25,
-            bandWeight: 0.75,
-          },
-          seed: {
-            baseRainfall: 65,
-            coastalExponent: 1.1,
-          },
-          bands: {
-            // Very wet tropical maritime climate
-            deg0to10: 165,
-            deg10to20: 145,
-            deg20to35: 115,
-            deg35to55: 85,
-            deg55to70: 65,
-            deg70plus: 40,
-            edges: {
-              deg0to10: 10,
-              deg10to20: 20,
-              deg20to35: 35,
-              deg35to55: 55,
-              deg55to70: 70,
-            },
-            transitionWidth: 9,
-          },
-          sizeScaling: {
-            baseArea: 10000,
-            minScale: 0.6,
-            maxScale: 2.2,
-            equatorBoostScale: 14,
-            equatorBoostTaper: 0.7,
-          },
-          orographic: {
-            hi1Threshold: 300,
-            hi1Bonus: 8,
-            hi2Threshold: 550,
-            hi2Bonus: 7,
-          },
-          coastal: {
-            coastalLandBonus: 30,
-            spread: 6,
-          },
-          noise: {
-            baseSpanSmall: 4,
-            spanLargeScaleFactor: 1.0,
-            scale: 0.12,
-          },
-        },
-        refine: {
-          waterGradient: {
-            radius: 6,
-            perRingBonus: 5,
-            lowlandBonus: 6,
-          },
-          orographic: {
-            steps: 4,
-            reductionBase: 8,
-            reductionPerStep: 4,
-          },
-          riverCorridor: {
-            lowlandAdjacencyBonus: 18,
-            highlandAdjacencyBonus: 7,
-          },
-          lowBasin: {
-            radius: 3,
-            delta: 6,
-          },
-        },
-      },
+    knobs: {
+      dryness: "wet",
+      temperature: "hot",
+      seasonality: "high",
+      oceanCoupling: "earthlike",
+      cryosphere: "off",
+      riverDensity: "dense",
+      lakeiness: "many",
     },
   },
   ecology: {
