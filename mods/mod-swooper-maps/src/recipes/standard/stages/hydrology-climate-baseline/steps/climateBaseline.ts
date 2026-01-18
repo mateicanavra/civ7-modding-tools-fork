@@ -10,7 +10,6 @@ import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import { hydrologyClimateBaselineArtifacts } from "../artifacts.js";
 import ClimateBaselineStepContract from "./climateBaseline.contract.js";
 import {
-  HYDROLOGY_BASELINE_RAINFALL_SCALE,
   HYDROLOGY_DRYNESS_WETNESS_SCALE,
   HYDROLOGY_EVAPORATION_LAND_STRENGTH_BASE,
   HYDROLOGY_EVAPORATION_OCEAN_STRENGTH_BASE,
@@ -28,6 +27,12 @@ import {
   HYDROLOGY_WATER_GRADIENT_LOWLAND_BONUS_BASE,
   HYDROLOGY_WATER_GRADIENT_PER_RING_BONUS_BASE,
 } from "@mapgen/domain/hydrology/shared/knob-multipliers.js";
+import type {
+  HydrologyDrynessKnob,
+  HydrologyOceanCouplingKnob,
+  HydrologySeasonalityKnob,
+  HydrologyTemperatureKnob,
+} from "@mapgen/domain/hydrology/shared/knobs.js";
 
 type ArtifactValidationIssue = Readonly<{ message: string }>;
 type TypedArrayConstructor = { new (...args: unknown[]): { length: number } };
@@ -153,208 +158,171 @@ export default createStep(ClimateBaselineStepContract, {
     }
   ),
   normalize: (config, ctx) => {
-    const knobs = isRecord(ctx.knobs) ? ctx.knobs : {};
-    const drynessRaw = knobs.dryness;
-    const dryness =
-      drynessRaw === "wet" || drynessRaw === "mix" || drynessRaw === "dry" ? drynessRaw : "mix";
-    const temperatureRaw = knobs.temperature;
-    const temperature =
-      temperatureRaw === "cold" || temperatureRaw === "temperate" || temperatureRaw === "hot"
-        ? temperatureRaw
-        : "temperate";
-    const seasonalityRaw = knobs.seasonality;
-    const seasonality =
-      seasonalityRaw === "low" || seasonalityRaw === "normal" || seasonalityRaw === "high"
-        ? seasonalityRaw
-        : "normal";
-    const oceanCouplingRaw = knobs.oceanCoupling;
-    const oceanCoupling =
-      oceanCouplingRaw === "off" || oceanCouplingRaw === "simple" || oceanCouplingRaw === "earthlike"
-        ? oceanCouplingRaw
-        : "earthlike";
+    const { dryness, temperature, seasonality, oceanCoupling } = ctx.knobs as Readonly<{
+      dryness: HydrologyDrynessKnob;
+      temperature: HydrologyTemperatureKnob;
+      seasonality: HydrologySeasonalityKnob;
+      oceanCoupling: HydrologyOceanCouplingKnob;
+    }>;
 
-    const drynessScale = HYDROLOGY_DRYNESS_WETNESS_SCALE[dryness];
-    const baseTemperatureC = HYDROLOGY_TEMPERATURE_BASE_TEMPERATURE_C[temperature];
-
-    const windJetStreaks = HYDROLOGY_SEASONALITY_WIND_JET_STREAKS[seasonality];
-    const windVariance = HYDROLOGY_SEASONALITY_WIND_VARIANCE[seasonality];
-    const windJetStrength = HYDROLOGY_OCEAN_COUPLING_WIND_JET_STRENGTH[oceanCoupling];
-    const currentStrength = HYDROLOGY_OCEAN_COUPLING_CURRENT_STRENGTH[oceanCoupling];
-
-    const next = { ...config };
+    const wetnessScale = HYDROLOGY_DRYNESS_WETNESS_SCALE[dryness];
+    const temperatureDeltaC =
+      HYDROLOGY_TEMPERATURE_BASE_TEMPERATURE_C[temperature] -
+      HYDROLOGY_TEMPERATURE_BASE_TEMPERATURE_C.temperate;
 
     const seasonalityDefaults = HYDROLOGY_SEASONALITY_DEFAULTS[seasonality];
+    const normalSeasonalityDefaults = HYDROLOGY_SEASONALITY_DEFAULTS.normal;
+    const modeCountCandidate =
+      (config.seasonality?.modeCount ?? normalSeasonalityDefaults.modeCount) +
+      (seasonalityDefaults.modeCount - normalSeasonalityDefaults.modeCount);
+    const modeCount: 2 | 4 = modeCountCandidate >= 3 ? 4 : 2;
+    const axialTiltDeg =
+      (config.seasonality?.axialTiltDeg ?? normalSeasonalityDefaults.axialTiltDeg) +
+      (seasonalityDefaults.axialTiltDeg - normalSeasonalityDefaults.axialTiltDeg);
 
-    next.seasonality = {
-      modeCount: next.seasonality?.modeCount ?? seasonalityDefaults.modeCount,
-      axialTiltDeg: next.seasonality?.axialTiltDeg ?? seasonalityDefaults.axialTiltDeg,
+    const jetStreakDelta =
+      HYDROLOGY_SEASONALITY_WIND_JET_STREAKS[seasonality] -
+      HYDROLOGY_SEASONALITY_WIND_JET_STREAKS.normal;
+    const varianceFactor =
+      HYDROLOGY_SEASONALITY_WIND_VARIANCE[seasonality] /
+      HYDROLOGY_SEASONALITY_WIND_VARIANCE.normal;
+    const noiseAmplitudeFactor =
+      HYDROLOGY_SEASONALITY_PRECIP_NOISE_AMPLITUDE[seasonality] /
+      HYDROLOGY_SEASONALITY_PRECIP_NOISE_AMPLITUDE.normal;
+
+    const jetStrengthFactor =
+      HYDROLOGY_OCEAN_COUPLING_WIND_JET_STRENGTH[oceanCoupling] /
+      HYDROLOGY_OCEAN_COUPLING_WIND_JET_STRENGTH.earthlike;
+    const currentStrengthFactor =
+      HYDROLOGY_OCEAN_COUPLING_CURRENT_STRENGTH[oceanCoupling] /
+      HYDROLOGY_OCEAN_COUPLING_CURRENT_STRENGTH.earthlike;
+
+    const transportIterationsDelta =
+      HYDROLOGY_OCEAN_COUPLING_MOISTURE_TRANSPORT_ITERATIONS[oceanCoupling] -
+      HYDROLOGY_OCEAN_COUPLING_MOISTURE_TRANSPORT_ITERATIONS.earthlike;
+
+    const computeThermalState =
+      config.computeThermalState.strategy === "default"
+        ? {
+            ...config.computeThermalState,
+            config: {
+              ...config.computeThermalState.config,
+              baseTemperatureC: config.computeThermalState.config.baseTemperatureC + temperatureDeltaC,
+            },
+          }
+        : config.computeThermalState;
+
+    const computeAtmosphericCirculation =
+      config.computeAtmosphericCirculation.strategy === "default"
+        ? {
+            ...config.computeAtmosphericCirculation,
+            config: {
+              ...config.computeAtmosphericCirculation.config,
+              windJetStreaks: Math.max(
+                0,
+                Math.round(config.computeAtmosphericCirculation.config.windJetStreaks + jetStreakDelta)
+              ),
+              windVariance: config.computeAtmosphericCirculation.config.windVariance * varianceFactor,
+              windJetStrength: config.computeAtmosphericCirculation.config.windJetStrength * jetStrengthFactor,
+            },
+          }
+        : config.computeAtmosphericCirculation;
+
+    const computeOceanSurfaceCurrents =
+      config.computeOceanSurfaceCurrents.strategy === "default"
+        ? {
+            ...config.computeOceanSurfaceCurrents,
+            config: {
+              ...config.computeOceanSurfaceCurrents.config,
+              strength: config.computeOceanSurfaceCurrents.config.strength * currentStrengthFactor,
+            },
+          }
+        : config.computeOceanSurfaceCurrents;
+
+    const computeEvaporationSources =
+      config.computeEvaporationSources.strategy === "default"
+        ? {
+            ...config.computeEvaporationSources,
+            config: {
+              ...config.computeEvaporationSources.config,
+              oceanStrength: config.computeEvaporationSources.config.oceanStrength * wetnessScale,
+              landStrength: config.computeEvaporationSources.config.landStrength * wetnessScale,
+            },
+          }
+        : config.computeEvaporationSources;
+
+    const transportMoisture =
+      config.transportMoisture.strategy === "default"
+        ? {
+            ...config.transportMoisture,
+            config: {
+              ...config.transportMoisture.config,
+              iterations: Math.max(0, Math.round(config.transportMoisture.config.iterations + transportIterationsDelta)),
+            },
+          }
+        : config.transportMoisture;
+
+    const computePrecipitation =
+      config.computePrecipitation.strategy !== "default"
+        ? config.computePrecipitation
+        : (() => {
+            const waterGradientRadiusDelta =
+              HYDROLOGY_OCEAN_COUPLING_WATER_GRADIENT_RADIUS[oceanCoupling] -
+              HYDROLOGY_OCEAN_COUPLING_WATER_GRADIENT_RADIUS.earthlike;
+            const perRingBonusDelta =
+              HYDROLOGY_WATER_GRADIENT_PER_RING_BONUS_BASE[oceanCoupling] -
+              HYDROLOGY_WATER_GRADIENT_PER_RING_BONUS_BASE.earthlike;
+
+            const scaleDenom = Math.max(0.1, wetnessScale);
+
+            return {
+              ...config.computePrecipitation,
+              config: {
+                ...config.computePrecipitation.config,
+                rainfallScale: config.computePrecipitation.config.rainfallScale * wetnessScale,
+                noiseAmplitude: config.computePrecipitation.config.noiseAmplitude * noiseAmplitudeFactor,
+                waterGradient: {
+                  ...config.computePrecipitation.config.waterGradient,
+                  radius: Math.max(
+                    1,
+                    Math.round(config.computePrecipitation.config.waterGradient.radius + waterGradientRadiusDelta)
+                  ),
+                  perRingBonus: Math.max(
+                    0,
+                    Math.round(
+                      (config.computePrecipitation.config.waterGradient.perRingBonus + perRingBonusDelta) * wetnessScale
+                    )
+                  ),
+                  lowlandBonus: Math.max(
+                    0,
+                    Math.round(config.computePrecipitation.config.waterGradient.lowlandBonus * wetnessScale)
+                  ),
+                },
+                orographic: {
+                  ...config.computePrecipitation.config.orographic,
+                  reductionBase: Math.max(
+                    0,
+                    Math.round(config.computePrecipitation.config.orographic.reductionBase / scaleDenom)
+                  ),
+                  reductionPerStep: Math.max(
+                    0,
+                    Math.round(config.computePrecipitation.config.orographic.reductionPerStep / scaleDenom)
+                  ),
+                },
+              },
+            };
+          })();
+
+    return {
+      ...config,
+      seasonality: { modeCount, axialTiltDeg },
+      computeThermalState,
+      computeAtmosphericCirculation,
+      computeOceanSurfaceCurrents,
+      computeEvaporationSources,
+      transportMoisture,
+      computePrecipitation,
     };
-
-    if (
-      next.computeThermalState.strategy === "default" &&
-      next.computeThermalState.config.baseTemperatureC === HYDROLOGY_TEMPERATURE_BASE_TEMPERATURE_C.temperate
-    ) {
-      next.computeThermalState = {
-        ...next.computeThermalState,
-        config: { ...next.computeThermalState.config, baseTemperatureC },
-      };
-    }
-
-    if (
-      next.computeAtmosphericCirculation.strategy === "default" &&
-      next.computeAtmosphericCirculation.config.windJetStreaks === HYDROLOGY_SEASONALITY_WIND_JET_STREAKS.normal
-    ) {
-      next.computeAtmosphericCirculation = {
-        ...next.computeAtmosphericCirculation,
-        config: { ...next.computeAtmosphericCirculation.config, windJetStreaks },
-      };
-    }
-    if (
-      next.computeAtmosphericCirculation.strategy === "default" &&
-      next.computeAtmosphericCirculation.config.windVariance === HYDROLOGY_SEASONALITY_WIND_VARIANCE.normal
-    ) {
-      next.computeAtmosphericCirculation = {
-        ...next.computeAtmosphericCirculation,
-        config: { ...next.computeAtmosphericCirculation.config, windVariance },
-      };
-    }
-    if (
-      next.computeAtmosphericCirculation.strategy === "default" &&
-      next.computeAtmosphericCirculation.config.windJetStrength === HYDROLOGY_OCEAN_COUPLING_WIND_JET_STRENGTH.simple
-    ) {
-      next.computeAtmosphericCirculation = {
-        ...next.computeAtmosphericCirculation,
-        config: { ...next.computeAtmosphericCirculation.config, windJetStrength },
-      };
-    }
-
-    if (
-      next.computeOceanSurfaceCurrents.strategy === "default" &&
-      next.computeOceanSurfaceCurrents.config.strength === HYDROLOGY_OCEAN_COUPLING_CURRENT_STRENGTH.earthlike
-    ) {
-      next.computeOceanSurfaceCurrents = {
-        ...next.computeOceanSurfaceCurrents,
-        config: { ...next.computeOceanSurfaceCurrents.config, strength: currentStrength },
-      };
-    }
-
-    if (
-      next.computeEvaporationSources.strategy === "default" &&
-      next.computeEvaporationSources.config.oceanStrength === HYDROLOGY_EVAPORATION_OCEAN_STRENGTH_BASE
-    ) {
-      next.computeEvaporationSources = {
-        ...next.computeEvaporationSources,
-        config: {
-          ...next.computeEvaporationSources.config,
-          oceanStrength: HYDROLOGY_EVAPORATION_OCEAN_STRENGTH_BASE * drynessScale,
-        },
-      };
-    }
-    if (
-      next.computeEvaporationSources.strategy === "default" &&
-      next.computeEvaporationSources.config.landStrength === HYDROLOGY_EVAPORATION_LAND_STRENGTH_BASE
-    ) {
-      next.computeEvaporationSources = {
-        ...next.computeEvaporationSources,
-        config: {
-          ...next.computeEvaporationSources.config,
-          landStrength: HYDROLOGY_EVAPORATION_LAND_STRENGTH_BASE * drynessScale,
-        },
-      };
-    }
-
-    if (
-      next.transportMoisture.strategy === "default" &&
-      next.transportMoisture.config.iterations === HYDROLOGY_OCEAN_COUPLING_MOISTURE_TRANSPORT_ITERATIONS.earthlike
-    ) {
-      next.transportMoisture = {
-        ...next.transportMoisture,
-        config: {
-          ...next.transportMoisture.config,
-          iterations: HYDROLOGY_OCEAN_COUPLING_MOISTURE_TRANSPORT_ITERATIONS[oceanCoupling],
-        },
-      };
-    }
-
-    if (next.computePrecipitation.strategy === "default") {
-      if (next.computePrecipitation.config.rainfallScale === HYDROLOGY_BASELINE_RAINFALL_SCALE) {
-        next.computePrecipitation = {
-          ...next.computePrecipitation,
-          config: {
-            ...next.computePrecipitation.config,
-            rainfallScale: HYDROLOGY_BASELINE_RAINFALL_SCALE * drynessScale,
-          },
-        };
-      }
-
-      if (next.computePrecipitation.config.noiseAmplitude === HYDROLOGY_SEASONALITY_PRECIP_NOISE_AMPLITUDE.normal) {
-        const noiseAmplitude = HYDROLOGY_SEASONALITY_PRECIP_NOISE_AMPLITUDE[seasonality];
-        next.computePrecipitation = {
-          ...next.computePrecipitation,
-          config: { ...next.computePrecipitation.config, noiseAmplitude },
-        };
-      }
-
-      if (next.computePrecipitation.config.waterGradient.radius === HYDROLOGY_OCEAN_COUPLING_WATER_GRADIENT_RADIUS.simple) {
-        const radius = HYDROLOGY_OCEAN_COUPLING_WATER_GRADIENT_RADIUS[oceanCoupling];
-        next.computePrecipitation = {
-          ...next.computePrecipitation,
-          config: {
-            ...next.computePrecipitation.config,
-            waterGradient: { ...next.computePrecipitation.config.waterGradient, radius },
-          },
-        };
-      }
-      if (next.computePrecipitation.config.waterGradient.perRingBonus === HYDROLOGY_WATER_GRADIENT_PER_RING_BONUS_BASE.simple) {
-        const perRingBonus = Math.round(
-          HYDROLOGY_WATER_GRADIENT_PER_RING_BONUS_BASE[oceanCoupling] * drynessScale
-        );
-        next.computePrecipitation = {
-          ...next.computePrecipitation,
-          config: {
-            ...next.computePrecipitation.config,
-            waterGradient: { ...next.computePrecipitation.config.waterGradient, perRingBonus },
-          },
-        };
-      }
-      if (next.computePrecipitation.config.waterGradient.lowlandBonus === HYDROLOGY_WATER_GRADIENT_LOWLAND_BONUS_BASE) {
-        const lowlandBonus = Math.round(HYDROLOGY_WATER_GRADIENT_LOWLAND_BONUS_BASE * drynessScale);
-        next.computePrecipitation = {
-          ...next.computePrecipitation,
-          config: {
-            ...next.computePrecipitation.config,
-            waterGradient: { ...next.computePrecipitation.config.waterGradient, lowlandBonus },
-          },
-        };
-      }
-
-      if (next.computePrecipitation.config.orographic.reductionBase === 8) {
-        const reductionBase = Math.round(
-          HYDROLOGY_OROGRAPHIC_REDUCTION_BASE / Math.max(0.1, drynessScale)
-        );
-        next.computePrecipitation = {
-          ...next.computePrecipitation,
-          config: {
-            ...next.computePrecipitation.config,
-            orographic: { ...next.computePrecipitation.config.orographic, reductionBase },
-          },
-        };
-      }
-      if (next.computePrecipitation.config.orographic.reductionPerStep === 6) {
-        const reductionPerStep = Math.round(
-          HYDROLOGY_OROGRAPHIC_REDUCTION_PER_STEP / Math.max(0.1, drynessScale)
-        );
-        next.computePrecipitation = {
-          ...next.computePrecipitation,
-          config: {
-            ...next.computePrecipitation.config,
-            orographic: { ...next.computePrecipitation.config.orographic, reductionPerStep },
-          },
-        };
-      }
-    }
-
-    return next;
   },
   run: (context, config, ops, deps) => {
     const { width, height } = context.dimensions;

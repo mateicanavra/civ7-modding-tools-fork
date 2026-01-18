@@ -9,14 +9,11 @@ import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import { hydrologyHydrographyArtifacts } from "../artifacts.js";
 import RiversStepContract from "./rivers.contract.js";
 import {
-  HYDROLOGY_PROJECT_RIVER_NETWORK_MAJOR_PERCENTILE_DEFAULT,
-  HYDROLOGY_PROJECT_RIVER_NETWORK_MINOR_PERCENTILE_DEFAULT,
   HYDROLOGY_RIVER_DENSITY_LENGTH_BOUNDS,
   HYDROLOGY_RIVER_DENSITY_MAJOR_PERCENTILE,
   HYDROLOGY_RIVER_DENSITY_MINOR_PERCENTILE,
-  HYDROLOGY_RIVERS_DEFAULT_MAX_LENGTH,
-  HYDROLOGY_RIVERS_DEFAULT_MIN_LENGTH,
 } from "@mapgen/domain/hydrology/shared/knob-multipliers.js";
+import type { HydrologyRiverDensityKnob } from "@mapgen/domain/hydrology/shared/knobs.js";
 
 type ArtifactValidationIssue = Readonly<{ message: string }>;
 
@@ -78,43 +75,43 @@ export default createStep(RiversStepContract, {
     },
   }),
   normalize: (config, ctx) => {
-    const knobs = isRecord(ctx.knobs) ? ctx.knobs : {};
-    const riverDensityRaw = knobs.riverDensity;
-    const riverDensity =
-      riverDensityRaw === "sparse" || riverDensityRaw === "normal" || riverDensityRaw === "dense"
-        ? riverDensityRaw
-        : "normal";
+    const { riverDensity } = ctx.knobs as { riverDensity: HydrologyRiverDensityKnob };
+    const normalBounds = HYDROLOGY_RIVER_DENSITY_LENGTH_BOUNDS.normal;
+    const bounds = HYDROLOGY_RIVER_DENSITY_LENGTH_BOUNDS[riverDensity];
+    const minLengthDelta = bounds.minLength - normalBounds.minLength;
+    const maxLengthDelta = bounds.maxLength - normalBounds.maxLength;
 
-    const next = { ...config };
+    const next = {
+      ...config,
+      minLength: Math.max(0, (config.minLength ?? 0) + minLengthDelta),
+      maxLength: Math.max(0, (config.maxLength ?? 0) + maxLengthDelta),
+    };
 
-    if (next.minLength === HYDROLOGY_RIVERS_DEFAULT_MIN_LENGTH && next.maxLength === HYDROLOGY_RIVERS_DEFAULT_MAX_LENGTH) {
-      const bounds = HYDROLOGY_RIVER_DENSITY_LENGTH_BOUNDS[riverDensity];
-      next.minLength = bounds.minLength;
-      next.maxLength = bounds.maxLength;
-    }
+    if (next.projectRiverNetwork.strategy !== "default") return next;
 
-    if (next.projectRiverNetwork.strategy === "default") {
-      if (next.projectRiverNetwork.config.minorPercentile === HYDROLOGY_PROJECT_RIVER_NETWORK_MINOR_PERCENTILE_DEFAULT) {
-        next.projectRiverNetwork = {
-          ...next.projectRiverNetwork,
-          config: {
-            ...next.projectRiverNetwork.config,
-            minorPercentile: HYDROLOGY_RIVER_DENSITY_MINOR_PERCENTILE[riverDensity],
-          },
-        };
-      }
-      if (next.projectRiverNetwork.config.majorPercentile === HYDROLOGY_PROJECT_RIVER_NETWORK_MAJOR_PERCENTILE_DEFAULT) {
-        next.projectRiverNetwork = {
-          ...next.projectRiverNetwork,
-          config: {
-            ...next.projectRiverNetwork.config,
-            majorPercentile: HYDROLOGY_RIVER_DENSITY_MAJOR_PERCENTILE[riverDensity],
-          },
-        };
-      }
-    }
+    const minorDelta =
+      HYDROLOGY_RIVER_DENSITY_MINOR_PERCENTILE[riverDensity] -
+      HYDROLOGY_RIVER_DENSITY_MINOR_PERCENTILE.normal;
+    const majorDelta =
+      HYDROLOGY_RIVER_DENSITY_MAJOR_PERCENTILE[riverDensity] -
+      HYDROLOGY_RIVER_DENSITY_MAJOR_PERCENTILE.normal;
 
-    return next;
+    const minorPercentile = Math.max(
+      0,
+      Math.min(1, next.projectRiverNetwork.config.minorPercentile + minorDelta)
+    );
+    const majorPercentile = Math.max(
+      0,
+      Math.min(1, next.projectRiverNetwork.config.majorPercentile + majorDelta)
+    );
+
+    return {
+      ...next,
+      projectRiverNetwork: {
+        ...next.projectRiverNetwork,
+        config: { ...next.projectRiverNetwork.config, minorPercentile, majorPercentile },
+      },
+    };
   },
   run: (context, config, ops, deps) => {
     const navigableRiverTerrain = NAVIGABLE_RIVER_TERRAIN;

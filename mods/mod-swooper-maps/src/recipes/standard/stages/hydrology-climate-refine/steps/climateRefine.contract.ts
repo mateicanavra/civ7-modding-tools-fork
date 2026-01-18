@@ -42,7 +42,10 @@ const ClimateRefineStepContract = defineStep({
     ],
   },
   ops: {
-    computePrecipitation: hydrology.ops.computePrecipitation,
+    computePrecipitation: {
+      contract: hydrology.ops.computePrecipitation,
+      defaultStrategy: "refine",
+    },
     computeRadiativeForcing: hydrology.ops.computeRadiativeForcing,
     computeThermalState: hydrology.ops.computeThermalState,
     applyAlbedoFeedback: hydrology.ops.applyAlbedoFeedback,

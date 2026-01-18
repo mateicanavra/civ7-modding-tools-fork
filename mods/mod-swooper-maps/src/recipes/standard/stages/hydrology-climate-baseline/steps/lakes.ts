@@ -5,11 +5,12 @@ import { getStandardRuntime } from "../../../runtime.js";
 import { hydrologyClimateBaselineArtifacts } from "../artifacts.js";
 import LakesStepContract from "./lakes.contract.js";
 import { HYDROLOGY_LAKEINESS_TILES_PER_LAKE_MULTIPLIER } from "@mapgen/domain/hydrology/shared/knob-multipliers.js";
+import type { HydrologyLakeinessKnob } from "@mapgen/domain/hydrology/shared/knobs.js";
 
 type ArtifactValidationIssue = Readonly<{ message: string }>;
 
 function isRecord(value: unknown): value is Record<string, unknown> {
-  return value !== null && typeof value === "object" && !Array.isArray(value);
+  return Boolean(value) && typeof value === "object" && !Array.isArray(value);
 }
 
 function expectedSize(dimensions: MapDimensions): number {
@@ -63,18 +64,10 @@ export default createStep(LakesStepContract, {
     },
   }),
   normalize: (config, ctx) => {
-    if (config.tilesPerLakeMultiplier !== 1) return config;
-
-    const knobs = isRecord(ctx.knobs) ? ctx.knobs : {};
-    const lakeinessRaw = knobs.lakeiness;
-    const lakeiness =
-      lakeinessRaw === "few" || lakeinessRaw === "normal" || lakeinessRaw === "many"
-        ? lakeinessRaw
-        : "normal";
-
-    const tilesPerLakeMultiplier = HYDROLOGY_LAKEINESS_TILES_PER_LAKE_MULTIPLIER[lakeiness];
-
-    return tilesPerLakeMultiplier === 1
+    const { lakeiness } = ctx.knobs as { lakeiness: HydrologyLakeinessKnob };
+    const tilesPerLakeMultiplier =
+      config.tilesPerLakeMultiplier * HYDROLOGY_LAKEINESS_TILES_PER_LAKE_MULTIPLIER[lakeiness];
+    return tilesPerLakeMultiplier === config.tilesPerLakeMultiplier
       ? config
       : { ...config, tilesPerLakeMultiplier };
   },
