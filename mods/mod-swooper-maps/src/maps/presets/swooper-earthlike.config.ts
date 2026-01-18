@@ -332,7 +332,7 @@ export const swooperEarthlikeConfig = {
   },
   "hydrology-climate-baseline": {
     knobs: {
-      dryness: "wet",
+      dryness: "dry",
       temperature: "hot",
       seasonality: "high",
       oceanCoupling: "earthlike",
@@ -360,7 +360,7 @@ export const swooperEarthlikeConfig = {
   },
   "hydrology-climate-refine": {
     knobs: {
-      dryness: "wet",
+      dryness: "dry",
       temperature: "hot",
       cryosphere: "on",
     },
@@ -489,7 +489,7 @@ export const swooperEarthlikeConfig = {
             tropicalThreshold: 18,
           },
           moisture: {
-            thresholds: [55, 130, 150, 180] as [number, number, number, number],
+            thresholds: [85, 130, 150, 180] as [number, number, number, number],
             bias: 0,
             humidityWeight: 0.42,
           },
