@@ -7,10 +7,10 @@ export const swooperEarthlikeConfig = {
         strategy: "default",
         config: {
           plateCount: 17, // Fewer, larger major plates plus some microplates
-          cellsPerPlate: 13, // Slightly denser cells per plate for sharper margins
+          cellsPerPlate: 9, // Slightly denser cells per plate for sharper margins
           relaxationSteps: 5, // Extra smoothing for coherent plate footprints
           referenceArea: 16000, // Standard reference
-          plateScalePower: 0.91, // Still heavy-tailed but fewer tiny microplates
+          plateScalePower: 0.86, // Still heavy-tailed but fewer tiny microplates
         },
       },
     },
@@ -26,9 +26,9 @@ export const swooperEarthlikeConfig = {
       computePlateGraph: {
         strategy: "default",
         config: {
-          plateCount: 28, // Match mesh plateCount
+          plateCount: 17, // Match mesh plateCount
           referenceArea: 16000,
-          plateScalePower: 0.91,
+          plateScalePower: 0.86,
         },
       },
     },
@@ -45,7 +45,7 @@ export const swooperEarthlikeConfig = {
           boundaryInfluenceDistance: 12, // Broader active margins for realistic orogeny belts
           boundaryDecay: 0.5, // Softer falloff so margins still dominate relief
           movementScale: 60, // Faster relative drift to energize boundaries
-          rotationScale: 110, // More rotational variance for microplates/torques
+          rotationScale: 88, // More rotational variance for microplates/torques
         },
       },
     },
@@ -81,11 +81,11 @@ export const swooperEarthlikeConfig = {
       seaLevel: {
         strategy: "default",
         config: {
-          targetWaterPercent: 58, // Drain a bit more (~+30-50m) to expose shelves/connect fragments
+          targetWaterPercent: 63, // Drain a bit more (~+30-50m) to expose shelves/connect fragments
           targetScalar: 1,
           variance: 1.5, // Tighter solve to avoid stray blobs
           boundaryShareTarget: 0.08, // Lower boundary land share to trim edge speckle
-          continentalFraction: 0.31, // Match crust ratio while honoring sea-level solve
+          continentalFraction: 0.39, // Match crust ratio while honoring sea-level solve
         },
       },
       landmask: {
@@ -129,14 +129,14 @@ export const swooperEarthlikeConfig = {
     "story-hotspots": {
       story: {
         hotspot: {
-          maxTrails: 8,
-          steps: 12,
-          stepLen: 2,
+          maxTrails: 4,
+          steps: 8,
+          stepLen: 3,
           minDistFromLand: 6,
           minTrailSeparation: 14,
-          paradiseBias: 1.2,
-          volcanicBias: 0.9,
-          volcanicPeakChance: 0.28,
+          paradiseBias: 3,
+          volcanicBias: 2,
+          volcanicPeakChance: 0.35,
         },
       },
     },
@@ -341,7 +341,7 @@ export const swooperEarthlikeConfig = {
   },
   "hydrology-climate-baseline": {
     knobs: {
-      dryness: "dry",
+      dryness: "wet",
       temperature: "hot",
       seasonality: "high",
       oceanCoupling: "earthlike",
@@ -349,15 +349,17 @@ export const swooperEarthlikeConfig = {
     },
     "climate-baseline": {
       seasonality: {
-        axialTiltDeg: 29.44,
+        axialTiltDeg: 27.44,
         modeCount: 4,
       },
       computeAtmosphericCirculation: {
         strategy: "default",
         config: {
           windJetStrength: 1.5,
+          windVariance: 0.35,
+          windJetStreaks: 5
         },
-      },
+      }
     },
   },
   "hydrology-hydrography": {
@@ -404,7 +406,7 @@ export const swooperEarthlikeConfig = {
   },
   "hydrology-climate-refine": {
     knobs: {
-      dryness: "dry",
+      dryness: "wet",
       temperature: "hot",
       cryosphere: "on",
     },
@@ -522,7 +524,7 @@ export const swooperEarthlikeConfig = {
         strategy: "default",
         config: {
           temperature: {
-            equator: 33,
+            equator: 34,
             pole: -22,
             lapseRate: 7.5,
             seaLevel: 0,
@@ -533,7 +535,7 @@ export const swooperEarthlikeConfig = {
             tropicalThreshold: 18,
           },
           moisture: {
-            thresholds: [55, 130, 150, 210] as [number, number, number, number],
+            thresholds: [55, 130, 150, 180] as [number, number, number, number],
             bias: 0,
             humidityWeight: 0.42,
           },
@@ -541,12 +543,12 @@ export const swooperEarthlikeConfig = {
             temperatureMin: 0,
             temperatureMax: 37,
             petBase: 19,
-            petTemperatureWeight: 120,
+            petTemperatureWeight: 180,
             humidityDampening: 0.18,
-            rainfallWeight: 1.1,
-            bias: 1.5,
-            normalization: 100,
-            moistureShiftThresholds: [0.32, 0.44] as [number, number],
+            rainfallWeight: 1.8,
+            bias: 1,
+            normalization: 80,
+            moistureShiftThresholds: [0.38, 0.40] as [number, number],
             vegetationPenalty: 0.0,
           },
           freeze: {
@@ -555,9 +557,9 @@ export const swooperEarthlikeConfig = {
           },
           vegetation: {
             base: 0.72,
-            moistureWeight: 0.68,
+            moistureWeight: 0.88,
             humidityWeight: 0.32,
-            moistureNormalizationPadding: 60,
+            moistureNormalizationPadding: 45,
             biomeModifiers: {
               snow: { multiplier: 3.2, bonus: 0.3 },
               tundra: { multiplier: 0.55, bonus: 0 },
