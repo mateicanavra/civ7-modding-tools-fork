@@ -9,6 +9,7 @@ Convert the spikes into an executable slice plan and a single source-of-truth is
 - This is slice planning only. Do not change the model here.
 - Every slice must end in a pipeline-green state (no dual paths).
 - The refactored domain must not retain compat surfaces; downstream adjustments are part of the plan.
+- Do not preserve story/narrative/overlay surfaces in the refactor: replace any load-bearing ones with canonical, domain-anchored contracts and migrate consumers to those.
 - No “later” buckets. Every slice is explicit with deliverables and a branch/subissue plan.
 - Locked decisions must be test-backed in the same slice they are introduced.
 
@@ -19,6 +20,9 @@ Convert the spikes into an executable slice plan and a single source-of-truth is
 ## Required sections (minimum)
 
 - Locked decisions + bans (and how each becomes a guardrail)
+- Narrative overlay removal + replacement plan (required)
+  - State explicitly that story/narrative/overlay surfaces are being deleted (not preserved).
+  - Identify any load-bearing overlay/story surfaces in current consumers and name the canonical domain-anchored replacement contracts (and the slice that performs the migration).
 - Config semantics (link to the Phase 2 table; include default vs explicit policy, missing/empty/null interpretation rules, and determinism expectations for any probabilistic knobs)
   - Restate the locked **knobs + advanced config composition contract** in the issue doc (do not assume reviewers remember it):
     - Advanced config is the typed/defaulted baseline.
@@ -37,6 +41,7 @@ Convert the spikes into an executable slice plan and a single source-of-truth is
   - For any intentional collapses/expansions (spine ↔ boundaries mismatch), record why the benefits outweigh the costs (or vice versa).
   - Include a sprawl risk check: config/artifact proliferation, shared-config threading, and boundary-breaking imports/exports.
 - Consumer inventory + migration matrix (break/fix by slice)
+  - Migration must be contract-driven: consumers move to the canonical domain-anchored contracts (not to story/narrative/overlay shims).
 - Public surface vs internal-only posture (required)
   - Restate the public surface ledger from Phase 2 (which contracts/artifacts downstream should consume).
   - For any consumer currently using internal-only intermediates, assign a plan: promote explicitly (schema/docs/tests + migration) or migrate the consumer to an existing public artifact.
@@ -67,6 +72,8 @@ Re-checked downstream deltas against the new order and verified each slice ends 
 
 - Stage(s) touched (ids + purpose + contract changes + migration notes)
 - Step(s) included (ids + file paths)
+- Narrative overlay removal (required when applicable)
+  - If the slice touches any story/narrative/overlay surface or consumer, include explicit deletions and consumer migrations to canonical domain-anchored contracts.
 - Public surface impact (required when changing outputs)
   - If the slice changes/introduces a downstream-consumable output, classify it explicitly as public surface vs internal-only.
   - For public surface changes: include consumer migration steps and add docs/tests for the contract in the same slice.
@@ -111,6 +118,7 @@ Re-checked downstream deltas against the new order and verified each slice ends 
 - Public surface vs internal-only posture is enforced: downstream consumers are assigned to public contracts (no internal-only imports), and any promotions are explicit with docs/tests + migration steps.
 - Config semantics are referenced (Phase 2 table) and any semantic knob touched by the plan has a test that locks its non-trivial behavior.
 - Knobs + advanced config composition is explicitly restated as a locked contract (“knobs last”) and the plan names tests that cover the explicitly-set-to-default edge case.
+- Story/narrative/overlay surfaces are deleted/replaced as part of the plan, and any load-bearing consumers are migrated to canonical domain-anchored contracts.
 - Step decomposition plan exists (spine → steps → artifacts/buffers).
 - Conceptual decomposition vs pipeline boundary count is explicitly recorded (spine vs boundaries vs internal clarity splits; sprawl/coupling risks are addressed).
 - Consumer inventory + migration matrix exists and assigns changes per slice.

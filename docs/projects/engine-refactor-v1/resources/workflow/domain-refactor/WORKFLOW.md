@@ -77,9 +77,9 @@ Recommended “outside view” doc set (create only what you need; keep it small
 - **Buffers are not artifacts (conceptual rule):** buffers are mutable, shared working layers (e.g., heightfield/elevation, climate field, routing indices) that multiple steps/stages refine over time.
   - **Today (intentional compromise):** some buffers are still routed through artifact contracts for gating/typing; publish the buffer artifact **once**, then mutate the underlying buffer in place (do **not** re-publish).
   - **Modeling posture:** always describe buffers as buffers in domain specs and refactor plans; treat any artifact wrapping as a temporary wiring strategy, not as a domain-model truth statement.
-- **Overlays are not artifacts (conceptual rule):** overlays are append-preferred, structured “stories of formation” (e.g., corridors, swatches) that downstream domains can read and act on.
-  - **Canonical shape:** a single `overlays` container with per-type collections (`overlays.corridors`, `overlays.swatches`, ...). Avoid many top-level overlay artifacts.
-  - **Today (intentional compromise):** overlays are routed through artifact contracts for gating/typing; publish the overlays artifact **once**, then accumulate overlays via `ctx.overlays.*` (append-preferred; mutation is rare and intentional).
+- **Narrative overlays are forbidden (this refactor phase):** treat “stories”, “narratives”, and “overlays” as legacy-only concepts and remove them as dependencies/surfaces.
+  - If a narrative overlay/story artifact is load-bearing today, replace it with a canonical, domain-anchored representation (artifact/buffer/field) and migrate consumers to that contract.
+  - Do not add “non-load-bearing” overlays: they create implicit dependencies and consumer confusion. Narrative/overlay systems can be re-introduced later on top of clean, canonical domain cores.
 - **Compile-time normalization:** defaults + `step.normalize` + `op.normalize`; runtime does not “fix up” config.
 - **Import discipline:** step `contract.ts` imports only `@mapgen/domain/<domain>` + stage-local contracts (e.g. `../artifacts.ts`); no deep imports under `@mapgen/domain/<domain>/**`, and no `@mapgen/domain/<domain>/ops`.
 
@@ -363,9 +363,10 @@ Do a final pass that is explicitly biased toward deletion and purity:
   - no op composition (ops do not call other ops),
   - no runtime callbacks/adapters/RNG crossing the op boundary,
   - normalized config only (no hidden defaulting inside `run(...)`).
-- Confirm “projection vs truth” is explicit:
+- Confirm “non-canonical vs canonical” is explicit:
+  - narrative overlay/story surfaces are not produced/consumed as part of this refactor phase (any remaining ones are planned for deletion and have consumer migrations),
   - any engine/adapter outputs consumed for compatibility are labeled as projections,
-  - canonical truth is owned by the domain model and published as typed artifacts,
+  - canonical truth is owned by the domain model and published as typed artifacts/buffers,
   - any unavoidable projection-only posture has an explicit removal trigger in `docs/projects/engine-refactor-v1/deferrals.md`.
 
 ### Traceability (required)

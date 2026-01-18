@@ -70,7 +70,9 @@ Repeat this loop until the model stabilizes (minimum two passes):
   - State the tradeoffs: why a split is promoted to a boundary (downstream contracts/hooks/observability) vs kept internal (avoid sprawl).
   - Guardrails: avoid config/artifact sprawl, shared-config proliferation, boundary-breaking imports/exports, and ambiguous “public vs internal” surfaces.
 - Conceptual narrative + diagrams (architecture view, data-flow, producer/consumer map; include current vs target pipeline adjustments)
-- Target contract matrix (buffers/artifacts/overlays classification)
+- Target contract matrix (buffers vs artifacts; explicitly no narrative overlays)
+  - Treat “stories”, “narratives”, and “overlays” as legacy-only concepts: do not include them as target-model constructs.
+  - If legacy story/narrative/overlay surfaces exist today, replace any load-bearing ones with canonical, domain-anchored representations and plan consumer migrations to those contracts.
 - Public surface ledger (public vs internal-only; required)
   - Public surface: the contracts/artifacts downstream domains should be able to consume (name intended consumers + invariants).
   - Internal-only: intermediates used for computation/clarity/diagnostics inside the domain (explicitly not downstream contracts unless promoted later).
@@ -93,7 +95,9 @@ Repeat this loop until the model stabilizes (minimum two passes):
 - Decisions + defaults (modeling decisions)
 - Risk register (modeling risks)
 - Golden path (authoritative)
-- Projection policy (explicitly non-canonical)
+- Non-canonical representations policy (explicitly non-canonical)
+  - Engine/adapter projections are allowed only as presentation/interop surfaces; they must not shape the canonical model.
+  - Narrative/story/overlay surfaces are not modeled in this refactor phase (they are legacy to delete/replace).
 - Pipeline delta list (upstream/downstream contract changes implied by the model)
 - Research sources (external references used for modeling, if any)
 - Iteration log (pass #, changes made, and why the model stabilized)
@@ -106,7 +110,7 @@ Repeat this loop until the model stabilizes (minimum two passes):
 ## Gate checklist (Phase 2 completion)
 
 - Target op catalog is deterministic and complete (no alternate models).
-- Buffer/artifact/overlay distinctions match `docs/system/libs/mapgen/architecture.md`.
+- Buffer vs artifact distinctions match `docs/system/libs/mapgen/architecture.md`.
 - Pipeline delta list names downstream consumers that must adapt.
 - Conceptual narrative and diagrams exist and align with the target model.
 - Conceptual decomposition vs pipeline boundary count is explicit and justified (spine vs boundaries vs internal clarity splits; public vs internal surfaces are clear; sprawl risks are assessed).
@@ -122,6 +126,7 @@ Repeat this loop until the model stabilizes (minimum two passes):
 - Config semantics table exists and locks non-trivial semantics with tests; “default vs explicit” policy is stated where relevant.
   - Knobs + advanced config composition is recorded as a single locked contract (“knobs apply last as transforms”) and explicitly bans “presence”/“compare-to-default” gating.
   - At least one test scenario is named that covers the “explicitly set to the default value” edge case.
+- Narrative overlays are eliminated as a concept in the target model: any legacy story/narrative/overlay surfaces are planned for deletion/replacement, and consumers are migrated to canonical domain-anchored contracts.
 - Architecture alignment note exists and conflicts are reconciled or escalated.
 - Authority stack is explicit; PRDs are labeled non-authoritative.
 - Research sources are cited when external research is used.

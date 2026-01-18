@@ -23,11 +23,12 @@ Required output:
    - Identify subdomains and their relationships (causality spine).
 3. Greenfield pipeline-diff exercise (required; upstream + downstream)
    - **Upstream (current vs ideal):**
-     - List what upstream domains/stages provide *today* (artifacts, buffers, overlays, invariants).
+     - List what upstream domains/stages provide *today* (artifacts, buffers, invariants, and any legacy story/narrative/overlay surfaces).
      - Separately list what you would want upstream to provide in an *ideal greenfield world* to make this domain’s best design feasible.
      - Write the **diff** (gaps) as “upstream change candidates” to be considered later in the overall refactor sequence.
    - **Downstream (ideal outputs):**
-     - Describe what this domain should provide downstream if designed ideally (artifacts/buffers/overlays, invariants, contracts).
+     - Describe what this domain should provide downstream if designed ideally (canonical artifacts/buffers, invariants, contracts).
+     - Do not model narrative/story/overlay concepts here; treat any existing story/narrative/overlay surfaces as legacy to delete and replace with canonical, domain-anchored representations.
      - Classify candidate outputs as either:
        - **Public surface**: stable, downstream-consumable contracts with explicit invariants and intended consumers.
        - **Internal-only**: intermediates used for computation/clarity/diagnostics inside the domain (not downstream contracts unless promoted later).
