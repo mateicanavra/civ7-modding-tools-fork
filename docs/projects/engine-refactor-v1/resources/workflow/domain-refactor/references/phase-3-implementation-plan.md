@@ -27,6 +27,11 @@ Convert the spikes into an executable slice plan and a single source-of-truth is
 - Determinism boundary policy (seed-only across boundaries; no RNG objects/functions crossing op boundaries)
 - Stable fix anchors (preferred “config → normalized internal form” / boundary locations where implementation fixes should land to survive later slices)
 - Step decomposition plan (causality spine → step boundaries → artifacts/buffers)
+- Conceptual decomposition vs pipeline boundary count (locked note; required)
+  - Record the full causality spine decomposition (conceptual model layers) separately from the chosen pipeline boundary count.
+  - Identify which splits are promoted to pipeline boundaries (interop/hooks/contracts/observability) vs which are internal clarity splits (internal-only decomposition).
+  - For any intentional collapses/expansions (spine ↔ boundaries mismatch), record why the benefits outweigh the costs (or vice versa).
+  - Include a sprawl risk check: config/artifact proliferation, shared-config threading, and boundary-breaking imports/exports.
 - Consumer inventory + migration matrix (break/fix by slice)
 - Slice list with deliverables
 - Contract deltas per slice
@@ -54,6 +59,10 @@ Re-checked downstream deltas against the new order and verified each slice ends 
 ## Slice plan requirements (per slice)
 
 - Step(s) included (ids + file paths)
+- Boundary/split rationale (required when changing boundaries or adding fine-grained splits)
+  - If the slice introduces a new step/stage boundary (or re-slices an existing boundary), state why: downstream contract/hook value, observability/debugging value, interop requirements.
+  - If the slice introduces an internal clarity split (without changing the boundary count), state where it lives (internal-only) and what it clarifies.
+  - Guardrail: reject splits that force awkward shared config/artifact placement, boundary-breaking imports/exports, or “grab-bag” contract surfaces.
 - Ops introduced/changed (ids + kinds + module paths)
 - Any semantic knobs touched (and where their semantics are locked: Phase 2 table + test names)
 - If a slice touches knob behavior, include at least one concrete “knobs + advanced config compose” example case and name the test(s) that lock it:
@@ -88,6 +97,7 @@ Re-checked downstream deltas against the new order and verified each slice ends 
 - Config semantics are referenced (Phase 2 table) and any semantic knob touched by the plan has a test that locks its non-trivial behavior.
 - Knobs + advanced config composition is explicitly restated as a locked contract (“knobs last”) and the plan names tests that cover the explicitly-set-to-default edge case.
 - Step decomposition plan exists (spine → steps → artifacts/buffers).
+- Conceptual decomposition vs pipeline boundary count is explicitly recorded (spine vs boundaries vs internal clarity splits; sprawl/coupling risks are addressed).
 - Consumer inventory + migration matrix exists and assigns changes per slice.
 
 ## References

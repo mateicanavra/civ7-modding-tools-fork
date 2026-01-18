@@ -136,7 +136,9 @@ Repeat this loop until the model stabilizes:
 1. **Broad pipeline sweep:** what upstream stages produce today vs should produce; what downstream consumers need today vs should need. Identify legacy shims and compat reads.
 2. **Domain deep dive:** use internal specs, earth-physics research, code evidence, and external sources to refine the model.
 3. **Synthesis pass:** draft the canonical model, target contracts, pipeline deltas, and diagrams.
-4. **Fractal refinement:** ask if the model can be decomposed further, if any entities/boundaries should change, and if downstream consumers need alternate shapes. Update the model and diagrams.
+4. **Fractal refinement:** ask if the model can be decomposed further, if any entities/boundaries should change, and if downstream consumers need alternate shapes.
+   - Explicitly distinguish conceptual decomposition (the full causality spine) from pipeline boundary count (stages/steps chosen for interop/hooks/contracts and durability).
+   - Promote splits to boundaries only when they provide durable downstream value; otherwise keep internal clarity splits internal to avoid sprawl and coupling.
 5. **Convergence:** record changes in the iteration log and explain why the model is now stable.
 
 ## Anti-patterns (avoid; common failure modes)
@@ -147,6 +149,7 @@ Repeat this loop until the model stabilizes:
 - **Upstream compat retention:** leaving legacy compat or projection surfaces inside the refactored domain.
 - **Decisions buried in prose:** critical choices not recorded as explicit decisions with rationale and triggers.
 - **Boundary drift:** silent deep imports or `ctx.artifacts` reads that reintroduce coupling during refactor.
+- **Boundary over-splitting:** creating many tiny boundaries that force config/artifact sprawl, shared-config threading, or boundary-breaking imports/exports.
 - **Untracked deltas:** changing contracts without updating the contract matrix or cross-pipeline inventory.
 - **Config bag reuse inside ops:** using a domain-wide config bag in op strategy schemas instead of op-owned config.
 - **Silent legacy carry-through:** retaining legacy properties/rules/functions without an explicit model-relevance decision.
