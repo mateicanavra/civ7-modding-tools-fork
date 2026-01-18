@@ -8,9 +8,9 @@ export const swooperEarthlikeConfig = {
         config: {
           plateCount: 17, // Fewer, larger major plates plus some microplates
           cellsPerPlate: 9, // Slightly denser cells per plate for sharper margins
-          relaxationSteps: 5, // Extra smoothing for coherent plate footprints
+          relaxationSteps: 4, // Extra smoothing for coherent plate footprints
           referenceArea: 16000, // Standard reference
-          plateScalePower: 0.86, // Still heavy-tailed but fewer tiny microplates
+          plateScalePower: 0.83, // Still heavy-tailed but fewer tiny microplates
         },
       },
     },
@@ -28,7 +28,7 @@ export const swooperEarthlikeConfig = {
         config: {
           plateCount: 17, // Match mesh plateCount
           referenceArea: 16000,
-          plateScalePower: 0.86,
+          plateScalePower: 0.83,
         },
       },
     },
@@ -44,8 +44,8 @@ export const swooperEarthlikeConfig = {
         config: {
           boundaryInfluenceDistance: 12, // Broader active margins for realistic orogeny belts
           boundaryDecay: 0.5, // Softer falloff so margins still dominate relief
-          movementScale: 60, // Faster relative drift to energize boundaries
-          rotationScale: 88, // More rotational variance for microplates/torques
+          movementScale: 50, // Faster relative drift to energize boundaries
+          rotationScale: 68, // More rotational variance for microplates/torques
         },
       },
     },
@@ -332,7 +332,7 @@ export const swooperEarthlikeConfig = {
   },
   "hydrology-climate-baseline": {
     knobs: {
-      dryness: "wet",
+      dryness: "dry",
       temperature: "hot",
       seasonality: "high",
       oceanCoupling: "earthlike",
@@ -340,7 +340,7 @@ export const swooperEarthlikeConfig = {
     },
     "climate-baseline": {
       seasonality: {
-        axialTiltDeg: 27.44,
+        axialTiltDeg: 29.44,
         modeCount: 4,
       },
       computeAtmosphericCirculation: {
@@ -348,7 +348,7 @@ export const swooperEarthlikeConfig = {
         config: {
           windJetStrength: 1.5,
           windVariance: 0.35,
-          windJetStreaks: 5
+          windJetStreaks: 4
         },
       }
     },
@@ -360,7 +360,7 @@ export const swooperEarthlikeConfig = {
   },
   "hydrology-climate-refine": {
     knobs: {
-      dryness: "wet",
+      dryness: "dry",
       temperature: "hot",
       cryosphere: "on",
     },
@@ -489,7 +489,7 @@ export const swooperEarthlikeConfig = {
             tropicalThreshold: 18,
           },
           moisture: {
-            thresholds: [55, 130, 150, 180] as [number, number, number, number],
+            thresholds: [85, 130, 150, 180] as [number, number, number, number],
             bias: 0,
             humidityWeight: 0.42,
           },
