@@ -143,6 +143,12 @@ In the final slice, do the “around-the-block” cleanup:
 - update docs/presets/tests that referenced removed legacy structures.
 - if any downstream deprecated shims were added, add a cleanup item in `docs/projects/engine-refactor-v1/triage.md`, or open a dedicated downstream issue if the next domain can remove them safely (link the issue from triage).
 
+Before the full repo gates, run the fast refactor gates:
+```bash
+REFRACTOR_DOMAINS="<domain>" ./scripts/lint/lint-domain-refactor-guardrails.sh
+pnpm check
+```
+
 Then run the full verification gates:
 ```bash
 pnpm -C packages/mapgen-core check
@@ -152,3 +158,7 @@ pnpm -C mods/mod-swooper-maps test
 pnpm -C mods/mod-swooper-maps build
 pnpm deploy:mods
 ```
+
+Finally, do the Phase 5 traceability pass:
+- Update the Phase 3 issue doc Lookback 4 (what changed vs plan, and why).
+- Record true deferrals with explicit triggers in `docs/projects/engine-refactor-v1/deferrals.md` (do not “defer” planned work casually).

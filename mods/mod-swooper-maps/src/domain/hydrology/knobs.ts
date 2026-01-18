@@ -11,7 +11,7 @@ const DrynessSchema = Type.Union(
 const TemperatureSchema = Type.Union(
   [Type.Literal("cold"), Type.Literal("temperate"), Type.Literal("hot")],
   {
-    description: "Global thermal bias (reserved for Phase 3+; does not yet affect legacy climate).",
+    description: "Global thermal bias (affects baseline surface temperature; influences cryosphere formation).",
     default: "temperate",
   }
 );
@@ -19,7 +19,7 @@ const TemperatureSchema = Type.Union(
 const SeasonalitySchema = Type.Union(
   [Type.Literal("low"), Type.Literal("normal"), Type.Literal("high")],
   {
-    description: "Seasonal amplitude intent (reserved for Phase 3+; does not yet affect legacy climate).",
+    description: "Seasonal amplitude intent (affects wind variability and precipitation noise structure).",
     default: "normal",
   }
 );
@@ -27,26 +27,26 @@ const SeasonalitySchema = Type.Union(
 const OceanCouplingSchema = Type.Union(
   [Type.Literal("off"), Type.Literal("simple"), Type.Literal("earthlike")],
   {
-    description: "Ocean influence intent (reserved for Phase 3+; used as a weak wind-fields preset in legacy).",
+    description: "Ocean influence preset (affects wind jets, surface currents, and moisture transport iterations).",
     default: "earthlike",
   }
 );
 
 const CryosphereSchema = Type.Union([Type.Literal("off"), Type.Literal("on")], {
-  description: "Enables cryosphere/albedo feedback (reserved for Phase 3+; no-op in legacy).",
+  description: "Enables bounded cryosphere/albedo feedback and cryosphere state products.",
   default: "on",
 });
 
 const RiverDensitySchema = Type.Union(
   [Type.Literal("sparse"), Type.Literal("normal"), Type.Literal("dense")],
   {
-    description: "Gameplay projection density knob (maps to engine river length thresholds in legacy).",
+    description: "River network projection density (affects discharge-derived minor/major classification thresholds).",
     default: "normal",
   }
 );
 
 const LakeinessSchema = Type.Union([Type.Literal("few"), Type.Literal("normal"), Type.Literal("many")], {
-  description: "Global basin fill / lake frequency bias (maps to engine lake frequency multiplier in legacy).",
+  description: "Lake frequency bias (affects the lake projection rate; does not change discharge routing).",
   default: "normal",
 });
 
@@ -97,4 +97,3 @@ export function resolveHydrologyKnobs(knobs: Partial<HydrologyKnobs> | null | un
     lakeiness: input.lakeiness ?? DEFAULT_HYDROLOGY_KNOBS.lakeiness,
   } as const;
 }
-

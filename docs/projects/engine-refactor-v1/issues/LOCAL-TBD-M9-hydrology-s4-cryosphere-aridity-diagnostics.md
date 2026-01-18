@@ -1,6 +1,6 @@
 id: LOCAL-TBD-M9-hydrology-s4-cryosphere-aridity-diagnostics
 title: "M9 / Slice 4 — Cryosphere + aridity + diagnostics (additive artifacts)"
-state: planned
+state: done
 priority: 1
 estimate: 16
 project: engine-refactor-v1

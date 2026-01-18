@@ -297,7 +297,32 @@ Required focus:
 
 ## Phase 5 verification + cleanup
 
-Verification gates (must be green):
+Phase 5 is where we make the refactor **ruthless and pure**:
+- prove the architecture invariants (no silent coupling, no dual-path compute, no hidden defaults),
+- remove any remaining refactor scaffolding or legacy shadows, and
+- leave a clean, reviewable stack that can merge without follow-up “cleanup PRs”.
+
+### Phase 5 scope (hard rules)
+
+- No Phase 2 model changes. If you discover a model problem, stop and open a modeling follow-up; do not “patch the model” opportunistically during cleanup.
+- No dual-path compute. If something still depends on an old path, either migrate it now or record an explicit deferral with a trigger.
+- No domain-local compatibility. Temporary compatibility lives downstream (explicit shims), not inside the refactored domain.
+
+### Verification gates (must be green)
+
+Run the **domain guardrails first** (fast feedback), then the full repo gates (slow feedback).
+
+Domain guardrails (domain-scoped; mandatory):
+```bash
+REFRACTOR_DOMAINS="<domain>" ./scripts/lint/lint-domain-refactor-guardrails.sh
+```
+
+Repo-level check (fast-ish; catches type drift + guardrails):
+```bash
+pnpm check
+```
+
+Full verification gates (must be green before “done”):
 ```bash
 pnpm -C packages/mapgen-core check
 pnpm -C packages/mapgen-core test
@@ -307,12 +332,41 @@ pnpm -C mods/mod-swooper-maps build
 pnpm deploy:mods
 ```
 
+If a gate is not runnable due to environment constraints (e.g., deploy requires Civ7), record:
+- which gate failed to run,
+- why it is environmental (not code-related),
+- and what surrogate evidence exists (CI job, narrower check, etc.).
+
+### Ruthlessness pass (cleanup checklist)
+
+Do a final pass that is explicitly biased toward deletion and purity:
+
+- Delete any now-unused legacy helpers, compat exports, and unused re-exports that bypass the op boundary.
+- Confirm steps are orchestration-only:
+  - no imports of op implementations,
+  - no alternate dependency access paths (no `ctx.deps`),
+  - no ad-hoc artifact imports in steps (read/publish via `deps.artifacts.*` only).
+- Confirm ops are contract-first and atomic:
+  - no op composition (ops do not call other ops),
+  - no runtime callbacks/adapters/RNG crossing the op boundary,
+  - normalized config only (no hidden defaulting inside `run(...)`).
+- Confirm “projection vs truth” is explicit:
+  - any engine/adapter outputs consumed for compatibility are labeled as projections,
+  - canonical truth is owned by the domain model and published as typed artifacts,
+  - any unavoidable projection-only posture has an explicit removal trigger in `docs/projects/engine-refactor-v1/deferrals.md`.
+
+### Traceability (required)
+
+- Update the Phase 3 issue’s **Lookback 4** section (plan vs actual; why; what changed).
+- Ensure deferrals and triggers are recorded (only true deferrals; no “unfinished planned work”).
+- Ensure cross-cutting decisions are captured in `docs/projects/engine-refactor-v1/triage.md` when they affect other domains.
+
 Submit:
 ```bash
 gt ss --draft
 ```
 
-Worktree cleanup (after submission):
+Worktree cleanup (after the stack is merged):
 ```bash
 git worktree list
 ```
@@ -380,7 +434,7 @@ Workflow package references:
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/phase-3-implementation-plan.md`
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/implementation-reference.md`
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/implementation-traps-and-locked-decisions.md`
-- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/subflows/IMPLEMENTATION.md`
+- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/IMPLEMENTATION.md`
 
 Prior art / sequencing helpers:
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/examples/VOLCANO.md`
