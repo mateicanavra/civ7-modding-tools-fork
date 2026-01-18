@@ -25,6 +25,13 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return value !== null && typeof value === "object" && !Array.isArray(value);
 }
 
+function clampInt(value: number, min: number, max: number): number {
+  const int = Math.trunc(value);
+  if (int < min) return min;
+  if (int > max) return max;
+  return int;
+}
+
 function validateTypedArray(
   errors: ArtifactValidationIssue[],
   label: string,
@@ -81,10 +88,14 @@ export default createStep(RiversStepContract, {
     const minLengthDelta = bounds.minLength - normalBounds.minLength;
     const maxLengthDelta = bounds.maxLength - normalBounds.maxLength;
 
+    const minLength = clampInt(config.minLength + minLengthDelta, 1, 40);
+    let maxLength = clampInt(config.maxLength + maxLengthDelta, 1, 80);
+    if (maxLength < minLength) maxLength = minLength;
+
     const next = {
       ...config,
-      minLength: Math.max(0, (config.minLength ?? 0) + minLengthDelta),
-      maxLength: Math.max(0, (config.maxLength ?? 0) + maxLengthDelta),
+      minLength,
+      maxLength,
     };
 
     if (next.projectRiverNetwork.strategy !== "default") return next;
