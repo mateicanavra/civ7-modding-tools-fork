@@ -33,22 +33,28 @@ Required output:
 ## Required sections (minimum)
 
 - Greenfield domain narrative (earth-physics-first; unconstrained by existing code)
+- Executive vision (1 paragraph: what capability this unlocks for the pipeline)
 - Boundary sketch (what this domain owns vs what neighbors own)
 - Ideal subdomain decomposition + causality spine
+- Parameterization posture (semantic knobs vs forbidden authored overrides)
 - Upstream inventory (current): “what exists today that we can consume”
 - Upstream requirements (ideal): “what we would want in a greenfield world”
 - Upstream diff: “gaps that justify upstream modifications later”
 - Downstream outputs (ideal): “what we should provide downstream”
 - Downstream enablement: “how ideal outputs unlock downstream domains”
 - Downstream diff: “downstream changes implied by the ideal design”
+- Performance + memory reality (what must be bounded; e.g., fixed-pass loops, discretized time)
 - Open questions + research backlog
 
 ## Gate checklist (Phase 0.5 completion)
 
 - Greenfield narrative exists and is earth-physics-grounded.
+- Executive vision exists and names the pipeline capability unlocked.
 - Domain boundary sketch exists and names neighbor domains explicitly.
 - Upstream current vs ideal lists exist and a diff is written.
 - Downstream ideal outputs exist and downstream implications are written.
+- Parameterization posture exists and separates semantic knobs from forbidden authored overrides.
+- Performance/memory notes exist (what would be bounded in a real implementation).
 - Open questions list exists (things to validate during Phase 1/2).
 
 References:

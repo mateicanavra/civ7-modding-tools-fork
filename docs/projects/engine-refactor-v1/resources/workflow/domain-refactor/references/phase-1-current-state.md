@@ -14,9 +14,11 @@ Required output:
 - `docs/projects/engine-refactor-v1/resources/spike/spike-<domain>-current-state.md`
 
 Required sections (minimum):
+- Executive snapshot (what the evidence says; 5–10 bullets)
 - Domain surface inventory (outside view)
 - Contract matrix (current-state)
 - Legacy surface inventory (config properties + rules/policies + functions)
+- Legacy intervention mechanisms (if any): authored/non-derivative “outcome overrides” that perturb the domain’s outputs
 - Upstream authoritative input review (if non-root)
 - Upstream handoff review (changes to this domain made by the prior refactor)
 - Downstream consumer inventory (current usage + contract dependencies)
@@ -45,6 +47,7 @@ Inventory checklist (do not skip):
 Gate checklist (Phase 1 completion):
 - The spike contains all five “living artifacts” sections (inventory, contract matrix, decisions, risks, golden path).
 - Every boundary violation in scope is either listed as a deletion target or explicitly deferred.
+- Any legacy “intervention mechanisms” are inventoried as evidence (no target-model endorsement).
 - The deletion list exists and is concrete (symbols + file paths).
 - Legacy surface inventory is complete (no “TBD” placeholders).
 - Upstream authoritative inputs are reviewed and logged (if the domain is not the pipeline root).

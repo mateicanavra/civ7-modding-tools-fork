@@ -20,6 +20,7 @@ Convert the spikes into an executable slice plan and a single source-of-truth is
 
 - Locked decisions + bans (and how each becomes a guardrail)
 - Config semantics (link to the Phase 2 table; include default vs explicit policy, missing/empty/null interpretation rules, and determinism expectations for any probabilistic knobs)
+- Determinism boundary policy (seed-only across boundaries; no RNG objects/functions crossing op boundaries)
 - Stable fix anchors (preferred “config → normalized internal form” / boundary locations where implementation fixes should land to survive later slices)
 - Step decomposition plan (causality spine → step boundaries → artifacts/buffers)
 - Consumer inventory + migration matrix (break/fix by slice)
