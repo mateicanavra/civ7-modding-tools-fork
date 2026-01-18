@@ -3,6 +3,13 @@ import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import ClimateRefineStepContract from "./climateRefine.contract.js";
 import { hydrologyClimateRefineArtifacts } from "../artifacts.js";
 import { computeRiverAdjacencyMaskFromRiverClass } from "../../hydrology-hydrography/river-adjacency.js";
+import {
+  HYDROLOGY_DRYNESS_WETNESS_SCALE,
+  HYDROLOGY_REFINE_LOW_BASIN_DELTA_BASE,
+  HYDROLOGY_REFINE_RIVER_CORRIDOR_HIGHLAND_ADJACENCY_BONUS_BASE,
+  HYDROLOGY_REFINE_RIVER_CORRIDOR_LOWLAND_ADJACENCY_BONUS_BASE,
+  HYDROLOGY_TEMPERATURE_BASE_TEMPERATURE_C,
+} from "@mapgen/domain/hydrology/shared/knob-multipliers.js";
 
 type ArtifactValidationIssue = Readonly<{ message: string }>;
 
@@ -99,8 +106,8 @@ export default createStep(ClimateRefineStepContract, {
     const cryosphereRaw = knobs.cryosphere;
     const cryosphere = cryosphereRaw === "off" || cryosphereRaw === "on" ? cryosphereRaw : "on";
 
-    const wetnessScale = dryness === "wet" ? 1.15 : dryness === "dry" ? 0.85 : 1.0;
-    const baseTemperatureC = temperature === "cold" ? 6 : temperature === "hot" ? 22 : 14;
+    const wetnessScale = HYDROLOGY_DRYNESS_WETNESS_SCALE[dryness];
+    const baseTemperatureC = HYDROLOGY_TEMPERATURE_BASE_TEMPERATURE_C[temperature];
     const cryosphereOn = cryosphere !== "off";
 
     const next = { ...config };
@@ -127,7 +134,7 @@ export default createStep(ClimateRefineStepContract, {
 
     if (
       next.computeThermalState.strategy === "default" &&
-      next.computeThermalState.config.baseTemperatureC === 14
+      next.computeThermalState.config.baseTemperatureC === HYDROLOGY_TEMPERATURE_BASE_TEMPERATURE_C.temperate
     ) {
       next.computeThermalState = {
         ...next.computeThermalState,
@@ -137,8 +144,13 @@ export default createStep(ClimateRefineStepContract, {
 
     if (next.computePrecipitation.strategy === "refine") {
       const cur = next.computePrecipitation.config;
-      if (cur.riverCorridor.lowlandAdjacencyBonus == null || cur.riverCorridor.lowlandAdjacencyBonus === 14) {
-        const lowlandAdjacencyBonus = Math.round(14 * wetnessScale);
+      if (
+        cur.riverCorridor.lowlandAdjacencyBonus == null ||
+        cur.riverCorridor.lowlandAdjacencyBonus === HYDROLOGY_REFINE_RIVER_CORRIDOR_LOWLAND_ADJACENCY_BONUS_BASE
+      ) {
+        const lowlandAdjacencyBonus = Math.round(
+          HYDROLOGY_REFINE_RIVER_CORRIDOR_LOWLAND_ADJACENCY_BONUS_BASE * wetnessScale
+        );
         next.computePrecipitation = {
           ...next.computePrecipitation,
           config: {
@@ -147,8 +159,13 @@ export default createStep(ClimateRefineStepContract, {
           },
         };
       }
-      if (cur.riverCorridor.highlandAdjacencyBonus == null || cur.riverCorridor.highlandAdjacencyBonus === 10) {
-        const highlandAdjacencyBonus = Math.round(10 * wetnessScale);
+      if (
+        cur.riverCorridor.highlandAdjacencyBonus == null ||
+        cur.riverCorridor.highlandAdjacencyBonus === HYDROLOGY_REFINE_RIVER_CORRIDOR_HIGHLAND_ADJACENCY_BONUS_BASE
+      ) {
+        const highlandAdjacencyBonus = Math.round(
+          HYDROLOGY_REFINE_RIVER_CORRIDOR_HIGHLAND_ADJACENCY_BONUS_BASE * wetnessScale
+        );
         next.computePrecipitation = {
           ...next.computePrecipitation,
           config: {
@@ -157,8 +174,11 @@ export default createStep(ClimateRefineStepContract, {
           },
         };
       }
-      if (cur.lowBasin.delta == null || cur.lowBasin.delta === 6) {
-        const delta = Math.round(6 * wetnessScale);
+      if (
+        cur.lowBasin.delta == null ||
+        cur.lowBasin.delta === HYDROLOGY_REFINE_LOW_BASIN_DELTA_BASE
+      ) {
+        const delta = Math.round(HYDROLOGY_REFINE_LOW_BASIN_DELTA_BASE * wetnessScale);
         next.computePrecipitation = {
           ...next.computePrecipitation,
           config: {

@@ -23,8 +23,11 @@ See `docs/system/libs/mapgen/hydrology.md` for the **conceptual domain spec** (c
 
 Hydrology is configured via a small set of **semantic knobs** (scenario-level intent), not algorithm parameters:
 
-- Schema: `mods/mod-swooper-maps/src/domain/hydrology/knobs.ts` (`HydrologyKnobsSchema`)
-- Resolver: `mods/mod-swooper-maps/src/domain/hydrology/knobs.ts` (`resolveHydrologyKnobs`)
+- Leaf knob schemas + resolver: `mods/mod-swooper-maps/src/domain/hydrology/shared/knobs.ts`
+- Stage-scoped `knobsSchema` definitions live inline at the stage boundary:
+  - `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-baseline/index.ts`
+  - `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-hydrography/index.ts`
+  - `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-refine/index.ts`
 
 Semantics:
 - Missing/undefined → defaults.
@@ -40,6 +43,31 @@ Practical guidance:
 - `cryosphere`: enables/disables bounded cryosphere/albedo feedback and cryosphere products.
 - `riverDensity`: river projection density (thresholding on discharge-derived fields; monotonic).
 - `lakeiness`: lake projection frequency (does not change routing/discharge truth).
+
+## Knob mappings (knob → numeric)
+
+Knobs compile into numeric parameters through **named internal mappings** (no “magic numbers” in random normalize code).
+
+- Source of truth: `mods/mod-swooper-maps/src/domain/hydrology/shared/knob-multipliers.ts`
+- `dryness`:
+  - `wet` → `wetnessScale = 1.15`
+  - `mix` → `wetnessScale = 1.0`
+  - `dry` → `wetnessScale = 0.85`
+- `temperature`:
+  - `cold` → `baseTemperatureC = 6`
+  - `temperate` → `baseTemperatureC = 14`
+  - `hot` → `baseTemperatureC = 22`
+- `seasonality`:
+  - `low` → `windJetStreaks = 2`, `windVariance = 0.45`, `noiseAmplitude = 5`, `modeCount=2`, `axialTiltDeg=12`
+  - `normal` → `windJetStreaks = 3`, `windVariance = 0.6`, `noiseAmplitude = 6`, `modeCount=2`, `axialTiltDeg=18`
+  - `high` → `windJetStreaks = 4`, `windVariance = 0.75`, `noiseAmplitude = 8`, `modeCount=4`, `axialTiltDeg=23.44`
+- `oceanCoupling`:
+  - `off` → `windJetStrength = 0.85`, `currentStrength = 0`, `transportIterations = 18`, `waterGradient.radius = 4`
+  - `simple` → `windJetStrength = 1.0`, `currentStrength = 0.75`, `transportIterations = 24`, `waterGradient.radius = 5`
+  - `earthlike` → `windJetStrength = 1.05`, `currentStrength = 1.0`, `transportIterations = 28`, `waterGradient.radius = 6`
+- `lakeiness`: `tilesPerLakeMultiplier` (`few=1.5`, `normal=1.0`, `many=0.7`)
+- `riverDensity`:
+  - Length bounds (`minLength`/`maxLength`) and projection thresholds (`minorPercentile`/`majorPercentile`) are mapped by density preset.
 
 ## Stages, steps, and step configs (recipe-facing)
 
