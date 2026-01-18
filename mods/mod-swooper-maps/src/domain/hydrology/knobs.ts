@@ -22,7 +22,7 @@ const SeasonalitySchema = Type.Union(
   [Type.Literal("low"), Type.Literal("normal"), Type.Literal("high")],
   {
     description:
-      "Seasonal amplitude intent (affects wind variability and precipitation noise structure). Used by hydrology-climate-baseline only; does not affect hydrology-hydrography or hydrology-climate-refine.",
+      "Seasonal forcing intent (affects baseline declination forcing posture and precipitation noise structure). Used by hydrology-climate-baseline; downstream stages consume the resulting annual mean + amplitude artifacts.",
     default: "normal",
   }
 );
@@ -73,7 +73,7 @@ const LakeinessSchema = Type.Union([Type.Literal("few"), Type.Literal("normal"),
  * Practical guidance (“if X then Y”):
  * - If you want the map globally wetter/drier, change `dryness` (this scales rainfall and moisture sources globally).
  * - If you want colder/hotter climates (snowline shifts, PET changes), change `temperature`.
- * - If you want more/less seasonal texture (wind variability and rainfall noise), change `seasonality`.
+ * - If you want stronger/weaker seasonal cycles (annual amplitude fields), change `seasonality`.
  * - If you want weaker/stronger coastal/ocean influence, change `oceanCoupling` (affects currents + transport iterations).
  * - If you want less/more ice feedback, change `cryosphere` (turns cryosphere ops on/off; does not add compat paths).
  * - If you want fewer/more rivers *in projection*, change `riverDensity` (thresholding on discharge-derived fields).
@@ -102,7 +102,13 @@ export const HydrologyKnobsSchema = Type.Object(
     /**
      * Seasonal amplitude intent.
      *
-     * If you need higher climatic variability / more textured wind + rainfall noise, prefer `seasonality: "high"`.
+     * This knob controls Hydrology’s *seasonal forcing posture* during baseline climate computation:
+     * - It influences the internal seasonal sampling count (2 or 4 modes).
+     * - It influences the effective axial tilt used to produce seasonal differences.
+     * - It still tunes wind and rainfall noise texture.
+     *
+     * Hydrology publishes only the annual mean (via `artifact:climateField`) and the corresponding seasonal amplitudes
+     * (via `artifact:hydrology.climateSeasonality`); it does not publish per-season climate snapshots as public API.
      *
      * Stage scope:
      * - Used by `hydrology-climate-baseline` only.

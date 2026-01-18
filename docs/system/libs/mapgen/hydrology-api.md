@@ -35,7 +35,7 @@ Semantics:
 Practical guidance:
 - `dryness`: global wet/dry bias (scales rainfall + moisture supply; not regional “paint”).
 - `temperature`: global thermal bias (baseline temperature; influences cryosphere).
-- `seasonality`: seasonal texture intent (winds variability + rainfall noise structure).
+- `seasonality`: seasonal cycle intent (annual amplitude fields + wind/precip texture; Hydrology does not publish per-season snapshots).
 - `oceanCoupling`: ocean influence preset (winds, currents, transport iterations).
 - `cryosphere`: enables/disables bounded cryosphere/albedo feedback and cryosphere products.
 - `riverDensity`: river projection density (thresholding on discharge-derived fields; monotonic).
@@ -54,7 +54,7 @@ Stage public config:
 
 Step config schemas:
 - Lakes: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-baseline/steps/lakes.contract.ts` (`tilesPerLakeMultiplier`)
-- Climate baseline: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-baseline/steps/climateBaseline.contract.ts` (empty; knobs only)
+- Climate baseline: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-baseline/steps/climateBaseline.contract.ts` (advanced seasonality override only; knobs preferred)
 - Rivers: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-hydrography/steps/rivers.contract.ts` (`minLength`/`maxLength`, engine projection-only)
 - Climate refine: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-refine/steps/climateRefine.contract.ts` (empty; knobs only)
 
@@ -64,6 +64,7 @@ Hydrology publishes typed artifacts for dependency gating and stable consumption
 
 - `artifact:heightfield`: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-baseline/artifacts.ts` (`HeightfieldArtifactSchema`)
 - `artifact:climateField`: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-baseline/artifacts.ts` (`ClimateFieldArtifactSchema`)
+- `artifact:hydrology.climateSeasonality`: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-baseline/artifacts.ts` (`ClimateSeasonalityArtifactSchema`)
 - `artifact:hydrology._internal.windField`: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-baseline/artifacts.ts` (`HydrologyWindFieldSchema`, internal)
 - `artifact:hydrology.hydrography`: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-hydrography/artifacts.ts` (`HydrologyHydrographyArtifactSchema`, canonical read path)
 - `artifact:hydrology.climateIndices`: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-refine/artifacts.ts` (`HydrologyClimateIndicesSchema`)
