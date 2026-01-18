@@ -8,6 +8,15 @@ import {
 import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import { hydrologyHydrographyArtifacts } from "../artifacts.js";
 import RiversStepContract from "./rivers.contract.js";
+import {
+  HYDROLOGY_PROJECT_RIVER_NETWORK_MAJOR_PERCENTILE_DEFAULT,
+  HYDROLOGY_PROJECT_RIVER_NETWORK_MINOR_PERCENTILE_DEFAULT,
+  HYDROLOGY_RIVER_DENSITY_LENGTH_BOUNDS,
+  HYDROLOGY_RIVER_DENSITY_MAJOR_PERCENTILE,
+  HYDROLOGY_RIVER_DENSITY_MINOR_PERCENTILE,
+  HYDROLOGY_RIVERS_DEFAULT_MAX_LENGTH,
+  HYDROLOGY_RIVERS_DEFAULT_MIN_LENGTH,
+} from "@mapgen/domain/hydrology/shared/knob-multipliers.js";
 
 type ArtifactValidationIssue = Readonly<{ message: string }>;
 
@@ -78,35 +87,28 @@ export default createStep(RiversStepContract, {
 
     const next = { ...config };
 
-    if (next.minLength === 5 && next.maxLength === 15) {
-      const lengths =
-        riverDensity === "dense"
-          ? { minLength: 3, maxLength: 12 }
-          : riverDensity === "sparse"
-            ? { minLength: 7, maxLength: 18 }
-            : { minLength: 5, maxLength: 15 };
-      next.minLength = lengths.minLength;
-      next.maxLength = lengths.maxLength;
+    if (next.minLength === HYDROLOGY_RIVERS_DEFAULT_MIN_LENGTH && next.maxLength === HYDROLOGY_RIVERS_DEFAULT_MAX_LENGTH) {
+      const bounds = HYDROLOGY_RIVER_DENSITY_LENGTH_BOUNDS[riverDensity];
+      next.minLength = bounds.minLength;
+      next.maxLength = bounds.maxLength;
     }
 
     if (next.projectRiverNetwork.strategy === "default") {
-      if (next.projectRiverNetwork.config.minorPercentile === 0.85) {
+      if (next.projectRiverNetwork.config.minorPercentile === HYDROLOGY_PROJECT_RIVER_NETWORK_MINOR_PERCENTILE_DEFAULT) {
         next.projectRiverNetwork = {
           ...next.projectRiverNetwork,
           config: {
             ...next.projectRiverNetwork.config,
-            minorPercentile:
-              riverDensity === "dense" ? 0.75 : riverDensity === "sparse" ? 0.88 : 0.82,
+            minorPercentile: HYDROLOGY_RIVER_DENSITY_MINOR_PERCENTILE[riverDensity],
           },
         };
       }
-      if (next.projectRiverNetwork.config.majorPercentile === 0.95) {
+      if (next.projectRiverNetwork.config.majorPercentile === HYDROLOGY_PROJECT_RIVER_NETWORK_MAJOR_PERCENTILE_DEFAULT) {
         next.projectRiverNetwork = {
           ...next.projectRiverNetwork,
           config: {
             ...next.projectRiverNetwork.config,
-            majorPercentile:
-              riverDensity === "dense" ? 0.9 : riverDensity === "sparse" ? 0.97 : 0.94,
+            majorPercentile: HYDROLOGY_RIVER_DENSITY_MAJOR_PERCENTILE[riverDensity],
           },
         };
       }
