@@ -6,7 +6,6 @@ export interface NarrativeCorridors {
   seaLanes: Set<string>;
   islandHops: Set<string>;
   landCorridors: Set<string>;
-  riverCorridors: Set<string>;
   kindByTile: Map<string, CorridorKind>;
   styleByTile: Map<string, CorridorStyle>;
   attributesByTile: Map<string, NarrativeCorridorAttributes>;

@@ -170,15 +170,6 @@ export const swooperEarthlikeConfig = {
           minRunLength: 26,
           spacing: 1,
         },
-        river: {
-          biomesBiasStrength: 0.5,
-          maxChains: 2,
-          maxSteps: 90,
-          preferLowlandBelow: 340,
-          coastSeedRadius: 2,
-          minTiles: 0,
-          mustEndNearCoast: false,
-        },
         islandHop: {
           useHotspots: true,
           maxArcs: 2,
