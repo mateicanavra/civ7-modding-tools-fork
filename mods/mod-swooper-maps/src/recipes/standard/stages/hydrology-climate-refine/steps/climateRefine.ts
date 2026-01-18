@@ -1,7 +1,7 @@
 import { ctxRandom, ctxRandomLabel, logRainfallStats, writeClimateField } from "@swooper/mapgen-core";
 import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import ClimateRefineStepContract from "./climateRefine.contract.js";
-import { hydrologyPostArtifacts } from "../artifacts.js";
+import { hydrologyClimateRefineArtifacts } from "../artifacts.js";
 
 type ArtifactValidationIssue = Readonly<{ message: string }>;
 
@@ -32,9 +32,9 @@ function validateTypedArray(
 export default createStep(ClimateRefineStepContract, {
   artifacts: implementArtifacts(
     [
-      hydrologyPostArtifacts.climateIndices,
-      hydrologyPostArtifacts.cryosphere,
-      hydrologyPostArtifacts.climateDiagnostics,
+      hydrologyClimateRefineArtifacts.climateIndices,
+      hydrologyClimateRefineArtifacts.cryosphere,
+      hydrologyClimateRefineArtifacts.climateDiagnostics,
     ],
     {
       climateIndices: {
@@ -107,7 +107,20 @@ export default createStep(ClimateRefineStepContract, {
     if (next.computePrecipitation.strategy !== "refine") {
       next.computePrecipitation = {
         strategy: "refine",
-        config: { riverCorridor: {}, lowBasin: {} },
+        config: {
+          riverCorridor: {
+            adjacencyRadius: 1,
+            lowlandAdjacencyBonus: 14,
+            highlandAdjacencyBonus: 10,
+            lowlandElevationMax: 250,
+          },
+          lowBasin: {
+            radius: 2,
+            delta: 6,
+            elevationMax: 200,
+            openThresholdM: 20,
+          },
+        },
       };
     }
 

@@ -1,7 +1,7 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
 import ecology from "@mapgen/domain/ecology";
 import { ecologyArtifacts } from "../../artifacts.js";
-import { hydrologyPreArtifacts } from "../../../hydrology-pre/artifacts.js";
+import { hydrologyClimateBaselineArtifacts } from "../../../hydrology-climate-baseline/artifacts.js";
 
 const ResourceBasinsStepContract = defineStep({
   id: "resource-basins",
@@ -11,8 +11,8 @@ const ResourceBasinsStepContract = defineStep({
   artifacts: {
     requires: [
       ecologyArtifacts.pedology,
-      hydrologyPreArtifacts.heightfield,
-      hydrologyPreArtifacts.climateField,
+      hydrologyClimateBaselineArtifacts.heightfield,
+      hydrologyClimateBaselineArtifacts.climateField,
     ],
     provides: [ecologyArtifacts.resourceBasins],
   },

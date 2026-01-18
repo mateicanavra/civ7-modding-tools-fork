@@ -1,7 +1,7 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
 import hydrology from "@mapgen/domain/hydrology";
 
-import { hydrologyPreArtifacts } from "../artifacts.js";
+import { hydrologyClimateBaselineArtifacts } from "../artifacts.js";
 
 /**
  * Hydrology baseline climate step (mechanism-driven).
@@ -27,8 +27,8 @@ const ClimateBaselineStepContract = defineStep({
   requires: [],
   provides: [],
   artifacts: {
-    requires: [hydrologyPreArtifacts.heightfield],
-    provides: [hydrologyPreArtifacts.climateField, hydrologyPreArtifacts.windField],
+    requires: [hydrologyClimateBaselineArtifacts.heightfield],
+    provides: [hydrologyClimateBaselineArtifacts.climateField, hydrologyClimateBaselineArtifacts.windField],
   },
   ops: {
     computeRadiativeForcing: hydrology.ops.computeRadiativeForcing,

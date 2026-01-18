@@ -2,7 +2,7 @@ import type { MapDimensions } from "@civ7/adapter";
 import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import { syncHeightfield } from "@swooper/mapgen-core";
 import { getStandardRuntime } from "../../../runtime.js";
-import { hydrologyPreArtifacts } from "../artifacts.js";
+import { hydrologyClimateBaselineArtifacts } from "../artifacts.js";
 import LakesStepContract from "./lakes.contract.js";
 
 type ArtifactValidationIssue = Readonly<{ message: string }>;
@@ -56,7 +56,7 @@ function validateHeightfieldBuffer(
 }
 
 export default createStep(LakesStepContract, {
-  artifacts: implementArtifacts([hydrologyPreArtifacts.heightfield], {
+  artifacts: implementArtifacts([hydrologyClimateBaselineArtifacts.heightfield], {
     heightfield: {
       validate: (value, context) => validateHeightfieldBuffer(value, context.dimensions),
     },

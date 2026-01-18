@@ -23,10 +23,10 @@ describe("standard recipe composition", () => {
       "morphology-mid",
       "narrative-mid",
       "morphology-post",
-      "hydrology-pre",
-      "hydrology-core",
+      "hydrology-climate-baseline",
+      "hydrology-hydrography",
       "narrative-post",
-      "hydrology-post",
+      "hydrology-climate-refine",
       "ecology",
       "placement",
     ];

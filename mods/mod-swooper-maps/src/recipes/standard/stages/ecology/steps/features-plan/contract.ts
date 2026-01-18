@@ -1,7 +1,7 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
 import ecology from "@mapgen/domain/ecology";
 import { ecologyArtifacts } from "../../artifacts.js";
-import { hydrologyPreArtifacts } from "../../../hydrology-pre/artifacts.js";
+import { hydrologyClimateBaselineArtifacts } from "../../../hydrology-climate-baseline/artifacts.js";
 
 const FeaturesPlanStepContract = defineStep({
   id: "features-plan",
@@ -11,7 +11,7 @@ const FeaturesPlanStepContract = defineStep({
   artifacts: {
     requires: [
       ecologyArtifacts.biomeClassification,
-      hydrologyPreArtifacts.heightfield,
+      hydrologyClimateBaselineArtifacts.heightfield,
       ecologyArtifacts.pedology,
     ],
     provides: [ecologyArtifacts.featureIntents],

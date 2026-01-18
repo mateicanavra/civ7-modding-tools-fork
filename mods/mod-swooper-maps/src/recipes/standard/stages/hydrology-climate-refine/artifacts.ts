@@ -70,7 +70,7 @@ export const HydrologyClimateDiagnosticsSchema = Type.Object(
   }
 );
 
-export const hydrologyPostArtifacts = {
+export const hydrologyClimateRefineArtifacts = {
   climateIndices: defineArtifact({
     name: "climateIndices",
     id: "artifact:hydrology.climateIndices",

@@ -1,11 +1,11 @@
 import { createStage } from "@swooper/mapgen-core/authoring";
-import { climateBaseline, lakes } from "./steps/index.js";
+import { climateRefine } from "./steps/index.js";
 import {
   HydrologyKnobsSchema,
 } from "@mapgen/domain/hydrology/knobs.js";
 
 export default createStage({
-  id: "hydrology-pre",
+  id: "hydrology-climate-refine",
   knobsSchema: HydrologyKnobsSchema,
-  steps: [lakes, climateBaseline],
+  steps: [climateRefine],
 } as const);
