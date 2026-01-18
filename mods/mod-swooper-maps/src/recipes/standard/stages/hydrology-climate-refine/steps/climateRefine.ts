@@ -203,10 +203,7 @@ export default createStep(ClimateRefineStepContract, {
       width,
       height,
       riverClass: hydrography.riverClass,
-      radius:
-        config.computePrecipitation.strategy === "refine"
-          ? 0
-          : 1,
+      radius: 1,
     });
 
     const refined = ops.computePrecipitation(
