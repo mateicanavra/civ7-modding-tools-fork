@@ -132,10 +132,45 @@ All ops must be deterministic and purely driven by:
 - compiled normalized params (from Slice 2),
 - a seed value where randomness is needed (seed must be computed in steps, passed as a number; do not pass RNG objects).
 
-### Prework Prompt (Agent Brief)
-**Purpose:** Identify a minimal “climate regression signature” that can be used as a golden-map test for determinism without overfitting.\n
-**Expected Output:** A proposed test file + metric(s) (e.g., checksum of rainfall/humidity arrays; summary stats) and where to plug it into existing mod tests.\n
-**Sources to Check:**\n
-- `mods/mod-swooper-maps/test/standard-run.test.ts` (existing execution harness)\n
-- `rg -n \"checksum|hash|snapshot\" mods/mod-swooper-maps/test -S`\n
+### Prework Results (Resolved)
 
+There is no existing “climate checksum” test yet, but the test harness already exists and the climate projection buffers are already typed/validated as `Uint8Array`s.
+
+**Ground truth: where the climate projection lives**
+- Climate baseline step publishes `artifact:climateField` from `context.buffers.climate`:
+  - `/mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-pre/steps/climateBaseline.ts`
+    - validates `rainfall` + `humidity` as `Uint8Array` of size `width*height`
+    - publishes `context.buffers.climate` as `artifact:climateField`
+  - `/mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-pre/artifacts.ts` (artifact schema; currently `Type.Any()` but runtime validation expects `Uint8Array`)
+
+**Where to plug the regression signature (existing harness)**
+- `/mods/mod-swooper-maps/test/standard-run.test.ts` already:
+  - builds `env` with a fixed `seed`
+  - runs `standardRecipe.compile(env, config)` then `standardRecipe.run(context, env, config, ...)`
+  - reads `artifact:climateField` and asserts `humidity` exists
+
+**Recommended minimal “climate regression signature”**
+
+Use a two-layer signature:
+1) **Determinism check (no golden):** run the recipe twice with the same `env + config` and assert the computed signature is identical (catches hidden RNG/state leaks without pinning a specific climate output).
+2) **Golden signature (explicitly update-on-intent):** assert the signature equals a stored constant for a fixed seed/config (catches unintended drift; update only when the Phase 2 model says the projection should change).
+
+Metrics:
+- Primary: `sha256` over full `rainfall` and `humidity` buffers.
+  - Use `sha256Hex` exported by `@swooper/mapgen-core` (re-exported from `/packages/mapgen-core/src/index.ts` via `@mapgen/trace/index.ts`).
+  - Suggested encoding for hashing: `sha256Hex(Buffer.from(array).toString("base64"))` (small, stable string input).
+- Secondary (human-debuggable): summary stats for each field:
+  - `min`, `max`, `sum`, `nonZeroCount`, `mean` (computed from the typed array)
+
+Suggested signature shape (conceptual; not code):
+- `signature = stableStringify({ width, height, seed, rainfallSha, humiditySha, rainfallStats, humidityStats })`
+- `signatureHash = sha256Hex(signature)`
+
+**Test location recommendation**
+- Keep it co-located with the existing harness for minimal churn:
+  - Add a second `it(...)` case in `/mods/mod-swooper-maps/test/standard-run.test.ts` that computes and asserts the signature.
+  - Alternatively (if refactoring the harness becomes necessary), extract a helper function under `/mods/mod-swooper-maps/test/helpers/signatures.ts` and reuse from both tests.
+
+**“Without overfitting” guardrail**
+- Prefer the “run twice → identical signature” gate as the first-line determinism assertion.
+- Treat the golden `signatureHash` as an explicit “model baseline” value (a deliberately updated constant when output changes are intended by the Phase 2 model), not as an invariant that blocks planned realism upgrades.

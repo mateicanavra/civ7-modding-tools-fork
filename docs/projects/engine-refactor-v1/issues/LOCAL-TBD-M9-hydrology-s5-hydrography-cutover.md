@@ -110,13 +110,33 @@ If Slice 5 requires discharge-driven rivers in-engine (not just in artifacts), t
 - **Tradeoff:** (A) keeps compatibility but engine rivers won’t reflect discharge truth; (B) is higher scope but aligns projections with realism.\n
 - **Recommendation:** (B) if Civ7 surface supports it; otherwise (A) as a temporary projection with explicit deprecation + removal trigger recorded outside Hydrology.
 
-### Prework Prompt (Agent Brief)
-**Purpose:** Determine whether Civ7/adapter surfaces can support explicit river/lake stamping (beyond `modelRivers` / `generateLakes`).\n
-**Expected Output:** One of:\n
-- (1) concrete engine/API method(s) to place river segments/lakes with evidence + proposed adapter method signature, or\n
-- (2) a documented constraint that explicit stamping is not available, with the recommended temporary projection posture and removal trigger.\n
-**Sources to Check:**\n
-- `packages/civ7-adapter/src/types.ts` (EngineAdapter surface)\n
-- `packages/civ7-adapter/src/civ7-adapter.ts` (TerrainBuilder wrappers)\n
-- Civ7 official resources/scripts if available (`pnpm run unzip-civ`, then search `TerrainBuilder` usage)\n
+### Prework Results (Resolved)
 
+**Result:** (2) Explicit stamping of rivers/lakes is not available via the current adapter surface or the Civ7 `TerrainBuilder` typing in this repo.
+
+Evidence (adapter surface + Civ7 globals):
+- `EngineAdapter` has engine-driven river/lake generation calls, but no “set river network” / “set lake mask” capability:
+  - `/packages/civ7-adapter/src/types.ts`:
+    - `modelRivers(minLength, maxLength, navigableTerrain)`
+    - `defineNamedRivers()`
+    - `generateLakes(width, height, tilesPerLake)`
+    - (plus `storeWaterData()`, `addFloodplains()`; no explicit stamping inputs)
+  - `/packages/civ7-adapter/src/civ7-adapter.ts`:
+    - `modelRivers(...)` delegates to `TerrainBuilder.modelRivers(...)`
+    - `defineNamedRivers()` delegates to `TerrainBuilder.defineNamedRivers()`
+    - `generateLakes(...)` delegates to `/base-standard/maps/elevation-terrain-generator.js` helper
+- Civ7 types for `TerrainBuilder` show no explicit river/lake stamping functions:
+  - `/packages/civ7-types/index.d.ts` (`TerrainBuilder` only includes `modelRivers(...)` and no river-edge/graph setters)
+
+Official Civ7 resources are not present in this checkout (`civ7-official-resources/` missing), so there is no additional engine scripting surface available to inspect here.
+
+**Recommended temporary projection posture (until explicit stamping exists)**
+- Keep Hydrology’s discharge-driven hydrography as the **canonical internal truth** and publish it as typed artifacts for downstream consumption.
+- Treat engine hydrography calls as **projection-only**, using one of:
+  - Continue to call `adapter.modelRivers(...)` / `adapter.generateLakes(...)` for “engine visuals/effects” while downstream logic migrates to Hydrology artifacts (preferred for keeping the pipeline green).
+  - Do not attempt to “fake” river stamping by setting terrain types; Civ rivers are not represented purely as terrain, and the adapter does not expose a supported setter for river edge graphs.
+
+**Removal trigger (explicit; not silent compat)**
+- If/when a Civ7 API exists that can accept explicit river/lake geometry (or when the repo adds an adapter extension backed by real engine APIs), introduce a new `EngineAdapter` capability for stamping hydrography derived from Hydrology artifacts and:
+  - deprecate any reliance on `modelRivers(...)` as a truth-bearing mechanism,
+  - update `MockAdapter` to support the new stamping capability so determinism tests can cover it.

@@ -104,13 +104,41 @@ Once cutover lands, “bag config” usage should be mechanically detectable:
 - Map author configs under `swooper-src/maps/**` should not include `climate: { ... }` bags; they should specify hydrology knobs only.
 - Runtime code (steps/ops) must not call `Value.Default` or `?? {}` to merge config (per recipe-compile invariants).
 
-### Prework Prompt (Agent Brief)
-**Purpose:** Validate how stage-level public schema + compile hooks are expressed in the current authoring API, and identify an existing exemplar.\n
-**Expected Output:** A minimal example (file path + excerpt references) of a stage using a `public` view + compile hook, and the exact API surface to implement it for Hydrology.\n
-**Sources to Check:**\n
-- `docs/projects/engine-refactor-v1/resources/spec/recipe-compile/architecture/03-authoring-patterns.md`\n
-- `packages/mapgen-core/src/authoring` (`createStage`, compilation pipeline)\n
-- `rg -n \"public\" packages/mapgen-core/src/authoring -S`\n
+### Prework Results (Resolved)
+
+The repo already supports the exact “single author-facing surface → compile to internal step configs” pattern this slice needs.
+
+**Canonical docs (authoritative for patterns)**
+- `/docs/projects/engine-refactor-v1/resources/spec/recipe-compile/architecture/03-authoring-patterns.md` (“Canonical stage pattern”; `createStage({ id, knobsSchema, public?, compile?, steps })`)
+
+**Actual API surface (ground truth)**
+- Stage authoring API: `/packages/mapgen-core/src/authoring/stage.ts`
+  - `createStage(...)` supports:
+    - **internal-as-public** stages: omit `public` and `compile` (stage config keys are step ids + optional `knobs`)
+    - **public surface** stages: must supply both `public` and `compile` (enforced by `createStage`)
+  - Surface schema construction:
+    - Always includes `knobs: Type.Optional(knobsSchema)` at the stage config level
+    - If `public` is present, the rest of the stage config must match `public`’s object properties (no step-id keyed author input)
+  - Compile hook shape:
+    - `compile: ({ env, knobs, config }) => rawSteps`
+      - `knobs` comes from `stageConfig.knobs` (validated against `knobsSchema`)
+      - `config` is the rest of the stage config object **excluding** `knobs` (validated against `public`)
+      - `rawSteps` must be a step-id keyed object for the stage; it **must not** return the reserved key `knobs`
+
+**In-repo exemplar (copy pattern from here)**
+- Ecology stage implements `public` + `compile` mapping (public fields → internal step ids):
+  - `/mods/mod-swooper-maps/src/recipes/standard/stages/ecology/index.ts`
+    - `public`: object schema with “camelCase” public fields (e.g. `resourceBasins`, `featuresApply`)
+    - `compile`: maps those public fields to the canonical kebab-case internal step ids (e.g. `"resource-basins"`, `"features-apply"`)
+
+**Minimal test exemplar (shows toInternal mapping semantics)**
+- `/packages/mapgen-core/test/authoring/authoring.test.ts` (`createStage supports public schema with compile mapping`)
+
+**Implication for Hydrology knobs → normalized params boundary**
+- Hydrology can use the same mechanism by:
+  - defining `knobsSchema` as the Phase 2 semantic knobs schema (author input lives only under `stageConfig.knobs`)
+  - defining `public` as a strict empty object schema (so authors cannot pass step-id keyed bags)
+  - implementing `compile` to deterministically expand knobs into internal step configs (step-id keyed), which are then strictly normalized by the recipe compiler before any runtime execution
 
 ### Open Questions
 
@@ -121,4 +149,3 @@ Once cutover lands, “bag config” usage should be mechanically detectable:
   - (B) Expose knobs on only one Hydrology stage (e.g., hydrology-pre) and treat the resulting compiled internal config as shared across the Hydrology stages.\n
 - **Risk:** (A) can duplicate compile logic; (B) can create hidden coupling between stages.\n
 - **Default (unless Phase 2 says otherwise):** (B) with an explicit shared internal artifact/config mapping, to keep author input single-source.
-
