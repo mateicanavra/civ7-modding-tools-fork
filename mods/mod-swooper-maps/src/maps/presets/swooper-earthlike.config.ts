@@ -464,7 +464,7 @@ export const swooperEarthlikeConfig = {
           },
           moisture: {
             thresholds: [85, 130, 150, 180] as [number, number, number, number],
-            bias: 0,
+            bias: -15, // Earthlike needs some persistent arid signal after biome edge refinement.
             humidityWeight: 0.42,
           },
           aridity: {
