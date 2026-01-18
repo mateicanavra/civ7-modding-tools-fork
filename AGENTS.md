@@ -51,8 +51,8 @@ See `docs/process/GRAPHITE.md` and `docs/process/LINEAR.md` for full conventions
 
 ## Civ7 Resources
 
-- Populate `civ7-official-resources/` with `pnpm run unzip-civ`; see `docs/system/sdk/` for details.
-- Search extracted game data with `rg` under `civ7-official-resources/Base/modules/...`.
+- Official game resources are maintained as a git submodule at `.civ7/outputs/resources` (published at `mateicanavra/civ7-official-resources`).
+- One-time + recurring workflow: see `docs/process/resources-submodule.md`.
 
 ## Domain Routers
 
