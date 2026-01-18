@@ -17,7 +17,7 @@ export const deltaFocusedStrategy = createStrategy(PlanWetlandsContract, "delta-
         const moisture = input.effectiveMoisture[idx] / moistureNormalization;
         const fert = fertility[idx];
         const deltaBonus = (x + y) % 2 === 0 ? 0.1 : 0;
-        if (moisture + deltaBonus < config.moistureThreshold && fert < config.fertilityThreshold) continue;
+        if (moisture + deltaBonus < config.moistureThreshold || fert < config.fertilityThreshold) continue;
         placements.push({
           x,
           y,
