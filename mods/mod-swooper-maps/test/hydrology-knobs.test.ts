@@ -46,13 +46,15 @@ describe("hydrology knobs compilation", () => {
       "hydrology-post": { knobs: { dryness: "dry" } },
     });
 
-    const wetBase = wet["hydrology-pre"]["climate-baseline"].climate.baseline.seed.baseRainfall;
-    const dryBase = dry["hydrology-pre"]["climate-baseline"].climate.baseline.seed.baseRainfall;
-    expect(wetBase).toBeGreaterThan(dryBase);
+    const wetScale = wet["hydrology-pre"]["climate-baseline"].computePrecipitation.config.rainfallScale;
+    const dryScale = dry["hydrology-pre"]["climate-baseline"].computePrecipitation.config.rainfallScale;
+    expect(wetScale).toBeGreaterThan(dryScale);
 
-    const wetPerRing = wet["hydrology-post"]["climate-refine"].climate.refine.waterGradient.perRingBonus;
-    const dryPerRing = dry["hydrology-post"]["climate-refine"].climate.refine.waterGradient.perRingBonus;
-    expect(wetPerRing).toBeGreaterThan(dryPerRing);
+    const wetRiverBonus =
+      wet["hydrology-post"]["climate-refine"].computePrecipitation.config.riverCorridor.lowlandAdjacencyBonus;
+    const dryRiverBonus =
+      dry["hydrology-post"]["climate-refine"].computePrecipitation.config.riverCorridor.lowlandAdjacencyBonus;
+    expect(wetRiverBonus).toBeGreaterThan(dryRiverBonus);
   });
 
   it("maps riverDensity to monotonic engine river thresholds (legacy)", () => {
@@ -72,4 +74,3 @@ describe("hydrology knobs compilation", () => {
     ).toThrow();
   });
 });
-

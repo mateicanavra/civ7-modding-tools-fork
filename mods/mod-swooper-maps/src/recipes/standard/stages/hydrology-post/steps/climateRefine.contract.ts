@@ -1,5 +1,5 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
-import { ClimateConfigSchema } from "@mapgen/domain/config";
+import hydrology from "@mapgen/domain/hydrology";
 
 import { hydrologyCoreArtifacts } from "../../hydrology-core/artifacts.js";
 import { hydrologyPreArtifacts } from "../../hydrology-pre/artifacts.js";
@@ -17,9 +17,10 @@ const ClimateRefineStepContract = defineStep({
       hydrologyCoreArtifacts.riverAdjacency,
     ],
   },
-  schema: Type.Object({
-    climate: ClimateConfigSchema,
-  }),
+  ops: {
+    computePrecipitation: hydrology.ops.computePrecipitation,
+  },
+  schema: Type.Object({}, { additionalProperties: false }),
 });
 
 export default ClimateRefineStepContract;

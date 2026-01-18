@@ -1,5 +1,4 @@
-import { defineArtifact } from "@swooper/mapgen-core/authoring";
-import { Type } from "@swooper/mapgen-core/authoring";
+import { defineArtifact, Type, TypedArraySchemas } from "@swooper/mapgen-core/authoring";
 import { HydrologyWindFieldSchema } from "@mapgen/domain/hydrology";
 
 export const HeightfieldArtifactSchema = Type.Object(
@@ -13,8 +12,8 @@ export const HeightfieldArtifactSchema = Type.Object(
 
 export const ClimateFieldArtifactSchema = Type.Object(
   {
-    rainfall: Type.Any(),
-    humidity: Type.Any(),
+    rainfall: TypedArraySchemas.u8({ description: "Rainfall (0..200) per tile." }),
+    humidity: TypedArraySchemas.u8({ description: "Humidity (0..255) per tile." }),
   },
   { additionalProperties: false }
 );

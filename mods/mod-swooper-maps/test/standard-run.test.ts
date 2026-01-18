@@ -1,6 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
-import { createExtendedMapContext } from "@swooper/mapgen-core";
+import { createExtendedMapContext, sha256Hex, stableStringify } from "@swooper/mapgen-core";
+import { createLabelRng } from "@swooper/mapgen-core/lib/rng";
 
 import standardRecipe from "../src/recipes/standard/recipe.js";
 import type { StandardRecipeConfig } from "../src/recipes/standard/recipe.js";
@@ -536,6 +537,56 @@ const standardConfig = {
 } satisfies StandardRecipeConfig;
 
 describe("standard recipe execution", () => {
+  function runAndGetClimateSignature(options: { seed: number; width: number; height: number }): string {
+    const { seed, width, height } = options;
+    const mapInfo = {
+      GridWidth: width,
+      GridHeight: height,
+      MinLatitude: -60,
+      MaxLatitude: 60,
+      PlayersLandmass1: 4,
+      PlayersLandmass2: 4,
+      StartSectorRows: 4,
+      StartSectorCols: 4,
+    };
+
+    const env = {
+      seed,
+      dimensions: { width, height },
+      latitudeBounds: {
+        topLatitude: mapInfo.MaxLatitude,
+        bottomLatitude: mapInfo.MinLatitude,
+      },
+    };
+
+    const adapter = createMockAdapter({ width, height, mapInfo, mapSizeId: 1, rng: createLabelRng(seed) });
+    const context = createExtendedMapContext({ width, height }, adapter, env);
+
+    initializeStandardRuntime(context, { mapInfo, logPrefix: "[test]", storyEnabled: true });
+    standardRecipe.run(context, env, standardConfig, { log: () => {} });
+
+    const climateField = context.artifacts.get(hydrologyPreArtifacts.climateField.id) as
+      | { rainfall?: Uint8Array; humidity?: Uint8Array }
+      | undefined;
+    const rainfall = climateField?.rainfall;
+    const humidity = climateField?.humidity;
+    if (!(rainfall instanceof Uint8Array) || !(humidity instanceof Uint8Array)) {
+      throw new Error("Missing artifact:climateField rainfall/humidity buffers.");
+    }
+
+    const rainfallSha = sha256Hex(Buffer.from(rainfall).toString("base64"));
+    const humiditySha = sha256Hex(Buffer.from(humidity).toString("base64"));
+    return sha256Hex(
+      stableStringify({
+        width,
+        height,
+        seed,
+        rainfallSha,
+        humiditySha,
+      })
+    );
+  }
+
   it("compiles and executes with a mock adapter", () => {
     const width = 24;
     const height = 18;
@@ -582,5 +633,11 @@ describe("standard recipe execution", () => {
 
     expect(context.artifacts.get(foundationArtifacts.plates.id)).toBeTruthy();
     expect(context.artifacts.get(placementArtifacts.placementOutputs.id)).toBeTruthy();
+  });
+
+  it("produces deterministic climate signatures for same seed + config", () => {
+    const signatureA = runAndGetClimateSignature({ seed: 123, width: 24, height: 18 });
+    const signatureB = runAndGetClimateSignature({ seed: 123, width: 24, height: 18 });
+    expect(signatureA).toBe(signatureB);
   });
 });

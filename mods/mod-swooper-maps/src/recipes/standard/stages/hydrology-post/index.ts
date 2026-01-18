@@ -23,26 +23,20 @@ export default createStage({
 
     return {
       "climate-refine": {
-        climate: {
-          refine: {
-            waterGradient: {
-              radius: 5,
-              perRingBonus: Math.round(5 * wetnessScale),
-              lowlandBonus: Math.round(3 * wetnessScale),
-            },
-            orographic: {
-              steps: 4,
-              reductionBase: Math.round(8 / wetnessScale),
-              reductionPerStep: Math.round(6 / wetnessScale),
-            },
+        computePrecipitation: {
+          strategy: "refine",
+          config: {
             riverCorridor: {
               adjacencyRadius: 1,
               lowlandAdjacencyBonus: Math.round(14 * wetnessScale),
               highlandAdjacencyBonus: Math.round(10 * wetnessScale),
+              lowlandElevationMax: 250,
             },
             lowBasin: {
               radius: 2,
               delta: Math.round(6 * wetnessScale),
+              elevationMax: 200,
+              openThresholdM: 20,
             },
           },
         },

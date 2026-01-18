@@ -32,11 +32,11 @@ related_to: []
   - `artifact:climateField` and any new additive fields are typed and validated (no `Type.Any()` for new artifacts).
 
 ## Acceptance Criteria
-- [ ] Hydrology steps import no op implementations (no deep imports into `@mapgen/domain/hydrology/ops/**` or strategy modules).
-- [ ] Ops do not import from `recipes/**` or `maps/**`, and do not import adapters/contexts (pure input/output).
-- [ ] `artifact:climateField` continues to publish rainfall/humidity arrays with correct size and deterministic values for the same seed + knobs.
-- [ ] All ops have explicit iteration counts / fixed passes; no convergence loops.
-- [ ] `pnpm check` and `pnpm -C mods/mod-swooper-maps test` pass.
+- [x] Hydrology steps import no op implementations (no deep imports into `@mapgen/domain/hydrology/ops/**` or strategy modules).
+- [x] Ops do not import from `recipes/**` or `maps/**`, and do not import adapters/contexts (pure input/output).
+- [x] `artifact:climateField` continues to publish rainfall/humidity arrays with correct size and deterministic values for the same seed + knobs.
+- [x] All ops have explicit iteration counts / fixed passes; no convergence loops.
+- [x] `pnpm check` and `pnpm -C mods/mod-swooper-maps test` pass.
 
 ## Testing / Verification
 - `pnpm check`
@@ -49,6 +49,22 @@ related_to: []
 - Phase 2 authority (op catalog + causality spine): `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/hydrology/spike-hydrology-modeling-synthesis.md`
 - Recipe compiler invariants (no runtime defaulting; compile/normalize semantics): `docs/projects/engine-refactor-v1/resources/spec/recipe-compile/architecture/00-fundamentals.md`
 - Parent plan: `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-hydrology-vertical-domain-refactor.md`
+
+## Implementation Decisions
+
+### Derive op seeds in steps (no RNG callbacks across boundary)
+- **Context:** Phase 2/3 refactor posture bans RNG callbacks crossing boundaries; seeds must be computed in steps and passed as plain numbers.
+- **Options:** (A) pass RNG callbacks, (B) derive integer seeds in steps via `ctxRandom`/`ctxRandomLabel`.
+- **Choice:** (B) — steps derive seeds and pass `rngSeed` / `perlinSeed` as numbers.
+- **Rationale:** Keeps ops serializable/data-only and matches authoring/guardrail expectations.
+- **Risk:** Changing seed labels changes climate texture; mitigated with a deterministic signature test.
+
+### Keep river-adjacency rainfall refinement until hydrography cutover
+- **Context:** Legacy pipeline adjusts rainfall/humidity near rivers after `hydrology-core` produces a `riverAdjacency` mask; Phase 2 model aims to remove “rivers drive climate” feedback.
+- **Options:** (A) delete river-adjacency refine now (breaking legacy wetness projection), (B) keep a bounded refinement pass and revisit during Slice 5 when discharge-driven cutover lands.
+- **Choice:** (B) — keep a deterministic refine pass gated on `riverAdjacency`.
+- **Rationale:** Keeps downstream ecology behavior closer to current until Slice 5 introduces the new discharge/wetness ownership.
+- **Risk:** Conflicts with the strict Phase 2 causality posture; tracked in `docs/projects/engine-refactor-v1/triage.md`.
 
 ---
 
