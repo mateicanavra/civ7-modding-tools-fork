@@ -15,12 +15,11 @@ describe("classifyBiomes operation", () => {
     const elevation = new Int16Array([0, 200, 500, 800, 100, 0]);
     const latitude = new Float32Array([0, 10, 25, 40, 90, 15]);
     const landMask = new Uint8Array([1, 1, 1, 1, 1, 0]);
-    const corridorMask = new Uint8Array(size).fill(0);
-    const riftShoulderMask = new Uint8Array(size).fill(0);
+    const riverClass = new Uint8Array(size).fill(0);
 
     const selection = normalizeOpSelectionOrThrow(ecology.ops.classifyBiomes, {
       strategy: "default",
-      config: {},
+      config: { riparian: {} },
     });
 
     const result = ecology.ops.classifyBiomes.run(
@@ -32,8 +31,7 @@ describe("classifyBiomes operation", () => {
         elevation,
         latitude,
         landMask,
-        corridorMask,
-        riftShoulderMask,
+        riverClass,
       },
       selection
     );
