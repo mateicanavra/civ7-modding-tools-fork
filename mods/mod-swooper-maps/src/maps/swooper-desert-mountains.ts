@@ -191,15 +191,6 @@ export default createMap({
           minRunLength: 24,
           spacing: 0,
         },
-        river: {
-          biomesBiasStrength: 0.5,
-          maxChains: 3,
-          maxSteps: 120,
-          preferLowlandBelow: 420,
-          coastSeedRadius: 3,
-          minTiles: 0,
-          mustEndNearCoast: false,
-        },
         islandHop: {
           useHotspots: true,
           maxArcs: 2,

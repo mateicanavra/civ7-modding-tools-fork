@@ -33,10 +33,4 @@ export function backfillCorridorKinds(
     const style = state.styleByTile.get(key) || "plainsBelt";
     assignCorridorMetadata(state, ctx, corridorsCfg, key, kind, style);
   }
-
-  for (const key of state.riverCorridors) {
-    const kind = (state.kindByTile.get(key) as CorridorKind) || "river";
-    const style = state.styleByTile.get(key) || "riverChain";
-    assignCorridorMetadata(state, ctx, corridorsCfg, key, kind, style);
-  }
 }

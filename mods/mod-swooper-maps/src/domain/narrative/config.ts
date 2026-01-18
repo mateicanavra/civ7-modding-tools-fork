@@ -379,68 +379,6 @@ const LandCorridorConfigSchema = Type.Object(
   { additionalProperties: false }
 );
 
-const RiverCorridorConfigSchema = Type.Object(
-  {
-    /** Strength of biome biasing near river corridors (0..1). */
-    biomesBiasStrength: Type.Optional(
-      Type.Number({
-        description: "Strength of biome biasing near river corridors (0..1).",
-        default: 0.5,
-        minimum: 0,
-        maximum: 1,
-      })
-    ),
-    /** Maximum river chains to tag (integer). */
-    maxChains: Type.Optional(
-      Type.Number({
-        description: "Maximum river chains to tag (integer).",
-        default: 2,
-        minimum: 0,
-      })
-    ),
-    /** Maximum path-walk steps for a chain (integer). */
-    maxSteps: Type.Optional(
-      Type.Number({
-        description: "Maximum path-walk steps for a chain (integer).",
-        default: 80,
-        minimum: 0,
-      })
-    ),
-    /** Prefer lowland steps below this elevation (meters). */
-    preferLowlandBelow: Type.Optional(
-      Type.Number({
-        description: "Prefer lowland steps below this elevation (meters).",
-        default: 300,
-        minimum: 0,
-      })
-    ),
-    /** Radius for coast-seed river adjacency checks (tiles). */
-    coastSeedRadius: Type.Optional(
-      Type.Number({
-        description: "Radius for coast-seed river adjacency checks (tiles).",
-        default: 2,
-        minimum: 1,
-      })
-    ),
-    /** Minimum tagged tiles required to accept a chain (tiles). */
-    minTiles: Type.Optional(
-      Type.Number({
-        description: "Minimum tagged tiles required to accept a chain (tiles).",
-        default: 0,
-        minimum: 0,
-      })
-    ),
-    /** Whether the chain must end near a coast or shallow water. */
-    mustEndNearCoast: Type.Optional(
-      Type.Boolean({
-        description: "Whether the chain must end near a coast or shallow water.",
-        default: false,
-      })
-    ),
-  },
-  { additionalProperties: false }
-);
-
 /**
  * Strategic corridor configuration currently scoped to sea lanes.
  */
@@ -450,8 +388,6 @@ export const CorridorsConfigSchema = Type.Object(
     sea: Type.Optional(SeaCorridorPolicySchema),
     /** Land corridor tagging policy (rift-driven). */
     land: Type.Optional(LandCorridorConfigSchema),
-    /** River corridor tagging policy (post-rivers). */
-    river: Type.Optional(RiverCorridorConfigSchema),
     /** Island-hop corridor tagging policy (hotspot-driven). */
     islandHop: Type.Optional(IslandHopCorridorConfigSchema),
   },
@@ -481,8 +417,6 @@ export type SeaCorridorPolicy =
   Static<typeof NarrativeConfigSchema["properties"]["corridors"]["properties"]["sea"]>;
 export type LandCorridorConfig =
   Static<typeof NarrativeConfigSchema["properties"]["corridors"]["properties"]["land"]>;
-export type RiverCorridorConfig =
-  Static<typeof NarrativeConfigSchema["properties"]["corridors"]["properties"]["river"]>;
 export type IslandHopCorridorConfig =
   Static<typeof NarrativeConfigSchema["properties"]["corridors"]["properties"]["islandHop"]>;
 
