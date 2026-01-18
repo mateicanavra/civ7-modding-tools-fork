@@ -453,7 +453,7 @@ describe("ecology op contract surfaces", () => {
         width,
         height,
         landMask: new Uint8Array(size).fill(1),
-        effectiveMoisture: new Float32Array(size).fill(0.8),
+        effectiveMoisture: new Float32Array(size).fill(200),
         surfaceTemperature: new Float32Array(size).fill(14),
         fertility: new Float32Array(size).fill(0.4),
         elevation: new Int16Array(size).fill(50),
