@@ -3,7 +3,8 @@ import { Type, type Static } from "@swooper/mapgen-core/authoring";
 const DrynessSchema = Type.Union(
   [Type.Literal("wet"), Type.Literal("mix"), Type.Literal("dry")],
   {
-    description: "Global moisture availability bias (not regional).",
+    description:
+      "Global moisture availability bias (not regional). Used by hydrology-climate-baseline and hydrology-climate-refine; does not directly tune river projection thresholds.",
     default: "mix",
   }
 );
@@ -11,7 +12,8 @@ const DrynessSchema = Type.Union(
 const TemperatureSchema = Type.Union(
   [Type.Literal("cold"), Type.Literal("temperate"), Type.Literal("hot")],
   {
-    description: "Global thermal bias (affects baseline surface temperature; influences cryosphere formation).",
+    description:
+      "Global thermal bias (affects baseline surface temperature; influences cryosphere formation). Used by hydrology-climate-baseline and hydrology-climate-refine; does not change hydrography routing truth.",
     default: "temperate",
   }
 );
@@ -19,7 +21,8 @@ const TemperatureSchema = Type.Union(
 const SeasonalitySchema = Type.Union(
   [Type.Literal("low"), Type.Literal("normal"), Type.Literal("high")],
   {
-    description: "Seasonal amplitude intent (affects wind variability and precipitation noise structure).",
+    description:
+      "Seasonal amplitude intent (affects wind variability and precipitation noise structure). Used by hydrology-climate-baseline only; does not affect hydrology-hydrography or hydrology-climate-refine.",
     default: "normal",
   }
 );
@@ -27,26 +30,30 @@ const SeasonalitySchema = Type.Union(
 const OceanCouplingSchema = Type.Union(
   [Type.Literal("off"), Type.Literal("simple"), Type.Literal("earthlike")],
   {
-    description: "Ocean influence preset (affects wind jets, surface currents, and moisture transport iterations).",
+    description:
+      "Ocean influence preset (affects wind jets, surface currents, and moisture transport iterations). Used by hydrology-climate-baseline only; does not affect hydrology-hydrography or hydrology-climate-refine.",
     default: "earthlike",
   }
 );
 
 const CryosphereSchema = Type.Union([Type.Literal("off"), Type.Literal("on")], {
-  description: "Enables bounded cryosphere/albedo feedback and cryosphere state products.",
+  description:
+    "Enables bounded cryosphere/albedo feedback and cryosphere state products. Used by hydrology-climate-refine only; does not affect baseline climate generation or river projection thresholds.",
   default: "on",
 });
 
 const RiverDensitySchema = Type.Union(
   [Type.Literal("sparse"), Type.Literal("normal"), Type.Literal("dense")],
   {
-    description: "River network projection density (affects discharge-derived minor/major classification thresholds).",
+    description:
+      "River network projection density (affects discharge-derived minor/major classification thresholds). Used by hydrology-hydrography only; does not change baseline/refine climate.",
     default: "normal",
   }
 );
 
 const LakeinessSchema = Type.Union([Type.Literal("few"), Type.Literal("normal"), Type.Literal("many")], {
-  description: "Lake frequency bias (affects the lake projection rate; does not change discharge routing).",
+  description:
+    "Lake frequency bias (affects the lake projection rate; does not change discharge routing). Used by hydrology-climate-baseline only; does not affect hydrology-hydrography or hydrology-climate-refine.",
   default: "normal",
 });
 
@@ -78,42 +85,63 @@ export const HydrologyKnobsSchema = Type.Object(
      * Global moisture availability bias (not regional).
      *
      * If you need “more rainforest everywhere”, prefer `dryness: "wet"` over tweaking algorithm parameters.
+     *
+     * Stage scope:
+     * - Used by `hydrology-climate-baseline` and `hydrology-climate-refine`.
      */
     dryness: Type.Optional(DrynessSchema),
     /**
      * Global thermal bias.
      *
      * If you need larger polar caps / more mountain snow, prefer `temperature: "cold"`.
+     *
+     * Stage scope:
+     * - Used by `hydrology-climate-baseline` and `hydrology-climate-refine`.
      */
     temperature: Type.Optional(TemperatureSchema),
     /**
      * Seasonal amplitude intent.
      *
      * If you need higher climatic variability / more textured wind + rainfall noise, prefer `seasonality: "high"`.
+     *
+     * Stage scope:
+     * - Used by `hydrology-climate-baseline` only.
      */
     seasonality: Type.Optional(SeasonalitySchema),
     /**
      * Ocean influence preset.
      *
      * If you want less coastal moderation and weaker ocean-driven moisture transport, use `"off"` or `"simple"`.
+     *
+     * Stage scope:
+     * - Used by `hydrology-climate-baseline` only.
      */
     oceanCoupling: Type.Optional(OceanCouplingSchema),
     /**
      * Cryosphere enablement.
      *
      * If you want to remove bounded albedo feedback and disable cryosphere products entirely, use `"off"`.
+     *
+     * Stage scope:
+     * - Used by `hydrology-climate-refine` only.
      */
     cryosphere: Type.Optional(CryosphereSchema),
     /**
      * River network projection density.
      *
      * If you want fewer/more projected rivers while keeping Hydrology’s discharge truth intact, adjust this knob.
+     *
+     * Stage scope:
+     * - Used by `hydrology-hydrography` only.
      */
     riverDensity: Type.Optional(RiverDensitySchema),
     /**
      * Lake frequency bias.
      *
      * If you want more/less lakes without changing discharge routing truth, adjust this knob.
+     *
+     * Stage scope:
+     * - Used by `hydrology-climate-baseline` only.
      */
     lakeiness: Type.Optional(LakeinessSchema),
   },
@@ -125,6 +153,58 @@ export const HydrologyKnobsSchema = Type.Object(
 );
 
 export type HydrologyKnobs = Static<typeof HydrologyKnobsSchema>;
+
+/**
+ * Stage-scoped knobs for Hydrology climate-baseline.
+ *
+ * This stage owns baseline climate/winds and lake projection; it does not accept river or cryosphere tuning knobs.
+ */
+export const HydrologyClimateBaselineKnobsSchema = Type.Object(
+  {
+    dryness: HydrologyKnobsSchema.properties.dryness,
+    temperature: HydrologyKnobsSchema.properties.temperature,
+    seasonality: HydrologyKnobsSchema.properties.seasonality,
+    oceanCoupling: HydrologyKnobsSchema.properties.oceanCoupling,
+    lakeiness: HydrologyKnobsSchema.properties.lakeiness,
+  },
+  {
+    additionalProperties: false,
+    description:
+      "Hydrology climate-baseline knobs (dryness/temperature/seasonality/oceanCoupling/lakeiness).",
+  }
+);
+
+/**
+ * Stage-scoped knobs for Hydrology hydrography.
+ *
+ * This stage owns discharge routing → hydrography + engine river projection thresholds.
+ */
+export const HydrologyHydrographyKnobsSchema = Type.Object(
+  {
+    riverDensity: HydrologyKnobsSchema.properties.riverDensity,
+  },
+  {
+    additionalProperties: false,
+    description: "Hydrology hydrography knobs (riverDensity).",
+  }
+);
+
+/**
+ * Stage-scoped knobs for Hydrology climate-refine.
+ *
+ * This stage owns bounded cryosphere/albedo feedback and derived climate diagnostics.
+ */
+export const HydrologyClimateRefineKnobsSchema = Type.Object(
+  {
+    dryness: HydrologyKnobsSchema.properties.dryness,
+    temperature: HydrologyKnobsSchema.properties.temperature,
+    cryosphere: HydrologyKnobsSchema.properties.cryosphere,
+  },
+  {
+    additionalProperties: false,
+    description: "Hydrology climate-refine knobs (dryness/temperature/cryosphere).",
+  }
+);
 
 export type ResolvedHydrologyKnobs = Readonly<{
   dryness: Static<typeof DrynessSchema>;

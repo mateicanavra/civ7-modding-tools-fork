@@ -377,20 +377,12 @@ export default createMap({
       temperature: "hot",
       seasonality: "high",
       oceanCoupling: "earthlike",
-      cryosphere: "off",
-      riverDensity: "dense",
       lakeiness: "many",
     },
   },
   "hydrology-hydrography": {
     knobs: {
-      dryness: "wet",
-      temperature: "hot",
-      seasonality: "high",
-      oceanCoupling: "earthlike",
-      cryosphere: "off",
       riverDensity: "dense",
-      lakeiness: "many",
     },
   },
   "narrative-post": {
@@ -434,11 +426,7 @@ export default createMap({
     knobs: {
       dryness: "wet",
       temperature: "hot",
-      seasonality: "high",
-      oceanCoupling: "earthlike",
       cryosphere: "off",
-      riverDensity: "dense",
-      lakeiness: "many",
     },
   },
   ecology: {
