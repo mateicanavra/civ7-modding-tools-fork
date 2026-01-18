@@ -4,6 +4,7 @@ import { syncHeightfield } from "@swooper/mapgen-core";
 import { getStandardRuntime } from "../../../runtime.js";
 import { hydrologyClimateBaselineArtifacts } from "../artifacts.js";
 import LakesStepContract from "./lakes.contract.js";
+import { HYDROLOGY_LAKEINESS_TILES_PER_LAKE_MULTIPLIER } from "@mapgen/domain/hydrology/shared/knob-multipliers.js";
 
 type ArtifactValidationIssue = Readonly<{ message: string }>;
 
@@ -71,8 +72,7 @@ export default createStep(LakesStepContract, {
         ? lakeinessRaw
         : "normal";
 
-    const tilesPerLakeMultiplier =
-      lakeiness === "many" ? 0.7 : lakeiness === "few" ? 1.5 : 1.0;
+    const tilesPerLakeMultiplier = HYDROLOGY_LAKEINESS_TILES_PER_LAKE_MULTIPLIER[lakeiness];
 
     return tilesPerLakeMultiplier === 1
       ? config
