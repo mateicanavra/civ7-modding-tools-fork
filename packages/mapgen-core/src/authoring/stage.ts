@@ -9,6 +9,7 @@ import {
   type StageToInternalResult,
 } from "./types.js";
 import { applySchemaDefaults } from "./schema.js";
+import { applySchemaConventions } from "./schema.js";
 
 function assertSchema(value: unknown, stepId?: string, stageId?: string): void {
   if (value == null) {
@@ -111,6 +112,9 @@ export function createStage(def: any): any {
   if (def.public && typeof (def as any).compile !== "function") {
     throw new Error(`stage("${def.id}") defines "public" but does not define "compile"`);
   }
+
+  applySchemaConventions(def.knobsSchema, `stage:${def.id}.knobs`);
+  if (def.public) applySchemaConventions(def.public, `stage:${def.id}.public`);
 
   for (const step of def.steps as ReadonlyArray<{ contract: { id: string; schema: unknown } }>) {
     assertSchema(step.contract.schema, step.contract.id, def.id);
