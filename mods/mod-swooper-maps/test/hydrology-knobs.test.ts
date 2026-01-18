@@ -130,7 +130,8 @@ describe("hydrology knobs compilation", () => {
     );
     // - riverDensity=dense shifts length bounds down relative to normal.
     expect(compiled["hydrology-hydrography"].rivers.minLength).toBe(9);
-    expect(compiled["hydrology-hydrography"].rivers.maxLength).toBe(8);
+    // Note: clamp enforces schema bounds and keeps maxLength >= minLength.
+    expect(compiled["hydrology-hydrography"].rivers.maxLength).toBe(9);
     expect(
       compiled["hydrology-climate-refine"]["climate-refine"].computePrecipitation.config.riverCorridor
         .lowlandAdjacencyBonus
