@@ -529,9 +529,10 @@ export const swooperEarthlikeConfig = {
             amplitude: 0.028,
             seed: 53337,
           },
-          overlays: {
-            corridorMoistureBonus: 8,
-            riftShoulderMoistureBonus: 5,
+          riparian: {
+            adjacencyRadius: 1,
+            minorRiverMoistureBonus: 4,
+            majorRiverMoistureBonus: 8,
           },
         },
       },

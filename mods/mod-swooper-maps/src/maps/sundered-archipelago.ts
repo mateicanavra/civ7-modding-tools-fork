@@ -495,9 +495,10 @@ export default createMap({
             amplitude: 0.03,
             seed: 1337,
           },
-          overlays: {
-            corridorMoistureBonus: 10,
-            riftShoulderMoistureBonus: 6,
+          riparian: {
+            adjacencyRadius: 1,
+            minorRiverMoistureBonus: 4,
+            majorRiverMoistureBonus: 8,
           },
         },
       },

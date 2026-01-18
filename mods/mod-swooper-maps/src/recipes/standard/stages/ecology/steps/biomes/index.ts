@@ -2,15 +2,11 @@ import { logBiomeSummary } from "@swooper/mapgen-core";
 import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import * as ecology from "@mapgen/domain/ecology";
 import BiomesStepContract from "./contract.js";
-import {
-  buildLatitudeField,
-  maskFromCoordSet,
-} from "./helpers/inputs.js";
+import { buildLatitudeField } from "./helpers/inputs.js";
 import { clampToByte } from "./helpers/apply.js";
 import { resolveEngineBiomeIds } from "./helpers/engine-bindings.js";
 import { ecologyArtifacts } from "../../artifacts.js";
 import { validateBiomeClassificationArtifact } from "../../artifact-validation.js";
-import { readOverlayCorridors, readOverlayMotifsRifts } from "../../../../overlays.js";
 
 export default createStep(BiomesStepContract, {
   artifacts: implementArtifacts([ecologyArtifacts.biomeClassification], {
@@ -32,13 +28,7 @@ export default createStep(BiomesStepContract, {
     }
 
     const latitude = buildLatitudeField(context.adapter, width, height);
-    const overlays = deps.artifacts.overlays.read(context);
-    const corridors = readOverlayCorridors(overlays);
-    const rifts = readOverlayMotifsRifts(overlays);
-
-    const corridorMask = maskFromCoordSet(corridors?.landCorridors, width, height);
-
-    const riftShoulderMask = maskFromCoordSet(rifts?.riftShoulder, width, height);
+    const hydrography = deps.artifacts.hydrography.read(context);
 
     const result = ops.classify(
       {
@@ -49,8 +39,7 @@ export default createStep(BiomesStepContract, {
         elevation,
         latitude,
         landMask,
-        corridorMask,
-        riftShoulderMask,
+        riverClass: hydrography.riverClass,
       },
       config.classify
     );
