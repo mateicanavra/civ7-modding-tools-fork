@@ -431,7 +431,7 @@ export default createMap({
     },
     "hydrology-climate-refine": {
       knobs: {
-        dryness: "mix",
+        dryness: "dry",
         temperature: "hot",
         cryosphere: "on",
       },
