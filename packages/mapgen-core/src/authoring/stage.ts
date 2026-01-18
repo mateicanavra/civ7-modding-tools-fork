@@ -8,6 +8,8 @@ import {
   type StageDef,
   type StageToInternalResult,
 } from "./types.js";
+import { applySchemaDefaults } from "./schema.js";
+import { applySchemaConventions } from "./schema.js";
 
 function assertSchema(value: unknown, stepId?: string, stageId?: string): void {
   if (value == null) {
@@ -111,6 +113,9 @@ export function createStage(def: any): any {
     throw new Error(`stage("${def.id}") defines "public" but does not define "compile"`);
   }
 
+  applySchemaConventions(def.knobsSchema, `stage:${def.id}.knobs`);
+  if (def.public) applySchemaConventions(def.public, `stage:${def.id}.public`);
+
   for (const step of def.steps as ReadonlyArray<{ contract: { id: string; schema: unknown } }>) {
     assertSchema(step.contract.schema, step.contract.id, def.id);
   }
@@ -129,14 +134,15 @@ export function createStage(def: any): any {
     env: unknown;
     stageConfig: unknown;
   }): StageToInternalResult<string, unknown> => {
-    const { knobs = {}, ...configPart } = stageConfig as Record<string, unknown>;
+    const { knobs, ...configPart } = stageConfig as Record<string, unknown>;
+    const resolvedKnobs = applySchemaDefaults(def.knobsSchema, knobs);
     const rawSteps = def.public
-      ? (def as any).compile({ env, knobs, config: configPart }) ?? {}
+      ? (def as any).compile({ env, knobs: resolvedKnobs, config: configPart }) ?? {}
       : configPart;
     if (Object.prototype.hasOwnProperty.call(rawSteps, RESERVED_STAGE_KEY)) {
       throw new Error(`stage("${def.id}") compile returned reserved key "${RESERVED_STAGE_KEY}"`);
     }
-    return { knobs, rawSteps };
+    return { knobs: resolvedKnobs, rawSteps };
   };
 
   return { ...(def as any), surfaceSchema, toInternal };
