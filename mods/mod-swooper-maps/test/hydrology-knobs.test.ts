@@ -73,7 +73,7 @@ describe("hydrology knobs compilation", () => {
     expect(compiled["hydrology-climate-baseline"].lakes.tilesPerLakeMultiplier).toBe(1);
   });
 
-  it("treats explicit advanced config as higher precedence than knobs", () => {
+  it("applies knobs as deterministic transforms over advanced config baselines", () => {
     const compiled = standardRecipe.compileConfig(env, {
       "hydrology-climate-baseline": {
         knobs: { dryness: "wet", seasonality: "high", oceanCoupling: "off", lakeiness: "many" },
@@ -120,13 +120,20 @@ describe("hydrology knobs compilation", () => {
       },
     });
 
-    expect(compiled["hydrology-climate-baseline"].lakes.tilesPerLakeMultiplier).toBe(2);
-    expect(compiled["hydrology-climate-baseline"]["climate-baseline"].computePrecipitation.config.rainfallScale).toBe(123);
-    expect(compiled["hydrology-hydrography"].rivers.minLength).toBe(11);
-    expect(compiled["hydrology-hydrography"].rivers.maxLength).toBe(11);
+    // Baseline values apply first (schema defaults + advanced config), then knobs transform them.
+    // - lakeiness=many multiplies tilesPerLakeMultiplier by 0.7 (more lakes).
+    expect(compiled["hydrology-climate-baseline"].lakes.tilesPerLakeMultiplier).toBeCloseTo(1.4, 6);
+    // - dryness=wet scales rainfallScale by 1.15 (wetter climate).
+    expect(compiled["hydrology-climate-baseline"]["climate-baseline"].computePrecipitation.config.rainfallScale).toBeCloseTo(
+      141.45,
+      6
+    );
+    // - riverDensity=dense shifts length bounds down relative to normal.
+    expect(compiled["hydrology-hydrography"].rivers.minLength).toBe(9);
+    expect(compiled["hydrology-hydrography"].rivers.maxLength).toBe(8);
     expect(
       compiled["hydrology-climate-refine"]["climate-refine"].computePrecipitation.config.riverCorridor
         .lowlandAdjacencyBonus
-    ).toBe(44);
+    ).toBe(51);
   });
 });
