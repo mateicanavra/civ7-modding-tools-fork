@@ -26,8 +26,25 @@ export default createStage({
           ? { minLength: 7, maxLength: 18 }
           : { minLength: 5, maxLength: 15 };
 
+    const riverProjection =
+      resolved.riverDensity === "dense"
+        ? { minorPercentile: 0.75, majorPercentile: 0.9 }
+        : resolved.riverDensity === "sparse"
+          ? { minorPercentile: 0.88, majorPercentile: 0.97 }
+          : { minorPercentile: 0.82, majorPercentile: 0.94 };
+
     return {
-      rivers: lengths,
+      rivers: {
+        ...lengths,
+        accumulateDischarge: {
+          strategy: "default",
+          config: {},
+        },
+        projectRiverNetwork: {
+          strategy: "default",
+          config: riverProjection,
+        },
+      },
     };
   },
   steps: [rivers],

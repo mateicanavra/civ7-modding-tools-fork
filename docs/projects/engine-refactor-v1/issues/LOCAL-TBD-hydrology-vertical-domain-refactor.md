@@ -49,7 +49,7 @@ related_to:
 - [x] Slice 2 — Semantic knobs + normalized params boundary (`docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M9-hydrology-s2-knobs-and-params-boundary.md`) (branch: `agent-TURTLE-M9-LOCAL-TBD-M9-hydrology-s2-knobs-and-params-boundary`, PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/614)
 - [x] Slice 3 — Contract-first op spine (climate + ocean coupling) (`docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M9-hydrology-s3-op-spine-climate-ocean.md`) (branch: `agent-TURTLE-M9-LOCAL-TBD-M9-hydrology-s3-op-spine-climate-ocean`, PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/615)
 - [x] Slice 4 — Cryosphere + aridity + diagnostics (`docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M9-hydrology-s4-cryosphere-aridity-diagnostics.md`) (branch: `agent-TURTLE-M9-LOCAL-TBD-M9-hydrology-s4-cryosphere-aridity-diagnostics`, PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/616)
-- [ ] Slice 5 — Hydrography ownership cutover (`docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M9-hydrology-s5-hydrography-cutover.md`)
+- [x] Slice 5 — Hydrography ownership cutover (`docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M9-hydrology-s5-hydrography-cutover.md`) (branch: `agent-TURTLE-M9-LOCAL-TBD-M9-hydrology-s5-hydrography-cutover`, PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/617)
 
 ## Testing / Verification
 - `pnpm lint:domain-refactor-guardrails`
