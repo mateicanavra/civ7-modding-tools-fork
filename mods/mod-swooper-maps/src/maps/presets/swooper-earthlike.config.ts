@@ -6,7 +6,7 @@ export const swooperEarthlikeConfig = {
       computeMesh: {
         strategy: "default",
         config: {
-          plateCount: 17, // Fewer, larger major plates plus some microplates
+          plateCount: 23, // Fewer, larger major plates plus some microplates
           cellsPerPlate: 9, // Slightly denser cells per plate for sharper margins
           relaxationSteps: 4, // Extra smoothing for coherent plate footprints
           referenceArea: 16000, // Standard reference
@@ -26,7 +26,7 @@ export const swooperEarthlikeConfig = {
       computePlateGraph: {
         strategy: "default",
         config: {
-          plateCount: 17, // Match mesh plateCount
+          plateCount: 23, // Match mesh plateCount
           referenceArea: 16000,
           plateScalePower: 0.83,
         },
@@ -386,40 +386,14 @@ export const swooperEarthlikeConfig = {
       refine: { strategy: "gaussian", config: { radius: 1, iterations: 1 } },
     },
     featuresPlan: {
-      vegetatedFeaturePlacements: {
-        strategy: "default",
+      vegetation: {
+        strategy: "clustered",
         config: {
-          multiplier: 1,
-          chances: {
-            FEATURE_FOREST: 50,
-            FEATURE_RAINFOREST: 65,
-            FEATURE_TAIGA: 60,
-            FEATURE_SAVANNA_WOODLAND: 40,
-            FEATURE_SAGEBRUSH_STEPPE: 60,
-          },
-          rules: {
-            minVegetationByBiome: {
-              snow: 0.9,
-              tundra: 0.08,
-              boreal: 0.05,
-              temperateDry: 0.04,
-              temperateHumid: 0.1,
-              tropicalSeasonal: 0.05,
-              tropicalRainforest: 0.1,
-              desert: 0.03,
-            },
-            vegetationChanceScalar: 1.1,
-            desertSagebrushMinVegetation: 0.08,
-            desertSagebrushMaxAridity: 0.98,
-            tundraTaigaMinVegetation: 0.22,
-            tundraTaigaMinTemperature: -4,
-            tundraTaigaMaxFreeze: 0.98,
-            temperateDryForestMoisture: 150,
-            temperateDryForestMaxAridity: 0.5,
-            temperateDryForestVegetation: 0.65,
-            tropicalSeasonalRainforestMoisture: 150,
-            tropicalSeasonalRainforestMaxAridity: 0.55,
-          },
+          baseDensity: 0.35,
+          fertilityWeight: 0.55,
+          moistureWeight: 0.6,
+          moistureNormalization: 230,
+          coldCutoff: -10,
         },
       },
       wetlands: {
