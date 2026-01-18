@@ -5,6 +5,7 @@ This directory contains spike material for `engine-refactor-v1`. Spikes are non-
 Notes:
 - The “step ↔ domain operation modules” spike is now a canonical SPEC component: `SPEC-step-domain-operation-modules`.
 - Migration viability snapshots live in `spike-domain-migration-map.md` (domain portion only).
+- Narrative overlays load-bearing inventory (Swooper Maps): `spike-narrative-overlays-load-bearing.md`
 
 Historical (archived under `_archive/`):
 - Ground truth snapshots for prior milestones.
