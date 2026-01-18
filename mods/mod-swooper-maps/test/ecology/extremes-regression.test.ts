@@ -15,10 +15,9 @@ describe("ecology defaults regression", () => {
         elevation: new Int16Array([0, 0]),
         latitude: new Float32Array([0, 60]),
         landMask: new Uint8Array([0, 0]),
-        corridorMask: new Uint8Array([0, 0]),
-        riftShoulderMask: new Uint8Array([0, 0]),
+        riverClass: new Uint8Array([0, 0]),
       },
-      { strategy: "default", config: {} }
+      { strategy: "default", config: { riparian: {} } }
     );
 
     expect(result.surfaceTemperature[0]).toBeGreaterThan(result.surfaceTemperature[1]);
