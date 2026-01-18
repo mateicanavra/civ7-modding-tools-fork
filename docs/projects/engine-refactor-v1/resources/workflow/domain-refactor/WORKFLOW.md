@@ -31,6 +31,14 @@ Phases are **adaptive**: each phase produces concrete artifacts, then a required
 11. **Lookback 4** → append to Phase 3 issue
 12. **Phase 5: Verification + cleanup + submit**
 
+## Subject‑matter workflow + synthesis protocol (recommended)
+
+When running a domain refactor with multiple draft variants per phase (e.g., multiple agents), use the synthesis protocol:
+- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/WORKFLOW-SUBJECT-MATTER.md`
+
+Recommended posture: treat the per‑domain package directory as the place reviewers go to understand the refactor end‑to‑end:
+- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/<domain>/`
+
 ## Required artifacts (by phase)
 
 | Phase | Required artifact | Template / Reference |
