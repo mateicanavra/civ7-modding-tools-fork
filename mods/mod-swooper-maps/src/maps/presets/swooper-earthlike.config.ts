@@ -7,8 +7,8 @@ export const swooperEarthlikeConfig = {
         strategy: "default",
         config: {
           plateCount: 23, // Fewer, larger major plates plus some microplates
-          cellsPerPlate: 9, // Slightly denser cells per plate for sharper margins
-          relaxationSteps: 4, // Extra smoothing for coherent plate footprints
+          cellsPerPlate: 7, // Slightly denser cells per plate for sharper margins
+          relaxationSteps: 5, // Extra smoothing for coherent plate footprints
           referenceArea: 16000, // Standard reference
           plateScalePower: 0.83, // Still heavy-tailed but fewer tiny microplates
         },
@@ -44,8 +44,8 @@ export const swooperEarthlikeConfig = {
         config: {
           boundaryInfluenceDistance: 12, // Broader active margins for realistic orogeny belts
           boundaryDecay: 0.5, // Softer falloff so margins still dominate relief
-          movementScale: 50, // Faster relative drift to energize boundaries
-          rotationScale: 68, // More rotational variance for microplates/torques
+          movementScale: 120, // Faster relative drift to energize boundaries
+          rotationScale: 90, // More rotational variance for microplates/torques
         },
       },
     },
@@ -332,7 +332,7 @@ export const swooperEarthlikeConfig = {
   },
   "hydrology-climate-baseline": {
     knobs: {
-      dryness: "dry",
+      dryness: "mix",
       temperature: "hot",
       seasonality: "high",
       oceanCoupling: "earthlike",
@@ -360,7 +360,7 @@ export const swooperEarthlikeConfig = {
   },
   "hydrology-climate-refine": {
     knobs: {
-      dryness: "dry",
+      dryness: "mix",
       temperature: "hot",
       cryosphere: "on",
     },
