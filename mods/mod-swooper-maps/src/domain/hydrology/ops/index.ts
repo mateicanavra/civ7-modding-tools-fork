@@ -8,6 +8,10 @@ import computeOceanSurfaceCurrents from "./compute-ocean-surface-currents/index.
 import computeEvaporationSources from "./compute-evaporation-sources/index.js";
 import transportMoisture from "./transport-moisture/index.js";
 import computePrecipitation from "./compute-precipitation/index.js";
+import computeCryosphereState from "./compute-cryosphere-state/index.js";
+import applyAlbedoFeedback from "./apply-albedo-feedback/index.js";
+import computeLandWaterBudget from "./compute-land-water-budget/index.js";
+import computeClimateDiagnostics from "./compute-climate-diagnostics/index.js";
 
 const implementations = {
   computeRadiativeForcing,
@@ -17,6 +21,10 @@ const implementations = {
   computeEvaporationSources,
   transportMoisture,
   computePrecipitation,
+  computeCryosphereState,
+  applyAlbedoFeedback,
+  computeLandWaterBudget,
+  computeClimateDiagnostics,
 } as const satisfies DomainOpImplementationsForContracts<typeof contracts>;
 
 export default implementations;
@@ -29,4 +37,8 @@ export {
   computeEvaporationSources,
   transportMoisture,
   computePrecipitation,
+  computeCryosphereState,
+  applyAlbedoFeedback,
+  computeLandWaterBudget,
+  computeClimateDiagnostics,
 };

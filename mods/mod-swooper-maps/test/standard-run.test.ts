@@ -8,6 +8,7 @@ import type { StandardRecipeConfig } from "../src/recipes/standard/recipe.js";
 import { initializeStandardRuntime } from "../src/recipes/standard/runtime.js";
 import { foundationArtifacts } from "../src/recipes/standard/stages/foundation/artifacts.js";
 import { hydrologyPreArtifacts } from "../src/recipes/standard/stages/hydrology-pre/artifacts.js";
+import { hydrologyPostArtifacts } from "../src/recipes/standard/stages/hydrology-post/artifacts.js";
 import { placementArtifacts } from "../src/recipes/standard/stages/placement/artifacts.js";
 
 const reliefConfig = {
@@ -574,8 +575,56 @@ describe("standard recipe execution", () => {
       throw new Error("Missing artifact:climateField rainfall/humidity buffers.");
     }
 
+    const climateIndices = context.artifacts.get(hydrologyPostArtifacts.climateIndices.id) as
+      | { surfaceTemperatureC?: Float32Array; pet?: Float32Array; aridityIndex?: Float32Array; freezeIndex?: Float32Array }
+      | undefined;
+    const cryosphere = context.artifacts.get(hydrologyPostArtifacts.cryosphere.id) as
+      | { snowCover?: Uint8Array; seaIceCover?: Uint8Array; albedo?: Uint8Array }
+      | undefined;
+    const diagnostics = context.artifacts.get(hydrologyPostArtifacts.climateDiagnostics.id) as
+      | { rainShadowIndex?: Float32Array; continentalityIndex?: Float32Array; convergenceIndex?: Float32Array }
+      | undefined;
+
     const rainfallSha = sha256Hex(Buffer.from(rainfall).toString("base64"));
     const humiditySha = sha256Hex(Buffer.from(humidity).toString("base64"));
+    const temperatureView = climateIndices?.surfaceTemperatureC ?? new Float32Array();
+    const petView = climateIndices?.pet ?? new Float32Array();
+    const aridityView = climateIndices?.aridityIndex ?? new Float32Array();
+    const freezeView = climateIndices?.freezeIndex ?? new Float32Array();
+    const rainShadowView = diagnostics?.rainShadowIndex ?? new Float32Array();
+    const continentalityView = diagnostics?.continentalityIndex ?? new Float32Array();
+    const convergenceView = diagnostics?.convergenceIndex ?? new Float32Array();
+
+    const temperatureSha = sha256Hex(
+      Buffer.from(new Uint8Array(temperatureView.buffer, temperatureView.byteOffset, temperatureView.byteLength)).toString("base64")
+    );
+    const petSha = sha256Hex(
+      Buffer.from(new Uint8Array(petView.buffer, petView.byteOffset, petView.byteLength)).toString("base64")
+    );
+    const ariditySha = sha256Hex(
+      Buffer.from(new Uint8Array(aridityView.buffer, aridityView.byteOffset, aridityView.byteLength)).toString("base64")
+    );
+    const freezeSha = sha256Hex(
+      Buffer.from(new Uint8Array(freezeView.buffer, freezeView.byteOffset, freezeView.byteLength)).toString("base64")
+    );
+    const snowSha = sha256Hex(
+      Buffer.from(cryosphere?.snowCover ?? new Uint8Array()).toString("base64")
+    );
+    const seaIceSha = sha256Hex(
+      Buffer.from(cryosphere?.seaIceCover ?? new Uint8Array()).toString("base64")
+    );
+    const albedoSha = sha256Hex(
+      Buffer.from(cryosphere?.albedo ?? new Uint8Array()).toString("base64")
+    );
+    const rainShadowSha = sha256Hex(
+      Buffer.from(new Uint8Array(rainShadowView.buffer, rainShadowView.byteOffset, rainShadowView.byteLength)).toString("base64")
+    );
+    const continentalitySha = sha256Hex(
+      Buffer.from(new Uint8Array(continentalityView.buffer, continentalityView.byteOffset, continentalityView.byteLength)).toString("base64")
+    );
+    const convergenceSha = sha256Hex(
+      Buffer.from(new Uint8Array(convergenceView.buffer, convergenceView.byteOffset, convergenceView.byteLength)).toString("base64")
+    );
     return sha256Hex(
       stableStringify({
         width,
@@ -583,6 +632,16 @@ describe("standard recipe execution", () => {
         seed,
         rainfallSha,
         humiditySha,
+        temperatureSha,
+        petSha,
+        ariditySha,
+        freezeSha,
+        snowSha,
+        seaIceSha,
+        albedoSha,
+        rainShadowSha,
+        continentalitySha,
+        convergenceSha,
       })
     );
   }
@@ -631,6 +690,20 @@ describe("standard recipe execution", () => {
     expect(humidity?.length).toBe(width * height);
     expect(humidity?.some((value) => value > 0)).toBe(true);
 
+    const indices = context.artifacts.get(hydrologyPostArtifacts.climateIndices.id) as
+      | { surfaceTemperatureC?: Float32Array; aridityIndex?: Float32Array; freezeIndex?: Float32Array }
+      | undefined;
+    expect(indices?.surfaceTemperatureC instanceof Float32Array).toBe(true);
+    expect(indices?.surfaceTemperatureC?.length).toBe(width * height);
+    expect(indices?.aridityIndex instanceof Float32Array).toBe(true);
+    expect(indices?.freezeIndex instanceof Float32Array).toBe(true);
+
+    const cryosphere = context.artifacts.get(hydrologyPostArtifacts.cryosphere.id) as
+      | { snowCover?: Uint8Array; seaIceCover?: Uint8Array }
+      | undefined;
+    expect(cryosphere?.snowCover instanceof Uint8Array).toBe(true);
+    expect(cryosphere?.seaIceCover instanceof Uint8Array).toBe(true);
+
     expect(context.artifacts.get(foundationArtifacts.plates.id)).toBeTruthy();
     expect(context.artifacts.get(placementArtifacts.placementOutputs.id)).toBeTruthy();
   });
@@ -639,5 +712,71 @@ describe("standard recipe execution", () => {
     const signatureA = runAndGetClimateSignature({ seed: 123, width: 24, height: 18 });
     const signatureB = runAndGetClimateSignature({ seed: 123, width: 24, height: 18 });
     expect(signatureA).toBe(signatureB);
+  });
+
+  it("yields more freeze persistence when temperature is cold vs hot (same seed)", () => {
+    const width = 24;
+    const height = 18;
+    const seed = 123;
+
+    const configCold: StandardRecipeConfig = {
+      ...standardConfig,
+      "hydrology-pre": {
+        ...standardConfig["hydrology-pre"],
+        knobs: { ...standardConfig["hydrology-pre"].knobs, temperature: "cold" },
+      },
+      "hydrology-post": {
+        ...standardConfig["hydrology-post"],
+        knobs: { ...standardConfig["hydrology-post"].knobs, temperature: "cold" },
+      },
+    };
+    const configHot: StandardRecipeConfig = {
+      ...standardConfig,
+      "hydrology-pre": {
+        ...standardConfig["hydrology-pre"],
+        knobs: { ...standardConfig["hydrology-pre"].knobs, temperature: "hot" },
+      },
+      "hydrology-post": {
+        ...standardConfig["hydrology-post"],
+        knobs: { ...standardConfig["hydrology-post"].knobs, temperature: "hot" },
+      },
+    };
+
+    const runAndMeanFreezeIndex = (cfg: StandardRecipeConfig): number => {
+      const mapInfo = {
+        GridWidth: width,
+        GridHeight: height,
+        MinLatitude: -60,
+        MaxLatitude: 60,
+        PlayersLandmass1: 4,
+        PlayersLandmass2: 4,
+        StartSectorRows: 4,
+        StartSectorCols: 4,
+      };
+      const env = {
+        seed,
+        dimensions: { width, height },
+        latitudeBounds: {
+          topLatitude: mapInfo.MaxLatitude,
+          bottomLatitude: mapInfo.MinLatitude,
+        },
+      };
+      const adapter = createMockAdapter({ width, height, mapInfo, mapSizeId: 1, rng: createLabelRng(seed) });
+      const context = createExtendedMapContext({ width, height }, adapter, env);
+      initializeStandardRuntime(context, { mapInfo, logPrefix: "[test]", storyEnabled: true });
+      standardRecipe.run(context, env, cfg, { log: () => {} });
+      const indices = context.artifacts.get(hydrologyPostArtifacts.climateIndices.id) as
+        | { freezeIndex?: Float32Array }
+        | undefined;
+      const freeze = indices?.freezeIndex;
+      if (!(freeze instanceof Float32Array)) throw new Error("Missing freezeIndex.");
+      let sum = 0;
+      for (let i = 0; i < freeze.length; i++) sum += freeze[i] ?? 0;
+      return sum / Math.max(1, freeze.length);
+    };
+
+    const meanCold = runAndMeanFreezeIndex(configCold);
+    const meanHot = runAndMeanFreezeIndex(configHot);
+    expect(meanCold).toBeGreaterThan(meanHot);
   });
 });
