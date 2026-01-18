@@ -2,14 +2,15 @@ import { Type, type TObject, type TSchema } from "typebox";
 
 import { applySchemaConventions } from "../schema.js";
 import type { ArtifactContract } from "../artifact/contract.js";
+import { buildOpEnvelopeSchemaWithDefaultStrategy } from "../op/envelope.js";
 
 import type { DependencyTag, GenerationPhase } from "@mapgen/engine/index.js";
-import type { StepOpsDecl } from "./ops.js";
+import type { StepOpUse, StepOpsDecl, StepOpsDeclInput } from "./ops.js";
 
 type PropsOf<T extends TObject> = T extends TObject<infer P> ? P : never;
 
 type OpPropsFromDecl<Ops extends StepOpsDecl> = {
-  [K in keyof Ops]: Ops[K]["config"];
+  [K in keyof Ops & string]: Ops[K]["config"];
 };
 
 type SchemaWithOps<Schema extends TObject, Ops extends StepOpsDecl | undefined> =
@@ -43,6 +44,54 @@ function buildSchemaWithOps<const Schema extends TObject, const Ops extends Step
   }
 
   return Type.Object({ ...baseProps, ...(opProps as any) }, { additionalProperties: false }) as any;
+}
+
+type StepOpsDeclNormalizedFromInput<Ops extends StepOpsDeclInput> = Readonly<{
+  [K in keyof Ops & string]: NormalizeOpDecl<Ops[K]>;
+}>;
+
+type NormalizeOpDecl<T> = T extends StepOpUse<infer C> ? C : T;
+
+function isOpUse(value: unknown): value is StepOpUse {
+  return Boolean(value) && typeof value === "object" && "contract" in (value as any);
+}
+
+function normalizeOpsDecl<const Ops extends StepOpsDeclInput>(input: {
+  stepId: string;
+  ops: Ops;
+}): StepOpsDeclNormalizedFromInput<Ops> {
+  const out: Record<string, any> = {};
+
+  for (const opKey of Object.keys(input.ops) as Array<keyof Ops & string>) {
+    const entry = input.ops[opKey];
+
+    if (!isOpUse(entry)) {
+      out[opKey] = entry;
+      continue;
+    }
+
+    const contract = entry.contract;
+    const defaultStrategy = entry.defaultStrategy;
+    if (!defaultStrategy) {
+      out[opKey] = contract;
+      continue;
+    }
+
+    const { schema: config, defaultConfig } = buildOpEnvelopeSchemaWithDefaultStrategy(
+      contract.id,
+      contract.strategies,
+      defaultStrategy
+    );
+    applySchemaConventions(config, `op:${contract.id}.config`);
+
+    out[opKey] = {
+      ...contract,
+      config,
+      defaultConfig,
+    };
+  }
+
+  return out as StepOpsDeclNormalizedFromInput<Ops>;
 }
 
 export type StepArtifactsDecl<
@@ -95,7 +144,7 @@ export type StepContract<
 type StepContractInput<
   Schema extends TObject,
   Id extends string,
-  Ops extends StepOpsDecl | undefined,
+  Ops extends StepOpsDeclInput | undefined,
   Artifacts extends StepArtifactsDeclInput | undefined,
 > = Readonly<{
   id: Id;
@@ -124,19 +173,29 @@ export function defineStep<
 export function defineStep<
   const Schema extends TObject,
   const Id extends string,
-  const Ops extends StepOpsDecl,
+  const Ops extends StepOpsDeclInput,
 >(
   def: StepContractInput<Schema, Id, Ops, undefined> & { ops: Ops }
-): StepContract<SchemaWithOps<Schema, Ops>, Id, Ops, undefined>;
+): StepContract<
+  SchemaWithOps<Schema, StepOpsDeclNormalizedFromInput<Ops>>,
+  Id,
+  StepOpsDeclNormalizedFromInput<Ops>,
+  undefined
+>;
 
 export function defineStep<
   const Schema extends TObject,
   const Id extends string,
-  const Ops extends StepOpsDecl,
+  const Ops extends StepOpsDeclInput,
   const Artifacts extends StepArtifactsDeclInput,
 >(
   def: StepContractInput<Schema, Id, Ops, Artifacts> & { ops: Ops; artifacts: Artifacts }
-): StepContract<SchemaWithOps<Schema, Ops>, Id, Ops, StepArtifactsDeclFromInput<Artifacts>>;
+): StepContract<
+  SchemaWithOps<Schema, StepOpsDeclNormalizedFromInput<Ops>>,
+  Id,
+  StepOpsDeclNormalizedFromInput<Ops>,
+  StepArtifactsDeclFromInput<Artifacts>
+>;
 
 export function defineStep(def: any): any {
   if (!STEP_ID_RE.test(def.id)) {
@@ -177,8 +236,10 @@ export function defineStep(def: any): any {
   const requires = [...def.requires, ...artifactRequires];
   const provides = [...def.provides, ...artifactProvides];
 
-  const schema = def.ops
-    ? buildSchemaWithOps({ stepId: def.id, schema: def.schema, ops: def.ops })
+  const ops = def.ops ? normalizeOpsDecl({ stepId: def.id, ops: def.ops }) : undefined;
+
+  const schema = ops
+    ? buildSchemaWithOps({ stepId: def.id, schema: def.schema, ops })
     : def.schema;
   applySchemaConventions(schema, `step:${def.id}.schema`);
 
@@ -186,6 +247,7 @@ export function defineStep(def: any): any {
     ...def,
     requires,
     provides,
+    ops,
     schema,
   };
 }

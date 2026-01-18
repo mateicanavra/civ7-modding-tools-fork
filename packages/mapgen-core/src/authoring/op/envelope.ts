@@ -5,7 +5,7 @@ import { buildDefaultConfigValue } from "./defaults.js";
 
 export type OpEnvelopeBuildResult = Readonly<{
   schema: TSchema;
-  defaultConfig: Readonly<{ strategy: "default"; config: Record<string, unknown> }>;
+  defaultConfig: StrategySelectionDefault;
   strategyIds: readonly string[];
 }>;
 
