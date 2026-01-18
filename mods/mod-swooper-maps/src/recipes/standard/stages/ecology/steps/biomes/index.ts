@@ -4,7 +4,6 @@ import * as ecology from "@mapgen/domain/ecology";
 import BiomesStepContract from "./contract.js";
 import {
   buildLatitudeField,
-  combineCorridorMasks,
   maskFromCoordSet,
 } from "./helpers/inputs.js";
 import { clampToByte } from "./helpers/apply.js";
@@ -38,8 +37,6 @@ export default createStep(BiomesStepContract, {
     const rifts = readOverlayMotifsRifts(overlays);
 
     const corridorMask = maskFromCoordSet(corridors?.landCorridors, width, height);
-    const riverCorridorMask = maskFromCoordSet(corridors?.riverCorridors, width, height);
-    combineCorridorMasks(corridorMask, riverCorridorMask);
 
     const riftShoulderMask = maskFromCoordSet(rifts?.riftShoulder, width, height);
 
