@@ -54,10 +54,14 @@ Repeat this loop until the model stabilizes (minimum two passes):
 
 ## Required sections (minimum)
 
+- Executive model statement (1 paragraph: what the model is and is not)
 - Canonical model + causality spine
 - Conceptual narrative + diagrams (architecture view, data-flow, producer/consumer map; include current vs target pipeline adjustments)
 - Target contract matrix (buffers/artifacts/overlays classification)
+- Determinism + feedback budget (how determinism is preserved; any feedback loops must be bounded with fixed iterations and stable tie-breaking)
 - Config semantics table (semantic knobs contract: meaning, missing/empty/null behavior, determinism expectations, and tests that lock non-trivial behavior)
+- Explainability / diagnostics (what downstream/debug can ask “why” and which fields/metrics exist or are intentionally deferred)
+- Capability envelope + explicit deferrals (what’s in-scope vs deferred, with triggers and downstream implications)
 - Legacy disposition ledger (every config property/rule/function is keep/kill/migrate with rationale)
 - Upstream authoritative input selection (adopted inputs + legacy reads to delete)
 - Upstream handoff cleanup (remove upstream-introduced compat/legacy surfaces in this domain)
@@ -84,6 +88,7 @@ Repeat this loop until the model stabilizes (minimum two passes):
 - Pipeline delta list names downstream consumers that must adapt.
 - Conceptual narrative and diagrams exist and align with the target model.
 - No slice plan content is present (that belongs to Phase 3).
+- Any feedback loops are explicitly bounded (fixed iterations) and deterministic tie-breaking is stated.
 - Legacy disposition ledger is complete; any kept legacy invariants are explicit and justified.
 - Upstream authoritative input selection is explicit; legacy upstream reads are flagged for removal.
 - Upstream handoff cleanup is explicit; no upstream compat/legacy surfaces remain in this domain.
