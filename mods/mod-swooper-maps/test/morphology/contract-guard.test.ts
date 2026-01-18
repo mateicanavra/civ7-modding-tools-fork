@@ -261,10 +261,6 @@ describe("morphology contract guardrails", () => {
         mustRequire: "topography",
       },
       {
-        file: path.join(repoRoot, "src/recipes/standard/stages/narrative-post/steps/storyCorridorsPost.contract.ts"),
-        mustRequire: "topography",
-      },
-      {
         file: path.join(repoRoot, "src/recipes/standard/stages/hydrology-climate-baseline/steps/lakes.contract.ts"),
         mustRequire: "topography",
       },

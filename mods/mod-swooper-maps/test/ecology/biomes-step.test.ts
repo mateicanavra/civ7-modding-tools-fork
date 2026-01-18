@@ -4,11 +4,11 @@ import { createMockAdapter } from "@civ7/adapter";
 import { createExtendedMapContext } from "@swooper/mapgen-core";
 import { implementArtifacts } from "@swooper/mapgen-core/authoring";
 import ecology from "@mapgen/domain/ecology/ops";
-import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
 
 import biomesStep from "../../src/recipes/standard/stages/ecology/steps/biomes/index.js";
+import { ecologyArtifacts } from "../../src/recipes/standard/stages/ecology/artifacts.js";
 import { hydrologyClimateBaselineArtifacts } from "../../src/recipes/standard/stages/hydrology-climate-baseline/artifacts.js";
-import { narrativePreArtifacts } from "../../src/recipes/standard/stages/narrative-pre/artifacts.js";
+import { hydrologyHydrographyArtifacts } from "../../src/recipes/standard/stages/hydrology-hydrography/artifacts.js";
 import { normalizeOpSelectionOrThrow } from "../support/compiler-helpers.js";
 import { buildTestDeps } from "../support/step-deps.js";
 
@@ -37,50 +37,32 @@ describe("biomes step", () => {
     ctx.buffers.climate.humidity.fill(80);
 
     const hydrologyArtifacts = implementArtifacts(
-      [hydrologyClimateBaselineArtifacts.heightfield, hydrologyClimateBaselineArtifacts.climateField],
-      { heightfield: {}, climateField: {} }
+      [
+        hydrologyClimateBaselineArtifacts.heightfield,
+        hydrologyClimateBaselineArtifacts.climateField,
+        hydrologyHydrographyArtifacts.hydrography,
+      ],
+      { heightfield: {}, climateField: {}, hydrography: {} }
     );
     hydrologyArtifacts.heightfield.publish(ctx, ctx.buffers.heightfield);
     hydrologyArtifacts.climateField.publish(ctx, ctx.buffers.climate);
-
-    const narrativeArtifacts = implementArtifacts([narrativePreArtifacts.overlays], {
-      overlays: {},
-    });
-    narrativeArtifacts.overlays.publish(ctx, ctx.overlays);
-    publishStoryOverlay(ctx, STORY_OVERLAY_KEYS.CORRIDORS, {
-      kind: STORY_OVERLAY_KEYS.CORRIDORS,
-      version: 1,
-      width,
-      height,
-      active: [],
-      summary: {
-        seaLane: [],
-        islandHop: [],
-        landOpen: [],
-        riverChain: [],
-        kindByTile: {},
-        styleByTile: {},
-        attributesByTile: {},
-      },
-    });
-    publishStoryOverlay(ctx, STORY_OVERLAY_KEYS.RIFTS, {
-      kind: STORY_OVERLAY_KEYS.RIFTS,
-      version: 1,
-      width,
-      height,
-      active: [],
-      passive: [],
-      summary: {
-        rifts: 0,
-        lineTiles: 0,
-        shoulderTiles: 0,
-        kind: "test",
-      },
+    hydrologyArtifacts.hydrography.publish(ctx, {
+      runoff: new Float32Array(size),
+      discharge: new Float32Array(size),
+      riverClass: new Uint8Array(size),
+      sinkMask: new Uint8Array(size),
+      outletMask: new Uint8Array(size),
     });
 
     const classifyConfig = normalizeOpSelectionOrThrow(ecology.ops.classifyBiomes, {
       strategy: "default",
-      config: {},
+      config: {
+        riparian: {
+          adjacencyRadius: 1,
+          minorRiverMoistureBonus: 4,
+          majorRiverMoistureBonus: 8,
+        },
+      },
     });
 
     const ops = ecology.ops.bind(biomesStep.contract.ops!).runtime;
@@ -100,5 +82,92 @@ describe("biomes step", () => {
     const landIdx = 1;
     expect(ctx.fields.biomeId[landIdx]).not.toBe(marineId);
     expect(ctx.fields.biomeId[landIdx]).toBeGreaterThanOrEqual(0);
+  });
+
+  it("applies a riparian moisture bonus near major rivers", () => {
+    const width = 5;
+    const height = 5;
+    const size = width * height;
+    const env = {
+      seed: 0,
+      dimensions: { width, height },
+      latitudeBounds: { topLatitude: 0, bottomLatitude: 0 },
+    };
+
+    const classifyConfig = normalizeOpSelectionOrThrow(ecology.ops.classifyBiomes, {
+      strategy: "default",
+      config: {
+        riparian: {
+          adjacencyRadius: 1,
+          minorRiverMoistureBonus: 4,
+          majorRiverMoistureBonus: 8,
+        },
+      },
+    });
+
+    const run = (riverClass: Uint8Array): Float32Array => {
+      const adapter = createMockAdapter({ width, height });
+      adapter.fillWater(false);
+
+      const ctx = createExtendedMapContext({ width, height }, adapter, env);
+
+      ctx.buffers.heightfield.landMask.fill(1);
+      ctx.buffers.heightfield.elevation.fill(0);
+      ctx.buffers.climate.rainfall.fill(120);
+      ctx.buffers.climate.humidity.fill(80);
+
+      const hydrologyArtifacts = implementArtifacts(
+        [
+          hydrologyClimateBaselineArtifacts.heightfield,
+          hydrologyClimateBaselineArtifacts.climateField,
+          hydrologyHydrographyArtifacts.hydrography,
+        ],
+        { heightfield: {}, climateField: {}, hydrography: {} }
+      );
+      hydrologyArtifacts.heightfield.publish(ctx, ctx.buffers.heightfield);
+      hydrologyArtifacts.climateField.publish(ctx, ctx.buffers.climate);
+      hydrologyArtifacts.hydrography.publish(ctx, {
+        runoff: new Float32Array(size),
+        discharge: new Float32Array(size),
+        riverClass,
+        sinkMask: new Uint8Array(size),
+        outletMask: new Uint8Array(size),
+      });
+
+      const ops = ecology.ops.bind(biomesStep.contract.ops!).runtime;
+      biomesStep.run(
+        ctx,
+        {
+          classify: classifyConfig,
+          bindings: {},
+        },
+        ops,
+        buildTestDeps(biomesStep)
+      );
+
+      const classification = ctx.artifacts.get(ecologyArtifacts.biomeClassification.id) as
+        | { effectiveMoisture?: Float32Array }
+        | undefined;
+      const effectiveMoisture = classification?.effectiveMoisture;
+      if (!(effectiveMoisture instanceof Float32Array)) {
+        throw new Error("Missing effectiveMoisture.");
+      }
+      return effectiveMoisture;
+    };
+
+    const noRiver = new Uint8Array(size);
+    const majorRiverAtCenter = new Uint8Array(size);
+    majorRiverAtCenter[2 * width + 2] = 2;
+
+    const moistureNoRiver = run(noRiver);
+    const moistureMajor = run(majorRiverAtCenter);
+
+    const center = 2 * width + 2;
+    const adjacent = 2 * width + 3;
+    const far = 0;
+
+    expect(moistureMajor[center]! - moistureNoRiver[center]!).toBe(8);
+    expect(moistureMajor[adjacent]! - moistureNoRiver[adjacent]!).toBe(8);
+    expect(moistureMajor[far]! - moistureNoRiver[far]!).toBe(0);
   });
 });

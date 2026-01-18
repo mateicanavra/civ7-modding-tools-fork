@@ -209,9 +209,10 @@ const biomesConfig = {
       amplitude: 0.03,
       seed: 1337,
     },
-    overlays: {
-      corridorMoistureBonus: 8,
-      riftShoulderMoistureBonus: 5,
+    riparian: {
+      adjacencyRadius: 1,
+      minorRiverMoistureBonus: 4,
+      majorRiverMoistureBonus: 8,
     },
   },
 };
@@ -414,7 +415,6 @@ const plotEffectsConfig = {
 const corridorsConfig = {
   sea: {},
   land: {},
-  river: {},
   islandHop: {},
 };
 
@@ -506,9 +506,6 @@ const standardConfig = {
     knobs: {
       riverDensity: "normal",
     },
-  },
-  "narrative-post": {
-    "story-corridors-post": { corridors: corridorsConfig },
   },
   "hydrology-climate-refine": {
     knobs: {
