@@ -39,6 +39,8 @@ Requirements (within refactor scope):
 - Documentation updates must be contextual:
   - Trace callsites/references first (code-intel) so docs reflect how the symbol is actually used.
   - Avoid duplicating contradictory docs across layers; keep docs consistent between schema descriptions and definition-site docs.
+  - Avoid duplicate canonical modeling/spec bodies: one doc is the canonical spike/issue body per phase; supporting docs are linked, not copy/pasted into multiple “equivalent” canon locations.
+  - Schema/JSDoc “duplication” is allowed only when context-adapted (audience-specific) rather than a sync-burden copy. If a limitation appears to force duplication, revisit the model instead of encoding drift-prone workarounds.
 
 ## Tests (minimum expectations)
 

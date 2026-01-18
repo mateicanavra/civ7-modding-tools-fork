@@ -37,6 +37,7 @@ Cross-pipeline posture:
 
 - Architecture alignment: reconcile the model with target SPEC/ADR docs and record any conflicts or constraints.
 - Authority stack: list which docs are canonical vs supporting; label PRDs as non-authoritative algorithmic inputs.
+- Canonical doc body discipline: the Phase 2 modeling spike is the canonical model/spec body. If you create supporting artifacts (inventories, matrices, diagrams), link them from the spike; do not create a second “equivalent” modeling/spec doc that must be kept in sync.
 - Earth-physics grounding: model from first principles using domain + earth-physics references; use external sources if needed and cite them in the spike.
 - Greenfield-first pass: start from the Phase 0.5 greenfield sketch, then refine it using Phase 1 evidence (do not let legacy structure become the model by default).
 - Pipeline intake: review upstream authoritative inputs and downstream consumer expectations; document adopted inputs, legacy reads to delete, and required downstream changes.
@@ -56,6 +57,11 @@ Repeat this loop until the model stabilizes (minimum two passes):
 
 - Executive model statement (1 paragraph: what the model is and is not)
 - Canonical model + causality spine
+- Canonical doc policy (no duplicate modeling/spec bodies)
+  - State which doc is the canonical Phase 2 modeling spike and treat it as the single source-of-truth narrative for the model.
+  - If additional supporting docs exist (inventories, matrices, diagrams), link them from the modeling spike rather than copy/pasting content into multiple “canonical” locations.
+  - Do not maintain sync-burden copies of the same schema/property definition. If repetition exists, it must be context-adapted (audience-specific) rather than a blind copy.
+  - If you feel forced into duplication due to TypeScript/TypeBox limitations, treat that as a modeling smell and revisit the model.
 - Conceptual decomposition vs pipeline boundary count
   - Describe the full causality spine (conceptual decomposition) as the model’s “truth.”
   - Map the spine onto pipeline stages/steps (boundary count) and justify any intentional collapses/expansions.
@@ -99,6 +105,8 @@ Repeat this loop until the model stabilizes (minimum two passes):
 - Pipeline delta list names downstream consumers that must adapt.
 - Conceptual narrative and diagrams exist and align with the target model.
 - Conceptual decomposition vs pipeline boundary count is explicit and justified (spine vs boundaries vs internal clarity splits; public vs internal surfaces are clear; sprawl risks are assessed).
+- Canonical doc body discipline is respected: there is a single canonical Phase 2 modeling doc body; any supporting artifacts are linked and do not create a second “equivalent” spec/modeling body.
+- Schema/JSDoc duplication is controlled: no sync-burden copies of the same canonical definition; repetition (if any) is context-adapted or replaced with links/pointers.
 - No slice plan content is present (that belongs to Phase 3).
 - Any feedback loops are explicitly bounded (fixed iterations) and deterministic tie-breaking is stated.
 - Legacy disposition ledger is complete; any kept legacy invariants are explicit and justified.
