@@ -14,7 +14,7 @@ const StoryCorridorsPostStepContract = defineStep({
     requires: [
       morphologyArtifacts.topography,
       narrativePreArtifacts.overlays,
-      hydrologyHydrographyArtifacts.riverAdjacency,
+      hydrologyHydrographyArtifacts.hydrography,
     ],
   },
   schema: Type.Object({

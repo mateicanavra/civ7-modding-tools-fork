@@ -1,16 +1,6 @@
 import { TypedArraySchemas, Type, defineArtifact } from "@swooper/mapgen-core/authoring";
 
 /**
- * Convenience mask for downstream consumers that need “near rivers” signals.
- *
- * This is projection-only: Hydrology truth is discharge + routing-derived hydrography. Consumers that need more
- * detail should migrate to `artifact:hydrology.hydrography`.
- */
-export const RiverAdjacencyArtifactSchema = TypedArraySchemas.u8({
-  description: "Mask (1/0): tiles adjacent to projected rivers. Projection-only; does not define Hydrology truth.",
-});
-
-/**
  * Snapshot of Hydrology hydrography derived from Morphology routing + Hydrology discharge projection.
  *
  * This is the canonical read path for “river-ness” and discharge-like signals inside the pipeline.
@@ -51,11 +41,6 @@ export const HydrologyHydrographyArtifactSchema = Type.Object(
 );
 
 export const hydrologyHydrographyArtifacts = {
-  riverAdjacency: defineArtifact({
-    name: "riverAdjacency",
-    id: "artifact:riverAdjacency",
-    schema: RiverAdjacencyArtifactSchema,
-  }),
   hydrography: defineArtifact({
     name: "hydrography",
     id: "artifact:hydrology.hydrography",

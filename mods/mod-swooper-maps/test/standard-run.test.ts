@@ -8,6 +8,7 @@ import type { StandardRecipeConfig } from "../src/recipes/standard/recipe.js";
 import { initializeStandardRuntime } from "../src/recipes/standard/runtime.js";
 import { foundationArtifacts } from "../src/recipes/standard/stages/foundation/artifacts.js";
 import { hydrologyHydrographyArtifacts } from "../src/recipes/standard/stages/hydrology-hydrography/artifacts.js";
+import { computeRiverAdjacencyMaskFromRiverClass } from "../src/recipes/standard/stages/hydrology-hydrography/river-adjacency.js";
 import { hydrologyClimateBaselineArtifacts } from "../src/recipes/standard/stages/hydrology-climate-baseline/artifacts.js";
 import { hydrologyClimateRefineArtifacts } from "../src/recipes/standard/stages/hydrology-climate-refine/artifacts.js";
 import { placementArtifacts } from "../src/recipes/standard/stages/placement/artifacts.js";
@@ -555,20 +556,22 @@ describe("standard recipe execution", () => {
 	    initializeStandardRuntime(context, { mapInfo, logPrefix: "[test]", storyEnabled: true });
 	    standardRecipe.run(context, env, standardConfig, { log: () => {} });
 
-	    const hydrography = context.artifacts.get(hydrologyHydrographyArtifacts.hydrography.id) as
-	      | { discharge?: Float32Array; riverClass?: Uint8Array }
-	      | undefined;
-	    const riverAdjacency = context.artifacts.get(hydrologyHydrographyArtifacts.riverAdjacency.id) as Uint8Array | undefined;
-	    const size = width * height;
-	    if (!(hydrography?.discharge instanceof Float32Array) || hydrography.discharge.length !== size) {
-	      throw new Error("Missing artifact:hydrology.hydrography discharge buffer.");
-	    }
-	    if (!(hydrography?.riverClass instanceof Uint8Array) || hydrography.riverClass.length !== size) {
-	      throw new Error("Missing artifact:hydrology.hydrography riverClass buffer.");
-	    }
-	    if (!(riverAdjacency instanceof Uint8Array) || riverAdjacency.length !== size) {
-	      throw new Error("Missing artifact:riverAdjacency buffer.");
-	    }
+		    const hydrography = context.artifacts.get(hydrologyHydrographyArtifacts.hydrography.id) as
+		      | { discharge?: Float32Array; riverClass?: Uint8Array }
+		      | undefined;
+		    const size = width * height;
+		    if (!(hydrography?.discharge instanceof Float32Array) || hydrography.discharge.length !== size) {
+		      throw new Error("Missing artifact:hydrology.hydrography discharge buffer.");
+		    }
+		    if (!(hydrography?.riverClass instanceof Uint8Array) || hydrography.riverClass.length !== size) {
+		      throw new Error("Missing artifact:hydrology.hydrography riverClass buffer.");
+		    }
+		    const riverAdjacency = computeRiverAdjacencyMaskFromRiverClass({
+		      width,
+		      height,
+		      riverClass: hydrography.riverClass,
+		      radius: 1,
+		    });
 
 	    const climateField = context.artifacts.get(hydrologyClimateBaselineArtifacts.climateField.id) as
 	      | { rainfall?: Uint8Array; humidity?: Uint8Array }
@@ -589,11 +592,11 @@ describe("standard recipe execution", () => {
       | { rainShadowIndex?: Float32Array; continentalityIndex?: Float32Array; convergenceIndex?: Float32Array }
       | undefined;
 
-	    const rainfallSha = sha256Hex(Buffer.from(rainfall).toString("base64"));
-	    const humiditySha = sha256Hex(Buffer.from(humidity).toString("base64"));
-	    const dischargeView = hydrography?.discharge ?? new Float32Array();
-	    const riverClassView = hydrography?.riverClass ?? new Uint8Array();
-	    const riverAdjacencyView = riverAdjacency ?? new Uint8Array();
+		    const rainfallSha = sha256Hex(Buffer.from(rainfall).toString("base64"));
+		    const humiditySha = sha256Hex(Buffer.from(humidity).toString("base64"));
+		    const dischargeView = hydrography?.discharge ?? new Float32Array();
+		    const riverClassView = hydrography?.riverClass ?? new Uint8Array();
+		    const riverAdjacencyView = riverAdjacency ?? new Uint8Array();
     const temperatureView = climateIndices?.surfaceTemperatureC ?? new Float32Array();
     const petView = climateIndices?.pet ?? new Float32Array();
     const aridityView = climateIndices?.aridityIndex ?? new Float32Array();

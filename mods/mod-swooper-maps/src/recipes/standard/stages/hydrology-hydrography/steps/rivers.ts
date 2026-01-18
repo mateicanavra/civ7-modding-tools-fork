@@ -6,7 +6,6 @@ import {
   syncHeightfield,
 } from "@swooper/mapgen-core";
 import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
-import { computeRiverAdjacencyMaskFromRiverClass } from "../river-adjacency.js";
 import { hydrologyHydrographyArtifacts } from "../artifacts.js";
 import RiversStepContract from "./rivers.contract.js";
 
@@ -39,16 +38,6 @@ function validateTypedArray(
   return true;
 }
 
-function validateRiverAdjacencyMask(
-  value: unknown,
-  dimensions: MapDimensions
-): ArtifactValidationIssue[] {
-  const errors: ArtifactValidationIssue[] = [];
-  const size = expectedSize(dimensions);
-  validateTypedArray(errors, "riverAdjacency", value, Uint8Array, size);
-  return errors;
-}
-
 function validateHydrography(value: unknown, dimensions: MapDimensions): ArtifactValidationIssue[] {
   const errors: ArtifactValidationIssue[] = [];
   const size = expectedSize(dimensions);
@@ -74,10 +63,7 @@ function validateHydrography(value: unknown, dimensions: MapDimensions): Artifac
 }
 
 export default createStep(RiversStepContract, {
-  artifacts: implementArtifacts([hydrologyHydrographyArtifacts.riverAdjacency, hydrologyHydrographyArtifacts.hydrography], {
-    riverAdjacency: {
-      validate: (value, context) => validateRiverAdjacencyMask(value, context.dimensions),
-    },
+  artifacts: implementArtifacts([hydrologyHydrographyArtifacts.hydrography], {
     hydrography: {
       validate: (value, context) => validateHydrography(value, context.dimensions),
     },
@@ -209,14 +195,6 @@ export default createStep(RiversStepContract, {
       outletMask: discharge.outletMask,
       ...(routing.basinId instanceof Int32Array ? { basinId: routing.basinId } : {}),
     });
-
-    const riverAdjacency = computeRiverAdjacencyMaskFromRiverClass({
-      width,
-      height,
-      riverClass: projected.riverClass,
-      radius: 1,
-    });
-    deps.artifacts.riverAdjacency.publish(context, riverAdjacency);
 
     logStats("PRE-RIVERS");
     context.adapter.modelRivers(config.minLength, config.maxLength, navigableRiverTerrain);
