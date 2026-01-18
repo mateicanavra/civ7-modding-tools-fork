@@ -429,153 +429,8 @@ export default createMap({
         },
       },
     },
-    "narrative-swatches": {
-      "story-swatches": {
-        climate: {
-          baseline: {
-            blend: {
-              baseWeight: 0.45,
-              bandWeight: 0.55,
-            },
-            seed: {
-              baseRainfall: 34,
-              coastalExponent: 1.25,
-            },
-            bands: {
-              deg0to10: 170,
-              deg10to20: 125,
-              deg20to35: 55,         // Subtropical deserts
-              deg35to55: 90,
-              deg55to70: 70,
-              deg70plus: 50,
-              edges: {
-                deg0to10: 8,
-                deg10to20: 18,
-                deg20to35: 32,
-                deg35to55: 52,
-                deg55to70: 70,
-              },
-              transitionWidth: 18,   // Smoother biome transitions
-            },
-            sizeScaling: {
-              baseArea: 10000,
-              minScale: 0.65,
-              maxScale: 2.0,
-              equatorBoostScale: 10,
-              equatorBoostTaper: 0.6,
-            },
-            orographic: {
-              hi1Threshold: 320,     // Lower threshold: more tiles get uplift rainfall
-              hi1Bonus: 11,          // Increased: mountains wetter on windward side
-              hi2Threshold: 620,
-              hi2Bonus: 9,
-            },
-            coastal: {
-              coastalLandBonus: 18,  // Reduced: allow coastal deserts
-              spread: 4,             // Reduced: tighter coastal moisture band
-            },
-            noise: {
-              baseSpanSmall: 5,
-              spanLargeScaleFactor: 1.0,
-              scale: 0.16,
-            },
-          },
-          swatches: {
-            enabled: true,
-            types: {
-              // Desert band - stronger for Sahara/Arabian-scale deserts
-              macroDesertBelt: {
-                weight: 24,
-                latitudeCenterDeg: 24,
-                halfWidthDeg: 9,
-                drynessDelta: 20,
-              },
-              // Continental interior drying
-              greatPlains: {
-                weight: 18,
-                latitudeCenterDeg: 42,
-                halfWidthDeg: 8,
-                dryDelta: 12,
-                lowlandMaxElevation: 340,
-              },
-              // Wet mountains for contrast
-              mountainForests: {
-                weight: 18,
-                elevationThreshold: 320,
-                wetBonus: 12,
-              },
-              // Tropical rain variety - stronger for Amazon/Congo-scale rainforests
-              equatorialRainbelt: {
-                weight: 22,
-                latitudeCenterDeg: 5,
-                halfWidthDeg: 9,
-                wetnessDelta: 18,
-              },
-            },
-            sizeScaling: {
-              widthMulSqrt: 0.25,
-              lengthMulSqrt: 0.05,
-            },
-          },
-          refine: {
-            waterGradient: {
-              radius: 4,
-              perRingBonus: 3,
-              lowlandBonus: 4,
-            },
-            orographic: {
-              steps: 6,
-              reductionBase: 22,
-              reductionPerStep: 6,
-            },
-            riverCorridor: {
-              lowlandAdjacencyBonus: 10,
-              highlandAdjacencyBonus: 4,
-            },
-            lowBasin: {
-              radius: 2,
-              delta: 5,
-            },
-          },
-          story: {
-            rainfall: {
-              riftBoost: 6,
-              riftRadius: 2,
-              paradiseDelta: 10,
-              volcanicDelta: 6,
-            },
-          },
-        },
-      },
-    },
     "hydrology-core": {
-      rivers: {
-        climate: {
-          story: {
-            paleo: {
-              maxDeltas: 4,
-              deltaFanRadius: 3,
-              deltaMarshChance: 0.4,
-              maxOxbows: 6,
-              oxbowElevationMax: 320,
-              maxFossilChannels: 3,
-              fossilChannelLengthTiles: 8,
-              fossilChannelStep: 1,
-              fossilChannelHumidity: 12,
-              fossilChannelMinDistanceFromCurrentRivers: 4,
-              bluffWetReduction: 8,
-              sizeScaling: {
-                lengthMulSqrt: 0.3,
-              },
-              elevationCarving: {
-                enableCanyonRim: true,
-                rimWidth: 2,
-                canyonDryBonus: 10,
-              },
-            },
-          },
-        },
-      },
+      rivers: {},
     },
     "narrative-post": {
       "story-corridors-post": {
@@ -665,43 +520,6 @@ export default createMap({
               scale: 0.14,
             },
           },
-          swatches: {
-            enabled: false,
-            types: {
-              // Desert band - stronger for Sahara/Arabian-scale deserts
-              macroDesertBelt: {
-                weight: 28,
-                latitudeCenterDeg: 26,
-                halfWidthDeg: 10,
-                drynessDelta: 25,
-              },
-              // Continental interior drying
-              greatPlains: {
-                weight: 22,
-                latitudeCenterDeg: 42,
-                halfWidthDeg: 8,
-                dryDelta: 15,
-                lowlandMaxElevation: 320,
-              },
-              // Wet mountains for contrast
-              mountainForests: {
-                weight: 25,
-                elevationThreshold: 280,
-                wetBonus: 16,
-              },
-              // Tropical rain variety - stronger for Amazon/Congo-scale rainforests
-              equatorialRainbelt: {
-                weight: 25,
-                latitudeCenterDeg: 5,
-                halfWidthDeg: 10,
-                wetnessDelta: 22,
-              },
-            },
-            sizeScaling: {
-              widthMulSqrt: 0.3,
-              lengthMulSqrt: 0,
-            },
-          },
           refine: {
             waterGradient: {
               radius: 4,
@@ -721,22 +539,6 @@ export default createMap({
               radius: 2,
               delta: 5,
             },
-          },
-          story: {
-            rainfall: {
-              riftBoost: 6,
-              riftRadius: 2,
-              paradiseDelta: 8,
-              volcanicDelta: 6,
-            },
-          },
-        },
-        story: {
-          orogeny: {
-            radius: 2,
-            beltMinLength: 34,
-            windwardBoost: 6,
-            leeDrynessAmplifier: 1.15,
           },
         },
       },

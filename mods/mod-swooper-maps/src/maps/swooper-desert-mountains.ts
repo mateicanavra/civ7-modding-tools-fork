@@ -425,126 +425,8 @@ export default createMap({
       },
     },
   },
-  "narrative-swatches": {
-    "story-swatches": {
-      climate: {
-        baseline: {
-          blend: {
-            baseWeight: 0.15,
-            bandWeight: 0.85,
-          },
-          seed: {
-            baseRainfall: 8,
-            coastalExponent: 1.6,
-          },
-          bands: {
-            // Desert-leaning bands with dry subtropics.
-            deg0to10: 16,
-            deg10to20: 12,
-            deg20to35: 7,
-            deg35to55: 14,
-            deg55to70: 12,
-            deg70plus: 10,
-            edges: {
-              deg0to10: 10,
-              deg10to20: 20,
-              deg20to35: 35,
-              deg35to55: 55,
-              deg55to70: 70,
-            },
-            transitionWidth: 6,
-          },
-          sizeScaling: {
-            baseArea: 10000,
-            minScale: 0.5,
-            maxScale: 1.8,
-            equatorBoostScale: 4,
-            equatorBoostTaper: 0.35,
-          },
-          orographic: {
-            hi1Threshold: 220,
-            hi1Bonus: 14,
-            hi2Threshold: 420,
-            hi2Bonus: 28,
-          },
-	          coastal: {
-	            coastalLandBonus: 16,
-	            spread: 3,
-	          },
-          noise: {
-            baseSpanSmall: 4,
-            spanLargeScaleFactor: 1.35,
-            scale: 0.26,
-          },
-        },
-        swatches: {
-          enabled: false,
-          types: {},
-          sizeScaling: {
-            widthMulSqrt: 0,
-            lengthMulSqrt: 0,
-          },
-        },
-	        refine: {
-          waterGradient: {
-            radius: 5,
-            perRingBonus: 3,
-            lowlandBonus: 6,
-          },
-          orographic: {
-            steps: 4,
-            reductionBase: 22,
-            reductionPerStep: 12,
-          },
-	          riverCorridor: {
-	            adjacencyRadius: 2,
-	            lowlandAdjacencyBonus: 24,
-	            highlandAdjacencyBonus: 10,
-	          },
-          lowBasin: {
-            radius: 4,
-            delta: 24,
-          },
-        },
-        story: {
-          rainfall: {
-            riftBoost: 18,
-            riftRadius: 2,
-            paradiseDelta: 14,
-            volcanicDelta: 14,
-          },
-        },
-      },
-    },
-  },
   "hydrology-core": {
-    rivers: {
-      climate: {
-        story: {
-          paleo: {
-            maxDeltas: 0,
-            deltaFanRadius: 0,
-            deltaMarshChance: 0.35,
-            maxOxbows: 0,
-            oxbowElevationMax: 280,
-            maxFossilChannels: 0,
-            fossilChannelLengthTiles: 6,
-            fossilChannelStep: 1,
-            fossilChannelHumidity: 0,
-            fossilChannelMinDistanceFromCurrentRivers: 0,
-            bluffWetReduction: 0,
-            sizeScaling: {
-              lengthMulSqrt: 0,
-            },
-            elevationCarving: {
-              enableCanyonRim: true,
-              rimWidth: 0,
-              canyonDryBonus: 0,
-            },
-          },
-        },
-      },
-    },
+    rivers: {},
   },
   "narrative-post": {
     "story-corridors-post": {
@@ -629,25 +511,17 @@ export default createMap({
 	            coastalLandBonus: 24,
 	            spread: 3,
 	          },
-          noise: {
-            baseSpanSmall: 4,
-            spanLargeScaleFactor: 1.2,
-            scale: 0.22,
-          },
-        },
-        swatches: {
-          enabled: false,
-          types: {},
-          sizeScaling: {
-            widthMulSqrt: 0,
-            lengthMulSqrt: 0,
-          },
-        },
-        refine: {
-          waterGradient: {
-            radius: 5,
-            perRingBonus: 3,
-            lowlandBonus: 6,
+	          noise: {
+	            baseSpanSmall: 4,
+	            spanLargeScaleFactor: 1.2,
+	            scale: 0.22,
+	          },
+	        },
+	        refine: {
+	          waterGradient: {
+	            radius: 5,
+	            perRingBonus: 3,
+	            lowlandBonus: 6,
           },
           orographic: {
             steps: 4,
@@ -659,30 +533,14 @@ export default createMap({
 	            lowlandAdjacencyBonus: 26,
 	            highlandAdjacencyBonus: 12,
 	          },
-          lowBasin: {
-            radius: 4,
-            delta: 24,
-          },
-        },
-        story: {
-          rainfall: {
-            riftBoost: 18,
-            riftRadius: 2,
-            paradiseDelta: 14,
-            volcanicDelta: 14,
-          },
-        },
-      },
-      story: {
-        orogeny: {
-          radius: 2,
-          beltMinLength: 30,
-          windwardBoost: 6,
-          leeDrynessAmplifier: 1.35,
-        },
-      },
-    },
-  },
+	          lowBasin: {
+	            radius: 4,
+	            delta: 24,
+	          },
+	        },
+	      },
+	    },
+	  },
   ecology: {
     // New ecology steps with strategy selections for arid mountain world
     pedology: {

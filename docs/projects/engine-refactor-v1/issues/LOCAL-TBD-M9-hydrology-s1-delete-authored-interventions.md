@@ -28,12 +28,14 @@ related_to: []
 - Add enforcement: repo scans + (where appropriate) linter rules to lock the bans.
 
 ## Acceptance Criteria
-- [ ] No `narrative-swatches` stage exists in the standard recipe braid.
-- [ ] No Hydrology step contract requires `narrativePreArtifacts.overlays`.
-- [ ] No Hydrology step reads `deps.artifacts.overlays` (or any narrative overlay artifact).
-- [ ] No Hydrology code imports `@mapgen/domain/narrative/*`.
-- [ ] No remaining references to swatches or paleo in Hydrology climate code paths.
-- [ ] `pnpm check` passes (includes `pnpm lint:domain-refactor-guardrails`).
+- [x] No `narrative-swatches` stage exists in the standard recipe braid.
+- [x] No Hydrology step contract requires `narrativePreArtifacts.overlays`.
+- [x] No Hydrology step reads `deps.artifacts.overlays` (or any narrative overlay artifact).
+- [x] No Hydrology code imports `@mapgen/domain/narrative/*`.
+- [x] No remaining references to swatches or paleo in Hydrology climate code paths.
+- [x] `pnpm check` passes (includes `pnpm lint:domain-refactor-guardrails`).
+
+Completed on branch `agent-TURTLE-M9-LOCAL-TBD-M9-hydrology-s1-delete-authored-interventions` (PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/613).
 
 ## Testing / Verification
 - `pnpm check`
@@ -64,6 +66,29 @@ related_to: []
 <!-- Path roots -->
 swooper-src = mods/mod-swooper-maps/src
 swooper-test = mods/mod-swooper-maps/test
+
+## Implementation Decisions
+
+### Delete authored intervention surfaces outright (no dormant stubs)
+- **Context:** Phase 2 bans swatches/story/paleo in Hydrology; Phase 3 Slice 1 requires a hard cut to prevent drift.
+- **Options:** (A) keep stubs (disabled) for “future”, (B) delete stage + modules + schema surfaces entirely.
+- **Choice:** (B) delete entirely.
+- **Rationale:** Matches `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/IMPLEMENTATION.md` (“Delete legacy for the slice”; no dual paths) and Phase 2’s “no compat inside Hydrology” posture.
+- **Risk:** Map presets lose authored climate shaping; mitigated by keeping baseline + physics refine in place until Slice 2/3 replace them.
+
+### Keep `climate-refine` but remove narrative-driven passes
+- **Context:** `climate-refine` previously consumed narrative overlays and story config to perturb rainfall.
+- **Options:** (A) delete `climate-refine` entirely, (B) keep it but remove narrative-driven inputs and passes.
+- **Choice:** (B) keep it (physics-only passes remain).
+- **Rationale:** Preserves pipeline shape and downstream `artifact:climateField` stability while enforcing Phase 2’s “fully derivative” boundary.
+- **Risk:** Some previous “story flavor” rainfall deltas disappear; intended per Phase 2.
+
+### Rename and publish the Morphology coastline marker artifact
+- **Context:** `narrative-pre/story-seed` gates on a Morphology “coastlines complete” marker artifact; the previous `coastlinesApplied` marker was both unpublished and banned by contract-guard checks.
+- **Options:** (A) remove the marker gate, (B) keep marker but rename + publish it from the producer step.
+- **Choice:** (B) rename to `coastlinesExpanded` and publish from Morphology `coastlines` step.
+- **Rationale:** Keeps contract-first dependency gating (per workflow docs) while avoiding reintroducing “effect-tag style” marker names and ensuring tests cover publish-once discipline.
+- **Risk:** Artifact id changes; confined to internal consumers in this repo (updated in the same change).
 
 ### Why this slice exists (narrative vs physics boundary)
 

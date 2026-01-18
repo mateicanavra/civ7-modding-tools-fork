@@ -33,8 +33,6 @@ describe("story/overlays", () => {
       expect(STORY_OVERLAY_KEYS.RIFTS).toBe("rifts");
       expect(STORY_OVERLAY_KEYS.OROGENY).toBe("orogeny");
       expect(STORY_OVERLAY_KEYS.CORRIDORS).toBe("corridors");
-      expect(STORY_OVERLAY_KEYS.SWATCHES).toBe("swatches");
-      expect(STORY_OVERLAY_KEYS.PALEO).toBe("paleo");
     });
   });
 
@@ -78,17 +76,17 @@ describe("story/overlays", () => {
     it("creates overlays map on context if missing", () => {
       const ctx: { overlays?: StoryOverlayRegistry } = {};
 
-      publishStoryOverlay(ctx, STORY_OVERLAY_KEYS.SWATCHES, { width: 10, height: 10 });
+      publishStoryOverlay(ctx, STORY_OVERLAY_KEYS.MARGINS, { width: 10, height: 10 });
 
       expect(ctx.overlays).toBeDefined();
-      expect(getStoryOverlay(ctx, STORY_OVERLAY_KEYS.SWATCHES)).not.toBeNull();
+      expect(getStoryOverlay(ctx, STORY_OVERLAY_KEYS.MARGINS)).not.toBeNull();
     });
 
     it("normalizes overlay with defaults", () => {
-      const snapshot = publishStoryOverlay(null, STORY_OVERLAY_KEYS.PALEO, {});
+      const snapshot = publishStoryOverlay(null, STORY_OVERLAY_KEYS.MARGINS, {});
 
-      expect(snapshot.key).toBe(STORY_OVERLAY_KEYS.PALEO);
-      expect(snapshot.kind).toBe(STORY_OVERLAY_KEYS.PALEO); // defaults to key
+      expect(snapshot.key).toBe(STORY_OVERLAY_KEYS.MARGINS);
+      expect(snapshot.kind).toBe(STORY_OVERLAY_KEYS.MARGINS); // defaults to key
       expect(snapshot.version).toBe(1);
       expect(snapshot.width).toBe(0);
       expect(snapshot.height).toBe(0);
@@ -98,13 +96,13 @@ describe("story/overlays", () => {
     });
 
     it("freezes the snapshot", () => {
-      const snapshot = publishStoryOverlay(null, STORY_OVERLAY_KEYS.PALEO, { width: 10 });
+      const snapshot = publishStoryOverlay(null, STORY_OVERLAY_KEYS.MARGINS, { width: 10 });
 
       expect(Object.isFrozen(snapshot)).toBe(true);
     });
 
     it("deduplicates active/passive arrays", () => {
-      const snapshot = publishStoryOverlay(null, STORY_OVERLAY_KEYS.PALEO, {
+      const snapshot = publishStoryOverlay(null, STORY_OVERLAY_KEYS.MARGINS, {
         active: ["1,1", "2,2", "1,1", "3,3", "2,2"],
         passive: ["4,4", "4,4", "5,5"],
       });
@@ -116,17 +114,17 @@ describe("story/overlays", () => {
 
   describe("finalizeStoryOverlay", () => {
     it("creates snapshot without publishing to registry", () => {
-      const snapshot = finalizeStoryOverlay(STORY_OVERLAY_KEYS.SWATCHES, {
+      const snapshot = finalizeStoryOverlay(STORY_OVERLAY_KEYS.CORRIDORS, {
         width: 100,
         height: 80,
       });
 
-      expect(snapshot.key).toBe(STORY_OVERLAY_KEYS.SWATCHES);
+      expect(snapshot.key).toBe(STORY_OVERLAY_KEYS.CORRIDORS);
       expect(snapshot.width).toBe(100);
     });
 
     it("normalizes the same as publishStoryOverlay", () => {
-      const snapshot = finalizeStoryOverlay(STORY_OVERLAY_KEYS.SWATCHES, {
+      const snapshot = finalizeStoryOverlay(STORY_OVERLAY_KEYS.CORRIDORS, {
         active: ["1,1", "1,1"],
       });
 
@@ -137,16 +135,16 @@ describe("story/overlays", () => {
 
   describe("getStoryOverlay", () => {
     it("returns overlay from context if available", () => {
-      const snapshot = finalizeStoryOverlay(STORY_OVERLAY_KEYS.SWATCHES, { width: 42 });
+      const snapshot = finalizeStoryOverlay(STORY_OVERLAY_KEYS.CORRIDORS, { width: 42 });
       const ctx = {
         overlays: {
-          corridors: [],
-          swatches: [snapshot],
+          corridors: [snapshot],
+          swatches: [],
           motifs: [],
         },
       };
 
-      const result = getStoryOverlay(ctx, STORY_OVERLAY_KEYS.SWATCHES);
+      const result = getStoryOverlay(ctx, STORY_OVERLAY_KEYS.CORRIDORS);
 
       expect(result).toBe(snapshot);
     });

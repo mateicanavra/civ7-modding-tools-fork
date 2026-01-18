@@ -19,8 +19,6 @@ type OverlayRegistryView = Readonly<{
 
 const OVERLAY_COLLECTION_BY_KEY: Record<StoryOverlayKey, keyof OverlayRegistryView> = {
   [STORY_OVERLAY_KEYS.CORRIDORS]: "corridors",
-  [STORY_OVERLAY_KEYS.SWATCHES]: "swatches",
-  [STORY_OVERLAY_KEYS.PALEO]: "swatches",
   [STORY_OVERLAY_KEYS.MARGINS]: "motifs",
   [STORY_OVERLAY_KEYS.HOTSPOTS]: "motifs",
   [STORY_OVERLAY_KEYS.RIFTS]: "motifs",

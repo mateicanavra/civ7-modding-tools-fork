@@ -1,5 +1,4 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
-import { ClimateConfigSchema } from "@mapgen/domain/config";
 
 import { M4_EFFECT_TAGS } from "../../../tags.js";
 import { hydrologyCoreArtifacts } from "../artifacts.js";
@@ -16,13 +15,7 @@ const RiversStepContract = defineStep({
     requires: [hydrologyPreArtifacts.heightfield, hydrologyPreArtifacts.climateField],
     provides: [hydrologyCoreArtifacts.riverAdjacency],
   },
-  schema: Type.Object({
-    climate: Type.Object({
-      story: Type.Object({
-        paleo: Type.Optional(ClimateConfigSchema.properties.story.properties.paleo),
-      }),
-    }),
-  }),
+  schema: Type.Object({}),
 });
 
 export default RiversStepContract;

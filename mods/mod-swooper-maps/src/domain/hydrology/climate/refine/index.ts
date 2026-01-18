@@ -1,18 +1,10 @@
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
 import { inBounds as boundsCheck } from "@swooper/mapgen-core/lib/grid";
-import type { ClimateConfig, StoryConfig } from "@mapgen/domain/config";
-import type {
-  NarrativeMotifsHotspots,
-  NarrativeMotifsRifts,
-} from "@mapgen/domain/narrative/models.js";
-import type { OrogenyCache } from "@mapgen/domain/hydrology/climate/types.js";
+import type { ClimateConfig } from "@mapgen/domain/config";
 import { createClimateRuntime } from "@mapgen/domain/hydrology/climate/runtime.js";
 import { applyWaterGradientRefinement } from "@mapgen/domain/hydrology/climate/refine/water-gradient.js";
 import { applyOrographicShadowRefinement } from "@mapgen/domain/hydrology/climate/refine/orographic-shadow.js";
 import { applyRiverCorridorRefinement } from "@mapgen/domain/hydrology/climate/refine/river-corridor.js";
-import { applyRiftHumidityRefinement } from "@mapgen/domain/hydrology/climate/refine/rift-humidity.js";
-import { applyOrogenyBeltsRefinement } from "@mapgen/domain/hydrology/climate/refine/orogeny-belts.js";
-import { applyHotspotMicroclimatesRefinement } from "@mapgen/domain/hydrology/climate/refine/hotspot-microclimates.js";
 import type { HydrologyWindFields } from "@mapgen/domain/hydrology/ops/compute-wind-fields/contract.js";
 
 /**
@@ -23,12 +15,8 @@ export function refineClimateEarthlike(
   height: number,
   ctx: ExtendedMapContext | null = null,
   options: {
-    orogenyCache?: OrogenyCache;
     climate?: ClimateConfig;
-    story?: StoryConfig;
     wind?: HydrologyWindFields;
-    rifts?: NarrativeMotifsRifts | null;
-    hotspots?: NarrativeMotifsHotspots | null;
     riverAdjacency?: Uint8Array | null;
   } = {}
 ): void {
@@ -50,13 +38,6 @@ export function refineClimateEarthlike(
   }
   const climateCfg = options.climate;
   const refineCfg = climateCfg.refine as Record<string, unknown>;
-  const storyMoisture = (climateCfg as Record<string, unknown>).story as Record<string, unknown>;
-  const storyRain = storyMoisture.rainfall as Record<string, number>;
-  const orogenyCache = options?.orogenyCache || null;
-  const storyCfg = options.story as StoryConfig;
-  const emptySet = new Set<string>();
-  const rifts = options.rifts ?? null;
-  const hotspots = options.hotspots ?? null;
 
   // Local bounds check with captured width/height
   const inBounds = (x: number, y: number): boolean => boundsCheck(x, y, width, height);
@@ -87,31 +68,5 @@ export function refineClimateEarthlike(
     runtime,
     refineCfg as Record<string, unknown>,
     inBounds
-  );
-
-  // Pass D: Rift humidity boost
-  applyRiftHumidityRefinement(
-    width,
-    height,
-    runtime,
-    inBounds,
-    rifts?.riftLine ?? emptySet,
-    storyRain
-  );
-
-  // Pass E: Orogeny belts (windward/lee)
-  applyOrogenyBeltsRefinement(width, height, runtime, orogenyCache, storyCfg);
-
-  // Pass F: Hotspot island microclimates
-  applyHotspotMicroclimatesRefinement(
-    width,
-    height,
-    runtime,
-    inBounds,
-    {
-      paradise: hotspots?.paradise ?? emptySet,
-      volcanic: hotspots?.volcanic ?? emptySet,
-    },
-    storyRain
   );
 }

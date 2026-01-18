@@ -7,8 +7,6 @@ import {
 } from "@swooper/mapgen-core";
 import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import { computeRiverAdjacencyMask } from "../river-adjacency.js";
-import { getStandardRuntime } from "../../../runtime.js";
-import { storyTagClimatePaleo } from "@mapgen/domain/narrative/swatches.js";
 import { hydrologyCoreArtifacts } from "../artifacts.js";
 import RiversStepContract from "./rivers.contract.js";
 
@@ -53,8 +51,7 @@ export default createStep(RiversStepContract, {
       validate: (value, context) => validateRiverAdjacencyMask(value, context.dimensions),
     },
   }),
-  run: (context, config, _ops, deps) => {
-    const runtime = getStandardRuntime(context);
+  run: (context, _config, _ops, deps) => {
     const navigableRiverTerrain = NAVIGABLE_RIVER_TERRAIN;
     const { width, height } = context.dimensions;
     const logStats = (label: string) => {
@@ -100,16 +97,6 @@ export default createStep(RiversStepContract, {
     logStats("POST-VALIDATE");
     syncHeightfield(context);
     context.adapter.defineNamedRivers();
-
-    if (runtime.storyEnabled && config.climate?.story?.paleo != null) {
-      if (context.trace.isVerbose) {
-        context.trace.event(() => ({
-          type: "rivers.paleo.start",
-          message: `${runtime.logPrefix} Applying paleo hydrology (post-rivers)...`,
-        }));
-      }
-      storyTagClimatePaleo(context, config.climate);
-    }
 
     const riverAdjacency = computeRiverAdjacencyMask(context);
     deps.artifacts.riverAdjacency.publish(context, riverAdjacency);

@@ -10,7 +10,7 @@ const StorySeedStepContract = defineStep({
   requires: [],
   provides: [],
   artifacts: {
-    requires: [morphologyArtifacts.topography, morphologyArtifacts.coastlinesApplied],
+    requires: [morphologyArtifacts.topography, morphologyArtifacts.coastlinesExpanded],
     provides: [narrativePreArtifacts.overlays],
   },
   schema: Type.Object({

@@ -18,6 +18,12 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
 
 ## Triage (needs decision / research)
 
+- **Morphology coastline marker artifact renamed + published** [Source: LOCAL-TBD-M9-hydrology-s1-delete-authored-interventions]
+  - **Context:** Slice 1 enforcement work needed a stable, contract-first “coastlines complete” gate for Narrative seed steps.
+  - **Type:** triage
+  - **Notes:** Renamed the marker artifact from `coastlinesApplied` → `coastlinesExpanded` and ensured the Morphology `coastlines` step publishes it (write-once) so downstream contracts can gate without effect-tag style shims.
+  - **Next check:** none.
+
 - **Single-producer enforcement scoped to `artifacts.provides` in Phase 1** [Source: LOCAL-TBD-M8-U21]
   - **Context:** U21 Phase 1 adds artifact contracts without mod migration; legacy steps still declare artifact ids directly in `requires/provides`.
   - **Type:** triage
@@ -114,11 +120,11 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
   - **Notes:** Plan is to phase replacement (aquatic+ice → vegetated → wet/isolate) while keeping `adapter.canHaveFeature` as the canonical gate; defer “full floodplains ownership” until we define a minimal river topology/adjacency contract or an explicit hybrid policy.
   - **Next check:** before implementing `LOCAL-TBD-M7-U09` (confirm floodplains scope and where the ownership boundary should live).
 
-- **Climate swatches default disabled in standard recipe** [Source: LOCAL-TBD-M7-U09]
-  - **Context:** `climate.swatches` defaults to `{}` via schema and applies a macro swatch even when omitted; U09 disables swatches to isolate ecology/feature placement changes.
+- **Authored climate interventions removed from Hydrology** [Source: LOCAL-TBD-M9-hydrology-s1-delete-authored-interventions]
+  - **Context:** Phase 2 Hydrology model bans swatches/paint and story-driven perturbations; Slice 1 deletes those surfaces.
   - **Type:** triage
-  - **Notes:** `applyClimateSwatches` now honors `swatches.enabled === false`, and standard config defaults that flag to false. Re-enable explicitly in presets when swatch tuning is desired.
-  - **Next check:** when swatch tuning becomes a focus or when climate swatch schemas are formalized.
+  - **Notes:** `climate.swatches` and `climate.story` are no longer part of the Hydrology config surface; any future authored “make this wet/dry” mechanisms must live outside Hydrology (explicitly deprecated/owned downstream) and be tracked with removal triggers.
+  - **Next check:** none (revisit only if Phase 2 authority changes).
 
 - **Standard recipe runtime stored per context** [Source: `docs/projects/engine-refactor-v1/issues/_archive/LOCAL-TBD-M6-U05-1-translate-base-steps-into-recipe-local-stage-step-files.md`]
   - **Context:** Standard recipe steps need shared mutable state (continents, start sectors, mapInfo) without registry-layer runtime injection.

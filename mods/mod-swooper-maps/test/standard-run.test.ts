@@ -179,7 +179,6 @@ const climateConfig = {
       scale: 0.13,
     },
   },
-  swatches: { enabled: false },
   refine: {
     waterGradient: {
       radius: 6,
@@ -198,14 +197,6 @@ const climateConfig = {
     lowBasin: {
       radius: 3,
       delta: 7,
-    },
-  },
-  story: {
-    rainfall: {
-      riftBoost: 8,
-      riftRadius: 2,
-      paradiseDelta: 6,
-      volcanicDelta: 8,
     },
   },
 };
@@ -514,7 +505,6 @@ const placementConfig = {
 };
 const storyRiftConfig = {};
 const storyOrogenyConfig = {};
-const climatePaleoConfig = {};
 
 const standardConfig = {
   foundation: foundationConfig,
@@ -584,17 +574,14 @@ const standardConfig = {
       },
     },
   },
-  "narrative-swatches": {
-    "story-swatches": { climate: climateConfig },
-  },
   "hydrology-core": {
-    rivers: { climate: { story: { paleo: climatePaleoConfig } } },
+    rivers: {},
   },
   "narrative-post": {
     "story-corridors-post": { corridors: corridorsConfig },
   },
   "hydrology-post": {
-    "climate-refine": { climate: climateConfig, story: { orogeny: storyOrogenyConfig } },
+    "climate-refine": { climate: climateConfig },
   },
   ecology: {
     biomes: { classify: biomesConfig, bindings: biomeBindingsConfig },

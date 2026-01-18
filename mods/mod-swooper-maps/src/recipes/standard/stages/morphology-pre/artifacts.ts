@@ -18,7 +18,7 @@ const MorphologyTopographyArtifactSchema = Type.Object(
   { description: "Canonical morphology topography buffer handle (publish once)." }
 );
 
-const MorphologyCoastlinesAppliedArtifactSchema = Type.Object(
+const MorphologyCoastlinesExpandedArtifactSchema = Type.Object(
   {},
   {
     additionalProperties: false,
@@ -97,10 +97,10 @@ export const morphologyArtifacts = {
     id: "artifact:morphology.topography",
     schema: MorphologyTopographyArtifactSchema,
   }),
-  coastlinesApplied: defineArtifact({
-    name: "coastlinesApplied",
-    id: "artifact:morphology.coastlinesApplied",
-    schema: MorphologyCoastlinesAppliedArtifactSchema,
+  coastlinesExpanded: defineArtifact({
+    name: "coastlinesExpanded",
+    id: "artifact:morphology.coastlinesExpanded",
+    schema: MorphologyCoastlinesExpandedArtifactSchema,
   }),
   routing: defineArtifact({
     name: "routing",

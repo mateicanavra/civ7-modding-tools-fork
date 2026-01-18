@@ -24,7 +24,6 @@ describe("standard recipe composition", () => {
       "narrative-mid",
       "morphology-post",
       "hydrology-pre",
-      "narrative-swatches",
       "hydrology-core",
       "narrative-post",
       "hydrology-post",
