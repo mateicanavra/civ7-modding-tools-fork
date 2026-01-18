@@ -23,11 +23,13 @@ if ! git -C "$SUBMODULE_ABS" rev-parse --is-inside-work-tree >/dev/null 2>&1; th
   exit 1
 fi
 
-# Submodules commonly checkout a detached HEAD; ensure we can commit and push to `main`.
+# Submodules commonly checkout a detached HEAD; ensure we can commit (without losing local changes)
+# and push to `main`.
 git -C "$SUBMODULE_ABS" fetch -q origin main || true
 if ! git -C "$SUBMODULE_ABS" symbolic-ref -q HEAD >/dev/null; then
-  git -C "$SUBMODULE_ABS" checkout -q -B main origin/main
+  git -C "$SUBMODULE_ABS" checkout -q -B main
 fi
+git -C "$SUBMODULE_ABS" branch -q --set-upstream-to=origin/main main >/dev/null 2>&1 || true
 
 if [[ -n "$(git -C "$SUBMODULE_ABS" status --porcelain)" ]]; then
   git -C "$SUBMODULE_ABS" add -A
