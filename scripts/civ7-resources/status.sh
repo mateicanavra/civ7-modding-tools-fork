@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE GIT_PREFIX
+
 ROOT="$(git rev-parse --show-toplevel)"
 cd "$ROOT"
 
@@ -11,7 +13,7 @@ if [[ ! -f ".gitmodules" ]]; then
   exit 0
 fi
 
-if ! git config -f ".gitmodules" --get-regexp "^submodule\\.${SUBMODULE_REL//\//\\.}\\." >/dev/null 2>&1; then
+if ! git config -f ".gitmodules" --get "submodule.${SUBMODULE_REL}.path" >/dev/null 2>&1; then
   echo "resources-submodule: not configured ($SUBMODULE_REL missing from .gitmodules)"
   exit 0
 fi
