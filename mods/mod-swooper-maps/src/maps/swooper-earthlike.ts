@@ -23,11 +23,11 @@ export default createMap({
         computeMesh: {
           strategy: "default",
           config: {
-            plateCount: 28,             // Fewer, larger major plates plus some microplates
-            cellsPerPlate: 6,           // Slightly denser cells per plate for sharper margins
+            plateCount: 32,             // Fewer, larger major plates plus some microplates
+            cellsPerPlate: 9,           // Slightly denser cells per plate for sharper margins
             relaxationSteps: 5,         // Extra smoothing for coherent plate footprints
             referenceArea: 16000,        // Standard reference
-            plateScalePower: 0.76,       // Still heavy-tailed but fewer tiny microplates
+            plateScalePower: 0.91,       // Still heavy-tailed but fewer tiny microplates
           },
         },
       },
@@ -45,7 +45,7 @@ export default createMap({
           config: {
             plateCount: 28,             // Match mesh plateCount
             referenceArea: 16000,
-            plateScalePower: 0.82,
+            plateScalePower: 0.91,
           },
         },
       },
@@ -368,16 +368,28 @@ export default createMap({
     },
     "hydrology-climate-baseline": {
       knobs: {
-        dryness: "mix",
-        temperature: "temperate",
-        seasonality: "normal",
+        dryness: "dry",
+        temperature: "hot",
+        seasonality: "high",
         oceanCoupling: "earthlike",
         lakeiness: "normal",
       },
+      'climate-baseline': {
+        seasonality: {
+          axialTiltDeg: 29.44,
+          modeCount: 4
+        },
+        'computeAtmosphericCirculation': {
+          strategy: "default",
+          config: {
+            windJetStrength: 1.5
+          }
+        }
+      }
     },
     "hydrology-hydrography": {
       knobs: {
-        riverDensity: "normal",
+        riverDensity: "dense",
       },
     },
     "narrative-post": {
@@ -420,7 +432,7 @@ export default createMap({
     "hydrology-climate-refine": {
       knobs: {
         dryness: "mix",
-        temperature: "temperate",
+        temperature: "hot",
         cryosphere: "on",
       },
     },
@@ -459,7 +471,7 @@ export default createMap({
         wetlands: {
           strategy: "delta-focused",
           config: {
-            moistureThreshold: 0.75,
+            moistureThreshold: 0.93,
             fertilityThreshold: 0.35,
             moistureNormalization: 230,
             maxElevation: 1200,
