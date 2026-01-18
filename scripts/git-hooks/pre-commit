@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Keep the public resources repo in sync whenever the monorepo commits.
+ROOT="$(git rev-parse --show-toplevel)"
+bash "$ROOT/scripts/civ7-resources/publish-submodule.sh"
