@@ -6,11 +6,11 @@ export const swooperEarthlikeConfig = {
       computeMesh: {
         strategy: "default",
         config: {
-          plateCount: 23, // Fewer, larger major plates plus some microplates
+          plateCount: 17, // Fewer, larger major plates plus some microplates
           cellsPerPlate: 7, // Slightly denser cells per plate for sharper margins
           relaxationSteps: 5, // Extra smoothing for coherent plate footprints
           referenceArea: 16000, // Standard reference
-          plateScalePower: 0.83, // Still heavy-tailed but fewer tiny microplates
+          plateScalePower: 0.91, // Still heavy-tailed but fewer tiny microplates
         },
       },
     },
@@ -26,9 +26,9 @@ export const swooperEarthlikeConfig = {
       computePlateGraph: {
         strategy: "default",
         config: {
-          plateCount: 23, // Match mesh plateCount
+          plateCount: 17, // Match mesh plateCount
           referenceArea: 16000,
-          plateScalePower: 0.83,
+          plateScalePower: 0.91,
         },
       },
     },
@@ -44,8 +44,8 @@ export const swooperEarthlikeConfig = {
         config: {
           boundaryInfluenceDistance: 12, // Broader active margins for realistic orogeny belts
           boundaryDecay: 0.5, // Softer falloff so margins still dominate relief
-          movementScale: 120, // Faster relative drift to energize boundaries
-          rotationScale: 90, // More rotational variance for microplates/torques
+          movementScale: 65, // Faster relative drift to energize boundaries
+          rotationScale: 80, // More rotational variance for microplates/torques
         },
       },
     },
