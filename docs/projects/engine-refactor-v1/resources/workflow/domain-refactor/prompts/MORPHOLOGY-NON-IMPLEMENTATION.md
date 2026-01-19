@@ -75,6 +75,9 @@ Align with the canonical workflow + templates first, then execute:
 
 Hard rules (no exceptions):
 - Doc-only work. No production code, tests, configs, or generated artifacts.
+- No phase compression/shortcuts:
+  - Complete Phase 0.5 → 3 fully, in order, producing each phase’s canonical deliverable.
+  - “Existing work looks aligned” never justifies merging, skipping, or shortcutting phases.
 - No phase bleed:
   - Phase 0.5 is greenfield-only.
   - Phase 1 is current-state-only (evidence; no redesign).
@@ -103,7 +106,7 @@ Morphology responsibility posture (domain-only; no algorithm prescriptions):
 - Morphology does NOT own:
   - climate (winds/rainfall/temperature), hydrology discharge/routing, biome/ecology classification
   - resource/feature placement, gameplay siting/assignment logic
-  - narrative/story thumb-on-scale overlays
+  - narrative/story overlays: explicitly forbidden and actively in scope to remove from any Morphology-related processing
 
 Focus areas (must be treated as full-lifecycle responsibilities, not one-off steps):
 - Mountains
@@ -130,7 +133,8 @@ Treat the workflow reference docs as the authoritative list of locked decisions 
 In this prompt, you must apply the high-level constraints below exactly as “hard rules.”
 
 Hard ban: narrative/story overlays (legacy concept).
-- Do not model narrative/story overlays in Morphology in this refactor phase.
+- Narrative/story overlays must be removed from Morphology and from anything that can influence Morphology outputs (even indirectly).
+- Do not model narrative/story overlays as Morphology inputs/outputs, and do not introduce new overlay-like concepts under different names.
 - If any existing artifacts/steps are “load-bearing narrative/story/overlays,” they must be replaced by canonical domain-anchored Morphology constructs.
 - Remove even “non-load-bearing” narrative overlays: they create confusion and accidental coupling.
 
@@ -198,7 +202,7 @@ Phase 0.5 — Greenfield pre-work spike (required before Phase 1 and Phase 2):
   - What Morphology should provide and how it unlocks downstream;
   - List downstream change-candidates.
 - Make an explicit early call on public vs internal surfaces.
-- Treat narrative/story overlays as out-of-scope; model canonical domain-anchored equivalents instead.
+- Treat narrative/story overlays as explicitly banned; inventory and remove/replace any legacy overlay dependencies with canonical domain-anchored Morphology contracts instead.
 - Append Lookback 0.5.
 
 Phase 1 — Current-state spike (evidence only; no redesign):
@@ -218,7 +222,7 @@ Phase 2 — Modeling spike (model-first; must iterate twice; no slice plan):
 - Start from Phase 0.5, refine using Phase 1 evidence.
 - Lock authoritative model, causality spine, and canonical contract surfaces.
 - Iterate the modeling loop at least twice until stable.
-- Include conceptual narrative + diagrams:
+- Include conceptual writeup + diagrams:
   - Architecture view
   - Data flow diagram
   - Producer/consumer map: current vs target

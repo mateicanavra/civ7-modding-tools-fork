@@ -43,7 +43,7 @@ Morphology is fundamentally **buffer-oriented**: it refines shared, mutable worl
 
 ### Derived descriptors (interpretable signals for downstream consumers)
 
-Narrative/story overlays are **out of scope** for the current domain-refactor posture.
+Narrative/story overlays are explicitly forbidden in the current domain-refactor posture, and are actively in scope to remove from anything that influences Morphology outputs.
 
 If downstream domains need interpretable motif-like signals (e.g., “mountain corridors”), model them as **canonical Morphology descriptors**:
 - derived from Morphology’s own buffers/artifacts (not “story” surfaces),

@@ -88,7 +88,8 @@ North-star references:
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/gameplay/GAMEPLAY.md`
 
 Ecology special-case guidance:
-- If Phase 1 confirms Ecology is already aligned with stage-owned artifacts, `run(ctx, config, ops, deps)` authoring, import discipline, and buffer/artifact semantics, compress Phase 2/3/4 into the minimum necessary reconciliation work and record that choice in Phase 2 decisions.
+- No shortcuts: do the full Phase 0.5 → 3 process and produce each phase’s canonical deliverable.
+- “Existing work looks aligned” only reduces the delta you propose; it never justifies compressing, merging, or skipping phases.
 
 ## Phase artifacts (authoritative links)
 

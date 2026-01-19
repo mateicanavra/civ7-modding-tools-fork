@@ -72,6 +72,9 @@ Align with the canonical workflow + templates first, then execute:
 
 Hard rules (no exceptions):
 - Doc-only work. No production code, tests, configs, or generated artifacts.
+- No phase compression/shortcuts:
+  - Complete Phase 0.5 → 3 fully, in order, producing each phase’s canonical deliverable.
+  - “Existing work looks aligned” never justifies merging, skipping, or shortcutting phases.
 - No phase bleed:
   - Phase 0.5 is greenfield-only.
   - Phase 1 is current-state-only (evidence; no redesign).
@@ -169,7 +172,7 @@ Phase 0.5 — Greenfield pre-work spike (required before Phase 1 and Phase 2):
 - Inventory and define the minimal stable “public” Ecology artifacts that downstream consumers need:
   - What Gameplay should consume as stable contracts (and what stays internal).
 - Explicitly call out where Ecology should pull from Gameplay (contracted inputs) vs where Ecology remains physics-only.
-- Treat narrative/story overlays as out-of-scope; model canonical domain-anchored equivalents instead.
+- Treat narrative/story overlays as explicitly banned; inventory and remove/replace any legacy overlay dependencies with canonical, domain-anchored contracts instead.
 - Append Lookback 0.5.
 
 Phase 1 — Current-state spike (evidence only; no redesign):
