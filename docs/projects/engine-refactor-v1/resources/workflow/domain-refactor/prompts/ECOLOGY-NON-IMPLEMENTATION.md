@@ -41,6 +41,8 @@ Ecology prior art / existing work (IMPORTANT posture):
   - resources/workflow/domain-refactor/plans/ecology/spike-ecology-current-state.md
   - resources/workflow/domain-refactor/plans/ecology/spike-ecology-modeling.md
   - issues/LOCAL-TBD-ecology-vertical-domain-refactor.md
+- Supporting domain context packet (non-canonical; do not treat as a spec):
+  - resources/workflow/domain-refactor/prompts/ECOLOGY-CONTEXT.md
 - Primary code locations to inspect (evidence only; not authoritative):
   - mods/mod-swooper-maps/src/domain/ecology/
   - mods/mod-swooper-maps/src/recipes/standard/stages/ecology/
@@ -138,6 +140,8 @@ You must follow the locked decisions in `references/implementation-traps-and-loc
   - Hidden multipliers / constants / defaults.
   - Placeholders / dead bags (empty directories, empty config bags, placeholder modules).
   - Compat inside the refactored domain (compat, if needed, is downstream-only and explicitly deprecated with removal plan).
+  - Engine projections as domain truth (e.g., engine adjacency/tile queries as “ecology truth”).
+  - Hidden bias/tuning for convenience (biasing must be explicit via config or explicit Gameplay contract/hook; never hidden multipliers or implicit rules buried in Ecology runtime code).
 
 - Stage ids are part of the author contract:
   - Prefer semantic stage ids; document braid/interleaving constraints when they exist.
@@ -173,6 +177,8 @@ Phase 0.5 — Greenfield pre-work spike (required before Phase 1 and Phase 2):
   - What Gameplay should consume as stable contracts (and what stays internal).
 - Explicitly call out where Ecology should pull from Gameplay (contracted inputs) vs where Ecology remains physics-only.
 - Treat narrative/story overlays as explicitly banned; inventory and remove/replace any legacy overlay dependencies with canonical, domain-anchored contracts instead.
+- Treat projection-as-truth as a trap to eliminate:
+  - Model Ecology to consume upstream, domain-owned artifacts (not engine adjacency/tile queries or other adapter shortcuts).
 - Append Lookback 0.5.
 
 Phase 1 — Current-state spike (evidence only; no redesign):
@@ -185,7 +191,10 @@ Phase 1 — Current-state spike (evidence only; no redesign):
   - Producer/consumer map
 - Explicitly inventory current “monolithic op/step” hotspots and where decomposition is insufficient.
 - Explicitly inventory narrative/story artifacts or overlays that influence Ecology behavior today as legacy dependencies to be removed/replaced.
-- Explicitly inventory hidden multipliers/constants/defaults and placeholders/dead bags as “must delete / must surface” risks.
+- Explicitly inventory hidden multipliers/constants/defaults (thresholds, weights, biases, bonuses) and placeholders/dead bags as “must delete / must surface” risks.
+- Explicitly inventory projection-as-truth dependencies:
+  - engine adjacency scans, tile queries, or other projection/adaptor reads that act as ecology inputs
+  - any places Ecology re-derives upstream domain signals instead of consuming published contracts
 - Inventory current Placement coupling points and classify them:
   - belongs in Gameplay
   - remains in Ecology
