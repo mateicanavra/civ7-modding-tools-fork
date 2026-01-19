@@ -60,6 +60,11 @@ Repeat this loop until the model stabilizes (minimum two passes):
 - Target contract matrix (buffers/artifacts/overlays classification)
 - Determinism + feedback budget (how determinism is preserved; any feedback loops must be bounded with fixed iterations and stable tie-breaking)
 - Config semantics table (semantic knobs contract: meaning, missing/empty/null behavior, determinism expectations, and tests that lock non-trivial behavior)
+  - Include the locked **knobs + advanced config composition contract**:
+    - Advanced config is the typed/defaulted baseline.
+    - Knobs apply **after** as deterministic transforms over that baseline.
+    - Ban any “presence”/“compare-to-default” gating (you cannot reliably infer whether a field was explicitly authored once schema defaulting has run for that field).
+    - Include at least one explicit edge-case example: author sets a value equal to the default and knobs still apply.
 - Explainability / diagnostics (what downstream/debug can ask “why” and which fields/metrics exist or are intentionally deferred)
 - Capability envelope + explicit deferrals (what’s in-scope vs deferred, with triggers and downstream implications)
 - Legacy disposition ledger (every config property/rule/function is keep/kill/migrate with rationale)
@@ -94,6 +99,8 @@ Repeat this loop until the model stabilizes (minimum two passes):
 - Upstream handoff cleanup is explicit; no upstream compat/legacy surfaces remain in this domain.
 - Downstream consumer impact scan is explicit and complete.
 - Config semantics table exists and locks non-trivial semantics with tests; “default vs explicit” policy is stated where relevant.
+  - Knobs + advanced config composition is recorded as a single locked contract (“knobs apply last as transforms”) and explicitly bans “presence”/“compare-to-default” gating.
+  - At least one test scenario is named that covers the “explicitly set to the default value” edge case.
 - Architecture alignment note exists and conflicts are reconciled or escalated.
 - Authority stack is explicit; PRDs are labeled non-authoritative.
 - Research sources are cited when external research is used.
