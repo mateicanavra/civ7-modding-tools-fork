@@ -26,6 +26,28 @@ The package directory should contain:
 
 If the workflow also requires “canonical deliverables” elsewhere (e.g., `resources/spike/`, `issues/`), treat those as **entrypoints** that link back to the package directory. The package directory remains the place you go to understand and review the domain refactor end‑to‑end.
 
+## Canonical doc bodies (locked rule)
+
+For each phase, produce **exactly one canonical doc body** for that deliverable:
+- Phase 0.5: greenfield pre-work spike
+- Phase 1: current-state spike
+- Phase 2: modeling spike
+- Phase 3: implementation issue doc
+
+Any additional docs are supporting artifacts (inventories, diagrams, matrices, etc.) that the canonical doc links to. Do not maintain multiple “equivalent” modeling/spec bodies with the same purpose; that creates drift and forces reviewers to guess which version is authoritative.
+
+## “Duplication” policy for schema descriptions + JSDoc (locked rule)
+
+Avoid sync-burden copies:
+- Do not maintain two copies of the *same* schema/property description that must be kept in sync.
+- Do not copy/paste a “canonical definition paragraph” into multiple docs as-is.
+
+Context-adapted repetition is allowed:
+- If text repeats, it must diverge on purpose because the audience/context is different (e.g., schema description vs doc narrative vs example).
+- If a schema/type is “similar but distinct” in two contexts, model it as distinct and document the differences.
+
+If TypeScript/TypeBox limitations appear to force duplication, treat that as a modeling smell and revisit the model (do not encode a drift-prone workaround as the new normal).
+
 ### Naming and suffix conventions
 
 Per phase, keep a 3‑draft set plus a synthesis:
@@ -149,4 +171,3 @@ This is the repeatable convergence loop we used for each phase.
 This workflow should live as:
 - Documentation (this file), plus
 - a small per-domain `INDEX.md` inside each package directory that identifies the “final” synthesis artifacts.
-

@@ -72,6 +72,7 @@ Recommended “outside view” doc set (create only what you need; keep it small
 - **Steps are orchestration:** step modules must not import op implementations; they call injected ops in `run(ctx, config, ops, deps)`.
 - **Single-path deps access:** step runtime must not reach into alternate dependency paths (no `ctx.deps`); dependencies are accessed via the `deps` parameter only.
 - **Artifacts are stage-owned (contracts) and contract-first:** each stage defines artifact contracts in `mods/mod-swooper-maps/src/recipes/standard/stages/<stage>/artifacts.ts`; step contracts declare `artifacts.requires` / `artifacts.provides` using those stage-owned contracts.
+- **Stage ids are author contracts:** stage ids must be stable once published unless you are explicitly migrating consumers and references. Choose semantic stage names/ids; avoid generic labels like “pre/core/post.” If pipeline braiding/interleaving constrains stage count or ordering, document the constraints and downstream impact in Phase 3 planning.
 - **No ad-hoc artifact imports in steps:** step implementations read/publish artifacts via `deps.artifacts.<artifactName>.*` (no direct imports from recipe-level `artifacts.*`, and no direct `ctx.artifacts` access in normal authoring).
 - **Buffers are not artifacts (conceptual rule):** buffers are mutable, shared working layers (e.g., heightfield/elevation, climate field, routing indices) that multiple steps/stages refine over time.
   - **Today (intentional compromise):** some buffers are still routed through artifact contracts for gating/typing; publish the buffer artifact **once**, then mutate the underlying buffer in place (do **not** re-publish).
@@ -227,6 +228,7 @@ Phase 3 gate:
 - Guardrails are planned: contract-guard tests or string/surface checks for forbidden surfaces.
 - Locked decisions/bans are test-backed in the same slice they are introduced.
 - Step decomposition plan exists (causality spine → step boundaries).
+- Stage ids are treated as author contracts: stage naming is semantic (avoid ambiguous “pre/core/post”), and any braid/interleaving constraints are documented (why the stage exists, ordering constraints, and downstream impact).
 - Consumer inventory + migration matrix exists (break/fix per slice).
 
 ## Phase 3 sequencing refinement (required)

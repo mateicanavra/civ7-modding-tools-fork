@@ -26,6 +26,10 @@ Convert the spikes into an executable slice plan and a single source-of-truth is
     - Ban “presence”/“compare-to-default” gating and any “fill missing” precedence system.
 - Determinism boundary policy (seed-only across boundaries; no RNG objects/functions crossing op boundaries)
 - Stable fix anchors (preferred “config → normalized internal form” / boundary locations where implementation fixes should land to survive later slices)
+- Stage ids + braid/interleaving constraints (locked contract; required)
+  - Treat stage ids as author-facing contracts: once published, stage ids must be stable unless you are explicitly migrating consumers and references.
+  - If pipeline braiding/interleaving constrains stage count or ordering, document those constraints explicitly (what forces the boundary, what must run before/after, and which domains/consumers are affected).
+  - Stage naming must be semantic and unambiguous. Avoid generic labels like “pre/core/post” that do not communicate the causal work owned by the stage.
 - Step decomposition plan (causality spine → step boundaries → artifacts/buffers)
 - Conceptual decomposition vs pipeline boundary count (locked note; required)
   - Record the full causality spine decomposition (conceptual model layers) separately from the chosen pipeline boundary count.
@@ -58,6 +62,7 @@ Re-checked downstream deltas against the new order and verified each slice ends 
 
 ## Slice plan requirements (per slice)
 
+- Stage(s) touched (ids + purpose + contract changes + migration notes)
 - Step(s) included (ids + file paths)
 - Boundary/split rationale (required when changing boundaries or adding fine-grained splits)
   - If the slice introduces a new step/stage boundary (or re-slices an existing boundary), state why: downstream contract/hook value, observability/debugging value, interop requirements.
@@ -91,6 +96,8 @@ Re-checked downstream deltas against the new order and verified each slice ends 
 - Any pipeline delta from Phase 2 is fully assigned to slices.
 - No model changes appear in the issue doc (modeling lives in Phase 2).
 - No compat surfaces remain in the refactored domain; any deprecated shims live in downstream domains and are explicitly marked.
+- Stage ids are treated as author contracts: stage id changes (if any) have explicit migration steps, and stage naming is semantic (avoid ambiguous “pre/core/post” labels).
+- Any pipeline braiding/interleaving constraints are documented (why stages exist, ordering constraints, and downstream impact).
 - Sequencing refinement pass is documented and reflects the final order.
 - Documentation pass is present and scoped with inventory + JSDoc/schema updates.
 - Locked decisions/bans are test-backed in the same slice they are introduced.
