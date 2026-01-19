@@ -1,4 +1,4 @@
-VERSION 1 (must synthesize with other version below):
+> VERSION 1 (must synthesize with other version below):
 
 # Phase 2: Morphology Modeling Spike
 

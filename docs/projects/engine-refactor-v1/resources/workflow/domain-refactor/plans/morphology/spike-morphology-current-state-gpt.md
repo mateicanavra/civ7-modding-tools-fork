@@ -4,48 +4,34 @@ Purpose: Document the current state of the Morphology domain in Civ7 MapGen, bas
 
 ## References:
 
-- Workflow reference (domain refactor): docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/WORKFLOW.md
-
+- Workflow reference (domain refactor): `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/WORKFLOW.md`
 - Phase 0.5 (Morphology greenfield sketch): TBD (see Morphology context)
-
-- Phase 1 template: docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/phase-1-current-state.md (structure guidelines)
-
-- Morphology context packet: docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/prompts/MORPHOLOGY-CONTEXT.md
-
+- Phase 1 template: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/phase-1-current-state.md` (structure guidelines)
+- Morphology context packet: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/prompts/MORPHOLOGY-CONTEXT.md`
 - Phase 0.5 spike (if available): spike-morphology-greenfield.md (not present in repo; context used instead)
 
 ## Scope guardrails:
 
 - Current-state only. No target design or Phase 2 modeling is included – all content is evidence from the current code.
-
 - Evidence-based. Every claim (step behavior, dependencies, artifacts, etc.) is backed by code references. No speculation or future-state design.
-
 - Legacy posture. Assume any narrative/story overlay integration or engine workarounds are legacy to be removed unless explicitly part of new contracts. Highlight them, but do not propose solutions here.
-
 - Greenfield deltas. Note where the Phase 0.5 ideal vision conflicts with the current state (e.g. unwanted dependencies, hidden constants), without resolving them – just flagging for Phase 2/3.
 
 ## Authority stack (code sources for Phase 1)
 
 ### Canonical code sources (current truth):
 
-- Recipe and stages: mods/mod-swooper-maps/src/recipes/standard/recipe.ts – defines stage order and domain ops wiring (which Morphology currently lacks). The recipe includes all Morphology stages in order. Each stage’s module in .../stages/morphology-{pre|mid|post}/ defines its steps and artifacts.
-
-- Morphology domain code: mods/mod-swooper-maps/src/domain/morphology/** – includes the domain definition and all Morphology operation (op) implementations and contracts (in ops/ subdirectory). This is where Morphology’s core logic resides (landmass generation, coast shaping, mountain placement, etc.).
-
-- Domain config schemas: mods/mod-swooper-maps/src/domain/morphology/config.ts (plus sub-configs like landmass/config.ts) – defines author-facing configuration keys for Morphology (e.g. oceanSeparation, coastlines, etc.).
-
+- Recipe and stages: `mods/mod-swooper-maps/src/recipes/standard/recipe.ts` – defines stage order and domain ops wiring (which Morphology currently lacks). The recipe includes all Morphology stages in order. Each stage’s module in .../stages/morphology-{pre|mid|post}/ defines its steps and artifacts.
+- Morphology domain code: `mods/mod-swooper-maps/src/domain/morphology/**` – includes the domain definition and all Morphology operation (op) implementations and contracts (in ops/ subdirectory). This is where Morphology’s core logic resides (landmass generation, coast shaping, mountain placement, etc.).
+- Domain config schemas: `mods/mod-swooper-maps/src/domain/morphology/config.ts` (plus sub-configs like landmass/config.ts) – defines author-facing configuration keys for Morphology (e.g. oceanSeparation, coastlines, etc.).
 - Cross-domain artifacts: Upstream artifacts produced by Foundation (e.g. tectonic plates data) and Narrative-Pre (story overlays) that Morphology consumes; downstream artifacts Morphology produces for Hydrology and Placement. These are defined in the respective stages’ artifacts.ts files (e.g. foundation/artifacts.ts, narrative-pre/artifacts.ts, etc.).
-
-- Engine adapter interactions: Morphology steps often call engine-provided methods via context.adapter (e.g. terrain validation, fractal generation). These indicate where Morphology defers to engine logic.
-
+- Engine adapter interactions: Morphology steps often call engine-provided methods via `context.adapter` (e.g. terrain validation, fractal generation). These indicate where Morphology defers to engine logic.
 - Standard runtime state: The pipeline maintains some state outside explicit artifacts (e.g. StandardRuntime continent bounds). Morphology steps writing to or reading from this runtime state are noted as hidden couplings.
 
 ### Supporting references (context, not authoritative):
 
 - Morphology context doc: High-level intended domain boundaries and pitfalls (e.g. “Morphology owns shape of world; narrative overlays are forbidden”). Used here to flag current vs intended differences (Greenfield deltas).
-
-- Legacy design docs: e.g. docs/system/libs/mapgen/morphology.md (original domain meaning) and ADRs like adr-001-era-tagged-morphology.md. These provide background but may conflict with current code – they are not the source of truth for implementation.
-
+- Legacy design docs: e.g. `docs/system/libs/mapgen/morphology.md` (original domain meaning) and ADRs like adr-001-era-tagged-morphology.md. These provide background but may conflict with current code – they are not the source of truth for implementation.
 - Prior planning notes: LOCAL-TBD-morphology-vertical-domain-refactor.md (archived) for any hints of known issues. Only used to corroborate evidence from code (e.g. confirming that Morphology ops were historically excluded from recipe ops compilation).
 
 ## Domain surface inventory (external view of Morphology)
@@ -54,54 +40,52 @@ This section enumerates the public-facing surface of the Morphology domain – m
 
 ### A) Domain entry point and ops contracts
 
-Domain definition: @mapgen/domain/morphology → mods/mod-swooper-maps/src/domain/morphology/index.ts – registers the Morphology domain with id "morphology". This uses defineDomain({ id: "morphology", ops }), pointing to ops imported from ./ops/contracts.js.
+Domain definition: @mapgen/domain/morphology → `mods/mod-swooper-maps/src/domain/morphology/index.ts` – registers the Morphology domain with id "morphology". This uses defineDomain({ id: "morphology", ops }), pointing to ops imported from ./ops/contracts.js.
 
-Ops contract surface: mods/mod-swooper-maps/src/domain/morphology/ops/contracts.ts – defines the contract objects for each Morphology operation (function). Currently, all expected ops are listed but many have empty implementations or are not fully utilized by steps. For example, contracts exist for computeBaseTopography, computeLandmask, computeSubstrate, computeLandmasses, etc.. However, until recently, the recipe did not compile Morphology ops into the pipeline, meaning steps couldn’t call ops.* functions unless they imported implementations directly. (This is a key legacy gap: Morphology wasn’t truly “contract-first” – see Boundary Violations). Some steps have started using these ops via the contract mapping (e.g. landmass-plates uses morphology.ops.computeSubstrate etc. via its contract), but historically Morphology logic often bypassed the ops abstraction.
+Ops contract surface: `mods/mod-swooper-maps/src/domain/morphology/ops/contracts.ts` – defines the contract objects for each Morphology operation (function). Currently, all expected ops are listed but many have empty implementations or are not fully utilized by steps. For example, contracts exist for computeBaseTopography, computeLandmask, computeSubstrate, computeLandmasses, etc.. However, until recently, the recipe did not compile Morphology ops into the pipeline, meaning steps couldn’t call ops.* functions unless they imported implementations directly. (This is a key legacy gap: Morphology wasn’t truly “contract-first” – see Boundary Violations). Some steps have started using these ops via the contract mapping (e.g. landmass-plates uses morphology.ops.computeSubstrate etc. via its contract), but historically Morphology logic often bypassed the ops abstraction.
 
-Domain ops implementations: For each contract, there is an implementation under src/domain/morphology/ops/<operation>/index.ts. For instance, compute-substrate/index.ts, compute-base-topography/index.ts, etc. These contain the actual logic for those operations. In current state, some steps call these via the ops injection, while others still invoke older module functions (see below). The domain router (mods/mod-swooper-maps/src/domain/morphology/ops.ts) ties together contracts with implementations using createDomain(domain, implementations) – but since ops weren’t fully wired in recipe, this router wasn’t effectively used in runtime.
+Domain ops implementations: For each contract, there is an implementation under src/domain/morphology/ops/<operation>/index.ts. For instance, compute-substrate/index.ts, compute-base-topography/index.ts, etc. These contain the actual logic for those operations. In current state, some steps call these via the ops injection, while others still invoke older module functions (see below). The domain router (`mods/mod-swooper-maps/src/domain/morphology/ops.ts`) ties together contracts with implementations using createDomain(domain, implementations) – but since ops weren’t fully wired in recipe, this router wasn’t effectively used in runtime.
 
 ### B) Key Morphology modules and exports (implementation functions)
 
 Outside the ops system, Morphology has several modules representing sub-domains of terrain generation. Steps historically imported functions from these modules directly (pre-refactor style). The notable modules and their functions used are:
 
-Landmass generation: mods/mod-swooper-maps/src/domain/morphology/landmass/index.ts – provides functions to create initial continents from tectonic plate data. Exports used by steps include createPlateDrivenLandmasses, applyLandmassPostAdjustments, and applyPlateAwareOceanSeparation. These functions ingest the Foundation plates output and produce a base land elevation and land/ocean mask. Current usage: The landmass-plates step effectively achieves this via ops calls, but under the hood those ops likely use these functions. (Previously, steps might import them directly; now computeLandmasses op encapsulates similar logic.)
+Landmass generation: `mods/mod-swooper-maps/src/domain/morphology/landmass/index.ts` – provides functions to create initial continents from tectonic plate data. Exports used by steps include createPlateDrivenLandmasses, applyLandmassPostAdjustments, and applyPlateAwareOceanSeparation. These functions ingest the Foundation plates output and produce a base land elevation and land/ocean mask. Current usage: The landmass-plates step effectively achieves this via ops calls, but under the hood those ops likely use these functions. (Previously, steps might import them directly; now computeLandmasses op encapsulates similar logic.)
 
-Coastline shaping: mods/mod-swooper-maps/src/domain/morphology/coastlines/index.ts – includes logic for refining coastlines. The primary export in use is addRuggedCoasts, which applies perturbations to coasts (carving sea lanes, adding coastal detail). In current pipeline, the rugged-coasts step performs this via the computeCoastlineMetrics op and some in-step logic, rather than calling addRuggedCoasts directly – but the op is effectively a wrapper for similar functionality. There is also a coastline corridor policy helper in coastlines/corridor-policy.ts (with exports like resolveSeaCorridorPolicy) used internally to decide how to treat narrow seas between landmasses (legacy policy constant).
+Coastline shaping: `mods/mod-swooper-maps/src/domain/morphology/coastlines/index.ts` – includes logic for refining coastlines. The primary export in use is addRuggedCoasts, which applies perturbations to coasts (carving sea lanes, adding coastal detail). In current pipeline, the rugged-coasts step performs this via the computeCoastlineMetrics op and some in-step logic, rather than calling addRuggedCoasts directly – but the op is effectively a wrapper for similar functionality. There is also a coastline corridor policy helper in coastlines/corridor-policy.ts (with exports like resolveSeaCorridorPolicy) used internally to decide how to treat narrow seas between landmasses (legacy policy constant).
 
-Islands addition: mods/mod-swooper-maps/src/domain/morphology/islands/index.ts – defines how and where to add island chains. Export used: addIslandChains, which places clusters of small landmasses, often in gaps or along certain latitudes. The islands step in Morphology Post uses this functionality (via the planIslandChains op contract). It also relies on inputs like the narrative “hotspots” overlay to decide island placement (current state coupling).
+Islands addition: `mods/mod-swooper-maps/src/domain/morphology/islands/index.ts` – defines how and where to add island chains. Export used: `addIslandChains`, which places clusters of small landmasses, often in gaps or along certain latitudes. The islands step in Morphology Post uses this functionality (via the planIslandChains op contract). It also relies on inputs like the narrative “hotspots” overlay to decide island placement (current state coupling).
 
-Mountain ranges: mods/mod-swooper-maps/src/domain/morphology/mountains/index.ts – handles placement of mountain ranges and highlands. Export used: layerAddMountainsPhysics, which likely raises terrain for mountains based on plate collision zones (and possibly narrative orogeny hints). The mountains step uses this logic (via planRidgesAndFoothills op or direct import historically). There is also a mountains/scoring.ts module with internal constants/heuristics for mountain placement (e.g. thresholds for mountain height or cluster scoring), which even imports foundation constants like BOUNDARY_TYPE (coupling).
+Mountain ranges: `mods/mod-swooper-maps/src/domain/morphology/mountains/index.ts` – handles placement of mountain ranges and highlands. Export used: `layerAddMountainsPhysics`, which likely raises terrain for mountains based on plate collision zones (and possibly narrative orogeny hints). The mountains step uses this logic (via planRidgesAndFoothills op or direct import historically). There is also a mountains/scoring.ts module with internal constants/heuristics for mountain placement (e.g. thresholds for mountain height or cluster scoring), which even imports foundation constants like BOUNDARY_TYPE (coupling).
 
-Volcanoes: mods/mod-swooper-maps/src/domain/morphology/volcanoes/index.ts – places volcanoes (often at plate boundaries or hotspots). Export used: layerAddVolcanoesPlateAware, which adds volcanic terrain features informed by plate rift zones. The volcanoes step invokes this (via planVolcanoes op). Similar to mountains, a volcanoes/scoring.ts contains rules for how volcano sites are chosen, also importing BOUNDARY_TYPE constants (legacy coupling to Foundation).
+Volcanoes: `mods/mod-swooper-maps/src/domain/morphology/volcanoes/index.ts` – places volcanoes (often at plate boundaries or hotspots). Export used: `layerAddVolcanoesPlateAware`, which adds volcanic terrain features informed by plate rift zones. The volcanoes step invokes this (via planVolcanoes op). Similar to mountains, a volcanoes/scoring.ts contains rules for how volcano sites are chosen, also importing BOUNDARY_TYPE constants (legacy coupling to Foundation).
 
 Observation: The above modules represent “subdomains” within Morphology (landmass shaping, coastlines, islands, mountains, volcanoes). In the current code, they exist as implementation details. Many of their functions are called in the steps either directly (old approach) or via the new op contracts. The presence of direct imports in steps (bypassing ops) is a legacy artifact we highlight later. For now, these modules indicate what Morphology is responsible for: generating the world’s physical shape (continents, coasts, ranges, islands, etc.).
 
 ### C) Stage-owned artifacts (Morphology outputs)
 
-Morphology publishes several artifacts (data outputs) through its recipe stages. These artifacts serve as contracts between stages (e.g. passed to later steps or other domains). All Morphology artifacts are defined in mods/mod-swooper-maps/src/recipes/standard/stages/morphology-pre/artifacts.ts (notably, there are no separate artifact files under mid/ or post/, so the pre stage file collects all Morphology artifact definitions):
+Morphology publishes several artifacts (data outputs) through its recipe stages. These artifacts serve as contracts between stages (e.g. passed to later steps or other domains). All Morphology artifacts are defined in `mods/mod-swooper-maps/src/recipes/standard/stages/morphology-pre/artifacts.ts` (notably, there are no separate artifact files under mid/ or post/, so the pre stage file collects all Morphology artifact definitions):
 
-artifact:morphology.topography – the main topography buffer (object with elevation (Int16), terrain (Uint8), landMask (Uint8) arrays for every tile). This is a publish-once mutable buffer that represents the base heightfield and land/water layout. Morphology Pre’s landmass-plates step publishes this artifact initially, and subsequent steps (even in later stages) mutate the underlying ctx.buffers.heightfield in-place (e.g. carving coasts, adding terrain) without re-publishing. Downstream, other domains (Hydrology, Ecology, etc.) use the heightfield via their own artifact or directly.
+`artifact:morphology.topography` – the main topography buffer (object with elevation (Int16), terrain (Uint8), landMask (Uint8) arrays for every tile). This is a publish-once mutable buffer that represents the base heightfield and land/water layout. Morphology Pre’s landmass-plates step publishes this artifact initially, and subsequent steps (even in later stages) mutate the underlying ctx.buffers.heightfield in-place (e.g. carving coasts, adding terrain) without re-publishing. Downstream, other domains (Hydrology, Ecology, etc.) use the heightfield via their own artifact or directly.
 
-artifact:morphology.substrate – a buffer with substrate properties per tile (erodibilityK, sedimentDepth, Float32 arrays), published by landmass-plates. This represents the geological substrate (how easily land erodes, how much sediment exists). Like topography, it’s a buffer updated in-place later (e.g. the Geomorphology step will adjust sediment depth).
+`artifact:morphology.substrate` – a buffer with substrate properties per tile (erodibilityK, sedimentDepth, Float32 arrays), published by landmass-plates. This represents the geological substrate (how easily land erodes, how much sediment exists). Like topography, it’s a buffer updated in-place later (e.g. the Geomorphology step will adjust sediment depth).
 
-artifact:morphology.coastlinesExpanded – a marker artifact (empty object schema) indicating that engine coast expansion has been applied. Published by the coastlines step in Morphology Pre. This artifact has no data; it serves as a flag that coastlines were processed by the engine’s expansion algorithm (which fills in shallow water along coasts). Essentially a legacy effect placeholder (used for ordering or validation).
+`artifact:morphology.coastlinesExpanded` – a marker artifact (empty object schema) indicating that engine coast expansion has been applied. Published by the coastlines step in Morphology Pre. This artifact has no data; it serves as a flag that coastlines were processed by the engine’s expansion algorithm (which fills in shallow water along coasts). Essentially a legacy effect placeholder (used for ordering or validation).
 
-artifact:morphology.routing – a buffer for hydrological routing info (flowDir, flowAccum, and optional basinId per tile). The Morphology Mid routing step computes and publishes this. It encodes, for each tile, the index of the downstream tile (steepest descent) and accumulated flow, effectively delineating drainage basins. Currently, this is computed in Morphology (likely as a preliminary step for erosion or for future use), but Hydrology also performs its own river routing later – leading to potential redundancy.
+`artifact:morphology.routing` – a buffer for hydrological routing info (flowDir, flowAccum, and optional basinId per tile). The Morphology Mid routing step computes and publishes this. It encodes, for each tile, the index of the downstream tile (steepest descent) and accumulated flow, effectively delineating drainage basins. Currently, this is computed in Morphology (likely as a preliminary step for erosion or for future use), but Hydrology also performs its own river routing later – leading to potential redundancy.
 
-artifact:morphology.coastlineMetrics – a snapshot of coastline adjacency info (coastalLand and coastalWater masks, each Uint8 per tile). Published by the rugged-coasts step in Morphology Mid. It marks which land tiles are adjacent to water and vice versa after all coastline adjustments. This appears to be used for debugging or potential downstream logic (e.g. ecology might use coastal proximity), but in current state no other step explicitly requires it (it’s a candidate for removal if truly unused).
+`artifact:morphology.coastlineMetrics` – a snapshot of coastline adjacency info (coastalLand and coastalWater masks, each Uint8 per tile). Published by the rugged-coasts step in Morphology Mid. It marks which land tiles are adjacent to water and vice versa after all coastline adjustments. This appears to be used for debugging or potential downstream logic (e.g. ecology might use coastal proximity), but in current state no other step explicitly requires it (it’s a candidate for removal if truly unused).
 
-artifact:morphology.landmasses – a composite artifact produced at the end of Morphology Post, containing a list of landmass components and a mapping of tiles to landmass ID. The landmasses step computes connected land components from the final landMask and publishes this artifact. Each landmass entry has an id, tileCount, and bounding box. This artifact is consumed by the Placement domain for gameplay purposes (e.g. ensuring each civilization start is on a separate landmass). It replaces the old practice of using runtime continent bounds or engine area IDs by providing an explicit snapshot of landmasses.
+`artifact:morphology.landmasses` – a composite artifact produced at the end of Morphology Post, containing a list of landmass components and a mapping of tiles to landmass ID. The landmasses step computes connected land components from the final landMask and publishes this artifact. Each landmass entry has an id, tileCount, and bounding box. This artifact is consumed by the Placement domain for gameplay purposes (e.g. ensuring each civilization start is on a separate landmass). It replaces the old practice of using runtime continent bounds or engine area IDs by providing an explicit snapshot of landmasses.
 
-Legacy note: Morphology historically relied on engine-provided tags or runtime fields for some of these concepts. For example, continent identification was partly handled by engine calls like stampContinents() which set global westContinent/eastContinent markers. The introduction of artifact:morphology.landmasses is a move towards an explicit artifact for landmass data instead of implicit runtime state. However, as of now, both mechanisms exist (see Hidden Couplings).
+Legacy note: Morphology historically relied on engine-provided tags or runtime fields for some of these concepts. For example, continent identification was partly handled by engine calls like stampContinents() which set global westContinent/eastContinent markers. The introduction of `artifact:morphology.landmasses` is a move towards an explicit artifact for landmass data instead of implicit runtime state. However, as of now, both mechanisms exist (see Hidden Couplings).
 
 ### D) Morphology in the recipe pipeline (stage overview)
 
 The Morphology domain is split into three recipe stages interwoven with Narrative stages in the standard pipeline:
 
 - Stage morphology-pre – an early stage that seeds the world’s basic land topology (continents and initial coasts). It runs right after foundation and before any narrative steps.
-
 - Stage morphology-mid – a mid-pipeline stage that further refines terrain (coastline ruggedness, drainage, erosion) after some narrative context is established. It runs after narrative-pre and before narrative-mid.
-
 - Stage morphology-post – a later stage that finalizes terrain features (islands, mountains, volcanoes) and computes final landmass data. It runs after narrative-mid and before Hydrology stages.
 
 This braided ordering is intentional: narrative “story” steps occur between Morphology phases, and they exchange signals via effect tags and overlay artifacts (e.g. Morphology provides coastlines for story generation, story provides overlays that Morphology uses for fine terrain adjustments). The exact ordering from the recipe is: foundation → morphology-pre → narrative-pre → morphology-mid → narrative-mid → morphology-post → hydrology-pre (then narrative-swatches, hydrology-core, etc.).
@@ -116,39 +100,25 @@ Standard recipe stage order (for context): foundation → morphology-pre → nar
 
 #### Step morphology-pre/landmass-plates: Seeds the initial landmasses using tectonic plates data.
 
-- Contract: .../morphology-pre/steps/landmassPlates.contract.ts – requires artifact:foundation.plates from Foundation and provides artifact:morphology.topography and artifact:morphology.substrate. No config knobs (empty schema). Injects ops: computeSubstrate, computeBaseTopography, computeSeaLevel, computeLandmask from Morphology ops.
-
-- Implementation: .../morphology-pre/steps/landmassPlates.ts – calls multiple Morphology ops in sequence to generate terrain:
-
-ops.substrate(...) – computes initial substrate buffers (erodibility & sediment) for the map.
-
-ops.baseTopography(...) – generates base elevation values using plate uplift/rift fields.
-
-ops.seaLevel(...) – determines a sea level threshold to achieve target land/ocean ratio.
-
-ops.landmask(...) – produces a binary land/water mask from elevation and sea level.
-
-applyBaseTerrain(...) – a local helper that writes terrain types (flat land vs ocean) into the heightfield buffer for each tile based on the land mask.
-
-Calls to the engine via context.adapter: after shaping the heightfield, it invokes validateAndFixTerrain(), recalculateAreas(), and stampContinents() on the adapter. These engine calls ensure the terrain types are consistent, compute area connectivity, and mark the “westmost/eastmost” continents for gameplay (a legacy global state).
-
-Logs an ASCII map of landmasses for debugging (logLandmassAscii).
-
-- Outputs: Publishes topography and substrate artifacts: deps.artifacts.topography.publish(context, context.buffers.heightfield) and deps.artifacts.substrate.publish(context, substrate). The heightfield buffer now holds initial elevation and terrain for all tiles, and substrate holds base erosion parameters. Also triggers effect:engine.landmassApplied as a side effect (not via explicit publish, but by virtue of completing the landmass generation step; see Effect Tags below).
+- **Contract**: .../morphology-pre/steps/landmassPlates.contract.ts – requires `artifact:foundation.plates` from Foundation and provides `artifact:morphology.topography` and `artifact:morphology.substrate`. No config knobs (empty schema). Injects ops: computeSubstrate, computeBaseTopography, computeSeaLevel, computeLandmask from Morphology ops.
+- **Implementation**: .../morphology-pre/steps/landmassPlates.ts – calls multiple Morphology ops in sequence to generate terrain:
+  - `ops.substrate(...)` – computes initial substrate buffers (erodibility & sediment) for the map.
+  - `ops.baseTopography(...)` – generates base elevation values using plate uplift/rift fields.
+  - `ops.seaLevel(...)` – determines a sea level threshold to achieve target land/ocean ratio.
+  - `ops.landmask(...)` – produces a binary land/water mask from elevation and sea level.
+  - `applyBaseTerrain(...)` – a local helper that writes terrain types (flat land vs ocean) into the heightfield buffer for each tile based on the land mask.
+  - Calls to the engine via `context.adapter`: after shaping the heightfield, it invokes `validateAndFixTerrain()`, `recalculateAreas()`, and `stampContinents()` on the adapter. These engine calls ensure the terrain types are consistent, compute area connectivity, and mark the “westmost/eastmost” continents for gameplay (a legacy global state).
+  - Logs an ASCII map of landmasses for debugging (`logLandmassAscii`).
+- **Outputs**: Publishes topography and substrate artifacts: deps.artifacts.topography.publish(context, context.buffers.heightfield) and deps.artifacts.substrate.publish(context, substrate). The heightfield buffer now holds initial elevation and terrain for all tiles, and substrate holds base erosion parameters. Also triggers `effect:engine.landmassApplied` as a side effect (not via explicit publish, but by virtue of completing the landmass generation step; see Effect Tags below).
 
 #### Step morphology-pre/coastlines: Expands coastlines using the game engine’s algorithm for more natural shores.
 
-- Contract: .../morphology-pre/steps/coastlines.contract.ts – requires the effect:engine.landmassApplied tag (implicitly, to run after landmass-plates) and provides a marker effect:engine.coastlinesApplied (via tag) and artifact:morphology.coastlinesExpanded. Note: The contract file was not directly visible, but effect tag usage confirms these dependencies.
-
-- Implementation: .../morphology-pre/steps/coastlines.ts – a simple orchestration around engine calls:
-
-Calls context.adapter.expandCoasts(width, height) to invoke the engine’s coastline expansion on the current heightfield. The engine likely floods certain low-lying coastal tiles to create more realistic coast outlines.
-
-Then iterates over every tile to sync the heightfield buffers with the engine’s updated terrain: for each tile, gets the engine’s terrain type (getTerrainType(x,y)) and writes it into heightfield.terrain[i], and updates landMask[i] by checking isWater(x,y). This ensures the topography artifact’s buffers reflect the changes made by the engine.
-
-No Morphology ops or complex logic here – it’s a direct engine post-process.
-
-- Outputs: Publishes the coastlinesExpanded artifact as an empty object. This artifact is a dummy; its presence just marks that the coast expansion occurred. More importantly, this step signals effect:engine.coastlinesApplied (declared in its contract), which acts as a synchronization point for downstream steps.
+- **Contract**: .../morphology-pre/steps/coastlines.contract.ts – requires the `effect:engine.landmassApplied` tag (implicitly, to run after landmass-plates) and provides a marker `effect:engine.coastlinesApplied` (via tag) and `artifact:morphology.coastlinesExpanded`. Note: The contract file was not directly visible, but effect tag usage confirms these dependencies.
+- **Implementation**: .../morphology-pre/steps/coastlines.ts – a simple orchestration around engine calls:
+  - Calls `context.adapter.expandCoasts(width, height)` to invoke the engine’s coastline expansion on the current heightfield. The engine likely floods certain low-lying coastal tiles to create more realistic coast outlines.
+  - Then iterates over every tile to sync the heightfield buffers with the engine’s updated terrain: for each tile, gets the engine’s terrain type (`getTerrainType(x,y)`) and writes it into `heightfield.terrain[i]`, and updates `landMask[i]` by checking `isWater(x,y)`. This ensures the topography artifact’s buffers reflect the changes made by the engine.
+  - No Morphology ops or complex logic here – it’s a direct engine post-process.
+- **Outputs**: Publishes the coastlinesExpanded artifact as an empty object. This artifact is a dummy; its presence just marks that the coast expansion occurred. More importantly, this step signals `effect:engine.coastlinesApplied` (declared in its contract), which acts as a synchronization point for downstream steps.
 
 Stage outcome: After Morphology-Pre, we have a preliminary world: continents placed, a baseline elevation map, terrain typed (land/ocean), and smoothed coasts. The topography buffer (heightfield) is populated and will be shared through later stages. Narrative Pre now runs, possibly creating story overlays based on this world.
 
@@ -158,85 +128,50 @@ Morphology-Mid runs after Narrative-Pre. By this point, narrative steps (like st
 
 #### Step morphology-mid/rugged-coasts: Introduces coastal “ruggedization” – carving sea lanes and adjusting coasts using narrative inputs – and computes coastline metrics.
 
-- Contract: .../morphology-mid/steps/ruggedCoasts.contract.ts – requires artifact:foundation.plates (again using plate data) and artifact:storyOverlays from Narrative-Pre, provides artifact:morphology.coastlineMetrics. This step notably consumes the overlays produced by the narrative story-seed phase. It maps ops.coastlines to morphology.ops.computeCoastlineMetrics (despite the name "coastlines", it’s about metrics and mask generation).
-
-- Implementation: .../morphology-mid/steps/ruggedCoasts.ts – a complex step mixing engine data, narrative data, and Morphology logic:
-
-Reads required artifacts: foundation plate data (plates = deps.artifacts.foundationPlates.read(context)) and narrative overlays (overlays = deps.artifacts.overlays.read(context)).
-
-Builds binary masks from the narrative overlays for use in coast adjustments: it calls buildOverlayMasks(width, height, overlays) which internally uses helper functions:
-
-readOverlayMotifsMargins and readOverlayCorridors (from recipes/standard/overlays.js) to extract specific overlay keys. For example, from the motifs.margins overlay it gets activeMargin and passiveShelf key sets (areas marked for coastline extension or shelf retention by the narrative), and from corridors it gets seaLanes keys (planned narrow sea routes).
-
-These sets of tile coordinates are converted into boolean masks (Uint8Array per tile) via fillMaskFromKeys. The result is an OverlayMasks object with seaLanes, activeMargin, passiveShelf masks.
-
-Generates a fractal noise array via the engine: buildFractalArray(context, width, height, fractalId=1, grain=4) creates an Int16Array of pseudo-random height offsets using engine’s context.adapter.createFractal and getFractalHeight (this provides randomness for coast perturbation). The use of a specific fractal ID and grain is essentially a hidden constant influencing coast shape (grain 4, fractal series 1) – not exposed in config, just embedded.
-
-Calls the op: result = ops.coastlines({...inputs...}, config.coastlines). Inputs include:
-
-Current landMask (from the heightfield),
-
-Plate boundary data (boundaryCloseness and boundaryType from foundation plates),
-
-The three overlay masks (seaLaneMask, activeMarginMask, passiveShelfMask),
-
-The fractal noise array,
-
-An RNG seed (unique per map/step).
-
-The config.coastlines advanced config object is passed to allow tuning (though the schema is basically empty; any constants are internal).
-
-The computeCoastlineMetrics op presumably returns an object with:
-
-updated landMask (possibly modified by carving out sea lanes or adding land in shelf areas),
-
-A coastMask (tiles designated as coastal water – for special terrain type),
-
-coastalLand and coastalWater masks (for output metrics).
-
-Applies the terrain adjustments from the op result to the heightfield buffer:
-
-For each tile, if coastMask[i] == 1, it sets that tile’s terrain to a special coast terrain type (COAST_TERRAIN) and marks it as water (isLand: false). This effectively turns certain land tiles into shallow coastal water with a distinct terrain code (engine uses COAST_TERRAIN to mark shallows).
-
-Otherwise, it checks if the op’s updatedLandMask differs from the current landMask (meaning the op decided to add or remove land in that tile). If so, it writes either flat terrain or ocean terrain accordingly using writeHeightfield (which updates both terrain and landMask in the buffer).
-
-It also cleans up any tiles that are no longer land: if a tile became water but still had a coast terrain from before, it resets it to true ocean terrain.
-
-After this loop, the heightfield’s land/water distribution and coastal terrain edges reflect the “ruggedized” result – narrower straits (sea lanes) cut through land where narrative corridors were, active margins extended or preserved, etc., plus some random noise perturbation.
-
-- Outputs: Publishes coastlineMetrics artifact with the two masks: coastalLand and coastalWater from the result. These indicate adjacency (land next to water and water next to land). Also, although not an explicit contract output, this step effectively refreshes effect:engine.coastlinesApplied – in the tags map, rugged-coasts is noted to “re-provide” the coastlinesApplied tag. Re-emitting this effect tag ensures that any logic gated on coastlinesApplied will consider the final coast state (it forces downstream consumers to wait until after rugged-coasts as well, not just the earlier coastlines step). For example, the placement/derive-placement-inputs step requires engine.coastlinesApplied and will thus run after this step in the pipeline.
+- **Contract**: .../morphology-mid/steps/ruggedCoasts.contract.ts – requires `artifact:foundation.plates` (again using plate data) and `artifact:storyOverlays` from Narrative-Pre, provides `artifact:morphology.coastlineMetrics`. This step notably consumes the overlays produced by the narrative story-seed phase. It maps ops.coastlines to morphology.ops.computeCoastlineMetrics (despite the name "coastlines", it’s about metrics and mask generation).
+- **Implementation**: .../morphology-mid/steps/ruggedCoasts.ts – a complex step mixing engine data, narrative data, and Morphology logic:
+  - Reads required artifacts: foundation plate data (`plates = deps.artifacts.foundationPlates.read(context)`) and narrative overlays (`overlays = deps.artifacts.overlays.read(context)`).
+  - Builds binary masks from the narrative overlays for use in coast adjustments: it calls `buildOverlayMasks(width, height, overlays)` which internally uses helper functions:
+    - `readOverlayMotifsMargins` and `readOverlayCorridors` (from `recipes/standard/overlays.js`) to extract specific overlay keys. For example, from the motifs.margins overlay it gets activeMargin and passiveShelf key sets (areas marked for coastline extension or shelf retention by the narrative), and from corridors it gets seaLanes keys (planned narrow sea routes).
+  - These sets of tile coordinates are converted into boolean masks (Uint8Array per tile) via `fillMaskFromKeys`. The result is an OverlayMasks object with seaLanes, activeMargin, passiveShelf masks.
+  - Generates a fractal noise array via the engine: `buildFractalArray(context, width, height, fractalId=1, grain=4)` creates an Int16Array of pseudo-random height offsets using engine’s `context.adapter.createFractal` and `getFractalHeight` (this provides randomness for coast perturbation). The use of a specific fractal ID and grain is essentially a hidden constant influencing coast shape (grain 4, fractal series 1) – not exposed in config, just embedded.
+  - Calls the op: result = `ops.coastlines({...inputs...}, config.coastlines)`. Inputs include:
+    - Current landMask (from the heightfield),
+    - Plate boundary data (boundaryCloseness and boundaryType from foundation plates),
+    - The three overlay masks (seaLaneMask, activeMarginMask, passiveShelfMask),
+    - The fractal noise array,
+    - An RNG seed (unique per map/step).
+  - The config.coastlines advanced config object is passed to allow tuning (though the schema is basically empty; any constants are internal).
+  - The computeCoastlineMetrics op presumably returns an object with:
+    - updated landMask (possibly modified by carving out sea lanes or adding land in shelf areas),
+    - A coastMask (tiles designated as coastal water – for special terrain type),
+    - coastalLand and coastalWater masks (for output metrics).
+  - Applies the terrain adjustments from the op result to the heightfield buffer:
+    - For each tile, if `coastMask[i] == 1`, it sets that tile’s terrain to a special coast terrain type (COAST_TERRAIN) and marks it as water (isLand: false). This effectively turns certain land tiles into shallow coastal water with a distinct terrain code (engine uses COAST_TERRAIN to mark shallows).
+    - Otherwise, it checks if the op’s updatedLandMask differs from the current landMask (meaning the op decided to add or remove land in that tile). If so, it writes either flat terrain or ocean terrain accordingly using `writeHeightfield` (which updates both terrain and landMask in the buffer).
+    - It also cleans up any tiles that are no longer land: if a tile became water but still had a coast terrain from before, it resets it to true ocean terrain.
+    - After this loop, the heightfield’s land/water distribution and coastal terrain edges reflect the “ruggedized” result – narrower straits (sea lanes) cut through land where narrative corridors were, active margins extended or preserved, etc., plus some random noise perturbation.
+- **Outputs**: Publishes coastlineMetrics artifact with the two masks: coastalLand and coastalWater from the result. These indicate adjacency (land next to water and water next to land). Also, although not an explicit contract output, this step effectively refreshes `effect:engine.coastlinesApplied` – in the tags map, rugged-coasts is noted to “re-provide” the coastlinesApplied tag. Re-emitting this effect tag ensures that any logic gated on coastlinesApplied will consider the final coast state (it forces downstream consumers to wait until after rugged-coasts as well, not just the earlier coastlines step). For example, the placement/derive-placement-inputs step requires engine.coastlinesApplied and will thus run after this step in the pipeline.
 
 #### Step morphology-mid/routing: Computes terrain routing (water flow paths and basins) on the current topography. This provides data for erosion and possibly informs river generation later.
 
-- Contract: .../morphology-mid/steps/routing.contract.ts – requires artifact:morphology.topography (the latest heightfield) and provides artifact:morphology.routing. It maps an op: routing: morphology.ops.computeFlowRouting (which likely implements a flow algorithm). Config schema is empty (no author knobs).
-
-- Implementation: .../morphology-mid/steps/routing.ts – not fully shown, but by contract we infer:
-
-It reads the current topography (heightfield) via deps.artifacts.topography and likely uses it as input to ops.routing(...).
-
-The op computeFlowRouting presumably calculates for each tile the index of the downslope tile (flowDir) and cumulative catchment area or flow accumulation (flowAccum), possibly also identifying watershed basins (basinId). These correspond to the artifact schema fields.
-
-After calling the op, the step would publish the routing artifact with the resulting arrays. Indeed, the contract’s implementArtifacts call indicates it validates and publishes those typed arrays as output (we see the contract lists provides: morphologyArtifacts.routing).
-
-- Outputs: Publishes artifact:morphology.routing containing flow direction, flow accumulation, and basin IDs. This data is available for the next step (geomorphology) and could be used by Hydrology (though in practice Hydrology recomputes rivers on its own later).
+- **Contract**: .../morphology-mid/steps/routing.contract.ts – requires `artifact:morphology.topography` (the latest heightfield) and provides `artifact:morphology.routing`. It maps an op: routing: morphology.ops.computeFlowRouting (which likely implements a flow algorithm). Config schema is empty (no author knobs).
+- **Implementation**: .../morphology-mid/steps/routing.ts – not fully shown, but by contract we infer:
+  - It reads the current topography (heightfield) via deps.artifacts.topography and likely uses it as input to `ops.routing(...)`.
+  - The op computeFlowRouting presumably calculates for each tile the index of the downslope tile (flowDir) and cumulative catchment area or flow accumulation (flowAccum), possibly also identifying watershed basins (basinId). These correspond to the artifact schema fields.
+  - After calling the op, the step would publish the routing artifact with the resulting arrays. Indeed, the contract’s implementArtifacts call indicates it validates and publishes those typed arrays as output (we see the contract lists provides: morphologyArtifacts.routing).
+- **Outputs**: Publishes `artifact:morphology.routing` containing flow direction, flow accumulation, and basin IDs. This data is available for the next step (geomorphology) and could be used by Hydrology (though in practice Hydrology recomputes rivers on its own later).
 
 #### Step morphology-mid/geomorphology: Applies an erosion/deposition simulation (a “geomorphic cycle”) to refine elevation based on the flow of water and substrate softness. Essentially, this step modifies the terrain to be more realistic by simulating geological processes.
 
-- Contract: .../morphology-mid/steps/geomorphology.contract.ts – requires artifact:morphology.topography, artifact:morphology.routing, and artifact:morphology.substrate. (It needs the elevation map, the flow map, and the substrate hardness to compute erosion.) Provides no new artifacts – it purely updates existing ones. Maps op: geomorphology: morphology.ops.computeGeomorphicCycle. Schema empty (no direct knobs).
-
-- Implementation: Likely .../morphology-mid/steps/geomorphology.ts (not shown here). Based on the contract and context:
-
-It would gather the current heightfield (topography), flow data (routing), and substrate data.
-
-Calls ops.geomorphology({ ... }, config.geomorphology) to compute erosion and deposition changes. The op uses some internal model (e.g. stream power law or simpler heuristics) to produce deltas: lowering elevation in areas of high flow (rivers carving) and maybe raising or depositing sediment in low flow areas (deltas, basins). It likely also updates the substrate’s sediment depth (increasing where deposition occurs, decreasing where erosion takes sediment).
-
-The result might be a set of modified arrays or just directly mutate the passed-in buffers.
-
-The step would then apply those changes: e.g., subtracting some elevation in each tile according to an erosion mask, adding to others, and adjusting the sedimentDepth accordingly.
-
-It does not publish a new artifact; instead, it mutates the existing topography and substrate buffers in place (which is allowed as these were published once in pre and are considered “buffers” thereafter). After this step, the heightfield (elevation) and substrate arrays reflect a more eroded landscape.
-
-- Outputs: No new artifacts; instead, side effects: the topography artifact’s content is updated (elevation and landMask might change slightly if erosion causes any previously land tile to sink below sea level, though unlikely at this stage without sea-level feedback) and the substrate artifact is updated (sediment distribution changed). The routing artifact remains as was computed (though it no longer perfectly matches the slightly altered heightfield; a small inconsistency that likely doesn’t matter unless large changes occurred). This step has no effect tag signals.
+- **Contract**: .../morphology-mid/steps/geomorphology.contract.ts – requires `artifact:morphology.topography`, `artifact:morphology.routing`, and `artifact:morphology.substrate`. (It needs the elevation map, the flow map, and the substrate hardness to compute erosion.) Provides no new artifacts – it purely updates existing ones. Maps op: geomorphology: morphology.ops.computeGeomorphicCycle. Schema empty (no direct knobs).
+- **Implementation**: Likely .../morphology-mid/steps/geomorphology.ts (not shown here). Based on the contract and context:
+  - It would gather the current heightfield (topography), flow data (routing), and substrate data.
+  - Calls `ops.geomorphology({ ... }, config.geomorphology)` to compute erosion and deposition changes. The op uses some internal model (e.g. stream power law or simpler heuristics) to produce deltas: lowering elevation in areas of high flow (rivers carving) and maybe raising or depositing sediment in low flow areas (deltas, basins). It likely also updates the substrate’s sediment depth (increasing where deposition occurs, decreasing where erosion takes sediment).
+  - The result might be a set of modified arrays or just directly mutate the passed-in buffers.
+  - The step would then apply those changes: e.g., subtracting some elevation in each tile according to an erosion mask, adding to others, and adjusting the sedimentDepth accordingly.
+  - It does not publish a new artifact; instead, it mutates the existing topography and substrate buffers in place (which is allowed as these were published once in pre and are considered “buffers” thereafter). After this step, the heightfield (elevation) and substrate arrays reflect a more eroded landscape.
+- **Outputs**: No new artifacts; instead, side effects: the topography artifact’s content is updated (elevation and landMask might change slightly if erosion causes any previously land tile to sink below sea level, though unlikely at this stage without sea-level feedback) and the substrate artifact is updated (sediment distribution changed). The routing artifact remains as was computed (though it no longer perfectly matches the slightly altered heightfield; a small inconsistency that likely doesn’t matter unless large changes occurred). This step has no effect tag signals.
 
 Stage outcome: By end of Morphology-Mid, the world elevation model has been further refined: coasts are detailed and possibly punctured by straits per narrative designs, river pathways are identified, and some erosion has occurred. The coastlinesApplied effect tag has been reasserted by rugged-coasts (ensuring anything that cares about “final” coastlines waits until now), and we have coastline metrics and routing data artifacts for reference. Narrative-Mid can now run (e.g. story orogeny might create narrative elements for mountains, though notably it runs before we place mountains in Morphology-Post).
 
@@ -246,79 +181,50 @@ Morphology-Post occurs after Narrative-Mid and before Hydrology. At this point, 
 
 #### Step morphology-post/islands: Fills in strategic island chains, often in empty ocean or along archipelagos, possibly guided by narrative hotspot motifs (e.g. areas designated for island clusters).
 
-- Contract: .../morphology-post/steps/islands.contract.ts – requires artifact:storyOverlays (the narrative overlays, specifically looking for hotspots and related motifs) and likely artifact:foundation.plates as well (though not explicitly in the excerpt, it might not need plates if islands are free-form). Provides no artifact, but in practice it produces effect:engine.landmassApplied again. (Reusing the landmassApplied tag signals that new land has been added.) No new artifact since it modifies topography.
-
-- Implementation: .../morphology-post/steps/islands.ts:
-
-Reads narrative overlays (motifs.hotspots probably) via readOverlayMotifsHotspots (similar pattern to rugged-coasts reading margins). Hotspots might indicate volcanic island chains or archipelago regions planned by narrative.
-
-Possibly reads margin/corridor overlays if islands should fill narrative corridors (but primarily hotspots).
-
-Likely calls ops.planIslandChains({ ... }, config.islands) or directly uses addIslandChains function with inputs such as the hotspots mask, world layout, and random seeds.
-
-The logic would decide positions for islands: e.g. scatter small land patches in designated regions or random open ocean areas for balance.
-
-Then for each chosen island location, it would elevate some tiles: possibly by directly writing to context.buffers.heightfield (setting landMask=1 and some elevation, terrain type flat) or calling an engine method to raise terrain.
-
-It might also call context.adapter.stampContinents() again after adding islands, to update the engine’s continent labeling (so that these new land tiles are integrated into area calculations).
-
-- Outputs: No artifact output; instead, side effect: the topography buffer is updated (new land tiles appear). It triggers effect:engine.landmassApplied (in the tag dependency map, islands is a producer of this tag) to indicate that landmasses have been updated/expanded. This tag is required by any downstream step that needs the final land configuration (e.g. Hydrology’s lake generation and Placement inputs). Indeed, hydrology-pre/lakes listens for landmassApplied, ensuring it runs after islands. Also, placement’s derive-inputs waits on coastlinesApplied (already satisfied) and implicitly final landmass state by stage order.
+- **Contract**: .../morphology-post/steps/islands.contract.ts – requires `artifact:storyOverlays` (the narrative overlays, specifically looking for hotspots and related motifs) and likely `artifact:foundation.plates` as well (though not explicitly in the excerpt, it might not need plates if islands are free-form). Provides no artifact, but in practice it produces `effect:engine.landmassApplied` again. (Reusing the landmassApplied tag signals that new land has been added.) No new artifact since it modifies topography.
+- **Implementation**: .../morphology-post/steps/islands.ts:
+  - Reads narrative overlays (motifs.hotspots probably) via `readOverlayMotifsHotspots` (similar pattern to rugged-coasts reading margins). Hotspots might indicate volcanic island chains or archipelago regions planned by narrative.
+  - Possibly reads margin/corridor overlays if islands should fill narrative corridors (but primarily hotspots).
+  - Likely calls `ops.planIslandChains({ ... }, config.islands)` or directly uses `addIslandChains` function with inputs such as the hotspots mask, world layout, and random seeds.
+  - The logic would decide positions for islands: e.g. scatter small land patches in designated regions or random open ocean areas for balance.
+  - Then for each chosen island location, it would elevate some tiles: possibly by directly writing to context.buffers.heightfield (setting landMask=1 and some elevation, terrain type flat) or calling an engine method to raise terrain.
+  - It might also call `context.adapter.stampContinents()` again after adding islands, to update the engine’s continent labeling (so that these new land tiles are integrated into area calculations).
+- **Outputs**: No artifact output; instead, side effect: the topography buffer is updated (new land tiles appear). It triggers `effect:engine.landmassApplied` (in the tag dependency map, islands is a producer of this tag) to indicate that landmasses have been updated/expanded. This tag is required by any downstream step that needs the final land configuration (e.g. Hydrology’s lake generation and Placement inputs). Indeed, hydrology-pre/lakes listens for landmassApplied, ensuring it runs after islands. Also, placement’s derive-inputs waits on coastlinesApplied (already satisfied) and implicitly final landmass state by stage order.
 
 #### Step morphology-post/mountains: Raises mountain ranges according to plate collisions (and possibly narrative “orogeny” hints).
 
-- Contract: .../morphology-post/steps/mountains.contract.ts – requires artifact:foundation.plates (to know where plate boundaries and high uplift areas are) and possibly also requires the narrative orogeny overlay (if any) – though narrative orogeny motif is likely a conceptual overlay rather than a data artifact (the narrative-mid step might not produce a tile mask, just story elements). Provides no artifacts or tags (mountains are just part of the terrain).
-
-- Implementation: .../morphology-post/steps/mountains.ts:
-
-Uses foundation plate data: in particular, plates.boundaryType and plates.upliftPotential to locate convergent boundaries (where mountains form). Possibly also uses plates.shieldStability or other fields if present.
-
-Could incorporate narrative orogeny motif indirectly: the narrative-mid story-orogeny might mark certain plate boundaries as especially significant. However, since Morphology doesn’t explicitly consume a story orogeny artifact (none exists; narrative orogeny likely just logs or influences narrative, not a data overlay), mountains rely primarily on physics (foundation data).
-
-Likely calls ops.planRidgesAndFoothills({ ... }, config.mountains) which wraps the layerAddMountainsPhysics logic. This would raise elevations along major collision zones and perhaps add some noise for variability.
-
-Implementation might directly manipulate the heightfield: increasing heightfield.elevation for clusters of tiles to create mountain peaks and slopes, and possibly adjusting terrain to a “mountain” terrain type if defined (though often mountains might still use generic terrain types unless the engine has a specific terrain tag for mountain).
-
-Some smoothing or foothill generation might occur around the peaks (hence “ridges and foothills”).
-
-- Outputs: No direct artifact; side effect: the topography buffer’s elevation values are increased in mountain areas. These changes propagate to downstream consumers (ecology will see higher altitudes for biome classification, placement sees mountains affecting passability, etc.). Mountains do not emit a specific effect tag – they are implicitly done before Hydrology (by stage ordering) and before ecology.
+- **Contract**: .../morphology-post/steps/mountains.contract.ts – requires `artifact:foundation.plates` (to know where plate boundaries and high uplift areas are) and possibly also requires the narrative orogeny overlay (if any) – though narrative orogeny motif is likely a conceptual overlay rather than a data artifact (the narrative-mid step might not produce a tile mask, just story elements). Provides no artifacts or tags (mountains are just part of the terrain).
+- **Implementation**: .../morphology-post/steps/mountains.ts:
+  - Uses foundation plate data: in particular, plates.boundaryType and plates.upliftPotential to locate convergent boundaries (where mountains form). Possibly also uses plates.shieldStability or other fields if present.
+  - Could incorporate narrative orogeny motif indirectly: the narrative-mid story-orogeny might mark certain plate boundaries as especially significant. However, since Morphology doesn’t explicitly consume a story orogeny artifact (none exists; narrative orogeny likely just logs or influences narrative, not a data overlay), mountains rely primarily on physics (foundation data).
+  - Likely calls `ops.planRidgesAndFoothills({ ... }, config.mountains)` which wraps the `layerAddMountainsPhysics` logic. This would raise elevations along major collision zones and perhaps add some noise for variability.
+  - Implementation might directly manipulate the heightfield: increasing heightfield.elevation for clusters of tiles to create mountain peaks and slopes, and possibly adjusting terrain to a “mountain” terrain type if defined (though often mountains might still use generic terrain types unless the engine has a specific terrain tag for mountain).
+  - Some smoothing or foothill generation might occur around the peaks (hence “ridges and foothills”).
+- **Outputs**: No direct artifact; side effect: the topography buffer’s elevation values are increased in mountain areas. These changes propagate to downstream consumers (ecology will see higher altitudes for biome classification, placement sees mountains affecting passability, etc.). Mountains do not emit a specific effect tag – they are implicitly done before Hydrology (by stage ordering) and before ecology.
 
 #### Step morphology-post/volcanoes: Adds volcanic features, typically at rifts or hotspots.
 
-- Contract: .../morphology-post/steps/volcanoes.contract.ts – requires artifact:foundation.plates (to identify rift zones or hotspots from plate data). No new artifacts or tags. Maps to op planVolcanoes (for layerAddVolcanoesPlateAware logic).
-
-- Implementation: .../morphology-post/steps/volcanoes.ts:
-
-Uses plate data, especially areas of high rift potential or hot spot (if foundation plates carry a field for intra-plate hotspots or rift lines).
-
-Possibly also checks the narrative “rifts” motif overlay: note, narrative-pre had a story-rifts step which produced a motifs.rifts overlay artifact (though Morphology doesn’t explicitly consume it; it might not be needed here if foundation data suffices).
-
-Calls ops.planVolcanoes({ ... }, config.volcanoes) or directly uses layerAddVolcanoesPlateAware. This would decide positions for volcanoes (which could be represented as small mountain peaks or tags for later placement of volcano entities).
-
-Implementation likely raises small peaks on the heightfield at those locations (increasing elevation sharply) or flags them somehow for engine (the engine might place actual volcano gameplay objects later based on terrain, but our concern is just the heightfield).
-
-May adjust terrain type to indicate volcano (if the engine has a volcano terrain, but likely not – volcanoes are usually gameplay objects, not a terrain tile type).
-
-- Outputs: No artifact; side effect: heightfield updated with volcanic peaks (tiny mountain-like protrusions). No effect tags from this step. By end of this, the physical terrain is fully shaped.
+- **Contract**: .../morphology-post/steps/volcanoes.contract.ts – requires `artifact:foundation.plates` (to identify rift zones or hotspots from plate data). No new artifacts or tags. Maps to op `planVolcanoes` (for layerAddVolcanoesPlateAware logic).
+- **Implementation**: .../morphology-post/steps/volcanoes.ts:
+  - Uses plate data, especially areas of high rift potential or hot spot (if foundation plates carry a field for intra-plate hotspots or rift lines).
+  - Possibly also checks the narrative “rifts” motif overlay: note, narrative-pre had a story-rifts step which produced a motifs.rifts overlay artifact (though Morphology doesn’t explicitly consume it; it might not be needed here if foundation data suffices).
+  - Calls `ops.planVolcanoes({ ... }, config.volcanoes)` or directly uses `layerAddVolcanoesPlateAware`. This would decide positions for volcanoes (which could be represented as small mountain peaks or tags for later placement of volcano entities).
+  - Implementation likely raises small peaks on the heightfield at those locations (increasing elevation sharply) or flags them somehow for engine (the engine might place actual volcano gameplay objects later based on terrain, but our concern is just the heightfield).
+  - May adjust terrain type to indicate volcano (if the engine has a volcano terrain, but likely not – volcanoes are usually gameplay objects, not a terrain tile type).
+- **Outputs**: No artifact; side effect: heightfield updated with volcanic peaks (tiny mountain-like protrusions). No effect tags from this step. By end of this, the physical terrain is fully shaped.
 
 #### Step morphology-post/landmasses: Computes the final landmass connectivity and publishes the landmasses artifact.
 
-- Contract: .../morphology-post/steps/landmasses.contract.ts – requires artifact:morphology.topography (to access the final landMask) and provides artifact:morphology.landmasses. Maps op: landmasses: morphology.ops.computeLandmasses.
+- **Contract**: .../morphology-post/steps/landmasses.contract.ts – requires `artifact:morphology.topography` (to access the final landMask) and provides `artifact:morphology.landmasses`. Maps op: landmasses: morphology.ops.computeLandmasses.
+- **Implementation**: .../morphology-post/steps/landmasses.ts:
+  - Reads the final heightfield.landMask via the topography artifact.
+  - Calls `ops.landmasses({ landMask, ... }, config.landmasses)` (if any config) to identify connected land regions. This likely does a flood-fill or union-find over all land tiles to group them into distinct landmasses. It may also compute properties like tile count and bounding boxes for each landmass.
+  - The result would be an array of landmass descriptors and an array mapping each tile index to a landmass id (or -1 for water) – aligning with the schema.
+  - Publishes those as the landmasses artifact.
+  - Possibly calls no engine functions; purely data computation.
+- **Outputs**: Provides `artifact:morphology.landmasses` containing { landmasses: [...], landmassIdByTile: [...] }. This artifact is immediately used by the Placement stage: the placement step contract requires morphologyArtifacts.landmasses to ensure it can consider landmass boundaries when placing starting positions (so two players aren’t on the same landmass, for example).
 
-- Implementation: .../morphology-post/steps/landmasses.ts:
-
-Reads the final heightfield.landMask via the topography artifact.
-
-Calls ops.landmasses({ landMask, ... }, config.landmasses) (if any config) to identify connected land regions. This likely does a flood-fill or union-find over all land tiles to group them into distinct landmasses. It may also compute properties like tile count and bounding boxes for each landmass.
-
-The result would be an array of landmass descriptors and an array mapping each tile index to a landmass id (or -1 for water) – aligning with the schema.
-
-Publishes those as the landmasses artifact.
-
-Possibly calls no engine functions; purely data computation.
-
-- Outputs: Provides artifact:morphology.landmasses containing { landmasses: [...], landmassIdByTile: [...] }. This artifact is immediately used by the Placement stage: the placement step contract requires morphologyArtifacts.landmasses to ensure it can consider landmass boundaries when placing starting positions (so two players aren’t on the same landmass, for example).
-
-Stage outcome: Morphology-Post completes the world’s physical generation. At this point, the heightfield (topography) is final – all terrain features are in place. The final outputs from Morphology are the updated heightfield buffer and associated artifacts: substrate (updated), routing (from mid, still available), coastlineMetrics (from mid), and landmasses (new). Effect tags from Morphology (landmassApplied, coastlinesApplied) have been signaled to downstream stages, ensuring proper ordering.
+Stage outcome: Morphology-Post completes the world’s physical generation. At this point, the heightfield (topography) is final – all terrain features are in place. The final outputs from Morphology are the updated heightfield buffer and associated artifacts: substrate (updated), routing (from mid, still available), coastlineMetrics (from mid), and landmasses (new). Effect tags from Morphology (`landmassApplied`, `coastlinesApplied`) have been signaled to downstream stages, ensuring proper ordering.
 
 ## Current dependency matrix (contracts: inputs & outputs)
 
@@ -326,23 +232,19 @@ This section presents the producer/consumer relationships for Morphology-related
 
 ### A) Upstream inputs to Morphology (what Morphology reads)
 
-Foundation Plates Artifact: artifact:foundation.plates – Produced by Foundation stage (the world generation seed stage) and consumed by multiple Morphology steps. It contains tectonic plate data (boundary maps, uplift/rift potentials, etc.) that Morphology uses to shape continents and mountains.
+Foundation Plates Artifact: `artifact:foundation.plates` – Produced by Foundation stage (the world generation seed stage) and consumed by multiple Morphology steps. It contains tectonic plate data (boundary maps, uplift/rift potentials, etc.) that Morphology uses to shape continents and mountains.
 Consumers in Morphology:
 
 - morphology-pre/landmass-plates (initial continents)
-
 - morphology-mid/rugged-coasts (for coastal adjustments relative to plate boundaries)
-
 - morphology-post/mountains (for mountain placement at convergent boundaries)
-
 - morphology-post/volcanoes (for volcano placement at rifts)
 Each of these requires foundationArtifacts.plates in its contract. This tight coupling means Morphology heavily relies on upstream tectonic modeling. (If Foundation changes its plate outputs, multiple Morphology behaviors shift.)
 
-Narrative Overlays Artifact: artifact:storyOverlays – Produced by Narrative-Pre stage (specifically the story-seed step provides the initial overlays structure with sub-keys for corridors, swatches, motifs). It is essentially a catch-all object carrying various narrative “overlay” plans (e.g. planned rivers as corridors, climate zones as swatches, special regions as motifs like hotspots, margins, etc.). The schema is extremely loose (Type.Any() for each sub-field and additionalProperties allowed), meaning it’s an ad-hoc data container.
+Narrative Overlays Artifact: `artifact:storyOverlays` – Produced by Narrative-Pre stage (specifically the story-seed step provides the initial overlays structure with sub-keys for corridors, swatches, motifs). It is essentially a catch-all object carrying various narrative “overlay” plans (e.g. planned rivers as corridors, climate zones as swatches, special regions as motifs like hotspots, margins, etc.). The schema is extremely loose (Type.Any() for each sub-field and additionalProperties allowed), meaning it’s an ad-hoc data container.
 Consumers in Morphology:
 
 - morphology-mid/rugged-coasts requires the overlays artifact (reads motifs.margins for activeMargin/passiveShelf and corridors for seaLanes). This coupling lets narrative dictate some coastline shaping (e.g. where to keep straits open).
-
 - morphology-post/islands requires the overlays artifact (uses motifs.hotspots and possibly other motif info for island placement). Hotspot regions from narrative influence where islands appear.
 
 Implicitly: Other Morphology steps do not directly require overlays, but narrative overlays also include “rifts” and “orogeny” motifs that conceptually relate to volcanoes and mountains. However, those steps didn’t declare an overlay requirement – meaning any narrative hints for rifts/orogeny are not directly read by Morphology code (mountains/volcanoes purely use plate data). This indicates either narrative orogeny is purely story (not affecting generation), or it’s an oversight/area for improvement.
@@ -351,68 +253,60 @@ Schema note: The overlay artifact’s looseness has led to Morphology (and Hydro
 
 ### B) Morphology outputs and their consumers (downstream or cross-domain)
 
-Topography Artifact (artifact:morphology.topography): Produced by Morphology-Pre (landmass-plates) and then mutated through the pipeline. It serves as the primary elevation and terrain dataset.
+Topography Artifact (`artifact:morphology.topography`): Produced by Morphology-Pre (landmass-plates) and then mutated through the pipeline. It serves as the primary elevation and terrain dataset.
 Consumers:
 
 - morphology-mid/routing and morphology-mid/geomorphology (internal Morphology steps) require it to ensure they run after base topography is available.
 
-Hydrology: The hydrology-pre/lakes step explicitly requires artifact:morphology.topography. This is a gating contract to make sure lakes generation (which modifies the heightfield by digging lakes) occurs after the initial land is in place. In practice, lakes reads the heightfield via engine context rather than directly from the artifact (since it operates on the live adapter), but the requirement guarantees ordering. After lakes runs, the heightfield is published anew as artifact:heightfield in Hydrology (with any lake modifications). Downstream domains (Climate, Ecology, etc.) then use that hydrology heightfield artifact. So Morphology’s topography is a transient artifact whose data is effectively handed off to Hydrology’s heightfield artifact.
+Hydrology: The hydrology-pre/lakes step explicitly requires `artifact:morphology.topography`. This is a gating contract to make sure lakes generation (which modifies the heightfield by digging lakes) occurs after the initial land is in place. In practice, lakes reads the heightfield via engine context rather than directly from the artifact (since it operates on the live adapter), but the requirement guarantees ordering. After lakes runs, the heightfield is published anew as `artifact:heightfield` in Hydrology (with any lake modifications). Downstream domains (Climate, Ecology, etc.) then use that hydrology heightfield artifact. So Morphology’s topography is a transient artifact whose data is effectively handed off to Hydrology’s heightfield artifact.
 
 No other explicit consumers of morphology.topography outside Morphology; Hydrology is the main one (and by extension everyone uses the heightfield, just under hydrology’s ownership after lakes).
 
-Substrate Artifact (artifact:morphology.substrate): Produced by Morphology-Pre (landmass-plates), updated by geomorphology.
+Substrate Artifact (`artifact:morphology.substrate`): Produced by Morphology-Pre (landmass-plates), updated by geomorphology.
 Consumers: No downstream stage outside Morphology explicitly requires substrate (e.g., Hydrology and Ecology do not). In current state it’s an internal Morphology buffer. Possibly considered for use in erosion or future geology slices. (It’s essentially a legacy artifact right now – kept for the geomorphic simulation but not leveraged elsewhere.)
 
-Coastlines Expanded Artifact (artifact:morphology.coastlinesExpanded): Produced by Morphology-Pre (coastlines).
+Coastlines Expanded Artifact (`artifact:morphology.coastlinesExpanded`): Produced by Morphology-Pre (coastlines).
 Consumers: None explicitly. This artifact’s presence is mostly checked in tests or guardrails (to ensure the step ran). It’s not read by any downstream logic; instead, the effect tag engine.coastlinesApplied is used for ordering (see tags below). This artifact can be seen as a legacy placeholder (in a refactor it might be removed in favor of just using the effect tag or verifying terrain state).
 
-Coastline Metrics Artifact (artifact:morphology.coastlineMetrics): Produced by Morphology-Mid (rugged-coasts).
+Coastline Metrics Artifact (`artifact:morphology.coastlineMetrics`): Produced by Morphology-Mid (rugged-coasts).
 Consumers: None in current pipeline. No step in narrative, hydrology, or ecology explicitly requires coastlineMetrics. Potentially, it could be used by Ecology or Placement to know which land tiles are coastal (to influence biome or city placement logic), but currently those domains seem to derive that themselves if needed (e.g. placement might check adjacency via engine). The coastlineMetrics artifact is effectively unused data at the moment – a product of refactored thinking that hasn’t yet found a consumer. (It’s a candidate for removal or promotion in the future – right now it’s a dead artifact.)
 
-Routing Artifact (artifact:morphology.routing): Produced by Morphology-Mid (routing).
+Routing Artifact (`artifact:morphology.routing`): Produced by Morphology-Mid (routing).
 Consumers: No explicit consumer outside Morphology. Hydrology’s river generation (hydrology-core/rivers) does not list this artifact as an input; it recalculates flow using its own logic on the post-lake heightfield. Nor does ecology use it (e.g., to determine fertile river valleys – ecology relies on water adjacency differently). Therefore, the routing artifact currently doesn’t inform any downstream steps – it appears to be calculated for completeness or future use. (It might be used in future erosion passes or to compare pre/post-hydrology, but as of now it’s not required by another contract.)
 
-Landmasses Artifact (artifact:morphology.landmasses): Produced by Morphology-Post (landmasses).
+Landmasses Artifact (`artifact:morphology.landmasses`): Produced by Morphology-Post (landmasses).
 Consumers: Placement domain. The final placement/placement step (which places civilizations and features) requires morphologyArtifacts.landmasses. Placement uses this to ensure each civ start is on a separate landmass and possibly to label continents in the UI. By providing a clear list of landmasses and their extents, Morphology enables placement to avoid relying on engine continent IDs or global state. Additionally, having landmass size info can feed into gameplay balancing (though details are outside this scope). No other domain uses this artifact directly, but it’s a crucial link between world gen and gameplay setup.
 
 ### C) Effect tags (ordering signals involving Morphology)
 
 Morphology uses effect tags as lightweight signals to enforce ordering constraints with other domains (particularly Narrative and Placement). These tags are defined in recipes/standard/tags.ts as M4_EFFECT_TAGS.engine.* and are referenced in step contracts as requires or provides without carrying data. The relevant tags are:
 
-effect:engine.landmassApplied: Signifies that base landmasses are generated.
+`effect:engine.landmassApplied`: Signifies that base landmasses are generated.
 Producers:
 
 - morphology-pre/landmass-plates (after continents placed)
-
 - morphology-post/islands (after adding new landmasses) (re-emits to signal land has changed).
 Consumers:
 
 - morphology-pre/coastlines requires this tag, ensuring coastlines step runs only after initial land is ready.
-
 - hydrology-pre/lakes requires this tag (so that lakes fill after all landmasses, including islands, are finalized). If islands add new land, the lakes step will wait for that second emission in Morphology-Post.
 
 Effect: This tag creates a two-tier dependency: after landmass-plates, coastlines can run (within Morphology-Pre), and at the very end, after islands, it prompts any waiting steps (lakes). Without re-emitting in islands, the lakes step might have proceeded after Morphology-Mid, missing the islands – hence the dual production of the same tag to cover both intervals.
 
-effect:engine.coastlinesApplied: Indicates coastline processing is done.
+`effect:engine.coastlinesApplied`: Indicates coastline processing is done.
 Producers:
 
 - morphology-pre/coastlines (initial engine coast expansion)
-
 - morphology-mid/rugged-coasts (after ruggedizing coasts, essentially updating coasts).
 Consumers:
 
 Narrative steps that add story elements needing final coast info all require this:
 
 - narrative-pre/story-seed (initial narrative generation may wait for coasts to be done),
-
 - narrative-pre/story-hotspots, story-corridors-pre, story-rifts (various motif placements that benefit from knowing coastlines),
-
 - narrative-mid/story-orogeny (perhaps ensures coastlines are finalized before doing any mountain lore),
-
 - narrative-post/story-corridors-post (final narrative adjustments like connecting rivers might wait for coast info).
-
 - morphology-post/islands is listed as consuming coastlinesApplied. This is interesting since by stage order islands comes after rugged-coasts anyway, but the tag requirement ensures that if, for instance, narrative-mid or other factors changed scheduling, islands strictly won’t run until coastlines are fully done. It likely is there to guarantee islands run after rugged-coasts in any scenario (even though in practice they are different stages).
-
 - placement/derive-placement-inputs requires coastlinesApplied. The placement input gathering consolidates all final map data for city placement; requiring coastlinesApplied means it will only run after all coast shaping (through rugged-coasts) is done. This is likely redundant given it runs after morphology-post naturally, but it acts as a safety net.
 
 (No other Morphology-specific tags) – Morphology does not produce a tag for “mountainsApplied” or similar; those are purely internal. It also doesn’t consume other domain tags (e.g., it doesn’t wait on any narrative tags, it directly consumes overlays instead).
@@ -423,11 +317,10 @@ Tag satisfaction: It’s worth noting that currently the engine effect tags like
 
 In addition to formal contracts, Morphology has implicit consumers/producers via global or runtime state:
 
-StandardRuntime Continent Bounds: When landmass-plates calls context.adapter.stampContinents(), it sets StandardRuntime.westContinent and eastContinent indices (the engine picks two extreme landmasses as “west/east”). This is not exposed via artifact or tag – it’s an engine side-effect.
+StandardRuntime Continent Bounds: When landmass-plates calls `context.adapter.stampContinents()`, it sets StandardRuntime.westContinent and eastContinent indices (the engine picks two extreme landmasses as “west/east”). This is not exposed via artifact or tag – it’s an engine side-effect.
 Consumers:
 
 - hydrology-pre/climate-baseline (in Hydrology) reads these runtime.continentBounds to influence wind patterns (the climate baseline code checks ctx.runtime.westContinent etc.). However, the climateBaseline contract does not declare a dependency on landmassApplied or anything – it implicitly assumes those runtime values are set by then (hence a hidden ordering constraint).
-
 - placement/derive-placement-inputs and placement/placement also use continent bounds: the placement code passes continent boundary info to the engine’s start position allocator. In fact, the Placement op plan-starts contract includes fields for continent bounds (ensuring players start on different continents). Currently, placement pulls those from the same StandardRuntime values (populated in foundation and updated in landmass-plates and possibly islands).
 
 Implication: The use of stampContinents and reliance on StandardRuntime is a legacy mechanism that breaks the usual dependency tracking – nothing in contracts guarantees climate-baseline happens after stampContinents except the stage order. It’s a point of fragility: if Morphology didn’t call stampContinents, Hydrology and Placement might lack needed info or use stale data. The Phase 1 mapping identifies this as a critical hidden dependency to eliminate (in favor of explicit artifacts like landmasses).
@@ -442,7 +335,7 @@ This section inventories the legacy authoring surfaces in Morphology – configu
 
 Morphology’s author-facing configuration is defined in the domain config schemas. Notably:
 
-Morphology Config Schema: mods/mod-swooper-maps/src/domain/morphology/config.ts – defines top-level config object for the Morphology domain. The schema lists keys such as oceanSeparation, coastlines, islands, mountains, volcanoes. Each is likely an object with sub-settings (or in some cases just flags). In the current code, these correspond to the high-level aspects of morphology. For example:
+Morphology Config Schema: `mods/mod-swooper-maps/src/domain/morphology/config.ts` – defines top-level config object for the Morphology domain. The schema lists keys such as oceanSeparation, coastlines, islands, mountains, volcanoes. Each is likely an object with sub-settings (or in some cases just flags). In the current code, these correspond to the high-level aspects of morphology. For example:
 
 oceanSeparation (perhaps controlling continent separation logic – relates to how we ensure oceans between landmasses; used in landmass generation) – used by landmass-plates step (likely passed as part of config.landmass or similar).
 
@@ -455,7 +348,7 @@ mountains – used by mountains step (config.mountains for planRidgesAndFoothill
 volcanoes – used by volcanoes step (config.volcanoes).
 Each of these keys likely contains tunable parameters (e.g., number of islands, mountain height scaling, etc.), but importantly, current usage of config in code often falls back on internal defaults. Many Morphology functions check if a config value exists, else use a constant. For instance, some ops might have default values for unspecified parameters (like default mountain height if not provided).
 
-Landmass Config Schema: mods/mod-swooper-maps/src/domain/morphology/landmass/config.ts – defines config for landmass generation (maybe parameters like target land percentage, min distance between continents, etc.). The landmass-plates step likely pulls this in as config.landmass (the contract doesn’t list it explicitly, but the code passes config.substrate, config.baseTopography, etc. individually). Historical note: Before refactor, some of these might have been author settings, but as of now they might be mostly default-driven.
+Landmass Config Schema: `mods/mod-swooper-maps/src/domain/morphology/landmass/config.ts` – defines config for landmass generation (maybe parameters like target land percentage, min distance between continents, etc.). The landmass-plates step likely pulls this in as config.landmass (the contract doesn’t list it explicitly, but the code passes config.substrate, config.baseTopography, etc. individually). Historical note: Before refactor, some of these might have been author settings, but as of now they might be mostly default-driven.
 
 Observed config posture: The code tends to handle missing config by applying defaults on the fly. For example, if config.coastlines doesn’t specify a value for “seaLaneDepth”, the computeCoastlineMetrics implementation might have a hardcoded default. This is against the ideal posture of “schema-defaulted and normalized upfront”. In Phase 1, we note that hidden fallback behaviors exist. E.g., the context doc explicitly warns about hidden tuning constants and fallback logic. We see this in practice: Morphology functions often have if (param === undefined) use X patterns. For instance, DEFAULT_OCEAN_SEPARATION in ocean-separation/policy.ts provides a default separation distance used if config doesn’t override it. Similarly, resolveSeaCorridorPolicy likely uses internal thresholds not exposed to config. These defaults need to be catalogued so Phase 2 can decide to expose or remove them.
 
@@ -465,9 +358,9 @@ Config vs. knobs: Currently, Morphology’s config keys (coastlines, mountains, 
 
 Morphology retains some hardcoded policy modules – encapsulating legacy rules that ideally would be data-driven or physics-based. Key ones:
 
-Ocean Separation Policy: mods/mod-swooper-maps/src/domain/morphology/landmass/ocean-separation/policy.ts – defines rules for separating continents by ocean gaps. Exports include a constant DEFAULT_OCEAN_SEPARATION (distance). This is used by applyPlateAwareOceanSeparation to ensure a minimum ocean width between landmasses. It’s a fixed value (or formula) not tied to config, thus a buried constant. This influences continent spacing silently.
+Ocean Separation Policy: `mods/mod-swooper-maps/src/domain/morphology/landmass/ocean-separation/policy.ts` – defines rules for separating continents by ocean gaps. Exports include a constant DEFAULT_OCEAN_SEPARATION (distance). This is used by applyPlateAwareOceanSeparation to ensure a minimum ocean width between landmasses. It’s a fixed value (or formula) not tied to config, thus a buried constant. This influences continent spacing silently.
 
-Coastlines Corridor Policy: mods/mod-swooper-maps/src/domain/morphology/coastlines/corridor-policy.ts – contains logic to handle “sea corridors” between land (e.g., how to treat one-tile straits). Exports include functions like findNeighborSeaLaneAttributes and findNeighborSeaLaneEdgeConfig. These likely contain thresholds for when to keep a sea lane open vs fill it (maybe based on tile count or plate boundary type). They may reference narrative corridor overlay keys, but also might include constants (e.g., always keep at least 1-tile channel). These rules are currently static – not exposed as config – another example of legacy encoded behavior.
+Coastlines Corridor Policy: `mods/mod-swooper-maps/src/domain/morphology/coastlines/corridor-policy.ts` – contains logic to handle “sea corridors” between land (e.g., how to treat one-tile straits). Exports include functions like findNeighborSeaLaneAttributes and findNeighborSeaLaneEdgeConfig. These likely contain thresholds for when to keep a sea lane open vs fill it (maybe based on tile count or plate boundary type). They may reference narrative corridor overlay keys, but also might include constants (e.g., always keep at least 1-tile channel). These rules are currently static – not exposed as config – another example of legacy encoded behavior.
 
 Mountain/Volcano Placement Rules: While not a separate policy module, the mountains/scoring.ts and volcanoes/scoring.ts implement scoring algorithms for placing peaks. They likely define thresholds like “if upliftPotential > 0.8, create a mountain” or “max one volcano per X tiles of rift”. They also contain constants for random variance and distribution. For instance, volcano spacing or how many tiles constitute a volcano cluster can be constants in code. These qualify as hidden multipliers or thresholds – values like MIN_VOLCANO_SPACING = 5 or similar if present. They also directly use FOUNDATION.BOUNDARY_TYPE enums to decide if a plate boundary is convergent/divergent. This direct import ties Morphology logic to Foundation’s internal classification rather than treating it as data, which is a boundary violation.
 
@@ -519,7 +412,7 @@ Engine field tags and placeholders: In the current system, some artifact definit
 
 field:terrainType/field:elevation tags: defined in tags.ts but no producer (legacy from older code expecting engine to fill them).
 
-artifact:morphology.coastlineMetrics and artifact:morphology.routing: produced but no current consumer (they exist mostly for completeness or future use).
+`artifact:morphology.coastlineMetrics` and `artifact:morphology.routing`: produced but no current consumer (they exist mostly for completeness or future use).
 
 These will either gain a use in Phase 2 (if deemed valuable) or be removed to streamline the surface.
 

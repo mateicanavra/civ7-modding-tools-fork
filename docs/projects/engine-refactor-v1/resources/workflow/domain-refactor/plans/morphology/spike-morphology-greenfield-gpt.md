@@ -1,11 +1,14 @@
 # Morphology Domain Refactor — Phase 0.5 Greenfield Pre-Work Spike
-Purpose: Do earth-physics-first, greenfield Morphology thinking before current-state mapping (Phase 1) or target-state modeling (Phase 2), so those later phases are not biased by legacy implementation shapes.
+
+**Purpose**: Do earth-physics-first, greenfield Morphology thinking before current-state mapping (Phase 1) or target-state modeling (Phase 2), so those later phases are not biased by legacy implementation shapes.
 This spike treats Morphology as the canonical owner of Earth-derived “shape truth.” It focuses on how tectonic forces and geophysical processes create landforms, coasts, and seafloors, independent of legacy code or narrative overlays. Morphology’s domain is purely physical terrain formation (land and underwater), excluding climate, biomes, or gameplay/story overlays.
+
 ## References:
-- Workflow & templates (canonical): resources/workflow/domain-refactor/WORKFLOW.md[1][2]; Phase 0.5 template: resources/workflow/domain-refactor/references/phase-0-greenfield-prework.md[3]
-- Domain architecture (canonical): docs/system/libs/mapgen/architecture.md[4][5]
-- Morphology domain definition (canonical): docs/system/libs/mapgen/morphology.md (conceptual model and current outputs)
-- Earth-physics modeling posture: resources/workflow/domain-refactor/references/earth-physics-and-domain-specs.md
+
+- Workflow & templates (canonical): `resources/workflow/domain-refactor/WORKFLOW.md`[1][2]; Phase 0.5 template: `resources/workflow/domain-refactor/references/phase-0-greenfield-prework.md`[3]
+- Domain architecture (canonical): `docs/system/libs/mapgen/architecture.md`[4][5]
+- Morphology domain definition (canonical): `docs/system/libs/mapgen/morphology.md` (conceptual model and current outputs)
+- Earth-physics modeling posture: `resources/workflow/domain-refactor/references/earth-physics-and-domain-specs.md`
 ## Scope guardrails (do not violate):
 - No current-state mapping here. Do not inventory legacy files or describe how current code works – that is Phase 1’s job. This document is unconstrained by existing implementation.
 - No contract or schema locking here. Do not commit to specific artifact names, data schemas, or how many stages/steps the Morphology pipeline will have. We capture the conceptual outputs and causal structure; concrete contracts come in Phase 2/3.
