@@ -1,1 +1,155 @@
-Phase 0.5: Morphology Greenfield Pre-work SpikeStatus: Draft / Pre-workAuthor: SystemDate: 2025-05-18Scope: Greenfield conceptual design for the Morphology domain.Context: Precedes Phase 1 (Current State) and Phase 2 (Modeling).1. Executive Summary & VisionThe refactored Morphology domain will serve as the authoritative source of "shape truth" for the Civ7 MapGen pipeline. Moving beyond the legacy approach—where shape is often a side effect of game-specific tile assignment or narrative overlays—the new Morphology domain will derive topography from earth-physics principles (tectonics, volcanism, erosion) while remaining performant and controllable.The Vision:Morphology consumes abstract tectonic scaffolding (from Foundation) and produces a concrete, high-resolution physical world definition (Heightfield, Landmask, Bathymetry). It does not know about "Grassland" or "Tundra" (Ecology), nor "Rivers" (Hydrology), nor "Start Positions" (Gameplay). It strictly concerns itself with the form of the planet.Core Shift:From: "Paint Terrain Types" -> derive shape from types.To: "Simulate Shape" -> derive Terrain Types from shape.2. Responsibility & Boundaries2.1 What Morphology OwnsMorphology is the owner of the Z-axis (Elevation) and the Land/Water Interface.Topography & Bathymetry: The continuous heightfield of the world, extending from the deepest ocean trenches to the highest peaks.Landmask: The canonical boolean or bitmask defining valid land vs. water, derived from topography + sea level.Orogeny (Mountain Building): The logic determining where ridges, ranges, and massifs appear, based on tectonic inputs.Volcanism: The placement and physical shaping of volcanoes (both island arcs and continental arcs).Coastal Geometry: The procedural detailing of coastlines, shelves, and atolls.Physical Features: Physical "named" features like "The Grand Mesa" or "The Rift Valley" (as geometry, not just tags).2.2 What is Out of Scope (Neighbors)Foundation (Upstream): Owns the Plates, the Mesh, and the Tectonic Vectors. Morphology consumes these to decide "uplift happens here," but Foundation decides "plates collide here."Hydrology (Downstream): Owns moisture transport, precipitation, and river routing. Hydrology consumes Morphology's heightfield to route water downhill.Ecology (Downstream): Owns Biomes (Grassland/Desert) and Features (Forest/Reef). Ecology consumes Morphology's height, slope, and landmask to decide what grows where.Gameplay (Downstream): Owns "Traversability" and "Yields." These are projections derived from Morphology, not inputs to it.Narrative Overlays (BANNED): "Story" logic cannot inject shape masks directly. Instead, Story configuration must tune Morphology's inputs (e.g., uplift_intensity, sea_level_offset).3. Earth-Physics Lifecycle & Focus AreasWe will model Morphology through four primary lifecycles, grounded in simplified geophysics.3.1 Mountains (Orogeny)Physics: Mountains form primarily at convergent plate boundaries (Continental-Continental or Oceanic-Continental) and secondary rifting sites.Greenfield Logic:Consume PlateBoundaries and StressVectors from Foundation.Calculate an OrogenyIntensity map (scalar field).Apply OrogenyIntensity to a base noise function (e.g., Ridged Multifractal) to raise elevation.Key Lever: Differentiate between "craggy" young mountains (high frequency noise) and "eroded" old mountains (smoothed, lower peaks).3.2 VolcanoesPhysics: Volcanoes occur at subduction zones (flux melting), divergent boundaries (rifts), and mantle plumes (hotspots).Greenfield Logic:Consume PlateSubductionZones and MantleHotspots (from Foundation/Config).Generate VolcanicPoint candidates.Apply localized radial height additions (cones) to the heightfield.Output: A VolcanoMap artifact for Gameplay to later place "Volcano" features or "Geothermal Fissures."3.3 Islands & AtollsPhysics: Islands are either volcanic chains, continental fragments, or carbonate platforms (atolls) built on subsiding seamounts.Greenfield Logic:Volcanic Chains: Hotspots moving relative to plate vectors leave trails of seamounts. Some breach sea level -> Islands.Continental Fragments: Noise thresholds on continental crust that dip below sea level, leaving high points exposed.Atolls: Identify submerged volcanic peaks in tropical latitudes (lat check is acceptable, but climate check belongs to Ecology... borderline. Better: Morphology creates the structure (ring shape), Ecology tags it "Atoll" if warm enough).3.4 Coastlines & BathymetryPhysics: Coastlines are the zero-crossing of the heightfield vs. sea level. Real coastlines have fractal complexity and continental shelves.Greenfield Logic:Morphology must generate Bathymetry (underwater depth), not just land height.This enables "Continental Shelves" (shallow water) vs "Ocean" (deep water) to be a function of depth, not an arbitrary tag.Erosion/Smoothing: A blurring pass on the heightfield near the zero-crossing to create beaches and passable coastal tiles.4. Algorithm & Dynamics OptionsWe will explore these options during Phase 2 Modeling:A. The Heightfield Approach (Preferred)Concept: The world is fundamentally a Float32Array heightmap normalized to 0.0 - 1.0 (or -1000m to 8000m).Pros: Universal compatibility, easy for erosion algorithms, supports varying sea levels dynamically.Cons: Requires careful tuning to map to discrete Civ7 "Hill/Mountain/Flat" tiers.B. The Tectonic Mask ApproachConcept: Use Foundation's voronoi cells to strictly define "Mountain Cells" vs "Flat Cells," then rasterize.Pros: Guarantees gameplay readability and cell adherence.Cons: Looks artificial, hard to do "coastal islands" or organic shapes.C. Hybrid "Guided Noise" (Candidate)Concept: Use Foundation's tectonic data to create "Influence Maps" (Masks). Use these masks to modulate the amplitude and frequency of fractal noise.Logic: FinalHeight = BaseNoise + (OrogenyMask * MountainNoise) + (VolcanoMask * ConeShape).Decision: We will prioritize Option C for the Greenfiled model as it balances organic look with gameplay structural guarantees.5. Upstream Requirements (Foundation Diff)To support this physics-based Morphology, Foundation must provide better data than currently available:Current FoundationIdeal Foundation (Requested)ReasonPlateID mapPlateMotionVectorsNeeded to determine subduction vs divergence (Mountain vs Rift).isLand boolCrustType (Oceanic/Continental)Needed to decide if collision makes big mountains (Himalayas) or island arcs (Japan).Voronoi MeshBoundaryStress scalarNeeded to drive Orogeny intensity.-MantleHotspots listNeeded for volcanic chains/Hawaii-style islands.6. Downstream Unlock (Consumers)A physics-based Morphology unlocks significant improvements downstream:Hydrology: Can now run "flow accumulation" on actual slopes. Rivers will naturally flow from mountain ranges to the sea, forming basins and lakes organically.Ecology: Can use "Altitude" and "Aspect" (direction facing sun) for realistic biomes (e.g., Rain shadows require accurate mountain heights).Gameplay: "Passability" becomes a derived function of slope/height. "Appeal" can derive from coastal proximity and ruggedness.7. Contract Strategy: Public vs. InternalWe must avoid the "Contract Sprawl" trap of exposing every noise buffer.Tier A: Public Contracts (Stable Outputs)GlobalHeightmap: The canonical elevation buffer (normalized).LandWaterMask: Boolean/Bitmask of land vs water (derived from Sea Level).CoastlineDistance: Distance field to nearest coast (cheap to compute here, useful everywhere).MorphologyFeatures: A sparse list of significant peaks/volcanoes (Points of Interest).Tier B: Internal Surfaces (Private)OrogenyMask: Intermediate tectonic stress map.ErosionBuffer: Temporary buffer for hydraulic erosion simulation.NoiseOctaves: Raw noise layers.8. Legacy & Overlay EliminationThe Ban: Narrative Overlays (e.g., "Force a dragon shape") are forbidden in the domain logic.The Replacement:If a "Dragon Shape" is required for a scenario, it must be implemented as a Constraint-Based Input to the Foundation/Morphology generator (e.g., "Mask this region as High Elevation"), NOT as a post-generation texture overwrite.Inventory of suspects to remove:MapOverlay classes in current codebase.StoryCorridors (if implemented as pixel overwrites).Any logic that reads TerrainType (Grassland) to determine shape (Elevation). This is an inversion of control and must be deleted.Lookback 0.5Did we design from earth-physics? Yes. We moved from "placing hills" to "simulating orogeny."Did we ban overlays? Yes. Explicitly replaced with input parameter tuning.Are boundaries clear? Yes. Foundation supplies the forces; Morphology builds the shape; Hydrology/Ecology dress the shape.Is the Algorithm Strategy locked? No, we selected "Hybrid Guided Noise" as the candidate for Phase 2 Modeling, but didn't write the code.Dependencies Identified: We have a clear "ask" list for Foundation (Vectors, Crust Types) that will need to be planned in Phase 3.
+# Phase 0.5: Morphology Greenfield Pre-work Spike
+
+- Status: Draft / Pre-work
+- Author: System
+- Date: 2025-05-18
+- Scope: Greenfield conceptual design for the Morphology domain.
+- Context: Precedes Phase 1 (Current State) and Phase 2 (Modeling).
+
+## 1. Executive Summary & Vision
+
+The refactored Morphology domain will serve as the authoritative source of "shape truth" for the Civ7 MapGen pipeline. Moving beyond the legacy approach—where shape is often a side effect of game-specific tile assignment or narrative overlays—the new Morphology domain will derive topography from earth-physics principles (tectonics, volcanism, erosion) while remaining performant and controllable.
+
+### The Vision:
+
+Morphology consumes abstract tectonic scaffolding (from Foundation) and produces a concrete, high-resolution physical world definition (Heightfield, Landmask, Bathymetry). It does not know about "Grassland" or "Tundra" (Ecology), nor "Rivers" (Hydrology), nor "Start Positions" (Gameplay). It strictly concerns itself with the form of the planet.
+
+### Core Shift:
+
+- From: "Paint Terrain Types" -> derive shape from types.
+- To: "Simulate Shape" -> derive Terrain Types from shape.
+
+## 2. Responsibility & Boundaries
+
+### 2.1 What Morphology Owns
+
+Morphology is the owner of the Z-axis (Elevation) and the Land/Water Interface.
+
+- Topography & Bathymetry: The continuous heightfield of the world, extending from the deepest ocean trenches to the highest peaks.
+- Landmask: The canonical boolean or bitmask defining valid land vs. water, derived from topography + sea level.
+- Orogeny (Mountain Building): The logic determining where ridges, ranges, and massifs appear, based on tectonic inputs.
+- Volcanism: The placement and physical shaping of volcanoes (both island arcs and continental arcs).
+- Coastal Geometry: The procedural detailing of coastlines, shelves, and atolls.
+- Physical Features: Physical "named" features like "The Grand Mesa" or "The Rift Valley" (as geometry, not just tags).
+
+### 2.2 What is Out of Scope (Neighbors)
+
+- Foundation (Upstream): Owns the Plates, the Mesh, and the Tectonic Vectors. Morphology consumes these to decide "uplift happens here," but Foundation decides "plates collide here."
+- Hydrology (Downstream): Owns moisture transport, precipitation, and river routing. Hydrology consumes Morphology's heightfield to route water downhill.
+- Ecology (Downstream): Owns Biomes (Grassland/Desert) and Features (Forest/Reef). Ecology consumes Morphology's height, slope, and landmask to decide what grows where.
+- Gameplay (Downstream): Owns "Traversability" and "Yields." These are projections derived from Morphology, not inputs to it.
+- Narrative Overlays (BANNED): "Story" logic cannot inject shape masks directly. Instead, Story configuration must tune Morphology's inputs (e.g., uplift_intensity, sea_level_offset).
+
+## 3. Earth-Physics Lifecycle & Focus Areas
+
+We will model Morphology through four primary lifecycles, grounded in simplified geophysics.
+
+### 3.1 Mountains (Orogeny)
+
+- Physics: Mountains form primarily at convergent plate boundaries (Continental-Continental or Oceanic-Continental) and secondary rifting sites.
+- Greenfield Logic:
+  - Consume PlateBoundaries and StressVectors from Foundation.
+  - Calculate an OrogenyIntensity map (scalar field).
+  - Apply OrogenyIntensity to a base noise function (e.g., Ridged Multifractal) to raise elevation.
+- Key Lever: Differentiate between "craggy" young mountains (high frequency noise) and "eroded" old mountains (smoothed, lower peaks).
+
+### 3.2 Volcanoes
+
+- Physics: Volcanoes occur at subduction zones (flux melting), divergent boundaries (rifts), and mantle plumes (hotspots).
+- Greenfield Logic:
+  - Consume PlateSubductionZones and MantleHotspots (from Foundation/Config).
+  - Generate VolcanicPoint candidates.
+  - Apply localized radial height additions (cones) to the heightfield.
+- Output: A VolcanoMap artifact for Gameplay to later place "Volcano" features or "Geothermal Fissures."
+
+### 3.3 Islands & Atolls
+
+- Physics: Islands are either volcanic chains, continental fragments, or carbonate platforms (atolls) built on subsiding seamounts.
+- Greenfield Logic:
+  - Volcanic Chains: Hotspots moving relative to plate vectors leave trails of seamounts. Some breach sea level -> Islands.
+  - Continental Fragments: Noise thresholds on continental crust that dip below sea level, leaving high points exposed.
+  - Atolls: Identify submerged volcanic peaks in tropical latitudes (lat check is acceptable, but climate check belongs to Ecology... borderline. Better: Morphology creates the structure (ring shape), Ecology tags it "Atoll" if warm enough).
+
+### 3.4 Coastlines & Bathymetry
+
+- Physics: Coastlines are the zero-crossing of the heightfield vs. sea level. Real coastlines have fractal complexity and continental shelves.
+- Greenfield Logic:
+  - Morphology must generate Bathymetry (underwater depth), not just land height.
+  - This enables "Continental Shelves" (shallow water) vs "Ocean" (deep water) to be a function of depth, not an arbitrary tag.
+  - Erosion/Smoothing: A blurring pass on the heightfield near the zero-crossing to create beaches and passable coastal tiles.
+
+## 4. Algorithm & Dynamics Options
+
+We will explore these options during Phase 2 Modeling:
+
+### A. The Heightfield Approach (Preferred)
+
+- Concept: The world is fundamentally a Float32Array heightmap normalized to 0.0 - 1.0 (or -1000m to 8000m).
+- Pros: Universal compatibility, easy for erosion algorithms, supports varying sea levels dynamically.
+- Cons: Requires careful tuning to map to discrete Civ7 "Hill/Mountain/Flat" tiers.
+
+### B. The Tectonic Mask Approach
+
+- Concept: Use Foundation's voronoi cells to strictly define "Mountain Cells" vs "Flat Cells," then rasterize.
+- Pros: Guarantees gameplay readability and cell adherence.
+- Cons: Looks artificial, hard to do "coastal islands" or organic shapes.
+
+### C. Hybrid "Guided Noise" (Candidate)
+
+- Concept: Use Foundation's tectonic data to create "Influence Maps" (Masks). Use these masks to modulate the amplitude and frequency of fractal noise.
+- Logic: FinalHeight = BaseNoise + (OrogenyMask * MountainNoise) + (VolcanoMask * ConeShape).
+- Decision: We will prioritize Option C for the Greenfiled model as it balances organic look with gameplay structural guarantees.
+
+## 5. Upstream Requirements (Foundation Diff)
+
+To support this physics-based Morphology, Foundation must provide better data than currently available:
+
+| Current Foundation | Ideal Foundation (Requested) | Reason |
+| --- | --- | --- |
+| PlateID map | PlateMotionVectors | Needed to determine subduction vs divergence (Mountain vs Rift). |
+| isLand bool | CrustType (Oceanic/Continental) | Needed to decide if collision makes big mountains (Himalayas) or island arcs (Japan). |
+| Voronoi Mesh | BoundaryStress scalar | Needed to drive Orogeny intensity. |
+| - | MantleHotspots list | Needed for volcanic chains/Hawaii-style islands. |
+
+## 6. Downstream Unlock (Consumers)
+
+A physics-based Morphology unlocks significant improvements downstream:
+
+- Hydrology: Can now run "flow accumulation" on actual slopes. Rivers will naturally flow from mountain ranges to the sea, forming basins and lakes organically.
+- Ecology: Can use "Altitude" and "Aspect" (direction facing sun) for realistic biomes (e.g., Rain shadows require accurate mountain heights).
+- Gameplay: "Passability" becomes a derived function of slope/height. "Appeal" can derive from coastal proximity and ruggedness.
+
+## 7. Contract Strategy: Public vs. Internal
+
+We must avoid the "Contract Sprawl" trap of exposing every noise buffer.
+
+### Tier A: Public Contracts (Stable Outputs)
+
+- GlobalHeightmap: The canonical elevation buffer (normalized).
+- LandWaterMask: Boolean/Bitmask of land vs water (derived from Sea Level).
+- CoastlineDistance: Distance field to nearest coast (cheap to compute here, useful everywhere).
+- MorphologyFeatures: A sparse list of significant peaks/volcanoes (Points of Interest).
+
+### Tier B: Internal Surfaces (Private)
+
+- OrogenyMask: Intermediate tectonic stress map.
+- ErosionBuffer: Temporary buffer for hydraulic erosion simulation.
+- NoiseOctaves: Raw noise layers.
+
+## 8. Legacy & Overlay Elimination
+
+- The Ban: Narrative Overlays (e.g., "Force a dragon shape") are forbidden in the domain logic.
+- The Replacement:
+  - If a "Dragon Shape" is required for a scenario, it must be implemented as a Constraint-Based Input to the Foundation/Morphology generator (e.g., "Mask this region as High Elevation"), NOT as a post-generation texture overwrite.
+- Inventory of suspects to remove:
+  - MapOverlay classes in current codebase.
+  - StoryCorridors (if implemented as pixel overwrites).
+  - Any logic that reads TerrainType (Grassland) to determine shape (Elevation). This is an inversion of control and must be deleted.
+
+## Lookback 0.5
+
+- Did we design from earth-physics? Yes. We moved from "placing hills" to "simulating orogeny."
+- Did we ban overlays? Yes. Explicitly replaced with input parameter tuning.
+- Are boundaries clear? Yes. Foundation supplies the forces; Morphology builds the shape; Hydrology/Ecology dress the shape.
+- Is the Algorithm Strategy locked? No, we selected "Hybrid Guided Noise" as the candidate for Phase 2 Modeling, but didn't write the code.
+- Dependencies Identified: We have a clear "ask" list for Foundation (Vectors, Crust Types) that will need to be planned in Phase 3.
