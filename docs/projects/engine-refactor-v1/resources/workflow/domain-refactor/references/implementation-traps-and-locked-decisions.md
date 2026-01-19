@@ -88,8 +88,19 @@ Enforcement pattern:
 
 ### 7) Avoid monolithic steps; step boundaries are the architecture
 
-- A refactor that collapses an entire stage into a single step tends to re-create monolithic config passing and makes consumer migration harder.
-- Prefer multiple, semantically scoped steps with explicit requires/provides and artifact boundaries.
+- Default posture: step/stage boundaries should track real causality (the domain’s causality spine), and each boundary should be semantic (not “pre/core/post” by convenience).
+- A refactor that collapses an entire stage into a single mega-step tends to re-create monolithic config passing and makes consumer migration harder.
+- It is also possible to over-split boundaries: too many tiny steps that each need config/artifacts can create sprawl and coupling.
+
+Preferred pattern:
+- Promote a conceptual split to a pipeline boundary only when it creates durable value (downstream contracts/hooks, stable intermediates, observability/debugging, or pipeline interleaving constraints).
+- Encourage internal clarity splits when helpful (readability, authorability, local reasoning), but keep them internal-only if they do not justify a boundary.
+
+Guardrails (reject a boundary split when it causes):
+- Config/artifact sprawl (many tiny “one-off” schemas/artifacts that exist only to thread data through).
+- Shared-config proliferation (cross-cutting config that must be threaded across many steps).
+- Boundary-breaking imports/exports (“porting” state across boundaries, deep imports, or grab-bag contracts to avoid threading).
+- Ambiguity about what is “public contract” vs internal-only intermediate.
 
 ### 8) Do not preserve legacy/compat “optionality” during a strict refactor
 
@@ -118,6 +129,7 @@ Example pattern:
 |---|---|---|
 | Preserve compat vs delete | Is a consumer still live and blocking? | Delete now; or isolate + deprecate + add deferral trigger |
 | Where to normalize | Is it purely config-derived? | `normalize` (preferred); otherwise runtime validation in `run` |
+| Conceptual decomposition vs pipeline boundary count | Does promoting this split to a boundary create durable interop/hook/observability value without causing sprawl? | Promote to a boundary; or keep as an internal clarity split (no contract); or intentionally collapse/expand and document the tradeoff |
 | Knobs + advanced config composition | Does the domain have both knobs and advanced config? | Treat as a single locked contract: baseline is advanced config; knobs apply last as transforms; lock via tests (include explicitly-set-to-default edge case); ban presence/compare-to-default gating |
 | RNG source | Is a deterministic seed required? | Derive seed in step (`ctxRandom`), pass seed to op, use `createLabelRng` |
 | Trace visibility | Need trace events at op boundaries? | Step wraps op call + emits trace; or extend op contract (explicit architecture change) |

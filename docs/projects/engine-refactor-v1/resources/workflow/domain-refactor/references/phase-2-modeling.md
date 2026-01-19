@@ -56,6 +56,12 @@ Repeat this loop until the model stabilizes (minimum two passes):
 
 - Executive model statement (1 paragraph: what the model is and is not)
 - Canonical model + causality spine
+- Conceptual decomposition vs pipeline boundary count
+  - Describe the full causality spine (conceptual decomposition) as the model’s “truth.”
+  - Map the spine onto pipeline stages/steps (boundary count) and justify any intentional collapses/expansions.
+  - Explicitly distinguish: conceptual steps (model layers) vs pipeline boundaries (interop/hooks/contracts) vs internal clarity splits (internal-only decomposition).
+  - State the tradeoffs: why a split is promoted to a boundary (downstream contracts/hooks/observability) vs kept internal (avoid sprawl).
+  - Guardrails: avoid config/artifact sprawl, shared-config proliferation, boundary-breaking imports/exports, and ambiguous “public vs internal” surfaces.
 - Conceptual narrative + diagrams (architecture view, data-flow, producer/consumer map; include current vs target pipeline adjustments)
 - Target contract matrix (buffers/artifacts/overlays classification)
 - Determinism + feedback budget (how determinism is preserved; any feedback loops must be bounded with fixed iterations and stable tie-breaking)
@@ -92,6 +98,7 @@ Repeat this loop until the model stabilizes (minimum two passes):
 - Buffer/artifact/overlay distinctions match `docs/system/libs/mapgen/architecture.md`.
 - Pipeline delta list names downstream consumers that must adapt.
 - Conceptual narrative and diagrams exist and align with the target model.
+- Conceptual decomposition vs pipeline boundary count is explicit and justified (spine vs boundaries vs internal clarity splits; public vs internal surfaces are clear; sprawl risks are assessed).
 - No slice plan content is present (that belongs to Phase 3).
 - Any feedback loops are explicitly bounded (fixed iterations) and deterministic tie-breaking is stated.
 - Legacy disposition ledger is complete; any kept legacy invariants are explicit and justified.
