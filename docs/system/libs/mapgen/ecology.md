@@ -10,12 +10,12 @@
 
 Ecology turns the physical world (foundation + morphology + climate) into living‑world signals: **soils**, **biomes**, **resources**, and **terrain features**.
 
-Baseline non-wonder feature placement is ecology-owned (forests, wetlands, reefs, ice), while placement retains natural wonders and floodplains. Historical rationale: `docs/projects/engine-refactor-v1/resources/spike/_archive/spike-ecology-feature-placement-ownership.md`.
+Baseline non-wonder feature placement is ecology-owned (forests, wetlands, reefs, ice), while **Gameplay** retains natural wonders and floodplains. Historical rationale: `docs/projects/engine-refactor-v1/resources/spike/_archive/spike-ecology-feature-placement-ownership.md`.
 
 ### Responsibilities (causal chain)
 
-1. **Pedology:** derive soil class + fertility from elevation/relief, rainfall + humidity, and optional bedrock/sediment fields so downstream placement has a physical substrate.
-2. **Resource basin mapping:** generate clustered candidate basins for resources from pedology + climate and hand results to placement.
+1. **Pedology:** derive soil class + fertility from elevation/relief, rainfall + humidity, and optional bedrock/sediment fields so downstream Gameplay placement has a physical substrate.
+2. **Resource basin mapping:** generate clustered candidate basins for resources from pedology + climate and hand results to Gameplay placement.
 3. **Biome classification:** map temperature + effective moisture into Whittaker/Holdridge-inspired zones with vegetation density, then optionally smooth biome edges.
 4. **Feature planning + apply:** plan vegetation, wetlands, reefs, and ice intents using biome + climate + soils, merge intents, and apply them to the engine/fields.
 
@@ -26,15 +26,15 @@ Baseline non-wonder feature placement is ecology-owned (forests, wetlands, reefs
 Ecology consumes:
 - **Physical substrate:** elevation + land mask, relief/slope proxies, sediment/erodibility proxies (when available).
 - **Climate:** rainfall/moisture and temperature signals (coarse bands are acceptable, but must be stable and interpretable).
-- **Optional overlays:** narrative/playability annotations that bias, not replace, the physics (corridors, rift motifs).
+- **Optional gameplay constraints:** explicit, contracted inputs from Gameplay that bias downstream content decisions without replacing physics-derived Ecology signals.
 
 ### Outputs (products Ecology owns)
 
 Ecology publishes domain-level products that downstream consumers can treat as stable inputs:
 
 - **Soils / fertility:** a compact soil class + fertility signal for resources and start biasing.
-- **Biome classification:** biome index/symbol plus derived indices used by features and placement (vegetation density, effective moisture, freeze index).
-- **Resource basin candidates:** clustered candidate basins intended for Placement to consume and turn into concrete placements.
+- **Biome classification:** biome index/symbol plus derived indices used by features and Gameplay placement (vegetation density, effective moisture, freeze index).
+- **Resource basin candidates:** clustered candidate basins intended for Gameplay to consume and turn into concrete placements.
 - **Baseline features:** planned and applied non-wonder features (forests/wetlands/reefs/ice).
 
 ### Buffers vs artifacts (contract nuance)
@@ -46,12 +46,13 @@ Ecology is primarily an **artifact-producing** domain built on upstream **buffer
 
 If Ecology refines an upstream buffer (rare; generally avoid), treat that as an explicit, testable modeling decision. Do not implicitly “smuggle” buffer semantics into published artifacts.
 
-### Overlays (read-only bias inputs)
+### Narrative/story overlays (explicitly non-canonical)
 
-Ecology may consume upstream **overlays** as bias inputs (not as physics replacements):
-
-- Example: read corridor overlays (e.g., mountain corridors) to bias biome seams, vegetation density, or feature planning along those corridors.
-- Rule: overlays should be treated as **read-only** at this layer unless Ecology is explicitly responsible for adding a new overlay type/instance (rare).
+Narrative/story overlays are **out of scope** for the current domain-refactor posture:
+- Ecology must not depend on overlays as load-bearing inputs or publish overlays as authoritative outputs.
+- If biasing is needed, model it as either:
+  - a canonical, domain-anchored upstream signal (physics-derived artifacts/buffers), or
+  - an explicit Gameplay-owned rule/contract (not a “story” surface).
 
 ## Operation catalog (atomic responsibilities)
 
@@ -74,18 +75,18 @@ Ecology’s model should be expressed as **atomic operations** (single responsib
 
 - **CLORPT proxy:** combine **Climate** (temp/moisture), **Relief** (slope/curvature), **Parent material** (bedrock age/type + sediment depth), and **Time** heuristics to classify soil type (e.g., sand/loam/clay/rocky) and fertility (0–1).
 - **Signals:** deep sediment + moderate rain → loam/high fertility; steep/young crust + little sediment → rocky/low fertility; cold/arid plateaus → thin, infertile soils.
-- **Outputs:** soil class + fertility scalar used by resources and placement biasing.
+- **Outputs:** soil class + fertility scalar used by resources and Gameplay placement biasing.
 
 ### Resource basin planning
 
 1. **Candidate mapping:** derive per-resource probabilities from geology + climate (e.g., coal in low, wet sedimentary basins; iron on ancient shields/hills; oil on shelves or wet lowlands).
 2. **Clustering:** promote contiguous basins/fields instead of speckled singles; weight by fertility and hydrology proximity.
-3. **Culling/balancing:** enforce map-wide counts and spacing caps before placement applies the candidates.
+3. **Culling/balancing:** enforce map-wide counts and spacing caps before Gameplay applies the candidates.
 
 ### Biome classification
 
 - **Temperature field:** interpolate equator ↔ pole with lapse-rate and bias; subtract elevation relative to sea level before classifying.
-- **Effective moisture:** rainfall + `humidityWeight * humidity` + bias + overlay bonuses (corridors + rift shoulders) plus light noise to avoid banding.
+- **Effective moisture:** rainfall + `humidityWeight * humidity` + bias plus light noise to avoid banding.
 - **Lookup:** Holdridge/Whittaker-inspired table across temperature zones (`polar → cold → temperate → tropical`) and moisture zones (`arid → semiArid → subhumid → humid → perhumid`) returning biome symbols (`snow`, `tundra`, `boreal`, `temperateDry`, `temperateHumid`, `tropicalSeasonal`, `tropicalRainforest`, `desert`).
 - **Vegetation density:** normalized blend of moisture + humidity with biome-aware scaling (desert/snow suppress, rainforest boosts).
 
@@ -93,10 +94,10 @@ Ecology’s model should be expressed as **atomic operations** (single responsib
 
 - **Forests/jungle/taiga:** use vegetation density + biome validity (and later soil fertility) to boost or restrain tree cover.
 - **Marsh/wetlands:** low elevation + high moisture + near water or high fertility basins.
-- **Reefs:** shallow warm water; leverage biome temperature and (optional) motif overlays to bias reef belts without inventing new physics.
+- **Reefs:** shallow warm water; leverage biome temperature without inventing new physics.
 - **Ice:** very low temperature (water) or high altitude (land) from biome surface temperature field.
 
 ## Related references (implementation guidance lives elsewhere)
 
 - Domain layering + boundaries: `docs/system/libs/mapgen/architecture.md`
-- Narrative/playability contract: `docs/projects/engine-refactor-v1/resources/PRD-target-narrative-and-playability.md`
+- Future narrative/playability contract (not used as an input in this refactor phase): `docs/projects/engine-refactor-v1/resources/PRD-target-narrative-and-playability.md`

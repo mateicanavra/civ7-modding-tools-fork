@@ -55,5 +55,5 @@ Outputs:
 
 ## Cross-links
 
-- Gameplay domain overview: `docs/projects/engine-refactor-v1/resources/domains/gameplay/GAMEPLAY.md`
-- Morphology Phase 3 plan: `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-morphology-vertical-domain-refactor.md`
+- Gameplay domain overview: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/gameplay/GAMEPLAY.md`
+- Morphology plan index: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/MORPHOLOGY.md`

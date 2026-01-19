@@ -14,6 +14,9 @@ Backbone workflow:
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/WORKFLOW.md`
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/implementation-traps-and-locked-decisions.md`
 
+Prompt (non-implementation execution wrapper):
+- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/prompts/ECOLOGY-NON-IMPLEMENTATION.md`
+
 Path roots (convention used here):
 - `/src/...` = `mods/mod-swooper-maps/src/...`
 - `/packages/mapgen-core/...` = `packages/mapgen-core/...`
@@ -32,7 +35,7 @@ Surface ownership + pipeline:
 - Op config is op-owned and minimal; do not reuse a domain-wide config bag inside op contracts.
 - Every existing config property, rule/policy, and function must be explicitly accepted into the model or rejected as legacy (no silent carry-through).
 - Review the upstream Phase 2 models (Morphology, Hydrology, Foundation as needed), explicitly adopt authoritative inputs, and delete legacy reads. Also review any upstream refactor changes that touched Ecology surfaces and plan their removal.
-- Review downstream consumers (Placement/Narrative as applicable): document current dependencies, required changes, and plan downstream updates as part of this refactor.
+- Review downstream consumers (Gameplay, including Placement absorption): document current dependencies, required changes, and plan downstream updates as part of this refactor.
 
 Research discipline:
 - Modeling is research-driven: reconcile target SPEC/ADR docs with domain specs, use earth-physics references, and lean on MCP/code-intel + web research; cite sources in the Phase 2 spike.
@@ -70,30 +73,29 @@ Anti-patterns (concise; see WORKFLOW for full list):
 
 Ecology sits downstream of Foundation/Morphology/Hydrology and consumes both:
 - shared mutable buffers (fields/layers), and
-- publish-once artifacts (classifications, plans, overlays).
+- publish-once artifacts (classifications, plans).
 
 It typically publishes:
 - classification artifacts (biomes/pedology),
 - intent/plan artifacts consumed by later application steps,
-- overlays that describe motifs/patterns for downstream consumers (Placement, etc).
+- placement-facing planning products for downstream consumers (Gameplay, etc).
 
 North-star references:
 - `docs/system/libs/mapgen/ecology.md`
 - `docs/system/libs/mapgen/architecture.md`
 - `docs/system/libs/mapgen/hydrology.md`
 - `docs/system/libs/mapgen/morphology.md`
-- `docs/system/libs/mapgen/placement.md`
-- `docs/system/libs/mapgen/narrative.md`
+- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/gameplay/GAMEPLAY.md`
 
 Ecology special-case guidance:
-- If Phase 1 confirms Ecology is already aligned with stage-owned artifacts, `run(ctx, config, ops, deps)` authoring, import discipline, and buffer/artifact/overlay semantics, compress Phase 2/3/4 into the minimum necessary reconciliation work and record that choice in Phase 2 decisions.
+- If Phase 1 confirms Ecology is already aligned with stage-owned artifacts, `run(ctx, config, ops, deps)` authoring, import discipline, and buffer/artifact semantics, compress Phase 2/3/4 into the minimum necessary reconciliation work and record that choice in Phase 2 decisions.
 
 ## Phase artifacts (authoritative links)
 
 | Phase | Artifact | Status |
 | --- | --- | --- |
-| Phase 1 | `docs/projects/engine-refactor-v1/resources/spike/spike-ecology-current-state.md` | not started |
-| Phase 2 | `docs/projects/engine-refactor-v1/resources/spike/spike-ecology-modeling.md` | not started |
+| Phase 1 | `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/ecology/spike-ecology-current-state.md` | not started |
+| Phase 2 | `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/ecology/spike-ecology-modeling.md` | not started |
 | Phase 3 | `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-ecology-vertical-domain-refactor.md` | not started |
 
 ## Phase 1 hypotheses to validate (current-state)

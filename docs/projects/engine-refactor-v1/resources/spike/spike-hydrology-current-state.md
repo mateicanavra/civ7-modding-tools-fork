@@ -25,7 +25,7 @@ Scope guardrails (do not violate):
 
 **Supporting (helpful context; not contract truth):**
 - `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M8-U21-foundation-vertical-domain-refactor.md` (mentions intended “Hydrology owns winds/currents” posture; use as supporting reference only)
-- `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-morphology-vertical-domain-refactor.md` (upstream planning notes; use as supporting reference only)
+- `docs/projects/engine-refactor-v1/issues/_archive/LOCAL-TBD-morphology-vertical-domain-refactor.md` (upstream planning notes; use as supporting reference only)
 
 ---
 

@@ -41,18 +41,14 @@ Morphology is fundamentally **buffer-oriented**: it refines shared, mutable worl
   - `landMask` / `seaLevel` (land/sea definition derived from elevation + sea level policy)
 - Under current pipeline constraints, a buffer may be **published once** as an artifact “handle” for gating/typed access, but the buffer itself remains a mutable working layer until the pipeline freezes it.
 
-### Overlays (formation motifs for downstream consumers)
+### Derived descriptors (interpretable signals for downstream consumers)
 
-In addition to buffers and published products, Morphology may publish **overlays** to describe motif-like formation stories that downstream domains can consume.
+Narrative/story overlays are **out of scope** for the current domain-refactor posture.
 
-Example: “mountain corridors”
-- The base morphology products describe *what exists* (elevation, land mask, erosion proxies).
-- A corridor overlay describes *a specific interpretable pattern* (“this is a pass/corridor carved by uplift + erosion history”).
-- Downstream usage:
-  - Ecology can bias vegetation/biome transitions along corridor overlays.
-  - Placement can bias starts/POIs along corridor overlays.
-
-Overlays are append-preferred collections inside a single `overlays` container (e.g., `overlays.corridors`); they are currently routed through artifact contracts for gating/typing but should be modeled as overlays, not as “just artifacts”.
+If downstream domains need interpretable motif-like signals (e.g., “mountain corridors”), model them as **canonical Morphology descriptors**:
+- derived from Morphology’s own buffers/artifacts (not “story” surfaces),
+- published only if they are stable cross-domain contracts,
+- otherwise kept internal as intermediates.
 
 ### Inputs
 
@@ -61,7 +57,7 @@ Overlays are append-preferred collections inside a single `overlays` container (
 
 ### Intermediate buffers (mutable working layers)
 
-Data used to drive simulation and downstream Ecology.
+Data used to drive Morphology simulation and downstream consumers (e.g., Hydrology/Ecology).
 
 ```typescript
 interface MorphologyBuffers {
@@ -184,7 +180,7 @@ After sea level is applied, Morphology can derive a stable “landmass” decomp
 
 Downstream usage:
 - Gameplay can derive “homeland vs distant lands” partitions from landmasses without requiring Morphology to publish start-region projections.
-- Civ7 interop: Gameplay owns the engine-facing LandmassRegionId projection (“primary/secondary hemisphere slots”) from that same partitioning (implemented at the apply boundary); see `docs/projects/engine-refactor-v1/resources/domains/gameplay/ISSUE-LANDMASS-REGION-ID-PROJECTION.md`.
+- Civ7 interop: Gameplay owns the engine-facing LandmassRegionId projection (“primary/secondary hemisphere slots”) from that same partitioning (implemented at the apply boundary); see `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/gameplay/ISSUE-LANDMASS-REGION-ID-PROJECTION.md`.
 
 ## Tuning parameters (op-scoped)
 
