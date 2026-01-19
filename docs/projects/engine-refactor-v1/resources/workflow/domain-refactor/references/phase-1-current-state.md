@@ -19,6 +19,9 @@ Required sections (minimum):
 - Contract matrix (current-state)
 - Legacy surface inventory (config properties + rules/policies + functions)
 - Legacy intervention mechanisms (if any): authored/non-derivative “outcome overrides” that perturb the domain’s outputs
+- Story/narrative/overlay surface inventory (current-state only)
+  - List any “story”, “narrative”, or “overlay” artifacts/steps/surfaces that are produced or consumed today.
+  - Treat them as legacy evidence to delete/replace; do not endorse them as target-model concepts in Phase 1.
 - Upstream authoritative input review (if non-root)
 - Upstream handoff review (changes to this domain made by the prior refactor)
 - Downstream consumer inventory (current usage + contract dependencies)
@@ -37,6 +40,7 @@ Inventory checklist (do not skip):
   - Stage-owned artifact contract catalog per stage (`stages/<stage>/artifacts.ts`)
 - Config surface map (schemas/defaults/normalizers + runtime fixups to delete)
 - Legacy surface inventory (every config property, rule/policy, and domain function)
+- Story/narrative/overlay surface inventory (producers + consumers + file paths)
 - Upstream authoritative input review (prior domain Phase 2 model + pipeline delta list)
 - Upstream handoff review (prior refactor changes to this domain: compat shims, temporary adapters, legacy pathways)
 - Downstream consumer inventory (current consumers + the contracts they rely on)
