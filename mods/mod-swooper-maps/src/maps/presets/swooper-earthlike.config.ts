@@ -6,9 +6,9 @@ export const swooperEarthlikeConfig = {
       computeMesh: {
         strategy: "default",
         config: {
-          plateCount: 17, // Fewer, larger major plates plus some microplates
-          cellsPerPlate: 7, // Slightly denser cells per plate for sharper margins
-          relaxationSteps: 5, // Extra smoothing for coherent plate footprints
+          plateCount: 23, // Fewer, larger major plates plus some microplates
+          cellsPerPlate: 13, // Slightly denser cells per plate for sharper margins
+          relaxationSteps: 6, // Extra smoothing for coherent plate footprints
           referenceArea: 16000, // Standard reference
           plateScalePower: 0.91, // Still heavy-tailed but fewer tiny microplates
         },
@@ -26,7 +26,7 @@ export const swooperEarthlikeConfig = {
       computePlateGraph: {
         strategy: "default",
         config: {
-          plateCount: 17, // Match mesh plateCount
+          plateCount: 23, // Match mesh plateCount
           referenceArea: 16000,
           plateScalePower: 0.91,
         },
