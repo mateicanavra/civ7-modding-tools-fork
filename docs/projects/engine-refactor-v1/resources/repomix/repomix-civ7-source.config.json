@@ -1,0 +1,24 @@
+{
+  "output": {
+    "filePath": "docs/projects/engine-refactor-v1/resources/repomix/repomix-civ7-source.xml",
+    "style": "xml",
+    "parsableStyle": false,
+    "compress": false,
+    "fileSummary": true,
+    "directoryStructure": true,
+    "showLineNumbers": true
+  },
+  "include": [
+    ".civ7/**/maps/**/*.js",
+    ".civ7/**/maps/**/*.ts",
+    ".civ7/**/scripts/**/*.js",
+    ".civ7/**/scripts/**/*.ts"
+  ],
+  "ignore": {
+    "useGitignore": false,
+    "useDefaultPatterns": false,
+    "patterns": [
+      ".civ7/**/*.js.map"
+    ]
+  }
+}
