@@ -41,7 +41,7 @@ Morphology prior art / existing bones (IMPORTANT posture):
   - mods/mod-swooper-maps/src/recipes/standard/stages/morphology-post/
 
 Additional context (non-authoritative; read after the workflow docs):
-- resources/workflow/domain-refactor/plans/morphology/context-morphology-hydrology-handoff.md
+- resources/workflow/domain-refactor/prompts/MORPHOLOGY-CONTEXT.md
 
 MILESTONE:
 - The milestone identifier is TBD (confirm with the project owner before starting Phase 3).

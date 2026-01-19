@@ -1,6 +1,6 @@
 ## Morphology context packet (domain-only, non-prescriptive)
 
-This document is a Morphology-specific “heads up” packet distilled from Hydrology refactor learnings and cross-pipeline observations.
+This document is a Morphology “heads up” packet distilled from cross-pipeline refactor learnings and observations.
 
 This document is:
 - Non-authoritative context to inform Phase 0.5–3 work.
