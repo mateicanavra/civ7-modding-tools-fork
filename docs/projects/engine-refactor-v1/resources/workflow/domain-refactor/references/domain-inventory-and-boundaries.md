@@ -29,6 +29,7 @@ Minimum investigation outputs (you must produce these artifacts in the issue doc
 - A complete dependency contract list (requires/provides keys, ownership, validators, producers/consumers).
 - A current pipeline map (producer/consumer data-flow snapshot).
 - A complete config map (schemas, defaults, resolvers, and any runtime fixups to delete).
+- A public-surface ledger (public vs internal-only outputs; intended consumers; promotion decisions).
 - A legacy surface inventory (every config property, rule/policy, and domain function with locations).
 - An upstream authoritative intake (prior domain Phase 2 model + pipeline deltas; adopted inputs vs legacy reads to delete).
 - An upstream handoff review (prior refactor changes to this domain: compat shims, temporary adapters, legacy pathways).
@@ -122,7 +123,17 @@ Upstream handoff review (also required):
 - List the specific contracts/artifacts/buffers they depend on.
 - Note any consumer expectations that conflict with the authoritative model (to be resolved in Phase 2/3).
 
-### D3) Current pipeline map (required)
+### D3) Public surface ledger (required; non-leaf domains)
+
+For each domain output that *could* be consumed cross-domain (in `provides`, in exports, or used in a neighbor domain):
+- classify it as **public surface** vs **internal-only**,
+- for public surface outputs: name the intended downstream consumer(s) and the invariants they rely on,
+- for internal-only outputs: record that it is intentionally not a downstream contract (and should not be imported across domain boundaries),
+- if a downstream consumer needs an internal-only value, treat it as a promotion decision:
+  - either promote it explicitly (schema/contract + docs/tests),
+  - or change the consumer to use an existing public artifact instead.
+
+### D4) Current pipeline map (required)
 
 - Produce a current-state producer/consumer data-flow snapshot across the pipeline.
 - Include the contracts/artifacts/buffers that connect domains.
@@ -147,6 +158,7 @@ List and link every instance of:
 - runtime config fixups/merges inside op/domain code,
 - consuming upstream compatibility shims or projection artifacts instead of authoritative upstream inputs.
 - retaining upstream-introduced compat surfaces inside this domain.
+- downstream consumers importing internal-only domain intermediates (must be promoted explicitly or removed).
 
 ### G) Rules/policies/functions inventory (required)
 

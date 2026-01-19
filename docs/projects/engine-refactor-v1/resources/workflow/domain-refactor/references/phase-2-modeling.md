@@ -41,6 +41,7 @@ Cross-pipeline posture:
 - Earth-physics grounding: model from first principles using domain + earth-physics references; use external sources if needed and cite them in the spike.
 - Greenfield-first pass: start from the Phase 0.5 greenfield sketch, then refine it using Phase 1 evidence (do not let legacy structure become the model by default).
 - Pipeline intake: review upstream authoritative inputs and downstream consumer expectations; document adopted inputs, legacy reads to delete, and required downstream changes.
+- Public surface posture: decide what this domain will expose as **intentional downstream contracts** vs what remains internal-only; treat “promotion” to public surface as an explicit contract decision (schema/docs/tests + consumer migration).
 - Model articulation: write a concise conceptual narrative and include diagrams (architecture view, data-flow, producer/consumer map with current vs target pipeline adjustments).
 - Codebase evidence: use MCP/code-intel + repo searches to validate current surfaces and invariants; link evidence in decisions.
 
@@ -70,6 +71,10 @@ Repeat this loop until the model stabilizes (minimum two passes):
   - Guardrails: avoid config/artifact sprawl, shared-config proliferation, boundary-breaking imports/exports, and ambiguous “public vs internal” surfaces.
 - Conceptual narrative + diagrams (architecture view, data-flow, producer/consumer map; include current vs target pipeline adjustments)
 - Target contract matrix (buffers/artifacts/overlays classification)
+- Public surface ledger (public vs internal-only; required)
+  - Public surface: the contracts/artifacts downstream domains should be able to consume (name intended consumers + invariants).
+  - Internal-only: intermediates used for computation/clarity/diagnostics inside the domain (explicitly not downstream contracts unless promoted later).
+  - Promotion rule: if a downstream consumer needs an internal-only value, either promote it explicitly (schema/docs/tests) or change the consumer to consume an existing public artifact instead.
 - Determinism + feedback budget (how determinism is preserved; any feedback loops must be bounded with fixed iterations and stable tie-breaking)
 - Config semantics table (semantic knobs contract: meaning, missing/empty/null behavior, determinism expectations, and tests that lock non-trivial behavior)
   - Include the locked **knobs + advanced config composition contract**:
@@ -105,6 +110,7 @@ Repeat this loop until the model stabilizes (minimum two passes):
 - Pipeline delta list names downstream consumers that must adapt.
 - Conceptual narrative and diagrams exist and align with the target model.
 - Conceptual decomposition vs pipeline boundary count is explicit and justified (spine vs boundaries vs internal clarity splits; public vs internal surfaces are clear; sprawl risks are assessed).
+- Public surface ledger exists and aligns with the downstream consumer impact scan (public contracts are explicit; internal-only intermediates are intentionally not treated as downstream contracts).
 - Canonical doc body discipline is respected: there is a single canonical Phase 2 modeling doc body; any supporting artifacts are linked and do not create a second “equivalent” spec/modeling body.
 - Schema/JSDoc duplication is controlled: no sync-burden copies of the same canonical definition; repetition (if any) is context-adapted or replaced with links/pointers.
 - No slice plan content is present (that belongs to Phase 3).

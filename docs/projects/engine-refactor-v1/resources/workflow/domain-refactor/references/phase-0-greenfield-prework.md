@@ -5,6 +5,7 @@ Purpose: do **greenfield, earth-physics-first** thinking *before* current-state 
 Scope guardrails:
 - This is **pre-draft / pre-domain-model** work. Do not map the current codebase here.
 - Do not commit to contracts, artifact shapes, or slice plans here.
+- Do not choose a pipeline stage count or stage ids here. Capture the conceptual causality spine and candidate outputs; pipeline boundary choices happen in Phase 2/3.
 - Treat Phase 2 as “up for grabs”: the goal is to imagine what the domain *should be* when designed from scratch for maximum pipeline capability.
 
 Required output:
@@ -27,6 +28,9 @@ Required output:
      - Write the **diff** (gaps) as “upstream change candidates” to be considered later in the overall refactor sequence.
    - **Downstream (ideal outputs):**
      - Describe what this domain should provide downstream if designed ideally (artifacts/buffers/overlays, invariants, contracts).
+     - Classify candidate outputs as either:
+       - **Public surface**: stable, downstream-consumable contracts with explicit invariants and intended consumers.
+       - **Internal-only**: intermediates used for computation/clarity/diagnostics inside the domain (not downstream contracts unless promoted later).
      - Explain how those ideal outputs would unlock downstream capabilities (e.g., ecology consuming morphology outputs).
      - Note any downstream changes implied by these ideal outputs (change candidates).
 
@@ -37,10 +41,12 @@ Required output:
 - Boundary sketch (what this domain owns vs what neighbors own)
 - Ideal subdomain decomposition + causality spine
 - Parameterization posture (semantic knobs vs forbidden authored overrides)
+  - If the domain has both “advanced config” and “knobs”, sketch the intended author-facing posture: treat advanced config as the typed/defaulted baseline and knobs as transforms layered on top (exact semantics are locked later in Phase 2 + tests).
 - Upstream inventory (current): “what exists today that we can consume”
 - Upstream requirements (ideal): “what we would want in a greenfield world”
 - Upstream diff: “gaps that justify upstream modifications later”
 - Downstream outputs (ideal): “what we should provide downstream”
+- Public surface vs internal-only (ideal): “what downstream should be able to consume vs what stays internal”
 - Downstream enablement: “how ideal outputs unlock downstream domains”
 - Downstream diff: “downstream changes implied by the ideal design”
 - Performance + memory reality (what must be bounded; e.g., fixed-pass loops, discretized time)
@@ -53,6 +59,7 @@ Required output:
 - Domain boundary sketch exists and names neighbor domains explicitly.
 - Upstream current vs ideal lists exist and a diff is written.
 - Downstream ideal outputs exist and downstream implications are written.
+- Public surface vs internal-only classification exists (candidate outputs are labeled and intended consumers are named).
 - Parameterization posture exists and separates semantic knobs from forbidden authored overrides.
 - Performance/memory notes exist (what would be bounded in a real implementation).
 - Open questions list exists (things to validate during Phase 1/2).
