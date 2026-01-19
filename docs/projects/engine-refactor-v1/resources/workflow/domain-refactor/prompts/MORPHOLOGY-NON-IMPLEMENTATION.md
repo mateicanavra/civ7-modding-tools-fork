@@ -29,7 +29,13 @@ Morphology prior art / existing bones (IMPORTANT posture):
 - Morphology has already been refactored once.
 - That refactor is NOT to current standards; treat this pass as a greenfield re-think “from the ground up.”
 - Use the existing code/structure as evidence and a starting point for investigation, not as a constraint on the model.
-- Prior art locations (archived v1 planning artifacts; for reference only):
+- These are templates/seeds only; they are NOT authoritative.
+- If a prior-art file has the same name/path as a required deliverable, your output MUST overwrite/supersede it.
+- Prior art locations:
+  - resources/workflow/domain-refactor/plans/morphology/MORPHOLOGY.md
+  - resources/workflow/domain-refactor/plans/morphology/spike-morphology-greenfield.md
+  - resources/workflow/domain-refactor/plans/morphology/spike-morphology-current-state.md
+  - resources/workflow/domain-refactor/plans/morphology/spike-morphology-modeling.md
   - resources/workflow/domain-refactor/plans/morphology/_archive/v1/MORPHOLOGY.md
   - resources/workflow/domain-refactor/plans/morphology/_archive/v1/spike-morphology-current-state.md
   - resources/workflow/domain-refactor/plans/morphology/_archive/v1/spike-morphology-modeling.md

@@ -1,12 +1,12 @@
-# Ecology Domain Refactor — Phase 2 Modeling Spike
+# Morphology Domain Refactor — Phase 2 Modeling Spike
 
-This spike is the Phase 2 output for the Ecology vertical refactor workflow.
+This spike is the Phase 2 output for the Morphology vertical refactor workflow.
 
 References:
-- Plan: docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/ecology/ECOLOGY.md
+- Plan: docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/MORPHOLOGY.md
 - Workflow: docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/WORKFLOW.md
 
-Goal: define the authoritative, first-principles Ecology model and lock target contract surfaces.
+Goal: define the authoritative, first-principles Morphology model and lock target contract surfaces.
 
 ---
 
@@ -53,7 +53,7 @@ TBD.
 
 ## Required updates
 
-- Update docs/system/libs/mapgen/ecology.md
+- Update docs/system/libs/mapgen/morphology.md
 
 ## Lookback 2
 

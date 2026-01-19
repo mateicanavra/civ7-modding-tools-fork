@@ -3,7 +3,7 @@
 This spike is the Phase 1 output for the Ecology vertical refactor workflow.
 
 References:
-- Plan: docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/ECOLOGY.md
+- Plan: docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/ecology/ECOLOGY.md
 - Workflow: docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/WORKFLOW.md
 
 Goal: ground the Ecology refactor in current-state reality (wiring, contracts, boundary violations) so Phase 2/3 can be re-scoped based on evidence.
