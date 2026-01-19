@@ -24,7 +24,7 @@ Morphology does not own:
 - Hydrology discharge/routing (river networks, runoff budgets).
 - Biome/ecology classification.
 - Resource/feature placement or gameplay siting logic.
-- Narrative/story thumb-on-scale overlays.
+- Narrative/story overlays (explicitly forbidden; actively in scope to remove from any Morphology-related processing).
 
 ### 2) Boundary posture (purity, contract discipline)
 
@@ -72,7 +72,7 @@ Hydrology:
 
 Ecology:
 - Needs morphology descriptors like altitude/relief/slope/coastal proximity.
-- Must not depend on narrative overlays or engine classifications as “morphology truth.”
+- Must not depend on narrative overlays or engine classifications as “morphology truth” (and any such overlay dependencies are legacy to remove/replace).
 
 Placement / Gameplay:
 - Needs passability proxies and “settleable” geometry constraints (derived from Morphology).
