@@ -22,7 +22,9 @@
   Authority model (do not “re-spec” decisions in this prompt):
   - This prompt is directional and historical; treat it as a wrapper, not a spec.
   - Canonical workflow + locked decisions live in the domain-refactor workflow docs.
-  - Hydrology-specific `plans/hydrology/*` files are prior art only; do not treat them as authoritative.
+  - Hydrology-specific work lives under `plans/hydrology/`.
+    - The canonical phase deliverables are the non-suffixed phase files (listed below).
+    - Any other Hydrology files in that directory are supporting notes only and MUST NOT become a second canonical body for the same deliverable.
 
   Locked invariants to carry through Phases 0.5–3 (high-level; details live in the references):
   - **Single canonical modeling/spec body.** No duplicate canonical bodies per deliverable; use pointers/redirects instead.
@@ -76,15 +78,13 @@
   - `resources/workflow/domain-refactor/references/verification-and-guardrails.md`
   - `resources/workflow/domain-refactor/references/implementation-traps-and-locked-decisions.md`
 
-  Hydrology prior art / drafts (non-authoritative; treat as scratch notes only):
-  - `resources/workflow/domain-refactor/plans/hydrology/HYDROLOGY.md`
-  - `resources/workflow/domain-refactor/plans/hydrology/spike-hydrology-current-state.md`
-  - `resources/workflow/domain-refactor/plans/hydrology/spike-hydrology-modeling.md`
+  Hydrology work directory (canonical location for Hydrology-specific planning artifacts):
+  - `resources/workflow/domain-refactor/plans/hydrology/`
 
   Canonical phase deliverables (single canonical location; do not duplicate elsewhere):
-  - `resources/spike/spike-hydrology-greenfield.md`
-  - `resources/spike/spike-hydrology-current-state.md`
-  - `resources/spike/spike-hydrology-modeling.md`
+  - `resources/workflow/domain-refactor/plans/hydrology/spike-hydrology-greenfield.md`
+  - `resources/workflow/domain-refactor/plans/hydrology/spike-hydrology-current-state.md`
+  - `resources/workflow/domain-refactor/plans/hydrology/spike-hydrology-modeling.md`
   - `issues/LOCAL-TBD-<milestone>-hydrology-*.md`
   - `triage.md`
 </non_implementation_prompt>
