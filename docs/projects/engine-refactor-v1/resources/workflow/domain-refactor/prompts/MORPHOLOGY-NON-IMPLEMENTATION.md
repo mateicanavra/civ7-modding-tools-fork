@@ -1,5 +1,5 @@
 <non_implementation_prompt>
-You are preparing the Hydrology domain vertical refactor for implementation in the Civ7 MapGen refactor project.
+You are preparing the Morphology domain vertical refactor for implementation in the Civ7 MapGen refactor project.
 
 You are strictly in read-only mode:
 - DO NOT create branches, edit production code, modify tests/configs, or run git operations.
@@ -22,24 +22,36 @@ Required repo docs to read + follow (shared root: docs/projects/engine-refactor-
 - resources/workflow/domain-refactor/references/verification-and-guardrails.md
 - resources/workflow/domain-refactor/references/implementation-traps-and-locked-decisions.md
 
-Hydrology prior art / drafts (IMPORTANT posture):
-- These are templates/seeds only; they are NOT authoritative.
-- If a prior-art file has the same name/path as a required deliverable, your output MUST overwrite/supersede it.
-- Treat your research + the canonical workflow docs as dominant; prior art cannot constrain the model.
-- Prior art locations:
-  - resources/workflow/domain-refactor/plans/hydrology/HYDROLOGY.md
-  - resources/workflow/domain-refactor/plans/hydrology/spike-hydrology-current-state.md
-  - resources/workflow/domain-refactor/plans/hydrology/spike-hydrology-modeling.md
+Canonical domain context (domain-only meaning; not workflow shape):
+- docs/system/libs/mapgen/morphology.md
+
+Morphology prior art / existing bones (IMPORTANT posture):
+- Morphology has already been refactored once.
+- That refactor is NOT to current standards; treat this pass as a greenfield re-think “from the ground up.”
+- Use the existing code/structure as evidence and a starting point for investigation, not as a constraint on the model.
+- Prior art locations (archived v1 planning artifacts; for reference only):
+  - resources/workflow/domain-refactor/plans/morphology/_archive/v1/MORPHOLOGY.md
+  - resources/workflow/domain-refactor/plans/morphology/_archive/v1/spike-morphology-current-state.md
+  - resources/workflow/domain-refactor/plans/morphology/_archive/v1/spike-morphology-modeling.md
+  - docs/projects/engine-refactor-v1/issues/_archive/LOCAL-TBD-morphology-vertical-domain-refactor.md
+- Primary code “bones” to inspect (evidence only; not authoritative):
+  - mods/mod-swooper-maps/src/domain/morphology/
+  - mods/mod-swooper-maps/src/recipes/standard/stages/morphology-pre/
+  - mods/mod-swooper-maps/src/recipes/standard/stages/morphology-mid/
+  - mods/mod-swooper-maps/src/recipes/standard/stages/morphology-post/
+
+Additional context (non-authoritative; read after the workflow docs):
+- resources/workflow/domain-refactor/prompts/MORPHOLOGY-CONTEXT.md
 
 MILESTONE:
-- The milestone identifier is **m9**.
-- All Phase 3 issues must use `issues/LOCAL-TBD-m9-hydrology-*.md`.
+- The milestone identifier is TBD (confirm with the project owner before starting Phase 3).
+- All Phase 3 issues must use `issues/LOCAL-TBD-<milestone>-morphology-*.md`.
 
-Canonical artifacts you must produce (ALL live under the Hydrology domain plan directory; no top-level spike dir):
-- resources/workflow/domain-refactor/plans/hydrology/spike-hydrology-greenfield.md
-- resources/workflow/domain-refactor/plans/hydrology/spike-hydrology-current-state.md
-- resources/workflow/domain-refactor/plans/hydrology/spike-hydrology-modeling.md
-- docs/projects/engine-refactor-v1/issues/LOCAL-TBD-m9-hydrology-*.md
+Canonical artifacts you must produce (ALL live under the Morphology domain plan directory; no top-level spike dir):
+- resources/workflow/domain-refactor/plans/morphology/spike-morphology-greenfield.md
+- resources/workflow/domain-refactor/plans/morphology/spike-morphology-current-state.md
+- resources/workflow/domain-refactor/plans/morphology/spike-morphology-modeling.md
+- docs/projects/engine-refactor-v1/issues/LOCAL-TBD-<milestone>-morphology-*.md
 - docs/projects/engine-refactor-v1/triage.md
 
 WORK ONE PHASE PER TURN. No phase bleed. No partial “preview” of later phases.
@@ -66,23 +78,36 @@ Hard rules (no exceptions):
 Authority model:
 - This prompt is a wrapper + execution posture, not the spec itself.
 - Canonical workflow + locked decisions live in the workflow docs above.
-- Hydrology-specific deliverables live in `resources/workflow/domain-refactor/plans/hydrology/`.
+- Morphology-specific deliverables live in `resources/workflow/domain-refactor/plans/morphology/`.
 - SINGLE CANONICAL BODY PER DELIVERABLE (hard rule):
   - If you need supporting notes, they must point to the canonical deliverable and MUST NOT duplicate or fork it.
 
 ───────────────────────────────────────────────────────────────────────────────
-B) Hydrology Scope Framing (Canonical + Domain-ownership posture)
+B) Morphology Scope Framing (Greenfield posture with existing bones)
 
-Hydrology is a single umbrella domain, but contains explicit internal subdomains (do NOT flatten):
-- Oceanography (currents, SST, sea ice)
-- Climatology (atmosphere: circulation, winds, moisture transport, precipitation)
-- Cryosphere (snow/ice + albedo feedback)
-- Surface Hydrology (routing: rivers/lakes/wetness)
+This is a greenfield re-design pass:
+- Do NOT treat the existing Morphology stage layout, ops, config, or contracts as “the target.”
+- It is acceptable (and expected, if needed) to change upstream producers and downstream consumers to achieve the ideal Morphology design.
+- Convergence with the current implementation is allowed, but NOT required.
 
-Multiple sequential stages are allowed (e.g., hydrology-pre/core/post) as long as they remain Hydrology-owned.
-If you genuinely believe a subdomain should become top-level someday, mention it ONLY as a non-blocking note at the end of Phase 2. Do not restructure the work around it.
+Morphology responsibility posture (domain-only; no algorithm prescriptions):
+- Morphology owns canonical “shape truth” of the world:
+  - land/ocean boundary, elevation/relief structure, coastal geometry
+  - mountain systems, islands, volcanics, and other large-scale form signals as Morphology-owned outputs
+- Morphology does NOT own:
+  - climate (winds/rainfall/temperature), hydrology discharge/routing, biome/ecology classification
+  - resource/feature placement, gameplay siting/assignment logic
+  - narrative/story thumb-on-scale overlays
 
-Boundary posture (hard-won lesson to lock):
+Focus areas (must be treated as full-lifecycle responsibilities, not one-off steps):
+- Mountains
+- Volcanoes
+- Islands
+- Coastlines
+
+Do not prescribe algorithms in this prompt; the pre-work and modeling must explore options before committing.
+
+Boundary posture (hard-won lessons to lock):
 - Public vs internal is intentional:
   - Only promote stable cross-domain contracts as outputs.
   - Keep unstable intermediates internal; document that they are internal and why.
@@ -93,38 +118,41 @@ Boundary posture (hard-won lesson to lock):
   - If braid/interleaving forces stages, document the constraint.
 
 ───────────────────────────────────────────────────────────────────────────────
-C) Core Intent (Do not compromise)
+C) Non-Negotiable Constraints (Locked)
 
-This refactor must be physics-driven, deterministic, and derivative:
-- All Hydrology outputs must be explainable as consequences of physical mechanisms.
-- Remove all “thumb-on-scale” behavior inside Hydrology:
-  - No story-painted rivers, no authored regional overrides, no hardcoded climate outcomes, no hidden globals.
-- The ONLY acceptable author surface inside Hydrology is semantic knobs:
-  - Knobs are a simplified public schema that normalizes deterministically into a richer internal config.
-  - Knobs apply last as deterministic transforms. Ban “presence/compare-to-default gating.”
-- Hard ban: narrative overlays / story artifacts as Hydrology inputs or outputs:
-  - Hydrology must not model, depend on, or introduce narrative overlays.
-  - If such overlays exist in current state, Phase 1 must inventory them as legacy dependencies.
-  - Phase 2 must model canonical domain-anchored replacements (physics-based equivalents) and Phase 3 must plan removal.
-- Reject lazy shortcuts:
-  - Latitude is allowed as an input to insolation / baseline climate, but it cannot be the sole driver.
-  - Climate modeling must incorporate: atmospheric circulation + jet streams, ocean currents + SST effects, orographic lift + rain shadows, cryosphere/albedo feedback, and spatial/seasonal variability (at least as equilibrium proxies).
+Treat the workflow reference docs as the authoritative list of locked decisions and traps.
+In this prompt, you must apply the high-level constraints below exactly as “hard rules.”
 
-Determinism posture:
-- Same seed + same config => same outputs.
-- Any randomness must be explicit, seeded, and documented.
-- Hard ban: hidden multipliers/constants/defaults.
-  - Any behavior-shaping number must be:
-    - An authored knob/config, OR
-    - A named constant with explicit intent and justification, referenced in docs.
-- Hard ban: placeholders / dead bags.
-  - Do not introduce placeholder directories/modules/bags.
-  - Phase 3 must explicitly plan removal of any temporary shims/compat introduced during implementation.
+Hard ban: narrative/story overlays (legacy concept).
+- Do not model narrative/story overlays in Morphology in this refactor phase.
+- If any existing artifacts/steps are “load-bearing narrative/story/overlays,” they must be replaced by canonical domain-anchored Morphology constructs.
+- Remove even “non-load-bearing” narrative overlays: they create confusion and accidental coupling.
+
+Hard rule: engine/projection truth is derived-only (never an input).
+- Engine-facing projections (terrain indices, adjacency masks, engine tags) must be derived from Morphology outputs.
+- Morphology must not read engine-projected surfaces back in as “truth” (this inverts the contract and poisons downstream correctness).
+
+Hard ban: presence / compare-to-default gating for knobs/config.
+- Knobs + advanced config must compose as a single locked contract (knobs apply last as transforms).
+- Do not infer author intent via presence detection after schema defaulting.
+- Do not smuggle semantics via post-normalization fallback:
+  - after schema validation/defaulting + normalization, run code must not “if undefined then fallback” into hidden behavior.
+
+Hard ban: hidden multipliers/constants/defaults.
+- No magic numbers, no silent fallbacks, no unnamed scaling factors in compile/normalize/run paths.
+- Every such value is either author-facing config, or an explicitly named constant with explicit intent.
+
+Hard ban: placeholders / dead bags.
+- No placeholder directories/modules/bags.
+- Phase 3 must explicitly plan removal of all temporary shims/compat introduced during implementation.
 
 Compat posture (non-negotiable invariant):
-- Compat is forbidden inside the refactored Hydrology domain.
+- Compat is forbidden inside the refactored Morphology domain.
 - Compat may exist ONLY downstream as explicitly deprecated shims with removal triggers and a planned deletion slice.
-- Projections never define internal representation.
+
+Determinism & purity posture (contract expectation; keep details in workflow refs):
+- Prefer passing determinism inputs across boundaries as data (seeds/inputs), not as runtime RNG objects/functions.
+- Keep domain ops data-pure; steps own runtime binding and pipeline context.
 
 Execution posture (hard-won lesson):
 - Plan and model in a way that makes Phase 3 slices end-to-end and pipeline-green.
@@ -136,7 +164,7 @@ D) Required Resources and Evidence Standard
 You must use:
 - Repo (read-only): search and cite actual code locations and contracts (paths + step IDs + artifact keys).
 - In-repo architecture/workflow docs listed above.
-- Web research: use when it improves earth-physics model or clarifies algorithm options; cite key sources.
+- Web research: use when it improves earth-physics modeling or clarifies algorithm options; cite key sources.
 - Any attached docs provided in the project context.
 
 Evidence standard:
@@ -151,17 +179,20 @@ E) Phase Deliverables (Do exactly what the phase reference requires)
 
 Phase 0.5 — Greenfield pre-work spike (required before Phase 1 and Phase 2):
 - Deep research pass (repo + docs + web) BEFORE writing.
-- Design Hydrology from earth-physics first, not from current code layout.
-- Define ownership boundaries (Hydrology vs Morphology vs Ecology vs Placement/Narrative).
-- Define subdomains and their causality spine.
+- Design Morphology from earth-physics first, not from current code layout.
+- Deep dive what Morphology actually owns vs neighbors:
+  - Mountains / volcanoes / islands / coastlines (full lifecycle)
+  - Identify what belongs upstream (e.g., Foundation tectonics) vs downstream (e.g., Ecology consumption, Gameplay projections).
+- Explore algorithm/dynamics options without committing prematurely:
+  - Treat this as “catalog options + define evaluation criteria,” not as selecting a final implementation.
 - Upstream diff:
-  - What upstream provides today vs what ideal Hydrology needs;
+  - What upstream provides today vs what ideal Morphology needs;
   - List change-candidates for upstream domains later.
 - Downstream diff:
-  - What Hydrology should provide and how it unlocks downstream;
+  - What Morphology should provide and how it unlocks downstream;
   - List downstream change-candidates.
 - Make an explicit early call on public vs internal surfaces.
-- Treat narrative overlays as out-of-scope; model canonical domain-anchored equivalents instead.
+- Treat narrative/story overlays as out-of-scope; model canonical domain-anchored equivalents instead.
 - Append Lookback 0.5.
 
 Phase 1 — Current-state spike (evidence only; no redesign):
@@ -193,44 +224,40 @@ Phase 2 — Modeling spike (model-first; must iterate twice; no slice plan):
   - tests that will lock non-trivial semantics during implementation
 - Make the “knobs-last” composition contract explicit (and identify guardrails/tests).
 - Name pipeline stages semantically; document braid/interleaving constraints if they exist.
-- Do not use narrative overlays as modeled inputs/outputs surfaces.
+- Do not use narrative/story overlays as modeled inputs/outputs surfaces.
 - Append Lookback 2.
 
 Phase 3 — Implementation plan + slice plan (no model content):
 - Produce an executable issue document (the handoff) under:
-  - docs/projects/engine-refactor-v1/issues/LOCAL-TBD-m9-hydrology-*.md
+  - docs/projects/engine-refactor-v1/issues/LOCAL-TBD-<milestone>-morphology-*.md
 - The issue must include:
   - locked decisions/bans with guardrails
   - config semantics references (Phase 2 table + default/empty/determinism policies)
   - stable fix anchors (prefer “config → normalized internal form” and explicit boundary locations)
   - step decomposition plan derived from causality spine
   - consumer migration matrix (break/fix per slice)
-  - downstream changes required by the model and assigned to slices
+  - upstream and downstream changes required by the model and assigned to slices
 - Each slice must be end-to-end and pipeline-green:
   - migrations + deletions + docs/tests + guardrails + explicit cleanup/removals
 - Consumer migration must be contract-driven:
-  - consume canonical Hydrology artifacts, not narrative overlays or hidden globals.
+  - consume canonical Morphology artifacts, not narrative/story overlays or hidden globals.
 - Stop at the pre-implementation checkpoint (issue doc is the handoff).
 
 Drift protocol:
 - If a locked decision changes mid-flight: STOP, re-baseline gates in the Phase 3 issue, and plan a guardrail in the same slice that introduces the decision.
 
 ───────────────────────────────────────────────────────────────────────────────
-F) Hydrology-Specific Non-Negotiable Outputs (Concrete)
+F) Morphology-Specific Framing (What to emphasize in outputs)
 
-Hydrology must ultimately provide deterministic, physics-based outputs that downstream can consume:
-- Climate signals (temperature, precipitation/rainfall, winds, aridity/dryness, freeze/snow/ice indicators).
-- Surface hydrology products (rivers, lakes, wetness/floodplain indicators).
-- Explicit support for Civ7 gameplay constraints where relevant (e.g., minor vs navigable river distinction), but gameplay must not steer Hydrology’s internal model.
+Your Phase 0.5 and Phase 2 deliverables must make it explicit that:
+- Morphology is being re-modeled greenfield, even if it reuses some existing implementation “bones.”
+- The goal is the ideal canonical Morphology layer for downstream consumers:
+  - deep, flexible, robust, and easy to author on top of.
+- It is acceptable to recommend upstream/downstream changes if they unlock the canonical Morphology design.
 
-───────────────────────────────────────────────────────────────────────────────
-G) Output behavior per turn
-
-When asked to execute a phase:
-- Return a single complete canonical markdown document body in-chat for the phase deliverable.
-- Also write the same content to a .md file and provide a download link if possible.
-- Include references + supersedes/complements notes (prior art templates are superseded/overwritten).
-- Stop after the required Lookback section.
-
-Do not start Phase 0.5 unless the user explicitly instructs you to begin.
+Your Phase 1 and Phase 3 deliverables must treat “legacy/brittle” Morphology behaviors as deletion candidates:
+- Prioritize explicit identification and removal planning for:
+  - narrative/story overlay coupling
+  - hidden constants/defaults
+  - placeholder/dead contract bags
 </non_implementation_prompt>
