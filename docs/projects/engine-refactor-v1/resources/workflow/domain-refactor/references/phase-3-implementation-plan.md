@@ -10,6 +10,8 @@ Convert the spikes into an executable slice plan and a single source-of-truth is
 - Every slice must end in a pipeline-green state (no dual paths).
 - The refactored domain must not retain compat surfaces; downstream adjustments are part of the plan.
 - Do not preserve story/narrative/overlay surfaces in the refactor: replace any load-bearing ones with canonical, domain-anchored contracts and migrate consumers to those.
+- Hard ban: no hidden multipliers/constants/defaults. Do not plan for (or accept) unnamed behavior-shaping numeric values in compile/normalize/run paths. Any multiplier/threshold/curve parameter MUST be either config/knobs or a named internal constant with explicit intent.
+- Hard ban: no placeholders / dead bags. Do not plan for (or accept) empty directories, placeholder modules, empty config bags, or “future scaffolding” surviving any slice. If something is not used, it must not exist.
 - No “later” buckets. Every slice is explicit with deliverables and a branch/subissue plan.
 - Locked decisions must be test-backed in the same slice they are introduced.
 
@@ -20,6 +22,8 @@ Convert the spikes into an executable slice plan and a single source-of-truth is
 ## Required sections (minimum)
 
 - Locked decisions + bans (and how each becomes a guardrail)
+  - Include “no hidden multipliers/constants/defaults” as an explicit ban with enforcement: where constants live, how they are named, and which tests/docs lock the semantics.
+  - Include “no placeholders / dead bags” as an explicit ban with enforcement: how you’ll prevent placeholders from being merged and how you’ll prove dead bags are removed.
 - Narrative overlay removal + replacement plan (required)
   - State explicitly that story/narrative/overlay surfaces are being deleted (not preserved).
   - Identify any load-bearing overlay/story surfaces in current consumers and name the canonical domain-anchored replacement contracts (and the slice that performs the migration).
@@ -50,6 +54,8 @@ Convert the spikes into an executable slice plan and a single source-of-truth is
 - Acceptance + verification gates per slice
 - Migration checklist per slice
 - Cleanup ownership + triage links
+  - Include an explicit removal ledger (required): every shim/compat adapter/temp bag/legacy entrypoint that will be removed, which slice removes it, and what the verification proof is (tests/guardrails/search).
+  - If a legacy surface cannot be removed in this refactor, it MUST become a concrete tracking item (issue/sub-issue) with owner + trigger, and it MUST be linked here. (Placeholders/dead bags are not deferrable.)
 - Sequencing refinement note (how the slice order was re-checked for pipeline safety)
 - Documentation pass plan (dedicated slice or issue)
 
@@ -88,6 +94,13 @@ Re-checked downstream deltas against the new order and verified each slice ends 
   - knobs-only authoring (baseline schema defaults + knobs last),
   - advanced-config + knobs authoring (baseline overrides + knobs last),
   - explicitly set-to-default edge case (a config value equal to its default still composes correctly; no compare-to-default gating).
+- No hidden multipliers/constants/defaults (required when touching normalize/knobs/run)
+  - Any behavior-shaping multiplier/threshold/curve parameter MUST be either config/knobs or a named internal constant.
+  - Forbidden: introducing or retaining unnamed numeric literals that encode semantics (e.g., `x * 0.7`, `if (x > 0.15)`) inside compile/normalize/run paths.
+  - Required: name constants, state intent in docs/JSDoc/schema descriptions where the value affects semantics, and ensure tests cover the normalized/compiled behavior.
+- No placeholders / dead bags (required in every slice)
+  - The slice must not introduce or leave behind empty directories, placeholder modules, empty config bags, or unused “future scaffolding”.
+  - If the slice introduces a temporary shim/adapter to keep the pipeline green, it MUST also include the plan to remove it (same slice when feasible; otherwise a later slice in this plan). It must not be left implicit.
 - Legacy entrypoints to delete (file paths / exports)
 - Tests to add/update (op contract test + thin integration edge)
 - Guardrail tests (string/surface checks or contract-guard tests for forbidden surfaces)
@@ -115,6 +128,8 @@ Re-checked downstream deltas against the new order and verified each slice ends 
 - Sequencing refinement pass is documented and reflects the final order.
 - Documentation pass is present and scoped with inventory + JSDoc/schema updates.
 - Locked decisions/bans are test-backed in the same slice they are introduced.
+- No hidden multipliers/constants/defaults are explicitly banned in the plan and have an enforcement posture (named constants vs config/knobs + docs/tests where semantics are affected).
+- No placeholders / dead bags are allowed by the plan: the issue explicitly lists everything that will be removed, and it does not contain “future scaffolding” or empty bags/directories as planned artifacts.
 - Public surface vs internal-only posture is enforced: downstream consumers are assigned to public contracts (no internal-only imports), and any promotions are explicit with docs/tests + migration steps.
 - Config semantics are referenced (Phase 2 table) and any semantic knob touched by the plan has a test that locks its non-trivial behavior.
 - Knobs + advanced config composition is explicitly restated as a locked contract (“knobs last”) and the plan names tests that cover the explicitly-set-to-default edge case.

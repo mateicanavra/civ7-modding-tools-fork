@@ -39,6 +39,8 @@ Inventory checklist (do not skip):
   - `artifacts.requires`/`artifacts.provides` per step (ids + file paths)
   - Stage-owned artifact contract catalog per stage (`stages/<stage>/artifacts.ts`)
 - Config surface map (schemas/defaults/normalizers + runtime fixups to delete)
+  - Include “hidden behavior” evidence: any multipliers/thresholds/defaults baked into normalize/compile/run paths that are not modeled as config/knobs or named constants.
+  - Include “dead bags” evidence: empty config bags, placeholder schemas, or “future scaffolding” directories/modules that exist without real usage.
 - Legacy surface inventory (every config property, rule/policy, and domain function)
 - Story/narrative/overlay surface inventory (producers + consumers + file paths)
 - Upstream authoritative input review (prior domain Phase 2 model + pipeline delta list)
@@ -53,7 +55,7 @@ Gate checklist (Phase 1 completion):
 - Every boundary violation in scope is either listed as a deletion target or explicitly deferred.
 - Any legacy “intervention mechanisms” are inventoried as evidence (no target-model endorsement).
 - The deletion list exists and is concrete (symbols + file paths).
-- Legacy surface inventory is complete (no “TBD” placeholders).
+- Legacy surface inventory is complete (no “TBD” placeholders), and any dead bags / placeholder scaffolding discovered are explicitly listed as deletion targets (they must not survive the refactor).
 - Upstream authoritative inputs are reviewed and logged (if the domain is not the pipeline root).
 - Upstream handoff review is explicit and lists upstream-introduced changes to remove.
 - Downstream consumer inventory is explicit and complete.

@@ -179,6 +179,25 @@ Minimum test framing:
 - One test that would fail if “knobs last” drifts, including the explicitly-set-to-default edge case.
 - Prefer assertions on normalized config / compiled plan config over emergent runtime outcomes.
 
+### No hidden multipliers/constants/defaults (hard rule)
+
+This is a non-optional rule:
+- Do not encode semantics as unnamed numeric literals in compile/normalize/run paths.
+- Do not “hide” behavior inside knob transforms (knob mapping cannot smuggle scaling factors).
+
+Any behavior-shaping multiplier/threshold/curve parameter MUST be either:
+- **Author-facing** (a knob/config field with a schema default + description), or
+- **Internal but explicit** (a clearly named constant with explicit intent, colocated with the logic it governs).
+
+Forbidden examples (do not ship):
+- `rainShadowStrength: config.rainShadowStrength * 0.7` (unnamed multiplier)
+- `if (x > 0.15) { ... }` (unnamed threshold)
+- `const strength = config.strength ?? 0.5` (silent runtime default)
+
+Required posture:
+- If the value is meant to be tuned by authors, surface it as a knob/config field.
+- If it is not author-tunable, keep it internal but name it (e.g., `DEFAULT_RAIN_SHADOW_SCALE`) and document intent where the constant is defined.
+
 ### Semantic knobs must have a contract (meaning, defaults, empty/null, determinism)
 
 If a config field is “semantic” (it encodes meaning, not just a scalar):

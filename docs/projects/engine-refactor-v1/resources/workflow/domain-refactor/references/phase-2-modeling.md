@@ -8,6 +8,7 @@ Define the authoritative, first-principles model for the domain and lock the tar
 
 - This is model-first. Do not include slice planning here.
 - Compatibility surfaces must not live in this domain. If transitional compat is required, it must be downstream-owned and explicitly deprecated.
+- Hard ban: no placeholders / dead bags in the model. Do not invent “TBD” contracts or empty bags as scaffolding. If something is unknown, record it as a deferral with a trigger rather than creating placeholder structures.
 
 Prereq:
 - Phase 0.5 greenfield pre-work spike exists and is referenced explicitly:
@@ -84,6 +85,7 @@ Repeat this loop until the model stabilizes (minimum two passes):
     - Knobs apply **after** as deterministic transforms over that baseline.
     - Ban any “presence”/“compare-to-default” gating (you cannot reliably infer whether a field was explicitly authored once schema defaulting has run for that field).
     - Include at least one explicit edge-case example: author sets a value equal to the default and knobs still apply.
+  - **Hard rule: no hidden multipliers/constants/defaults.** Any multiplier/threshold/curve parameter that materially affects behavior MUST be either (a) an explicit author-facing knob/config field, or (b) a clearly named internal constant with explicit intent. Do not plan for unnamed numeric “magic” in normalize/compile/run paths, and do not allow knob transforms to smuggle scaling factors.
 - Explainability / diagnostics (what downstream/debug can ask “why” and which fields/metrics exist or are intentionally deferred)
 - Capability envelope + explicit deferrals (what’s in-scope vs deferred, with triggers and downstream implications)
 - Legacy disposition ledger (every config property/rule/function is keep/kill/migrate with rationale)
@@ -126,6 +128,7 @@ Repeat this loop until the model stabilizes (minimum two passes):
 - Config semantics table exists and locks non-trivial semantics with tests; “default vs explicit” policy is stated where relevant.
   - Knobs + advanced config composition is recorded as a single locked contract (“knobs apply last as transforms”) and explicitly bans “presence”/“compare-to-default” gating.
   - At least one test scenario is named that covers the “explicitly set to the default value” edge case.
+- No hidden multipliers/constants/defaults are planned: any behavior-shaping multipliers/thresholds are either explicit config/knobs or named internal constants (with intent recorded and referenced where it affects semantics).
 - Narrative overlays are eliminated as a concept in the target model: any legacy story/narrative/overlay surfaces are planned for deletion/replacement, and consumers are migrated to canonical domain-anchored contracts.
 - Architecture alignment note exists and conflicts are reconciled or escalated.
 - Authority stack is explicit; PRDs are labeled non-authoritative.

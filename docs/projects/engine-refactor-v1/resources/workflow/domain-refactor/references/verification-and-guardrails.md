@@ -70,6 +70,8 @@ After migrating a callsite to ops + step modules:
 - remove the old entrypoints for the extracted logic (no “compat exports”),
 - remove dead helpers, adapters, translators, and unused exports.
 - remove any remaining compat/projection surfaces inside this domain; if downstream needs transitional compatibility, it must be implemented downstream and explicitly marked as deprecated.
+- remove placeholders / dead bags: empty directories, placeholder modules, empty config bags/schemas, and any “future scaffolding” that is not actively used in the refactor.
+- remove hidden behavior: do not leave unnamed multipliers/thresholds/defaults in compile/normalize/run paths. Any behavior-shaping constant must be either explicit config/knobs or a named internal constant with explicit intent (and reflected in docs/tests where it affects semantics).
 
 Troubleshooting note:
 - If the guardrail script fails, use the printed hits (file + line) to drive fixes; run any additional `rg` searches ad-hoc as needed while iterating.
@@ -98,5 +100,7 @@ After the domain refactor lands:
 - remove obsolete exports/re-exports that bypass the op boundary,
 - remove stale docs references and update any canonical docs that named legacy structures.
 - if any downstream deprecated shims were added, add a cleanup item in `docs/projects/engine-refactor-v1/triage.md`, or open a dedicated downstream issue if the next domain can remove them safely (link the issue from triage).
+- confirm there are no placeholder directories/modules or dead config bags/schemas remaining in refactor scope (placeholders/dead bags are not deferrable).
+- confirm there are no unnamed behavior-shaping multipliers/thresholds/defaults remaining in compile/normalize/run paths; convert them to config/knobs or named constants with explicit intent.
 
 The domain is not “done” until the surrounding callsites are also cleaned.
