@@ -1,0 +1,112 @@
+<implementation_prompt>
+  You are implementing the Morphology vertical domain refactor (Phases 4–5). The model is locked.
+  Your job is to execute the Phase 3 slice plan end-to-end, keep the pipeline green after every slice,
+  and delete legacy surfaces without drifting into “make it work” compatibility.
+
+  Do not start coding until you have deeply studied the authority docs listed below.
+
+  The Phase 3 Morphology issue doc is the authoritative tracker for:
+  - the slice index and sequencing rationale,
+  - locked decisions/bans (and their guardrails),
+  - config semantics (meaning + default/empty/null + determinism policies),
+  - step/stage boundaries (and where internal splits are allowed),
+  - consumer migration matrix (break/fix per slice),
+  - acceptance criteria and verification gates,
+  - required cleanup/deletions (no placeholders, no dead bags, no lingering shims).
+
+  Execution posture:
+  - One Graphite branch/PR per slice (or explicit subissue you carve out inside a slice).
+  - Each slice ends pipeline-green with migrations, deletions, docs/tests, and guardrails complete before moving on.
+  - No dual paths within scope. If a temporary shim/adapter is truly required to keep the pipeline green, it must:
+    - be explicitly planned in the Phase 3 issue,
+    - be explicitly deprecated,
+    - and be explicitly removed on schedule (tracked in the same issue).
+
+  Non-negotiable invariants (drift prevention):
+  - Model-first: the canonical model/contracts are the source of truth even if projections change.
+  - No compat inside Morphology: Morphology must not publish or retain legacy compat/projection surfaces.
+    If transitional compatibility is required, it must live downstream, be explicitly deprecated, and be tracked for removal.
+  - Narrative overlays are forbidden in this refactor phase:
+    - remove story/narrative/overlay surfaces entirely,
+    - replace any load-bearing ones with canonical, domain-anchored contracts,
+    - and migrate consumers.
+  - Projection-as-truth is forbidden:
+    - Morphology must not read back engine-facing projections (tile queries, adjacency, terrain indices) as “domain truth”.
+    - Engine-facing projections are derived outputs/adapters only.
+  - Ops are data-pure; steps own runtime binding: no runtime views, callbacks, trace handles, or RNG functions cross the op boundary.
+  - RNG crosses boundaries as data only: steps pass deterministic seeds; ops build local RNGs.
+  - Defaults belong in schemas; derived/scaled values belong in normalize; run bodies assume normalized config and must not hide defaults.
+  - Knobs + advanced config are a single locked contract:
+    - advanced config is the baseline (typed + schema-defaulted),
+    - knobs apply last as deterministic transforms,
+    - hard ban: presence/compare-to-default gating semantics.
+  - Hard ban: no hidden multipliers/constants/defaults (no unnamed behavior-shaping numbers in compile/normalize/run paths).
+  - Hard ban: no placeholders / dead bags (no empty directories, empty config bags, or “future scaffolding”).
+  - Cleanup is required, not optional:
+    - every shim/compat layer/temporary bag introduced during implementation must be deleted by the end of Phase 5,
+    - anything intentionally deferred becomes an explicit issue/sub-issue (never implicit).
+  - Step/stage boundaries are architecture, not convenience:
+    - boundaries should follow real causality unless that creates major friction without downstream benefit,
+    - internal clarity splits are allowed when they do not cause config/artifact sprawl or boundary-breaking imports.
+  - Stage IDs are part of the author contract:
+    - use semantic stage IDs (avoid ambiguous “pre/core/post” naming),
+    - document braid/interleaving constraints where they exist (not as folklore).
+  - Types follow schemas: do not hand-duplicate TS shapes when a schema exists; derive types from schemas.
+
+  Domain-specific framing (Morphology):
+  - Morphology owns the canonical “shape of the world” contracts consumed by Hydrology/Ecology/Gameplay.
+  - Consumer migration must be contract-driven:
+    - downstream domains consume Morphology’s published artifacts/contracts,
+    - not engine projections, not story overlays, not legacy convenience reads.
+  - Be ruthless about public vs internal:
+    - promote only stable cross-domain contracts,
+    - keep intermediates internal unless a downstream consumer truly needs them as a stable hook.
+
+  Locked decisions must be enforced, not just written:
+  - Whenever you introduce or restate a locked decision/ban during implementation, it must become a guardrail (test or scan) in that same slice.
+    Do not defer guardrails “until cleanup”.
+
+  Drift protocol (stop the line):
+  If you detect drift (preserving legacy nesting, adding hidden fallbacks, smuggling runtime concerns, collapsing boundaries,
+  authority confusion, or a spec decision changing mid-flight), stop and:
+  - write a short status report in the Phase 3 issue doc (what changed, what is in-flight, what is next),
+  - re-baseline slice gates/checklists in the issue doc so the new reality is explicit,
+  - split vague “later” work into explicit subissues and branches,
+  - add guardrails so the violation cannot reappear (same slice).
+
+  Documentation is part of done:
+  - For every touched schema/function/op/step/stage/contract, update JSDoc and schema descriptions with behavior,
+    defaults, modes, and downstream impacts.
+  - For semantic knobs, docs must also state missing/empty/null meaning and determinism expectations.
+
+  Paths (authority + workflow; shared root: docs/projects/engine-refactor-v1/)
+
+  Morphology artifacts and tracker:
+  - issues/LOCAL-TBD-<milestone>-morphology-*.md
+  - resources/workflow/domain-refactor/plans/morphology/spike-morphology-greenfield.md
+  - resources/workflow/domain-refactor/plans/morphology/spike-morphology-current-state.md
+  - resources/workflow/domain-refactor/plans/morphology/spike-morphology-modeling.md
+
+  Workflow entrypoints:
+  - resources/workflow/domain-refactor/WORKFLOW.md
+  - resources/workflow/domain-refactor/IMPLEMENTATION.md
+
+  Core references:
+  - resources/workflow/domain-refactor/references/op-and-config-design.md
+  - resources/workflow/domain-refactor/references/implementation-reference.md
+  - resources/workflow/domain-refactor/references/implementation-traps-and-locked-decisions.md
+  - resources/workflow/domain-refactor/references/verification-and-guardrails.md
+  - resources/workflow/domain-refactor/references/domain-inventory-and-boundaries.md
+  - resources/workflow/domain-refactor/references/earth-physics-and-domain-specs.md
+  - resources/workflow/domain-refactor/references/phase-3-implementation-plan.md
+
+  Morphology domain context (domain-only meaning; not workflow shape):
+  - docs/system/libs/mapgen/morphology.md
+
+  Morphology prompt prior art (non-authoritative):
+  - resources/workflow/domain-refactor/prompts/MORPHOLOGY-NON-IMPLEMENTATION.md
+  - resources/workflow/domain-refactor/prompts/MORPHOLOGY-CONTEXT.md
+
+  Paths (Civ7 official resources; engine interop constraints only)
+  - .civ7/outputs/resources/Base/modules/base-standard
+</implementation_prompt>
