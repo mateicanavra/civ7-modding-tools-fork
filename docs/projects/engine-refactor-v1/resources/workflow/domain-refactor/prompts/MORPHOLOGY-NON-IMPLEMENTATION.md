@@ -40,6 +40,9 @@ Morphology prior art / existing bones (IMPORTANT posture):
   - mods/mod-swooper-maps/src/recipes/standard/stages/morphology-mid/
   - mods/mod-swooper-maps/src/recipes/standard/stages/morphology-post/
 
+Additional context (non-authoritative; read after the workflow docs):
+- resources/workflow/domain-refactor/plans/morphology/context-morphology-hydrology-handoff.md
+
 MILESTONE:
 - The milestone identifier is TBD (confirm with the project owner before starting Phase 3).
 - All Phase 3 issues must use `issues/LOCAL-TBD-<milestone>-morphology-*.md`.
@@ -87,6 +90,15 @@ This is a greenfield re-design pass:
 - It is acceptable (and expected, if needed) to change upstream producers and downstream consumers to achieve the ideal Morphology design.
 - Convergence with the current implementation is allowed, but NOT required.
 
+Morphology responsibility posture (domain-only; no algorithm prescriptions):
+- Morphology owns canonical “shape truth” of the world:
+  - land/ocean boundary, elevation/relief structure, coastal geometry
+  - mountain systems, islands, volcanics, and other large-scale form signals as Morphology-owned outputs
+- Morphology does NOT own:
+  - climate (winds/rainfall/temperature), hydrology discharge/routing, biome/ecology classification
+  - resource/feature placement, gameplay siting/assignment logic
+  - narrative/story thumb-on-scale overlays
+
 Focus areas (must be treated as full-lifecycle responsibilities, not one-off steps):
 - Mountains
 - Volcanoes
@@ -116,9 +128,15 @@ Hard ban: narrative/story overlays (legacy concept).
 - If any existing artifacts/steps are “load-bearing narrative/story/overlays,” they must be replaced by canonical domain-anchored Morphology constructs.
 - Remove even “non-load-bearing” narrative overlays: they create confusion and accidental coupling.
 
+Hard rule: engine/projection truth is derived-only (never an input).
+- Engine-facing projections (terrain indices, adjacency masks, engine tags) must be derived from Morphology outputs.
+- Morphology must not read engine-projected surfaces back in as “truth” (this inverts the contract and poisons downstream correctness).
+
 Hard ban: presence / compare-to-default gating for knobs/config.
 - Knobs + advanced config must compose as a single locked contract (knobs apply last as transforms).
 - Do not infer author intent via presence detection after schema defaulting.
+- Do not smuggle semantics via post-normalization fallback:
+  - after schema validation/defaulting + normalization, run code must not “if undefined then fallback” into hidden behavior.
 
 Hard ban: hidden multipliers/constants/defaults.
 - No magic numbers, no silent fallbacks, no unnamed scaling factors in compile/normalize/run paths.
@@ -131,6 +149,10 @@ Hard ban: placeholders / dead bags.
 Compat posture (non-negotiable invariant):
 - Compat is forbidden inside the refactored Morphology domain.
 - Compat may exist ONLY downstream as explicitly deprecated shims with removal triggers and a planned deletion slice.
+
+Determinism & purity posture (contract expectation; keep details in workflow refs):
+- Prefer passing determinism inputs across boundaries as data (seeds/inputs), not as runtime RNG objects/functions.
+- Keep domain ops data-pure; steps own runtime binding and pipeline context.
 
 Execution posture (hard-won lesson):
 - Plan and model in a way that makes Phase 3 slices end-to-end and pipeline-green.
