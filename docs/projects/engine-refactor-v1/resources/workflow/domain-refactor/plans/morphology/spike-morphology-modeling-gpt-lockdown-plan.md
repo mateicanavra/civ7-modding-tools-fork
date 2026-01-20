@@ -1,5 +1,9 @@
 # Morphology Phase 2 Lockdown Plan (Companion to Modeling Spike)
 
+> **PROCESS / NOT CANONICAL**
+> This document is a planning companion. Canonical Phase 2 contracts and model surfaces live in `plans/morphology/spec/` and win on conflict.
+> Naming note: canonical tags use `artifact:<ns>.<name>` and `effect:<ns>.<name>` (not `artifacts.<...>`).
+
 This document is a companion to `spike-morphology-modeling-gpt.md`.
 
 It summarizes:
@@ -56,7 +60,7 @@ This is a generalized posture we are locking for this Phase 2 lockdown (not just
   1) compute/read physics truth artifacts,
   2) invoke Gameplay’s pure projection logic to produce indices/tags/placements,
   3) stamp via the engine adapter, then run required postprocess/validation.
-- **Execution guarantees (locked; boolean effects; no receipts/hashes):** if a downstream step must rely on “stamping occurred”, that guarantee is expressed via short effect tags provided by the stamping steps (e.g., `effect:map.mountainsPlotted`, `effect:map.volcanoesPlotted`). This is safe because the relevant `artifacts.map.*` intent artifacts are publish-once and frozen for the pass before stamping begins.
+- **Execution guarantees (locked; boolean effects; no receipts/hashes):** if a downstream step must rely on “stamping occurred”, that guarantee is expressed via short effect tags provided by the stamping steps (e.g., `effect:map.mountainsPlotted`, `effect:map.volcanoesPlotted`). This is safe because the relevant `artifact:map.*` intent artifacts are publish-once and frozen for the pass before stamping begins.
 - **Braiding at the stage/step level is allowed (ownership is not):** it is fine for a “Morphology” stage to include a Gameplay projection/stamping step for convenience, but that does not mean Gameplay logic lives inside Morphology (domain ownership stays intact).
 - **Legacy posture:** if we find physics artifacts emitting projection-like fields (e.g., engine terrain IDs embedded in a Morphology artifact), treat it as legacy to migrate into Gameplay projection/stamping.
 

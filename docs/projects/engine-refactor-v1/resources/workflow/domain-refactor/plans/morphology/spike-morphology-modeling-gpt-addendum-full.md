@@ -1,5 +1,10 @@
 # Context Packet: Fixing the Morphology Phase 2 Modeling Spike
 
+> **LEGACY / NOT CANONICAL**
+> This document is historical context used while producing the Phase 2 canonical spec in `plans/morphology/spec/`.
+> If anything here conflicts with the Phase 2 canonical spec, treat `spec/` as authoritative.
+> Canonical tag syntax uses `artifact:<ns>.<name>` and `effect:<ns>.<name>` (not `artifacts.<...>`).
+
 ## Purpose of this packet
 
 This document summarizes:

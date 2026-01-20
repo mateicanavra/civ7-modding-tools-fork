@@ -67,9 +67,24 @@ Where a contract includes lists or IDs, it must also include:
 - tie-breakers for equal scores/values,
 - explicit wrap-aware semantics for any X-coordinate derived values.
 
+### Seed inputs (determinism contract)
+
+The canonical root seed is provided by the pipeline environment:
+- `context.env.seed: number` (required; see `packages/mapgen-core/src/core/env.ts`)
+
+Rules:
+- Seeds cross boundaries as data only (numbers), never as RNG objects/functions.
+- Steps derive deterministic per-step seeds from the root seed using a stable label, then pass those derived seeds into ops that require randomness.
+- Canonical derivation primitive (evidence pointer):
+  - `deriveStepSeed(context.env.seed, "<stable-label>")` as used in `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/features/inputs.ts`.
+  - Stable labels must be treated as part of determinism: use stable step/op ids (not filenames/line numbers).
+
 ### Lifecycle / freeze semantics
 
 This spec uses the freeze points defined in the Phase 2 model:
+- See `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-CORE-MODEL-AND-PIPELINE.md` “3.2 Canonical freeze points (Phase 2 named)” for the full F1–F5 set.
+
+Truth contracts in this file are primarily concerned with:
 - **F1:** after Foundation (Foundation truth artifacts frozen)
 - **F2:** after Morphology (Morphology truth artifacts frozen)
 
@@ -77,6 +92,17 @@ Contracts in this file must specify:
 - **publish time** (which freeze point),
 - **mutability posture** (buffer handle refined in-place until freeze vs immutable snapshot at publish),
 - downstream read expectations (truth-only; no engine coupling).
+
+### Canonical tile neighbor graph (determinism anchor)
+
+Whenever this spec refers to the “canonical tile neighbor graph”, it means:
+- Odd-q offset coordinates `(x, y)` with east–west wrap (`wrapX=true`) and hard north/south bounds (`wrapY=false`).
+- Neighbor iteration MUST use the same neighbor ordering as `packages/mapgen-core/src/lib/grid/neighborhood/hex-oddq.ts`:
+  - For odd columns (`x & 1 === 1`): `[-1,0]`, `[1,0]`, `[0,-1]`, `[0,1]`, `[-1,1]`, `[1,1]`
+  - For even columns: `[-1,0]`, `[1,0]`, `[0,-1]`, `[0,1]`, `[-1,-1]`, `[1,-1]`
+
+Determinism note:
+- Flood-fill, BFS distance, connected-component, and “first encountered” tie-breakers must respect this neighbor ordering, and must use wrapped X coordinates (see `packages/mapgen-core/src/lib/grid/wrap.ts`).
 
 ### Truth-only inputs (no backfeeding; no projections)
 
@@ -465,6 +491,19 @@ Semantics:
 - `bbox` wrap encoding is canonical:
   - If the landmass does not cross the seam: `west <= east`.
   - If it crosses the seam: `west > east` and the wrapped interval is `[west, width-1] ∪ [0, east]`.
+
+Canonical computation rules (determinism-critical):
+- `coastlineLength` counting:
+  - Count coastline edges as the number of **land↔water** adjacencies on the canonical tile neighbor graph (wrapX=true, wrapY=false).
+  - Count each adjacency once from the land tile perspective: for each land tile, count the number of its neighbors that are water tiles.
+  - Do not treat off-map north/south edges as coastline (no off-map adjacency exists in the tile graph).
+- Wrapped bbox selection (when a landmass crosses the seam):
+  - Compute the landmass’s X-extent on the wrapX cylinder by choosing the **minimum-width wrapped interval** that contains all member tile X values.
+  - Canonical algorithm:
+    1) Collect all member tile `x` values, sort ascending, and treat them as points on a circle of circumference `width`.
+    2) Find the **largest gap** between consecutive points (including the wrap gap between last and first via `+width`).
+    3) The wrapped interval is the complement of that largest gap; set `west` to the first point after the gap and `east` to the last point before the gap (mod `width`), yielding either `west <= east` (no seam crossing) or `west > east` (seam crossing encoding).
+    4) Tie-breaker for equal largest gaps: choose the candidate with the smallest resulting `west` (numeric), then the smallest resulting `east`.
 
 ### `artifact:morphology.volcanoes` (required; truth intent)
 

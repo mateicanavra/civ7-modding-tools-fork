@@ -1,5 +1,8 @@
 # Morphology Domain Refactor — Phase 0.5 Greenfield Pre-Work Spike
 
+> **HISTORICAL SPIKE / NOT CANONICAL**
+> This is Phase 0.5 exploratory greenfield thinking. Canonical Phase 2 spec surfaces live in `plans/morphology/spec/` and win on conflict.
+
 **Purpose**: Do earth-physics-first, greenfield Morphology thinking before current-state mapping (Phase 1) or target-state modeling (Phase 2), so those later phases are not biased by legacy implementation shapes.
 This spike treats Morphology as the canonical owner of Earth-derived “shape truth.” It focuses on how tectonic forces and geophysical processes create landforms, coasts, and seafloors, independent of legacy code or narrative overlays. Morphology’s domain is purely physical terrain formation (land and underwater), excluding climate, biomes, or gameplay/story overlays.
 

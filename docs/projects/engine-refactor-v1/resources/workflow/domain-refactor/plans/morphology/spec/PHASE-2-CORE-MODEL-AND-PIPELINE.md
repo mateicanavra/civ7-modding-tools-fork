@@ -62,11 +62,12 @@ These terms are used with the meanings below throughout all Phase 2 morphology s
 ### 1.1 Data surfaces
 
 - **Buffer**: mutable, stage-owned runtime state (often typed arrays). Buffers are mutated only within their owning stage’s build phase.
-- **Artifact**: a published pipeline value (stored in the artifact store). Artifacts are treated as **stage-owned** while their stage is in Build, and as **immutable for downstream** after the owning stage’s Freeze.
+- **Artifact**: a published pipeline value (stored in the artifact store). Unless explicitly documented as a **buffer artifact exception**, artifacts are treated as **immutable after publish** (including by the publishing stage).
 - **Truth artifact**: a Physics-owned artifact that represents canonical world truth (engine-agnostic).
 - **Projection artifact**: a Gameplay-owned derived artifact under `artifact:map.*` (projection intent; not Physics truth).
 - **Overlay**: a derived label/mask intended for UI/scenario/AI interpretation. Overlays are Gameplay-owned and must never be Physics inputs.
 - **Effect tag**: a boolean “has happened” guarantee produced by a step after successful effects (e.g., adapter stamping).
+- **Publish-once handle**: a runtime handle (e.g., a typed array) that may be built/mutated *before publish*, then published once and treated as immutable thereafter. If performance requires post-publish mutation, the value must be explicitly modeled as a buffer (and must not be used as a truth contract surface).
 
 ### 1.2 Pipeline building blocks (per modeling guidelines)
 
@@ -155,8 +156,8 @@ Phase 2 locks these freeze points as pipeline semantics (not just narrative):
 ### 3.3 Projection intent freeze (required for honest effects)
 
 For any adapter-stamping pass:
-- The relevant `artifact:map.*` intent artifacts are published once and frozen before stamping begins.
-- No later step republished/replaces those same intent artifacts within the same run after the stamp pass begins.
+- The relevant `artifact:map.*` intent artifacts (when used) are **publish-once** and treated as immutable before stamping begins.
+- No later step republishes/replaces those same intent artifacts within the same run after the stamp pass begins.
 - The stamping step provides `effect:map.<thing>Plotted` only after successful adapter calls.
 
 This is the core invariant that makes boolean effects truthful without receipts/hashes.
@@ -174,6 +175,10 @@ The canonical linear phase order is:
 Interpretation:
 - This is the **dependency order for Physics truths** (what must be true before what), not a claim that no Gameplay steps can be interleaved in wiring.
 - Any braided Gameplay step must only consume already-frozen Physics truth and must never become a prerequisite for Physics.
+- Within Gameplay, Phase 2 conceptually distinguishes:
+  - **projection intent** (publishing `artifact:map.*` where needed), then
+  - **materialization/stamping** (adapter writes + `effect:map.*Plotted`).
+  This may be implemented as two distinct stages or as two step groups within a single Gameplay stage, but the projection intent freeze rule (3.3) is non-negotiable.
 
 “Braided” Gameplay stages are allowed only as an ordering implementation detail and must preserve the above ownership rules:
 - A braided Gameplay stage reads physics truth and writes `artifact:map.*` + effects.

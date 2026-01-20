@@ -65,6 +65,13 @@ A `plot-*` step may:
 
 ## 3) Required `artifact:map.*` surfaces (Phase 2)
 
+Note (closure-grade; avoids dual-path confusion):
+- Not every `effect:map.*Plotted` requires a published `artifact:map.*` intent surface.
+- The canonical pattern is:
+  - If downstream steps need a stable projection surface, publish it under `artifact:map.*` (publish-once; frozen before stamping begins).
+  - Otherwise, the `plot-*` stamping step computes its intent deterministically from frozen physics truth as an internal pure projection and applies it immediately; the effect is the contract that stamping occurred.
+This preserves a single canonical path (Physics truth → Gameplay projection logic → stamping) without forcing publication of intent artifacts that have no downstream consumers.
+
 ### 3.1 `artifact:map.projectionMeta` (required)
 
 Purpose: allow downstream Gameplay steps to interpret projection rasters without importing physics.
@@ -108,6 +115,12 @@ This is a Gameplay-owned derived artifact for debugging/inspection. Canonical lo
 Effects are Gameplay-owned and boolean. Each effect MUST be asserted only after:
 - the step has completed all relevant adapter writes for the full map, and
 - any required immediate engine validation/recalc calls have been executed.
+
+Constraint (truth preservation; no hidden backfeeding):
+- Engine “fixup” calls (e.g., `validateAndFixTerrain`, `expandCoasts`) are allowed only as part of stamping/materialization ordering, but they must not silently change Physics truth (especially land/water classification derived from `artifact:morphology.topography.landMask`).
+- If a fixup could change topology/landmask, the step must:
+  - treat that as an integration failure, and
+  - re-assert truth by re-stamping from Physics artifacts (or fail fast with a guardrail), rather than allowing engine state to become a new upstream truth.
 
 ### 4.1 Canonical effect taxonomy (required)
 

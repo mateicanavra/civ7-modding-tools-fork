@@ -1,5 +1,9 @@
 # Draft Addendum — Braided `map.*` Projection Inside Morphology Phase
 
+> **DRAFT / NOT CANONICAL**
+> This document is a historical draft. Canonical Phase 2 spec surfaces live in `plans/morphology/spec/` and win on conflict.
+> Naming note: canonical tags use `artifact:<ns>.<name>` (e.g. `artifact:map.*`). This file includes a quoted verbatim snapshot that uses historical `artifacts.map.*` wording; interpret that as `artifact:map.*`.
+
 This draft captures (1) a verbatim snapshot of the agreed braided-stage pattern and (2) follow-on clarifications (now locked) so Phase 2 can be implemented without drift.
 
 ## Verbatim snapshot (from chat; do not edit)
@@ -52,31 +56,31 @@ mods/mod-swooper-maps/src/recipes/standard/
 [Morphology Phase — braided, stage order is fixed (no conditionals)]
 
   morphology-pre   (Physics)
-    produces/updates: artifacts.morphology.*  (truth)
+    produces/updates: artifact:morphology.*  (truth)
             |
             v
   morphology-mid   (Physics)
-    produces/updates: artifacts.morphology.*  (truth)
+    produces/updates: artifact:morphology.*  (truth)
             |
             v
   morphology-post  (Physics; truth freeze point)
-    produces: artifacts.morphology.*          (truth snapshots/handles)
+    produces: artifact:morphology.*          (truth snapshots/handles)
             |
             v
   morphology-map   (Gameplay, braided inside Morphology phase)
     step: project-map
-      reads:  artifacts.morphology.*          (truth)
-      writes: artifacts.map.*                 (projection intent; stable interface)
+      reads:  artifact:morphology.*          (truth)
+      writes: artifact:map.*                 (projection intent; stable interface)
     step: stamp-map
-      reads:  artifacts.map.*                 (projection intent)
+      reads:  artifact:map.*                 (projection intent)
       uses:   context.adapter                 (engine access)
       stamps: engine terrain/features/etc.
 
             |
             v
   hydrology-*      (Physics)
-    reads: artifacts.morphology.* (truth)
-    FORBIDDEN: reading artifacts.map.* or adapter as inputs
+    reads: artifact:morphology.* (truth)
+    FORBIDDEN: reading artifact:map.* or adapter as inputs
 
             |
             v
@@ -122,7 +126,7 @@ Downstream stages/steps sometimes need guarantees like “stamping has occurred�
 
 We lock the simplest correct model:
 
-- `artifacts.map.*` is immutable **projection intent** (Gameplay-owned; produced by Gameplay-owned steps braided into the Morphology phase).
+- `artifact:map.*` is immutable **projection intent** (Gameplay-owned; produced by Gameplay-owned steps braided into the Morphology phase).
 - “Stamping occurred” is represented by **boolean effect tags** provided by the stamping steps after successful adapter calls.
 
 This avoids parallel “realized state” layers and avoids heavyweight receipt artifacts.
@@ -131,7 +135,7 @@ This avoids parallel “realized state” layers and avoids heavyweight receipt 
 
 To make “`effect:map.* = satisfied`” mean “this intent has been applied” without hashes/receipts:
 
-- For each stamp pass, the relevant `artifacts.map.*` intent artifacts are **published once and frozen** before the corresponding stamping step runs.
+- For each stamp pass, the relevant `artifact:map.*` intent artifacts are **published once and frozen** before the corresponding stamping step runs.
 - No later step is allowed to republish or replace those same intent artifacts within the same run after the pass begins.
 
 With this invariant, “effect satisfied” cannot accidentally refer to a different intent, because there is no post-stamp intent mutation to drift from.
@@ -163,6 +167,6 @@ So instead of literal `project-map` / `stamp-map`, we expect step IDs like:
 - `plot-features`
 
 Each such step may:
-- read frozen physics truth artifacts + any frozen `artifacts.map.*` intent artifacts it owns for that subsystem,
+- read frozen physics truth artifacts + any frozen `artifact:map.*` intent artifacts it owns for that subsystem,
 - perform adapter stamping,
 - and then provide its `effect:map.*` guarantee.

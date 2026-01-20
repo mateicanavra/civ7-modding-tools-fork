@@ -1,5 +1,8 @@
 # Morphology Domain Refactor - Phase 2 Modeling Spike (Model-First)
 
+> **PHASE 2 OVERVIEW / NOT CANONICAL**
+> Canonical Phase 2 spec surfaces live in `plans/morphology/spec/` and win on conflict.
+
 This spike is the **Phase 2 output** for the Morphology vertical refactor workflow. It defines the target first-principles Morphology model and contract surfaces, based on Phase 0.5 (greenfield) concepts refined by Phase 1 evidence (current state). Its content supersedes earlier drafts and addenda, fully integrating corrections (polar boundary handling, overlay purge, thumb-on-scale removal) into the new canonical spec.
 
 ## Goal
@@ -397,16 +400,59 @@ Morphology will consume the following artifacts from upstream stages (produced b
 
 The following are the products Morphology will publish for downstream consumption. These are generally made available as **artifacts** (immutable snapshots or handles) at the end of Morphology's processing, and in some cases as working **buffers** during:
 
-| **Product** | **Type** | **Owner** | **Description (Semantic Contract)** | **Notes** |
-| --- | --- | --- | --- | --- |
-| buffer:morphology.topography | Buffer | Morphology | The master heightfield working buffers (mutable within Morphology only): elevation (+ optional bathymetry), landMask, and seaLevel. This is the canonical physics truth for surface shape while Morphology is executing. | Internal representation may use high-precision buffers; published truth artifacts lock schema/units for downstream consumption. |
-| artifact:morphology.topography | Artifact | Morphology | Frozen topography truth snapshot (published at **F2**): `elevation` (meters), `seaLevel` (same units), `landMask` (derived by `elevation > seaLevel`), plus `bathymetry` (depth below datum). | **Excludes** all engine/projection indices (terrain IDs, cliffs, tags). |
-| buffer:morphology.substrate | Buffer | Morphology | Substrate property buffers: erodibilityK and sedimentDepth. Describes material resistance and soil depth per tile. | Mutable during erosion cycles. Not typically needed outside Morphology except by Ecology. |
-| artifact:morphology.substrate | Artifact | Morphology | Handle to substrate buffers for downstream. Ecology will use this (e.g. sedimentDepth for fertile soil distribution). | Published at end of Morphology. No legacy equivalent (was internal only). |
-| buffer:morphology.routingInternal | Buffer | Morphology | Internal-only routing primitives used for geomorphic cycles (erosion/deposition), computed on the cylindrical grid (wrapX seam adjacency; hard N/S edges). | **Not a public contract.** Hydrology owns canonical routing/hydrography artifacts. |
-| artifact:morphology.coastlineMetrics | Artifact | Morphology | Frozen coastal truth metrics snapshot (published at **F2**): includes `coastalLand`, `coastalWater`, `distanceToCoast`, and any other coastline-derived metrics that downstream systems can consume deterministically. | Downstream can use these for climate, placement, and projection policies without reverse-engineering engine terrain. |
-| artifact:morphology.landmasses | Artifact | Morphology | Frozen landmass decomposition (published at **F2**): `landmassIdByTile` (dense mapping; `-1` for water) and `landmasses[]` with stable IDs, `tileCount`, `coastlineLength`, and wrap-aware `bbox { west,east,south,north }` (where `west > east` encodes a wrapped interval crossing the seam). | This is the authoritative “continents/landmasses” truth for downstream projection (e.g., LandmassRegionId). |
-| artifact:morphology.volcanoes | Artifact | Morphology | Frozen volcanism intent snapshot (published at **F2**): a deterministic list/mask of volcano tiles (and optional kind/strength), derived from Foundation melt/plume/subduction drivers (never overlays). | Gameplay stamps engine volcano features from this intent; physics domains never stamp. |
+```yaml
+items:
+  - name: buffer:morphology.topography
+    type: Buffer
+    owner: Morphology
+    meaning: |
+      The master heightfield working buffers (mutable within Morphology only): elevation (+ optional bathymetry),
+      landMask, and seaLevel. This is the canonical physics truth for surface shape while Morphology is executing.
+    notes: Internal representation may use high-precision buffers; published truth artifacts lock schema/units for downstream consumption.
+  - name: artifact:morphology.topography
+    type: Artifact
+    owner: Morphology
+    meaning: |
+      Frozen topography truth snapshot (published at F2): elevation (meters), seaLevel (same units),
+      landMask (derived by elevation > seaLevel), plus bathymetry (depth below datum).
+    notes: Excludes all engine/projection indices (terrain IDs, cliffs, tags).
+  - name: buffer:morphology.substrate
+    type: Buffer
+    owner: Morphology
+    meaning: Substrate property buffers: erodibilityK and sedimentDepth. Describes material resistance and soil depth per tile.
+    notes: Mutable during erosion cycles. Not typically needed outside Morphology except by Ecology.
+  - name: artifact:morphology.substrate
+    type: Artifact
+    owner: Morphology
+    meaning: Handle to substrate buffers for downstream. Ecology will use this (e.g. sedimentDepth for fertile soil distribution).
+    notes: Published at end of Morphology. No legacy equivalent (was internal only).
+  - name: buffer:morphology.routingInternal
+    type: Buffer
+    owner: Morphology
+    meaning: Internal-only routing primitives used for geomorphic cycles (erosion/deposition), computed on the cylindrical grid (wrapX seam adjacency; hard N/S edges).
+    notes: Not a public contract. Hydrology owns canonical routing/hydrography artifacts.
+  - name: artifact:morphology.coastlineMetrics
+    type: Artifact
+    owner: Morphology
+    meaning: |
+      Frozen coastal truth metrics snapshot (published at F2): includes coastalLand, coastalWater, distanceToCoast
+      (field list is canonical in spec/PHASE-2-CONTRACTS.md).
+    notes: Downstream can use these for climate, placement, and projection policies without reverse-engineering engine terrain.
+  - name: artifact:morphology.landmasses
+    type: Artifact
+    owner: Morphology
+    meaning: |
+      Frozen landmass decomposition (published at F2): landmassIdByTile (dense mapping; -1 for water) and landmasses[]
+      with stable IDs, tileCount, coastlineLength, and wrap-aware bbox { west,east,south,north } (west > east encodes a wrapped interval crossing the seam).
+    notes: This is the authoritative “continents/landmasses” truth for downstream projection (e.g., LandmassRegionId).
+  - name: artifact:morphology.volcanoes
+    type: Artifact
+    owner: Morphology
+    meaning: |
+      Frozen volcanism intent snapshot (published at F2): a deterministic list/mask of volcano tiles (and optional kind/strength),
+      derived from Foundation melt/plume/subduction drivers (never overlays).
+    notes: Gameplay stamps engine volcano features from this intent; physics domains never stamp.
+```
 
 ### Notes on ownership
 
@@ -1073,7 +1119,7 @@ Conceptual model stages and their corresponding ops and outputs:
 - **River Network (Routing)**
   - _Ops:_ compute-flow-routing.
   - _Takes:_ Elevation (with any coast adjustments), LandMask.
-  - _Produces:_ flowDir & flowAccum buffers (internal, then part of routing artifact).
+  - _Produces:_ flowDir & flowAccum buffers (internal-only; not published as an artifact).
   - _Frame output:_ Drainage paths identified.
 - **Erosion & Deposition (Geomorphic cycle)**
   - _Ops:_ compute-geomorphic-cycle.

@@ -22,7 +22,13 @@ Required repo docs to read + follow (shared root: docs/projects/engine-refactor-
 - resources/workflow/domain-refactor/references/verification-and-guardrails.md
 - resources/workflow/domain-refactor/references/implementation-traps-and-locked-decisions.md
 
-Canonical domain context (domain-only meaning; not workflow shape):
+Canonical Morphology Phase 2 model (authoritative; read/anchor on this when doing Phase 2 + Phase 3):
+- resources/workflow/domain-refactor/plans/morphology/spike-morphology-modeling-gpt.md (entrypoint; points at the canonical spec bodies)
+- resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-CORE-MODEL-AND-PIPELINE.md
+- resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-CONTRACTS.md
+- resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-MAP-PROJECTIONS-AND-STAMPING.md
+
+Legacy background context (may be outdated vs the current architecture; use only for historical meaning):
 - docs/system/libs/mapgen/morphology.md
 
 Morphology prior art / existing bones (IMPORTANT posture):
@@ -33,9 +39,6 @@ Morphology prior art / existing bones (IMPORTANT posture):
 - If a prior-art file has the same name/path as a required deliverable, your output MUST overwrite/supersede it.
 - Prior art locations:
   - resources/workflow/domain-refactor/plans/morphology/MORPHOLOGY.md
-  - resources/workflow/domain-refactor/plans/morphology/spike-morphology-greenfield.md
-  - resources/workflow/domain-refactor/plans/morphology/spike-morphology-current-state.md
-  - resources/workflow/domain-refactor/plans/morphology/spike-morphology-modeling.md
   - resources/workflow/domain-refactor/plans/morphology/_archive/v1/MORPHOLOGY.md
   - resources/workflow/domain-refactor/plans/morphology/_archive/v1/spike-morphology-current-state.md
   - resources/workflow/domain-refactor/plans/morphology/_archive/v1/spike-morphology-modeling.md
@@ -54,9 +57,12 @@ MILESTONE:
 - All Phase 3 issues must use `issues/LOCAL-TBD-<milestone>-morphology-*.md`.
 
 Canonical artifacts you must produce (ALL live under the Morphology domain plan directory; no top-level spike dir):
-- resources/workflow/domain-refactor/plans/morphology/spike-morphology-greenfield.md
-- resources/workflow/domain-refactor/plans/morphology/spike-morphology-current-state.md
-- resources/workflow/domain-refactor/plans/morphology/spike-morphology-modeling.md
+- resources/workflow/domain-refactor/plans/morphology/spike-morphology-greenfield-gpt.md
+- resources/workflow/domain-refactor/plans/morphology/spike-morphology-current-state-gpt.md
+- resources/workflow/domain-refactor/plans/morphology/spike-morphology-modeling-gpt.md
+- resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-CORE-MODEL-AND-PIPELINE.md
+- resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-CONTRACTS.md
+- resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-MAP-PROJECTIONS-AND-STAMPING.md
 - docs/projects/engine-refactor-v1/issues/LOCAL-TBD-<milestone>-morphology-*.md
 - docs/projects/engine-refactor-v1/triage.md
 
@@ -144,8 +150,15 @@ Hard rule: engine/projection truth is derived-only (never an input).
 - Projections/indices are Gameplay-owned derived artifacts:
   - Terrain IDs, feature IDs, resource IDs, player IDs, region IDs, plot tags, placements, and other game-facing indices belong to Gameplay (projection policy), not to Morphology (physics truth).
   - Physics domains must not embed engine IDs or projection indices inside physics truth artifacts as “the truth.” If legacy artifacts currently do so, treat it as migration work into Gameplay’s projection/stamping layer.
+- Canonical map projection surfaces and stamping guarantees:
+  - Projection artifacts are `artifact:map.*` (Gameplay-owned).
+  - Stamping completion is represented by boolean effects like `effect:map.<thing>Plotted` (e.g., `effect:map.mountainsPlotted`), emitted by the stamping step.
 - Engine writes (“stamping”) happen only in steps with an engine adapter:
   - Core domain logic is pure-only; recipe stages/steps invoke physics ops to compute truths, invoke Gameplay ops to project truths into indices, then stamp via the adapter.
+
+Topology lock (non-negotiable invariant):
+- Civ7 maps are a cylinder: `wrapX = true` always; `wrapY = false` always.
+- There is no environment/config/knob that can change wrap behavior; wrap flags must not appear as input contract fields.
 
 Hard ban: presence / compare-to-default gating for knobs/config.
 - Knobs + advanced config must compose as a single locked contract (knobs apply last as transforms).

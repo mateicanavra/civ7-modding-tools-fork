@@ -1,14 +1,17 @@
 # Morphology Domain Refactor — Phase 1 Current-State Spike
 
+> **HISTORICAL SPIKE / NOT CANONICAL**
+> This is Phase 1 current-state inventory. Canonical Phase 2 spec surfaces live in `plans/morphology/spec/` and win on conflict.
+
 Purpose: Document the current state of the Morphology domain in Civ7 MapGen, based strictly on existing code and behavior. This serves to ground the Morphology refactor (Phase 2 modeling and Phase 3 planning) in reality – exposing how Morphology is wired today, what it consumes and produces, and where legacy or cross-domain couplings exist. No redesigns are proposed here; this is a factual snapshot of Morphology as-is.
 
 ## References:
 
 - Workflow reference (domain refactor): `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/WORKFLOW.md`
-- Phase 0.5 (Morphology greenfield sketch): TBD (see Morphology context)
+- Phase 0.5 (Morphology greenfield sketch): `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/spike-morphology-greenfield-gpt.md`
 - Phase 1 template: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/phase-1-current-state.md` (structure guidelines)
 - Morphology context packet: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/prompts/MORPHOLOGY-CONTEXT.md`
-- Phase 0.5 spike (if available): spike-morphology-greenfield.md (not present in repo; context used instead)
+- Phase 0.5 spike (greenfield): `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/spike-morphology-greenfield-gpt.md`
 
 ## Scope guardrails:
 

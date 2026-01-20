@@ -11,6 +11,9 @@
 - Strategy: algorithmic variant of a single op with identical input/output.
 - Operation (op): stable, step-callable contract; pure input/config -> output.
 - Step: orchestration + effect boundary; builds inputs, calls ops, applies outputs, publishes artifacts.
+- Truth artifact: Physics-owned, engine-agnostic published state (no engine ids; no map projection indices).
+- Projection artifact: Gameplay-owned, canonical map-facing published state under `artifact:map.*`.
+- Effect: a step-emitted execution guarantee (e.g. stamping completion via `effect:map.<thing>Plotted`).
 
 3) Decision framework (what becomes what)
 - If a unit has a stable I/O contract and should be observable independently -> op.
@@ -99,6 +102,24 @@ This document is intentionally aligned to the implemented surfaces in `packages/
 - `step.normalize(config, { env, knobs })` is **compile-time only** (invoked by the recipe compiler).
 - `step.run(context, config)` is **runtime** execution.
 
+### 2.1) Artifacts and effects (locked posture: truth vs projection)
+
+This posture is locked for Phase 2+ modeling:
+
+- Physics domains publish **truth-only artifacts**: stable, deterministic, engine-agnostic state.
+  - Truth artifacts MUST NOT embed engine ids, adapter objects, or map projection indices (e.g. `tileIndex`).
+- Gameplay owns **projection artifacts** and **stamping**:
+  - Canonical map-facing projection interfaces live under `artifact:map.*` and are Gameplay-owned.
+  - Projection artifacts MAY be tile-indexed and MAY carry game-facing identifiers, but must remain pure data (no adapter calls).
+- Execution guarantees are modeled as **boolean effects** emitted by the stamping step:
+  - “Stamping happened” MUST be represented as `effect:map.<thing>Plotted`.
+  - Steps are the effect boundary; ops remain data-pure and do not emit/verify effects.
+
+**Example: Physics truth → Gameplay projection → stamping effect**
+- Physics computes and publishes truth (no engine coupling): `artifact:<physicsDomain>.<truth>` (e.g. `artifact:ecology.biomeClassification`).
+- Gameplay projects into the canonical map interface: `artifact:map.<projection>` (e.g. `artifact:map.biomeIdByTile`).
+- A Gameplay `plot-*` stamping step reads `artifact:map.<projection>`, performs adapter writes, then provides `effect:map.<thing>Plotted` (e.g. `effect:map.biomesPlotted`).
+
 ### 3) Composition boundaries (hard rules)
 
 - Steps **call** ops; ops **never** call steps.
@@ -126,6 +147,19 @@ Use this as the “current mental model” for refactors:
 - **Recipe compiler**
   - `compileRecipeConfig(...)` in `packages/mapgen-core/src/compiler/recipe-compile.ts`
   - This is where `step.normalize` is invoked and where strict schema normalization happens.
+
+### 3.2) Topology invariants (locked: wrap)
+
+When you define adjacency, bounding boxes, “nearest”, and distance semantics:
+
+- Treat topology as a **cylinder**: `wrapX=true` always (east–west wraps), `wrapY=false` always (north–south does not wrap).
+- Do not introduce environment/config/knobs for wrap, and do not accept wrap flags as op/step inputs; wrap is a modeling invariant, not a contract parameter.
+- Any neighbor iteration / BFS / distance over tiles MUST use the canonical semantics implied by this topology (periodic X, bounded Y).
+
+### 3.3) Single-path posture (no shims / no dual paths)
+
+- Do not model parallel “legacy + new” dependency paths for the same guarantee (e.g. dual effect ids for the same stamping boundary).
+- Do not place adapter/engine logic outside steps; any side effects must be step-owned and surfaced via artifacts/effects, not hidden in helpers.
 
 ### 4) Decision framework (what becomes what)
 
@@ -236,6 +270,9 @@ When refactoring a domain:
 - **Step-level planning** (steps encoding domain heuristics).
 - **Strategy misuse** (different I/O shapes under one op).
 - **Rule leakage** (rules exported as public contracts or type sources).
+- **Truth/projection coupling** (Physics truth embedding engine ids or `artifact:map.*` tile-indexed surfaces).
+- **Shims / dual paths** (publishing multiple keys for the same guarantee; “just in case” compatibility paths).
+- **Logic outside steps** (adapter/engine calls or effect verification performed anywhere other than a step).
 
 ### 11) Required outputs for the domain inventory
 
