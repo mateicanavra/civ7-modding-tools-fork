@@ -25,12 +25,17 @@ Define the **authoritative first-principles Morphology model** (domain causality
 - **Cross-domain data model:** docs/system/libs/mapgen/architecture.md - Describes buffers, artifacts, overlays and the relationships between domains.
 - **Upstream domain contract:** docs/system/libs/mapgen/foundation.md - Foundation domain outputs (e.g. tectonic forces, crust data) that Morphology consumes, and overall pipeline context.
 - **Domain modeling guidelines:** docs/projects/engine-refactor-v1/resources/spec/SPEC-DOMAIN-MODELING-GUIDELINES.md - Rules for ops/steps, ensuring consistency across domain refactors.
+
+### External authority (Civ7 engine constraints to respect for interop, though not shaping our internal model)
+
 - **Civ7 map scripts & data:** The shipped game expects certain outputs to integrate with its systems:
-- Starting positions logic requires identifying "homelands" vs "distant lands" landmasses (see assign-starting-plots.js and map scripts).
-- Engine uses a LandmassRegionId tagging (two slots in base game) for certain rules (resources, age transitions).
-- Example: base game maps.xml defines PlayersLandmass1 and PlayersLandmass2 for each map size, implying two main land groups for player starts. Likewise, ages.xml imposes hemisphere-based restrictions tied to landmass grouping.
-- Map generation finalization calls engine hooks (e.g. TerrainBuilder.validateAndFixTerrain()) to ensure coherent terrain and continent tags after generation.
+  - Starting positions logic requires identifying "homelands" vs "distant lands" landmasses (see assign-starting-plots.js and map scripts).
+  - Engine uses a LandmassRegionId tagging (two slots in base game) for certain rules (resources, age transitions).
+  - Example: base game maps.xml defines PlayersLandmass1 and PlayersLandmass2 for each map size, implying two main land groups for player starts. Likewise, ages.xml imposes hemisphere-based restrictions tied to landmass grouping.
+  - Map generation finalization calls engine hooks (e.g. TerrainBuilder.validateAndFixTerrain()) to ensure coherent terrain and continent tags after generation.
 - **Civ7 config semantics:** The standard config includes a _DistantLands_ map size domain, meaning scenarios where only one landmass hosts human players. Our model must support this via outputs (landmass identification) rather than custom generation hacks.
+- **Engine compatibility:** We must output terrain in a form that engine expects (e.g. contiguous landmass definitions, coastline markings) so that engine post-processes (like area recalculations, fertility recompute) do not "fight" the generation.
+
 ### Supporting references (informative, not canonical for our contracts)
 
 _(These external requirements constrain what Morphology must ultimately provide or avoid, but they do not dictate the internal physics model. If a legacy game expectation conflicts with physics-first modeling, we prefer to meet it by translating our outputs downstream or adjusting config, not by warping the model itself.)_
@@ -45,12 +50,15 @@ _(These external requirements constrain what Morphology must ultimately provide 
 ### Morphology is the "sculptor" layer of world generation
 
 - _Upstream (Foundation)_ provides the **tectonic canvas** - plate configurations, motion vectors, crust composition, and force fields (uplift, rifting, shear, volcanism).
+- _Morphology_ then converts those tectonic causes and geologic histories into a **topographical reality**: the land-sea distribution, terrain elevation, mountains and basins, coastal forms, and other geomorphic signals that downstream systems can use.
+- _Downstream systems_ (Hydrology, Ecology, Placement/Gameplay) consume Morphology's outputs to simulate climate, biomes, resources, and narrative elements, but **do not feed back into Morphology**. Morphology owns the meaning of its outputs in the pipeline.
+
 ### Key postures
 
 - **Physics-only causality:** Morphology's terrain formation is driven purely by physics-based inputs (tectonics, crust, environment) and internal rules. Any "story" or gameplay requirements (e.g. ensuring two separate continents for distant start positions) must be achieved _through physical parameters or downstream interpretation_, not by hard-coding terrain edits or reading narrative overlays. If a downstream requirement still exists (e.g. needing a "west vs east continent" distinction), that is handled as a **downstream projection** derived from Morphology's outputs - it does _not_ alter Morphology's generative process.
 - **Model wins over legacy:** If the legacy pipeline had a certain behavior that doesn't fit the new model (for example, abrupt plate boundary artifacts at the map edge, or manually protected sea lanes), we favor the new model. Any necessary compatibility for legacy content will be added downstream as a temporary measure and clearly marked for removal. Morphology itself will not carry legacy baggage forward.
 - **No "thumb on scale" tweaks:** We eliminate any ad-hoc terrain tweaks that were previously used to force desired outcomes (e.g. manually keeping an ocean channel open). Instead, broad outcomes emerge from tuned physical parameters:
-- _Example:_ Want two large landmasses separated by ocean? - Use Foundation config to produce that plate layout (e.g. fewer, clustered continental plates in a dispersal phase). Morphology will naturally produce an ocean basin between them, and Gameplay can then identify the landmasses as needed. Morphology itself will **not** artificially dig or preserve a "sea lane."
+  - _Example:_ Want two large landmasses separated by ocean? - Use Foundation config to produce that plate layout (e.g. fewer, clustered continental plates in a dispersal phase). Morphology will naturally produce an ocean basin between them, and Gameplay can then identify the landmasses as needed. Morphology itself will **not** artificially dig or preserve a "sea lane."
 - **Explicit config, no hidden constants:** Any parameter that influences terrain generation must be either an explicit author-facing knob or a documented internal constant with clear intent. The model will not rely on unnamed magic numbers or undeclared default behaviors. Configuration uses a _normalize then apply_ pattern with no "presence-based" conditionals (see Config Semantics section).
 
 ## Canonical model and causality spine (Morphology)
@@ -164,23 +172,57 @@ In summary, Morphology's outputs are all **physical world data**. Anything that 
 
 The Morphology model can be thought of as a sequence of dependent processes - each step answers a question "what is determined _before_ what?" in building the world. This causality spine guides how we break down operations and in what order they must execute. The conceptual chain is:
 
-- **Substrate mapping (lithology):** Determine the material properties of the crust across the map. _Input:_ Foundation's crust composition (rock type, age) and tectonic regime signals (e.g. identify which tiles are near plate boundaries, and of what type). _Output:_ An erodibilityK map (and any other substrate parameters, like initial sediment thickness patterns). Here, we also classify tectonic regimes per tile - including treating the **north/south map edges as boundary segments** according to config. That means, for example, if the north edge is set as a convergent boundary, tiles along the top edge will be flagged in a "convergent boundary zone" regime. This regime map influences substrate (e.g. making convergent zones have harder rock, transform zones more fractured). Essentially, this step lays down where the world is strong vs weak, which will later influence erosion and volcano placement.
-- **Base topography (raw elevation):** Generate the initial elevation field from tectonics. _Input:_ Tectonic driver fields (uplift, rifting, etc.) and cumulative uplift history. _Output:_ A first-pass topography (elevation) and tentative bathymetry. This is where mountains are raised and rift valleys sunk _before_ any erosion. We apply plate boundary effects: e.g. convergent boundaries produce mountain ranges (with maximum uplift right at the boundary if continental, or perhaps an ocean trench and an offshore island arc if one side is oceanic). Divergent boundaries produce rift valleys or mid-ocean ridges; transform boundaries produce linear fault-aligned features (small ridges and basins). Notably, if a polar edge is defined as a boundary (from step 1), we apply corresponding edge effects here too. For instance, a convergent north edge will generate a mountain chain along the map's top border, whereas a transform edge will generate a lower, fractured terrain seam instead of an abrupt wall. The result of this step is a rough heightmap "block" reflecting tectonic forces, without any smoothing or sea level applied.
-- **Sea level & land definition:** Decide how high the oceans are (or equivalently, how much of the land is submerged). _Input:_ The preliminary elevation field from step 2, plus config targets (desired land percentage, etc.). _Output:_ A scalar seaLevel value and the binary landMask. This involves hypsometric analysis - we consider the elevation distribution and choose a sea level that yields the intended proportion of land vs water. We might also incorporate crust context (e.g. ensure most continental crust ends up above sea, most oceanic below) and possibly a bit of randomness or variation by world age. **No special cases or masks** are applied here - e.g. there is no "force this particular corridor to be ocean." It's a global decision possibly with some bias (like avoiding drowning all continents or leaving huge shallow seas if config indicates). Once seaLevel is set, we label all tiles as land (elevation > seaLevel) or water (elevation <= seaLevel).
-- **Coastline and shelf structuring:** Refine coastal areas and derive coastal metrics. _Input:_ Landmask and raw elevation/bathymetry; substrate info. _Output:_ Coastal adjustments in elevation (if any) and computed coastline metrics (distance-to-coast values, identification of shallow continental shelf vs deep ocean, coastal slope profiles, etc.). We ensure that there are no one-tile unnatural cliffs at coasts - any steep boundary from land to deep ocean should be smoothed by a continental shelf if appropriate (especially around large landmasses). This step might slightly adjust bathymetry to create realistic continental shelves (shallower seas near coasts, then dropping off). It also computes data used later for island placement (e.g. where shallow water areas could allow reef islands) and for hydrology (coastal upwelling zones if needed). **Importantly, no "protected sea lane" or other corridor enforcement is done** - coast structuring is a purely physical process (e.g. wave erosion and sediment forming shelves), not guided by narrative concerns.
-- **River routing (flow computation):** Determine how water would flow over the current terrain. _Input:_ The current elevation field (after any coastal shaping) and landMask. _Output:_ flowDir and flowAccum buffers (and possibly identification of basins). This uses a steepest-descent algorithm to assign each land tile a downslope neighbor (or mark it as a local low if it has no lower neighbor). Then it calculates accumulation (how many tiles or what area drains through each tile). This defines where rivers would go and how large their catchments are. We perform this at this stage because the next step (erosion) uses the flow information. (In the broader pipeline, Hydrology will later use these results to place actual rivers and lakes, but here it's just data.)
-- **Geomorphic shaping (erosion & deposition cycles):** Sculpt the terrain by simulating erosion, sediment transport, and deposition, possibly in multiple "eras." _Input:_ Elevation, flow directions & accumulation, substrate erodibility, initial sediment. _Output:_ Updated elevation (elevation is modified in-place), updated sedimentDepth (sediment may move or increase), and possibly updated buffers like slope if recalculated. This is essentially running a **fluvial incision and hillslope diffusion** process. High-flow areas (rivers) will cut down the elevation depending on erodibility (stream power law - channels deepen in proportion to water flow and rock softness), forming valleys. Steep slopes will diffuse (collapse or gradually smooth) based on a threshold, rounding off sharp peaks. Eroded material is deposited in low-energy areas: e.g. at river mouths, in basins, or in shallow coastal areas, increasing sedimentDepth and raising those areas slightly. We may repeat this in a few iterations (representing geologic time periods) to achieve a mature landscape. By the end, we have a plausible heightmap with valleys, hills, and plains shaped by erosion. World age config might control how aggressive this is (e.g. an "Old" world might run more cycles to heavily erode mountains, a "Young" world runs fewer, leaving sharper terrain).
-- **Landform accents (discrete features):** Plan and apply specific discrete terrain features that are not fully accounted for by the continuous erosion model. _Input:_ A variety of signals - _coastline metrics_ (for islands), _tectonic regimes & melt flux_ (for volcanoes), _topography_ (for ridges/foothills placement). _Output:_ Adjustments to elevation and possibly new small land pieces (islands), plus markers for volcano locations. This involves several sub-actions:
-- **Island chain formation:** Identify where isolated islands or archipelagos should exist, typically above mantle plumes (hotspots) or along certain shallow coasts. Using the meltFlux (hotspot/plume signal from Foundation) and coastal shelf info, we might raise some underwater areas to just above sea level to create volcanic island chains (e.g. a plume under an oceanic plate results in a Hawaii-like chain). These changes affect the landMask (new land tiles).
-- **Mountain ridge extensions and foothills:** Add smaller-scale relief that wasn't captured explicitly in the base topography. For example, along major mountain ranges, add secondary ridge spurs and foothills to avoid perfectly smooth Gaussian ranges. Or, in broad flat areas, introduce minor escarpments if tectonics suggest fault lines. These are subtle edits to elevation guided by tectonic detail.
-- **Volcano placement:** Determine specific volcano peak locations (e.g. marking certain mountain tiles as volcanoes for downstream use like resource placement or later climate effects). Using the meltFlux and tectonic regime, pick tiles (usually at peaks or along rift zones) to be volcano "vents." Morphology might slightly raise these tiles or at least tag them in an overlay or artifact for later (the actual tag to engine happens downstream, but the decision is made here). No external "volcano overlay input" is used - this is purely based on physical signals like convergent subduction zones (arc volcano chains inland of coasts), divergent rifts (rift volcanoes), or hotspots (intra-plate volcanoes).
-- All these landform accents are deterministic and based on physical criteria. We explicitly do **not** use any Narrative overlays or "story seeds" to decide where they go. (If game design wants to ensure a named volcano exists, that would be handled by placing a narrative marker on one of the physics-generated volcanoes, not by forcing Morphology to put a volcano at a specific spot.)
-- These edits can create new land (islands) or raise existing land in places (volcano peaks). We ensure they are integrated smoothly (e.g. an island appears as a natural extension of a seamount chain, not a random one-tile bump).
-- **Landmass decomposition:** Identify connected land regions from the final landMask and calculate their attributes. _Input:_ Final landMask (after islands added, etc.), possibly using the routing graph to ensure diagonal connections as needed. _Output:_ morphology.landmasses artifact containing the list of landmasses with their stats. This step doesn't change the map; it's an analysis pass. We compute properties like each landmass's tile count (area), bounding box, coastline length, maybe fraction of tiles that are "shallow coast" vs inland (shelf share) to help Gameplay decisions. The landmass list is then published for downstream use. At this point, Morphology's job is essentially done - the physical world is built and described. Downstream systems (Hydrology, Ecology, etc.) will take over to simulate their aspects on this world.
+1. **Substrate mapping (lithology)**
+   - **Purpose:** Determine the material properties of the crust across the map.
+   - **Input:** Foundation's crust composition (rock type, age) and tectonic regime signals (e.g. identify which tiles are near plate boundaries, and of what type).
+   - **Output:** An `erodibilityK` map (and any other substrate parameters, like initial sediment thickness patterns).
+   - **Notes:** Here, we also classify tectonic regimes per tile - including treating the **north/south map edges as boundary segments** according to config. That means, for example, if the north edge is set as a convergent boundary, tiles along the top edge will be flagged in a "convergent boundary zone" regime. This regime map influences substrate (e.g. making convergent zones have harder rock, transform zones more fractured). Essentially, this step lays down where the world is strong vs weak, which will later influence erosion and volcano placement.
+2. **Base topography (raw elevation)**
+   - **Purpose:** Generate the initial elevation field from tectonics.
+   - **Input:** Tectonic driver fields (uplift, rifting, etc.) and cumulative uplift history.
+   - **Output:** A first-pass topography (elevation) and tentative bathymetry.
+   - **Notes:** This is where mountains are raised and rift valleys sunk _before_ any erosion. We apply plate boundary effects: e.g. convergent boundaries produce mountain ranges (with maximum uplift right at the boundary if continental, or perhaps an ocean trench and an offshore island arc if one side is oceanic). Divergent boundaries produce rift valleys or mid-ocean ridges; transform boundaries produce linear fault-aligned features (small ridges and basins). Notably, if a polar edge is defined as a boundary (from step 1), we apply corresponding edge effects here too. For instance, a convergent north edge will generate a mountain chain along the map's top border, whereas a transform edge will generate a lower, fractured terrain seam instead of an abrupt wall. The result of this step is a rough heightmap "block" reflecting tectonic forces, without any smoothing or sea level applied.
+3. **Sea level & land definition**
+   - **Purpose:** Decide how high the oceans are (or equivalently, how much of the land is submerged).
+   - **Input:** The preliminary elevation field from step 2, plus config targets (desired land percentage, etc.).
+   - **Output:** A scalar seaLevel value and the binary landMask.
+   - **Notes:** This involves hypsometric analysis - we consider the elevation distribution and choose a sea level that yields the intended proportion of land vs water. We might also incorporate crust context (e.g. ensure most continental crust ends up above sea, most oceanic below) and possibly a bit of randomness or variation by world age. **No special cases or masks** are applied here - e.g. there is no "force this particular corridor to be ocean." It's a global decision possibly with some bias (like avoiding drowning all continents or leaving huge shallow seas if config indicates). Once seaLevel is set, we label all tiles as land (elevation > seaLevel) or water (elevation <= seaLevel).
+4. **Coastline and shelf structuring**
+   - **Purpose:** Refine coastal areas and derive coastal metrics.
+   - **Input:** Landmask and raw elevation/bathymetry; substrate info.
+   - **Output:** Coastal adjustments in elevation (if any) and computed coastline metrics (distance-to-coast values, identification of shallow continental shelf vs deep ocean, coastal slope profiles, etc.).
+   - **Notes:** We ensure that there are no one-tile unnatural cliffs at coasts - any steep boundary from land to deep ocean should be smoothed by a continental shelf if appropriate (especially around large landmasses). This step might slightly adjust bathymetry to create realistic continental shelves (shallower seas near coasts, then dropping off). It also computes data used later for island placement (e.g. where shallow water areas could allow reef islands) and for hydrology (coastal upwelling zones if needed). **Importantly, no "protected sea lane" or other corridor enforcement is done** - coast structuring is a purely physical process (e.g. wave erosion and sediment forming shelves), not guided by narrative concerns.
+5. **River routing (flow computation)**
+   - **Purpose:** Determine how water would flow over the current terrain.
+   - **Input:** The current elevation field (after any coastal shaping) and landMask.
+   - **Output:** flowDir and flowAccum buffers (and possibly identification of basins).
+   - **Notes:** This uses a steepest-descent algorithm to assign each land tile a downslope neighbor (or mark it as a local low if it has no lower neighbor). Then it calculates accumulation (how many tiles or what area drains through each tile). This defines where rivers would go and how large their catchments are. We perform this at this stage because the next step (erosion) uses the flow information. (In the broader pipeline, Hydrology will later use these results to place actual rivers and lakes, but here it's just data.)
+6. **Geomorphic shaping (erosion & deposition cycles)**
+   - **Purpose:** Sculpt the terrain by simulating erosion, sediment transport, and deposition, possibly in multiple "eras."
+   - **Input:** Elevation, flow directions & accumulation, substrate erodibility, initial sediment.
+   - **Output:** Updated elevation (elevation is modified in-place), updated sedimentDepth (sediment may move or increase), and possibly updated buffers like slope if recalculated.
+   - **Notes:** This is essentially running a **fluvial incision and hillslope diffusion** process. High-flow areas (rivers) will cut down the elevation depending on erodibility (stream power law - channels deepen in proportion to water flow and rock softness), forming valleys. Steep slopes will diffuse (collapse or gradually smooth) based on a threshold, rounding off sharp peaks. Eroded material is deposited in low-energy areas: e.g. at river mouths, in basins, or in shallow coastal areas, increasing sedimentDepth and raising those areas slightly. We may repeat this in a few iterations (representing geologic time periods) to achieve a mature landscape. By the end, we have a plausible heightmap with valleys, hills, and plains shaped by erosion. World age config might control how aggressive this is (e.g. an "Old" world might run more cycles to heavily erode mountains, a "Young" world runs fewer, leaving sharper terrain).
+7. **Landform accents (discrete features)**
+   - **Purpose:** Plan and apply specific discrete terrain features that are not fully accounted for by the continuous erosion model.
+   - **Input:** A variety of signals - _coastline metrics_ (for islands), _tectonic regimes & melt flux_ (for volcanoes), _topography_ (for ridges/foothills placement).
+   - **Output:** Adjustments to elevation and possibly new small land pieces (islands), plus markers for volcano locations.
+   - **Sub-actions:** This involves several sub-actions:
+     - **Island chain formation:** Identify where isolated islands or archipelagos should exist, typically above mantle plumes (hotspots) or along certain shallow coasts. Using the meltFlux (hotspot/plume signal from Foundation) and coastal shelf info, we might raise some underwater areas to just above sea level to create volcanic island chains (e.g. a plume under an oceanic plate results in a Hawaii-like chain). These changes affect the landMask (new land tiles).
+     - **Mountain ridge extensions and foothills:** Add smaller-scale relief that wasn't captured explicitly in the base topography. For example, along major mountain ranges, add secondary ridge spurs and foothills to avoid perfectly smooth Gaussian ranges. Or, in broad flat areas, introduce minor escarpments if tectonics suggest fault lines. These are subtle edits to elevation guided by tectonic detail.
+     - **Volcano placement:** Determine specific volcano peak locations (e.g. marking certain mountain tiles as volcanoes for downstream use like resource placement or later climate effects). Using the meltFlux and tectonic regime, pick tiles (usually at peaks or along rift zones) to be volcano "vents." Morphology might slightly raise these tiles or at least tag them in an overlay or artifact for later (the actual tag to engine happens downstream, but the decision is made here). No external "volcano overlay input" is used - this is purely based on physical signals like convergent subduction zones (arc volcano chains inland of coasts), divergent rifts (rift volcanoes), or hotspots (intra-plate volcanoes).
+   - **Notes:**
+     - All these landform accents are deterministic and based on physical criteria. We explicitly do **not** use any Narrative overlays or "story seeds" to decide where they go. (If game design wants to ensure a named volcano exists, that would be handled by placing a narrative marker on one of the physics-generated volcanoes, not by forcing Morphology to put a volcano at a specific spot.)
+     - These edits can create new land (islands) or raise existing land in places (volcano peaks). We ensure they are integrated smoothly (e.g. an island appears as a natural extension of a seamount chain, not a random one-tile bump).
+8. **Landmass decomposition**
+   - **Purpose:** Identify connected land regions from the final landMask and calculate their attributes.
+   - **Input:** Final landMask (after islands added, etc.), possibly using the routing graph to ensure diagonal connections as needed.
+   - **Output:** morphology.landmasses artifact containing the list of landmasses with their stats.
+   - **Notes:** This step doesn't change the map; it's an analysis pass. We compute properties like each landmass's tile count (area), bounding box, coastline length, maybe fraction of tiles that are "shallow coast" vs inland (shelf share) to help Gameplay decisions. The landmass list is then published for downstream use. At this point, Morphology's job is essentially done - the physical world is built and described. Downstream systems (Hydrology, Ecology, etc.) will take over to simulate their aspects on this world.
 
 This spine represents the conceptual _causal order_. It also maps closely to how we will implement the pipeline (each numbered item corresponds to one or more ops, see Target Op Catalog). Note that some steps could be grouped or subdivided in implementation for efficiency, but the dependencies remain as above. For instance, steps 4 and 5 (coastline metrics and routing) could technically be computed in either order since they don't strongly depend on each other (one could do routing then compute distance-to-coast, or vice versa) - but we chose to list coastline structuring first, so that if any slight elevation tweaks at coasts occur, routing uses the updated elevation. In practice, this ordering ensures rivers know about any low coastal plains or newly formed straits.
 
 **Polar boundary integration:** A special call-out in this spine is how we treat the north/south map edges. In legacy maps, those edges were often flat and unnatural because tectonics "stopped" at the border. Our model changes that - if configured, the edge acts like a real plate boundary. Conceptually:
+
 - In step 1, we classify edge tiles as boundary zone tiles (with a regime: transform, convergent, or divergent).
 - In step 2, those edge zones are given tectonic behavior consistent with their regime: e.g. _transform edge_ → introduce a linear shear fault zone with modest offset and no large wall; _convergent edge_ → push up a mountain ridge along the border (and possibly a trench just off the border on the ocean side); _divergent edge_ → create a rift-like depression or marginal sea at the border, maybe with a shallow ridge if oceanic.
 - In subsequent steps, erosion and routing treat the map edge just like any other active region - water can flow off the edge as if going to an ocean beyond (we implement a "virtual off-map sink" so that rivers don't just stop at the world end). The result is that the polar areas of the map won't be featureless or weirdly cut-off; they'll look like the world logically continues beyond the border. For example, a convergent south edge might look like a mountain range at the bottom of the map, suggesting land continues beyond; a divergent north edge might have a rift valley that implies an opening sea beyond the map.
@@ -204,12 +246,14 @@ In plain language, Morphology is where the map stops being an abstract plate mod
 - **Erosion tells time:** an older world (if config/world age says "Old") will show more gentle hills and vast sedimentary basins, fewer jagged peaks. A younger world will have crisper mountain ranges and thinner sediment in valleys. This difference emerges naturally from running more or fewer erosion cycles.
 
 Overall, the **artistic goal** of Morphology is not to produce a perfectly Earth-like map, but a _coherent_ one. A player looking at the map should be able to infer "oh, these mountains likely block rain, hence desert beyond" or "that river probably carved this valley." We aim for:
+
 - Believable **chokepoints and passes** in mountain ranges (the ranges aren't impenetrable walls without any valleys).
 - **Legible river networks** - major rivers flow from mountains to sea in sensible paths, with branching tributaries (thanks to the routing algorithm).
 - **Plausible coastlines** - not random fractals or boring straight lines, but shapes that suggest real processes (e.g. indented bays near mountains, large deltas where big rivers meet the sea, smooth expansive continental shelves in some areas).
 - **A substrate foundation** for ecosystems - the map is physically ready for the climate and biomes steps, meaning things like rain shadows, floodplains, and mountain ranges for orographic rainfall are all where you'd expect. Also, the sedimentDepth map hints at where fertile soils or floodplains will be (deep sediment in lowlands), which Ecology can use for biome placement.
 
 The **gameplay goal** for Morphology's output is that it provides a flexible yet solid stage for game rules:
+
 - The map can accommodate a "Homelands vs Distant Lands" setup (e.g. two distinct large landmasses) **without Morphology explicitly forcing it**. If the scenario calls for it, it will be achieved by using the landmass artifact (to pick which continents are which) and foundation's control of initial plate clustering. Morphology itself does not contain a "make two continents" switch, but it doesn't preclude two continents either - it's driven by the inputs.
 - Rivers and lakes (though final placement is done by Hydrology) should have viable paths pre-laid. That means Morphology's routing ensures water has places to go; no giant completely enclosed depressions with unrealistic outcomes (unless intended, like endorheic basins). This is important so that when Hydrology runs, it can create continuous rivers and avoid weird artifacts.
 - Natural barriers (mountains, water bodies) and funnels are present to inform strategic gameplay. E.g. continents separated by oceans create naval play; mountain ranges create strategic chokes on land; large rivers might impede movement without bridges, etc. We ensure these features arise from the model in a balanced way (which the game can further tune via config if needed).
@@ -223,14 +267,14 @@ In essence, Morphology's world is rich enough for gameplay to thrive on, but it'
 
 ```mermaid
 flowchart LR
-foundation["Foundation\n(mesh • crust • plates • tectonics)"]
-morphPre["Morphology (pre)\nbase topography • land/sea"]
-narrPre["Narrative (pre)\n(seeding overlays)"]
-morphMid["Morphology (mid)\ncoasts • erosion • routing"]
-narrMid["Narrative (mid)\n(meanings/overlays)"]
-morphPost["Morphology (post)\nlandforms (islands/ridges/volcanoes)"]
-hydroPre["Hydrology (pre)\nclimate baseline • lakes"]
-placement["Placement/Gameplay\n(starts, resources, etc)"]
+foundation["Foundation<br/>(mesh • crust • plates • tectonics)"]
+morphPre["Morphology (pre)<br/>base topography • land/sea"]
+narrPre["Narrative (pre)<br/>(seeding overlays)"]
+morphMid["Morphology (mid)<br/>coasts • erosion • routing"]
+narrMid["Narrative (mid)<br/>(meanings/overlays)"]
+morphPost["Morphology (post)<br/>landforms (islands/ridges/volcanoes)"]
+hydroPre["Hydrology (pre)<br/>climate baseline • lakes"]
+placement["Placement/Gameplay<br/>(starts, resources, etc)"]
 
 foundation --> morphPre --> narrPre --> morphMid --> narrMid --> morphPost --> hydroPre --> placement
 ```
@@ -241,12 +285,12 @@ _Interpretation:_ This diagram shows the pipeline stages in order, emphasizing h
 
 ```mermaid
 flowchart TD
-F["Foundation artifacts\n(plates, tectonics, crust, etc)"]
-M["Morphology buffers\n(topography, substrate, routing)"]
-A["Morphology artifacts\n(published: topography, routing, substrate, landmasses, coastline metrics)"]
-H["Hydrology & Climate\n(consumes terrain and routing)"]
-E["Ecology\n(consumes substrate, climate)"]
-P["Placement/Gameplay\n(consumes landmasses, uses outputs for starts/resources)"]
+F["Foundation artifacts<br/>(plates, tectonics, crust, etc)"]
+M["Morphology buffers<br/>(topography, substrate, routing)"]
+A["Morphology artifacts<br/>(published: topography, routing, substrate, landmasses, coastline metrics)"]
+H["Hydrology & Climate<br/>(consumes terrain and routing)"]
+E["Ecology<br/>(consumes substrate, climate)"]
+P["Placement/Gameplay<br/>(consumes landmasses, uses outputs for starts/resources)"]
 
 F --> M --> A
 A --> H --> E --> P
@@ -259,18 +303,18 @@ _Explanation:_ This shows the flow of data between domains in the _refactored mo
 ```mermaid
 flowchart LR
 subgraph Current (Legacy)
-C1["engine effect tags:\nTerrainBuilder.landmassApplied\n(used as continent divider)"]
-C2["engine effect tags:\nTerrainBuilder.coastlinesApplied\n(used for resource spawn gating)"]
-C3["StandardRuntime hidden coupling:\nwestContinent/eastContinent flags\n(internally decides LandmassRegionId)"]
-C4["Morphology outputs HOTSPOTS overlay\n(misused as upstream data)"]
+C1["engine effect tags:<br/>TerrainBuilder.landmassApplied<br/>(used as continent divider)"]
+C2["engine effect tags:<br/>TerrainBuilder.coastlinesApplied<br/>(used for resource spawn gating)"]
+C3["StandardRuntime hidden coupling:<br/>westContinent/eastContinent flags<br/>(internally decides LandmassRegionId)"]
+C4["Morphology outputs HOTSPOTS overlay<br/>(misused as upstream data)"]
 end
 
 subgraph Target (Refactored)
-T1["artifact:morphology.topography\n(buffer handle, published once)"]
-T2["artifact:morphology.coastlineMetrics\n(explicit coastal metrics)"]
-T3["artifact:morphology.landmasses\n(connected components with IDs and stats)"]
-T4["overlay:gameplay.volcanicHotspots\n(derived from Foundation & Morphology outputs; Narrative-owned)"]
-T5["buffer:gameplay.landmassRegionId\n(primary vs secondary slot labels, assigned downstream)"]
+T1["artifact:morphology.topography<br/>(buffer handle, published once)"]
+T2["artifact:morphology.coastlineMetrics<br/>(explicit coastal metrics)"]
+T3["artifact:morphology.landmasses<br/>(connected components with IDs and stats)"]
+T4["overlay:gameplay.volcanicHotspots<br/>(derived from Foundation & Morphology outputs; Narrative-owned)"]
+T5["buffer:gameplay.landmassRegionId<br/>(primary vs secondary slot labels, assigned downstream)"]
 end
 
 C1 --> T1
@@ -286,6 +330,7 @@ In the legacy system (left), certain engine "effect tags" and hidden conventions
 - C4: Morphology previously published a HOTSPOTS overlay directly (e.g. marking hotspot locations), which was actually a tectonic concept. In the new model, that is moved out: an upstream or Narrative process will produce a "volcanicHotspots" overlay for game use, derived from physical signals (T4), and Morphology itself does not output it.
 
 **Target posture summary:** We replace implicit or hard-coded communications with explicit data contracts:
+
 - Terrain features are communicated via artifacts/buffers rather than engine flags.
 - Legacy hidden logic (like assuming exactly two continents and labeling them in engine) is replaced by Morphology outputting all continents and letting the game explicitly choose how to label them.
 - The HOTSPOTS overlay production is removed from Morphology; it's considered an upstream (Foundation/Narrative) responsibility to create any overlay for storytelling, and it's based on the same physical data (melt and volcano presence) that Morphology uses internally.
@@ -321,7 +366,7 @@ The following are the products Morphology will publish for downstream consumptio
 | artifact:morphology.coastlineMetrics | Artifact | Morphology | Derived coastal data: e.g. distance-to-coast map, coastal shelf mask, maybe coastal concavity measures. Used by downstream systems that care about coastal geography (Hydrology for ocean currents, Placement for deciding where naval bases go, etc.). | In legacy, no explicit artifact; some of this was implicitly done via reading terrain. Making it explicit aids Narrative/Placement. |
 | artifact:morphology.landmasses | Artifact | Morphology | Landmass decomposition: list of connected land regions with their properties. This is the authoritative source for "continents" in downstream logic (replacing any engine magic). | New in refactor. Downstream Gameplay uses this to assign LandmassRegionIds and to implement any "distant lands" mechanics. |
 
-- ### Notes on ownership
+### Notes on ownership
 
 All above artifacts are **owned by Morphology** - meaning Morphology defines how they're produced and what they mean. Downstream must treat them as read-only facts. None of these are overlays or story constructs; they're physical data.
 
@@ -342,46 +387,47 @@ Based on the causality spine and target contracts, we enumerate the operations M
 
 These ops produce or modify the fundamental continuous fields (buffers):
 
-- **morphology/compute-substrate** - **Compute** op.  
-    _Inputs:_ Foundation crust and tectonic regime data; optional config for substrate.  
-    _Function:_ Generates substrate properties like erodibilityK (and possibly an initial sedimentDepth template). Maps crust type/age and boundary proximity to a rock strength. For example, tiles in convergent zones might get lower erodibility (harder rock due to orogeny/metamorphism), transform zones higher erodibility (fractured crust), oceanic crust moderate (basaltic, relatively uniform). This op essentially initializes the buffer:morphology.substrate.
-- **morphology/compute-base-topography** - **Compute** op.  
-    _Inputs:_ Tectonic driver fields (uplift rates, rift rates, etc.), cumulative uplift, substrate (for any dependence on lithology), and polar boundary config.  
-    _Function:_ Synthesizes the initial elevation field. It applies tectonic effects: raising terrain at convergent boundaries (mountain roots), lowering at divergent (rift valleys or initial ocean ridges), adjusting around transform faults (small offsets, avoid big walls). It also sets a baseline elevation difference for continental vs oceanic crust (continents start higher, oceans lower - e.g. continentalHeight and oceanicHeight baseline offsets from config). The output is the first draft of elevation and bathymetry. No erosion or smoothing yet, just raw tectonic shape. Also may populate a preliminary ruggedness or slope map if needed for later use.
-- **morphology/compute-sea-level** - **Compute** op.  
-    _Inputs:_ The raw elevation field (global distribution) and config targets (desired land percent, etc.). Possibly crust fraction info.  
-    _Function:_ Determines the seaLevel. It does this by analyzing the elevation histogram and applying the target land/ocean ratio (e.g. baseWaterPercent from config). It may also consider constraints: for instance, ensure at least X% of continental crust remains above sea (so we don't drown all continents), or small random variation for flavor. The result is a single seaLevel number. It does **not** directly modify elevation; instead, this sets up the threshold for the next op. (In practice, this op might also output some diagnostic like actual land percentage achieved.)
-- **morphology/compute-landmask** - **Compute** op.  
-    _Inputs:_ Elevation buffer and the chosen seaLevel.  
-    _Function:_ Produces the binary landMask (1 for land, 0 for water) by comparing elevation to seaLevel. Also computes distanceToCoast for each tile (distance to nearest land/water boundary) and maybe a coastal adjacency matrix (which tiles border the opposite type). Essentially, this finalizes where the coastline is. It might also assign newly underwater tiles as "coastal shallow" vs "deep ocean" using a depth cutoff (for coastline metrics). Any special rules about land distribution (like making sure not all land is in one cluster) are _not_ enforced here - that's left to Foundation input and downstream usage. This op is straightforward given seaLevel.
-- **morphology/compute-coastline-metrics** - **Compute** op.  
-    _Inputs:_ LandMask, elevation (with bathymetry), possibly substrate (sediment) for identifying shelves.  
-    _Function:_ Derives additional coastal metrics now that land/sea is defined. For each coastal tile or coastal water tile, it measures things like: how deep is the water just off the coast (shelf depth), is the coastline concave or convex (which might indicate bay vs cape), perhaps an "exposure" metric (how open to ocean a coastal tile is vs sheltered in a bay). These metrics feed into landform planning (e.g. island placement may favor certain coastal shapes) and to Hydrology (e.g. upwelling is stronger on certain coasts). This op could also do slight terrain adjustments if needed (e.g. if a config says ensure a minimal continental shelf, it could raise some shallow ocean tiles or smooth a coastal drop-off).
-- **morphology/compute-flow-routing** - **Compute** op.  
-    _Inputs:_ Current elevation (after sea level, i.e. land and sea), landMask (to treat ocean as out-of-bounds for river flow).  
-    _Function:_ Calculates flowDir and flowAccum. It assigns each land tile's flow direction to the steepest downhill neighbor (using the mesh adjacency - likely considering all 6 neighbors on a hex grid or 8 on a square grid). Then it computes accumulation by doing a topological sort or iterative accumulation of drainage areas. Optionally assigns basinId to tiles that have no outlet (interior basins). The result delineates preliminary river networks. _Note:_ If a tile flows into the ocean or off a map edge, we consider that flow "exiting" the map (for edges, we implement the virtual sink: off-map beyond north/south edges is treated as sea level outlet). This prevents edge tiles from being treated as endorheic basins incorrectly.
-- **morphology/compute-geomorphic-cycle** - **Compute** op.  
-    _Inputs:_ Elevation (current), flowDir & flowAccum (routing), erodibility, config parameters for erosion (world age, etc.). Possibly also seaLevel if needed for baselevel reference.  
-    _Function:_ Performs one "era" of erosion and deposition. For each land tile, calculates erosion amount (e.g. using stream power: erosion = K \* A^m \* S^n) where A is flowAccum and S is slope, and deposition in low-slope downstream areas. It updates the elevation buffer (subtracting from higher areas, adding to lower areas where sediment deposits) and updates sedimentDepth accordingly. It likely also does a diffusion (hillslope) pass to simulate landslides smoothing steep slopes. This operation might be run multiple times (or internally looped) to simulate multiple geological eras. The end result is a modified elevation field (more valleys and gentle slopes) and an updated sedimentDepth map. We ensure mass balance (eroded volume ≈ deposited volume, within some loss factor). If multiple iterations: e.g., do 3 cycles for a very old world, 1 for a young world. This op will also consider if any new land was added in step 7 (islands/volcanoes) - in practice, we plan to run this _before_ adding islands and volcanoes, since those are like final touches. (However, one could imagine splitting erosion: e.g. do a big erosion pass, then add volcanoes, then maybe a brief erosion again to soften volcano surroundings. This is a tunable sequence.)
-- **morphology/compute-landmasses** - **Compute** op.  
-    _Inputs:_ Final landMask (after all terrain modifications are done).  
-    _Function:_ Scans the landMask to label connected land components and computes their properties. Uses a flood-fill or union-find on the graph of land tiles. Assigns each landmass a unique ID and calculates tile count, bounding box, coastline length (count of land-water edges), and potentially other metrics like average elevation or shelf size. Outputs the artifact:morphology.landmasses. No effect on other buffers. This op is straightforward but crucial for informing downstream systems of the world's continent structure.
+- **morphology/compute-substrate** - **Compute** op.
+  - _Inputs:_ Foundation crust and tectonic regime data; optional config for substrate.
+  - _Function:_ Generates substrate properties like erodibilityK (and possibly an initial sedimentDepth template). Maps crust type/age and boundary proximity to a rock strength. For example, tiles in convergent zones might get lower erodibility (harder rock due to orogeny/metamorphism), transform zones higher erodibility (fractured crust), oceanic crust moderate (basaltic, relatively uniform). This op essentially initializes the buffer:morphology.substrate.
+- **morphology/compute-base-topography** - **Compute** op.
+  - _Inputs:_ Tectonic driver fields (uplift rates, rift rates, etc.), cumulative uplift, substrate (for any dependence on lithology), and polar boundary config.
+  - _Function:_ Synthesizes the initial elevation field. It applies tectonic effects: raising terrain at convergent boundaries (mountain roots), lowering at divergent (rift valleys or initial ocean ridges), adjusting around transform faults (small offsets, avoid big walls). It also sets a baseline elevation difference for continental vs oceanic crust (continents start higher, oceans lower - e.g. continentalHeight and oceanicHeight baseline offsets from config). The output is the first draft of elevation and bathymetry. No erosion or smoothing yet, just raw tectonic shape. Also may populate a preliminary ruggedness or slope map if needed for later use.
+- **morphology/compute-sea-level** - **Compute** op.
+  - _Inputs:_ The raw elevation field (global distribution) and config targets (desired land percent, etc.). Possibly crust fraction info.
+  - _Function:_ Determines the seaLevel. It does this by analyzing the elevation histogram and applying the target land/ocean ratio (e.g. baseWaterPercent from config). It may also consider constraints: for instance, ensure at least X% of continental crust remains above sea (so we don't drown all continents), or small random variation for flavor. The result is a single seaLevel number. It does **not** directly modify elevation; instead, this sets up the threshold for the next op. (In practice, this op might also output some diagnostic like actual land percentage achieved.)
+- **morphology/compute-landmask** - **Compute** op.
+  - _Inputs:_ Elevation buffer and the chosen seaLevel.
+  - _Function:_ Produces the binary landMask (1 for land, 0 for water) by comparing elevation to seaLevel. Also computes distanceToCoast for each tile (distance to nearest land/water boundary) and maybe a coastal adjacency matrix (which tiles border the opposite type). Essentially, this finalizes where the coastline is. It might also assign newly underwater tiles as "coastal shallow" vs "deep ocean" using a depth cutoff (for coastline metrics). Any special rules about land distribution (like making sure not all land is in one cluster) are _not_ enforced here - that's left to Foundation input and downstream usage. This op is straightforward given seaLevel.
+- **morphology/compute-coastline-metrics** - **Compute** op.
+  - _Inputs:_ LandMask, elevation (with bathymetry), possibly substrate (sediment) for identifying shelves.
+  - _Function:_ Derives additional coastal metrics now that land/sea is defined. For each coastal tile or coastal water tile, it measures things like: how deep is the water just off the coast (shelf depth), is the coastline concave or convex (which might indicate bay vs cape), perhaps an "exposure" metric (how open to ocean a coastal tile is vs sheltered in a bay). These metrics feed into landform planning (e.g. island placement may favor certain coastal shapes) and to Hydrology (e.g. upwelling is stronger on certain coasts). This op could also do slight terrain adjustments if needed (e.g. if a config says ensure a minimal continental shelf, it could raise some shallow ocean tiles or smooth a coastal drop-off).
+- **morphology/compute-flow-routing** - **Compute** op.
+  - _Inputs:_ Current elevation (after sea level, i.e. land and sea), landMask (to treat ocean as out-of-bounds for river flow).
+  - _Function:_ Calculates flowDir and flowAccum. It assigns each land tile's flow direction to the steepest downhill neighbor (using the mesh adjacency - likely considering all 6 neighbors on a hex grid or 8 on a square grid). Then it computes accumulation by doing a topological sort or iterative accumulation of drainage areas. Optionally assigns basinId to tiles that have no outlet (interior basins). The result delineates preliminary river networks. _Note:_ If a tile flows into the ocean or off a map edge, we consider that flow "exiting" the map (for edges, we implement the virtual sink: off-map beyond north/south edges is treated as sea level outlet). This prevents edge tiles from being treated as endorheic basins incorrectly.
+- **morphology/compute-geomorphic-cycle** - **Compute** op.
+  - _Inputs:_ Elevation (current), flowDir & flowAccum (routing), erodibility, config parameters for erosion (world age, etc.). Possibly also seaLevel if needed for baselevel reference.
+  - _Function:_ Performs one "era" of erosion and deposition. For each land tile, calculates erosion amount (e.g. using stream power: `erosion = K * A^m * S^n`) where A is flowAccum and S is slope, and deposition in low-slope downstream areas. It updates the elevation buffer (subtracting from higher areas, adding to lower areas where sediment deposits) and updates sedimentDepth accordingly. It likely also does a diffusion (hillslope) pass to simulate landslides smoothing steep slopes. This operation might be run multiple times (or internally looped) to simulate multiple geological eras. The end result is a modified elevation field (more valleys and gentle slopes) and an updated sedimentDepth map. We ensure mass balance (eroded volume ≈ deposited volume, within some loss factor). If multiple iterations: e.g., do 3 cycles for a very old world, 1 for a young world. This op will also consider if any new land was added in step 7 (islands/volcanoes) - in practice, we plan to run this _before_ adding islands and volcanoes, since those are like final touches. (However, one could imagine splitting erosion: e.g. do a big erosion pass, then add volcanoes, then maybe a brief erosion again to soften volcano surroundings. This is a tunable sequence.)
+- **morphology/compute-landmasses** - **Compute** op.
+  - _Inputs:_ Final landMask (after all terrain modifications are done).
+  - _Function:_ Scans the landMask to label connected land components and computes their properties. Uses a flood-fill or union-find on the graph of land tiles. Assigns each landmass a unique ID and calculates tile count, bounding box, coastline length (count of land-water edges), and potentially other metrics like average elevation or shelf size. Outputs the artifact:morphology.landmasses. No effect on other buffers. This op is straightforward but crucial for informing downstream systems of the world's continent structure.
 
 ### 7.2 "Plan" ops (discrete feature placement)
 
 Plan ops operate at a more discrete level, planning sets of features (often implemented as making targeted edits or annotations). They rely on the continuous fields but output lists of modifications or markers.
 
-- **morphology/plan-island-chains** - **Plan** op.  
-    _Inputs:_ Coastline metrics (shelf info, coastal concavity), Foundation tectonic signals (especially meltFlux for hotspots), possibly plate motion vectors (to align island chains).  
-    _Function:_ Decides where to create islands or archipelagos. It looks for conditions like: a strong mantle plume under oceanic crust (meltFlux high in ocean area) - which suggests a hotspot island chain; or very shallow wide shelf areas that could plausibly host islands (like Indonesia-style archipelago). It then formulates a list of "island" features: each with a set of tiles to raise above sea level and perhaps a volcano tag. Islands might be planned as a chain following the plate motion (if plume and motion are known, it can string islands out down-current). The output is a list of island tile coordinates and heights to add. The op doesn't itself modify the elevation buffer (that is applied by a step orchestrator after planning), or it may directly raise them - implementation choice. Importantly, it uses **physics signals only** (plumes, shelves) - no external "desired island here" inputs.
-- **morphology/plan-ridges-and-foothills** - **Plan** op.  
-    _Inputs:_ Tectonic context (plate boundaries, especially convergent boundaries and transforms), existing elevation.  
-    _Function:_ Identifies smaller-scale landform details to add:
-- For major mountain ranges, plan ridge lines and adjacent foothills to make the range less "smooth". For example, at a long convergent range, pick some along-strike segments to emphasize with a ridge crest (if not already highest) and plan lower foothill zones extending outward where appropriate.
-- In transform zones or other linear features, plan elongated ridges or depressions to accentuate fault lines. Essentially, this op is about adding detail that the continuous simulation might miss - like ensuring that mountain ranges have a realistic texture of multiple sub-ridges and that significant fault lines have aligned features. _Output:_ Perhaps a list of ridge line tile sets to raise slightly and foothill tile sets to lower slightly (or mark for some procedural generation of hills). These modifications will be applied to the elevation buffer as minor tweaks to shape the terrain.
-- **morphology/plan-volcanoes** - **Plan** op.  
-    _Inputs:_ Melt flux signals (from Foundation tectonics - includes plume hotspots and subduction arc melt), tectonic regime map (convergent/divergent context), current topography & coast info.  
-    _Function:_ Chooses specific locations for volcanoes. For convergent regimes, it might line up volcanoes just inland of a trench or along a mountain belt (subduction volcano chain); for divergent, along a rift or ridge (rift volcanoes); for hotspots, at the peak of the plume's uplift (often creating a volcanic island or plateau). It uses meltFlux intensity to gauge how many or how large volcanoes to place. The output could be a list of volcano features, each with a position (tile) and maybe a size classification. These could be later translated to engine volcano tags or simply remain as elevated peaks. If Morphology needs to actually raise the terrain at those tiles (to form a volcanic mountain), it will do so (this can be combined with ridge/foothill adjustments). _Note:_ No "hotspot overlay" or external story input is consulted - placement is purely based on physical signals and location (plume under the crust, etc.). The volcano op ensures, for example, that if there's a big subduction zone, we'll get a line of volcanoes parallel to the mountains, or if there's a hotspot, at least one volcano arises at that spot.
+- **morphology/plan-island-chains** - **Plan** op.
+  - _Inputs:_ Coastline metrics (shelf info, coastal concavity), Foundation tectonic signals (especially meltFlux for hotspots), possibly plate motion vectors (to align island chains).
+  - _Function:_ Decides where to create islands or archipelagos. It looks for conditions like: a strong mantle plume under oceanic crust (meltFlux high in ocean area) - which suggests a hotspot island chain; or very shallow wide shelf areas that could plausibly host islands (like Indonesia-style archipelago). It then formulates a list of "island" features: each with a set of tiles to raise above sea level and perhaps a volcano tag. Islands might be planned as a chain following the plate motion (if plume and motion are known, it can string islands out down-current). The output is a list of island tile coordinates and heights to add. The op doesn't itself modify the elevation buffer (that is applied by a step orchestrator after planning), or it may directly raise them - implementation choice. Importantly, it uses **physics signals only** (plumes, shelves) - no external "desired island here" inputs.
+- **morphology/plan-ridges-and-foothills** - **Plan** op.
+  - _Inputs:_ Tectonic context (plate boundaries, especially convergent boundaries and transforms), existing elevation.
+  - _Function:_ Identifies smaller-scale landform details to add:
+    - For major mountain ranges, plan ridge lines and adjacent foothills to make the range less "smooth". For example, at a long convergent range, pick some along-strike segments to emphasize with a ridge crest (if not already highest) and plan lower foothill zones extending outward where appropriate.
+    - In transform zones or other linear features, plan elongated ridges or depressions to accentuate fault lines. Essentially, this op is about adding detail that the continuous simulation might miss - like ensuring that mountain ranges have a realistic texture of multiple sub-ridges and that significant fault lines have aligned features.
+  - _Output:_ Perhaps a list of ridge line tile sets to raise slightly and foothill tile sets to lower slightly (or mark for some procedural generation of hills). These modifications will be applied to the elevation buffer as minor tweaks to shape the terrain.
+- **morphology/plan-volcanoes** - **Plan** op.
+  - _Inputs:_ Melt flux signals (from Foundation tectonics - includes plume hotspots and subduction arc melt), tectonic regime map (convergent/divergent context), current topography & coast info.
+  - _Function:_ Chooses specific locations for volcanoes. For convergent regimes, it might line up volcanoes just inland of a trench or along a mountain belt (subduction volcano chain); for divergent, along a rift or ridge (rift volcanoes); for hotspots, at the peak of the plume's uplift (often creating a volcanic island or plateau). It uses meltFlux intensity to gauge how many or how large volcanoes to place. The output could be a list of volcano features, each with a position (tile) and maybe a size classification. These could be later translated to engine volcano tags or simply remain as elevated peaks. If Morphology needs to actually raise the terrain at those tiles (to form a volcanic mountain), it will do so (this can be combined with ridge/foothill adjustments). _Note:_ No "hotspot overlay" or external story input is consulted - placement is purely based on physical signals and location (plume under the crust, etc.). The volcano op ensures, for example, that if there's a big subduction zone, we'll get a line of volcanoes parallel to the mountains, or if there's a hotspot, at least one volcano arises at that spot.
 
 Each plan op essentially produces a set of proposed changes or annotations which are then applied to the terrain model. The **difference between compute and plan ops** is that compute ops produce entire fields deterministically (they fill buffers), whereas plan ops pick spots to alter or label. In the pipeline, plan ops typically run after the main compute ops and make small adjustments that don't require recomputing everything from scratch (for example, after adding islands, we might not recompute a full erosion cycle - these islands are usually small enough that it's okay, or if needed, we could do a localized smoothing).
 
@@ -422,13 +468,13 @@ The current Morphology (often called "Landmass" in code) has a config schema wit
 - **tectonics.boundaryArcWeight** - **Migrate.** Possibly controls exaggeration of arc shapes at boundaries (maybe curvature or amplitude of mountains). We'll carry it into base-topography - essentially a multiplier for boundary uplift magnitude or extent.
 - **oceanSeparation.enabled** - **Kill in Morphology.** This was a legacy "thumb on scale" to force an ocean divide between two land groups. We are removing this entirely from Morphology. If we want to preserve functionality, it must move to Foundation (plate layout) or Gameplay (interpretation). But within Morphology, there is no concept of an artificial separation mask now.
 - **oceanSeparation.bandPairs / baseSeparationTiles** - **Kill in Morphology.** These parameters configured how wide the forced separation corridor should be, etc. All removed along with the feature. No direct replacement here; the concept is replaced by natural plates. (If needed, Foundation could introduce a "supercontinent dispersal" setting that indirectly yields multiple oceans, but that's outside Morphology.)
-- **hotspot\* fields (e.g. hotspotSeedDenom, hotspotWeight, hotspotBias etc.)** - **Migrate or Kill (replaced by meltFlux logic).** Legacy had some config controlling hotspot generation frequency and influence. We are no longer using a "HOTSPOTS overlay" concept; instead, Foundation's meltFlux field covers this. So:
-- If these fields were essentially scaling factors for how many hotspots to create or how strongly they affect terrain, we can reinterpret them as multipliers on the meltFlux input or as parameters in island/volcano planning. For example, hotspotWeight might become plumeVolcanismBias used in plan-volcanoes to scale how much a given melt flux translates to a volcano count.
-- If any hotspot field was just toggling a legacy overlay, it may be dropped. We'll likely keep a concept of "volcanic island bias" or "plume strength scalar" as part of config, but clearly name it to reflect it's a physics scalar, not an overlay presence.
+- **`hotspot*` fields (e.g. hotspotSeedDenom, hotspotWeight, hotspotBias etc.)** - **Migrate or Kill (replaced by meltFlux logic).** Legacy had some config controlling hotspot generation frequency and influence. We are no longer using a "HOTSPOTS overlay" concept; instead, Foundation's meltFlux field covers this. So:
+  - If these fields were essentially scaling factors for how many hotspots to create or how strongly they affect terrain, we can reinterpret them as multipliers on the meltFlux input or as parameters in island/volcano planning. For example, hotspotWeight might become plumeVolcanismBias used in plan-volcanoes to scale how much a given melt flux translates to a volcano count.
+  - If any hotspot field was just toggling a legacy overlay, it may be dropped. We'll likely keep a concept of "volcanic island bias" or "plume strength scalar" as part of config, but clearly name it to reflect it's a physics scalar, not an overlay presence.
 - **mountains.shieldPenalty, mountains.randomJitter, mountains.minVolcanoes** (from legacy if present) - These might have been internal tuning for mountain ranges (e.g. penalize volcanoes on shields/cratons, add random jitter to mountain heights, ensure at least N volcanoes per map). We will:
-- _shieldPenalty:_ incorporate into volcano rules (i.e. if crust is ancient craton, maybe reduce chance of volcano except if forced by hotspot).
-- _randomJitter:_ incorporate into base-topography or ridge planning (we will always have some randomness).
-- _minVolcanoes:_ likely remove as a strict rule. We won't guarantee a minimum number of volcanoes; if design insists, that belongs in a narrative layer ("if fewer than X volcanoes, maybe tag some mountains as dormant volcano for gameplay purposes"). But physics model itself won't force artificial volcano count.
+  - _shieldPenalty:_ incorporate into volcano rules (i.e. if crust is ancient craton, maybe reduce chance of volcano except if forced by hotspot).
+  - _randomJitter:_ incorporate into base-topography or ridge planning (we will always have some randomness).
+  - _minVolcanoes:_ likely remove as a strict rule. We won't guarantee a minimum number of volcanoes; if design insists, that belongs in a narrative layer ("if fewer than X volcanoes, maybe tag some mountains as dormant volcano for gameplay purposes"). But physics model itself won't force artificial volcano count.
 
 _(In summary, the majority of config fields are migrated into the new ops but often with a different allocation - e.g. ocean separation is moved out, hotspot fields replaced by melt signals, clustering moved upstream. This ensures the config is aligned with physical meaning in the new model.)_
 
@@ -589,8 +635,8 @@ Morphology's ideal inputs shape some requirements for upstream domains (mainly F
 - **Environment or Setup must feed worldAge (if concept exists):** If "World Age" is a user setting (as in previous Civ games), that likely comes into Morphology config (or could be interpreted by recipe to knobs like erosion cycles). We assume environment passes that through. If not, we'll define it in Morphology config.
 - **Latitude granularity:** Morphology doesn't need detailed climate, but we do care about polar vs tropical because of the polar boundary feature. We assume environment provides at least row-by-row latitude or a simple formula (like row 0 = 90°N, row N = 90°S on a non-wrapping map). If not, environment must be updated to supply this.
 - **Upstream data no longer needed (to remove):**
-- If Foundation or Env was providing any "legacy" inputs purely for old Morphology (for example, a fixed oceanCorridorMask or a "hotspot overlay" file), those should be removed or deprecated, since Morphology will ignore them. Keeping them would be confusing and could tempt someone to reintroduce them incorrectly. So we'll communicate: drop narrative overlay generation prior to Morphology entirely.
-- If any upstream stage precomputed continent separation or something (maybe not, but if Foundation tried to decide land vs water to help Morphology, that should be turned off - as per locked decision to use uplift→sea level chain).
+  - If Foundation or Env was providing any "legacy" inputs purely for old Morphology (for example, a fixed oceanCorridorMask or a "hotspot overlay" file), those should be removed or deprecated, since Morphology will ignore them. Keeping them would be confusing and could tempt someone to reintroduce them incorrectly. So we'll communicate: drop narrative overlay generation prior to Morphology entirely.
+  - If any upstream stage precomputed continent separation or something (maybe not, but if Foundation tried to decide land vs water to help Morphology, that should be turned off - as per locked decision to use uplift→sea level chain).
 - **Crust vs land interplay:** We insist that Foundation does not _guarantee_ land vs ocean. It gives crust type, but doesn't mark "this crust must be land." The old "crust-first land existence" approach (if any such assumption existed) is removed. Instead, some continental crust might end up submerged if sea level is high, etc. Upstream should not hard-code that all continental crust yields land or all oceanic yields ocean, beyond providing the raw buoyancy differences.
 - **Plate edges alignment with map edges:** For polar boundaries, if Foundation's plate generation logic currently doesn't consider map edges, we might need a minor update: basically allow a "virtual plate" beyond the north/south to produce the needed boundary conditions. Possibly, we handle it entirely in Morphology by config. But ideally, Foundation should at least be aware of the concept so that, for instance, if a user sets polar convergent, maybe Foundation could generate a more realistic plate velocity field near edge (e.g. everything moving toward north boundary).
 - **Upstream random seed discipline:** Foundation and Morphology share the same global seed. We need to ensure Foundation's random usage is stable and doesn't swallow entropy in a way that Morphology expects. Likely fine, but for example, if Foundation randomly numbers plates, that could affect Morphology if it relies on plate IDs for something. We should be fine because we mostly use fields, but it's worth ensuring reproducibility across domain boundaries (should hold given design).
@@ -606,30 +652,31 @@ To summarize, upstream needs to provide robust physics inputs (no less than befo
 We now consider each downstream domain and how they must adapt to Morphology's new model and outputs:
 
 - **Hydrology:**
-- **Input changes:** Hydrology will consume artifact:morphology.topography (elevation including bathymetry potentially) instead of any legacy heightfield it used. It should also consume artifact:morphology.routing if we provide it, or at least have the option. In legacy, Hydrology might have recomputed flow or read engine rivers; now we give it a ready flow map (unless design says Hydrology redoes it, TBD). Also, Hydrology might have used narrative overlays (like "rain tweaks in deserts" or weird stuff); those should be eliminated or moved as well, but that's Hydrology's own refactor scope.
-- **No reading of continent overlays:** If Hydrology had logic like "if two continents, adjust climate" or used continent tags to decide monsoons, it should now use landmasses artifact. E.g., if an age requires one hemisphere mostly land, previously maybe Hydrology read an overlay indicating which tiles were in which continent cluster. Now, it can derive from landmasses and latitude. We explicitly ensure morphology.landmasses is available by the time Hydrology needs it (which it is, since Hydrology is after Morphology post).
-- **Rivers and lakes:** Hydrology currently uses engine tags and its own algorithm to place rivers. With Morphology providing flow and basins, Hydrology's job is easier: it can take our flow accumulations to identify river courses. But if Hydrology's spec decided to own routing, they might disregard ours. That's an open ownership question (see open questions). For now, assume Hydrology will trust the provided flow to generate actual rivers and maybe adjust it minimally (like add meanders or ensure minimal river length thresholds). This means we have to coordinate so that, for example, if Morphology's flow was suboptimal in some edge cases, Hydrology might refine or at least needs to adapt.
-- **No fix needed for edge drainage:** We gave Morphology a virtual sink at edges so rivers can exit. Hydrology should be aware that a river flowing off north edge is effectively "flows out of map" and treat it as such (maybe spawn a river that just goes to map boundary and stops).
-- **In summary:** Hydrology must transition to using Morphology's outputs as authoritative. The climates/rivers will no longer be influenced by any story input on Morphology, which simplifies assumptions. For instance, currently if Hydrology had special-case code for "if there was a corridor overlay, maybe allow more moisture through," that's gone. Instead, if a corridor exists, it exists physically (valley through mountains) and hydrology naturally sees it.
+  - **Input changes:** Hydrology will consume artifact:morphology.topography (elevation including bathymetry potentially) instead of any legacy heightfield it used. It should also consume artifact:morphology.routing if we provide it, or at least have the option. In legacy, Hydrology might have recomputed flow or read engine rivers; now we give it a ready flow map (unless design says Hydrology redoes it, TBD). Also, Hydrology might have used narrative overlays (like "rain tweaks in deserts" or weird stuff); those should be eliminated or moved as well, but that's Hydrology's own refactor scope.
+  - **No reading of continent overlays:** If Hydrology had logic like "if two continents, adjust climate" or used continent tags to decide monsoons, it should now use landmasses artifact. E.g., if an age requires one hemisphere mostly land, previously maybe Hydrology read an overlay indicating which tiles were in which continent cluster. Now, it can derive from landmasses and latitude. We explicitly ensure morphology.landmasses is available by the time Hydrology needs it (which it is, since Hydrology is after Morphology post).
+  - **Rivers and lakes:** Hydrology currently uses engine tags and its own algorithm to place rivers. With Morphology providing flow and basins, Hydrology's job is easier: it can take our flow accumulations to identify river courses. But if Hydrology's spec decided to own routing, they might disregard ours. That's an open ownership question (see open questions). For now, assume Hydrology will trust the provided flow to generate actual rivers and maybe adjust it minimally (like add meanders or ensure minimal river length thresholds). This means we have to coordinate so that, for example, if Morphology's flow was suboptimal in some edge cases, Hydrology might refine or at least needs to adapt.
+  - **No fix needed for edge drainage:** We gave Morphology a virtual sink at edges so rivers can exit. Hydrology should be aware that a river flowing off north edge is effectively "flows out of map" and treat it as such (maybe spawn a river that just goes to map boundary and stops).
+  - **In summary:** Hydrology must transition to using Morphology's outputs as authoritative. The climates/rivers will no longer be influenced by any story input on Morphology, which simplifies assumptions. For instance, currently if Hydrology had special-case code for "if there was a corridor overlay, maybe allow more moisture through," that's gone. Instead, if a corridor exists, it exists physically (valley through mountains) and hydrology naturally sees it.
 - **Ecology:**
-- Ecology uses topography (for elevation and slope to determine biomes like mountain vs lowland) - it will use our artifact now. If it previously read engine terrain types (like "tile is mountain or hill"), it should shift to using elevation/slope thresholds itself (or engine could still tag mountains after placement).
-- Ecology uses substrate: previously, if it didn't have explicit sediment info, it might have guessed or used land vs river proximity. Now it has sedimentDepth from Morphology, which is a boon - it can use it to influence soil fertility or wetland placement. That's a new input for Ecology to incorporate.
-- Climate from Hydrology remains an input for Ecology, unchanged by Morphology except climate will be more realistic thanks to better mountains/coasts.
-- Ecology might have had special cases for continents or for story regions (like certain resources only on main continent). If so, those should now use landmasses. E.g., if a resource is meant to spawn only on "distant land" continents, Ecology/Placement can filter by landmass ID instead of relying on the map script toggling an overlay or effect tag.
-- No direct coupling expected to Morphology beyond reading artifacts; so mostly just switching to new artifact names and possibly taking advantage of new data (sediment, etc.).
+  - Ecology uses topography (for elevation and slope to determine biomes like mountain vs lowland) - it will use our artifact now. If it previously read engine terrain types (like "tile is mountain or hill"), it should shift to using elevation/slope thresholds itself (or engine could still tag mountains after placement).
+  - Ecology uses substrate: previously, if it didn't have explicit sediment info, it might have guessed or used land vs river proximity. Now it has sedimentDepth from Morphology, which is a boon - it can use it to influence soil fertility or wetland placement. That's a new input for Ecology to incorporate.
+  - Climate from Hydrology remains an input for Ecology, unchanged by Morphology except climate will be more realistic thanks to better mountains/coasts.
+  - Ecology might have had special cases for continents or for story regions (like certain resources only on main continent). If so, those should now use landmasses. E.g., if a resource is meant to spawn only on "distant land" continents, Ecology/Placement can filter by landmass ID instead of relying on the map script toggling an overlay or effect tag.
+  - No direct coupling expected to Morphology beyond reading artifacts; so mostly just switching to new artifact names and possibly taking advantage of new data (sediment, etc.).
 - **Placement/Gameplay:**
-- **Starting positions (Civilizations):** The biggest impact. Previously, the game had code to ensure in certain modes some players start on continent 1 and some on 2, often determined by engine's LandmassRegionId assignment or distance. Now, Placement should use morphology.landmasses. For Distant Lands mode, presumably the game config (as we saw in config.xml) sets a domain where max humans is limited, meaning they intend to put all human players on landmass1. So the game's placement logic can pick the largest landmass (or whichever criteria) from our list as "homeland" and treat others as distant. We have to ensure landmasses artifact provides needed info (size, etc.). We might also provide a way to know which landmass is largest easily (the artifact list can be sorted).
-- **LandmassRegionId tagging:** We anticipate a step in Placement or a post-processing stage where each land tile is assigned a LandmassRegionId (0, 1, etc.) that the engine uses in a few places (like determining empire split for some victory conditions perhaps). That step should use our landmasses. In practice, we might even provide a helper to do it, but it's straightforward: assign 0/1 or maybe unique IDs if needed beyond two. For Civ7 base game, likely only two are relevant (PlayersLandmass1/2 concept), but engine has a list of continent types (like Africa, Asia, etc. from maps.xml - those might just be fluff names or maybe used in True Start scenarios). If needed, narrative/placement can map our landmasses to named continent types randomly or by size.
-- **Natural Wonders and Resources:** Some wonder placement or resource distribution might depend on terrain and continent. For instance, certain resources might only appear on a certain continent or a certain latitudes. With our outputs:
-  - They have explicit continents (landmass IDs) if needed: e.g. "spawn one of this resource on each continent" - easily done by iterating landmasses artifact.
-  - Coasts vs inland metrics can be used instead of hacky checks: if a wonder should be on a prominent coast, we have coast concavity metrics to help identify such.
-  - If any placement logic used the "coastlinesApplied" engine tag to know that coast step happened (some weird gating), they can instead just know that by stage ordering or use coastlineMetrics artifact directly to choose spots.
-  - Fertility recalculation: In Civ6, after placement, they recalculated fertility of tiles (an engine concept combining terrain, fresh water, etc.). That still happens, but with more stable inputs, presumably fine. (Not Morphology's concern but just noting no negative impact).
-  - **No hidden coupling with mountains:** e.g., if placement expected a "range separation" thanks to some corridor overlay that prevented mountains in middle, now it must rely on the actual physical map. We provide a map that should be flexible enough.
-- **Victory/AI logic:** Possibly beyond our direct scope, but say some AI agenda cares about "other continent" - they should use landmass IDs. Also, any code that was toggling difficulty or content by hemisphere or continent must use our data now. We will ensure to document for game devs that landmasses is the source of truth for "continents" and maybe even provide utility functions (like a function to get landmass by tile id).
-- **Narrative (scripted events or tags):** If any narrative scripting was gating events by story regions that were embedded in Morphology (like "if a player is on overlay X, do Y"), now those overlays have to be created in narrative using Morphology outputs. For example, maybe there was a concept of "New World" tag given to tiles beyond a certain longitude in older scripts - in refactor, narrative can decide New World = second largest landmass and tag those after generation. But it's outside Morphology.
+  - **Starting positions (Civilizations):** The biggest impact. Previously, the game had code to ensure in certain modes some players start on continent 1 and some on 2, often determined by engine's LandmassRegionId assignment or distance. Now, Placement should use morphology.landmasses. For Distant Lands mode, presumably the game config (as we saw in config.xml) sets a domain where max humans is limited, meaning they intend to put all human players on landmass1. So the game's placement logic can pick the largest landmass (or whichever criteria) from our list as "homeland" and treat others as distant. We have to ensure landmasses artifact provides needed info (size, etc.). We might also provide a way to know which landmass is largest easily (the artifact list can be sorted).
+  - **LandmassRegionId tagging:** We anticipate a step in Placement or a post-processing stage where each land tile is assigned a LandmassRegionId (0, 1, etc.) that the engine uses in a few places (like determining empire split for some victory conditions perhaps). That step should use our landmasses. In practice, we might even provide a helper to do it, but it's straightforward: assign 0/1 or maybe unique IDs if needed beyond two. For Civ7 base game, likely only two are relevant (PlayersLandmass1/2 concept), but engine has a list of continent types (like Africa, Asia, etc. from maps.xml - those might just be fluff names or maybe used in True Start scenarios). If needed, narrative/placement can map our landmasses to named continent types randomly or by size.
+  - **Natural Wonders and Resources:** Some wonder placement or resource distribution might depend on terrain and continent. For instance, certain resources might only appear on a certain continent or a certain latitudes. With our outputs:
+    - They have explicit continents (landmass IDs) if needed: e.g. "spawn one of this resource on each continent" - easily done by iterating landmasses artifact.
+    - Coasts vs inland metrics can be used instead of hacky checks: if a wonder should be on a prominent coast, we have coast concavity metrics to help identify such.
+    - If any placement logic used the "coastlinesApplied" engine tag to know that coast step happened (some weird gating), they can instead just know that by stage ordering or use coastlineMetrics artifact directly to choose spots.
+    - Fertility recalculation: In Civ6, after placement, they recalculated fertility of tiles (an engine concept combining terrain, fresh water, etc.). That still happens, but with more stable inputs, presumably fine. (Not Morphology's concern but just noting no negative impact).
+    - **No hidden coupling with mountains:** e.g., if placement expected a "range separation" thanks to some corridor overlay that prevented mountains in middle, now it must rely on the actual physical map. We provide a map that should be flexible enough.
+  - **Victory/AI logic:** Possibly beyond our direct scope, but say some AI agenda cares about "other continent" - they should use landmass IDs. Also, any code that was toggling difficulty or content by hemisphere or continent must use our data now. We will ensure to document for game devs that landmasses is the source of truth for "continents" and maybe even provide utility functions (like a function to get landmass by tile id).
+  - **Narrative (scripted events or tags):** If any narrative scripting was gating events by story regions that were embedded in Morphology (like "if a player is on overlay X, do Y"), now those overlays have to be created in narrative using Morphology outputs. For example, maybe there was a concept of "New World" tag given to tiles beyond a certain longitude in older scripts - in refactor, narrative can decide New World = second largest landmass and tag those after generation. But it's outside Morphology.
 
 Overall, **downstream posture**: They consume clearly-defined artifacts rather than reaching into Morphology. Some legacy coupling to engine tags or overlays is replaced by queries on artifacts:
+
 - Instead of checking engine's internal "continent count" - use morphology.landmasses.
 - Instead of engine's effect tags for coastline done - just require coastlineMetrics in code if needed.
 - Instead of relying on hidden "west vs east" - define it explicitly via artifact usage.
@@ -786,7 +833,7 @@ With documentation updated and communication done, we'll have a coherent set of 
 While the Phase 2 model is complete, a few questions remain for future phases or need more detailed exploration (possibly in focused design spikes or ADRs):
 
 - **Ownership of water flow routing (Morphology vs Hydrology):** We need to finalize whether compute-flow-routing remains in Morphology or if Hydrology will recompute its own flow from the final elevation. Currently, we keep it in Morphology to inform erosion and because Hydrology comes later. However, Hydrology might want to have control, for example to incorporate rainfall patterns into river volume (which could alter drainage). For now, Morphology's routing is used for erosion and passed down, but we should discuss if in Phase 3 Hydrology should redo a final flow calc (perhaps using finer climate info). If we decide to shift, Morphology would still do an initial flow for erosion, but maybe not publish it. **Action:** a short deep-dive or ADR on "Routing: single source of truth" to decide if Morphology's flow is the final or just intermediate.
-- **Exact approach to** plate-scale vs tile-scale integration\*\*: We should ensure the method for translating Foundation's mesh outputs to tile fields is robust. Possibly a deep-dive on interpolation techniques or maybe adopting a different grid (if needed). If any misalignment issues appear in testing (like plate boundary lines on tile grid not clean), we might do a technical deep-dive to refine that.
+- **Exact approach to plate-scale vs tile-scale integration:** We should ensure the method for translating Foundation's mesh outputs to tile fields is robust. Possibly a deep-dive on interpolation techniques or maybe adopting a different grid (if needed). If any misalignment issues appear in testing (like plate boundary lines on tile grid not clean), we might do a technical deep-dive to refine that.
 - **Tectonic parameter tuning doc:** We might need to detail how we convert Foundation's quantitative outputs to actual elevation change. E.g., Foundation might output an uplift rate (say 5 mm/year) - how does that translate to km of mountain in our heightmap after some geological time? In our model we somewhat sidestep actual units and just shape qualitatively. If we want more realism, a small research note could calibrate "One unit of Foundation uplift = X height in Morphology" (maybe Earth-based scaling). Not strictly necessary but could be helpful for consistency and for adjusting config (like if user sets world to "very high mountains", that might tie to increasing uplift signals).
 - **Biome influence on erosion (coupled feedback):** We chose not to include climate feedback on erosion explicitly. But one open design space: Should heavy precipitation in Hydrology feed back to erosion (more erosion in wet tropics vs arid)? Realistically yes, but that complicates domain independence. Possibly to be considered in a future combined Earth systems model. For now, it's out-of-scope. We note it as a potential future enhancement (maybe Phase 4 or never, depending on if needed).
 - **Edge cases for map wrap:** We handled north/south edges. East-west wrap is handled by mesh naturally if wrapX is true. But if map is non-wrapping east-west (like some scenarios might not wrap horizontally), then east/west edges become boundaries too (in sense of abrupt cutoff). Did we consider that? Civ7 typically always wraps E-W. If not, maybe skip. If yes (maybe a scenario or a mod might turn off wrap), then those edges should perhaps also be considered - but that's weird because a rectangular map with no wrap effectively means all edges are edges of world. We only explicitly tackled N/S because Civ7 doesn't wrap Y. For E/W, base game wraps X, so no issue. If a future map script says no wrap at all (like a "flat map" option), then our model could easily extend polar boundary logic to left/right edges as well by config (the config could conceptually allow specifying west/east polarBoundaryMode too if needed). But since it's not in base requirements, we leave it. _Open question:_ do we need a general solution for vertical edges if wrap disabled? We'll note it but likely not needed unless design introduces flat maps.
@@ -811,53 +858,57 @@ At this stage, the open questions do not undermine the Phase 2 spec - they are e
 
 In the refactored codebase, the Morphology domain will have a well-defined module layout. All Morphology logic lives in the **mods/mod-swooper-maps** package (the Swooper Maps mod), under the domain/morphology directory. The structure will be as follows (illustrative):
 
-mods/mod-swooper-maps/  
-src/  
-domain/  
-morphology/  
-config.ts # MorphologyConfig schema and default values  
-ops/  
-compute-substrate/  
-contract.ts # defines input/output types for the op  
-index.ts # implementation of the op  
-compute-base-topography/  
-contract.ts  
-index.ts  
-compute-sea-level/  
-contract.ts  
-index.ts  
-compute-landmask/  
-contract.ts  
-index.ts  
-compute-coastline-metrics/  
-contract.ts  
-index.ts  
-compute-flow-routing/  
-contract.ts  
-index.ts  
-compute-geomorphic-cycle/  
-contract.ts  
-index.ts  
-compute-landmasses/  
-contract.ts  
-index.ts  
-plan-island-chains/  
-contract.ts  
-index.ts  
-plan-ridges-and-foothills/  
-contract.ts  
-index.ts  
-plan-volcanoes/  
-contract.ts  
-index.ts  
-contracts.ts # exports combined types for all ops  
+```text
+mods/mod-swooper-maps/
+src/
+domain/
+morphology/
+config.ts # MorphologyConfig schema and default values
+ops/
+compute-substrate/
+contract.ts # defines input/output types for the op
+index.ts # implementation of the op
+compute-base-topography/
+contract.ts
+index.ts
+compute-sea-level/
+contract.ts
+index.ts
+compute-landmask/
+contract.ts
+index.ts
+compute-coastline-metrics/
+contract.ts
+index.ts
+compute-flow-routing/
+contract.ts
+index.ts
+compute-geomorphic-cycle/
+contract.ts
+index.ts
+compute-landmasses/
+contract.ts
+index.ts
+plan-island-chains/
+contract.ts
+index.ts
+plan-ridges-and-foothills/
+contract.ts
+index.ts
+plan-volcanoes/
+contract.ts
+index.ts
+contracts.ts # exports combined types for all ops
 index.ts # registers all ops implementations
+```
 
 Additionally, Morphology may have:
 
-analysis/  
-(optional helper modules for calculations, e.g., erosion algorithms)  
+```text
+analysis/
+(optional helper modules for calculations, e.g., erosion algorithms)
 utils.ts # any shared utility functions (e.g., random helper, smoothing function)
+```
 
 - The config.ts will contain the MorphologyConfigSchema definition (using something like TypeBox or Zod as per project), with fields as described (landPercent, worldAge, polarBoundary defaults, etc.). It will also include default values (ensuring no presence gating).
 - Each op has its own subdirectory with a contract.ts describing its input and output types (for example, computeBaseTopography might require FoundationTectonicsArtifact and MorphologySubstrateBuffer and output MorphologyTopographyBuffer changes). The index.ts contains the op's actual run() implementation.
@@ -887,7 +938,13 @@ This section provides a quick reference of all key contracts and relates them to
 - Env.latitudeArray - Used for climate context (maybe not directly in Morphology except potentially polar config).
 - MorphologyConfig - (Author config). Consumed by various ops (sea-level, polar edges, worldAge affecting erosion, etc.).
 
-**Morphology internal buffers (working state):** (For clarity - these are not separate artifacts but the evolving state) - Elevation, Bathymetry - LandMask, seaLevel - ErodibilityK, SedimentDepth - FlowDir, FlowAccum (BasinId) - (Derived: Slope, distanceToCoast, etc.)
+**Morphology internal buffers (working state):** (For clarity - these are not separate artifacts but the evolving state)
+
+- Elevation, Bathymetry
+- LandMask, seaLevel
+- ErodibilityK, SedimentDepth
+- FlowDir, FlowAccum (BasinId)
+- (Derived: Slope, distanceToCoast, etc.)
 
 **Morphology artifacts produced (public):**
 
@@ -907,24 +964,51 @@ Now, mapping these to **behavior frames** (conceptual model stages vs pipeline s
 
 Conceptual model stages and their corresponding ops and outputs:
 
-- **Lithology & Regimes (Substrate mapping)** - _Ops:_ compute-substrate.  
-    _Takes:_ Foundation crust + boundary info. _Produces:_ erodibilityK (internal), maybe initial sedimentDepth (internal). _Frame output:_ Rock hardness map ready for use.
-- **Tectonic Elevation (Base topography)** - _Ops:_ compute-base-topography.  
-    _Takes:_ Tectonic forces, cumulative uplift, polar mode from config, erodibility (maybe for context). _Produces:_ Elevation & Bathymetry initial values (internal, in topography buffer). _Frame output:_ Raw heightfield with no water yet.
-- **Global Sea Level** - _Ops:_ compute-sea-level.  
-    _Takes:_ Elevation distribution, config landPercent, etc. _Produces:_ seaLevel value (internal, then part of topography artifact). _Frame output:_ Chosen datum for ocean.
-- **Land/Ocean Definition** - _Ops:_ compute-landmask.  
-    _Takes:_ Elevation + seaLevel. _Produces:_ landMask buffer (internal, then in topography buffer), and derived coastal adjacency (internal distanceToCoast, etc., though main detailed metrics in next step). _Frame output:_ Which tiles are land vs water.
-- **Coastline Shaping & Metrics** - _Ops:_ compute-coastline-metrics.  
-    _Takes:_ LandMask, Bathymetry, maybe sediment. _Produces:_ Possibly adjusts coastal elevation minimally (internal) and outputs coastlineMetrics artifact (shelf mask, etc.). _Frame output:_ Data about coasts (and any improvements to shelf terrain).
-- **River Network (Routing)** - _Ops:_ compute-flow-routing.  
-    _Takes:_ Elevation (with any coast adjustments), LandMask. _Produces:_ flowDir & flowAccum buffers (internal, then part of routing artifact). _Frame output:_ Drainage paths identified.
-- **Erosion & Deposition (Geomorphic cycle)** - _Ops:_ compute-geomorphic-cycle.  
-    _Takes:_ Elevation, FlowDir/Accum, Erodibility, maybe rainfall proxy (not for now). _Produces:_ Updated Elevation, updated SedimentDepth (internal buffers). _Frame output:_ Smoothed terrain, valleys carved, sediment laid (terrain now final shape except discrete features).
-- **Discrete Landforms (Accents)** - _Ops:_ plan-island-chains, plan-ridges-and-foothills, plan-volcanoes.  
-    _Takes:_ Coastline metrics, MeltFlux & tectonic regimes, current Elevation. _Produces:_ Adjustments to Elevation (islands raised, peaks tweaked) and marks (volcano tags internally). _Frame output:_ Final terrain heightmap with small features added.
-- **Continent Identification** - _Ops:_ compute-landmasses.  
-    _Takes:_ final LandMask. _Produces:_ landmasses artifact (list of landmasses with stats). _Frame output:_ Data for downstream to use for continent-aware logic.
+- **Lithology & Regimes (Substrate mapping)**
+  - _Ops:_ compute-substrate.
+  - _Takes:_ Foundation crust + boundary info.
+  - _Produces:_ erodibilityK (internal), maybe initial sedimentDepth (internal).
+  - _Frame output:_ Rock hardness map ready for use.
+- **Tectonic Elevation (Base topography)**
+  - _Ops:_ compute-base-topography.
+  - _Takes:_ Tectonic forces, cumulative uplift, polar mode from config, erodibility (maybe for context).
+  - _Produces:_ Elevation & Bathymetry initial values (internal, in topography buffer).
+  - _Frame output:_ Raw heightfield with no water yet.
+- **Global Sea Level**
+  - _Ops:_ compute-sea-level.
+  - _Takes:_ Elevation distribution, config landPercent, etc.
+  - _Produces:_ seaLevel value (internal, then part of topography artifact).
+  - _Frame output:_ Chosen datum for ocean.
+- **Land/Ocean Definition**
+  - _Ops:_ compute-landmask.
+  - _Takes:_ Elevation + seaLevel.
+  - _Produces:_ landMask buffer (internal, then in topography buffer), and derived coastal adjacency (internal distanceToCoast, etc., though main detailed metrics in next step).
+  - _Frame output:_ Which tiles are land vs water.
+- **Coastline Shaping & Metrics**
+  - _Ops:_ compute-coastline-metrics.
+  - _Takes:_ LandMask, Bathymetry, maybe sediment.
+  - _Produces:_ Possibly adjusts coastal elevation minimally (internal) and outputs coastlineMetrics artifact (shelf mask, etc.).
+  - _Frame output:_ Data about coasts (and any improvements to shelf terrain).
+- **River Network (Routing)**
+  - _Ops:_ compute-flow-routing.
+  - _Takes:_ Elevation (with any coast adjustments), LandMask.
+  - _Produces:_ flowDir & flowAccum buffers (internal, then part of routing artifact).
+  - _Frame output:_ Drainage paths identified.
+- **Erosion & Deposition (Geomorphic cycle)**
+  - _Ops:_ compute-geomorphic-cycle.
+  - _Takes:_ Elevation, FlowDir/Accum, Erodibility, maybe rainfall proxy (not for now).
+  - _Produces:_ Updated Elevation, updated SedimentDepth (internal buffers).
+  - _Frame output:_ Smoothed terrain, valleys carved, sediment laid (terrain now final shape except discrete features).
+- **Discrete Landforms (Accents)**
+  - _Ops:_ plan-island-chains, plan-ridges-and-foothills, plan-volcanoes.
+  - _Takes:_ Coastline metrics, MeltFlux & tectonic regimes, current Elevation.
+  - _Produces:_ Adjustments to Elevation (islands raised, peaks tweaked) and marks (volcano tags internally).
+  - _Frame output:_ Final terrain heightmap with small features added.
+- **Continent Identification**
+  - _Ops:_ compute-landmasses.
+  - _Takes:_ final LandMask.
+  - _Produces:_ landmasses artifact (list of landmasses with stats).
+  - _Frame output:_ Data for downstream to use for continent-aware logic.
 
 Now, the above conceptual frames map to pipeline boundaries:
 
