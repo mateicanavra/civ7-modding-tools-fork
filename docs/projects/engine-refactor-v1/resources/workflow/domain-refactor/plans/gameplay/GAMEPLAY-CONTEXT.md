@@ -62,58 +62,48 @@ The format of PlacementInputs would be defined by a schema (e.g. a TypeScript in
   "floodplains": [ { "riverEdge": [cellA, cellB] }, … ],
   "...": "..." 
 }
+```
 
 (The exact structure will be determined during Phase 2 modeling. The above is illustrative.)
 
-Placement Apply (Engine calls and outputs): The apply step takes the PlacementInputs artifact and executes it. Specifically:
+**Placement Apply (Engine calls and outputs):** The apply step takes the PlacementInputs artifact and executes it. Specifically:
 
-It uses the EngineAdapter to call engine functions like assignStartPositions (feeding in the chosen start locations, which the adapter will pass to the game’s Start Positioner system).
-
-It may call an engine method to set up advanced start regions (if available), or the adapter might internally call StartPositioner.setAdvancedStartRegion for each region if that’s how the engine works.
-
-It invokes generateResources (the engine’s routine to distribute resources) with parameters possibly influenced by our plan (for instance, telling the engine which resource rules to use, or running it after marking certain exclusions).
-
-If the plan includes specific placements (like a certain wonder at a certain location), the apply step might call an adapter method to place that wonder (if the engine API allows individual placement) or ensure the engine’s resource generation results align (some engines treat natural wonders as part of resource generation).
-
-For discoveries, similarly, it would call an adapter method (e.g. something equivalent to MapConstructibles.addDiscovery(...) for each planned hut).
-
-Floodplains might be applied by calling an adapter utility that places a Floodplain feature on all designated river edges.
-
-Any labeled effects (like snow impassable tiles) would use an adapter call such as MapPlotEffects.addPlotEffect(...) with the appropriate parameters.
+- It uses the `EngineAdapter` to call engine functions like `assignStartPositions` (feeding in the chosen start locations, which the adapter will pass to the game’s Start Positioner system).
+- It may call an engine method to set up advanced start regions (if available), or the adapter might internally call `StartPositioner.setAdvancedStartRegion` for each region if that’s how the engine works.
+- It invokes `generateResources` (the engine’s routine to distribute resources) with parameters possibly influenced by our plan (for instance, telling the engine which resource rules to use, or running it after marking certain exclusions).
+- If the plan includes specific placements (like a certain wonder at a certain location), the apply step might call an adapter method to place that wonder (if the engine API allows individual placement) or ensure the engine’s resource generation results align (some engines treat natural wonders as part of resource generation).
+- For discoveries, similarly, it would call an adapter method (e.g. something equivalent to `MapConstructibles.addDiscovery(...)` for each planned hut).
+- Floodplains might be applied by calling an adapter utility that places a Floodplain feature on all designated river edges.
+- Any labeled effects (like snow impassable tiles) would use an adapter call such as `MapPlotEffects.addPlotEffect(...)` with the appropriate parameters.
 
 During the apply step, a PlacementOutputs artifact is often produced. This might contain results or diagnostics, such as:
 
-Confirmation of placed starts (which tile each player got, in case any adjustments happened).
-
-A count or list of resources actually placed by the engine (to compare with expectations or for debugging distribution).
-
-Any warnings or errors (for example, if a planned wonder could not be placed).
+- Confirmation of placed starts (which tile each player got, in case any adjustments happened).
+- A count or list of resources actually placed by the engine (to compare with expectations or for debugging distribution).
+- Any warnings or errors (for example, if a planned wonder could not be placed).
 
 This artifact is mostly for verification and debugging; it’s not used by further generation (since this is the end of generation).
 
-Engine Adapter boundary: The placement apply phase is where the Game Engine’s logic intersects with our mod’s generation. The EngineAdapter acts as the gatekeeper:
+**Engine Adapter boundary:** The placement apply phase is where the Game Engine’s logic intersects with our mod’s generation. The `EngineAdapter` acts as the gatekeeper:
 
-It provides high-level methods that abstract the engine’s native functions. Our Gameplay apply code should call these adapter methods, not engine APIs directly, to maintain portability.
+- It provides high-level methods that abstract the engine’s native functions. Our Gameplay apply code should call these adapter methods, not engine APIs directly, to maintain portability.
+- Part of the refactor is to ensure all needed adapter methods exist and are correctly implemented (see the Engine Levers & Triage appendix for specific calls).
 
-Part of the refactor is to ensure all needed adapter methods exist and are correctly implemented (see the Engine Levers & Triage appendix for specific calls).
+**Landmass Region ID labeling:** One special case coordination task is the assignment of LandmassRegionId (the “homelands vs distant lands” classification for continents). This doesn’t naturally fit into the resource or start placement plan, since it’s a label on landmasses used by engine logic for both starts and resources. In the interim (pre-refactor), this might be done either just before resource generation or as part of the placement stage. In the refactored design, we consider it a Gameplay responsibility to ensure it’s done at the correct time:
 
-Landmass Region ID labeling: One special case coordination task is the assignment of LandmassRegionId (the “homelands vs distant lands” classification for continents). This doesn’t naturally fit into the resource or start placement plan, since it’s a label on landmasses used by engine logic for both starts and resources. In the interim (pre-refactor), this might be done either just before resource generation or as part of the placement stage. In the refactored design, we consider it a Gameplay responsibility to ensure it’s done at the correct time:
-
-Likely, a small step in the placement sequence will take Morphology’s landmass data, determine which landmass is “primary” vs “secondary” (based on size or map script rules), and call adapter.setLandmassRegionId(...) for each land tile accordingly (marking them as homeland or distant land).
-
-This step should occur before the engine generates resources or assigns starts, because those systems might use the region labels to alter behavior.
+- Likely, a small step in the placement sequence will take Morphology’s landmass data, determine which landmass is “primary” vs “secondary” (based on size or map script rules), and call `adapter.setLandmassRegionId(...)` for each land tile accordingly (marking them as homeland or distant land).
+- This step should occur before the engine generates resources or assigns starts, because those systems might use the region labels to alter behavior.
 
 We treat this labeling as part of the “apply boundary” work: it’s a projection from physical data (landmass index) to a gameplay label (region id) done via the engine interface. (See the dedicated issue for details.)
 
 In summary, the PlacementInputs/Outputs context packet encapsulates all gameplay decisions made in the pipeline so that the final apply step can be simple and deterministic. By the time we call engine methods, everything (who starts where, what content goes where) has been decided or planned by our mod. The engine then simply executes those decisions (within its rules) to produce the final map.
 
-Summary
+## Summary
 
 The overlays container and placement plan packet are the two primary context structures the Gameplay domain manages:
 
-The overlays container carries forward contextual narrative data through the generation process for cross-domain coordination.
-
-The placement plan packet consolidates final gameplay setup decisions for hand-off to the game engine.
+- The overlays container carries forward contextual narrative data through the generation process for cross-domain coordination.
+- The placement plan packet consolidates final gameplay setup decisions for hand-off to the game engine.
 
 Maintaining a clear structure for these artifacts ensures that the Gameplay domain’s influence on world generation is organized and transparent. The refactored domain will explicitly define and document these artifacts (with schemas and JSDoc), making it clear what data is exchanged at each boundary. This not only aids in implementation but also in testing (we can inspect the overlays or placement plan to verify correctness before applying) and future maintenance (other developers can see exactly what Gameplay produces and consumes).
 
