@@ -6,3 +6,348 @@ Rules:
 - Keep one canonical copy of each concept (link across spec files; do not duplicate).
 - Completeness-first (no “minimal” framing).
 
+This file owns:
+- `artifact:map.*` projection artifacts (Gameplay-owned; intent surfaces).
+- `effect:map.*Plotted` execution guarantees (Gameplay-owned; boolean).
+- Civ7 stamping/materialization modeling (engine calls + ordering constraints), with evidence pointers.
+
+This file does not own:
+- The full pipeline topology narrative (see `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-CORE-MODEL-AND-PIPELINE.md`).
+- Truth artifact schemas and truth contracts (see `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-CONTRACTS.md`).
+
+---
+
+## 1) Locked invariants (do not re-open)
+
+### 1.1 Map topology (Civ7)
+
+- `wrapX = true` always (east–west wraps).
+- `wrapY = false` always (north–south does not wrap).
+- No environment/config/knobs for wrap flags in Phase 2.
+
+### 1.2 Ownership and dependency direction
+
+- Physics domains publish truth-only artifacts (pure).
+- Gameplay owns all engine-facing projections and all engine stamping/materialization via adapter writes.
+- No backfeeding: physics must not require/consume `artifact:map.*` or engine tags as truth inputs.
+- Gameplay projection/stamping steps may consume physics artifacts (Foundation and Morphology) as read-only inputs.
+- If a projection/stamping step needs Foundation context, it may consume:
+  - mesh-first truths (e.g., `artifact:foundation.mesh|plateGraph|tectonics`), and/or
+  - the canonical derived tile view `artifact:foundation.plates` (see `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-CONTRACTS.md`).
+- Avoid duplicating `artifact:foundation.plates` under `artifact:map.*` unless a Gameplay-specific reshaping/freeze boundary is required. Default: Gameplay reads the physics artifact directly for annotation/logic.
+- “Stamping happened” is represented only by short boolean effects: `effect:map.<thing>Plotted` (no receipts/hashes/versions).
+- Granular step posture: “project-map”/“stamp-map” are template terms only; real step boundaries are `plot-*` steps that assert their `effect:map.*Plotted`.
+
+---
+
+## 2) Model: projection intent vs stamping effects
+
+### 2.1 `artifact:map.*` is projection intent (adapter-agnostic)
+
+`artifact:map.*` is the Gameplay-owned, stable projection interface:
+- Derived deterministically from frozen physics truths (and Gameplay configs).
+- Adapter-agnostic intent where possible (names/slots/keys, not engine numeric IDs).
+- Publish-once/frozen for the pass that will stamp it.
+
+Rationale:
+- Prevent engine coupling from leaking into physics truth.
+- Keep effects honest: a boolean “Plotted” effect is safe only if the corresponding intent cannot mutate after stamping begins.
+
+### 2.2 `effect:map.*Plotted` is execution (adapter/engine side effects)
+
+A `plot-*` step may:
+- read physics truth,
+- optionally compute/publish `artifact:map.*` intent,
+- perform adapter writes (engine stamping/materialization),
+- then assert `effect:map.<thing>Plotted` to signal “this intent has been applied”.
+
+---
+
+## 3) Required `artifact:map.*` surfaces (Phase 2)
+
+### 3.1 `artifact:map.projectionMeta` (required)
+
+Purpose: allow downstream Gameplay steps to interpret projection rasters without importing physics.
+
+Schema (Phase 2):
+- `width: number`
+- `height: number`
+- `wrapX: true`
+- `wrapY: false`
+
+Notes:
+- `wrapX/wrapY` are values, not knobs; this is metadata redundancy for downstream sanity checks.
+
+### 3.2 Landmass region projection (required)
+
+#### `artifact:map.landmassRegionSlotByTile` (required)
+
+Tile-indexed raster mapping each tile to a **slot**:
+- `0 = none`
+- `1 = west`
+- `2 = east`
+
+Constraints:
+- Slot assignment is computed from `artifact:morphology.landmasses` (truth) and map topology (wrapX interval semantics).
+- Water tiles MUST be `none`.
+- Slots are adapter-agnostic; stamping resolves slots → engine ids via adapter constants.
+
+#### `artifact:map.landmassRegionIdByTile` (allowed; derived-only)
+
+Tile-indexed raster mapping each tile to an **engine region id** derived from slots:
+- `none` → `adapter.getLandmassId("NONE")`
+- `west` → `adapter.getLandmassId("WEST")`
+- `east` → `adapter.getLandmassId("EAST")`
+
+This is a Gameplay-owned derived artifact for debugging/inspection. Canonical logic should treat `artifact:map.landmassRegionSlotByTile` as the projection truth surface and resolve slots → engine ids at stamping time via the adapter.
+
+---
+
+## 4) Required `effect:map.*Plotted` guarantees (Phase 2)
+
+Effects are Gameplay-owned and boolean. Each effect MUST be asserted only after:
+- the step has completed all relevant adapter writes for the full map, and
+- any required immediate engine validation/recalc calls have been executed.
+
+### 4.1 Canonical effect taxonomy (required)
+
+- `effect:map.landmassRegionsPlotted`
+  - Meaning: `TerrainBuilder.setLandmassRegionId(x,y, ...)` has been applied for all tiles (or for all tiles in the step’s declared scope) using adapter constants (no numeric literals).
+- `effect:map.coastsPlotted`
+  - Meaning: coastline expansion has been invoked (`expandCoasts(width,height)`), and the runtime map state required by subsequent steps has been synchronized (if the recipe maintains local copies like `heightfield.landMask/terrain`).
+- `effect:map.continentsPlotted`
+  - Meaning: continent stamping has been executed (`stampContinents()`), with required `AreaBuilder.recalculateAreas()` ordering.
+- `effect:map.elevationPlotted`
+  - Meaning: elevation build has been executed (`buildElevation()`), with required `AreaBuilder.recalculateAreas()` ordering.
+- `effect:map.mountainsPlotted`
+  - Meaning: mountain/hill terrain has been applied for all tiles in the step’s declared scope (via per-tile `setTerrainType(x,y,...)` / `adapter.setTerrainType`), and any required immediate engine validation has been performed.
+- `effect:map.volcanoesPlotted`
+  - Meaning: volcano features have been applied in the step’s declared scope (via per-tile `setFeatureType(x,y, FeatureData)` / `adapter.setFeatureType`), including any required terrain writes (e.g. ensuring volcano tiles are mountain terrain), and any required immediate engine validation has been performed.
+- `effect:map.biomesPlotted`
+  - Meaning: biomes have been applied for all tiles (either by `designateBiomes(width,height)` or by per-tile `setBiomeType(x,y,...)`), and any required engine validation has been performed.
+- `effect:map.featuresPlotted`
+  - Meaning: features have been applied for all tiles/placements (either by `addFeatures(width,height)` or by per-placement `setFeatureType(x,y, FeatureData)`), and any required engine validation has been performed.
+- `effect:map.riversPlotted`
+  - Meaning: river materialization has been executed (`modelRivers(...)` + `defineNamedRivers()`), and any required engine validation/synchronization has been performed.
+- `effect:map.waterDataPlotted`
+  - Meaning: water data has been stored (`storeWaterData()`).
+
+Notes:
+- Effects listed here are the Phase 2 **canonical** map-stamping execution guarantees.
+- Do not mint ad-hoc `effect:map.*` names in recipes. Adding a new map-stamping boundary requires updating this spec (and aligning tag registry) so downstream deps remain stable.
+
+---
+
+## 5) Projection rules: LandmassRegionId (Phase 2)
+
+### 5.1 LandmassRegionId semantics (what it is for)
+
+Landmass region tagging is an engine-facing region classification used by Gameplay systems (not physics truth).
+
+- Verified (engine surface): `TerrainBuilder.setLandmassRegionId(x,y, regionId)` exists and is exposed via adapter.
+  - Evidence: `packages/civ7-types/index.d.ts` and `packages/civ7-adapter/src/civ7-adapter.ts`.
+- Verified (available constants): `LandmassRegion.LANDMASS_REGION_WEST` and `LandmassRegion.LANDMASS_REGION_EAST` exist; additional region names may exist as dynamic keys.
+  - Evidence: `packages/civ7-types/index.d.ts`.
+- Verified (repo usage): projection is applied before resource generation and start placement in the current recipe.
+  - Evidence: `mods/mod-swooper-maps/src/recipes/standard/stages/placement/steps/placement/apply.ts` and `mods/mod-swooper-maps/test/placement/landmass-region-id-projection.test.ts`.
+- Inferred (Phase 2 contract intent): Phase 2 models LandmassRegionId as a 2-slot partition (“west” vs “east”) plus “none” for water/invalid.
+  - This matches current repo usage and aligns with “two slots in base game” posture in the monolith.
+
+### 5.2 Deterministic projection rule (slot assignment)
+
+Inputs (truth):
+- `artifact:morphology.landmasses.landmassIdByTile`
+- `artifact:morphology.landmasses.landmasses[]` (stable `id` and cylindrical bbox `{ west, east, south, north }`)
+- `artifact:morphology.topography.landMask` (or equivalent; needed to avoid tagging water tiles)
+
+Algorithm (Phase 2; deterministic):
+1) Build `regionSlotByLandmass[id]`:
+   - For each landmass `mass`, compute `centerX` of the landmass bbox on a cylinder (wrapX interval).
+   - If `centerX < width / 2`, slot = `west`, else slot = `east`.
+2) Build `landmassRegionSlotByTile[i]`:
+   - If tile is water (`landMask[i] === 0`), slot = `none`.
+   - Else if landmass id is invalid/out-of-range, slot = `none`.
+   - Else slot = `regionSlotByLandmass[landmassId]`.
+
+Tie-breakers:
+- The “exactly half” boundary uses a strict `< width/2` check; ties fall to `east`.
+
+Verified (repo implementation of the above):
+- `computeWrappedIntervalCenter(west, east, width)` is implemented and used to pick a bbox center on a wrapX cylinder.
+- Region selection uses `centerX < width/2 ? WEST : EAST`.
+- Water/invalid tiles become `NONE`.
+  - Evidence: `mods/mod-swooper-maps/src/recipes/standard/stages/placement/steps/placement/apply.ts`.
+
+### 5.3 Stamping rule (slots → engine ids; adapter-only)
+
+Stamping is executed by a `plot-landmass-regions` step:
+- Resolve ids via adapter constants:
+  - `westRegionId = adapter.getLandmassId("WEST")`
+  - `eastRegionId = adapter.getLandmassId("EAST")`
+  - `noneRegionId = adapter.getLandmassId("NONE")`
+- For each tile:
+  - `adapter.setLandmassRegionId(x, y, resolvedRegionId)`
+- Assert `effect:map.landmassRegionsPlotted`.
+
+Verified (repo):
+- Adapter exposes `getLandmassId(name)` and throws if a requested `LANDMASS_REGION_<NAME>` constant is missing (integration failure, not a soft fallback).
+  - Evidence: `packages/civ7-adapter/src/civ7-adapter.ts`.
+- Current projection stamps via `adapter.setLandmassRegionId` using adapter constants, not numeric literals.
+  - Evidence: `mods/mod-swooper-maps/src/recipes/standard/stages/placement/steps/placement/apply.ts` and `mods/mod-swooper-maps/test/placement/landmass-region-id-projection.test.ts`.
+
+---
+
+## 6) Civ7 stamping/materialization: required engine calls and ordering constraints
+
+This section models what Phase 2 needs to lock about Civ7 materialization: which engine calls exist, what they imply, and what ordering constraints must be explicit as step boundaries.
+
+Important:
+- The exact stage topology that hosts these `plot-*` steps is described elsewhere; this file defines the guarantees and the evidence-backed constraints.
+- Any step that performs these calls is Gameplay-owned (even if braided between physics stages) because it performs adapter effects.
+- Effects in this file are **Gameplay→Gameplay ordering guarantees only**: physics steps must never `require`/consume `effect:map.*` (or adapter state) as inputs.
+
+### 6.1 Engine calls (verified surfaces)
+
+Verified (engine/adapters in this repo):
+- `expandCoasts(width,height)`
+  - Evidence: `packages/civ7-adapter/src/civ7-adapter.ts` and `/base-standard/maps/elevation-terrain-generator.js` declaration in `packages/civ7-types/index.d.ts`.
+- `validateAndFixTerrain()`
+  - Evidence: `packages/civ7-adapter/src/civ7-adapter.ts` and `packages/civ7-types/index.d.ts`.
+- `recalculateAreas()` (AreaBuilder)
+  - Evidence: `packages/civ7-adapter/src/civ7-adapter.ts` and `packages/civ7-types/index.d.ts`.
+- `stampContinents()`
+  - Evidence: `packages/civ7-adapter/src/civ7-adapter.ts` and `packages/civ7-types/index.d.ts`.
+- `buildElevation()`
+  - Evidence: `packages/civ7-adapter/src/civ7-adapter.ts` and `packages/civ7-types/index.d.ts`.
+- `modelRivers(minLength, maxLength, navigableTerrain)` and `defineNamedRivers()`
+  - Evidence: `packages/civ7-adapter/src/civ7-adapter.ts` and `packages/civ7-types/index.d.ts`.
+- `storeWaterData()`
+  - Evidence: `packages/civ7-adapter/src/civ7-adapter.ts` and `packages/civ7-types/index.d.ts`.
+- `designateBiomes(width,height)` and `addFeatures(width,height)` (base-standard modules)
+  - Evidence: `packages/civ7-adapter/src/civ7-adapter.ts` and `/base-standard/maps/feature-biome-generator.js` declaration in `packages/civ7-types/index.d.ts`.
+- Per-tile setters:
+  - `setTerrainType`, `setBiomeType`, `setFeatureType`, `setRainfall`, `setLandmassRegionId`
+  - Evidence: `packages/civ7-types/index.d.ts` and `packages/civ7-adapter/src/civ7-adapter.ts`.
+
+### 6.2 Ordering constraints (verified vs inferred)
+
+#### Coast expansion (`effect:map.coastsPlotted`)
+
+- Verified (repo call exists): `expandCoasts(width,height)` is called during map generation.
+  - Evidence: `mods/mod-swooper-maps/src/recipes/standard/stages/morphology-pre/steps/coastlines.ts`.
+- Verified (repo behavior): after `expandCoasts`, the recipe syncs engine terrain + land/water state back into its local runtime buffers (`heightfield.terrain`, `heightfield.landMask`).
+  - Evidence: `mods/mod-swooper-maps/src/recipes/standard/stages/morphology-pre/steps/coastlines.ts`.
+- Inferred (Phase 2 contract): any step that asserts `effect:map.coastsPlotted` MUST include the required “synchronization” work for the specific recipe runtime (if local buffers exist); otherwise downstream steps may compute projections from stale land/water/terrain state.
+
+#### Continent stamping (`effect:map.continentsPlotted`)
+
+- Verified (repo ordering): `validateAndFixTerrain()` → `recalculateAreas()` → `stampContinents()`.
+  - Evidence: `mods/mod-swooper-maps/src/recipes/standard/stages/morphology-pre/steps/landmassPlates.ts`.
+- Inferred (Phase 2 contract): `plot-continents` MUST include `recalculateAreas()` immediately before `stampContinents()` unless future evidence proves it unnecessary; treat omission as a correctness risk.
+
+#### Elevation build (`effect:map.elevationPlotted`)
+
+- Verified (repo ordering): `recalculateAreas()` → `buildElevation()` → `recalculateAreas()` → `stampContinents()`.
+  - Evidence: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-baseline/steps/climateBaseline.ts`.
+- Inferred (Phase 2 contract): elevation build is an engine-derived field that downstream systems rely on; Phase 2 requires it to be modeled as a first-class `plot-*` effect boundary rather than being an implicit side-effect.
+
+#### Rivers (`effect:map.riversPlotted`)
+
+- Verified (repo ordering): `modelRivers(...)` → `validateAndFixTerrain()` → (sync heightfield) → `defineNamedRivers()`.
+  - Evidence: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-hydrography/steps/rivers.ts`.
+- Inferred (Phase 2 contract): the river stamping step MUST either:
+  - maintain runtime-local river-relevant fields by syncing after validation, or
+  - declare that downstream consumers must read rivers from engine queries only (no local buffer reliance).
+
+#### Water data (`effect:map.waterDataPlotted`)
+
+- Verified (repo ordering): `storeWaterData()` is invoked during placement apply before region projection/resources/starts.
+  - Evidence: `mods/mod-swooper-maps/src/recipes/standard/stages/placement/steps/placement/apply.ts`.
+- Inferred (Phase 2 contract): water data storage is part of the stamping/materialization boundary and must be explicit if any downstream step assumes it (e.g., placement systems querying navigability/coasts).
+
+#### Biomes (`effect:map.biomesPlotted`)
+
+- Verified (repo): per-tile biome stamping uses `adapter.setBiomeType(x,y, biomeId)` in the Ecology biomes step.
+  - Evidence: `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/biomes/index.ts`.
+- Verified (engine surface exists): `designateBiomes(width,height)` exists as an adapter function (base-standard module).
+  - Evidence: `packages/civ7-adapter/src/civ7-adapter.ts` and `packages/civ7-types/index.d.ts`.
+- Inferred (Phase 2 contract): Phase 2 treats “biomes plotted” as satisfied by either the per-tile path or the engine generator path; recipes must choose one, but both MUST assert the same effect.
+
+#### Features (`effect:map.featuresPlotted`)
+
+- Verified (repo): per-placement feature stamping uses `adapter.setFeatureType(x,y, FeatureData)` and then validates + recalculates areas.
+  - Evidence: `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/features-apply/index.ts`.
+- Verified (engine surface exists): `addFeatures(width,height)` exists as an adapter function (base-standard module).
+  - Evidence: `packages/civ7-adapter/src/civ7-adapter.ts` and `packages/civ7-types/index.d.ts`.
+- Verified (FeatureData shape): `FeatureData` includes `{ Feature, Direction, Elevation }`.
+  - Evidence: `packages/civ7-types/index.d.ts`.
+
+---
+
+## 7) Step/effect boundary map (contract-facing)
+
+This is the mapping table Phase 2 expects downstream authors to rely on (names are canonical; stage placement is a pipeline decision outside this file).
+
+### 7.1 `plot-landmass-regions` (required)
+
+- Reads (truth): `artifact:morphology.landmasses`, `artifact:morphology.topography` (landMask).
+- Writes (projection intent): `artifact:map.landmassRegionSlotByTile` (canonical).
+- Writes (derived debug view): `artifact:map.landmassRegionIdByTile` (derived-only; allowed if the recipe publishes it for inspection).
+- Stamps (engine): `adapter.setLandmassRegionId(x,y, ...)` (resolved via `adapter.getLandmassId` constants only).
+- Provides: `effect:map.landmassRegionsPlotted`.
+
+### 7.2 `plot-coasts` (required if coastline expansion is used)
+
+- Reads: engine terrain state (or the pre-coast stamped terrain) as required by the chosen implementation.
+- Stamps (engine): `adapter.expandCoasts(width,height)`.
+- Provides: `effect:map.coastsPlotted`.
+
+### 7.3 `plot-continents` (required if any downstream consumes continent/area ids)
+
+- Stamps (engine): `adapter.recalculateAreas()` → `adapter.stampContinents()`.
+- Provides: `effect:map.continentsPlotted`.
+
+### 7.4 `plot-elevation` (required if any downstream consumes engine elevation)
+
+- Stamps (engine): `adapter.recalculateAreas()` → `adapter.buildElevation()` → `adapter.recalculateAreas()` (and if required by current engine behavior) `adapter.stampContinents()`.
+- Provides: `effect:map.elevationPlotted`.
+
+### 7.5 `plot-mountains` (required if the recipe stamps mountains/hills terrain)
+
+- Reads (context): `artifact:foundation.plates` and any required Morphology truth artifacts (landMask, etc).
+- Stamps (engine): per-tile `adapter.setTerrainType(x,y,...)` (or equivalent writer such as `writeHeightfield(...)`).
+- Provides: `effect:map.mountainsPlotted`.
+
+### 7.6 `plot-volcanoes` (required if the recipe stamps volcano features)
+
+- Reads (context): `artifact:foundation.plates` and any required Morphology truth artifacts (landMask, volcanism intent, etc).
+- Stamps (engine): per-tile `adapter.setFeatureType(x,y, FeatureData)` (and any required `setTerrainType` for volcano tiles).
+- Provides: `effect:map.volcanoesPlotted`.
+
+### 7.7 `plot-rivers` (required if using Civ7 river materialization)
+
+- Stamps (engine): `adapter.modelRivers(...)` → `adapter.validateAndFixTerrain()` → `adapter.defineNamedRivers()`.
+- Provides: `effect:map.riversPlotted`.
+
+### 7.8 `plot-water-data` (required if downstream assumes stored water data)
+
+- Stamps (engine): `adapter.storeWaterData()`.
+- Provides: `effect:map.waterDataPlotted`.
+
+### 7.9 `plot-biomes` / `plot-features` (required if the recipe stamps them)
+
+- `plot-biomes` provides: `effect:map.biomesPlotted`.
+- `plot-features` provides: `effect:map.featuresPlotted`.
+
+---
+
+## 8) Known legacy mismatches (for Phase 2 readers)
+
+This spec models the desired Phase 2 ownership boundaries. Current repo wiring may not match (yet); treat mismatches as Phase 3 migration work, not Phase 2 contract ambiguity.
+
+- Verified (repo mismatch): `expandCoasts` is currently called from a Morphology (physics-labeled) stage.
+  - Evidence: `mods/mod-swooper-maps/src/recipes/standard/stages/morphology-pre/steps/coastlines.ts`.
+  - Phase 2 posture: any step that performs engine adapter writes is Gameplay-owned and must assert its corresponding `effect:map.*Plotted`.
+- Verified (repo mismatch): `mountains` and `volcanoes` steps currently perform adapter writes from a Morphology (physics-labeled) stage.
+  - Evidence: `mods/mod-swooper-maps/src/recipes/standard/stages/morphology-post/steps/mountains.ts` (`writeHeightfield(...)` calls `adapter.setTerrainType(...)`), and `mods/mod-swooper-maps/src/recipes/standard/stages/morphology-post/steps/volcanoes.ts` (`adapter.setFeatureType(...)`).
+  - Phase 2 posture: any step that performs engine adapter writes is Gameplay-owned and must assert its corresponding `effect:map.*Plotted`.

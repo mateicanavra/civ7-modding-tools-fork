@@ -6,6 +6,16 @@ This spike is the **Phase 2 output** for the Morphology vertical refactor workfl
 
 Define the **authoritative first-principles Morphology model** (domain causality and outputs) and lock its contract surfaces. If the existing pipeline wiring or legacy behavior conflicts with this model, **the model wins** — resolve conflicts by migrating downstream call sites to the canonical contracts (no compatibility shims).
 
+## Canonical Phase 2 spec surfaces (authoritative)
+
+Phase 2 is canonically specified in the split spec files under `spec/`:
+
+- Pipeline + invariants + freeze points: `spec/PHASE-2-CORE-MODEL-AND-PIPELINE.md`
+- Cross-domain contracts (schemas/semantics/lifecycle/determinism): `spec/PHASE-2-CONTRACTS.md`
+- Gameplay projections + Civ7 stamping (`artifact:map.*` + `effect:map.*Plotted`): `spec/PHASE-2-MAP-PROJECTIONS-AND-STAMPING.md`
+
+This file remains a Phase 2 overview, narrative spine, and legacy disposition ledger. If any wording here appears to conflict with the `spec/` files, treat the `spec/` files as the canonical contract-locking source of truth.
+
 ## Scope guardrails (Phase 2)
 
 - **Model-first only:** This document focuses on the conceptual model and contract closure. It does not contain detailed implementation planning, but it does explicitly model required upstream/downstream deltas so Phase 3 can implement the locked contracts without “reinterpretation”.
@@ -377,7 +387,7 @@ This section defines the **target contract surfaces** that Morphology requires o
 Morphology will consume the following artifacts from upstream stages (produced by Foundation or Environment):
 
 - artifact:foundation.mesh - (Mesh topology and coordinates) The region's graph structure. _Owned by Foundation._ Gives adjacency info and base geometry; needed for routing and diffusion calcs.
-- artifact:foundation.plates - (Tile-indexed plate and boundary data) A projection of plate IDs and boundary proximity per tile. _Produced by Foundation_ for downstream convenience. Morphology can use it to know which plate each tile belongs to and how close to a boundary it is, but ideally uses the mesh-based tectonics data where possible.
+- artifact:foundation.plates - (Tile-indexed plate and boundary data) A deterministic, Foundation-owned **derived tile-space view** of mesh-first tectonic truths (plate ids, boundary signals, stress/potential fields, plate motion proxies). Morphology consumes this as the canonical tile view (to avoid re-deriving the same projection math across multiple steps). This is a physics artifact, not a Gameplay `artifact:map.*` projection surface.
 - artifact:foundation.tectonics - (Mesh-indexed tectonic force fields) The primary driver signals: uplift rates, extension rates, shear indicators, and melt anomalies per mesh cell. _Canonical output of Foundation._ Morphology uses these to create topography and volcanoes. (This includes what we refer to as meltFlux internally for hotspots and arc volcanism intensity.)
 - artifact:foundation.crust - (Mesh-indexed crust material properties) Contains crust type (continental/oceanic) and crust age for each cell. _From Foundation._ Used for isostatic baseline and erodibility mapping.
 - Env.width, Env.height, Env.latitude - (Environment parameters) Basic world geometry inputs. Treated as runtime constants from the environment setup. Width/height define tile indexing; topology is fixed (wrap east–west, no wrap north–south); latitude array is used for climate context (though Morphology doesn't do climate, it might pass latitude to Hydrology or use it to decide polar band extent).
@@ -607,7 +617,7 @@ The current Morphology (often called "Landmass" in code) has a config schema wit
 
 - **baseWaterPercent** - **Migrate.** Represents desired water coverage. In new model, it informs compute-sea-level (target land fraction). We will carry it forward as a semantic knob (perhaps renamed to something like targetLandFraction for clarity). Default likely ~71% water (Earth-like) unless overridden.
 - **waterScalar** - **Migrate (with adjustment).** This was a secondary scalar affecting water coverage (maybe a way to fine-tune sea level beyond baseWaterPercent). We will interpret it as part of hypsometry selection in compute-sea-level (like a way to bias sea level up or down slightly after baseWaterPercent is applied). Might fold into the above knob or treat as an internal normalization detail.
-- **boundaryBias** - **Migrate (split).** In legacy, possibly influenced land at map edges or plate boundaries (to avoid or encourage land near edges). We will incorporate its intent either into compute-base-topography (if it was about raising/lowering terrain near boundaries) or into coastline/landmask logic if it was about avoiding land cutoff at edges. We suspect it tried to avoid continents hugging map border. In our model, with polar edges now configurable as plates, a lot of that concern is handled physically. We will likely repurpose this to mean "bias uplift along plate boundaries by X" or possibly drop if redundant. _Needs verification._
+- **boundaryBias** - **Kill.** Legacy “boundary bias” intent is now handled by Foundation’s plate boundary strategy (including polar boundary interactions). Morphology does not keep a separate knob for it. If authors need to control north/south edge effects, that control lives in Foundation as an explicit polar boundary interaction intensity surface (see Phase 2 contracts; no overlays).
 - **boundaryShareTarget** - **Migrate/Review.** Possibly ensured some proportion of land is near plate boundaries. If still relevant, it might factor into compute-sea-level or how we shape distribution (e.g. ensure that land isn't all clumped in center away from boundaries). But this might be an outdated concept. We'll tentatively migrate it as a constraint in sea-level or initial topography (ensuring continents aren't all interior), but likely to be reevaluated; could be dropped if Foundation already ensures plate-boundary-driven land.
 - **continentalFraction** - **Migrate (or Kill).** If this meant "percent of map that should be continental land," we might not need it explicitly. Foundation's crust generation and our sea-level targeting together cover how much continent vs ocean exists. This might have been used when foundation was less authoritative. We can migrate it as a secondary target in compute-sea-level (like "don't drown more than (1 - continentalFraction) of continental crust"). But if Foundation is improved to handle that, we may kill this to avoid redundancy.
 - **clusteringBias** - **Migrate (upstream?).** Probably influenced whether landmasses cluster together or disperse. Honestly this is more of a plate generation parameter (Foundation) - e.g. controlling continental seed clustering. We might still handle minor adjustments at Morphology (like where to prefer adding microcontinents), but ideally this should be a Foundation input. In Phase 2 we'll mark it as _to be moved upstream._ If kept now, it could influence how base topography arranges major land areas (e.g. cluster land if positive bias, or spread out).
@@ -1004,7 +1014,7 @@ This section provides a quick reference of all key contracts and relates them to
 - artifact:foundation.mesh - (Mesh graph). Used implicitly by many ops (erosion, flow) for adjacency.
 - artifact:foundation.crust - (Crust material properties). Input to substrate mapping (erodibility).
 - artifact:foundation.tectonics - (Tectonic forces on mesh). Input to base topography (uplift, rift, shear fields) and indirectly to volcano planning (meltFlux).
-- artifact:foundation.plates - (Plate IDs & boundaries per tile). Used for convenience in some calculations (e.g., mapping tectonics from mesh to tiles).
+- artifact:foundation.plates - (Plate IDs & boundaries per tile). Canonical derived tile-space view of Foundation tectonic truth; consumed by tile-based physics steps and available to Gameplay for annotation without duplicating it under `artifact:map.*`.
 - Env.dimensions (width/height) - Used for knowing grid shape. Topology is fixed (wrap east–west, no wrap north–south); there is no wrap flag input.
 - Env.latitudeArray - Used for climate context (maybe not directly in Morphology except potentially polar config).
 - MorphologyConfig - (Author config). Consumed by various ops (sea-level, polar edges, worldAge affecting erosion, etc.).

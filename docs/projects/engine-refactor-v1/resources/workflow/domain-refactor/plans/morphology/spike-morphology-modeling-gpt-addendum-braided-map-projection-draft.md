@@ -1,6 +1,6 @@
 # Draft Addendum — Braided `map.*` Projection Inside Morphology Phase
 
-This draft captures (1) a verbatim snapshot of the agreed braided-stage pattern and (2) follow-on clarifications and open questions to resolve before locking the Phase 2 model.
+This draft captures (1) a verbatim snapshot of the agreed braided-stage pattern and (2) follow-on clarifications (now locked) so Phase 2 can be implemented without drift.
 
 ## Verbatim snapshot (from chat; do not edit)
 
@@ -114,9 +114,9 @@ We are not introducing a new top-level Gameplay domain directory or moving logic
 - That logic should remain self-contained within the step files (as this repo expects).
 - This is compatible with later extraction into a dedicated Gameplay domain because the seam is already cleanly sliced.
 
-## Open question: “intent” vs “has happened” (projection vs realized state)
+## Closed: “intent” vs “has happened” (projection vs execution)
 
-We need a stable way for downstream stages/steps to rely on guarantees like “stamping has occurred” when they explicitly depend on it.
+Downstream stages/steps sometimes need guarantees like “stamping has occurred” when they explicitly depend on it.
 
 ### Decision locked: “has happened” is an effect; intent is frozen
 
