@@ -96,9 +96,9 @@ This is a generalized posture we are locking for this Phase 2 lockdown (not just
 
 If we want a lightweight shared “message board” per agent without creating merge conflicts, prefer a single scratch file per agent in this directory:
 
-- `agent-a.scratch.md`
-- `agent-b.scratch.md`
-- `agent-c.scratch.md`
+- `debates/phase2-lockdown/agent-a.scratch.md`
+- `debates/phase2-lockdown/agent-b.scratch.md`
+- `debates/phase2-lockdown/agent-c.scratch.md`
 
 Each agent should only create/edit their own scratch file. Keep it to one “current state” message at a time (open questions, dependencies, blockers, decisions to confirm).
 
@@ -184,7 +184,7 @@ Coordination / shared state (avoid conflicts):
 - Avoid directly editing shared Phase 2 files unless the orchestrator explicitly asks.
 - Scratchpad discipline (required):
   - Use your scratchpad for any large drafts, intermediate reasoning, or proposed replacement text blocks. Keep the chat response concise and point the orchestrator to your scratchpad for the full detail.
-  - Reuse an existing scratchpad if present; otherwise create it. For Agent A, use `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/agent-a.scratch.md`.
+  - Reuse an existing scratchpad if present; otherwise create it. For Agent A, use `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/debates/phase2-lockdown/agent-a.scratch.md`.
   - Treat scratchpads as a shared communication surface between agents (read others; don’t edit others). If you need to coordinate, write your note in your own scratchpad and ping the orchestrator to route it.
   - During verification runs: begin by reading all existing scratchpads in this directory and migrating any still-open items relevant to your scope into your own “Open items” section (then revisit it before you finalize your report).
 - Spend real time and search deep (required):
@@ -295,7 +295,7 @@ Coordination / shared state (avoid conflicts):
 - Avoid directly editing shared Phase 2 files unless the orchestrator explicitly asks.
 - Scratchpad discipline (required):
   - Use your scratchpad for any large drafts, intermediate reasoning, evidence notes, or drop-in spec text. Keep the chat response concise and point the orchestrator to your scratchpad for the full detail.
-  - Reuse an existing scratchpad if present; otherwise create it. For Agent B, use `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/agent-b.scratch.md`.
+  - Reuse an existing scratchpad if present; otherwise create it. For Agent B, use `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/debates/phase2-lockdown/agent-b.scratch.md`.
   - Treat scratchpads as a shared communication surface between agents (read others; don’t edit others). If you need to coordinate, write your note in your own scratchpad and ping the orchestrator to route it.
   - During verification runs: begin by reading all existing scratchpads in this directory and migrating any still-open items relevant to your scope into your own “Open items” section (then revisit it before you finalize your report).
 - Spend real time and search deep (required):
@@ -407,7 +407,7 @@ Coordination / shared state (avoid conflicts):
 - Avoid directly editing shared Phase 2 files unless the orchestrator explicitly asks.
 - Scratchpad discipline (required):
   - Use your scratchpad for any large drafts, intermediate reasoning, repo wiring notes, or drop-in spec text. Keep the chat response concise and point the orchestrator to your scratchpad for the full detail.
-  - Reuse an existing scratchpad if present; otherwise create it. For Agent C, use `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/agent-c.scratch.md`.
+  - Reuse an existing scratchpad if present; otherwise create it. For Agent C, use `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/debates/phase2-lockdown/agent-c.scratch.md`.
   - Treat scratchpads as a shared communication surface between agents (read others; don’t edit others). If you need to coordinate, write your note in your own scratchpad and ping the orchestrator to route it.
   - During verification runs: begin by reading all existing scratchpads in this directory and migrating any still-open items relevant to your scope into your own “Open items” section (then revisit it before you finalize your report).
 - Spend real time and search deep (required):
@@ -495,7 +495,7 @@ This is a dedicated agent run focused on **executing** the recommended split int
 - **Do not edit** `spike-morphology-modeling-gpt.md` (the monolith) during the agent run. The orchestrator will convert it into the short index after the three spec files are in place.
 - Each agent edits **exactly two files**:
   1) their owned spec file under `plans/morphology/spec/`,
-  2) their owned scratchpad under `plans/morphology/spec/scratch/`.
+  2) their owned scratchpad under `plans/morphology/debates/phase2-doc-split/`.
 - **No duplication:** move canonical content into your owned file; if another file must reference it, link to it rather than duplicating text.
 - **No “minimal” framing:** default to completeness; include what is reasonably useful downstream now.
 - **No compat shims / timeboxed hacks:** if a concept must exist in the canonical model, it must be modeled directly and cleanly.
@@ -511,11 +511,11 @@ This is a dedicated agent run focused on **executing** the recommended split int
 
 Agents coordinate via scratchpads (single “current state” message; keep it short and actionable):
 
-- Create directory: `plans/morphology/spec/scratch/`
+- Create directory: `plans/morphology/debates/phase2-doc-split/`
 - Use these scratchpads:
-  - `plans/morphology/spec/scratch/agent-split-core.md`
-  - `plans/morphology/spec/scratch/agent-split-contracts.md`
-  - `plans/morphology/spec/scratch/agent-split-stamping.md`
+  - `plans/morphology/debates/phase2-doc-split/agent-split-core.scratch.md`
+  - `plans/morphology/debates/phase2-doc-split/agent-split-contracts.scratch.md`
+  - `plans/morphology/debates/phase2-doc-split/agent-split-stamping.scratch.md`
 
 Scratchpad usage rules:
 - Use your scratchpad for intermediate reasoning, evidence pointers, and questions for the orchestrator.
@@ -560,10 +560,10 @@ Locked decisions (do not re-open)
 - Completeness-first: avoid “minimal” framing and “we can do it later” for anything public, cross-domain, or pipeline-defining.
 
 Coordination (required)
-- Before you start, create and use your scratchpad: `plans/morphology/spec/scratch/agent-split-core.md`
+- Before you start, create and use your scratchpad: `plans/morphology/debates/phase2-doc-split/agent-split-core.scratch.md`
 - Skim the other scratchpads before big decisions to avoid overlap:
-  - `plans/morphology/spec/scratch/agent-split-contracts.md`
-  - `plans/morphology/spec/scratch/agent-split-stamping.md`
+  - `plans/morphology/debates/phase2-doc-split/agent-split-contracts.scratch.md`
+  - `plans/morphology/debates/phase2-doc-split/agent-split-stamping.scratch.md`
 - If you detect overlap or a dependency on another agent’s area, pause and ask the orchestrator rather than guessing.
 
 Work instructions
@@ -584,7 +584,7 @@ Hard boundaries (avoid file conflicts)
 - Do not edit `spike-morphology-modeling-gpt.md` during this run.
 - Only edit:
   - `plans/morphology/spec/PHASE-2-CORE-MODEL-AND-PIPELINE.md`
-  - `plans/morphology/spec/scratch/agent-split-core.md`
+  - `plans/morphology/debates/phase2-doc-split/agent-split-core.scratch.md`
 
 Deliverable
 - The finished `PHASE-2-CORE-MODEL-AND-PIPELINE.md` file (closure-grade, internally consistent, no modal language on pipeline/ownership).
@@ -629,10 +629,10 @@ Locked decisions (do not re-open)
 - Normalize-once/knobs-last: no presence-based runtime gating semantics.
 
 Coordination (required)
-- Before you start, create and use your scratchpad: `plans/morphology/spec/scratch/agent-split-contracts.md`
+- Before you start, create and use your scratchpad: `plans/morphology/debates/phase2-doc-split/agent-split-contracts.scratch.md`
 - Skim the other scratchpads before big decisions to avoid overlap:
-  - `plans/morphology/spec/scratch/agent-split-core.md`
-  - `plans/morphology/spec/scratch/agent-split-stamping.md`
+  - `plans/morphology/debates/phase2-doc-split/agent-split-core.scratch.md`
+  - `plans/morphology/debates/phase2-doc-split/agent-split-stamping.scratch.md`
 - If you detect overlap or a dependency (e.g., stamping needs a field you are defining), pause and ask the orchestrator rather than guessing.
 
 Work instructions
@@ -657,7 +657,7 @@ Hard boundaries (avoid file conflicts)
 - Do not edit `spike-morphology-modeling-gpt.md` during this run.
 - Only edit:
   - `plans/morphology/spec/PHASE-2-CONTRACTS.md`
-  - `plans/morphology/spec/scratch/agent-split-contracts.md`
+  - `plans/morphology/debates/phase2-doc-split/agent-split-contracts.scratch.md`
 
 Deliverable
 - The finished `PHASE-2-CONTRACTS.md` file (closure-grade; no “provisional/optional/might” on public contract surfaces).
@@ -708,10 +708,10 @@ Locked decisions (do not re-open)
 - Completeness-first: include what is reasonably useful downstream now; no “minimal” posture.
 
 Coordination (required)
-- Before you start, create and use your scratchpad: `plans/morphology/spec/scratch/agent-split-stamping.md`
+- Before you start, create and use your scratchpad: `plans/morphology/debates/phase2-doc-split/agent-split-stamping.scratch.md`
 - Skim the other scratchpads before big decisions to avoid overlap:
-  - `plans/morphology/spec/scratch/agent-split-core.md`
-  - `plans/morphology/spec/scratch/agent-split-contracts.md`
+  - `plans/morphology/debates/phase2-doc-split/agent-split-core.scratch.md`
+  - `plans/morphology/debates/phase2-doc-split/agent-split-contracts.scratch.md`
 - If you detect overlap or a dependency (e.g., you need a truth field that contracts must define), pause and ask the orchestrator rather than guessing.
 
 Work instructions
@@ -735,7 +735,7 @@ Hard boundaries (avoid file conflicts)
 - Do not edit `spike-morphology-modeling-gpt.md` during this run.
 - Only edit:
   - `plans/morphology/spec/PHASE-2-MAP-PROJECTIONS-AND-STAMPING.md`
-  - `plans/morphology/spec/scratch/agent-split-stamping.md`
+  - `plans/morphology/debates/phase2-doc-split/agent-split-stamping.scratch.md`
 
 Deliverable
 - The finished `PHASE-2-MAP-PROJECTIONS-AND-STAMPING.md` file (closure-grade; coherent with the other spec files).
@@ -746,25 +746,28 @@ Deliverable
 
 ## Verification findings (salvage checklist — in progress)
 
-This section is an actionable checklist based on a fresh verification/review pass (new agents + orchestrator). It is intended to keep the remediation effort honest: confirm what exists, call out what didn’t happen, and drive concrete closure work to produce a canonical, drift-resistant Phase 2 deliverable.
+This section is an actionable checklist based on a verification/review pass (new agents + orchestrator). It is intended to keep the remediation effort honest: confirm what exists, call out what didn’t happen, and drive concrete closure work to produce a canonical, drift-resistant Phase 2 deliverable.
 
 ### Findings (what is true right now)
 
-- The Phase 2 doc *does* contain substantial new structure (pipeline + freeze points, contract matrix, stamping section, determinism, module layout), but key contract surfaces remain underspecified and still contain “optional/conditional” gaps that are not Phase-2-safe.
-- The “single file vs split into 3 files” plan was recommended here but not executed; Phase 2 remains a single monolith and `plans/morphology/spec/` is currently unused.
-- Some “evidence-driven” engine/stamping claims are not fully grounded inline in the canonical doc (evidence exists in scratchpads but needs to be folded into the canonical doc where the claims are made).
-- A few integrity/hygiene issues remain (self-referential scaffold text claims sections that do not exist; missing template-style closure items).
-- One remaining ownership ambiguity is still visible in the canonical doc: polar-edge regime ownership is described with “or” language rather than a single authoritative owner.
-- The truth/projection/stamping split is directionally correct and aligns with the context packet, but it must be written in a way that does not accidentally reintroduce ownership smearing (especially via “braiding” language).
+- The Phase 2 model has been partially “split” into canonical spec files under `plans/morphology/spec/`:
+  - `spec/PHASE-2-CORE-MODEL-AND-PIPELINE.md`
+  - `spec/PHASE-2-CONTRACTS.md`
+  - `spec/PHASE-2-MAP-PROJECTIONS-AND-STAMPING.md`
+- `spike-morphology-modeling-gpt.md` still exists as a large monolith and contains residual “optional/conditional” language and legacy-ledger uncertainty that can be misread as contract ambiguity unless it is clearly repositioned as an overview/index that points to the canonical spec files.
+- `boundaryBias` was previously left ambiguous (“repurpose or drop” + `_Needs verification_`) in the monolith; this must not exist in a closure-grade Phase 2. The monolith must explicitly **kill** `boundaryBias` (legacy), and Phase 2 must instead lock a Foundation-owned polar boundary interaction intensity surface.
+- Polar-edge tectonics are modeled as first-class, but we still need a closure-grade **Foundation-owned config/contract surface** for *how intense* north/south boundary (“polar plate”) interactions are, to replace legacy “boundary bias” behavior without reintroducing overlays.
+- The truth/projection/stamping split is locked and coherent, but a few remaining word choices can accidentally sound like “sometimes we do it this way” unless we restate the posture as a single canonical path (no conditional dual paths; no shims).
+- Some engine/stamping claims rely on evidence pointers that exist in scratchpads; those pointers must be cited where the canonical spec makes the claim, and we must clearly label what is **verified vs inferred** to avoid false certainty.
 
 ### Open items surfaced from existing scratchpads (must be drained)
 
 These came from the existing scratchpads in this directory and must be either (a) resolved into the canonical docs or (b) explicitly recorded as still-open (with a trigger) rather than silently ignored:
 
-- Mixed truth + projection artifacts to unwind (legacy migration targets): `artifact:morphology.topography.terrain`, `artifact:morphology.coastlinesExpanded`, `artifact:heightfield.terrain` (see `agent-a.scratch.md`).
-- Overlay-shaped dependencies still present in current wiring (hard-ban violations): `morphology-post/volcanoes`, `morphology-mid/rugged-coasts`, `morphology-post/islands` (see `agent-a.scratch.md`).
-- Stamping sequencing and “cliffs are derived” constraints: evidence pointers exist under `.civ7/outputs/...`, but we must be explicit about what is verified vs inferred, especially when `civ7-official-resources/` is not present (see `agent-b.scratch.md`).
-- Wrap posture is fixed: wrapX is always on; wrapY is always off; any “wrap optionality” surfaces are legacy migration work (see `agent-c.scratch.md`).
+- Mixed truth + projection artifacts to unwind (legacy migration targets): `artifact:morphology.topography.terrain`, `artifact:morphology.coastlinesExpanded`, `artifact:heightfield.terrain` (see `debates/phase2-lockdown/agent-a.scratch.md`).
+- Overlay-shaped dependencies still present in current wiring (hard-ban violations): `morphology-post/volcanoes`, `morphology-mid/rugged-coasts`, `morphology-post/islands` (see `debates/phase2-lockdown/agent-a.scratch.md`).
+- Stamping sequencing and “cliffs are derived” constraints: evidence pointers exist under `.civ7/outputs/...`, but we must be explicit about what is verified vs inferred, especially when `civ7-official-resources/` is not present (see `debates/phase2-lockdown/agent-b.scratch.md`).
+- Wrap posture is fixed: wrapX is always on; wrapY is always off; any “wrap optionality” surfaces are legacy migration work (see `debates/phase2-lockdown/agent-c.scratch.md`).
 
 ### Acceptance criteria (Phase 2 lockdown is “done” when…)
 
@@ -773,12 +776,116 @@ These came from the existing scratchpads in this directory and must be either (a
 - Topology is treated as an invariant everywhere: map always wraps east–west and never wraps north–south; no wrap flags/knobs appear as inputs.
 - Stamping/materialization is modeled as a first-class downstream responsibility with evidence-backed constraints and clearly stated “verified vs assumed” claims.
 - Scratchpads are “drained”: open questions and migration targets identified during remediation are either integrated into canonical docs or explicitly listed as remaining work (no silent dangling state).
+- `spike-morphology-modeling-gpt.md` clearly indicates (and links) that canonical Phase 2 truth is the `spec/` set; the monolith does not retain unresolved contract decisions.
+- Legacy `boundaryBias` is closed (killed) and replaced by an explicit Foundation-owned polar boundary interaction intensity control surface (or a finer-grained equivalent) that is contract-locked in `spec/PHASE-2-CONTRACTS.md`.
 
 ### Checklist (keep this short; check off as we close)
 
-- [ ] Execute the planned doc split (3 files) or explicitly commit to single-file with hard section ownership boundaries; ensure the canonical entrypoint and links are unambiguous.
-- [ ] Lock contract schemas end-to-end (Foundation→Morphology and Morphology→Hydrology/Ecology/Gameplay): required fields/types, units, indexing, lifecycle/freeze points, determinism/tie-breakers.
-- [ ] Close the remaining ownership ambiguities (notably polar-edge boundary regime ownership) by removing “or” language and naming a single authoritative owner.
-- [ ] Fold in engine/stamping evidence where the canonical spec makes engine-facing claims (cite `.civ7/outputs/...` paths; label verified vs inferred; avoid over-asserting ordering until evidence is complete).
-- [ ] Remove/repair doc integrity gaps (self-references to missing sections; add missing closure sections if required by the workflow template and guardrails).
-- [ ] Perform a scratchpad audit pass: re-read `agent-a.scratch.md`, `agent-b.scratch.md`, `agent-c.scratch.md`; either integrate each open item or explicitly list it as remaining work with a trigger.
+- [ ] Canonicalize entrypoints: make `spike-morphology-modeling-gpt.md` an unambiguous Phase 2 index/overview that links to `spec/PHASE-2-*` as the canonical spec surfaces.
+- [ ] Close `boundaryBias`: explicitly kill it (legacy) and lock a Foundation-owned polar boundary interaction intensity control surface in `spec/PHASE-2-CONTRACTS.md` (and reference it from the core model).
+- [ ] Lock polar-edge ownership wording: remove any “or” / ambiguous ownership language; Foundation is the truth producer for polar-edge regime signals.
+- [ ] Drain scratchpads into canonical docs: integrate each open item or explicitly record it as Phase 3 migration work with a trigger (no silent dangling state).
+- [ ] Evidence posture pass: where the spec asserts engine ordering/constraints, add the best available path pointers and label **verified vs inferred**.
+- [ ] Consistency sweep: `rg` for “open question/TBD/provisional/needs verification/optional” in canonical Phase 2 docs and eliminate any contract-level ambiguity.
+
+---
+
+## Final remediation plan (Phase 2 closure — do this, then we are done)
+
+This is the final closure plan to finish Phase 2 documentation hardening. The intent is that after completing this plan, Phase 2 is *fully locked* and Phase 3 can proceed with migration work without “reinterpretation.”
+
+### Target canonical docs (must end up self-consistent)
+
+- Phase 2 spine (invariants, ownership, pipeline, freeze points): `spec/PHASE-2-CORE-MODEL-AND-PIPELINE.md`
+- Phase 2 contracts (schemas/semantics/lifecycle/determinism): `spec/PHASE-2-CONTRACTS.md`
+- Phase 2 map projection + stamping (Gameplay-owned `artifact:map.*` + `effect:map.*Plotted`): `spec/PHASE-2-MAP-PROJECTIONS-AND-STAMPING.md`
+- Phase 2 index/overview (human-friendly entrypoint; MUST NOT reintroduce ambiguity): `spike-morphology-modeling-gpt.md`
+
+### Plan steps (in order)
+
+1) Canonicalize the entrypoints (remove “two sources of truth” drift)
+   - Update `spike-morphology-modeling-gpt.md` to:
+     - link to the three `spec/PHASE-2-*` files as the canonical Phase 2 spec,
+     - explicitly state that contracts/ownership/stamping constraints live in `spec/`,
+     - remove or clearly label any remaining “illustrative” schema fragments so they cannot be misread as canonical contracts.
+   - Goal: a new reader never accidentally treats old modal language in the monolith as “open design.”
+
+2) Close `boundaryBias` decisively (kill, don’t repurpose)
+   - Update `spike-morphology-modeling-gpt.md` so `boundaryBias` is explicitly **killed** as a legacy requirement.
+   - Rationale (locked): legacy “boundary bias” intent is now handled by the **plate boundary strategy** (Foundation tectonics), including polar boundary plate interactions. Morphology does not keep a separate knob for it.
+
+3) Lock the polar boundary interaction intensity control surface (Foundation-owned)
+   - Add (or reference, if already present) a Foundation config/contract surface that controls *how intense* north/south boundary (“polar plate”) interactions are.
+   - This MUST be contract-locked in `spec/PHASE-2-CONTRACTS.md` under Foundation→Morphology inputs/config semantics, and referenced from `spec/PHASE-2-CORE-MODEL-AND-PIPELINE.md`.
+   - Closure posture (locked):
+     - This is not a Morphology knob.
+     - This is not an overlay.
+     - This is not optional at runtime (defaults are explicit; normalization is once).
+   - Canonical contract surface shape (complete but not over-fancy):
+     - `polarBoundary: { north: { regime, intensity }, south: { regime, intensity } }`
+     - Where `regime ∈ { convergent, divergent, transform }` and `intensity` is a normalized scalar that scales the regime’s effect fields at the boundary (exact mapping is an internal numeric method; the config surface and semantics are locked).
+
+4) Remove remaining “open question” residue from in-scope addenda
+   - Update `spike-morphology-modeling-gpt-addendum-braided-map-projection-draft.md` so it no longer contains unresolved “intent vs happened” questions:
+     - The lock is: `artifact:map.*` is projection intent; stamping completion is expressed via `effect:map.<thing>Plotted` boolean effects.
+   - Ensure the addendum points to `spec/PHASE-2-MAP-PROJECTIONS-AND-STAMPING.md` as canonical for `artifact:map.*` + effects.
+
+5) Closure sweep: eliminate contract-level modal language and ambiguity
+   - Run an explicit pass over the canonical `spec/` files and remove any remaining contract-level:
+     - “open question”, “TBD”, “needs verification”, “provisional”, “may include”, “optional” (unless clearly labeled as debug-only derived artifacts).
+   - Where evidence is incomplete for engine ordering details:
+     - keep the requirement as a Phase 2 contract constraint only if it is truly required for determinism/correctness,
+     - otherwise move it to the Phase 3 backlog with an explicit trigger and keep Phase 2 wording honest (“verified vs inferred”).
+
+6) Drain scratchpads and harden “remaining work” boundaries
+   - Re-read the main scratchpads and ensure every item is either:
+     - integrated into the canonical spec files, or
+     - explicitly captured as Phase 3 migration work (with a trigger), not left dangling.
+   - Ensure debate/scratchpad organization is consistent under `plans/morphology/debates/` and that all in-scope debate outputs are tracked where appropriate.
+
+### Acceptance criteria (Phase 2 is “complete” after this plan)
+
+- A reader can start at `spike-morphology-modeling-gpt.md` and immediately find the canonical Phase 2 spec surfaces (the three `spec/PHASE-2-*` files) with no contradictory “maybe” language.
+- `boundaryBias` is closed and cannot be reintroduced via “repurpose” ambiguity.
+- Polar boundary plate interaction intensity is a locked Foundation control surface (with explicit defaults), and Morphology does not carry a parallel knob.
+- Canonical docs contain no contract-level “open question/TBD/provisional/needs verification” language.
+- Phase 3 backlog remains actionable and honest (migration items are clearly separated from Phase 2 contracts).
+
+---
+
+## Phase 3 migration backlog (capture now; execute later)
+
+Phase 2 lockdown must not silently assume code is already migrated. These are Phase 3 items we must remember and plan in detail once Phase 2 is closed.
+
+### Hard deletions (must happen; no “keep it around”)
+
+- Delete legacy overlay-shaped inputs into physics steps (hard ban):
+  - Volcanoes overlay dependency: `mods/mod-swooper-maps/src/recipes/standard/stages/morphology-post/steps/volcanoes.ts`
+  - Rugged coasts sea-lane/margin overlays: `mods/mod-swooper-maps/src/recipes/standard/stages/morphology-mid/steps/ruggedCoasts.ts`
+  - Any other `artifact:storyOverlays` consumers in physics stages.
+
+### Canonicalization work (`artifact:foundation.plates` is Phase 2-canonical; align code to the spec)
+
+- Treat `artifact:foundation.plates` as the **single canonical** tile-space derived view of Foundation tectonic truths (Foundation-owned; derived-only; deterministic).
+  - Contract reference: `plans/morphology/spec/PHASE-2-CONTRACTS.md` (`artifact:foundation.plates`)
+- Delete any alternative plate-tensor publishing surfaces besides `artifact:foundation.plates` (avoid multiple competing tile views).
+- Ensure consumers (Morphology + any Gameplay annotation logic) read `artifact:foundation.plates` rather than re-deriving tile views ad hoc.
+- Lock the Foundation projection config semantics used to derive `artifact:foundation.plates` (defaults, normalization, determinism) in docs and keep it single-sourced (no duplicate per-consumer knobs).
+
+### Stamping/projection migrations (bring code in line with Phase 2)
+
+- Remove engine/projection fields embedded in physics truth artifacts (migrate to `artifact:map.*` + `effect:map.*Plotted`):
+  - Example legacy: `artifact:morphology.topography.terrain` “engine terrain id per tile” (remove from physics truth; derive/stamp in map steps).
+- Ensure all stamping receipts are expressed as short boolean `effect:map.<thing>Plotted` asserted by granular `plot-*` steps (no versioning/receipts/hashes).
+
+### Topology migrations (remove dead optionality)
+
+- Ensure wrap is treated as invariant everywhere:
+  - wrapX always on; wrapY always off; no env/config knobs.
+  - Delete any optional/wrap-flagged code paths and configuration surfaces that try to support non-wrapping maps.
+
+### Acceptance criteria (Phase 3 slice is “done” when…)
+
+- `artifact:foundation.plates` is produced once in Foundation and consumed consistently (no duplicate tile projection implementations across Morphology steps).
+- No Morphology physics step requires overlays or `artifact:map.*` / `effect:map.*` as inputs.
+- All engine writes happen only in steps that own the corresponding `effect:map.*Plotted` guarantees.
