@@ -141,6 +141,11 @@ Hard ban: narrative/story overlays (legacy concept).
 Hard rule: engine/projection truth is derived-only (never an input).
 - Engine-facing projections (terrain indices, adjacency masks, engine tags) must be derived from Morphology outputs.
 - Morphology must not read engine-projected surfaces back in as “truth” (this inverts the contract and poisons downstream correctness).
+- Projections/indices are Gameplay-owned derived artifacts:
+  - Terrain IDs, feature IDs, resource IDs, player IDs, region IDs, plot tags, placements, and other game-facing indices belong to Gameplay (projection policy), not to Morphology (physics truth).
+  - Physics domains must not embed engine IDs or projection indices inside physics truth artifacts as “the truth.” If legacy artifacts currently do so, treat it as migration work into Gameplay’s projection/stamping layer.
+- Engine writes (“stamping”) happen only in steps with an engine adapter:
+  - Core domain logic is pure-only; recipe stages/steps invoke physics ops to compute truths, invoke Gameplay ops to project truths into indices, then stamp via the adapter.
 
 Hard ban: presence / compare-to-default gating for knobs/config.
 - Knobs + advanced config must compose as a single locked contract (knobs apply last as transforms).

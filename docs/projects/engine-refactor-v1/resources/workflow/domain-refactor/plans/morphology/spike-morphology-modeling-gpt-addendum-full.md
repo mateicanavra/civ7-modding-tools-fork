@@ -85,6 +85,18 @@ Any engine-facing surfaces (terrain indices, region IDs, tags) are derived downs
 
 * Physics domains (including Morphology) must not treat engine tags or projections as authoritative inputs.
 
+This is a generalized boundary (not just a warning about “inputs”):
+
+* **Gameplay owns all projections/indices:** terrain IDs, feature IDs, resource IDs, player IDs, region IDs, plot tags, placements, and any other game-facing index/tag surface are **Gameplay-owned derived artifacts**.
+* **Physics artifacts must be pure truth surfaces:** physics domains must not embed engine IDs or other projection fields inside their truth artifacts as “the truth.” If legacy artifacts currently do this, treat it as migration work into Gameplay’s projection/stamping layer.
+
+Where the engine is actually touched:
+
+* All domains’ core logic is pure-only. Engine stamping (terrain/features/resources/players/tags) happens in **pipeline stages/steps that have access to an engine adapter**, by:
+  1) reading physics truth artifacts,
+  2) invoking Gameplay’s pure projection logic to produce indices/placements,
+  3) stamping via the adapter, then running required postprocess/validation phases.
+
 ### 5) Determinism, knobs-last, no presence-gating
 
 * Config defaults are explicit; normalization happens once; **no “if undefined then fallback”** behavior in runtime logic.

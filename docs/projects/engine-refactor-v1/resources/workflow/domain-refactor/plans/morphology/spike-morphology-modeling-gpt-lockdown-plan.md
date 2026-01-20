@@ -36,6 +36,7 @@ These guardrails are intentionally carried over from `docs/projects/engine-refac
 
 - **Hard ban: narrative/story overlays (and “overlay-shaped” inputs):** do not reintroduce overlays or renamed equivalents anywhere that can influence physics outputs.
 - **Hard rule: engine/projection truth is derived-only:** no engine tags/terrain indices/adjacency masks are authoritative inputs to physics domains; never read projections back in as truth.
+- **Hard rule: projections/indices are Gameplay-owned:** all game-facing indices (terrain IDs, feature IDs, resource IDs, player IDs, region IDs, tags, etc.) are derived artifacts owned by Gameplay. Physics artifacts must remain pure truth surfaces and must not include engine IDs or projection indices as fields. Any legacy physics artifacts that embed projections are migration work: move those fields into the Gameplay projection/stamping layer.
 - **Hard ban: presence / compare-to-default gating:** config semantics must be explicit after defaulting/normalization; knobs compose last; no “if undefined then fallback” behavior.
 - **Hard ban: hidden multipliers/constants/defaults:** no magic numbers or unnamed scalars in contract semantics; every value is config or explicitly named constant with stated intent.
 - **Hard ban: placeholders / dead bags / TBD contracts:** no placeholder contract shapes; Phase 2 is contract-locking, not scaffolding.
@@ -44,6 +45,19 @@ These guardrails are intentionally carried over from `docs/projects/engine-refac
 - **Single canonical body posture:** avoid forking the Phase 2 model into parallel “alternate specs.” This lockdown plan is a companion; the canonical Phase 2 model must remain a single authoritative body.
 - **Evidence standard:** when making claims that can be grounded (repo wiring, artifact keys, Civ7 engine behaviors), cite the relevant repo/resource paths and label assumptions vs verified evidence.
 - **Stop-the-line drift protocol:** if a locked decision is threatened, pause and coordinate via the orchestrator before proceeding; do not “quietly” bend a lock to make progress.
+
+## Truth vs projection vs stamping (global policy; generalized boundary)
+
+This is a generalized posture we are locking for this Phase 2 lockdown (not just for Morphology):
+
+- **Physics domains = truth + physics logic (pure-only):** Foundation/Morphology/Hydrology/Ecology own physical truth artifacts and the computations that determine them. They do not couple to the engine and do not publish game-facing indices as “truth”.
+- **Gameplay = projection logic + projection artifacts (pure-only):** Gameplay owns the policies/algorithms for mapping physics truths into game-facing structures (terrain/feature/resource/player indices, region IDs, tags, placements, overlays, etc.).
+- **Stamping = recipe/stage/step with engine adapter:** actual engine writes happen only in steps that can access the engine adapter. Those steps may:
+  1) compute/read physics truth artifacts,
+  2) invoke Gameplay’s pure projection logic to produce indices/tags/placements,
+  3) stamp via the engine adapter, then run required postprocess/validation.
+- **Braiding at the stage/step level is allowed (ownership is not):** it is fine for a “Morphology” stage to include a Gameplay projection/stamping step for convenience, but that does not mean Gameplay logic lives inside Morphology (domain ownership stays intact).
+- **Legacy posture:** if we find physics artifacts emitting projection-like fields (e.g., engine terrain IDs embedded in a Morphology artifact), treat it as legacy to migrate into Gameplay projection/stamping.
 
 ## What work is actually in front of us (to “lock down” Phase 2)
 
@@ -133,6 +147,7 @@ Guardrails (non-negotiable, pulled from the context packet):
   - Hydrology owns canonical routing/hydrology surfaces (Morphology may have internal routing for erosion only).
   - Gameplay owns overlays, placement, projections, and stamping by default.
 - No overlays/story masks/gameplay constraints as physics inputs (hard ban).
+- Projections/indices (terrain IDs, feature IDs, resource IDs, player IDs, region IDs, tags) are Gameplay-owned derived artifacts; physics artifacts must not embed engine IDs/projection fields as truth.
 - Phase 2 must lock contracts; only micro-level internal numeric methods may be deferred.
 - Regression guardrails (do not regress Phase 2):
   - Do not reintroduce narrative/story overlays or overlay-shaped inputs/outputs under any name.
@@ -225,6 +240,7 @@ Guardrails (non-negotiable, pulled from the context packet):
 - Stamping cannot be hand-waved or externalized away from Phase 2. Phase 2 must model it and lock the contracts.
 - Physics domains are canonical truth producers; stamping is derived-only. No gameplay overlays feed back into physics.
 - Gameplay (default) owns engine-facing projection buffers/tags and stamping; Morphology terminal stamping is only allowed if structurally justified.
+- Projection artifacts/indices (terrain IDs, feature IDs, resource IDs, player IDs, region IDs, tags) are Gameplay-owned derived outputs; treat any such fields found in physics artifacts as legacy migration work.
 - No east/west wrap ambiguity: treat Civ7 topology constraints as evidence-driven, not an open question.
 - Regression guardrails (do not regress Phase 2):
   - Do not treat any engine/projection surface as a physics-domain input.
@@ -320,6 +336,7 @@ Guardrails (non-negotiable, pulled from the context packet):
 - Physics domains are canonical truth producers; no downstream backfeeding.
 - Hard ban: overlays as physics inputs.
 - Narrative/Placement are not first-class domains; Gameplay owns overlays/placement/projections/stamping (Phase A only; read-only w.r.t. physics).
+- Physics domains are pure-only truth producers; projection artifacts/indices belong to Gameplay and are stamped only in engine-adapter steps (never embedded in physics truth artifacts).
 - “Raise and burn”: remove braids/stages unless they carry real canonical load.
 - Polar boundary tectonics must be integrated into the core spine (not an appendix).
 - Regression guardrails (do not regress Phase 2):
