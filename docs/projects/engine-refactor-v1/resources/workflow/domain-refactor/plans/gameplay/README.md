@@ -1,19 +1,14 @@
-# Gameplay Domain (Draft Planning Home)
+# Gameplay Domain Refactor (MapGen) – Documentation Index
 
-This directory is the project-scoped “home” for **Gameplay domain** refactor planning.
+This directory contains the **canonical documentation set** for the **Gameplay domain refactor** in the Civ7 Map Generation system. The documents here outline the design direction, scope, and implementation plan for introducing a unified Gameplay domain (absorbing the former Narrative and Placement phases) in the map generation pipeline.
 
-Canonical evidence (design-level, low churn) lives in system research:
-- `docs/system/libs/mapgen/research/SPIKE-gameplay-mapgen-touchpoints.md`
+**Contents:**
 
-Repo-specific wiring inventory and concrete planning artifacts live here (and in the project spike folder):
-- `docs/projects/engine-refactor-v1/resources/spike/spike-gameplay-domain-refactor-plan-notes.md`
+- **[GAMEPLAY.md](GAMEPLAY.md)** – **Gameplay Domain Refactor Plan & Design:** A comprehensive plan describing the new Gameplay domain’s role, design principles, and phased refactor approach. Includes the Phase A overlay-focused model, deferred Phase B extensions, and clear boundaries with physics domains.
+- **[GAMEPLAY-NODE-CONTEXT-PACKET.md](GAMEPLAY-NODE-CONTEXT-PACKET.md)** – **Node Context Packet (Coordination Artifacts):** Defines the key coordination artifacts used by the Gameplay domain during map generation (e.g. the global overlays container and the placement planning packet). Describes how these artifacts coordinate between Gameplay steps and the engine apply phase.
+- **[APPENDIX-REPO-WIRING-INVENTORY.md](APPENDIX-REPO-WIRING-INVENTORY.md)** – **Pre-Refactor Pipeline & Code Inventory:** An inventory of the current mapgen pipeline stages, steps, and module wiring related to gameplay (Narrative and Placement). Serves as a reference for what existing functionality will be consolidated or modified in the refactor.
+- **[APPENDIX-SCOPE-AND-ABSORPTION.md](APPENDIX-SCOPE-AND-ABSORPTION.md)** – **Domain Scope and Absorption Plan:** Details the Gameplay domain’s responsibilities versus other domains, and outlines how existing “legacy” gameplay code (Placement and Narrative logic) will be absorbed or re-homed. Clarifies what Gameplay will own after the refactor and how cross-domain interactions are managed.
+- **[APPENDIX-ENGINE-LEVERS-AND-ADAPTER-TRIAGE.md](APPENDIX-ENGINE-LEVERS-AND-ADAPTER-TRIAGE.md)** – **Gameplay Levers & Engine Adapter Triage:** Summarizes the gameplay-related features (“levers”) in Civ7’s map generation (e.g. starts, resources, wonders, overlays) and analyzes how the mod’s EngineAdapter interfaces cover these. Identifies any gaps or changes needed in the engine integration for the refactor.
+- **[issues/ISSUE-LANDMASS-REGION-ID-PROJECTION.md](issues/ISSUE-LANDMASS-REGION-ID-PROJECTION.md)** – **Issue: Landmass Region ID Projection (Homelands vs Distant Lands):** A tracked refactor item focusing on implementing the homelands vs distant lands landmass labeling as a Gameplay responsibility. This issue details ownership rationale, engine integration, ordering, and guardrails for that specific feature.
 
-## Contents
-
-- `GAMEPLAY.md`: Draft Gameplay domain refactor spec (ownership + boundaries + plan).
-- `IMPLEMENTATION-PLAN.md`: Migration slices for implementing Gameplay v1 (Placement-first, then Narrative absorption).
-- `OWNERSHIP-MAP.md`: Definitive mapping of what becomes Gameplay-owned vs stays physics-owned.
-- `DOMAIN-ABSORPTION-INVENTORY.md`: What code/content we would absorb from existing repo domains.
-- `STAGE-STEP-INVENTORY.md`: Current stage braid + gameplay-shaped steps snapshot.
-- `CIV7-MAPGEN-LEVER-INVENTORY.md`: Evidence-backed inventory of mapgen-time “gameplay levers”.
-- `ADAPTER-GAP-TRIAGE.md`: Classifies which levers need adapter support for Gameplay v1.
+Each document in this set is **self-contained** and intended to serve as a authoritative reference for the Gameplay refactor. Together, they provide a complete picture of the design and execution plan for introducing the Gameplay domain into the map generation workflow.
