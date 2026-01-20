@@ -103,7 +103,7 @@ This is the reusable subject‑matter sequence. Each step includes invariants an
 | No phase bleed | prevents “model drift” and mushy scope | each doc begins with scope guardrails + gate checklist |
 | Phase 2 model is authoritative | projections and legacy should not define truth | Phase 3 must only reference Phase 2; no new model content |
 | Projections never define internals | avoids compat shaping the system | explicit “representation policy” section in Phase 2 |
-| Compat is forbidden inside the refactored domain | prevents permanent legacy coupling | any transitional shims are downstream‑owned + deprecated |
+| Compat is forbidden (no shims/dual paths) | prevents permanent legacy coupling and “temporary” rot | migrate + delete in-slice; guardrails fail on shims |
 | Determinism is non‑negotiable | reproducible maps and debuggability | define determinism boundaries; test/scan for violations |
 | No authored intervention inside physics domains (when locked) | keeps the value proposition of physics | classify any such mechanisms as legacy to delete or downstream‑own |
 | Semantic knobs compile to normalized params | keeps authoring simple without breaking physics | Phase 3 must name the “knobs → normalize” boundary anchors |

@@ -37,7 +37,7 @@ Evidence pointers:
 
 ### 0.3 No downstream backfeeding
 
-- No downstream stage/step may influence Physics computations.
+- No downstream stage/step must influence Physics computations.
 - This is a pipeline contract, not a “best effort” guideline.
 
 ### 0.4 No overlays as physics inputs
@@ -67,7 +67,7 @@ These terms are used with the meanings below throughout all Phase 2 morphology s
 - **Projection artifact**: a Gameplay-owned derived artifact under `artifact:map.*` (projection intent; not Physics truth).
 - **Overlay**: a derived label/mask intended for UI/scenario/AI interpretation. Overlays are Gameplay-owned and must never be Physics inputs.
 - **Effect tag**: a boolean “has happened” guarantee produced by a step after successful effects (e.g., adapter stamping).
-- **Publish-once handle**: a runtime handle (e.g., a typed array) that may be built/mutated *before publish*, then published once and treated as immutable thereafter. If performance requires post-publish mutation, the value must be explicitly modeled as a buffer (and must not be used as a truth contract surface).
+- **Publish-once handle**: a runtime handle (e.g., a typed array) that is built/mutated *before publish*, then published once and treated as immutable thereafter. If performance requires post-publish mutation, the value must be explicitly modeled as a buffer (and must not be used as a truth contract surface).
 
 ### 1.2 Pipeline building blocks (per modeling guidelines)
 
@@ -128,9 +128,9 @@ Gameplay owns:
 - all projection surfaces under `artifact:map.*`,
 - all stamping/materialization via adapter steps.
 
-Gameplay steps may be **braided** into the overall recipe ordering (e.g., scheduled earlier for legacy wiring), but that does not change ownership or dependency direction:
+Gameplay steps are allowed to be **braided** into the overall recipe ordering (e.g., scheduled earlier for legacy wiring), but that does not change ownership or dependency direction:
 - Physics remains truth-only and must not require `artifact:map.*`, `effect:map.*`, or adapter state as inputs.
-- Gameplay remains projection/stamping-only and may only consume Physics truths as read-only inputs.
+- Gameplay remains projection/stamping-only and must only consume Physics truths as read-only inputs.
 
 ---
 
@@ -141,7 +141,7 @@ Gameplay steps may be **braided** into the overall recipe ordering (e.g., schedu
 Every stage has:
 - **Build (mutable)**: stage-owned buffers can be mutated by the stage’s steps.
 - **Freeze (boundary)**: the stage’s published outputs are treated as immutable by downstream; the stage performs no further mutation of those outputs after the freeze point.
-- **Consume (downstream)**: later stages may read prior artifacts; they may not mutate them.
+- **Consume (downstream)**: later stages can read prior artifacts; they must not mutate them.
 
 ### 3.2 Canonical freeze points (Phase 2 named)
 
@@ -178,7 +178,7 @@ Interpretation:
 - Within Gameplay, Phase 2 conceptually distinguishes:
   - **projection intent** (publishing `artifact:map.*` where needed), then
   - **materialization/stamping** (adapter writes + `effect:map.*Plotted`).
-  This may be implemented as two distinct stages or as two step groups within a single Gameplay stage, but the projection intent freeze rule (3.3) is non-negotiable.
+  This is implementable as either two distinct stages or two step groups within a single Gameplay stage, but the projection intent freeze rule (3.3) is non-negotiable.
 
 “Braided” Gameplay stages are allowed only as an ordering implementation detail and must preserve the above ownership rules:
 - A braided Gameplay stage reads physics truth and writes `artifact:map.*` + effects.
@@ -271,6 +271,167 @@ The Map Projections & Stamping file must lock:
 - the required “intent freeze → stamp → effect” invariant per stamped subsystem.
 
 This Core file is the canonical source for the **no-backfeeding** rule: Physics steps must never require `artifact:map.*` or adapter state as inputs.
+
+### 6.5 Canonical Morphology operation catalog (Phase 2 locked)
+
+This section answers the Phase 2 closure question “do we have operations and their inputs/outputs/config?” by locking the **stable, pure op surfaces** Morphology steps call.
+
+Rules:
+- Ops are pure: `run(input, config) -> output` with no access to adapter/engine state and no access to `artifact:map.*` or `effect:map.*`.
+- Steps are the only effect boundary: steps derive op inputs, call ops, publish artifacts, and freeze at F2.
+- Config is **normalized before use** (defaults applied; no presence-gating). Wrap flags are not config inputs.
+
+Each entry below is a Phase 2 contract surface:
+- **Op id** is a determinism anchor (used for seed derivation labels) and must not be renamed.
+- **Inputs/outputs** are stable at the field level for Phase 3 wiring.
+- **Determinism** describes the required tie-breakers/ordering.
+
+#### `morphology/compute-substrate` (truth; required)
+
+- Purpose: derive substrate truth buffers from Foundation driver fields.
+- Inputs (derived from frozen Foundation truths at F1):
+  - `upliftPotential`, `riftPotential` from `artifact:foundation.plates`
+  - `width`, `height`
+- Output (feeds `artifact:morphology.substrate` at F2): `erodibilityK`, `sedimentDepth`
+- Config: `SubstrateConfig` (strategy id `default`), normalized (defaults applied).
+- Determinism: pure numeric; no RNG.
+
+#### `morphology/compute-base-topography` (truth; required)
+
+- Purpose: synthesize initial elevation field from Foundation drivers + deterministic noise.
+- Inputs (F1 truths + seed):
+  - `boundaryCloseness`, `upliftPotential`, `riftPotential` from `artifact:foundation.plates`
+  - `width`, `height`
+  - `rngSeed: number` derived deterministically from `context.env.seed` + stable label `morphology/compute-base-topography`
+- Output (feeds `artifact:morphology.topography.elevation` at F2): `elevation` (tile-indexed)
+- Config: `ReliefConfig` (strategy id `default`), normalized.
+- Determinism: seed is data only; identical inputs+config+seed produce identical output array contents.
+
+#### `morphology/compute-sea-level` (truth; required)
+
+- Purpose: select `seaLevel` deterministically from hypsometry targets.
+- Inputs (tile truths + seed):
+  - `elevation` (tile-indexed)
+  - `boundaryCloseness`, `upliftPotential` from `artifact:foundation.plates`
+  - `width`, `height`
+  - `rngSeed` derived from `context.env.seed` + stable label `morphology/compute-sea-level`
+- Output (feeds `artifact:morphology.topography.seaLevel` at F2): `seaLevel` (scalar, meters)
+- Config: `HypsometryConfig` (strategy id `default`), normalized.
+- Determinism: output scalar must be identical given identical inputs+config+seed.
+
+#### `morphology/compute-landmask` (truth; required)
+
+- Purpose: derive land/water classification + distance-to-coast from elevation + sea level (and any allowed truth-only shaping).
+- Inputs:
+  - `elevation`, `seaLevel`, `width`, `height`
+  - `boundaryCloseness` from `artifact:foundation.plates` (for any truth-only shaping policies)
+- Output:
+  - feeds `artifact:morphology.topography.landMask` at F2: `landMask`
+  - feeds `artifact:morphology.coastlineMetrics.distanceToCoast` at F2: `distanceToCoast`
+- Config: `LandmaskConfig` (strategy id `default`), normalized.
+- Determinism:
+  - Uses the canonical tile neighbor graph (wrapX=true, wrapY=false).
+  - Any connected-component/BFS traversal must use deterministic neighbor ordering (see Contracts).
+
+#### `morphology/compute-coastline-metrics` (truth; required)
+
+- Purpose: derive coastline adjacency masks and (if used) truth-only coastline carving that updates the land mask.
+- Inputs:
+  - `landMask`, `width`, `height`
+  - Foundation boundary context as tile rasters (derived from `artifact:foundation.plates`): `boundaryCloseness`, `boundaryType`
+  - Any additional Morphology-owned context rasters required by the chosen strategy (noise masks, derived margin masks), all deterministically derived from frozen Physics truth + seeds (not gameplay overlays).
+  - `rngSeed` derived from `context.env.seed` + stable label `morphology/compute-coastline-metrics`
+- Output:
+  - feeds `artifact:morphology.coastlineMetrics` at F2: `coastalLand`, `coastalWater`
+- produces an updated `landMask` buffer; the Morphology stage MUST treat this updated `landMask` as the canonical land/water truth for all subsequent Morphology ops in the same run.
+- Config: `CoastlineMetricsConfig` (strategy id `default`), normalized.
+- Determinism:
+  - Any stochastic carving uses only the provided `rngSeed`.
+  - Any per-tile tie-breakers resolve by ascending `tileIndex`.
+
+#### `morphology/compute-flow-routing` (stage-internal; not a cross-domain artifact)
+
+- Purpose: compute routing primitives for Morphology-internal geomorphic cycles.
+- Inputs: `elevation`, `landMask`, `width`, `height`
+- Output: routing buffers (e.g., `flowDir`, `flowAccum`, `basinId`) consumed only by Morphology ops within the same stage.
+- Config: `RoutingConfig` (strategy id `default`), normalized (currently empty).
+- Determinism:
+  - Pure: identical inputs yield identical outputs.
+  - Edge/boundary behavior MUST respect wrapY=false hard borders.
+
+This op MUST NOT publish any cross-domain artifact under `artifact:morphology.*`. The only published truth surfaces are those listed in `spec/PHASE-2-CONTRACTS.md`.
+
+#### `morphology/compute-geomorphic-cycle` (truth refinement; required when enabled by config)
+
+- Purpose: compute bounded erosion/deposition deltas for geomorphic relaxation.
+- Inputs: `elevation`, `landMask`, `flowAccum`, `erodibilityK`, `sedimentDepth`, `width`, `height`
+- Output: `elevationDelta`, `sedimentDelta` applied by the owning step to stage-local buffers, then (eventually) published into truth artifacts at F2.
+- Config: `GeomorphicCycleConfig` (strategy id `default`), normalized (includes bounded iteration counts; no runtime presence-gating).
+- Determinism:
+  - Pure numeric; no RNG.
+  - Iteration counts are fixed by normalized config.
+
+#### `morphology/compute-landmasses` (truth; required)
+
+- Purpose: decompose the final land mask into connected landmasses on a cylinder.
+- Inputs: `landMask`, `width`, `height`
+- Output (feeds `artifact:morphology.landmasses` at F2):
+  - `landmassIdByTile` (water = `-1`)
+  - `landmasses[]` summary list
+- Config: empty (strategy id `default`), normalized.
+- Determinism:
+  - Connected-component traversal uses the canonical tile neighbor graph + deterministic neighbor order.
+  - Ordering/tie-breakers for IDs and bbox semantics are locked in `spec/PHASE-2-CONTRACTS.md`.
+
+#### `morphology/plan-volcanoes` (truth intent; required)
+
+- Purpose: plan volcano vent placements as Physics truth intent (adapter-agnostic).
+- Inputs (F1 truths + Morphology truths + seed):
+  - `landMask` (volcanoes must be placed only on land at F2)
+  - Foundation boundary context (tile rasters derived from `artifact:foundation.plates`)
+  - Any other required Physics masks (e.g., hotspot trails) must be Physics-derived (not gameplay overlays)
+  - `rngSeed` derived from `context.env.seed` + stable label `morphology/plan-volcanoes`
+- Output: deterministic list of planned vents (tile indices), used by the owning step to build the full `artifact:morphology.volcanoes` truth artifact at F2:
+  - `volcanoMask[tileIndex]` is derived directly from the planned vent indices.
+  - `volcanoes[].kind` and `volcanoes[].strength01` are derived deterministically from frozen Foundation driver fields at each `tileIndex` (as specified in `spec/PHASE-2-CONTRACTS.md`).
+- Config: `VolcanoesConfig` (strategy id `default`), normalized.
+- Determinism:
+  - `rngSeed` is the only entropy input.
+  - Output list ordering is ascending `tileIndex`.
+  - The op MUST select vents only from tiles where the provided `landMask[tileIndex] === 1`.
+
+Other plan ops (`morphology/plan-ridges-and-foothills`, `morphology/plan-island-chains`) are allowed as Morphology-internal helpers that produce stage-local masks/edits for later steps; they do not define additional cross-domain truth artifacts in Phase 2.
+
+### 6.6 Morphology truth step map (Phase 2)
+
+This is the contract-facing step map for the Morphology **Physics** portion of the pipeline. It is explicit about:
+- which pure ops are called,
+- which truth artifacts are the inputs,
+- which truth artifacts exist at **F2**.
+
+Notes:
+- Step ids are canonical (determinism labels + wiring targets). Recipes can group multiple of these logical steps into one stage implementation, but the ordering and artifacts must match.
+- No step below consumes `artifact:map.*` or `effect:map.*`.
+- For publish-once truth artifacts (e.g., `artifact:morphology.topography`, `artifact:morphology.substrate`), Morphology builds stage-local buffers first, then publishes once at the end of the Morphology stage (F2) and treats them as immutable thereafter.
+
+| Step id (canonical) | Calls ops | Reads (frozen Physics truth) | Produces (stage-local buffers / snapshots) |
+|---|---|---|---|
+| `morphology/step-substrate` | `morphology/compute-substrate` | `artifact:foundation.plates` (`upliftPotential`, `riftPotential`), `width|height` | substrate buffers (`erodibilityK`, `sedimentDepth`) |
+| `morphology/step-base-topography` | `morphology/compute-base-topography` | `artifact:foundation.plates` (`boundaryCloseness`, `upliftPotential`, `riftPotential`), `context.env.seed`, `width|height` | elevation buffer |
+| `morphology/step-sea-level` | `morphology/compute-sea-level` | elevation buffer, `artifact:foundation.plates` (`boundaryCloseness`, `upliftPotential`), `context.env.seed`, `width|height` | seaLevel scalar |
+| `morphology/step-landmask` | `morphology/compute-landmask` | elevation buffer, seaLevel scalar, `artifact:foundation.plates.boundaryCloseness`, `width|height` | landMask buffer + distance-to-coast buffer |
+| `morphology/step-coastline-metrics` | `morphology/compute-coastline-metrics` | landMask buffer, `artifact:foundation.plates` (`boundaryCloseness`, `boundaryType`), `context.env.seed`, `width|height` | coastline metric buffers (`coastalLand`, `coastalWater`); deterministically updates the landMask buffer (truth-only carving), if enabled by config |
+| `morphology/step-geomorphology` | `morphology/compute-flow-routing`, `morphology/compute-geomorphic-cycle` | buffers above, `width|height` | refined elevation + substrate buffers (bounded iterations) |
+| `morphology/step-landmasses` | `morphology/compute-landmasses` | final landMask buffer, `width|height` | landmasses snapshot (`landmasses[]`, `landmassIdByTile`) |
+| `morphology/step-volcanoes-intent` | `morphology/plan-volcanoes` (+ deterministic derivations) | final landMask buffer, `artifact:foundation.plates` boundary context, `artifact:foundation.tectonics.volcanism`, `context.env.seed`, `width|height` | volcanoes snapshot (`volcanoMask`, `volcanoes[]`) |
+
+**Publish/freeze step (required):** `morphology/step-publish-truth`
+- Publishes all Morphology truth artifacts as immutable Phase 2 contracts at **F2**:
+  - `artifact:morphology.topography`
+  - `artifact:morphology.substrate`
+  - `artifact:morphology.coastlineMetrics`
+  - `artifact:morphology.landmasses`
+  - `artifact:morphology.volcanoes`
 
 ---
 

@@ -15,6 +15,21 @@ Convert the spikes into an executable slice plan and a single source-of-truth is
 - No “later” buckets. Every slice is explicit with deliverables and a branch/subissue plan.
 - Locked decisions must be test-backed in the same slice they are introduced.
 
+## Global cutover requirement (map projections + materialization lane)
+
+This Phase 3 plan MUST execute a full cutover to the canonical “truth vs map projection/materialization” posture in one continuous effort. No legacy paths survive.
+
+Hard requirements:
+- Physics steps MUST NOT `require`/consume `artifact:map.*` as inputs.
+- Physics steps MUST NOT `require`/consume `effect:map.*` as inputs.
+- Physics truth MAY be tile-indexed and MAY include `tileIndex`; the ban is on engine/game-facing ids, adapter coupling, and consuming map-layer projections/materialization.
+- `artifact:map.*` is Gameplay-owned and exists for projection/annotation/observability and future gameplay reads.
+- Adapter/engine reads/writes happen only in Gameplay-owned steps and must provide the corresponding `effect:map.<thing>Plotted`.
+- Any existing engine-coupled work currently living in “physics stages” must be reclassified into the Gameplay/materialization lane as part of the cutover (even if braided in the same phase ordering).
+
+Non-negotiable:
+- No shims. No compat layers. No “we’ll delete it later”. If the pipeline cannot be kept green without a shim, the slice design is wrong and must be redesigned.
+
 ## Required output
 
 - `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-<milestone>-<domain>-*.md`
@@ -54,7 +69,7 @@ Convert the spikes into an executable slice plan and a single source-of-truth is
 - Acceptance + verification gates per slice
 - Migration checklist per slice
 - Cleanup ownership + triage links
-  - Include an explicit removal ledger (required): every shim/compat adapter/temp bag/legacy entrypoint that will be removed, which slice removes it, and what the verification proof is (tests/guardrails/search).
+  - Include an explicit removal ledger (required): every legacy entrypoint/export/helper/temp bag/dead surface that will be removed, which slice removes it, and what the verification proof is (tests/guardrails/search).
   - If a legacy surface cannot be removed in this refactor, it MUST become a concrete tracking item (issue/sub-issue) with owner + trigger, and it MUST be linked here. (Placeholders/dead bags are not deferrable.)
 - Sequencing refinement note (how the slice order was re-checked for pipeline safety)
 - Documentation pass plan (dedicated slice or issue)
@@ -72,7 +87,7 @@ Drafted slices from Phase 2 pipeline deltas as A) contract surface updates, B) o
 
 After re-ordering for pipeline safety, downstream consumer updates moved earlier so no slice leaves a contract mismatch. Final order is A) update stage-owned contracts + artifacts, B) update downstream consumers to the new contracts, C) migrate domain ops/steps, D) remove legacy paths and confirm guardrails.
 
-Re-checked downstream deltas against the new order and verified each slice ends green. No model changes introduced; any transitional shims live downstream and are explicitly marked deprecated.
+Re-checked downstream deltas against the new order and verified each slice ends green. No model changes introduced; no shims/compat layers were introduced.
 
 ## Slice plan requirements (per slice)
 
@@ -100,7 +115,7 @@ Re-checked downstream deltas against the new order and verified each slice ends 
   - Required: name constants, state intent in docs/JSDoc/schema descriptions where the value affects semantics, and ensure tests cover the normalized/compiled behavior.
 - No placeholders / dead bags (required in every slice)
   - The slice must not introduce or leave behind empty directories, placeholder modules, empty config bags, or unused “future scaffolding”.
-  - If the slice introduces a temporary shim/adapter to keep the pipeline green, it MUST also include the plan to remove it (same slice when feasible; otherwise a later slice in this plan). It must not be left implicit.
+  - Do not introduce temporary shims/adapters to keep the pipeline green. Redesign the slice to migrate and delete instead.
 - Legacy entrypoints to delete (file paths / exports)
 - Tests to add/update (op contract test + thin integration edge)
 - Guardrail tests (string/surface checks or contract-guard tests for forbidden surfaces)
@@ -122,7 +137,7 @@ Re-checked downstream deltas against the new order and verified each slice ends 
 - Every planned slice can end in a working state (no “we’ll delete later”).
 - Any pipeline delta from Phase 2 is fully assigned to slices.
 - No model changes appear in the issue doc (modeling lives in Phase 2).
-- No compat surfaces remain in the refactored domain; any deprecated shims live in downstream domains and are explicitly marked.
+- No compat surfaces remain anywhere in-scope; do not introduce deprecated shims as a refactor technique.
 - Stage ids are treated as author contracts: stage id changes (if any) have explicit migration steps, and stage naming is semantic (avoid ambiguous “pre/core/post” labels).
 - Any pipeline braiding/interleaving constraints are documented (why stages exist, ordering constraints, and downstream impact).
 - Sequencing refinement pass is documented and reflects the final order.

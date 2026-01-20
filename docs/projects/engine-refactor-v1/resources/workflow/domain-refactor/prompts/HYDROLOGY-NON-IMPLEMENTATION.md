@@ -118,12 +118,11 @@ Determinism posture:
     - An authored knob/config, OR
     - A named constant with explicit intent and justification, referenced in docs.
 - Hard ban: placeholders / dead bags.
+  - No shims or compat layers are allowed as a refactor technique. If a consumer blocks deletion, the slice must include the migration and the deletion (pipeline-green, no dual paths).
   - Do not introduce placeholder directories/modules/bags.
-  - Phase 3 must explicitly plan removal of any temporary shims/compat introduced during implementation.
 
 Compat posture (non-negotiable invariant):
-- Compat is forbidden inside the refactored Hydrology domain.
-- Compat may exist ONLY downstream as explicitly deprecated shims with removal triggers and a planned deletion slice.
+- Compat/shims are forbidden as a refactor technique (inside or outside the domain). Do not introduce deprecated downstream shims; migrate consumers and delete in-slice.
 - Projections never define internal representation.
 
 Execution posture (hard-won lesson):

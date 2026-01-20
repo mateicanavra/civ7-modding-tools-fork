@@ -39,7 +39,7 @@ Contract hygiene:
 
 Compat posture:
 - No compat surfaces inside Morphology.
-- If legacy projections exist, they must be downstream and explicitly deprecated with a planned removal slice.
+- If legacy projections exist, they must be migrated and deleted (pipeline-green, no shims/dual paths).
 
 ### 3) Inputs (categories, not commitments)
 

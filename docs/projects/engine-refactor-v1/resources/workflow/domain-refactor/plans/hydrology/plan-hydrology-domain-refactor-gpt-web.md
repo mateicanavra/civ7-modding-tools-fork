@@ -247,7 +247,7 @@ Notes: This is the largest slice. It should ideally be done in small sub-PRs (on
 
 **Goal:** Final cleanup of any straggling TODOs, removal of deprecated code paths, and full documentation of the refactored Hydrology domain. This slice ensures no “dust” remains and that maintainers have clear guidance going forward.
 
-**Steps involved:** All hydrology steps (for final review), plus any downstream code that had temporary shims. No new functional changes, just deletions and docs.
+**Steps involved:** All hydrology steps (for final review), plus any downstream code migrations required to remove legacy surfaces. No new functional changes, just deletions and docs.
 
 **Purpose:** Now that the new implementation is in place and tested, remove any remaining dead code or compatibility shims and write all the documentation and tests required:
 - Delete any legacy functions that are no longer used (e.g., if there was an old Climate.computeRainfallLegacy() left around, remove it).
@@ -276,7 +276,7 @@ Guardrail coverage: This slice finalizes guardrails:
 Notes: Once this slice is done, Hydrology refactor is code-complete. We then perform Lookback 3 (review Phase 3 outcomes vs plan) and Lookback 4 (post-implementation review) as per workflow, documenting any lessons or required adjustments to the model (if, say, something turned out underperforming or overly complex, we note it for future Phase 2 revisits).
 
 ## 5. Consumer Migration Matrix
-The table below summarizes how each known consumer of Hydrology data is affected, mapping current interfaces to the new ones introduced by our slices. It indicates in which slice the breaking change occurs and how we address it (fix or temporary shim). This matrix ensures no downstream dependency is forgotten during the refactor.
+The table below summarizes how each known consumer of Hydrology data is affected, mapping current interfaces to the new ones introduced by our slices. It indicates in which slice the breaking change occurs and how we address it (consumer migration + legacy deletion; no shims). This matrix ensures no downstream dependency is forgotten during the refactor.
 
 (Table Legend: “Breaks when” indicates the slice at which the current contract will break if not addressed. “Fix” describes how we resolve it in that same slice. “Shim” indicates a temporary compatibility layer downstream if we cannot fully update a consumer in-line, marked for later removal.)
 All consumer fixes are applied within this refactor’s slices, so by the end of Phase 3 the new contracts are fully adopted. Notably, no upstream domain requires changes due to Hydrology (Morphology and Foundation changes were handled in their refactors). Downstream domains (Ecology, Narrative, Placement) are the focus, as listed. Each fix has been assigned to a slice above. No permanent shims in Hydrology – any temporary downstream workaround is explicitly deprecated and tracked for cleanup[99].

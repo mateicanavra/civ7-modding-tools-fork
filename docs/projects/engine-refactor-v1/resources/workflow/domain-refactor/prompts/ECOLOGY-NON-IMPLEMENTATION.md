@@ -139,7 +139,7 @@ You must follow the locked decisions in `references/implementation-traps-and-loc
 - Hard bans (no exceptions):
   - Hidden multipliers / constants / defaults.
   - Placeholders / dead bags (empty directories, empty config bags, placeholder modules).
-  - Compat inside the refactored domain (compat, if needed, is downstream-only and explicitly deprecated with removal plan).
+  - Compat/shims as a refactor technique (no “downstream deprecated shim” escape hatch; migrate and delete in-slice).
   - Engine projections as domain truth (e.g., engine adjacency/tile queries as “ecology truth”).
   - Hidden bias/tuning for convenience (biasing must be explicit via config or explicit Gameplay contract/hook; never hidden multipliers or implicit rules buried in Ecology runtime code).
 

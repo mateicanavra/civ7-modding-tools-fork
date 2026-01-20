@@ -22,7 +22,7 @@
   Non-negotiable invariants (drift prevention):
   - Model-first: the canonical model/contracts are the source of truth even if projections change.
   - No compat inside Morphology: Morphology must not publish or retain legacy compat/projection surfaces.
-    If transitional compatibility is required, it must live downstream, be explicitly deprecated, and be tracked for removal.
+    Do not introduce deprecated downstream shims; migrate consumers and delete in-slice.
   - Narrative overlays are forbidden in this refactor phase:
     - remove story/narrative/overlay surfaces entirely,
     - replace any load-bearing ones with canonical, domain-anchored contracts,

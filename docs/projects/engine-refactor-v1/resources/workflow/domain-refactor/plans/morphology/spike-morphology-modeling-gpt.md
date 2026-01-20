@@ -415,7 +415,7 @@ items:
     meaning: |
       Frozen topography truth snapshot (published at F2): elevation (meters), seaLevel (same units),
       landMask (derived by elevation > seaLevel), plus bathymetry (depth below datum).
-    notes: Excludes all engine/projection indices (terrain IDs, cliffs, tags).
+    notes: Excludes engine/game-facing indices (terrain IDs, cliffs, tags). Tile indexing (`tileIndex`) is allowed in truth artifacts.
   - name: buffer:morphology.substrate
     type: Buffer
     owner: Morphology

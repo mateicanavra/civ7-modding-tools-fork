@@ -358,10 +358,11 @@ Schema (Phase 2 canonical):
 ```ts
 type MorphologyTopographyArtifact = {
   // Signed elevation relative to a shared datum (units: meters).
-  // Representation note: current code uses `Int16Array` (see evidence pointers below); Phase 2 locks the unit, not the storage.
+  // Phase 2 semantic lock: values represent **integer meters** (quantized deterministically).
   elevation: Int16Array;
 
-  // Global sea level threshold in the same datum and units as elevation.
+  // Global sea level threshold in the same datum and units as elevation (meters).
+  // Phase 2 semantic lock: this is a `number` and is allowed to be fractional (e.g., hypsometry-derived).
   seaLevel: number;
 
   // Derived classification: 1=land, 0=water.
@@ -369,14 +370,24 @@ type MorphologyTopographyArtifact = {
   landMask: Uint8Array;
 
   // Derived bathymetry relative to sea level (units: meters).
-  // Convention: `bathymetry[i] = min(0, elevation[i] - seaLevel)` (0 on land, negative in water).
+  // Convention (semantic): `bathymetryMeters[i] = min(0, elevationMeters[i] - seaLevelMeters)` (0 on land, negative in water).
+  // Phase 2 storage lock: when stored as an `Int16Array`, bathymetry MUST be quantized deterministically:
+  // - `bathymetry[i] = clampInt16(roundHalfAwayFromZero(bathymetryMeters[i]))`
   bathymetry: Int16Array;
 };
 ```
 
 Semantics:
-- `landMask[i] = (elevation[i] > seaLevel ? 1 : 0)`; no alternate thresholding.
-- `bathymetry` is a derived field and must match the definition above.
+- Land/water threshold is strict and unambiguous:
+  - `landMask[i] = (elevationMeters[i] > seaLevelMeters ? 1 : 0)` (equality is water).
+  - `elevationMeters[i]` is the semantic value represented by `elevation[i]` (integer meters).
+  - `seaLevelMeters` is the semantic value represented by `seaLevel` (allowed to be fractional).
+- `bathymetry` is a derived field and MUST be consistent with `elevation` + `seaLevel` under the convention above:
+  - Land tiles MUST have `bathymetry[i] = 0`.
+  - Water tiles MUST have `bathymetry[i] <= 0`.
+- Quantization rule (Phase 2 determinism anchor):
+  - `roundHalfAwayFromZero(x)` rounds `+0.5 -> +1` and `-0.5 -> -1` (not banker's rounding).
+  - `clampInt16(x)` clamps to `[-32768, 32767]` after rounding.
 - This artifact is **physics truth only**. It must not include engine-facing classifications (terrain ids, tags, region ids).
 
 Determinism:
@@ -535,7 +546,11 @@ Semantics:
 - Volcano placement is derived from Foundation driver fields (not overlays), using:
   - `artifact:foundation.tectonics.volcanism` as the canonical melt/volcanism driver
   - boundary regime signals (from Foundation boundary classification / potentials) to determine `kind`
-- Morphology modifies topography locally to express volcanic landforms physically, but **engine volcano features** are not stamped in physics (Gameplay does that downstream).
+- Phase 2 causality lock: `artifact:morphology.volcanoes` is **intent-only** and MUST NOT mutate `artifact:morphology.topography` in-place.
+  - Any physical expression of volcanic landforms in Civ7 (terrain/feature stamping) is Gameplay-owned and occurs downstream in `plot-volcanoes` (see the map projections/stamping spec).
+- Volcano vents are land-only in Phase 2:
+  - For every `v` in `volcanoes`, `artifact:morphology.topography.landMask[v.tileIndex] MUST be 1` at F2.
+  - The Morphology volcanism planning algorithm MUST select vents only from tiles with `landMask=1`. Water tiles are never valid vent candidates.
 - `strength01` is derived deterministically from Foundation driver strength (canonical baseline: `strength01 = volcanism / 255`, clamped to `[0,1]` after any deterministic Morphology-local smoothing).
 
 Determinism / ordering:

@@ -149,7 +149,9 @@ Hard rule: engine/projection truth is derived-only (never an input).
 - Morphology must not read engine-projected surfaces back in as “truth” (this inverts the contract and poisons downstream correctness).
 - Projections/indices are Gameplay-owned derived artifacts:
   - Terrain IDs, feature IDs, resource IDs, player IDs, region IDs, plot tags, placements, and other game-facing indices belong to Gameplay (projection policy), not to Morphology (physics truth).
-  - Physics domains must not embed engine IDs or projection indices inside physics truth artifacts as “the truth.” If legacy artifacts currently do so, treat it as migration work into Gameplay’s projection/stamping layer.
+  - Physics domains must not embed engine IDs or adapter coupling inside physics truth artifacts as “the truth.” Tile indexing (`tileIndex`) is allowed in truth artifacts; the prohibition is on engine/game-facing ids and on consuming map-layer projections/materialization:
+    - Physics steps MUST NOT `require`/consume `artifact:map.*`.
+    - Physics steps MUST NOT `require`/consume `effect:map.*`.
 - Canonical map projection surfaces and stamping guarantees:
   - Projection artifacts are `artifact:map.*` (Gameplay-owned).
   - Stamping completion is represented by boolean effects like `effect:map.<thing>Plotted` (e.g., `effect:map.mountainsPlotted`), emitted by the stamping step.
@@ -172,11 +174,10 @@ Hard ban: hidden multipliers/constants/defaults.
 
 Hard ban: placeholders / dead bags.
 - No placeholder directories/modules/bags.
-- Phase 3 must explicitly plan removal of all temporary shims/compat introduced during implementation.
+- No shims or compat layers are allowed as a refactor technique. If a consumer blocks deletion, the slice must include the migration and the deletion (pipeline-green, no dual paths).
 
 Compat posture (non-negotiable invariant):
-- Compat is forbidden inside the refactored Morphology domain.
-- Compat may exist ONLY downstream as explicitly deprecated shims with removal triggers and a planned deletion slice.
+- Compat is forbidden as a design pattern (inside or outside the refactored domain). Do not introduce “temporary” shims that survive beyond the slice.
 
 Determinism & purity posture (contract expectation; keep details in workflow refs):
 - Prefer passing determinism inputs across boundaries as data (seeds/inputs), not as runtime RNG objects/functions.

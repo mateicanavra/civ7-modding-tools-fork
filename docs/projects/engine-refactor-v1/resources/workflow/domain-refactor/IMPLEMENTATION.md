@@ -98,8 +98,8 @@ This is the “definition of done” for a slice. You must complete it before mo
 
 - Delete the legacy entrypoints and helpers that the migrated step(s) used.
 - Do not leave compat exports or an “old/new” switch.
-- Remove any compat/projection surfaces from this domain. If downstream needs transitional compatibility, implement it downstream with explicit `DEPRECATED` / `DEPRECATE ME` markers.
-- No dual-path compute: if old and new both produce the same concept, delete the old path in this slice unless an explicit deferral trigger is recorded.
+- Remove any compat/projection surfaces from this domain. Do not introduce transitional compatibility as a refactor technique; migrate consumers and delete in-slice.
+- No dual-path compute: if old and new both produce the same concept, delete the old path in this slice (the slice design must include consumer migration so it can).
 
 ### 4) Tests for the slice
 
@@ -305,7 +305,7 @@ In the final slice, do the “around-the-block” cleanup:
 - remove now-unused shared helpers that existed only to support legacy paths,
 - remove obsolete exports/re-exports that bypass the op boundary,
 - update docs/presets/tests that referenced removed legacy structures.
-- if any downstream deprecated shims were added, add a cleanup item in `docs/projects/engine-refactor-v1/triage.md`, or open a dedicated downstream issue if the next domain can remove them safely (link the issue from triage).
+- do not leave behind deprecated shims/compat layers. If a shim exists, the slice plan is wrong; redesign the slice to migrate consumers and delete the legacy surface in-slice.
 
 Before the full repo gates, run the fast refactor gates:
 ```bash
@@ -325,4 +325,4 @@ pnpm deploy:mods
 
 Finally, do the Phase 5 traceability pass:
 - Update the Phase 3 issue doc Lookback 4 (what changed vs plan, and why).
-- Record true deferrals with explicit triggers in `docs/projects/engine-refactor-v1/deferrals.md` (do not “defer” planned work casually).
+- Record any environmental gate constraints (e.g. deploy not runnable locally) with evidence. Do not defer in-scope migrations/deletions; redesign slices until they are straight-through cutovers.

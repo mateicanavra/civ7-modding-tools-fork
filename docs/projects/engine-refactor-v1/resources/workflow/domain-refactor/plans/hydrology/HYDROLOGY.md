@@ -27,7 +27,7 @@ Hard principle:
 Design principles (authoritative surfaces):
 
 Surface ownership + pipeline:
-- Hydrology owns its surfaces. The refactor must not retain legacy compat surfaces; update downstream consumers in the same refactor. If downstream needs transitional shims, they live downstream and are explicitly marked as deprecated.
+- Hydrology owns its surfaces. The refactor must not retain legacy compat surfaces; update downstream consumers in the same refactor. Shims/compat layers are forbidden; migrate and delete in-slice.
 - Projections are presentation-only and must never shape the internal representation.
 - Op config is op-owned and minimal; do not reuse a domain-wide config bag inside op contracts.
 - Every existing config property, rule/policy, and function must be explicitly accepted into the model or rejected as legacy (no silent carry-through).
@@ -56,8 +56,7 @@ Implementation guardrails (locked decisions; see implementation-traps reference)
 
 Compatibility and cleanup rules:
 - This refactor must not leave compat/projection surfaces in Hydrology. Downstream consumers must be updated as part of this refactor.
-- If a downstream domain needs transitional compatibility, it owns the deprecated shim and must mark it explicitly (`DEPRECATED` / `DEPRECATE ME`).
-- If downstream deprecated shims are introduced, add a cleanup item in `docs/projects/engine-refactor-v1/triage.md`. If the immediate downstream domain can remove them safely and no other downstream consumers are affected, that downstream owns a dedicated cleanup issue; link it from triage.
+- Do not introduce deprecated downstream shims as a refactor technique. Redesign slices to migrate and delete instead.
 
 Anti-patterns (concise; see WORKFLOW for full list):
 - Phase bleed (modeling vs slicing vs implementation).

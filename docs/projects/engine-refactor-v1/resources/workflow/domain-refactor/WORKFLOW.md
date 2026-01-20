@@ -48,6 +48,21 @@ This workflow is strict about architecture and contracts, but it should feel str
 - Stop the line on drift. If a locked decision is violated or a contract is ambiguous, pause, update the Phase 3 issue, and add a guardrail before continuing.
 - Keep diffs reviewable. Default to one branch/PR per slice; if a slice grows, split into explicit subissues/branches rather than “and also” accretion.
 
+### Maximal boundary posture (truth vs map projection/materialization)
+
+This is a hard, repo-wide modeling and implementation posture for domain refactors:
+
+- Physics domains are **truth-only**: they publish truth artifacts and run physics logic, but they MUST NOT consume map-layer projections or stamping effects.
+  - Physics truth MAY be tile-indexed and MAY include `tileIndex` (this is allowed). The ban is on engine/game-facing ids, adapter coupling, and consuming `artifact:map.*` / `effect:map.*`.
+  - Physics steps MUST NOT `require`/consume `artifact:map.*`.
+  - Physics steps MUST NOT `require`/consume `effect:map.*`.
+- Gameplay/map layer owns projections + materialization:
+  - `artifact:map.*` is the canonical map-facing projection/annotation layer (including observability/debug layers).
+  - Adapter/engine reads and writes happen only in Gameplay-owned steps and must provide `effect:map.<thing>Plotted`.
+
+Cutover posture:
+- No legacy paths. No shims. No dual-path behavior. If current code violates this boundary, the fix is to reclassify that work into the Gameplay/materialization lane and adjust dependencies so physics truth remains truth-only.
+
 Keep close during execution:
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/IMPLEMENTATION.md`
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/implementation-reference.md`
@@ -334,11 +349,11 @@ Phase 5 is where we make the refactor **ruthless and pure**:
 ### Phase 5 scope (hard rules)
 
 - No Phase 2 model changes. If you discover a model problem, stop and open a modeling follow-up; do not “patch the model” opportunistically during cleanup.
-- No dual-path compute. If something still depends on an old path, either migrate it now or record an explicit deferral with a trigger.
-- No domain-local compatibility. Temporary compatibility lives downstream (explicit shims), not inside the refactored domain.
+- No dual-path compute. If something still depends on an old path, the slice design is wrong: migrate+delete in-slice or redesign the slice so it can.
+- No compatibility techniques. No shims. No “temporary” adapters. If something is still present, it is a bug in the refactor slice design and must be removed before merge.
 - No hidden multipliers/constants/defaults. If you find an unnamed multiplier/threshold/default, either expose it as config/knob or convert it to a named internal constant with explicit intent (then update docs/tests as needed).
 - No placeholders / dead bags. Delete any placeholder directories/files and remove any empty or unused config bags/schemas/modules. This is not optional and not deferrable.
-- No implicit cleanup. Any superseded or deprecated surface (legacy entrypoint, shim, adapter, compatibility layer) that remains MUST be explicitly listed with its removal status; if it cannot be removed in this refactor, it MUST have a concrete tracking item (issue/sub-issue) and a trigger/owner.
+- No leftovers. Any superseded surface (legacy entrypoint, shim, adapter coupling, compatibility layer, dead bag) that remains at the end is a blocker; do not ship it behind a “follow-up cleanup” plan.
 
 ### Verification gates (must be green)
 
@@ -386,12 +401,12 @@ Do a final pass that is explicitly biased toward deletion and purity:
   - narrative overlay/story surfaces are not produced/consumed as part of this refactor phase (any remaining ones are planned for deletion and have consumer migrations),
   - any engine/adapter outputs consumed for compatibility are labeled as projections,
   - canonical truth is owned by the domain model and published as typed artifacts/buffers,
-  - any unavoidable projection-only posture has an explicit removal trigger in `docs/projects/engine-refactor-v1/deferrals.md`.
+  - any projection-only posture has an explicit consumer migration+deletion plan in the slice (no “temporary projection compatibility” posture).
 
 ### Traceability (required)
 
 - Update the Phase 3 issue’s **Lookback 4** section (plan vs actual; why; what changed).
-- Ensure deferrals and triggers are recorded (only true deferrals; no “unfinished planned work”).
+- Ensure there are no compatibility or cleanup deferrals in-scope; if something cannot be deleted, expand scope or redesign slices until it can.
 - Ensure cross-cutting decisions are captured in `docs/projects/engine-refactor-v1/triage.md` when they affect other domains.
 
 Submit:
