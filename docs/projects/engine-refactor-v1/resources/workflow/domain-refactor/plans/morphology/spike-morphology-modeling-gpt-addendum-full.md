@@ -407,7 +407,7 @@ Terrain stamping requirements are not speculative. Agents must inspect Civ7 reso
 * mountain/cliff representation,
 * required TerrainBuilder phases / recalc steps / validations,
 * landmass region semantics,
-* any map topology constraints (explicitly: **no east/west wrap**, and **no non-standard maps** — do not leave wrap as an open question).
+* map topology constraints (explicitly: **east–west wrap is always on**, **north–south wrap is always off**; do not treat wrap flags as optional, configurable, or an open question; also: **no non-standard maps**).
 
 ### Mapgen repo (must consult)
 

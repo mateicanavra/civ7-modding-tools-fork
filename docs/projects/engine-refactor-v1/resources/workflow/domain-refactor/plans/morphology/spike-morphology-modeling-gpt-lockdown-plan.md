@@ -56,6 +56,7 @@ This is a generalized posture we are locking for this Phase 2 lockdown (not just
   1) compute/read physics truth artifacts,
   2) invoke Gameplay’s pure projection logic to produce indices/tags/placements,
   3) stamp via the engine adapter, then run required postprocess/validation.
+- **Execution guarantees (locked; boolean effects; no receipts/hashes):** if a downstream step must rely on “stamping occurred”, that guarantee is expressed via short effect tags provided by the stamping steps (e.g., `effect:map.mountainsPlotted`, `effect:map.volcanoesPlotted`). This is safe because the relevant `artifacts.map.*` intent artifacts are publish-once and frozen for the pass before stamping begins.
 - **Braiding at the stage/step level is allowed (ownership is not):** it is fine for a “Morphology” stage to include a Gameplay projection/stamping step for convenience, but that does not mean Gameplay logic lives inside Morphology (domain ownership stays intact).
 - **Legacy posture:** if we find physics artifacts emitting projection-like fields (e.g., engine terrain IDs embedded in a Morphology artifact), treat it as legacy to migrate into Gameplay projection/stamping.
 
@@ -132,6 +133,15 @@ You are Agent A (Contracts & Ownership Lock). Agent type: default.
 Overall goal (shared across all agents):
 We are hardening Morphology Phase 2 into a canonical, drift-resistant modeling document. Phase 2 must be an authoritative, contract-locking spec: no open contract-level questions, no “provisional/optional/might/could” language for any public surface, and explicit schemas/semantics across domain boundaries.
 
+Recently locked decisions (do not re-litigate; build on them):
+- Gameplay projection artifacts live under a unified `artifact:map.*` namespace (not `artifact:gameplay.projection.*`).
+- `artifact:map.*` is publish-once/frozen **intent** per pass (no “rewrite later in the run”).
+- Execution guarantees are short boolean effects provided by stamping steps:
+  - Use existing convention: `effect:map.<thing>Plotted` (e.g., `effect:map.mountainsPlotted`, `effect:map.volcanoesPlotted`).
+  - No version suffixes. No wordy names. No receipts/hashes/digests.
+- Step names like `project-map` / `stamp-map` are template terms only; in practice expect granular `plot-*` steps (e.g., `plot-mountains`, `plot-volcanoes`, `plot-landmass-regions`).
+- Do not introduce a new top-level Gameplay domain directory/package yet; keep Gameplay-owned logic self-contained inside the braided `morphology-map` stage(s)/steps.
+
 You are working concurrently with two peer agents:
 - Agent B (Civ7 stamping / engine integration): will lock the downstream stamping/materialization layer and LandmassRegionId projection semantics based on Civ7 resources and current repo wiring.
 - Agent C (Pipeline stages/steps + codebase alignment): will lock the canonical stage/step/rule model and reconcile it with repo wiring/artifact keys; will also remove legacy braid assumptions (Narrative/Placement → Gameplay).
@@ -172,7 +182,15 @@ Preferred sources and tools:
 
 Coordination / shared state (avoid conflicts):
 - Avoid directly editing shared Phase 2 files unless the orchestrator explicitly asks.
-- Optional: write your current state/questions into `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/agent-a.scratch.md` (only this file; no others).
+- Scratchpad discipline (required):
+  - Use your scratchpad for any large drafts, intermediate reasoning, or proposed replacement text blocks. Keep the chat response concise and point the orchestrator to your scratchpad for the full detail.
+  - Reuse an existing scratchpad if present; otherwise create it. For Agent A, use `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/agent-a.scratch.md`.
+  - Treat scratchpads as a shared communication surface between agents (read others; don’t edit others). If you need to coordinate, write your note in your own scratchpad and ping the orchestrator to route it.
+  - During verification runs: begin by reading all existing scratchpads in this directory and migrating any still-open items relevant to your scope into your own “Open items” section (then revisit it before you finalize your report).
+- Spend real time and search deep (required):
+  - Expect to spend significant time on this; do not rush to “first draft”.
+  - Prefer Code Intelligence MCP for deep dives (semantic search, symbol discovery, call paths); use `rg` for fast bulk scans.
+  - When relevant, skim the other agents’ scratchpads to avoid duplication and catch cross-scope issues early; route coordination through the orchestrator.
 - If you suspect overlap with Agent B/C, pause and ask the orchestrator rather than guessing.
 
 What to do (take your time; aim for completeness):
@@ -226,6 +244,15 @@ You are Agent B (Civ7 stamping / engine integration). Agent type: default.
 Overall goal (shared across all agents):
 We are hardening Morphology Phase 2 into a canonical, drift-resistant modeling document. Phase 2 must explicitly model Civ7 terrain materialization (“stamping”) as a first-class, deterministic responsibility in the canonical pipeline (even if executed outside Morphology).
 
+Recently locked decisions (do not re-litigate; build on them):
+- Gameplay projection artifacts live under a unified `artifact:map.*` namespace (not `artifact:gameplay.projection.*`).
+- `artifact:map.*` is publish-once/frozen **intent** per pass (no “rewrite later in the run”).
+- Execution guarantees are short boolean effects provided by stamping steps:
+  - Use existing convention: `effect:map.<thing>Plotted` (e.g., `effect:map.mountainsPlotted`, `effect:map.volcanoesPlotted`).
+  - No version suffixes. No wordy names. No receipts/hashes/digests.
+- Step names like `project-map` / `stamp-map` are template terms only; in practice expect granular `plot-*` steps (e.g., `plot-mountains`, `plot-volcanoes`, `plot-landmass-regions`).
+- Do not introduce a new top-level Gameplay domain directory/package yet; keep Gameplay-owned logic self-contained inside the braided `morphology-map` stage(s)/steps.
+
 You are working concurrently with two peer agents:
 - Agent A (Contracts & Ownership Lock): will lock schemas/semantics for Foundation↔Morphology and Morphology→{Hydrology/Ecology/Gameplay}. They own contract details.
 - Agent C (Pipeline stages/steps + codebase alignment): will lock the stage/step/rule model and reconcile it with repo wiring; will remove Narrative/Placement braid assumptions.
@@ -241,7 +268,7 @@ Guardrails (non-negotiable, pulled from the context packet):
 - Physics domains are canonical truth producers; stamping is derived-only. No gameplay overlays feed back into physics.
 - Gameplay (default) owns engine-facing projection buffers/tags and stamping; Morphology terminal stamping is only allowed if structurally justified.
 - Projection artifacts/indices (terrain IDs, feature IDs, resource IDs, player IDs, region IDs, tags) are Gameplay-owned derived outputs; treat any such fields found in physics artifacts as legacy migration work.
-- No east/west wrap ambiguity: treat Civ7 topology constraints as evidence-driven, not an open question.
+- Topology lock (Civ7 canonical): **east–west wrap is always on**, **north–south wrap is always off**. Do not treat wrap flags as optional, configurable, or an open question.
 - Regression guardrails (do not regress Phase 2):
   - Do not treat any engine/projection surface as a physics-domain input.
   - Do not reintroduce narrative/story overlays as a backdoor into physics decisions.
@@ -266,7 +293,15 @@ Preferred sources and tools:
 
 Coordination / shared state (avoid conflicts):
 - Avoid directly editing shared Phase 2 files unless the orchestrator explicitly asks.
-- Optional: write your current state/questions into `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/agent-b.scratch.md` (only this file; no others).
+- Scratchpad discipline (required):
+  - Use your scratchpad for any large drafts, intermediate reasoning, evidence notes, or drop-in spec text. Keep the chat response concise and point the orchestrator to your scratchpad for the full detail.
+  - Reuse an existing scratchpad if present; otherwise create it. For Agent B, use `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/agent-b.scratch.md`.
+  - Treat scratchpads as a shared communication surface between agents (read others; don’t edit others). If you need to coordinate, write your note in your own scratchpad and ping the orchestrator to route it.
+  - During verification runs: begin by reading all existing scratchpads in this directory and migrating any still-open items relevant to your scope into your own “Open items” section (then revisit it before you finalize your report).
+- Spend real time and search deep (required):
+  - Expect to spend significant time on this; do not rush to “first draft”.
+  - Prefer Code Intelligence MCP for deep dives (semantic search, symbol discovery, call paths), especially across Civ7 resources + our adapter wiring; use `rg` for fast bulk scans.
+  - When relevant, skim the other agents’ scratchpads to avoid duplication and catch cross-scope issues early; route coordination through the orchestrator.
 - If you suspect overlap with Agent A/C (e.g., contract field definitions or pipeline freeze points), pause and ask the orchestrator rather than guessing.
 
 What to do (take your time; prioritize evidence and determinism):
@@ -322,6 +357,15 @@ You are Agent C (Pipeline stages/steps + codebase alignment). Agent type: defaul
 Overall goal (shared across all agents):
 We are hardening Morphology Phase 2 into a canonical, drift-resistant modeling document. Phase 2 must model the pipeline as the product: explicit stages, steps, and governing rules (not just operations), with a clean target topology aligned to the canonical architecture.
 
+Recently locked decisions (do not re-litigate; build on them):
+- Gameplay projection artifacts live under a unified `artifact:map.*` namespace (not `artifact:gameplay.projection.*`).
+- `artifact:map.*` is publish-once/frozen **intent** per pass (no “rewrite later in the run”).
+- Execution guarantees are short boolean effects provided by stamping steps:
+  - Use existing convention: `effect:map.<thing>Plotted` (e.g., `effect:map.mountainsPlotted`, `effect:map.volcanoesPlotted`).
+  - No version suffixes. No wordy names. No receipts/hashes/digests.
+- Step names like `project-map` / `stamp-map` are template terms only; in practice expect granular `plot-*` steps (e.g., `plot-mountains`, `plot-volcanoes`, `plot-landmass-regions`).
+- Do not introduce a new top-level Gameplay domain directory/package yet; keep Gameplay-owned logic self-contained inside the braided `morphology-map` stage(s)/steps.
+
 You are working concurrently with two peer agents:
 - Agent A (Contracts & Ownership Lock): will lock the schemas/semantics for cross-domain contracts and determinism/config discipline.
 - Agent B (Civ7 stamping / engine integration): will lock Gameplay-side stamping/materialization + LandmassRegionId projection semantics based on Civ7 resources and repo wiring.
@@ -361,7 +405,15 @@ Preferred sources and tools:
 
 Coordination / shared state (avoid conflicts):
 - Avoid directly editing shared Phase 2 files unless the orchestrator explicitly asks.
-- Optional: write your current state/questions into `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/agent-c.scratch.md` (only this file; no others).
+- Scratchpad discipline (required):
+  - Use your scratchpad for any large drafts, intermediate reasoning, repo wiring notes, or drop-in spec text. Keep the chat response concise and point the orchestrator to your scratchpad for the full detail.
+  - Reuse an existing scratchpad if present; otherwise create it. For Agent C, use `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/agent-c.scratch.md`.
+  - Treat scratchpads as a shared communication surface between agents (read others; don’t edit others). If you need to coordinate, write your note in your own scratchpad and ping the orchestrator to route it.
+  - During verification runs: begin by reading all existing scratchpads in this directory and migrating any still-open items relevant to your scope into your own “Open items” section (then revisit it before you finalize your report).
+- Spend real time and search deep (required):
+  - Expect to spend significant time on this; do not rush to “first draft”.
+  - Prefer Code Intelligence MCP for deep dives (semantic search, symbol discovery, call paths); use `rg` for fast bulk scans.
+  - When relevant, skim the other agents’ scratchpads to avoid duplication and catch cross-scope issues early; route coordination through the orchestrator.
 - If you suspect overlap with Agent A/B (contracts or stamping placement), pause and ask the orchestrator rather than guessing.
 
 What to do (take your time; aim for coherence and implementability):
@@ -412,3 +464,321 @@ Your output must integrate with Agent A’s contract locks and Agent B’s stamp
   - **Contracts**: Foundation→Morphology, Morphology→{Hydrology/Ecology/Gameplay}, config semantics, determinism/tie-breakers.
   - **Gameplay projections & Civ7 stamping**: LandmassRegionId + terrain materialization + engine phases/postprocess.
 - If Phase 2 must remain a single file, keep it as one file but enforce the same three “owned” sections and treat them as separately reviewed units.
+
+---
+
+## Doc split execution steps (if splitting into 3 files)
+
+This plan *recommends* splitting, but it does not become real until we actually execute it. The target directory already exists and is currently empty: `plans/morphology/spec/`.
+
+1. **Decide the canonical entrypoint**
+   - Preferred: keep `spike-morphology-modeling-gpt.md` as the canonical entrypoint path (to avoid link churn), and convert it into a short “index” that links to the 3 canonical spec files under `plans/morphology/spec/`.
+   - Alternative: keep `spike-morphology-modeling-gpt.md` as the full monolith and treat the split docs as derived. (Discouraged: invites drift and duplication.)
+2. **Create the 3 spec files under `plans/morphology/spec/`**
+   - One file per ownership boundary: `core-model-and-pipeline`, `contracts`, `map-projections-and-stamping` (exact filenames are flexible; boundaries are not).
+3. **Move (don’t duplicate) content from the monolith into those 3 files**
+   - Keep *one* canonical copy of each concept. If a section needs to be referenced from another file, link to it; do not fork parallel descriptions.
+4. **Update addenda and links**
+   - Ensure `spike-morphology-modeling-gpt-addendum-full.md` and `spike-morphology-modeling-gpt-addendum-braided-map-projection-draft.md` link to the new canonical targets (or to the entrypoint index if we keep that as the single public “front door”).
+5. **Run a closure audit after the split**
+   - Verify there are no “dangling” references to headings that used to exist in the monolith.
+   - Verify the locked decisions still read as coherent and non-contradictory when the spec is read in its new split form.
+
+---
+
+## Agent run: execute the Phase 2 doc split (3 files + short index)
+
+This is a dedicated agent run focused on **executing** the recommended split into 3 canonical files (plus converting the monolith into a short index).
+
+### Working rules (conflict-avoidance + drift prevention)
+
+- **Do not edit** `spike-morphology-modeling-gpt.md` (the monolith) during the agent run. The orchestrator will convert it into the short index after the three spec files are in place.
+- Each agent edits **exactly two files**:
+  1) their owned spec file under `plans/morphology/spec/`,
+  2) their owned scratchpad under `plans/morphology/spec/scratch/`.
+- **No duplication:** move canonical content into your owned file; if another file must reference it, link to it rather than duplicating text.
+- **No “minimal” framing:** default to completeness; include what is reasonably useful downstream now.
+- **No compat shims / timeboxed hacks:** if a concept must exist in the canonical model, it must be modeled directly and cleanly.
+
+### Shared references (read/anchor; don’t regurgitate)
+
+- Phase 2 monolith (source to split): `spike-morphology-modeling-gpt.md`
+- Context packet addendum: `spike-morphology-modeling-gpt-addendum-full.md`
+- Braided map projection addendum (draft posture + patterns): `spike-morphology-modeling-gpt-addendum-braided-map-projection-draft.md`
+- Domain modeling guidelines (ops/strategies/rules/steps terminology): `docs/projects/engine-refactor-v1/resources/spec/SPEC-DOMAIN-MODELING-GUIDELINES.md` (ignore any outdated architecture claims; keep the modeling vocabulary and boundaries)
+
+### Coordination mechanism (required for this run)
+
+Agents coordinate via scratchpads (single “current state” message; keep it short and actionable):
+
+- Create directory: `plans/morphology/spec/scratch/`
+- Use these scratchpads:
+  - `plans/morphology/spec/scratch/agent-split-core.md`
+  - `plans/morphology/spec/scratch/agent-split-contracts.md`
+  - `plans/morphology/spec/scratch/agent-split-stamping.md`
+
+Scratchpad usage rules:
+- Use your scratchpad for intermediate reasoning, evidence pointers, and questions for the orchestrator.
+- Before writing anything substantive, skim the other agents’ scratchpads to avoid overlap.
+- If you suspect overlap or dependency, pause and ask the orchestrator rather than guessing.
+
+---
+
+### Agent Split 1 — Core model & pipeline
+
+- Agent type: `default`
+- Role and responsibilities:
+  - Own the **core canonical model** narrative: invariants, glossary, causality spine, stages/steps/rules, freeze points, determinism posture (at the stage boundary level), and topology.
+  - Ensure the document reads as a single coherent “spine” that other spec files attach to.
+- Owns:
+  - Core pipeline topology and stage/step/rule model (no Narrative/Placement; Gameplay as projection/stamping owner).
+  - Topology invariants (wrapX always on, wrapY always off; no wrap knobs).
+  - Global “truth vs projection vs stamping” policy statement and its consequences.
+- Produces:
+  - `plans/morphology/spec/PHASE-2-CORE-MODEL-AND-PIPELINE.md`
+  - A short “integration hooks” section explicitly listing what other spec files must define (contracts surfaces, stamping effects, etc.).
+
+**Launch prompt (Agent Split 1 — Core model & pipeline)**
+
+```
+You are Agent Split 1 (agent_type: default). You are a peer collaborator in a 3-agent run to execute a doc split for Morphology Phase 2.
+
+Overall goal (shared across agents)
+- Produce a canonical, detailed, complete Phase 2 Morphology modeling spec (contract-locked, pipeline-explicit: stages/steps/rules, Civ7 stamping modeled).
+- This is a documentation completion pass (Phase 2 lockdown), not a Phase 3 code migration.
+
+Your scope (you own this; do not overlap)
+- You own the “core model & pipeline” file: invariants, glossary, causality spine, stage/step/rule model, freeze points, topology, and domain ownership statements.
+- You do NOT own detailed contract schemas/field lists (Agent Split 2) or stamping/projection specifics (Agent Split 3).
+
+Locked decisions (do not re-open)
+- Topology: Civ7 map always wraps east–west (wrapX=true) and never wraps north–south (wrapY=false). No wrap env/config/knobs.
+- Physics domains publish truth-only artifacts (pure); Gameplay owns projection artifacts under `artifact:map.*` and stamping/materialization via adapter writes.
+- No backfeeding: physics must not consume `artifact:map.*` or engine tags as truth inputs.
+- Stamping execution guarantees are represented by short boolean effects: `effect:map.<thing>Plotted` (e.g., `effect:map.mountainsPlotted`, `effect:map.volcanoesPlotted`).
+- “project-map” / “stamp-map” are template terms; real steps are granular `plot-*` steps and should produce the `effect:map.*Plotted` tags.
+- Completeness-first: avoid “minimal” framing and “we can do it later” for anything public, cross-domain, or pipeline-defining.
+
+Coordination (required)
+- Before you start, create and use your scratchpad: `plans/morphology/spec/scratch/agent-split-core.md`
+- Skim the other scratchpads before big decisions to avoid overlap:
+  - `plans/morphology/spec/scratch/agent-split-contracts.md`
+  - `plans/morphology/spec/scratch/agent-split-stamping.md`
+- If you detect overlap or a dependency on another agent’s area, pause and ask the orchestrator rather than guessing.
+
+Work instructions
+1) Read and anchor on:
+   - `spike-morphology-modeling-gpt.md` (source monolith)
+   - `spike-morphology-modeling-gpt-addendum-full.md` (must-lock requirements)
+   - `spike-morphology-modeling-gpt-addendum-braided-map-projection-draft.md` (map.* posture)
+   - `docs/projects/engine-refactor-v1/resources/spec/SPEC-DOMAIN-MODELING-GUIDELINES.md` (ops/strategies/rules/steps vocabulary; ignore any outdated architecture)
+2) Create `plans/morphology/spec/PHASE-2-CORE-MODEL-AND-PIPELINE.md`.
+   - Move (do not duplicate) the monolith’s core “spine” content into this file.
+   - Make sure the spine is explicit: stage names are placeholders unless already locked; the sequencing rules and freeze points must be unambiguous.
+   - Provide explicit integration hooks: “Contracts file must define X” and “Stamping file must define Y”.
+3) Evidence posture:
+   - Prefer Code Intelligence MCP for deep repo/Civ7 resource inspection; use `rg` for fast bulk scans.
+   - Where you claim “this is how the pipeline is wired today” or “Civ7 expects X”, provide file path pointers (no need to paste large excerpts).
+
+Hard boundaries (avoid file conflicts)
+- Do not edit `spike-morphology-modeling-gpt.md` during this run.
+- Only edit:
+  - `plans/morphology/spec/PHASE-2-CORE-MODEL-AND-PIPELINE.md`
+  - `plans/morphology/spec/scratch/agent-split-core.md`
+
+Deliverable
+- The finished `PHASE-2-CORE-MODEL-AND-PIPELINE.md` file (closure-grade, internally consistent, no modal language on pipeline/ownership).
+- Scratchpad: one short “current state” note listing any open questions for the orchestrator and any dependencies you need from Agents Split 2/3.
+```
+
+---
+
+### Agent Split 2 — Contracts
+
+- Agent type: `default`
+- Role and responsibilities:
+  - Own the **cross-domain contracts**: upstream/downstream artifact schemas, semantics, indexing spaces, units/normalization, lifecycle/freeze points, determinism/tie-breakers, and compile-time config normalization semantics.
+  - Eliminate “optional/provisional” language for public surfaces; include downstream-useful signals by default.
+- Owns:
+  - Foundation→Morphology input contracts.
+  - Morphology→Hydrology/Ecology contracts.
+  - Morphology→Gameplay truth outputs needed for projection/stamping (but not the projection artifacts themselves).
+- Produces:
+  - `plans/morphology/spec/PHASE-2-CONTRACTS.md`
+  - A compact “contract closure checklist” (per artifact: required fields/types/units/indexing/lifecycle/tie-breakers).
+
+**Launch prompt (Agent Split 2 — Contracts)**
+
+```
+You are Agent Split 2 (agent_type: default). You are a peer collaborator in a 3-agent run to execute a doc split for Morphology Phase 2.
+
+Overall goal (shared across agents)
+- Produce a canonical, detailed, complete Phase 2 Morphology modeling spec (contract-locked, pipeline-explicit, Civ7 stamping modeled).
+- This is a documentation completion pass (Phase 2 lockdown), not a Phase 3 code migration.
+
+Your scope (you own this; do not overlap)
+- You own the contracts file: all cross-domain artifact schemas and semantics (Foundation→Morphology, Morphology→Hydrology/Ecology, and Morphology→Gameplay truth outputs).
+- You do NOT own the overall pipeline narrative (Agent Split 1) or the projection/stamping artifacts/effects (Agent Split 3).
+
+Locked decisions (do not re-open)
+- Topology: Civ7 map always wraps east–west (wrapX=true) and never wraps north–south (wrapY=false). No wrap env/config/knobs.
+- Physics domains publish truth-only artifacts (pure); Gameplay owns projection artifacts under `artifact:map.*` and stamping/materialization via adapter writes.
+- No backfeeding: physics must not consume `artifact:map.*` or engine tags as truth inputs.
+- Stamping execution guarantees are represented by short boolean effects: `effect:map.<thing>Plotted` (e.g., `effect:map.mountainsPlotted`).
+- Completeness-first: include downstream-useful signals by default; no “minimal” posture and no “we’ll do it later” on public/cross-domain contract surfaces.
+- Normalize-once/knobs-last: no presence-based runtime gating semantics.
+
+Coordination (required)
+- Before you start, create and use your scratchpad: `plans/morphology/spec/scratch/agent-split-contracts.md`
+- Skim the other scratchpads before big decisions to avoid overlap:
+  - `plans/morphology/spec/scratch/agent-split-core.md`
+  - `plans/morphology/spec/scratch/agent-split-stamping.md`
+- If you detect overlap or a dependency (e.g., stamping needs a field you are defining), pause and ask the orchestrator rather than guessing.
+
+Work instructions
+1) Read and anchor on:
+   - `spike-morphology-modeling-gpt.md` (source monolith)
+   - `spike-morphology-modeling-gpt-addendum-full.md` (must-lock requirements)
+   - `docs/projects/engine-refactor-v1/resources/spec/SPEC-DOMAIN-MODELING-GUIDELINES.md` (ops/strategies/rules/steps vocabulary)
+2) Create `plans/morphology/spec/PHASE-2-CONTRACTS.md`.
+   - Move (do not duplicate) contract material from the monolith into this file.
+   - For each cross-domain artifact, lock:
+     - required fields + types
+     - indexing space (tile vs mesh vs region)
+     - units/normalization
+     - lifecycle/freeze point (when it becomes stable for downstream)
+     - determinism rules (stable IDs, tie-breakers, ordering)
+   - Keep Gameplay boundary clean: you can define truth outputs that Gameplay consumes, but do not define `artifact:map.*` projection artifacts here.
+3) Evidence posture:
+   - Prefer Code Intelligence MCP for deep dives into repo wiring and Civ7 resources; use `rg` for fast scans.
+   - Where you make claims about current artifact keys or step ids, include path pointers.
+
+Hard boundaries (avoid file conflicts)
+- Do not edit `spike-morphology-modeling-gpt.md` during this run.
+- Only edit:
+  - `plans/morphology/spec/PHASE-2-CONTRACTS.md`
+  - `plans/morphology/spec/scratch/agent-split-contracts.md`
+
+Deliverable
+- The finished `PHASE-2-CONTRACTS.md` file (closure-grade; no “provisional/optional/might” on public contract surfaces).
+- Scratchpad: one short “current state” note listing any open questions for the orchestrator and any required dependencies you need from Agents Split 1/3.
+```
+
+---
+
+### Agent Split 3 — Map projections & Civ7 stamping
+
+- Agent type: `default`
+- Role and responsibilities:
+  - Own the Gameplay projection + stamping/materialization layer as modeled in Phase 2:
+    - `artifact:map.*` projection artifacts (intent),
+    - `effect:map.*Plotted` execution guarantees (what “has been done”),
+    - Civ7 engine adapter calls and required postprocess/validation constraints (as evidence-backed as possible).
+  - Keep the boundary clean: projection/stamping lives in steps; physics remains truth-only.
+- Owns:
+  - `artifact:map.*` projection surfaces (shape/semantics; which are required downstream).
+  - `effect:map.<thing>Plotted` effect taxonomy (short, boolean, convention-aligned).
+  - Civ7 stamping sequencing constraints + LandmassRegionId projection/stamping semantics.
+- Produces:
+  - `plans/morphology/spec/PHASE-2-MAP-PROJECTIONS-AND-STAMPING.md`
+  - An explicit mapping table: “truth inputs consumed” → “map artifacts produced” → “effects asserted (plotted)”.
+
+**Launch prompt (Agent Split 3 — Map projections & Civ7 stamping)**
+
+```
+You are Agent Split 3 (agent_type: default). You are a peer collaborator in a 3-agent run to execute a doc split for Morphology Phase 2.
+
+Overall goal (shared across agents)
+- Produce a canonical, detailed, complete Phase 2 Morphology modeling spec (contract-locked, pipeline-explicit, Civ7 stamping modeled).
+- This is a documentation completion pass (Phase 2 lockdown), not a Phase 3 code migration.
+
+Your scope (you own this; do not overlap)
+- You own the “map projections & stamping” file:
+  - `artifact:map.*` projection artifacts (intent)
+  - `effect:map.*Plotted` effects (execution guarantees)
+  - Civ7 stamping/materialization modeling, including LandmassRegionId semantics and postprocess constraints
+- You do NOT own the full pipeline topology narrative (Agent Split 1) or upstream/downstream truth contracts (Agent Split 2).
+
+Locked decisions (do not re-open)
+- Topology: Civ7 map always wraps east–west (wrapX=true) and never wraps north–south (wrapY=false). No wrap env/config/knobs.
+- Physics domains publish truth-only artifacts (pure); Gameplay owns `artifact:map.*` projection artifacts and stamping/materialization via adapter writes.
+- No backfeeding: physics must not consume `artifact:map.*` or engine tags as truth inputs.
+- “Stamping happened” is modeled via short boolean effects with existing convention: `effect:map.<thing>Plotted` (no versions/hashes/receipts; no wordy names).
+- Granular step posture: “project-map”/“stamp-map” are template terms only; real step boundaries should be `plot-*` and assert the corresponding `effect:map.*Plotted`.
+- Completeness-first: include what is reasonably useful downstream now; no “minimal” posture.
+
+Coordination (required)
+- Before you start, create and use your scratchpad: `plans/morphology/spec/scratch/agent-split-stamping.md`
+- Skim the other scratchpads before big decisions to avoid overlap:
+  - `plans/morphology/spec/scratch/agent-split-core.md`
+  - `plans/morphology/spec/scratch/agent-split-contracts.md`
+- If you detect overlap or a dependency (e.g., you need a truth field that contracts must define), pause and ask the orchestrator rather than guessing.
+
+Work instructions
+1) Read and anchor on:
+   - `spike-morphology-modeling-gpt.md` (source monolith)
+   - `spike-morphology-modeling-gpt-addendum-full.md` (must-lock requirements)
+   - `spike-morphology-modeling-gpt-addendum-braided-map-projection-draft.md` (map.* posture)
+   - `docs/projects/engine-refactor-v1/resources/spec/SPEC-DOMAIN-MODELING-GUIDELINES.md` (steps as effect boundaries; ops pure)
+2) Create `plans/morphology/spec/PHASE-2-MAP-PROJECTIONS-AND-STAMPING.md`.
+   - Move (do not duplicate) projection/stamping material from the monolith into this file.
+   - Define:
+     - required `artifact:map.*` projection artifacts (intent shapes/semantics)
+     - required `effect:map.*Plotted` effects (short boolean tags)
+     - stamping/materialization constraints, sequencing, and evidence pointers (file paths)
+   - Keep the boundary clean: effects live at step boundaries; no “logic outside steps” patterns.
+3) Evidence posture:
+   - Prefer Code Intelligence MCP for Civ7 and repo deep dives; use `rg` for bulk search.
+   - Where you claim specific Civ7 behavior (LandmassRegionId semantics, expandCoasts ordering, cliffs derived, etc.), provide the best path pointers available and clearly label what is verified vs inferred.
+
+Hard boundaries (avoid file conflicts)
+- Do not edit `spike-morphology-modeling-gpt.md` during this run.
+- Only edit:
+  - `plans/morphology/spec/PHASE-2-MAP-PROJECTIONS-AND-STAMPING.md`
+  - `plans/morphology/spec/scratch/agent-split-stamping.md`
+
+Deliverable
+- The finished `PHASE-2-MAP-PROJECTIONS-AND-STAMPING.md` file (closure-grade; coherent with the other spec files).
+- Scratchpad: one short “current state” note listing any open questions for the orchestrator and any required truth inputs you need Agent Split 2 to define.
+```
+
+---
+
+## Verification findings (salvage checklist — in progress)
+
+This section is an actionable checklist based on a fresh verification/review pass (new agents + orchestrator). It is intended to keep the remediation effort honest: confirm what exists, call out what didn’t happen, and drive concrete closure work to produce a canonical, drift-resistant Phase 2 deliverable.
+
+### Findings (what is true right now)
+
+- The Phase 2 doc *does* contain substantial new structure (pipeline + freeze points, contract matrix, stamping section, determinism, module layout), but key contract surfaces remain underspecified and still contain “optional/conditional” gaps that are not Phase-2-safe.
+- The “single file vs split into 3 files” plan was recommended here but not executed; Phase 2 remains a single monolith and `plans/morphology/spec/` is currently unused.
+- Some “evidence-driven” engine/stamping claims are not fully grounded inline in the canonical doc (evidence exists in scratchpads but needs to be folded into the canonical doc where the claims are made).
+- A few integrity/hygiene issues remain (self-referential scaffold text claims sections that do not exist; missing template-style closure items).
+- One remaining ownership ambiguity is still visible in the canonical doc: polar-edge regime ownership is described with “or” language rather than a single authoritative owner.
+- The truth/projection/stamping split is directionally correct and aligns with the context packet, but it must be written in a way that does not accidentally reintroduce ownership smearing (especially via “braiding” language).
+
+### Open items surfaced from existing scratchpads (must be drained)
+
+These came from the existing scratchpads in this directory and must be either (a) resolved into the canonical docs or (b) explicitly recorded as still-open (with a trigger) rather than silently ignored:
+
+- Mixed truth + projection artifacts to unwind (legacy migration targets): `artifact:morphology.topography.terrain`, `artifact:morphology.coastlinesExpanded`, `artifact:heightfield.terrain` (see `agent-a.scratch.md`).
+- Overlay-shaped dependencies still present in current wiring (hard-ban violations): `morphology-post/volcanoes`, `morphology-mid/rugged-coasts`, `morphology-post/islands` (see `agent-a.scratch.md`).
+- Stamping sequencing and “cliffs are derived” constraints: evidence pointers exist under `.civ7/outputs/...`, but we must be explicit about what is verified vs inferred, especially when `civ7-official-resources/` is not present (see `agent-b.scratch.md`).
+- Wrap posture is fixed: wrapX is always on; wrapY is always off; any “wrap optionality” surfaces are legacy migration work (see `agent-c.scratch.md`).
+
+### Acceptance criteria (Phase 2 lockdown is “done” when…)
+
+- Phase 2 is readable as a *canonical spec* (not a brainstorm): no contract-level unknowns, no modal language on public/cross-domain surfaces, and no internal contradictions.
+- Contracts are explicit and closure-grade: each cross-domain artifact has a locked schema (required fields + types), indexing space, units/normalization, lifecycle/freeze point, and determinism/tie-break rules.
+- Topology is treated as an invariant everywhere: map always wraps east–west and never wraps north–south; no wrap flags/knobs appear as inputs.
+- Stamping/materialization is modeled as a first-class downstream responsibility with evidence-backed constraints and clearly stated “verified vs assumed” claims.
+- Scratchpads are “drained”: open questions and migration targets identified during remediation are either integrated into canonical docs or explicitly listed as remaining work (no silent dangling state).
+
+### Checklist (keep this short; check off as we close)
+
+- [ ] Execute the planned doc split (3 files) or explicitly commit to single-file with hard section ownership boundaries; ensure the canonical entrypoint and links are unambiguous.
+- [ ] Lock contract schemas end-to-end (Foundation→Morphology and Morphology→Hydrology/Ecology/Gameplay): required fields/types, units, indexing, lifecycle/freeze points, determinism/tie-breakers.
+- [ ] Close the remaining ownership ambiguities (notably polar-edge boundary regime ownership) by removing “or” language and naming a single authoritative owner.
+- [ ] Fold in engine/stamping evidence where the canonical spec makes engine-facing claims (cite `.civ7/outputs/...` paths; label verified vs inferred; avoid over-asserting ordering until evidence is complete).
+- [ ] Remove/repair doc integrity gaps (self-references to missing sections; add missing closure sections if required by the workflow template and guardrails).
+- [ ] Perform a scratchpad audit pass: re-read `agent-a.scratch.md`, `agent-b.scratch.md`, `agent-c.scratch.md`; either integrate each open item or explicitly list it as remaining work with a trigger.
