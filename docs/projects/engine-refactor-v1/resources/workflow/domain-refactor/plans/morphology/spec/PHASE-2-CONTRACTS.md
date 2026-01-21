@@ -389,6 +389,7 @@ Semantics:
   - `roundHalfAwayFromZero(x)` rounds `+0.5 -> +1` and `-0.5 -> -1` (not banker's rounding).
   - `clampInt16(x)` clamps to `[-32768, 32767]` after rounding.
 - This artifact is **physics truth only**. It must not include engine-facing classifications (terrain ids, tags, region ids).
+- This artifact’s `elevation` is not the Civ7 engine’s derived elevation bands, and it does not define the Civ7 cliff graph. Any decision that must match `GameplayMap.getElevation(...)` / `GameplayMap.isCliffCrossing(...)` belongs in Gameplay/map logic after `effect:map.elevationPlotted` (see `spec/PHASE-2-MAP-PROJECTIONS-AND-STAMPING.md`).
 
 Determinism:
 - All derived fields are deterministically derived from `elevation` + `seaLevel`.

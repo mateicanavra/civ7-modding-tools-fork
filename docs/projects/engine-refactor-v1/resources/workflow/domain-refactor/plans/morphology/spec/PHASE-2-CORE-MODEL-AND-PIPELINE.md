@@ -50,8 +50,12 @@ Evidence pointers:
 ### 0.5 Effect-only execution guarantees (stamping)
 
 - Stamping/materialization completion is represented only by short boolean effect tags:
-  - `effect:map.<thing>Plotted` (examples: `effect:map.mountainsPlotted`, `effect:map.volcanoesPlotted`).
+  - `effect:map.<thing><Verb>` with a short verb (examples: `effect:map.mountainsPlotted`, `effect:map.volcanoesPlotted`).
+  - Convention: `<Verb> = Plotted` (avoid wordy verbs; no receipts/hashes/versions).
 - “project-map” / “stamp-map” are template terms; Phase 2 uses granular `plot-*` steps that provide the above effects.
+- Engine-derived surfaces posture (closure-grade):
+  - Civ7 elevation/cliffs are engine-derived after the `plot-elevation` boundary (`effect:map.elevationPlotted`).
+  - Any decision that must match *actual Civ7* elevation bands or cliff crossings belongs in Gameplay/map logic after `effect:map.elevationPlotted` (never in Physics). See `spec/PHASE-2-MAP-PROJECTIONS-AND-STAMPING.md`.
 
 ---
 
@@ -158,7 +162,7 @@ Phase 2 locks these freeze points as pipeline semantics (not just narrative):
 For any adapter-stamping pass:
 - The relevant `artifact:map.*` intent artifacts (when used) are **publish-once** and treated as immutable before stamping begins.
 - No later step republishes/replaces those same intent artifacts within the same run after the stamp pass begins.
-- The stamping step provides `effect:map.<thing>Plotted` only after successful adapter calls.
+- The stamping step provides its `effect:map.<thing><Verb>` only after successful adapter calls.
 
 This is the core invariant that makes boolean effects truthful without receipts/hashes.
 
