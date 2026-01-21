@@ -1,9 +1,4 @@
-import {
-  FLAT_TERRAIN,
-  OCEAN_TERRAIN,
-  ctxRandom,
-  ctxRandomLabel,
-} from "@swooper/mapgen-core";
+import { ctxRandom, ctxRandomLabel } from "@swooper/mapgen-core";
 import type { MapDimensions } from "@civ7/adapter";
 import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import LandmassPlatesStepContract from "./landmassPlates.contract.js";
@@ -71,7 +66,7 @@ function applyBaseTerrainBuffers(
   height: number,
   elevation: Int16Array,
   landMask: Uint8Array,
-  heightfield: { elevation: Int16Array; terrain: Uint8Array; landMask: Uint8Array }
+  heightfield: { elevation: Int16Array; landMask: Uint8Array }
 ): { landCount: number; waterCount: number; minElevation: number; maxElevation: number } {
   const size = Math.max(0, (width | 0) * (height | 0));
   let landCount = 0;
@@ -85,7 +80,6 @@ function applyBaseTerrainBuffers(
 
     heightfield.elevation[i] = nextElevation | 0;
     heightfield.landMask[i] = isLand ? 1 : 0;
-    heightfield.terrain[i] = (isLand ? FLAT_TERRAIN : OCEAN_TERRAIN) & 0xff;
 
     if (isLand) landCount += 1;
     else waterCount += 1;
