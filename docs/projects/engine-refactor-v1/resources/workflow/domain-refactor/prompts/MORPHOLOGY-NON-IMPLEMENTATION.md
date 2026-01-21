@@ -276,6 +276,22 @@ Phase 2 — Modeling spike (model-first; must iterate twice; no slice plan):
 Phase 3 — Implementation plan + slice plan (no model content):
 - Produce an executable issue document (the handoff) under:
   - docs/projects/engine-refactor-v1/issues/LOCAL-TBD-<milestone>-morphology-*.md
+- Ground yourself before writing the plan (required):
+  - Re-read the canonical Morphology Phase 2 spec trilogy and treat it as authority (do not reinterpret):
+    - resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-CORE-MODEL-AND-PIPELINE.md
+    - resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-CONTRACTS.md
+    - resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-MAP-PROJECTIONS-AND-STAMPING.md
+    - resources/workflow/domain-refactor/plans/morphology/MORPHOLOGY.md (index)
+  - Re-read the Phase 3 workflow template and treat it as the “issue shape contract”:
+    - resources/workflow/domain-refactor/references/phase-3-implementation-plan.md
+  - Re-check the global refactor locks and implementation traps you must enforce in the slice plan:
+    - resources/workflow/domain-refactor/references/implementation-traps-and-locked-decisions.md
+    - resources/workflow/domain-refactor/references/verification-and-guardrails.md
+  - Use the canonical domain-modeling guideline doc to keep step/op/stage granularity correct:
+    - resources/spec/SPEC-DOMAIN-MODELING-GUIDELINES.md
+  - Use the domain-refactor examples to stay aligned on “truth vs map projection/materialization” and TerrainBuilder “no drift” posture:
+    - resources/workflow/domain-refactor/examples/VOLCANO.md
+    - resources/workflow/domain-refactor/examples/ELEVATION_AND_CLIFFS.md
 - The issue must include:
   - locked decisions/bans with guardrails
   - config semantics references (Phase 2 table + default/empty/determinism policies)
