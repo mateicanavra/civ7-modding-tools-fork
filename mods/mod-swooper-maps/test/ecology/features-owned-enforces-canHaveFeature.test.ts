@@ -1,14 +1,10 @@
 import { describe, expect, it } from "bun:test";
 
-import ecology from "@mapgen/domain/ecology/ops";
-import featuresStep from "../../src/recipes/standard/stages/ecology/steps/features/index.js";
 import {
   buildFeaturesPlacementConfig,
   createFeaturesTestContext,
-  buildDisabledReefEmbellishmentsSelection,
-  buildDisabledVegetationEmbellishmentsSelection,
+  runOwnedFeaturePlacements,
 } from "./features-owned.helpers.js";
-import { buildTestDeps } from "../support/step-deps.js";
 
 describe("features (owned baseline)", () => {
   it("respects adapter.canHaveFeature gating", () => {
@@ -41,20 +37,7 @@ describe("features (owned baseline)", () => {
       ice: { multiplier: 0 },
     });
 
-    const ops = ecology.ops.bind(featuresStep.contract.ops!).runtime;
-    featuresStep.run(
-      ctx,
-      {
-        iceFeaturePlacements: featuresPlacement.ice,
-        aquaticFeaturePlacements: featuresPlacement.aquatic,
-        wetFeaturePlacements: featuresPlacement.wet,
-        vegetatedFeaturePlacements: featuresPlacement.vegetated,
-        reefEmbellishments: buildDisabledReefEmbellishmentsSelection(),
-        vegetationEmbellishments: buildDisabledVegetationEmbellishmentsSelection(),
-      },
-      ops,
-      buildTestDeps(featuresStep)
-    );
+    runOwnedFeaturePlacements({ ctx, placements: featuresPlacement });
 
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {

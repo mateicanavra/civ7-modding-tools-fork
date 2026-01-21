@@ -6,6 +6,7 @@ import { createLabelRng } from "@swooper/mapgen-core/lib/rng";
 import standardRecipe from "../src/recipes/standard/recipe.js";
 import { initializeStandardRuntime } from "../src/recipes/standard/runtime.js";
 import { hydrologyClimateBaselineArtifacts } from "../src/recipes/standard/stages/hydrology-climate-baseline/artifacts.js";
+import { morphologyArtifacts } from "../src/recipes/standard/stages/morphology-pre/artifacts.js";
 
 const env = {
   seed: 123,
@@ -55,14 +56,14 @@ function runWithTilt(axialTiltDeg: number): { elevationSha: string; rainfallAmpl
     { log: () => {} }
   );
 
-  const heightfield = context.artifacts.get(hydrologyClimateBaselineArtifacts.heightfield.id) as
+  const topography = context.artifacts.get(morphologyArtifacts.topography.id) as
     | { elevation?: Int16Array }
     | undefined;
-  if (!(heightfield?.elevation instanceof Int16Array)) {
-    throw new Error("Missing artifact:heightfield elevation buffer.");
+  if (!(topography?.elevation instanceof Int16Array)) {
+    throw new Error("Missing artifact:morphology.topography elevation buffer.");
   }
   const elevationSha = sha256Hex(
-    Buffer.from(new Uint8Array(heightfield.elevation.buffer, heightfield.elevation.byteOffset, heightfield.elevation.byteLength)).toString(
+    Buffer.from(new Uint8Array(topography.elevation.buffer, topography.elevation.byteOffset, topography.elevation.byteLength)).toString(
       "base64"
     )
   );
@@ -95,4 +96,3 @@ describe("hydrology seasonality modes", () => {
     expect(tiltOn.humidityAmplitudeMean).toBeGreaterThan(0);
   });
 });
-

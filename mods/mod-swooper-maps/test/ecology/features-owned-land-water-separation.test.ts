@@ -1,14 +1,10 @@
 import { describe, expect, it } from "bun:test";
 
-import ecology from "@mapgen/domain/ecology/ops";
-import featuresStep from "../../src/recipes/standard/stages/ecology/steps/features/index.js";
 import {
   buildFeaturesPlacementConfig,
   createFeaturesTestContext,
-  buildDisabledReefEmbellishmentsSelection,
-  buildDisabledVegetationEmbellishmentsSelection,
+  runOwnedFeaturePlacements,
 } from "./features-owned.helpers.js";
-import { buildTestDeps } from "../support/step-deps.js";
 
 describe("features (owned baseline)", () => {
   it("keeps land features on land and aquatic features on water", () => {
@@ -54,20 +50,7 @@ describe("features (owned baseline)", () => {
       },
     });
 
-    const ops = ecology.ops.bind(featuresStep.contract.ops!).runtime;
-    featuresStep.run(
-      ctx,
-      {
-        iceFeaturePlacements: featuresPlacement.ice,
-        aquaticFeaturePlacements: featuresPlacement.aquatic,
-        wetFeaturePlacements: featuresPlacement.wet,
-        vegetatedFeaturePlacements: featuresPlacement.vegetated,
-        reefEmbellishments: buildDisabledReefEmbellishmentsSelection(),
-        vegetationEmbellishments: buildDisabledVegetationEmbellishmentsSelection(),
-      },
-      ops,
-      buildTestDeps(featuresStep)
-    );
+    runOwnedFeaturePlacements({ ctx, placements: featuresPlacement });
 
     const landFeatures = new Set([
       adapter.getFeatureTypeIndex("FEATURE_FOREST"),
