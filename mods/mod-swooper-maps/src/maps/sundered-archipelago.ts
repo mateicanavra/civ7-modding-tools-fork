@@ -141,7 +141,6 @@ export default createMap({
         },
       },
     },
-    coastlines: {},
   },
   "morphology-mid": {
     "rugged-coasts": {
