@@ -1,4 +1,3 @@
-import { MOUNTAIN_TERRAIN } from "@swooper/mapgen-core";
 import { idx } from "@swooper/mapgen-core/lib/grid";
 
 export function clampRainfall(rainfall: number): number {
@@ -83,7 +82,6 @@ export function upwindBarrierDistance(
   width: number,
   height: number,
   elevation: Int16Array,
-  terrain: Uint8Array,
   landMask: Uint8Array,
   windU: Int8Array,
   windV: Int8Array,
@@ -105,7 +103,7 @@ export function upwindBarrierDistance(
 
     const ni = idx(nx, ny, width);
     if (landMask[ni] === 1) {
-      if (terrain[ni] === MOUNTAIN_TERRAIN || (elevation[ni] | 0) >= options.barrierElevationM) {
+      if ((elevation[ni] | 0) >= options.barrierElevationM) {
         return s;
       }
     }

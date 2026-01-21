@@ -1,15 +1,9 @@
 import type { MapDimensions } from "@civ7/adapter";
-import {
-  HILL_TERRAIN,
-  MOUNTAIN_TERRAIN,
-  NAVIGABLE_RIVER_TERRAIN,
-  syncHeightfield,
-} from "@swooper/mapgen-core";
+import { selectFlowReceiver } from "@swooper/mapgen-core/lib/grid";
 import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import { hydrologyHydrographyArtifacts } from "../artifacts.js";
 import RiversStepContract from "./rivers.contract.js";
 import {
-  HYDROLOGY_RIVER_DENSITY_LENGTH_BOUNDS,
   HYDROLOGY_RIVER_DENSITY_MAJOR_PERCENTILE,
   HYDROLOGY_RIVER_DENSITY_MINOR_PERCENTILE,
 } from "@mapgen/domain/hydrology/shared/knob-multipliers.js";
@@ -23,13 +17,6 @@ function expectedSize(dimensions: MapDimensions): number {
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return value !== null && typeof value === "object" && !Array.isArray(value);
-}
-
-function clampInt(value: number, min: number, max: number): number {
-  const int = Math.trunc(value);
-  if (int < min) return min;
-  if (int > max) return max;
-  return int;
 }
 
 function validateTypedArray(
@@ -75,6 +62,26 @@ function validateHydrography(value: unknown, dimensions: MapDimensions): Artifac
   return errors;
 }
 
+function computeFlowDir(options: {
+  width: number;
+  height: number;
+  elevation: Int16Array;
+  landMask: Uint8Array;
+}): Int32Array {
+  const { width, height, elevation, landMask } = options;
+  const size = width * height;
+  const flowDir = new Int32Array(size);
+  for (let i = 0; i < size; i++) flowDir[i] = -1;
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      const idx = y * width + x;
+      if (landMask[idx] !== 1) continue;
+      flowDir[idx] = selectFlowReceiver(x, y, width, height, elevation);
+    }
+  }
+  return flowDir;
+}
+
 export default createStep(RiversStepContract, {
   artifacts: implementArtifacts([hydrologyHydrographyArtifacts.hydrography], {
     hydrography: {
@@ -83,22 +90,7 @@ export default createStep(RiversStepContract, {
   }),
   normalize: (config, ctx) => {
     const { riverDensity } = ctx.knobs as { riverDensity: HydrologyRiverDensityKnob };
-    const normalBounds = HYDROLOGY_RIVER_DENSITY_LENGTH_BOUNDS.normal;
-    const bounds = HYDROLOGY_RIVER_DENSITY_LENGTH_BOUNDS[riverDensity];
-    const minLengthDelta = bounds.minLength - normalBounds.minLength;
-    const maxLengthDelta = bounds.maxLength - normalBounds.maxLength;
-
-    const minLength = clampInt(config.minLength + minLengthDelta, 1, 40);
-    let maxLength = clampInt(config.maxLength + maxLengthDelta, 1, 80);
-    if (maxLength < minLength) maxLength = minLength;
-
-    const next = {
-      ...config,
-      minLength,
-      maxLength,
-    };
-
-    if (next.projectRiverNetwork.strategy !== "default") return next;
+    if (config.projectRiverNetwork.strategy !== "default") return config;
 
     const minorDelta =
       HYDROLOGY_RIVER_DENSITY_MINOR_PERCENTILE[riverDensity] -
@@ -109,78 +101,44 @@ export default createStep(RiversStepContract, {
 
     const minorPercentile = Math.max(
       0,
-      Math.min(1, next.projectRiverNetwork.config.minorPercentile + minorDelta)
+      Math.min(1, config.projectRiverNetwork.config.minorPercentile + minorDelta)
     );
     const majorPercentile = Math.max(
       0,
-      Math.min(1, next.projectRiverNetwork.config.majorPercentile + majorDelta)
+      Math.min(1, config.projectRiverNetwork.config.majorPercentile + majorDelta)
     );
 
     return {
-      ...next,
+      ...config,
       projectRiverNetwork: {
-        ...next.projectRiverNetwork,
-        config: { ...next.projectRiverNetwork.config, minorPercentile, majorPercentile },
+        ...config.projectRiverNetwork,
+        config: { ...config.projectRiverNetwork.config, minorPercentile, majorPercentile },
       },
     };
   },
   run: (context, config, ops, deps) => {
-    const navigableRiverTerrain = NAVIGABLE_RIVER_TERRAIN;
     const { width, height } = context.dimensions;
-    const logStats = (label: string) => {
-      if (!context.trace.isVerbose) return;
-      let flat = 0,
-        hill = 0,
-        mtn = 0,
-        water = 0;
-      for (let y = 0; y < height; y++) {
-        for (let x = 0; x < width; x++) {
-          if (context.adapter.isWater(x, y)) {
-            water++;
-            continue;
-          }
-          const t = context.adapter.getTerrainType(x, y);
-          if (t === MOUNTAIN_TERRAIN) mtn++;
-          else if (t === HILL_TERRAIN) hill++;
-          else flat++;
-        }
-      }
-      const total = width * height;
-      const land = Math.max(1, flat + hill + mtn);
-      context.trace.event(() => ({
-        type: "rivers.terrainStats",
-        label,
-        totals: {
-          land,
-          water,
-          landShare: Number(((land / total) * 100).toFixed(1)),
-        },
-        shares: {
-          mountains: Number(((mtn / land) * 100).toFixed(1)),
-          hills: Number(((hill / land) * 100).toFixed(1)),
-          flat: Number(((flat / land) * 100).toFixed(1)),
-        },
-      }));
-    };
-
-    const heightfield = deps.artifacts.heightfield.read(context) as {
+    const topography = deps.artifacts.topography.read(context) as {
+      elevation: Int16Array;
       landMask: Uint8Array;
     };
     const climateField = deps.artifacts.climateField.read(context) as {
       rainfall: Uint8Array;
       humidity: Uint8Array;
     };
-    const routing = deps.artifacts.routing.read(context) as {
-      flowDir: Int32Array;
-      basinId?: Int32Array;
-    };
+    const flowDir = computeFlowDir({
+      width,
+      height,
+      elevation: topography.elevation,
+      landMask: topography.landMask,
+    });
 
     const discharge = ops.accumulateDischarge(
       {
         width,
         height,
-        landMask: heightfield.landMask,
-        flowDir: routing.flowDir,
+        landMask: topography.landMask,
+        flowDir,
         rainfall: climateField.rainfall,
         humidity: climateField.humidity,
       },
@@ -191,7 +149,7 @@ export default createStep(RiversStepContract, {
       {
         width,
         height,
-        landMask: heightfield.landMask,
+        landMask: topography.landMask,
         discharge: discharge.discharge,
       },
       config.projectRiverNetwork
@@ -203,15 +161,6 @@ export default createStep(RiversStepContract, {
       riverClass: projected.riverClass,
       sinkMask: discharge.sinkMask,
       outletMask: discharge.outletMask,
-      ...(routing.basinId instanceof Int32Array ? { basinId: routing.basinId } : {}),
     });
-
-    logStats("PRE-RIVERS");
-    context.adapter.modelRivers(config.minLength, config.maxLength, navigableRiverTerrain);
-    logStats("POST-MODELRIVERS");
-    context.adapter.validateAndFixTerrain();
-    logStats("POST-VALIDATE");
-    syncHeightfield(context);
-    context.adapter.defineNamedRivers();
   },
 });
