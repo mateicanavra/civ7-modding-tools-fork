@@ -3,14 +3,11 @@ import type {
   ExtendedMapContext,
   HeightfieldBuffer,
 } from "@swooper/mapgen-core";
+import { forEachHexNeighborOddQ } from "@swooper/mapgen-core/lib/grid";
 import type { OpTypeBagOf, Static } from "@swooper/mapgen-core/authoring";
-import type {
-  NarrativeMotifsHotspots,
-  NarrativeMotifsMargins,
-} from "@mapgen/domain/narrative/models.js";
 import { computeRiverAdjacencyMask } from "../../../hydrology-hydrography/river-adjacency.js";
 import ecology from "@mapgen/domain/ecology";
-import { buildLatitudeField, maskFromCoordSet } from "../biomes/helpers/inputs.js";
+import { buildLatitudeField } from "../biomes/helpers/inputs.js";
 import { deriveStepSeed } from "../helpers/seed.js";
 import type { FeatureKeyLookups } from "./feature-keys.js";
 import type { BiomeClassificationArtifact } from "../../artifacts.js";
@@ -31,12 +28,23 @@ type IcePlacementInput = Static<typeof ecology.ops.planIceFeaturePlacements.inpu
 type WetInnerConfig =
   OpTypeBagOf<typeof ecology.ops.planWetFeaturePlacements>["config"]["default"];
 
+const BOUNDARY_NONE = 0;
+const VOLCANISM_THRESHOLD = 160;
+const PARADISE_VOLCANISM_MAX = 40;
+const PARADISE_CLOSENESS_MAX = 40;
+const PASSIVE_SHELF_CLOSENESS_MAX = 60;
+
+type PlateSignals = {
+  boundaryCloseness: Uint8Array;
+  boundaryType: Uint8Array;
+  volcanism: Uint8Array;
+};
+
 export type FeatureArtifactInputs = {
   heightfield: HeightfieldBuffer;
   climateField: ClimateFieldBuffer;
+  plates: PlateSignals;
   classification: BiomeClassificationArtifact;
-  motifsHotspots: NarrativeMotifsHotspots | null;
-  motifsMargins: NarrativeMotifsMargins | null;
 };
 
 const buildFeatureKeyField = (
@@ -63,6 +71,72 @@ const buildFeatureKeyField = (
   }
 
   return field;
+};
+
+const buildCoastalWaterMask = (
+  width: number,
+  height: number,
+  landMask: Uint8Array
+): Uint8Array => {
+  const size = Math.max(0, width * height);
+  const mask = new Uint8Array(size);
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      const i = y * width + x;
+      if (landMask[i] === 1) continue;
+      let touchesLand = false;
+      forEachHexNeighborOddQ(x, y, width, height, (nx, ny) => {
+        if (touchesLand) return;
+        const ni = ny * width + nx;
+        if (landMask[ni] === 1) touchesLand = true;
+      });
+      if (touchesLand) mask[i] = 1;
+    }
+  }
+  return mask;
+};
+
+const buildVolcanismMask = (width: number, height: number, volcanism: Uint8Array): Uint8Array => {
+  const size = Math.max(0, width * height);
+  const mask = new Uint8Array(size);
+  for (let i = 0; i < size; i++) {
+    if (volcanism[i] >= VOLCANISM_THRESHOLD) mask[i] = 1;
+  }
+  return mask;
+};
+
+const buildParadiseMask = (
+  width: number,
+  height: number,
+  coastalWater: Uint8Array,
+  plates: PlateSignals
+): Uint8Array => {
+  const size = Math.max(0, width * height);
+  const mask = new Uint8Array(size);
+  for (let i = 0; i < size; i++) {
+    if (coastalWater[i] !== 1) continue;
+    if (plates.boundaryCloseness[i] > PARADISE_CLOSENESS_MAX) continue;
+    if (plates.volcanism[i] > PARADISE_VOLCANISM_MAX) continue;
+    mask[i] = 1;
+  }
+  return mask;
+};
+
+const buildPassiveShelfMask = (
+  width: number,
+  height: number,
+  coastalWater: Uint8Array,
+  plates: PlateSignals
+): Uint8Array => {
+  const size = Math.max(0, width * height);
+  const mask = new Uint8Array(size);
+  for (let i = 0; i < size; i++) {
+    if (coastalWater[i] !== 1) continue;
+    if (plates.boundaryType[i] !== BOUNDARY_NONE) continue;
+    if (plates.boundaryCloseness[i] > PASSIVE_SHELF_CLOSENESS_MAX) continue;
+    mask[i] = 1;
+  }
+  return mask;
 };
 
 /**
@@ -194,13 +268,13 @@ export function buildReefEmbellishmentsInput(
   artifacts: FeatureArtifactInputs
 ): ReefEmbellishmentsInput {
   const { width, height } = context.dimensions;
-  const size = width * height;
 
-  const { heightfield, motifsHotspots, motifsMargins } = artifacts;
+  const { heightfield, plates } = artifacts;
   const featureKeyField = buildFeatureKeyField(context, lookups);
 
-  const hotspots = motifsHotspots;
-  const margins = motifsMargins;
+  const coastalWater = buildCoastalWaterMask(width, height, heightfield.landMask);
+  const paradiseMask = buildParadiseMask(width, height, coastalWater, plates);
+  const passiveShelfMask = buildPassiveShelfMask(width, height, coastalWater, plates);
 
   return {
     width,
@@ -208,8 +282,8 @@ export function buildReefEmbellishmentsInput(
     seed: deriveStepSeed(context.env.seed, "ecology:planReefEmbellishments"),
     landMask: heightfield.landMask,
     featureKeyField,
-    paradiseMask: maskFromCoordSet(hotspots?.paradise, width, height),
-    passiveShelfMask: maskFromCoordSet(margins?.passiveShelf, width, height),
+    paradiseMask,
+    passiveShelfMask,
   };
 }
 
@@ -224,11 +298,11 @@ export function buildVegetationEmbellishmentsInput(
   const { width, height } = context.dimensions;
   const size = width * height;
 
-  const { classification, climateField, heightfield, motifsHotspots } = artifacts;
+  const { classification, climateField, heightfield, plates } = artifacts;
   const latitude = buildLatitudeField(context.adapter, width, height);
   const featureKeyField = buildFeatureKeyField(context, lookups);
 
-  const hotspots = motifsHotspots;
+  const volcanicMask = buildVolcanismMask(width, height, plates.volcanism);
 
   return {
     width,
@@ -242,7 +316,7 @@ export function buildVegetationEmbellishmentsInput(
     vegetationDensity: classification.vegetationDensity,
     elevation: heightfield.elevation,
     latitude,
-    volcanicMask: maskFromCoordSet(hotspots?.volcanic, width, height),
+    volcanicMask,
     navigableRiverTerrain: context.adapter.getTerrainTypeIndex("TERRAIN_NAVIGABLE_RIVER"),
   };
 }
