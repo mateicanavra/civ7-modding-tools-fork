@@ -31,6 +31,7 @@ related_to: [M10-U06]
 - No Hydrology/Ecology Physics step calls `context.adapter.getLatitude(...)` (use `context.env.latitudeBounds`).
 - No Morphology Physics step performs adapter writes (`writeHeightfield`, `setFeatureType`, `createFractal`, `getFractalHeight`).
 - `map-hydrology` and `map-ecology` stages exist (or equivalent Gameplay steps) and own adapter stamping.
+- No cross-stage helper imports; no step imports from `domain/**/ops/**/rules/**`.
 
 ## Testing / Verification
 - `REFRACTOR_DOMAINS="morphology,hydrology,ecology" ./scripts/lint/lint-domain-refactor-guardrails.sh`
@@ -38,6 +39,8 @@ related_to: [M10-U06]
 - `rg -n "adapter\\.getLatitude\\(" mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-* mods/mod-swooper-maps/src/recipes/standard/stages/ecology`
 - `rg -n "syncHeightfield\\(" mods/mod-swooper-maps/src packages/mapgen-core/src`
 - `rg -n "adapter\\.(createFractal|getFractalHeight)\\(" mods/mod-swooper-maps/src`
+- `rg -n "src/recipes/standard/stages/.*/steps/helpers/" mods/mod-swooper-maps/src/recipes/standard/stages/morphology-*`
+- `rg -n "src/domain/.*/ops/.*/rules" mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-*`
 
 ## Dependencies / Notes
 - Blocked by [M10-U03](./M10-U03-map-morphology-stamping.md).

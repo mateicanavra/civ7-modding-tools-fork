@@ -42,6 +42,7 @@ related_to: []
 ## Dependencies / Notes
 - Blocked by [M10-U06](./M10-U06-tracing-observability-hardening.md).
 - Final Phase 5 gate includes a ruthlessness pass; see Implementation Details.
+- Out of scope for U05: “physics-first driver richness” upgrades (Foundation crust coherence, material-driven substrate). Track in `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-SPIKE-morphology-physics-first-gap-remediation.md`.
 
 ---
 

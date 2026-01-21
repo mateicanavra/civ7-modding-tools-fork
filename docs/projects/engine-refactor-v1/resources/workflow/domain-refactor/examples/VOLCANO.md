@@ -19,7 +19,7 @@ This example is canonical for Phase 3 implementers. It is designed to prevent th
 
 Repo-path note:
 - Code identifiers and patterns are taken from this repo (notably `mods/mod-swooper-maps/src/domain/morphology/ops/plan-volcanoes/**`).
-- Some tag ids below are **illustrative** (`artifact:morphology.volcanoPlan`, `artifact:map.volcanoes`, `effect:map.volcanoesPlotted`) and must be registered in the TagRegistry when implemented.
+- Some tag ids below are **illustrative** (`artifact:morphology.volcanoes`, `artifact:map.volcanoes`, `effect:map.volcanoesPlotted`) and must be registered in the TagRegistry when implemented.
 
 ## Pipeline overview (end-to-end)
 
@@ -36,12 +36,12 @@ PHYSICS (pure; no adapter reads/writes)
   phase: morphology
     step: plan-volcanoes
     requires: artifact:foundation.plates, buffer:heightfield
-    provides: artifact:morphology.volcanoPlan
+    provides: artifact:morphology.volcanoes
 
 GAMEPLAY / MATERIALIZATION (adapter writes; braided into a physics phase)
   phase: morphology (example braid; not a “map phase”)
     step: plot-volcanoes
-      requires: artifact:morphology.volcanoPlan
+      requires: artifact:morphology.volcanoes
       provides: artifact:map.volcanoes, effect:map.volcanoesPlotted
 ```
 
@@ -282,7 +282,7 @@ export const PlanVolcanoesStepContract = defineStep({
   id: "plan-volcanoes",
   phase: "morphology",
   requires: ["artifact:foundation.plates", "buffer:heightfield"],
-  provides: ["artifact:morphology.volcanoPlan"],
+  provides: ["artifact:morphology.volcanoes"],
   ops: { planVolcanoes: morphology.ops.planVolcanoes },
   schema: Type.Object({
     planVolcanoes: morphology.ops.planVolcanoes.config,
@@ -301,7 +301,7 @@ This step is Gameplay-owned by posture because it touches the adapter and provid
 It can live inside a Morphology stage/phase (braided) without becoming “physics”: ownership comes from what it does and what it produces/consumes, not from the folder name.
 
 Key boundary posture:
-- This step MAY read Physics truth (`artifact:morphology.volcanoPlan`, `artifact:morphology.topography`, etc.).
+- This step MAY read Physics truth (`artifact:morphology.volcanoes`, `artifact:morphology.topography`, etc.).
 - This step MUST NOT feed anything back into Physics truth (no “engine readback into truth”).
 - This step publishes map-facing projections/annotations under `artifact:map.*` and performs adapter writes.
 
@@ -313,7 +313,7 @@ import { Type, defineStep } from "@swooper/mapgen-core/authoring";
 export const PlotVolcanoesStepContract = defineStep({
   id: "plot-volcanoes",
   phase: "morphology", // braided into a morphology stage; not a separate “map phase”
-  requires: ["artifact:morphology.volcanoPlan"],
+  requires: ["artifact:morphology.volcanoes"],
   provides: ["artifact:map.volcanoes", "effect:map.volcanoesPlotted"],
   schema: Type.Object({}),
 } as const);
