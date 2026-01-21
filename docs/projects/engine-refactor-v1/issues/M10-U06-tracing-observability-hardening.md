@@ -87,12 +87,39 @@ related_to: [M10-U01, M10-U02, M10-U03]
 - Add trace smoke test that runs Morphology Physics steps with `trace.steps.<id>=verbose` and asserts required `morphology.*` event types exist.
 - Add per-slice `rg` gates to ensure adapter-coupled tracing helpers are removed from Morphology Physics.
 
-### Prework Prompt (Agent Brief)
-Delete this prompt section once the prework is completed.
+### Prework Findings (Complete)
 
-- If “official” Civ7 surface dumps are required beyond adapter-readable grids:
-  - Inventory what Civ7 runtime exposes and which base-standard modules provide dumps.
-  - Decide whether to add new `EngineAdapter` debug methods (inside `packages/civ7-adapter`) or keep dumps as adapter-read ASCII/summaries in Gameplay steps.
+**Decision (for M10-U06 minimum requirements):**
+- Gameplay engine-surface dumps at `effect:map.*` boundaries can be satisfied with existing adapter reads + centralized TS helpers in `packages/mapgen-core/src/dev/*`.
+- No new `EngineAdapter` “debug dump” methods are required for the minimum dump set in this issue (terrain shares, elevation summary, ASCII masks).
+
+**What we can dump today (adapter-readable surfaces + existing helpers):**
+- ASCII helpers (adapter reads):
+  - `packages/mapgen-core/src/dev/ascii.ts` (`logLandmassAscii`, `logReliefAscii`, `logRainfallAscii`, `logBiomeAscii`, `logFoundationAscii`)
+- Summary helpers (adapter reads):
+  - `packages/mapgen-core/src/dev/summaries.ts` (`logElevationSummary`, `logMountainSummary`, `logVolcanoSummary`, plus other summaries)
+- Runtime introspection (engine API inventory, once):
+  - `packages/mapgen-core/src/dev/introspection.ts` (`logEngineSurfaceApisOnce`)
+
+**Evidence (these helpers already appear in current steps, but must be re-homed):**
+- Adapter-coupled dump helpers currently appear in Morphology Physics steps (must move to Gameplay per this issue):
+  - `mods/mod-swooper-maps/src/recipes/standard/stages/morphology-pre/steps/landmassPlates.ts` (`logLandmassAscii`)
+  - `mods/mod-swooper-maps/src/recipes/standard/stages/morphology-post/steps/mountains.ts` (`logMountainSummary`, `logReliefAscii`)
+  - `mods/mod-swooper-maps/src/recipes/standard/stages/morphology-post/steps/volcanoes.ts` (`logVolcanoSummary`)
+
+**Civ7 “official” dump helpers (present in repo, but not trace-friendly):**
+- Base-standard module:
+  - `apps/docs/public/civ7-official/resources/Base/modules/base-standard/maps/map-debug-helpers.js` (exports `dumpContinents`, `dumpTerrain`, `dumpElevation`, `dumpRainfall`, `dumpBiomes`, `dumpFeatures`, `dumpResources`, etc.)
+- Recommendation:
+  - Treat these as reference/parity checks (format + semantics), not as the primary observability mechanism, because they mostly `console.log(...)` and rely on engine globals (hard to capture/assert in trace smoke tests and awkward under `MockAdapter`).
+
+**If we later need dumps that require engine globals not exposed by the adapter:**
+- Prefer adding small, read-only adapter methods (e.g. `getContinentType(x,y)`, `getResourceType(x,y)`) rather than adding “call official dumpX()” methods.
+
+**Trace smoke test approach (minimal, deterministic):**
+- Add a test that runs the standard recipe with a trace sink and asserts required `step.event` payload types exist.
+- Use the executor’s full step ID format when enabling verbose tracing:
+  - The recipe computes full IDs like `mod-swooper-maps.standard.<stageId>.<stepId>` (see `packages/mapgen-core/src/authoring/recipe.ts` `computeFullStepId(...)`).
 
 ### Quick Navigation
 - [TL;DR](#tldr)

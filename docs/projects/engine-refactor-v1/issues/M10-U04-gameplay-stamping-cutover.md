@@ -120,29 +120,78 @@ files:
     notes: Final topology order; insert `map-hydrology` + `map-ecology` after `map-morphology`
 ```
 
-### Prework Prompt (Agent Brief)
-Delete this prompt section once the prework is completed.
+### Prework Findings (Complete)
 
-### buildElevation() ordering parity (stampContinents after build)
-- Purpose: Confirm whether `stampContinents()` after `buildElevation()` is required by Civ7 materialization.
-- Expected output:
-  - Compare current TS ordering (`mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-baseline/steps/climateBaseline.ts`) vs legacy JS orchestrator (`docs/system/libs/mapgen/_archive/original-mod-swooper-maps-js/map_orchestrator.js`) and extracted Civ7 scripts if available.
-  - Identify downstream consumers that require post-`buildElevation()` `stampContinents()` evidence.
-  - Recommendation: keep Phase 2 ordering or open a Phase 2 canon correction follow-up (out of scope for M10 implementation).
+#### 1) `buildElevation()` ordering parity (`stampContinents()` after build?)
 
-### Hydrology rivers without `artifact:morphology.routing`
-- Purpose: Phase 2 locks `artifact:morphology.routing` as Morphology-internal; Hydrology must consume public truth artifacts instead.
-- Expected output:
-  - Inventory call paths that read `artifact:morphology.routing` and what they use it for.
-  - Propose minimal replacement inputs for Hydrology rivers (prefer `artifact:morphology.topography` + `artifact:morphology.substrate`).
-  - Provide concrete contract patch list:
-    - `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-hydrography/steps/rivers.contract.ts`
-    - `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-hydrography/steps/rivers.ts`
-    - Any Morphology internal exports that can be deleted once migration lands.
-  - Define slice-local verification for “no routing backfeed” (contract guard + `rg`).
-- Sources to check:
-  - Phase 2 authority: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-CONTRACTS.md`
-  - Current code: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-hydrography/steps/rivers.ts`
+**Current TS ordering (legacy wiring):**
+- `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-baseline/steps/climateBaseline.ts` calls:
+  - `recalculateAreas()` → `buildElevation()` → `recalculateAreas()` → `stampContinents()` → `syncHeightfield()`.
+
+**Other TS callsites:**
+- `adapter.buildElevation()` appears only in `hydrology-climate-baseline/steps/climateBaseline.ts`.
+- `adapter.stampContinents()` appears in:
+  - `morphology-pre/steps/landmassPlates.ts` (early) and
+  - `hydrology-climate-baseline/steps/climateBaseline.ts` (late).
+
+**Legacy JS orchestrator behavior (repo archive):**
+- Stamps continents **before** building elevation:
+  - Post-landmass: `validateAndFixTerrain()` → `recalculateAreas()` → `stampContinents()`. (`docs/system/libs/mapgen/_archive/original-mod-swooper-maps-js/map_orchestrator.js`)
+- Builds elevation later without restamping continents afterward (no `stampContinents()` after `buildElevation()` in the archive).
+
+**Extracted Civ7 base-standard scripts (if `.civ7/outputs/resources` exists locally):**
+- Base-standard maps consistently call:
+  - `AreaBuilder.recalculateAreas()` → `TerrainBuilder.stampContinents()`
+  - later `AreaBuilder.recalculateAreas()` → `TerrainBuilder.buildElevation()`
+  - and do not restamp continents after building elevation.
+
+**Determination + recommendation:**
+- There is no repo evidence that Civ7 requires `stampContinents()` *after* `buildElevation()`; the “stamp after build” ordering appears to be a TS legacy artifact rather than base-standard practice.
+- M10 implementation posture:
+  - Keep the Phase 2 ordering as written for now (do not change Phase 2 in M10).
+  - Track a Phase 2 canon correction follow-up (out of scope for M10 implementation) to revisit whether `stampContinents()` belongs inside the `build-elevation` Gameplay boundary at all.
+
+#### 2) Hydrology rivers without `artifact:morphology.routing`
+
+**Phase 2 lock (why this must change):**
+- Phase 2 explicitly marks `artifact:morphology.routing` as a disallowed/non-contract cross-domain surface; Hydrology must not consume it. (`docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-CONTRACTS.md`)
+
+**Current inventory (what reads it and why):**
+- Definition (`artifact:morphology.routing`):
+  - `flowDir: Int32Array`, `flowAccum: Float32Array`, optional `basinId: Int32Array`. (`mods/mod-swooper-maps/src/recipes/standard/stages/morphology-pre/artifacts.ts`)
+- Producers/consumers:
+  - Producer: `morphology-mid/routing` publishes routing. (`mods/mod-swooper-maps/src/recipes/standard/stages/morphology-mid/steps/routing.ts`)
+  - Internal Morphology consumer: `morphology-mid/geomorphology` uses `routing.flowAccum` only. (`mods/mod-swooper-maps/src/recipes/standard/stages/morphology-mid/steps/geomorphology.ts`)
+  - Cross-domain consumer (must migrate): Hydrology `hydrology-hydrography/rivers` reads routing and uses `flowDir` only (and passes through `basinId` optionally). (`mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-hydrography/steps/rivers.ts`)
+
+**Minimal Phase 2-compliant replacement (recommended): Hydrology derives flow direction from Morphology topography**
+- Hydrology `rivers` should stop requiring `morphologyArtifacts.routing` and instead consume Morphology public truth:
+  - `morphologyArtifacts.topography` (`elevation`, `landMask`) as the physical surface.
+- Compute `flowDir` within Hydrology using the same steepest-descent neighbor rule the Morphology routing op uses today (Odd-Q hex neighbors), but treat the result as Hydrology-owned intermediate state used to derive Hydrology truth (`artifact:hydrology.hydrography`).
+  - This satisfies the Phase 2 lock (Hydrology does not consume Morphology routing as a cross-domain artifact) while remaining deterministic and compatible with current algorithmic assumptions.
+  - To avoid algorithm drift between domains, prefer extracting the “steepest descent flowDir” routine into a shared helper and reusing it, rather than copying logic into Hydrology.
+
+```yaml
+files:
+  - path: mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-hydrography/steps/rivers.contract.ts
+    notes: Replace `morphologyArtifacts.routing` require with `morphologyArtifacts.topography` (and drop `heightfield` if also removed in Slice 4).
+  - path: mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-hydrography/steps/rivers.ts
+    notes: Stop reading `deps.artifacts.routing`; read `topography` and compute `flowDir` deterministically; drop `basinId` pass-through.
+  - path: mods/mod-swooper-maps/src/domain/morphology/ops/compute-flow-routing/rules/index.ts
+    notes: Evidence for the steepest-descent receiver selection (Odd-Q neighbors).
+  - path: mods/mod-swooper-maps/src/domain/hydrology/ops/accumulate-discharge/contract.ts
+    notes: Update docstring that currently claims `flowDir` is Morphology-owned.
+  - path: mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-hydrography/artifacts.ts
+    notes: Update wording that claims Hydrography is derived from Morphology routing.
+```
+
+**Optional hardening (recommended in M10 to prevent regressions by construction):**
+- Remove `routing` from the exported `morphologyArtifacts` public surface so other domains cannot “accidentally” depend on it.
+  - Keep routing as an internal Morphology artifact handle (imported only by Morphology mid steps).
+
+**Verification (slice-local):**
+- `rg -n "morphologyArtifacts\\.routing|deps\\.artifacts\\.routing\\.read" mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-*`
+- `rg -n "artifact:morphology\\.routing" mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-*`
 
 ### Quick Navigation
 - [TL;DR](#tldr)
