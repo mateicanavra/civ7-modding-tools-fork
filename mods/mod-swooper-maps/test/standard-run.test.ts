@@ -409,7 +409,6 @@ const standardConfig = {
         config: { basinSeparation: basinSeparationConfig },
       },
     },
-    coastlines: {},
   },
   "morphology-mid": {
     "rugged-coasts": {
