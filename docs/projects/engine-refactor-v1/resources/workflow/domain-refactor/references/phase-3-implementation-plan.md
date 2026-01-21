@@ -4,9 +4,66 @@
 
 Convert the spikes into an executable slice plan and a single source-of-truth issue doc.
 
+## Phase 3 issue doc skeleton (early milestone draft; copy/paste)
+
+Use this as the required top-level structure for `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-<milestone>-<domain>-*.md`.
+Keep it scannable: short sections, concrete checklists, and executable verification commands.
+
+### 0) Header (required)
+
+- Title: `<milestone>: <domain> — Phase 3 Implementation Plan`
+- Effort estimate: `<complexity> × <parallelism>` (example: `Medium × Low`)
+
+### 1) Objective (required)
+
+- One paragraph: what changes in the system after Phase 4 is complete (current → target), in domain terms.
+
+### 2) Scope (required)
+
+- **In scope:** what this refactor migrates/deletes/cuts over.
+- **Out of scope:** what it explicitly does not touch (and why).
+
+### 3) Locked decisions + bans (required; copy verbatim)
+
+- Copy the non-negotiable locks from this template (topology; boundary; no backfeeding; effects; bans; TerrainBuilder no-drift).
+- For each lock, name the enforcement mechanism in this milestone (guardrail scan, contract-guard test, or explicit deletion/migration in a specific slice).
+
+### 4) Workstreams (required)
+
+- List the major parallelizable tracks (contracts/ops, steps/stages wiring, consumer migrations, docs/tests/guardrails, cleanup).
+
+### 5) Slice plan (required)
+
+For each slice (A/B/C…):
+- **Scope:** steps/ops/contracts included (ids + paths).
+- **Cutovers/deletions:** what legacy entrypoints/surfaces die in-slice (paths/exports).
+- **Downstream:** consumer migration matrix entries completed in-slice.
+- **Guardrails:** which lock checks/tests are added in-slice.
+- **Exit criteria:** what “pipeline-green” means for that slice.
+
+### 6) Acceptance criteria (required)
+
+- Phase 3 completion checklist (plan quality gates).
+- Phase 4 slice completion checklist summary (what every slice must satisfy).
+
+### 7) Verification commands (required)
+
+- List commands to run for Phase 3 review and Phase 4 slice verification.
+- Commands must be executable (not prose) and scoped (fast gates vs full gates).
+
+### 8) Risks + mitigations (required)
+
+- Key risks that could cause drift (contracts/ownership violations, determinism drift, adapter coupling, TerrainBuilder ordering).
+- Mitigation per risk (guardrail/test/slice ordering).
+
+### 9) Open questions (optional; prefer zero)
+
+- Only if a decision is truly blocked and cannot be resolved from Phase 2 canon + code evidence.
+
 ## Scope guardrails
 
 - This is slice planning only. Do not change the model here.
+- Topology is locked: `wrapX=true`, `wrapY=false`. No wrap knobs/env/config; wrap flags must not appear as contract inputs.
 - Every slice must end in a pipeline-green state (no dual paths).
 - The refactored domain must not retain compat surfaces; downstream adjustments are part of the plan.
 - Do not preserve story/narrative/overlay surfaces in the refactor: replace any load-bearing ones with canonical, domain-anchored contracts and migrate consumers to those.
@@ -20,6 +77,7 @@ Convert the spikes into an executable slice plan and a single source-of-truth is
 This Phase 3 plan MUST execute a full cutover to the canonical “truth vs map projection/materialization” posture in one continuous effort. No legacy paths survive.
 
 Hard requirements:
+- Topology lock: Civ7 is `wrapX=true`, `wrapY=false`. No wrap knobs/env/config.
 - Physics steps MUST NOT `require`/consume `artifact:map.*` as inputs.
 - Physics steps MUST NOT `require`/consume `effect:map.*` as inputs.
 - Physics truth MAY be tile-indexed and MAY include `tileIndex`; the ban is on engine/game-facing ids, adapter coupling, and consuming map-layer projections/materialization.

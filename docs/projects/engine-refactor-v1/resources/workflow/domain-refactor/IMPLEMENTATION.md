@@ -24,6 +24,22 @@ Keep open while implementing:
 - Default to deletions. Within scope, remove legacy surfaces, compat, placeholders, and dead bags; do not preserve them “just in case.”
 - If a locked decision is threatened, stop the line: update the Phase 3 issue and add a guardrail before proceeding.
 
+## Phase 2 posture locks (gates; enforce per slice)
+
+These locks are not “directional”; they are non-negotiable. If you touch any relevant code paths in a slice, add guardrails (tests/scans) in the same slice.
+
+Canonical anchors:
+- `docs/projects/engine-refactor-v1/resources/spec/SPEC-DOMAIN-MODELING-GUIDELINES.md`
+- The Phase 2 canon for the domain you are implementing (typically: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/<domain>/spec/PHASE-2-*.md`)
+
+- **Topology invariant:** Civ7 is `wrapX=true`, `wrapY=false` always. No env/config/knob for wrap; wrap flags must not appear in op/step/artifact contracts.
+- **Boundary:** Physics domains publish truth-only artifacts (pure). Gameplay owns `artifact:map.*` projections/annotations and all adapter stamping/materialization.
+- **No backfeeding:** Physics steps MUST NOT `require`/consume `artifact:map.*` or `effect:map.*`.
+- **Effects are boolean:** `effect:map.<thing><Verb>` (default `*Plotted`; short verbs only; no receipts/hashes/versions).
+- **Hard ban:** no `artifact:map.realized.*` namespace anywhere.
+- **TerrainBuilder no-drift:** Civ7 elevation/cliffs come from `TerrainBuilder.buildElevation()` and cannot be set directly. Any cliff/elevation-band-correct decisions belong in Gameplay after `effect:map.elevationPlotted`.
+- **Effect honesty via freeze:** any published `artifact:map.*` intent consumed by stamping must be publish-once/frozen before stamping begins; assert the `effect:map.*` only after successful adapter writes.
+
 ## How to think about slicing (guardrails)
 
 You (the implementer) choose slices **ad hoc** based on the domain inventory. The workflow is not prescriptive about slice boundaries, but it is strict about slice **completion** (no half-migrations).
@@ -63,6 +79,7 @@ Before writing code, write a short slicing plan in the domain issue doc:
 - Tests to add/update for that slice (op contract test + any thin integration edge)
 - Expected guardrail scope (which domains to run via `REFRACTOR_DOMAINS=...`)
 - Locked decisions + bans (and how each becomes a guardrail)
+- If the slice touches Gameplay plotting/stamping: name the `effect:map.*` tags introduced/required, enforce projection intent freeze, and enforce TerrainBuilder no-drift (`plot-elevation` ordering; no implicit re-plots).
 - Step decomposition plan (causality spine → step boundaries → artifacts/buffers)
 - Consumer inventory + migration matrix (break/fix by slice)
 

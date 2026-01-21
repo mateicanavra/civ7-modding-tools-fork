@@ -67,7 +67,10 @@ export const ComputeSuitabilityContract = defineOp({
       plateBoundaryProximity: TypedArraySchemas.u8({
         description: "Plate boundary proximity per tile (0..255).",
       }),
-      elevation: TypedArraySchemas.i16({ description: "Elevation per tile (meters)." }),
+      elevation: TypedArraySchemas.i16({
+        description:
+          "Truth elevation per tile (meters). Do not feed engine-derived elevation/cliffs into Physics; Civ7 banded elevation/cliffs are Gameplay-only after `effect:map.elevationPlotted`.",
+      }),
     },
     { additionalProperties: false }
   ),
@@ -241,6 +244,8 @@ export function pickWeightedIndex(weights: Float32Array, rng01: () => number): n
 
 ```ts
 // src/domain/morphology/volcanoes/ops/plan-volcanoes/rules/enforce-min-distance.ts
+import { wrapAbsDeltaPeriodic } from "@swooper/mapgen-core/lib/math";
+
 export function enforceMinDistance(
   dims: { width: number; height: number },
   chosen: { x: number; y: number }[],
@@ -250,7 +255,9 @@ export function enforceMinDistance(
   if (minDistance <= 0) return true;
 
   for (const p of chosen) {
-    const dx = p.x - candidate.x;
+    // Topology lock: Civ7 is `wrapX=true`, `wrapY=false`. Any distance semantics must be cylinder-aware.
+    // This example uses a simple squared metric; if you need true hex tile distance, use canonical grid helpers.
+    const dx = wrapAbsDeltaPeriodic(p.x - candidate.x, dims.width);
     const dy = p.y - candidate.y;
     if (dx * dx + dy * dy < minDistance * minDistance) return false;
   }

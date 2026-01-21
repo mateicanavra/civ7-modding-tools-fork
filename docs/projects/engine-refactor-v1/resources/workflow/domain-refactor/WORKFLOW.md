@@ -48,6 +48,24 @@ This workflow is strict about architecture and contracts, but it should feel str
 - Stop the line on drift. If a locked decision is violated or a contract is ambiguous, pause, update the Phase 3 issue, and add a guardrail before continuing.
 - Keep diffs reviewable. Default to one branch/PR per slice; if a slice grows, split into explicit subissues/branches rather than “and also” accretion.
 
+### Phase 2 posture locks (do not re-open; required in Phase 3+)
+
+If the Phase 3 issue does not explicitly restate these locks (and name the guardrail/tests that enforce them), it is incomplete.
+
+Canonical anchors:
+- `docs/projects/engine-refactor-v1/resources/spec/SPEC-DOMAIN-MODELING-GUIDELINES.md`
+- The Phase 2 canon for the domain you are refactoring (typically: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/<domain>/spec/PHASE-2-*.md`)
+- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/phase-3-implementation-plan.md`
+
+Non-negotiable locks:
+- **Topology invariant:** Civ7 is `wrapX=true`, `wrapY=false` always. No env/config/knob for wrap; wrap flags must not appear in op/step/artifact contracts.
+- **Boundary:** Physics domains publish truth-only artifacts (pure). Gameplay owns `artifact:map.*` projections/annotations and all adapter stamping/materialization.
+- **No backfeeding:** Physics steps MUST NOT `require`/consume `artifact:map.*` or `effect:map.*`.
+- **Effects are boolean:** `effect:map.<thing><Verb>` (default `*Plotted`; short verbs only; no receipts/hashes/versions).
+- **Hard ban:** no `artifact:map.realized.*` namespace anywhere.
+- **TerrainBuilder no-drift:** Civ7 elevation/cliffs come from `TerrainBuilder.buildElevation()` and cannot be set directly. Any cliff/elevation-band-correct decisions belong in Gameplay after `effect:map.elevationPlotted`.
+- **Effect honesty via freeze:** any published `artifact:map.*` intent consumed by stamping must be publish-once/frozen before stamping begins; assert the `effect:map.*` only after successful adapter writes.
+
 ### Maximal boundary posture (truth vs map projection/materialization)
 
 This is a hard, repo-wide modeling and implementation posture for domain refactors:
@@ -59,6 +77,7 @@ This is a hard, repo-wide modeling and implementation posture for domain refacto
 - Gameplay/map layer owns projections + materialization:
   - `artifact:map.*` is the canonical map-facing projection/annotation layer (including observability/debug layers).
   - Adapter/engine reads and writes happen only in Gameplay-owned steps and must provide `effect:map.<thing>Plotted`.
+  - Hard ban: do not introduce `artifact:map.realized.*` (use effects for execution guarantees; use narrowly scoped `artifact:map.*` observation layers only when needed).
 
 Cutover posture:
 - No legacy paths. No shims. No dual-path behavior. If current code violates this boundary, the fix is to reclassify that work into the Gameplay/materialization lane and adjust dependencies so physics truth remains truth-only.
@@ -207,7 +226,7 @@ export const ComputePlatesContract = defineOp({
 } as const);
 ```
 
-Preferred posture: define a minimal op-owned schema and map any external bag at step normalization.
+Preferred posture: define a tight op-owned schema and map any external bag at step normalization.
 
 ## Drift response protocol (when you notice drift)
 
