@@ -8,7 +8,7 @@ export default createStep(PlotEffectsStepContract, {
   run: (context, config, ops, deps) => {
     const artifacts = {
       classification: deps.artifacts.biomeClassification.read(context),
-      heightfield: deps.artifacts.heightfield.read(context),
+      heightfield: context.buffers.heightfield,
     };
     const input = buildPlotEffectsInput(context, artifacts);
     const result = ops.plotEffects(input, config.plotEffects);
