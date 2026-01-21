@@ -264,12 +264,6 @@ export const swooperEarthlikeConfig = {
             clusterMax: 12,
             microcontinentChance: 0.12,
           },
-          hotspot: {
-            paradiseBias: 1.3,
-            volcanicBias: 1.0,
-            volcanicPeakChance: 0.28,
-          },
-          seaLaneAvoidRadius: 4,
         },
       },
     },

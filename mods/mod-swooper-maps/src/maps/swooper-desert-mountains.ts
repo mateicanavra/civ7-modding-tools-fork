@@ -285,12 +285,6 @@ export default createMap({
             clusterMax: 1,
             microcontinentChance: 0,
           },
-          hotspot: {
-            paradiseBias: 1,
-            volcanicBias: 1,
-            volcanicPeakChance: 0.3,
-          },
-          seaLaneAvoidRadius: 2,
         },
       },
     },

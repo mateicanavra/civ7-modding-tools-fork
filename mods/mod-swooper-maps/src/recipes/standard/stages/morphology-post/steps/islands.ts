@@ -1,70 +1,28 @@
 import {
   COAST_TERRAIN,
   FLAT_TERRAIN,
-  ctxRandom,
-  ctxRandomLabel,
   writeHeightfield,
 } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
 import IslandsStepContract from "./islands.contract.js";
-
-type OverlayMasks = {
-  seaLanes: Uint8Array;
-  activeMargin: Uint8Array;
-  passiveShelf: Uint8Array;
-  hotspots: Uint8Array;
-};
-
-function buildEmptyMasks(width: number, height: number): OverlayMasks {
-  const mask = new Uint8Array(width * height);
-  return {
-    seaLanes: mask,
-    activeMargin: mask,
-    passiveShelf: mask,
-    hotspots: mask,
-  };
-}
-
-function buildFractalArray(
-  context: Parameters<typeof writeHeightfield>[0],
-  width: number,
-  height: number,
-  fractalId: number,
-  grain: number
-): Int16Array {
-  const fractal = new Int16Array(width * height);
-  if (context.adapter?.createFractal && context.adapter?.getFractalHeight) {
-    context.adapter.createFractal(fractalId, width, height, grain, 0);
-    for (let y = 0; y < height; y++) {
-      for (let x = 0; x < width; x++) {
-        const i = y * width + x;
-        fractal[i] = context.adapter.getFractalHeight(fractalId, x, y) | 0;
-      }
-    }
-  }
-  return fractal;
-}
+import { deriveStepSeed } from "../../ecology/steps/helpers/seed.js";
 
 export default createStep(IslandsStepContract, {
   run: (context, config, ops, deps) => {
     const { width, height } = context.dimensions;
+    const plates = deps.artifacts.foundationPlates.read(context);
     const heightfield = context.buffers.heightfield;
-    const stepId = `${IslandsStepContract.phase}/${IslandsStepContract.id}`;
-
-    const masks = buildEmptyMasks(width, height);
-    const fractal = buildFractalArray(context, width, height, 1, 5);
+    const rngSeed = deriveStepSeed(context.env.seed, "morphology:planIslandChains");
 
     const plan = ops.islands(
       {
         width,
         height,
         landMask: heightfield.landMask,
-        seaLaneMask: masks.seaLanes,
-        activeMarginMask: masks.activeMargin,
-        passiveShelfMask: masks.passiveShelf,
-        hotspotMask: masks.hotspots,
-        fractal,
-        rngSeed: ctxRandom(context, ctxRandomLabel(stepId, "morphology/plan-island-chains"), 2_147_483_647),
+        boundaryCloseness: plates.boundaryCloseness,
+        boundaryType: plates.boundaryType,
+        volcanism: plates.volcanism,
+        rngSeed,
       },
       config.islands
     );

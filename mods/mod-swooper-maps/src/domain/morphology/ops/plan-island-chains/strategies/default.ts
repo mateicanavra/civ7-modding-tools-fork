@@ -1,6 +1,6 @@
 import { createStrategy } from "@swooper/mapgen-core/authoring";
+import { PerlinNoise } from "@swooper/mapgen-core/lib/noise";
 import { createLabelRng } from "@swooper/mapgen-core/lib/rng";
-import { normalizeFractal } from "@swooper/mapgen-core/lib/noise";
 
 import PlanIslandChainsContract from "../contract.js";
 import {
@@ -12,19 +12,21 @@ import {
   validateIslandInputs,
 } from "../rules/index.js";
 
+const BOUNDARY_CONVERGENT = 1;
+const BOUNDARY_TRANSFORM = 3;
+
 export const defaultStrategy = createStrategy(PlanIslandChainsContract, "default", {
   run: (input, config) => {
     const { width, height } = input;
-    const { landMask, seaLaneMask, activeMarginMask, hotspotMask, fractal } =
-      validateIslandInputs(input);
+    const { landMask, boundaryCloseness, boundaryType, volcanism } = validateIslandInputs(input);
 
     const rng = createLabelRng(input.rngSeed | 0);
+    const perlin = new PerlinNoise((input.rngSeed | 0) ^ 0x5f356495);
+    const noiseScale = 0.1;
     const islandsCfg = config.islands;
-    const hotspotCfg = config.hotspot;
     const {
       threshold,
       minDist,
-      seaLaneRadius,
       baseDenActive,
       baseDenElse,
       hotspotDenom,
@@ -38,16 +40,20 @@ export const defaultStrategy = createStrategy(PlanIslandChainsContract, "default
         const i = y * width + x;
         if (landMask[i] === 1) continue;
         if (isWithinRadius(width, height, x, y, minDist, landMask)) continue;
-        if (seaLaneRadius > 0 && isWithinRadius(width, height, x, y, seaLaneRadius, seaLaneMask)) continue;
 
-        const fractalNorm = normalizeFractal(fractal[i]);
-        const nearActive = activeMarginMask[i] === 1;
+        const noise = perlin.noise2D(x * noiseScale, y * noiseScale);
+        const noiseValue = Math.max(0, Math.min(1, (noise + 1) / 2));
+        const closenessNorm = boundaryCloseness[i] / 255;
+        const bType = boundaryType[i] | 0;
+        const nearActive =
+          bType === BOUNDARY_CONVERGENT || bType === BOUNDARY_TRANSFORM || closenessNorm >= 0.4;
         const baseDen = nearActive ? baseDenActive : baseDenElse;
+        const hotspotSignal = (volcanism[i] ?? 0) / 255;
         const allowSeed = shouldSeedIsland({
-          fractalNorm,
+          noiseValue,
           threshold,
           baseDenom: baseDen,
-          hotspotMask: hotspotMask[i] === 1,
+          hotspotSignal,
           hotspotDenom,
           microcontinentChance,
           rng,
@@ -55,8 +61,7 @@ export const defaultStrategy = createStrategy(PlanIslandChainsContract, "default
         if (!allowSeed) continue;
 
         const kind = selectIslandKind({
-          hotspotMask: hotspotMask[i] === 1,
-          hotspotConfig: hotspotCfg,
+          hotspotSignal,
           rng,
         });
 
@@ -71,7 +76,6 @@ export const defaultStrategy = createStrategy(PlanIslandChainsContract, "default
           if (nx <= 0 || nx >= width - 1 || ny <= 0 || ny >= height - 1) continue;
           const ni = ny * width + nx;
           if (landMask[ni] === 1) continue;
-          if (seaLaneRadius > 0 && isWithinRadius(width, height, nx, ny, seaLaneRadius, seaLaneMask)) continue;
           edits.push({ index: ni, kind: "coast" });
         }
       }
