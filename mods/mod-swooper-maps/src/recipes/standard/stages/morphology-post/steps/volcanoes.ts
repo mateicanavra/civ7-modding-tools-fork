@@ -2,26 +2,19 @@ import type { FeatureData } from "@civ7/adapter";
 import {
   MOUNTAIN_TERRAIN,
   VOLCANO_FEATURE,
-  ctxRandom,
-  ctxRandomLabel,
   logVolcanoSummary,
   writeHeightfield,
 } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
 import VolcanoesStepContract from "./volcanoes.contract.js";
-
-function buildEmptyMask(width: number, height: number): Uint8Array {
-  return new Uint8Array(width * height);
-}
+import { deriveStepSeed } from "../../ecology/steps/helpers/seed.js";
 
 export default createStep(VolcanoesStepContract, {
   run: (context, config, ops, deps) => {
     const plates = deps.artifacts.foundationPlates.read(context);
     const { width, height } = context.dimensions;
     const heightfield = context.buffers.heightfield;
-    const stepId = `${VolcanoesStepContract.phase}/${VolcanoesStepContract.id}`;
-
-    const hotspotMask = buildEmptyMask(width, height);
+    const rngSeed = deriveStepSeed(context.env.seed, "morphology:planVolcanoes");
 
     const plan = ops.volcanoes(
       {
@@ -31,8 +24,8 @@ export default createStep(VolcanoesStepContract, {
         boundaryCloseness: plates.boundaryCloseness,
         boundaryType: plates.boundaryType,
         shieldStability: plates.shieldStability,
-        hotspotMask,
-        rngSeed: ctxRandom(context, ctxRandomLabel(stepId, "morphology/plan-volcanoes"), 2_147_483_647),
+        volcanism: plates.volcanism,
+        rngSeed,
       },
       config.volcanoes
     );
