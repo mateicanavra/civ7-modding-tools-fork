@@ -2,13 +2,12 @@ import { createMockAdapter } from "@civ7/adapter";
 import { createExtendedMapContext } from "@swooper/mapgen-core";
 import { implementArtifacts, type Static } from "@swooper/mapgen-core/authoring";
 import ecology from "@mapgen/domain/ecology/ops";
-import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
 
 import { normalizeOpSelectionOrThrow } from "../support/compiler-helpers.js";
 
 import { ecologyArtifacts } from "../../src/recipes/standard/stages/ecology/artifacts.js";
+import { foundationArtifacts } from "../../src/recipes/standard/stages/foundation/artifacts.js";
 import { hydrologyClimateBaselineArtifacts } from "../../src/recipes/standard/stages/hydrology-climate-baseline/artifacts.js";
-import { narrativePreArtifacts } from "../../src/recipes/standard/stages/narrative-pre/artifacts.js";
 
 export const disabledEmbellishmentsConfig = {
   story: { features: {} },
@@ -218,32 +217,21 @@ export function createFeaturesTestContext(options: FeaturesTestContextOptions) {
     fertility,
   });
 
-  const narrativeArtifacts = implementArtifacts([narrativePreArtifacts.overlays], {
-    overlays: {},
+  const foundationRuntime = implementArtifacts([foundationArtifacts.plates], {
+    foundationPlates: {},
   });
-  narrativeArtifacts.overlays.publish(ctx, ctx.overlays);
-  publishStoryOverlay(ctx, STORY_OVERLAY_KEYS.HOTSPOTS, {
-    kind: STORY_OVERLAY_KEYS.HOTSPOTS,
-    version: 1,
-    width,
-    height,
-    active: [],
-    summary: {
-      paradise: [],
-      volcanic: [],
-    },
-  });
-  publishStoryOverlay(ctx, STORY_OVERLAY_KEYS.MARGINS, {
-    kind: STORY_OVERLAY_KEYS.MARGINS,
-    version: 1,
-    width,
-    height,
-    active: [],
-    passive: [],
-    summary: {
-      active: 0,
-      passive: 0,
-    },
+  foundationRuntime.foundationPlates.publish(ctx, {
+    id: new Int16Array(size),
+    boundaryCloseness: new Uint8Array(size),
+    boundaryType: new Uint8Array(size),
+    tectonicStress: new Uint8Array(size),
+    upliftPotential: new Uint8Array(size),
+    riftPotential: new Uint8Array(size),
+    shieldStability: new Uint8Array(size),
+    volcanism: new Uint8Array(size),
+    movementU: new Int8Array(size),
+    movementV: new Int8Array(size),
+    rotation: new Int8Array(size),
   });
 
   return {

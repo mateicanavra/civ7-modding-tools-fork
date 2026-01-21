@@ -33,12 +33,6 @@ const hypsometryConfig = {
   boundaryShareTarget: 0.2,
 };
 
-const marginsConfig = {
-  activeFraction: 0.33,
-  passiveFraction: 0.22,
-  minSegmentLength: 12,
-};
-
 const coastConfig = {
   plateBias: {
     threshold: 0.45,
@@ -53,12 +47,6 @@ const coastConfig = {
   },
   bay: {},
   fjord: {},
-  minSeaLaneWidth: 3,
-};
-
-const seaLaneProtectionConfig = {
-  mode: "soft",
-  softChanceMultiplier: 1,
 };
 
 const mountainsConfig = {
@@ -134,25 +122,6 @@ const basinSeparationConfig = {
   },
 };
 
-const storyHotspotConfig = {
-  paradiseBias: 2,
-  volcanicBias: 1,
-  volcanicPeakChance: 0.33,
-};
-
-const storyFeaturesConfig = {
-  paradiseReefChance: 18,
-  paradiseReefRadius: 2,
-  volcanicForestChance: 22,
-  volcanicForestBonus: 6,
-  volcanicForestMinRainfall: 95,
-  volcanicTaigaChance: 25,
-  volcanicTaigaBonus: 5,
-  volcanicRadius: 1,
-  volcanicTaigaMinLatitude: 55,
-  volcanicTaigaMaxElevation: 400,
-  volcanicTaigaMinRainfall: 60,
-};
 
 const biomesConfig = {
   strategy: "default",
@@ -412,17 +381,9 @@ const plotEffectsConfig = {
   },
 };
 
-const corridorsConfig = {
-  sea: {},
-  land: {},
-  islandHop: {},
-};
-
 const islandsConfig = {};
 const islandsPlanConfig = {
   islands: islandsConfig,
-  hotspot: storyHotspotConfig,
-  seaLaneAvoidRadius: 2,
 };
 
 const geomorphologyConfig = {
@@ -436,9 +397,6 @@ const placementConfig = {
   floodplains: { strategy: "default", config: { minLength: 4, maxLength: 10 } },
   starts: { strategy: "default", config: {} },
 };
-const storyRiftConfig = {};
-const storyOrogenyConfig = {};
-
 const standardConfig = {
   foundation: foundationConfig,
   "morphology-pre": {
@@ -453,19 +411,12 @@ const standardConfig = {
     },
     coastlines: {},
   },
-  "narrative-pre": {
-    "story-seed": { margins: marginsConfig },
-    "story-hotspots": { story: { hotspot: storyHotspotConfig } },
-    "story-rifts": { story: { rift: storyRiftConfig } },
-    "story-corridors-pre": { corridors: corridorsConfig },
-  },
   "morphology-mid": {
     "rugged-coasts": {
       coastlines: {
         strategy: "default",
         config: {
           coast: coastConfig,
-          seaLanes: seaLaneProtectionConfig,
         },
       },
     },
@@ -481,9 +432,6 @@ const standardConfig = {
         },
       },
     },
-  },
-  "narrative-mid": {
-    "story-orogeny": { story: { orogeny: storyOrogenyConfig } },
   },
   "morphology-post": {
     islands: {

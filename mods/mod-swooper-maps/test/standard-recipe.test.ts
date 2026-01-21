@@ -19,9 +19,7 @@ describe("standard recipe composition", () => {
     const expectedStages = [
       "foundation",
       "morphology-pre",
-      "narrative-pre",
       "morphology-mid",
-      "narrative-mid",
       "morphology-post",
       "hydrology-climate-baseline",
       "hydrology-hydrography",
