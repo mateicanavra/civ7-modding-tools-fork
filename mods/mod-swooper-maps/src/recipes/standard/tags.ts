@@ -24,6 +24,17 @@ export const M4_EFFECT_TAGS = {
   },
 } as const;
 
+export const M10_EFFECT_TAGS = {
+  map: {
+    coastsPlotted: "effect:map.coastsPlotted",
+    continentsPlotted: "effect:map.continentsPlotted",
+    elevationBuilt: "effect:map.elevationBuilt",
+    mountainsPlotted: "effect:map.mountainsPlotted",
+    volcanoesPlotted: "effect:map.volcanoesPlotted",
+    landmassRegionsPlotted: "effect:map.landmassRegionsPlotted",
+  },
+} as const;
+
 export const M3_CANONICAL_DEPENDENCY_TAGS: ReadonlySet<string> = new Set([
   ...Object.values(M3_DEPENDENCY_TAGS.field),
   ...Object.values(M4_EFFECT_TAGS.engine),
@@ -35,6 +46,16 @@ const VERIFIED_EFFECT_TAGS = new Set<string>([
 ]);
 
 const EFFECT_OWNERS: Record<string, TagOwner> = {
+  [M10_EFFECT_TAGS.map.coastsPlotted]: {
+    pkg: "mod-swooper-maps",
+    phase: "gameplay",
+    stepId: "plot-coasts",
+  },
+  [M10_EFFECT_TAGS.map.continentsPlotted]: {
+    pkg: "mod-swooper-maps",
+    phase: "gameplay",
+    stepId: "plot-continents",
+  },
   [M4_EFFECT_TAGS.engine.biomesApplied]: {
     pkg: "mod-swooper-maps",
     phase: "ecology",
@@ -92,6 +113,17 @@ export const STANDARD_TAG_DEFINITIONS: readonly DependencyTagDefinition<Extended
     demo: new Int16Array(0),
     validateDemo: (demo) => isInt16Array(demo),
   },
+  ...Object.values(M10_EFFECT_TAGS.map).map((id) => {
+    const definition: DependencyTagDefinition<ExtendedMapContext> = {
+      id,
+      kind: "effect",
+    };
+    const owner = EFFECT_OWNERS[id];
+    if (owner) {
+      definition.owner = owner;
+    }
+    return definition;
+  }),
   ...Object.values(M4_EFFECT_TAGS.engine).map((id) => {
     const definition: DependencyTagDefinition<ExtendedMapContext> = {
       id,

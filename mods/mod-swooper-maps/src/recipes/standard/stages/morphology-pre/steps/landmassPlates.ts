@@ -3,8 +3,6 @@ import {
   OCEAN_TERRAIN,
   ctxRandom,
   ctxRandomLabel,
-  logLandmassAscii,
-  writeHeightfield,
 } from "@swooper/mapgen-core";
 import type { MapDimensions } from "@civ7/adapter";
 import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
@@ -48,11 +46,9 @@ function validateHeightfieldBuffer(value: unknown, dimensions: MapDimensions): A
   const size = expectedSize(dimensions);
   const candidate = value as {
     elevation?: unknown;
-    terrain?: unknown;
     landMask?: unknown;
   };
   validateTypedArray(errors, "topography.elevation", candidate.elevation, Int16Array, size);
-  validateTypedArray(errors, "topography.terrain", candidate.terrain, Uint8Array, size);
   validateTypedArray(errors, "topography.landMask", candidate.landMask, Uint8Array, size);
   return errors;
 }
@@ -70,21 +66,35 @@ function validateSubstrateBuffer(value: unknown, dimensions: MapDimensions): Art
   return errors;
 }
 
-function applyBaseTerrain(
+function applyBaseTerrainBuffers(
   width: number,
   height: number,
   elevation: Int16Array,
   landMask: Uint8Array,
-  context: Parameters<typeof writeHeightfield>[0]
-): void {
-  for (let y = 0; y < height; y++) {
-    for (let x = 0; x < width; x++) {
-      const i = y * width + x;
-      const isLand = landMask[i] === 1;
-      const terrain = isLand ? FLAT_TERRAIN : OCEAN_TERRAIN;
-      writeHeightfield(context, x, y, { terrain, isLand, elevation: elevation[i] ?? 0 });
-    }
+  heightfield: { elevation: Int16Array; terrain: Uint8Array; landMask: Uint8Array }
+): { landCount: number; waterCount: number; minElevation: number; maxElevation: number } {
+  const size = Math.max(0, (width | 0) * (height | 0));
+  let landCount = 0;
+  let waterCount = 0;
+  let minElevation = 0;
+  let maxElevation = 0;
+
+  for (let i = 0; i < size; i++) {
+    const nextElevation = elevation[i] ?? 0;
+    const isLand = landMask[i] === 1;
+
+    heightfield.elevation[i] = nextElevation | 0;
+    heightfield.landMask[i] = isLand ? 1 : 0;
+    heightfield.terrain[i] = (isLand ? FLAT_TERRAIN : OCEAN_TERRAIN) & 0xff;
+
+    if (isLand) landCount += 1;
+    else waterCount += 1;
+
+    if (i === 0 || nextElevation < minElevation) minElevation = nextElevation;
+    if (i === 0 || nextElevation > maxElevation) maxElevation = nextElevation;
   }
+
+  return { landCount, waterCount, minElevation, maxElevation };
 }
 
 export default createStep(LandmassPlatesStepContract, {
@@ -146,13 +156,20 @@ export default createStep(LandmassPlatesStepContract, {
       config.landmask
     );
 
-    applyBaseTerrain(width, height, baseTopography.elevation, landmask.landMask, context);
-
-    context.adapter.validateAndFixTerrain();
-    context.adapter.recalculateAreas();
-    context.adapter.stampContinents();
-
-    logLandmassAscii(context.trace, context.adapter, width, height);
+    const stats = applyBaseTerrainBuffers(
+      width,
+      height,
+      baseTopography.elevation,
+      landmask.landMask,
+      context.buffers.heightfield
+    );
+    context.trace.event(() => ({
+      kind: "morphology.landmassPlates.summary",
+      landTiles: stats.landCount,
+      waterTiles: stats.waterCount,
+      elevationMin: stats.minElevation,
+      elevationMax: stats.maxElevation,
+    }));
 
     deps.artifacts.topography.publish(context, context.buffers.heightfield);
     deps.artifacts.substrate.publish(context, substrate);

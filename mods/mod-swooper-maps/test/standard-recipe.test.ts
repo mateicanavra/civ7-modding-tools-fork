@@ -21,6 +21,7 @@ describe("standard recipe composition", () => {
       "morphology-pre",
       "morphology-mid",
       "morphology-post",
+      "map-morphology",
       "hydrology-climate-baseline",
       "hydrology-hydrography",
       "hydrology-climate-refine",
