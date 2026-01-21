@@ -142,14 +142,43 @@ Tooling expectations:
   - Tell them they are concurrent peers and to avoid overlap.
   - Ask each agent to keep their scratchpad updated with a single “current state” message if you enabled scratchpads.
 
-3) Integrate outputs into the Phase 3 issue doc
+3) Work with agents via scoped task bundles + compaction loop
+  - Treat each agent as a peer owner of a vertical, but only give them one scoped task bundle at a time.
+    - “One bundle” = one clearly bounded objective that can be completed and handed back cleanly (not an endless TODO list).
+    - Each agent must still receive full context (the overall mission, locked invariants, other agents’ ownership, and integration expectations) so they don’t tunnel-vision, but their *active work* should be one bundle at a time.
+  - Repeatable loop per agent (use as needed):
+    a) Draft and send a high-quality prompt for the next bundle (see prompt crafting notes below).
+    b) Monitor progress; do not interrupt unless blocked/overlap/lock violation.
+    c) When the agent finishes the bundle, request `/compact` and wait.
+    d) Use the compacted summary as the stable handoff, then assign the next bundle in that agent’s vertical.
+       - In the prompt that follows a compaction, prepend a short “context snippet” for that agent:
+         - what they just completed (and where it landed: paths/sections),
+         - any open questions/risks to carry forward,
+         - what the next bundle objective is,
+         - and how it integrates with other agents’ work.
+       - This reduces re-orientation cost after compaction and keeps the agent aligned with the team’s shared state.
+  - This loop lets you “progressively load” work into each agent without wasting context window, while keeping ownership and accountability intact.
+
+4) Prompt crafting notes (for every agent launch / relaunch)
+  - Spend real time drafting and editing prompts; prompt quality is leverage.
+  - Prompts should be:
+    - Comprehensive in shared context (goal, invariants, sources of truth, peer agents’ roles).
+    - Scoped and simple in the immediate objective (one task bundle).
+    - Flexible enough for autonomy inside scope, but guarded against lock violations.
+    - Concise enough to be grokked and remembered (don’t flood with irrelevant detail).
+  - Always include tooling guidance for deep investigations:
+    - Prefer Code Intelligence MCP for semantic search, call paths, and repo-wide tracing.
+    - Use `rg` for fast bulk scans when semantic tooling adds little.
+    - Label claims as “verified” with paths vs “assumption”.
+
+5) Integrate outputs into the Phase 3 issue doc
   - Use the template structure verbatim.
   - Merge in this order:
     a) Evidence-backed inventory (A) → becomes the factual “current state” inside the plan.
     b) Slice plan and sequencing (B) → becomes the heart of the plan.
     c) Guardrails + verification (C) → becomes the enforcement layer and acceptance criteria.
 
-4) Closure audit before handoff
+6) Closure audit before handoff
   - No Phase 2 model changes or new “optional paths”.
   - Every slice ends pipeline-green with explicit deletion and consumer migration.
   - Locked invariants are repeated in the issue and assigned enforcement mechanisms per slice.
