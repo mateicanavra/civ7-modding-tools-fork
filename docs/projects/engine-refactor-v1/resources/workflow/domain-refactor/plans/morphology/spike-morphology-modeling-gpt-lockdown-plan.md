@@ -1,0 +1,397 @@
+# Morphology Phase 2 Lockdown Plan (Companion to Modeling Spike)
+
+This document is a companion to `spike-morphology-modeling-gpt.md`.
+
+It summarizes:
+
+- What work is actually in front of us to “lock down” Morphology Phase 2.
+- The concrete classes of changes/investigations/refinements required to eliminate drift.
+- A small multi-agent collaboration plan (to execute later).
+- A recommendation on whether Phase 2 should remain a single file or split into a few files.
+
+---
+
+## Context sources (read first)
+
+- Primary Phase 2 material: `spike-morphology-modeling-gpt.md`
+- Context packet (must-lock requirements): `spike-morphology-modeling-gpt-addendum-full.md`
+- Related spikes (supporting context): `spike-morphology-current-state-gpt.md`, `spike-morphology-greenfield-gpt.md`
+- Morphology non-implementation prompt (legacy guardrails to prevent regressions): `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/prompts/MORPHOLOGY-NON-IMPLEMENTATION.md`
+- Workflow shape references (deliverable format guardrails, adjust according to your prompt requirements):
+  - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/WORKFLOW.md`
+  - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/phase-2-modeling.md`
+
+## Completeness posture (design from the ground up; completeness-first)
+
+This effort is explicitly completeness-first in scope and posture. We are aiming for the complete, canonical, ideal Phase 2 model:
+
+- Treat “should this exist?” as **yes by default** if it could reasonably be useful downstream.
+- Avoid deferring “we can do this later” for anything contract-, pipeline-, or downstream-facing.
+- “Complete” does not mean “every historical feature ever”: it means as complete as is sensible for a robust Civ7-grade, engine-integrated pipeline.
+- The only acceptable deferrals are micro-level internal numeric method choices that do not change public shapes/semantics (and even then, the public contract must still be fully locked).
+
+## Regression guardrails (carryover; prevent reintroducing removed legacy)
+
+These guardrails are intentionally carried over from `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/prompts/MORPHOLOGY-NON-IMPLEMENTATION.md` to prevent regressions while hardening Phase 2:
+
+- **Hard ban: narrative/story overlays (and “overlay-shaped” inputs):** do not reintroduce overlays or renamed equivalents anywhere that can influence physics outputs.
+- **Hard rule: engine/projection truth is derived-only:** no engine tags/terrain indices/adjacency masks are authoritative inputs to physics domains; never read projections back in as truth.
+- **Hard ban: presence / compare-to-default gating:** config semantics must be explicit after defaulting/normalization; knobs compose last; no “if undefined then fallback” behavior.
+- **Hard ban: hidden multipliers/constants/defaults:** no magic numbers or unnamed scalars in contract semantics; every value is config or explicitly named constant with stated intent.
+- **Hard ban: placeholders / dead bags / TBD contracts:** no placeholder contract shapes; Phase 2 is contract-locking, not scaffolding.
+- **Compat invariant:** compat is forbidden inside Morphology; if anything transitional exists, it must be downstream, explicitly deprecated, with a planned removal trigger.
+- **Determinism posture:** prefer passing determinism inputs across boundaries as data (seeds/inputs), not runtime RNG objects/functions; keep domain ops data-pure.
+- **Single canonical body posture:** avoid forking the Phase 2 model into parallel “alternate specs.” This lockdown plan is a companion; the canonical Phase 2 model must remain a single authoritative body.
+- **Evidence standard:** when making claims that can be grounded (repo wiring, artifact keys, Civ7 engine behaviors), cite the relevant repo/resource paths and label assumptions vs verified evidence.
+- **Stop-the-line drift protocol:** if a locked decision is threatened, pause and coordinate via the orchestrator before proceeding; do not “quietly” bend a lock to make progress.
+
+## What work is actually in front of us (to “lock down” Phase 2)
+
+- **Close “Phase 2 is authoritative” violations:** remove/resolve the “open questions” posture and eliminate “provisional/optional/might” language for anything cross-domain/public (e.g., routing is explicitly “Public (provisional)” today).
+- **Enforce settled ownership boundaries (no ambiguity):**
+  - **Hydrology owns canonical routing**: Morphology may keep an *internal-only* routing primitive for erosion, but Phase 2 must explicitly say it is not the canonical contract and must not be the downstream truth.
+  - **Gameplay owns overlays + placement + projections + stamping**: remove any residual “Narrative-owned” / “Placement-owned” surfaces and braid assumptions.
+- **Contract-lock every cross-domain surface (schemas + semantics, not conceptual sketches):**
+  - **Foundation → Morphology**: define exact fields (incl. `meltFlux`/plumes, boundary regimes, uplift/subsidence/extension/shear, crust type+age, polar-edge boundary signals), index space (mesh vs tile), units/normalization, lifecycle (“frozen when”), determinism/tie-breakers.
+  - **Morphology → {Hydrology, Ecology, Gameplay}**: complete, canonical artifact set (no “may include”; include downstream-useful signals by default), plus schema/units/determinism for each. In particular, landmasses must include a **per-tile landmass ID mapping + stable ID rules**, not just a list.
+- **Make stages/steps/rules first-class (pipeline is the product):** Phase 2 needs an explicit stage model with step ordering rules, freeze points, and “no backfeed” invariants.
+- **Add the missing Civ7 terrain materialization (“stamping”) layer as an explicit contract-locked phase:** Phase 2 must model:
+  - what “mountain/volcano/cliff/etc.” mean in Civ7 data terms,
+  - how those are deterministically derived from physics outputs,
+  - which engine APIs/phases run, in what order, and what must be recomputed/validated afterward.
+- **Evidence-driven closures (no “answerable but open” items):** anything about wrap/topology, LandmassRegionId semantics, volcano/cliff representation, TerrainBuilder phases, etc. must be closed by inspecting Civ7 resources + current repo wiring (not left as questions).
+
+---
+
+## Proposed agent team (small, “smart” agents, clear ownership)
+
+- **Agent 1 — Contracts & Ownership Lock**
+  - Owns: all upstream/downstream schemas, lifecycle, determinism rules, config semantics (“normalize once, knobs last”), and removing “optional/provisional” from public surfaces.
+  - Produces: rewritten “Contracts” section(s) with fully specified artifacts + a “closure checklist” (every public field has type/units/indexing/tie-breakers).
+- **Agent 2 — Civ7 Stamping / Engine Integration**
+  - Owns: Civ7-grounded stamping/materialization spec + LandmassRegionId projection contract (inputs/rules/tie-breakers) + required engine postprocess steps.
+  - Produces: a concrete stamping phase definition (Gameplay by default) with explicit inputs/outputs and citations to the relevant Civ7 scripts/data we inspect.
+- **Agent 3 — Pipeline Stages/Steps + Codebase Alignment**
+  - Owns: canonical pipeline stage model (no Narrative/Placement), step sequencing rules, freeze points, and reconciliation with current repo wiring/artifact keys (so Phase 2 is implementable without “legacy braid nostalgia”).
+  - Produces: updated architecture/pipeline diagrams + a “delta list” of required changes in adjacent domains (Foundation/Hydrology/Ecology/Gameplay).
+
+---
+
+## Optional coordination mechanism (low-conflict)
+
+If we want a lightweight shared “message board” per agent without creating merge conflicts, prefer a single scratch file per agent in this directory:
+
+- `agent-a.scratch.md`
+- `agent-b.scratch.md`
+- `agent-c.scratch.md`
+
+Each agent should only create/edit their own scratch file. Keep it to one “current state” message at a time (open questions, dependencies, blockers, decisions to confirm).
+
+This is optional; if coordination stays simple, agents can instead message the orchestrator directly.
+
+---
+
+## Agent teams (structured definitions + launch prompts)
+
+### Agent A — Contracts & Ownership Lock
+
+- Agent type: `default`
+- Role and responsibilities:
+  - Drive Phase 2 from “conceptual contracts” to **schema-locked, deterministic contracts**.
+  - Eliminate contract-level ambiguity and modal language (“provisional/optional/might/could”) from public surfaces.
+  - Ensure ownership boundaries are expressed as **hard invariants** (no re-litigating settled decisions).
+- Owns:
+  - Foundation→Morphology input contract (fields, indexing, units/normalization, lifecycle/freeze points, determinism/tie-breakers).
+  - Morphology→{Hydrology, Ecology, Gameplay} output contracts (complete canonical set; schemas + semantics).
+  - Config semantics discipline: normalize-once, knobs-last, no presence-gating; explicit defaults; no hidden multipliers.
+  - Determinism rules for published artifacts (stable IDs, tie-breakers, seed discipline, “frozen when”).
+- Produces:
+  - A proposed rewrite for the Phase 2 “Contracts / Contract Matrix / Public vs Internal surfaces / Determinism & Config semantics” sections.
+  - A “closure checklist” mapping each cross-domain surface to: schema, units/normalization, lifecycle, determinism rules, and owner.
+  - A short list of cross-scope dependencies that must be confirmed with the orchestrator (e.g., which surfaces must exist for stamping).
+
+**Prompt to Agent A (full text):**
+
+```text
+You are Agent A (Contracts & Ownership Lock). Agent type: default.
+
+Overall goal (shared across all agents):
+We are hardening Morphology Phase 2 into a canonical, drift-resistant modeling document. Phase 2 must be an authoritative, contract-locking spec: no open contract-level questions, no “provisional/optional/might/could” language for any public surface, and explicit schemas/semantics across domain boundaries.
+
+You are working concurrently with two peer agents:
+- Agent B (Civ7 stamping / engine integration): will lock the downstream stamping/materialization layer and LandmassRegionId projection semantics based on Civ7 resources and current repo wiring.
+- Agent C (Pipeline stages/steps + codebase alignment): will lock the canonical stage/step/rule model and reconcile it with repo wiring/artifact keys; will also remove legacy braid assumptions (Narrative/Placement → Gameplay).
+
+Scope and ownership (your lane):
+- Own the cross-domain contract surfaces and the contract discipline in Phase 2.
+- Explicitly: Foundation→Morphology input contract, and Morphology→{Hydrology, Ecology, Gameplay} output contracts.
+- Own config semantics and determinism rules as they affect public surfaces.
+
+Guardrails (non-negotiable, pulled from the context packet):
+- Settled ownership boundaries are not open questions:
+  - Foundation owns tectonics and macrostructure (including melt/plumes).
+  - Hydrology owns canonical routing/hydrology surfaces (Morphology may have internal routing for erosion only).
+  - Gameplay owns overlays, placement, projections, and stamping by default.
+- No overlays/story masks/gameplay constraints as physics inputs (hard ban).
+- Phase 2 must lock contracts; only micro-level internal numeric methods may be deferred.
+- Regression guardrails (do not regress Phase 2):
+  - Do not reintroduce narrative/story overlays or overlay-shaped inputs/outputs under any name.
+  - Do not treat engine/projection surfaces as authoritative physics inputs.
+  - Do not introduce presence-based gating, hidden multipliers, or placeholder/TBD contract shapes.
+  - Avoid creating “alternate specs”: keep Phase 2 as a single canonical model, and treat any side notes as pointers, not forks.
+  - When stating anything that can be grounded (repo wiring, artifact keys, Civ7 constraints), cite paths and label assumptions vs verified evidence.
+  - If you believe any lock must be bent, STOP and coordinate via the orchestrator before proposing it.
+- Completeness posture (non-negotiable for this effort):
+  - Do not propose stripped-down configs or outputs.
+  - If an output/signal could reasonably be useful downstream, treat it as part of the canonical contract unless there is a clear reason not to.
+  - Avoid “we could do this later” deferrals for contract/pipeline/downstream concerns; do the robust version now.
+
+Preferred sources and tools:
+- Primary sources to read/use:
+  - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/spike-morphology-modeling-gpt.md`
+  - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/spike-morphology-modeling-gpt-addendum-full.md`
+  - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/prompts/MORPHOLOGY-NON-IMPLEMENTATION.md` (regression guardrails to preserve)
+- When doing deep dives across code/resources, prefer the Code Intelligence MCP server (semantic search, symbol discovery, call paths) over ad-hoc grep.
+- Use `rg` only for fast/obvious bulk searches where semantic tooling adds little.
+- Civ7 official resources should be consulted when contract fields need to support stamping/projection; however, do not “own” stamping details—that’s Agent B’s lane. If you discover a contract field requirement for stamping, surface it as a dependency to coordinate via the orchestrator.
+
+Coordination / shared state (avoid conflicts):
+- Avoid directly editing shared Phase 2 files unless the orchestrator explicitly asks.
+- Optional: write your current state/questions into `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/agent-a.scratch.md` (only this file; no others).
+- If you suspect overlap with Agent B/C, pause and ask the orchestrator rather than guessing.
+
+What to do (take your time; aim for completeness):
+1) Build a “contract closure map” for every cross-domain surface referenced or implied by the Phase 2 doc:
+   - artifact/buffer name (canonical key), owner, producer stage, consumer stage(s)
+   - schema fields + types
+   - indexing space (tile vs mesh; mapping rules if projected)
+   - units/normalization conventions
+   - lifecycle: when produced/frozen, mutability, versioning notes if needed
+   - determinism/tie-breakers (especially stable IDs; seed discipline)
+2) Identify where the current Phase 2 doc violates the context packet (e.g., “public (provisional)” routing, “may include” outputs, deferring contract decisions).
+3) Produce a concrete rewrite plan in the form of:
+   - (a) proposed text blocks to replace/insert into the Phase 2 doc, and
+   - (b) a checklist table of all contracts that must be locked.
+4) Explicitly flag cross-scope dependencies/questions for the orchestrator:
+   - e.g., “Agent B needs X physics field to deterministically stamp volcanoes.”
+   - e.g., “Agent C needs contract freeze point definition at end of Morphology Post.”
+
+Deliverable format (send back as a structured report):
+- “Contract Closure Checklist” (table-like bullets OK)
+- “Required rewrites” (by section name, with proposed replacement text blocks)
+- “Dependencies / questions for orchestrator” (short, actionable)
+
+Reminder:
+Your output must integrate cleanly with the other agents’ work. Do not define stamping behavior or pipeline staging beyond what is necessary to specify contract lifecycle/freeze points—coordinate those items via the orchestrator.
+```
+
+---
+
+### Agent B — Civ7 Stamping / Engine Integration
+
+- Agent type: `default`
+- Role and responsibilities:
+  - Lock the **terrain materialization (“stamping”)** layer as a first-class, deterministic pipeline phase (Gameplay by default unless structurally justified otherwise).
+  - Ground stamping semantics in **Civ7 official resources + current repo wiring**, so Phase 2 has no “answerable but open” engine questions.
+  - Define the LandmassRegionId projection contract (inputs, rules, tie-breakers, determinism).
+- Owns:
+  - Civ7 definitions/requirements for mountains, volcanoes, cliffs, terrain edits, and any required TerrainBuilder phases / validations / postprocess steps.
+  - Stamping phase placement in the canonical pipeline (who runs it, when, what it consumes/produces).
+  - LandmassRegionId semantics as a downstream projection (Gameplay-owned) derived from Morphology landmass decomposition.
+- Produces:
+  - A stamping/materialization spec section: “what gets stamped, when, from which physics truths, using which engine calls, with which postprocess”.
+  - A LandmassRegionId projection contract section: algorithmic rules + tie-breakers + determinism guarantees.
+  - A concise list of required upstream/downstream contract inputs Agent A must provide (without redefining those contracts yourself).
+
+**Prompt to Agent B (full text):**
+
+```text
+You are Agent B (Civ7 stamping / engine integration). Agent type: default.
+
+Overall goal (shared across all agents):
+We are hardening Morphology Phase 2 into a canonical, drift-resistant modeling document. Phase 2 must explicitly model Civ7 terrain materialization (“stamping”) as a first-class, deterministic responsibility in the canonical pipeline (even if executed outside Morphology).
+
+You are working concurrently with two peer agents:
+- Agent A (Contracts & Ownership Lock): will lock schemas/semantics for Foundation↔Morphology and Morphology→{Hydrology/Ecology/Gameplay}. They own contract details.
+- Agent C (Pipeline stages/steps + codebase alignment): will lock the stage/step/rule model and reconcile it with repo wiring; will remove Narrative/Placement braid assumptions.
+
+Scope and ownership (your lane):
+- Own the “Gameplay projections & Civ7 stamping” layer:
+  - Define what “stamping/materialization” means for Civ7 in concrete engine/data terms.
+  - Specify where stamping occurs in the canonical pipeline, what it consumes, what it produces, and what engine calls/phases/postprocess steps must run.
+  - Define LandmassRegionId projection semantics as an explicit deterministic contract (Gameplay-owned).
+
+Guardrails (non-negotiable, pulled from the context packet):
+- Stamping cannot be hand-waved or externalized away from Phase 2. Phase 2 must model it and lock the contracts.
+- Physics domains are canonical truth producers; stamping is derived-only. No gameplay overlays feed back into physics.
+- Gameplay (default) owns engine-facing projection buffers/tags and stamping; Morphology terminal stamping is only allowed if structurally justified.
+- No east/west wrap ambiguity: treat Civ7 topology constraints as evidence-driven, not an open question.
+- Regression guardrails (do not regress Phase 2):
+  - Do not treat any engine/projection surface as a physics-domain input.
+  - Do not reintroduce narrative/story overlays as a backdoor into physics decisions.
+  - Do not leave stamping/postprocess as “externalized” or “TBD”; Phase 2 must model it contract-locked.
+  - Avoid creating “alternate specs”: keep Phase 2 as a single canonical model, and treat any side notes as pointers, not forks.
+  - When stating anything that can be grounded (Civ7 engine behavior, scripts, builder phases), cite paths and label assumptions vs verified evidence.
+  - If evidence contradicts a previously locked decision, STOP and coordinate via the orchestrator.
+- Completeness posture (non-negotiable for this effort):
+  - Do not frame stamping as a token/shallow integration. Specify the full, robust Civ7-grade stamping/materialization contract and pipeline phase.
+  - If Civ7 has an engine phase, validation, or postprocess step that is plausibly required or commonly relied on, include it explicitly rather than deferring.
+  - If an engine-facing projection could reasonably be consumed downstream (AI, resources, ages, rules), treat it as part of the canonical stamping/projection layer unless there is a clear reason not to.
+
+Preferred sources and tools:
+- Primary sources to read/use:
+  - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/spike-morphology-modeling-gpt.md`
+  - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/spike-morphology-modeling-gpt-addendum-full.md`
+  - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/prompts/MORPHOLOGY-NON-IMPLEMENTATION.md` (regression guardrails to preserve)
+- Civ7 official resources:
+  - Prefer local extracted resources under `civ7-official-resources/` (and especially `civ7-official-resources/Base/modules/...`) when present.
+  - Use the Code Intelligence MCP server for semantic search/deep dives across those resources and our repo code (TerrainBuilder usage, map scripts, postprocess sequencing).
+- Use `rg` only for quick broad scans; for deep dives, explicitly prefer Code Intelligence MCP.
+
+Coordination / shared state (avoid conflicts):
+- Avoid directly editing shared Phase 2 files unless the orchestrator explicitly asks.
+- Optional: write your current state/questions into `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/agent-b.scratch.md` (only this file; no others).
+- If you suspect overlap with Agent A/C (e.g., contract field definitions or pipeline freeze points), pause and ask the orchestrator rather than guessing.
+
+What to do (take your time; prioritize evidence and determinism):
+1) Determine Civ7’s concrete expectations for:
+   - Mountains, volcanoes, cliffs (representation, constraints, required tags/terrain types/features if applicable).
+   - Any TerrainBuilder phases / validations / “fix terrain” steps that must run after stamping.
+   - Any known requirements for area/continent recalculation or region tagging after terrain edits.
+2) From that evidence, define the canonical “Stamping/Materialization Phase” spec:
+   - Placement in pipeline (Gameplay by default): when it runs relative to Morphology/Hydrology/Ecology outputs.
+   - Inputs it consumes (physics truths + projections), and which of those are required vs optional.
+   - Outputs it produces (engine-facing terrain reality + any derived projection buffers).
+   - Determinism guarantees and tie-breakers (including “same inputs + seed → same stamp result”).
+3) Define LandmassRegionId projection semantics:
+   - Inputs (morphology landmasses + per-tile landmass IDs; gameplay config like DistantLands if relevant).
+   - Rules for selecting primary/secondary (or more) landmass groupings.
+   - Tie-breakers (equal area, adjacency, bounding-box overlap, etc.).
+4) Identify required upstream contract fields and freeze points (handoff list for Agent A and Agent C):
+   - You do not own the schema definition itself, but you must state what must exist for stamping to be deterministic.
+
+Deliverable format (send back as a structured report):
+- “Evidence findings” (what you inspected, in repo/resource terms)
+- “Stamping/materialization spec” (ready-to-drop-in section text)
+- “LandmassRegionId projection contract” (ready-to-drop-in section text)
+- “Dependencies / questions for orchestrator” (short, actionable)
+
+Reminder:
+Your output must integrate with Agent A’s contract work and Agent C’s pipeline staging work. If a choice you’re about to make affects their scope (e.g., requiring a new artifact, changing a freeze point), coordinate via the orchestrator before committing to that direction.
+```
+
+---
+
+### Agent C — Pipeline Stages/Steps + Codebase Alignment
+
+- Agent type: `default`
+- Role and responsibilities:
+  - Re-lock Phase 2 around an explicit **stages/steps/rules** model where the pipeline is the product.
+  - Remove legacy domain topology (Narrative/Placement) and any implied braids, aligning with “Gameplay absorbs Narrative + Placement”.
+  - Reconcile the canonical model with current repo wiring/artifact keys so it’s implementable without preserving legacy braid as canonical.
+- Owns:
+  - Canonical pipeline stage/step definitions and sequencing rules (including freeze points and no-backfeed invariants).
+  - Architecture/data-flow diagrams consistent with the target topology (Foundation → Morphology → Hydrology → Ecology → Gameplay).
+  - An implementability alignment scan against current code and artifact wiring (identify deltas without reintroducing legacy assumptions).
+- Produces:
+  - A rewritten pipeline section: explicit stages/steps/rules, with a clean domain topology (no Narrative/Placement).
+  - Updated diagrams (architecture + data flow) matching the refactored pipeline.
+  - A delta list of required changes in adjacent domains (Foundation/Hydrology/Ecology/Gameplay) as explicitly modeled contracts, not “they’ll handle it later”.
+
+**Prompt to Agent C (full text):**
+
+```text
+You are Agent C (Pipeline stages/steps + codebase alignment). Agent type: default.
+
+Overall goal (shared across all agents):
+We are hardening Morphology Phase 2 into a canonical, drift-resistant modeling document. Phase 2 must model the pipeline as the product: explicit stages, steps, and governing rules (not just operations), with a clean target topology aligned to the canonical architecture.
+
+You are working concurrently with two peer agents:
+- Agent A (Contracts & Ownership Lock): will lock the schemas/semantics for cross-domain contracts and determinism/config discipline.
+- Agent B (Civ7 stamping / engine integration): will lock Gameplay-side stamping/materialization + LandmassRegionId projection semantics based on Civ7 resources and repo wiring.
+
+Scope and ownership (your lane):
+- Own the pipeline shape and its rules:
+  - Explicit stage model, step ordering, freeze points/lifecycles, and “no downstream backfeeding” enforcement.
+  - Remove Narrative and Placement as canonical domains; ensure diagrams and text reflect “Gameplay absorbs Narrative + Placement.”
+  - Reconcile the model with current repo wiring/artifact keys to keep Phase 2 implementable without preserving legacy braid as canonical.
+
+Guardrails (non-negotiable, pulled from the context packet):
+- Physics domains are canonical truth producers; no downstream backfeeding.
+- Hard ban: overlays as physics inputs.
+- Narrative/Placement are not first-class domains; Gameplay owns overlays/placement/projections/stamping (Phase A only; read-only w.r.t. physics).
+- “Raise and burn”: remove braids/stages unless they carry real canonical load.
+- Polar boundary tectonics must be integrated into the core spine (not an appendix).
+- Regression guardrails (do not regress Phase 2):
+  - Do not reintroduce Narrative/Placement as canonical domains (Gameplay absorbs them).
+  - Do not reintroduce overlay-shaped inputs into physics, even indirectly via braid assumptions.
+  - Do not rely on engine/projection truth as upstream input to physics stages.
+  - Avoid placeholder/TBD stages or “we’ll figure it out later” pipeline hand-waves; Phase 2 must be explicit.
+  - Avoid creating “alternate specs”: keep Phase 2 as a single canonical model, and treat any side notes as pointers, not forks.
+  - When stating anything that can be grounded (repo wiring, stage IDs, artifact keys), cite paths and label assumptions vs verified evidence.
+  - If you believe a braid/stage must exist for correctness, STOP and coordinate with the orchestrator before asserting it.
+- Completeness posture (non-negotiable for this effort):
+  - Do not propose shallow staging or incremental-only pipeline changes. Define the complete, robust stage/step/rule model as if greenfield.
+  - If a stage/step/rule is plausibly required for determinism, engine integration, or downstream consumers, include it now rather than deferring.
+
+Preferred sources and tools:
+- Primary sources to read/use:
+  - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/spike-morphology-modeling-gpt.md`
+  - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/spike-morphology-modeling-gpt-addendum-full.md`
+  - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/prompts/MORPHOLOGY-NON-IMPLEMENTATION.md` (regression guardrails to preserve)
+- For deep dives (repo wiring, artifact keys, step IDs, stage orchestration), explicitly prefer the Code Intelligence MCP server.
+- Use `rg` only for quick broad scans (e.g., locating obvious “Narrative” references).
+
+Coordination / shared state (avoid conflicts):
+- Avoid directly editing shared Phase 2 files unless the orchestrator explicitly asks.
+- Optional: write your current state/questions into `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/agent-c.scratch.md` (only this file; no others).
+- If you suspect overlap with Agent A/B (contracts or stamping placement), pause and ask the orchestrator rather than guessing.
+
+What to do (take your time; aim for coherence and implementability):
+1) Define the canonical pipeline topology and ownership:
+   - Domain order: Foundation → Morphology → Hydrology → Ecology → Gameplay.
+   - Identify the canonical “freeze points” (when physics truth becomes readable/immutable for downstream).
+   - Make stages and steps first-class: name them, define sequencing rules, and state invariants.
+2) Remove legacy braid assumptions:
+   - If the current Phase 2 doc implies Narrative Pre/Mid or Placement as stages, propose the canonical replacement.
+   - If a braid is truly required for causality correctness, justify it explicitly; default stance is removal.
+3) Align with repo reality:
+   - Inspect current stage wiring and artifact keys/step IDs in code.
+   - Produce a delta list: what must change (and where) to realize the canonical pipeline, without smuggling legacy ordering back into the spec.
+4) Identify cross-scope dependencies:
+   - If your stage model implies specific contract lifecycles, coordinate with Agent A via the orchestrator.
+   - If your stage model affects where stamping occurs, coordinate with Agent B via the orchestrator.
+
+Deliverable format (send back as a structured report):
+- “Canonical pipeline model” (stage/step/rule definitions; ready-to-drop-in section text)
+- “Diagram updates” (describe intended mermaid changes; ready-to-drop-in snippets)
+- “Repo alignment scan” (what you found; delta list)
+- “Dependencies / questions for orchestrator” (short, actionable)
+
+Reminder:
+Your output must integrate with Agent A’s contract locks and Agent B’s stamping spec. If your pipeline decisions would force a new contract artifact or change what gets stamped, coordinate via the orchestrator before committing to that direction.
+```
+
+---
+
+## Integration plan (how agent outputs become one canonical Phase 2)
+
+- Start by writing a **single canonical skeleton** (headings + glossary + invariants + stage diagram) that everyone agrees is “the spine”.
+- Agents work against that spine with strict boundaries:
+  - Agent 3 locks the stage/step graph and ownership statements first (so contracts/stamping attach to a stable lifecycle).
+  - Agent 1 locks schemas/semantics next (so stamping has deterministic inputs).
+  - Agent 2 locks stamping last (but with feedback only in the form of *required upstream fields*, not re-litigating ownership).
+- Final integration pass is a **closure audit**:
+  - Remove modal language (“might/could/provisional/optional/open question”) from public/cross-domain surfaces.
+  - Verify every cross-domain interaction has a named artifact + schema + lifecycle + determinism rules.
+  - Verify stamping is modeled as a first-class pipeline phase (even if executed outside Morphology).
+
+---
+
+## Single file vs split (recommendation)
+
+- Split into **3 files** to match collaboration boundaries and reduce merge/conflict risk while keeping sensible boundaries:
+  - **Core model & pipeline**: causality spine, stages/steps/rules, ownership, polar edges.
+  - **Contracts**: Foundation→Morphology, Morphology→{Hydrology/Ecology/Gameplay}, config semantics, determinism/tie-breakers.
+  - **Gameplay projections & Civ7 stamping**: LandmassRegionId + terrain materialization + engine phases/postprocess.
+- If Phase 2 must remain a single file, keep it as one file but enforce the same three “owned” sections and treat them as separately reviewed units.
