@@ -19,21 +19,30 @@
 	  - Each slice ends pipeline-green with migrations, deletions, docs/tests, and guardrails complete before moving on.
 	  - No dual paths within scope. No shims/adapters as a design pattern. If you believe a shim is required, stop and re-slice: the plan must be reordered/redesigned so every slice ends green without introducing a second way to do the same thing.
 
-  Non-negotiable invariants (drift prevention):
-  - Model-first: the canonical model/contracts are the source of truth even if projections change.
-  - No compat inside Morphology: Morphology must not publish or retain legacy compat/projection surfaces.
-    Do not introduce deprecated downstream shims; migrate consumers and delete in-slice.
-  - Narrative overlays are forbidden in this refactor phase:
-    - remove story/narrative/overlay surfaces entirely,
-    - replace any load-bearing ones with canonical, domain-anchored contracts,
-    - and migrate consumers.
-	  - Projection-as-truth is forbidden:
-	    - Morphology must not read back engine-facing projections (tile queries, adjacency, terrain indices) as “domain truth”.
-	    - Engine-facing projections are derived outputs/adapters only.
-	    - Canonical map projection artifacts are `artifact:map.*` (Gameplay-owned) and stamping completion is represented by boolean effects `effect:map.<thing>Plotted` (e.g., `effect:map.mountainsPlotted`).
-	  - Topology is locked:
-	    - `wrapX = true` always (east–west wraps), `wrapY = false` always (north–south does not wrap).
-	    - No environment/config/knobs may change wrap behavior; wrap flags must not appear as input contract fields.
+	  Non-negotiable invariants (drift prevention):
+	  - Model-first: the canonical model/contracts are the source of truth even if projections change.
+	  - No compat inside Morphology: Morphology must not publish or retain legacy compat/projection surfaces.
+	    Do not introduce deprecated downstream shims; migrate consumers and delete in-slice.
+	  - Narrative overlays are forbidden in this refactor phase:
+	    - remove story/narrative/overlay surfaces entirely,
+	    - replace any load-bearing ones with canonical, domain-anchored contracts,
+	    - and migrate consumers.
+		  - Projection-as-truth is forbidden:
+		    - Morphology must not read back engine-facing projections (tile queries, adjacency, terrain indices) as “domain truth”.
+		    - Engine-facing projections are derived outputs/adapters only.
+		    - Canonical map projection artifacts are `artifact:map.*` (Gameplay-owned) and stamping completion is represented by boolean effects `effect:map.<thing>Plotted` (e.g., `effect:map.mountainsPlotted`).
+		    - Nuance: Physics truth MAY be tile-indexed and MAY include `tileIndex`. The ban is on engine/game-facing ids and on consuming map-layer projections/effects as inputs.
+		  - Hard ban: do not introduce `artifact:map.realized.*`, and do not invent a runtime “map.realized” concept.
+		  - Effects are boolean execution guarantees only:
+		    - `effect:map.<thing><Verb>` (convention: `<Verb> = Plotted`; short verbs only).
+		    - No receipts/hashes/versions; effects are not audit logs.
+		  - TerrainBuilder no-drift (do not re-open):
+		    - `TerrainBuilder.buildElevation()` produces engine-derived elevation/cliffs; there is no setter.
+		    - Anything that must match actual Civ7 elevation bands / cliff crossings is Gameplay/map logic after `effect:map.elevationPlotted` and may read engine surfaces.
+		    - Physics may publish complementary signals (slope/roughness/relief/etc.) but MUST NOT claim “Civ7 cliffs” as Physics truth.
+		  - Topology is locked:
+		    - `wrapX = true` always (east–west wraps), `wrapY = false` always (north–south does not wrap).
+		    - No environment/config/knobs may change wrap behavior; wrap flags must not appear as input contract fields.
   - Ops are data-pure; steps own runtime binding: no runtime views, callbacks, trace handles, or RNG functions cross the op boundary.
   - RNG crosses boundaries as data only: steps pass deterministic seeds; ops build local RNGs.
   - Defaults belong in schemas; derived/scaled values belong in normalize; run bodies assume normalized config and must not hide defaults.
@@ -54,14 +63,15 @@
     - document braid/interleaving constraints where they exist (not as folklore).
   - Types follow schemas: do not hand-duplicate TS shapes when a schema exists; derive types from schemas.
 
-	  Domain-specific framing (Morphology):
-  - Morphology owns the canonical “shape of the world” contracts consumed by Hydrology/Ecology/Gameplay.
-  - Consumer migration must be contract-driven:
-    - downstream domains consume Morphology’s published artifacts/contracts,
-    - not engine projections, not story overlays, not legacy convenience reads.
-	  - Be ruthless about public vs internal:
-	    - promote stable cross-domain contracts,
-	    - prefer completeness: if something is likely useful downstream, include it now rather than deferring.
+		  Domain-specific framing (Morphology):
+	  - Morphology owns the canonical “shape of the world” contracts consumed by Hydrology/Ecology/Gameplay.
+	  - Consumer migration must be contract-driven:
+	    - downstream domains consume Morphology’s published artifacts/contracts,
+	    - not engine projections, not story overlays, not legacy convenience reads.
+		  - Be ruthless about public vs internal:
+		    - promote only the stable cross-domain contracts defined by the locked model (Phase 2 canon + Phase 3 issue doc),
+		    - do not publish intermediates “because it might be useful”; keep them internal unless the model explicitly promotes them,
+		    - do not add new public artifacts/contracts during Phases 4–5. If you believe a new contract is required, stop and update the Phase 3 issue doc first (this is a model change).
 
   Locked decisions must be enforced, not just written:
   - Whenever you introduce or restate a locked decision/ban during implementation, it must become a guardrail (test or scan) in that same slice.

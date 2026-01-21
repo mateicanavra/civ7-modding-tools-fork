@@ -22,11 +22,11 @@ Required repo docs to read + follow (shared root: docs/projects/engine-refactor-
 - resources/workflow/domain-refactor/references/verification-and-guardrails.md
 - resources/workflow/domain-refactor/references/implementation-traps-and-locked-decisions.md
 
-Canonical Morphology Phase 2 model (authoritative; read/anchor on this when doing Phase 2 + Phase 3):
-- resources/workflow/domain-refactor/plans/morphology/spike-morphology-modeling-gpt.md (entrypoint; points at the canonical spec bodies)
+Canonical Morphology Phase 2 model (authoritative; do not reinterpret; Phase 2 + Phase 3 anchor):
 - resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-CORE-MODEL-AND-PIPELINE.md
 - resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-CONTRACTS.md
 - resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-MAP-PROJECTIONS-AND-STAMPING.md
+- resources/workflow/domain-refactor/plans/morphology/spike-morphology-modeling-gpt.md (Phase 2 deliverable index; may contain drafts/notes — if it conflicts, the spec files win)
 
 Legacy background context (may be outdated vs the current architecture; use only for historical meaning):
 - docs/system/libs/mapgen/morphology.md
@@ -154,7 +154,15 @@ Hard rule: engine/projection truth is derived-only (never an input).
     - Physics steps MUST NOT `require`/consume `effect:map.*`.
 - Canonical map projection surfaces and stamping guarantees:
   - Projection artifacts are `artifact:map.*` (Gameplay-owned).
-  - Stamping completion is represented by boolean effects like `effect:map.<thing>Plotted` (e.g., `effect:map.mountainsPlotted`), emitted by the stamping step.
+  - Stamping completion is represented by boolean effects like `effect:map.<thing><Verb>` (e.g., `effect:map.mountainsPlotted`), emitted by the stamping step.
+    - Convention: `<Verb> = Plotted` (short verbs only).
+    - Hard ban: no receipts/hashes/versions; the effect is boolean only.
+  - Hard ban: no `artifact:map.realized.*` namespace, and do not invent a runtime “map.realized” concept.
+    - Observability/debug layers belong under explicit `artifact:map.*` names (Gameplay-owned), not a “realized snapshot” namespace.
+  - TerrainBuilder no-drift (do not re-open):
+    - `TerrainBuilder.buildElevation()` produces engine-derived elevation/cliffs; there is no setter.
+    - Any decision that must match *actual Civ7* elevation bands / cliff crossings belongs in Gameplay/map logic after `effect:map.elevationPlotted` and may read engine surfaces.
+    - Physics may publish complementary signals (slope/roughness/relief/etc.) but MUST NOT claim “Civ7 cliffs” as Physics truth.
 - Engine writes (“stamping”) happen only in steps with an engine adapter:
   - Core domain logic is pure-only; recipe stages/steps invoke physics ops to compute truths, invoke Gameplay ops to project truths into indices, then stamp via the adapter.
 
