@@ -67,3 +67,7 @@ apps/docs/public/civ7-official/resources/
 **/repomix-*.json
 **/repomix-*.xml
 !**/repomix-*.config.json
+
+# Local worktrees and scratchpads
+.worktrees/
+**/*.scratch.md
