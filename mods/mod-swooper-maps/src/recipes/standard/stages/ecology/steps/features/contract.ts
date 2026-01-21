@@ -3,8 +3,8 @@ import ecology from "@mapgen/domain/ecology";
 
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../../tags.js";
 import { ecologyArtifacts } from "../../artifacts.js";
+import { foundationArtifacts } from "../../../foundation/artifacts.js";
 import { hydrologyClimateBaselineArtifacts } from "../../../hydrology-climate-baseline/artifacts.js";
-import { narrativePreArtifacts } from "../../../narrative-pre/artifacts.js";
 
 const FeaturesStepContract = defineStep({
   id: "features",
@@ -15,8 +15,8 @@ const FeaturesStepContract = defineStep({
     requires: [
       hydrologyClimateBaselineArtifacts.climateField,
       hydrologyClimateBaselineArtifacts.heightfield,
+      foundationArtifacts.plates,
       ecologyArtifacts.biomeClassification,
-      narrativePreArtifacts.overlays,
     ],
   },
   ops: {
