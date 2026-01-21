@@ -222,33 +222,6 @@ export default createMap({
         },
       },
     },
-    mountains: {
-      mountains: {
-        strategy: "default",
-        config: {
-          // Focused volcanic peaks rather than ranges
-          tectonicIntensity: 0.65,
-          mountainThreshold: 0.6,
-          hillThreshold: 0.32,
-          upliftWeight: 0.25,
-          fractalWeight: 0.3,
-          riftDepth: 0.35,
-          // Strong boundary influence for arc volcanism
-          boundaryWeight: 1.1,
-          boundaryGate: 0.1,
-          boundaryExponent: 1.6,
-          interiorPenaltyWeight: 0.2,
-          convergenceBonus: 1.0,
-          transformPenalty: 0.5,
-          riftPenalty: 0.7,
-          hillBoundaryWeight: 0.55,
-          hillRiftBonus: 0.4,
-          hillConvergentFoothill: 0.45,
-          hillInteriorFalloff: 0.25,
-          hillUpliftWeight: 0.28,
-        },
-      },
-    },
     volcanoes: {
       volcanoes: {
         strategy: "default",
@@ -278,13 +251,41 @@ export default createMap({
       },
     },
   },
+  "map-morphology": {
+    mountains: {
+      mountains: {
+        strategy: "default",
+        config: {
+          // Focused volcanic peaks rather than ranges
+          tectonicIntensity: 0.65,
+          mountainThreshold: 0.6,
+          hillThreshold: 0.32,
+          upliftWeight: 0.25,
+          fractalWeight: 0.3,
+          riftDepth: 0.35,
+          // Strong boundary influence for arc volcanism
+          boundaryWeight: 1.1,
+          boundaryGate: 0.1,
+          boundaryExponent: 1.6,
+          interiorPenaltyWeight: 0.2,
+          convergenceBonus: 1.0,
+          transformPenalty: 0.5,
+          riftPenalty: 0.7,
+          hillBoundaryWeight: 0.55,
+          hillRiftBonus: 0.4,
+          hillConvergentFoothill: 0.45,
+          hillInteriorFalloff: 0.25,
+          hillUpliftWeight: 0.28,
+        },
+      },
+    },
+  },
   "hydrology-climate-baseline": {
     knobs: {
       dryness: "wet",
       temperature: "hot",
       seasonality: "high",
       oceanCoupling: "earthlike",
-      lakeiness: "many",
     },
   },
   "hydrology-hydrography": {
@@ -297,6 +298,12 @@ export default createMap({
       dryness: "wet",
       temperature: "hot",
       cryosphere: "off",
+    },
+  },
+  "map-hydrology": {
+    knobs: {
+      lakeiness: "many",
+      riverDensity: "dense",
     },
   },
   ecology: {
@@ -418,6 +425,10 @@ export default createMap({
           },
         },
       },
+    },
+  },
+  "map-ecology": {
+    biomes: {
       bindings: {
         snow: "BIOME_TUNDRA",
         tundra: "BIOME_TUNDRA",
