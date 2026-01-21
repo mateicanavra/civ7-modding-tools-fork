@@ -9,6 +9,7 @@ export type GenerationPhase =
   | "setup"
   | "foundation"
   | "morphology"
+  | "gameplay"
   | "hydrology"
   | "ecology"
   | "placement";
