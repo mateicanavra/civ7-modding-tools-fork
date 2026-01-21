@@ -83,6 +83,7 @@ export function projectPlatesFromModel(input: {
     upliftPotential: Uint8Array;
     riftPotential: Uint8Array;
     shieldStability: Uint8Array;
+    volcanism: Uint8Array;
     movementU: Int8Array;
     movementV: Int8Array;
     rotation: Int8Array;
@@ -117,6 +118,7 @@ export function projectPlatesFromModel(input: {
   const upliftPotential = new Uint8Array(size);
   const riftPotential = new Uint8Array(size);
   const shieldStability = new Uint8Array(size);
+  const volcanism = new Uint8Array(size);
   const movementU = new Int8Array(size);
   const movementV = new Int8Array(size);
   const rotation = new Int8Array(size);
@@ -185,6 +187,7 @@ export function projectPlatesFromModel(input: {
     const stress = Math.max(upliftPotential[i]!, riftPotential[i]!, shear);
     tectonicStress[i] = clampByte(stress);
     shieldStability[i] = 255 - boundaryCloseness[i]!;
+    volcanism[i] = clampByte(tectonics.volcanism[cellId] ?? 0);
   }
 
   return {
@@ -196,6 +199,7 @@ export function projectPlatesFromModel(input: {
       upliftPotential,
       riftPotential,
       shieldStability,
+      volcanism,
       movementU,
       movementV,
       rotation,
