@@ -8,7 +8,7 @@ description: |
 
 # PLAN: Morphology (Vertical Domain Refactor)
 
-This is a **thin policy + index** plan for the Morphology refactor. Greenfield modeling lives in the Phase 0.5 spike. Modeling lives in the Phase 2 spike. Slice planning lives in the Phase 3 issue.
+This is a **thin policy + index** plan for the Morphology refactor. The authoritative Phase 2 model is split into the three canonical spec files under `plans/morphology/spec/`.
 
 Backbone workflow:
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/WORKFLOW.md`
@@ -16,6 +16,9 @@ Backbone workflow:
 
 Prompt (non-implementation execution wrapper):
 - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/prompts/MORPHOLOGY-NON-IMPLEMENTATION.md`
+
+Prompt (implementation execution wrapper):
+- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/prompts/MORPHOLOGY-IMPLEMENTATION.md`
 
 Path roots (convention used here):
 - `/src/...` = `mods/mod-swooper-maps/src/...`
@@ -36,23 +39,51 @@ Implementation guardrails (locked decisions; see implementation-traps reference)
 - RNG crosses boundaries as data (seed); ops build local RNGs.
 - Defaults live in schemas/normalize; no hidden runtime defaults.
 - Hard ban: narrative/story overlays as domain dependencies.
+- Projection surfaces are Gameplay-owned: map projections are `artifact:map.*` and execution guarantees are `effect:map.<thing><Verb>` (semantic short verbs; e.g., `effect:map.mountainsPlotted`, `effect:map.elevationBuilt`).
+- Topology is locked: `wrapX=true` always, `wrapY=false` always; no wrap knobs/env/config.
 - Hard ban: hidden multipliers/constants/defaults.
 - Hard ban: placeholders/dead bags.
-- Compat is forbidden inside the refactored domain; compat (if needed) is downstream-only and explicitly deprecated with removal plan.
+- Compat/shims/dual paths are forbidden as a design pattern; re-slice instead of adding a second way to do the same thing.
 
 ## Phase artifacts (authoritative links)
 
-| Phase | Artifact | Status |
-| --- | --- | --- |
-| Phase 0.5 | `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/spike-morphology-greenfield.md` | not started |
-| Phase 1 | `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/spike-morphology-current-state.md` | not started |
-| Phase 2 | `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/spike-morphology-modeling.md` | not started |
-| Phase 3 | `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-<milestone>-morphology-*.md` | not started |
+```yaml
+items:
+  - name: Phase 0.5
+    meaning: Greenfield pre-work spike (historical context).
+    files:
+      - docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/_archive/v3/spike-morphology-greenfield-gpt.md
+    status: complete
+  - name: Phase 1
+    meaning: Current-state spike (historical context).
+    files:
+      - docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/_archive/v3/spike-morphology-current-state-gpt.md
+    status: complete
+  - name: Phase 2 (archived spike)
+    meaning: Earlier Phase 2 spike material (historical context; do not edit).
+    files:
+      - docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/_archive/v3/spike-morphology-modeling-gpt.md
+      - docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/_archive/v3/spike-morphology-modeling-gpt-addendum-full.md
+      - docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/_archive/v3/spike-morphology-modeling-gpt-addendum-braided-map-projection-draft.md
+    status: complete
+  - name: Phase 2 (canonical)
+    meaning: Canonical Phase 2 spec surfaces (authoritative).
+    files:
+      - docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-CORE-MODEL-AND-PIPELINE.md
+      - docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-CONTRACTS.md
+      - docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-MAP-PROJECTIONS-AND-STAMPING.md
+    status: complete
+  - name: Phase 3
+    meaning: Implementation plan and issue slicing.
+    files:
+      - docs/projects/engine-refactor-v1/issues/LOCAL-TBD-<milestone>-morphology-*.md
+    status: not started
+```
 
 ## Notes
 
 - This plan is an index and posture statement only.
 - Greenfield exploration belongs in the Phase 0.5 spike.
 - Current-state inventory belongs in the Phase 1 spike.
-- Authoritative modeling belongs in the Phase 2 spike.
+- Authoritative modeling belongs in the Phase 2 canonical spec files under `plans/morphology/spec/`.
 - Slice planning and sequencing belong in the Phase 3 issue.

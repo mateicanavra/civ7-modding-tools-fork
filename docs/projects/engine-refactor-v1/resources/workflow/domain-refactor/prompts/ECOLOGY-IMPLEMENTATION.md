@@ -17,15 +17,12 @@
   Execution posture:
   - One Graphite branch/PR per slice (or explicit subissue you carve out inside a slice).
   - Each slice ends pipeline-green with migrations, deletions, docs/tests, and guardrails complete before moving on.
-  - No dual paths within scope. If a temporary shim/adapter is truly required to keep the pipeline green, it must:
-    - be explicitly planned in the Phase 3 issue,
-    - be explicitly deprecated,
-    - and be explicitly removed on schedule (tracked in the same issue).
+  - No dual paths within scope. No shims/compat layers are allowed as a refactor technique; redesign the slice to migrate and delete instead.
 
   Non-negotiable invariants (drift prevention):
   - Model-first: the canonical model/contracts are the source of truth even if projections change.
   - No compat inside Ecology: Ecology must not publish or retain legacy compat/projection surfaces.
-    If transitional compatibility is required, it must live downstream, be explicitly deprecated, and be tracked for removal.
+    Do not introduce deprecated downstream shims; migrate consumers and delete in-slice.
   - Narrative overlays are forbidden in this refactor phase:
     - remove story/narrative/overlay surfaces entirely,
     - replace any load-bearing ones with canonical, domain-anchored contracts,

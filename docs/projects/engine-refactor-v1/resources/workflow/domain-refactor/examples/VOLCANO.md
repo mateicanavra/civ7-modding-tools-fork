@@ -1,505 +1,373 @@
 ---
 name: example-volcano-end-to-end
 description: |
-  Canonical end-to-end example of the contract-first ops + orchestration-only steps architecture.
-  This is a standalone copy of the “Volcano” example to avoid depending on deep links into the SPEC.
+  Canonical end-to-end example of the domain-refactor posture for volcanoes:
+  Physics truth → Gameplay `artifact:map.*` intent → adapter stamping + boolean `effect:map.*`.
 ---
 
-# EXAMPLE: Volcano (End-to-End)
+# EXAMPLE: Volcano (Truth → Map Intent → Stamping)
 
-This example is intentionally “pure-domain + side-effects-in-step”: the domain computes placements and the step applies them to the engine/runtime.
+This example is canonical for Phase 3 implementers. It is designed to prevent the most common drift modes:
+
+- **Topology invariant:** Civ7 is always `wrapX=true`, `wrapY=false`. The example never accepts wrap flags as inputs or config.
+- **Boundary:** Physics publishes truth-only artifacts (pure). Gameplay owns `artifact:map.*` projections/annotations and all adapter stamping.
+- **No backfeeding:** Physics steps do not consume `artifact:map.*` or `effect:map.*`.
+- **Effects are boolean execution guarantees:** `effect:map.<thing><Verb>` (`*Plotted` by convention).
+- **Hard ban:** no `artifact:map.realized.*`.
+- **TerrainBuilder no-drift:** this example does not use engine-derived elevation/cliffs in Physics. If a rule must match Civ7 elevation bands/cliffs, it is Gameplay logic and runs only after `effect:map.elevationBuilt`.
+- **Schema posture:** top-level operation/strategy/step schemas in this example have **no `additionalProperties`** and **no top-level defaults**. Prefer explicit required fields and explicit normalization at the boundary.
 
 Repo-path note:
-- This example uses `src/...` for brevity; in this repo, read that as `mods/mod-swooper-maps/src/...`.
+- Code identifiers and patterns are taken from this repo (notably `mods/mod-swooper-maps/src/domain/morphology/ops/plan-volcanoes/**`).
+- Some tag ids below are **illustrative** (`artifact:morphology.volcanoPlan`, `artifact:map.volcanoes`, `effect:map.volcanoesPlotted`) and must be registered in the TagRegistry when implemented.
 
-## File layout
+## Pipeline overview (end-to-end)
+
+This example uses **two** explicit step boundaries:
+- a **Physics** step that publishes truth, and
+- a **Gameplay/materialization** step (braided into the same physics phase) that both:
+  - publishes `artifact:map.*` projection/annotation layers, and
+  - performs adapter stamping and provides a boolean `effect:map.*`.
+
+This avoids an over-modeled “project vs plot” split at the step level: projection is planning (pure) and stamping is side-effecting, but both can live in the same step as long as the step is cohesive and provides the correct effect boundary.
 
 ```txt
-src/domain/morphology/volcanoes/
-  index.ts
-  ops/
-    contracts.ts
-    index.ts
-    compute-suitability/
-      contract.ts
-      types.ts
-      strategies/
-        default.ts
-        index.ts
-      rules/
-        index.ts
-      index.ts
-    plan-volcanoes/
-      contract.ts
-      types.ts
-      strategies/
-        default.ts
-        hotspot-clusters.ts
-        index.ts
-      rules/
-        enforce-min-distance.ts
-        pick-weighted.ts
-        index.ts
-      index.ts
+PHYSICS (pure; no adapter reads/writes)
+  phase: morphology
+    step: plan-volcanoes
+    requires: artifact:foundation.plates, buffer:heightfield
+    provides: artifact:morphology.volcanoPlan
 
-src/recipes/standard/stages/morphology-post/steps/volcanoes/
-  contract.ts
-  index.ts
-  lib/
-    inputs.ts
-    apply.ts
+GAMEPLAY / MATERIALIZATION (adapter writes; braided into a physics phase)
+  phase: morphology (example braid; not a “map phase”)
+    step: plot-volcanoes
+      requires: artifact:morphology.volcanoPlan
+      provides: artifact:map.volcanoes, effect:map.volcanoesPlotted
 ```
 
-## Domain: operation 1 — compute suitability (derived field)
+Notes:
+- Physics does not require or read `artifact:map.*` or `effect:map.*` (no backfeeding).
+- The stamping step provides `effect:map.volcanoesPlotted` only when adapter writes complete successfully (pipeline marks provides on step success).
+- `artifact:map.volcanoes` is published once and treated as immutable intent/annotation for debugging and future Gameplay reads.
+- `plot-volcanoes` computes the projection once and uses that same in-memory result both to:
+  - publish `artifact:map.volcanoes`, and
+  - drive adapter stamping (no re-derivation drift inside the step).
+
+## Example file tree (illustrative)
+
+This shows the intended separation (ops vs steps) without inventing extra pipeline phases:
+
+```txt
+mods/mod-swooper-maps/
+  src/
+    domain/
+      morphology/
+        ops/
+          plan-volcanoes/
+            contract.ts
+            index.ts
+            strategies/
+              default.ts
+            rules/
+              is-too-close.ts
+    recipes/
+      standard/
+        stages/
+          morphology-post/                 # example: where volcanoes are finalized
+            steps/
+              plan-volcanoes/              # Physics step (no adapter)
+                contract.ts
+                index.ts
+              plot-volcanoes/              # Gameplay/materialization step (adapter)
+                contract.ts
+                index.ts
+```
+
+## Domain operation: `morphology/plan-volcanoes` (Physics; pure)
+
+This op computes a deterministic set of volcano placements (tile indices) from Physics truths (including Foundation volcanism signals like melt flux / plumes).
+
+### Contract (no `additionalProperties`, no top-level defaults)
 
 ```ts
-// src/domain/morphology/volcanoes/ops/compute-suitability/contract.ts
+// mods/mod-swooper-maps/src/domain/morphology/ops/plan-volcanoes/contract.ts
 import { Type, TypedArraySchemas, defineOp } from "@swooper/mapgen-core/authoring";
 
-export const ComputeSuitabilityContract = defineOp({
-  kind: "compute",
-  id: "morphology/volcanoes/compute-suitability",
-  input: Type.Object(
-    {
-      width: Type.Integer({ minimum: 1 }),
-      height: Type.Integer({ minimum: 1 }),
-      isLand: TypedArraySchemas.u8({ description: "Land mask per tile (0/1)." }),
-      plateBoundaryProximity: TypedArraySchemas.u8({
-        description: "Plate boundary proximity per tile (0..255).",
-      }),
-      elevation: TypedArraySchemas.i16({ description: "Elevation per tile (meters)." }),
-    },
-    { additionalProperties: false }
-  ),
-  output: Type.Object(
-    {
-      suitability: TypedArraySchemas.f32({ description: "Volcano suitability per tile (0..N)." }),
-    },
-    { additionalProperties: false }
-  ),
-  strategies: {
-    default: Type.Object(
-      {
-        wPlateBoundary: Type.Optional(Type.Number({ default: 1.0 })),
-        wElevation: Type.Optional(Type.Number({ default: 0.25 })),
-      },
-      { additionalProperties: false, default: {} }
-    ),
-  },
-} as const);
-```
-
-```ts
-// src/domain/morphology/volcanoes/ops/compute-suitability/types.ts
-import type { OpTypeBag } from "@swooper/mapgen-core/authoring";
-
-type Contract = typeof import("./contract.js").ComputeSuitabilityContract;
-
-export type ComputeSuitabilityTypes = OpTypeBag<Contract>;
-```
-
-```ts
-// src/domain/morphology/volcanoes/ops/compute-suitability/strategies/default.ts
-import { createStrategy } from "@swooper/mapgen-core/authoring";
-import { ComputeSuitabilityContract } from "../contract.js";
-
-export const defaultStrategy = createStrategy(ComputeSuitabilityContract, "default", {
-  run: (inputs, cfg) => {
-    const size = inputs.width * inputs.height;
-    const suitability = new Float32Array(size);
-
-    for (let i = 0; i < size; i++) {
-      if (inputs.isLand[i] === 0) {
-        suitability[i] = 0;
-        continue;
-      }
-
-      const plate = inputs.plateBoundaryProximity[i] / 255;
-      const elev = Math.max(0, Math.min(1, inputs.elevation[i] / 4000));
-      suitability[i] = cfg.wPlateBoundary! * plate + cfg.wElevation! * elev;
-    }
-
-    return { suitability };
-  },
+const VolcanoPlacementSchema = Type.Object({
+  tileIndex: Type.Integer({ minimum: 0, description: "Tile index in row-major order." }),
 });
-```
-
-```ts
-// src/domain/morphology/volcanoes/ops/compute-suitability/strategies/index.ts
-export { defaultStrategy } from "./default.js";
-```
-
-```ts
-// src/domain/morphology/volcanoes/ops/compute-suitability/rules/index.ts
-// No rules needed for this op; keep the barrel as the canonical runtime surface.
-```
-
-```ts
-// src/domain/morphology/volcanoes/ops/compute-suitability/index.ts
-import { createOp } from "@swooper/mapgen-core/authoring";
-import { ComputeSuitabilityContract } from "./contract.js";
-import { defaultStrategy } from "./strategies/index.js";
-
-export const computeSuitability = createOp(ComputeSuitabilityContract, {
-  strategies: { default: defaultStrategy },
-});
-
-export * from "./contract.js";
-export type * from "./types.js";
-```
-
-## Domain: operation 2 — plan volcano placements (strategies + rules)
-
-This operation has interchangeable strategies. The op contract stays stable; internal strategies can evolve independently.
-
-```ts
-// src/domain/morphology/volcanoes/ops/plan-volcanoes/contract.ts
-import { Type, TypedArraySchemas, defineOp } from "@swooper/mapgen-core/authoring";
 
 export const PlanVolcanoesContract = defineOp({
   kind: "plan",
-  id: "morphology/volcanoes/plan-volcanoes",
-  input: Type.Object(
-    {
-      width: Type.Integer({ minimum: 1 }),
-      height: Type.Integer({ minimum: 1 }),
-      suitability: TypedArraySchemas.f32({ description: "Volcano suitability per tile (0..N)." }),
-      rngSeed: Type.Integer({
-        minimum: 0,
-        description:
-          "Deterministic RNG seed (derived by the step from compile/run env + step/op identity).",
-      }),
-    },
-    { additionalProperties: false }
-  ),
-  output: Type.Object(
-    {
-      placements: Type.Array(
-        Type.Object(
-          {
-            x: Type.Integer({ minimum: 0 }),
-            y: Type.Integer({ minimum: 0 }),
-            intensity: Type.Integer({ minimum: 0 }),
-          },
-          { additionalProperties: false }
-        )
-      ),
-    },
-    { additionalProperties: false }
-  ),
+  id: "morphology/plan-volcanoes",
+  input: Type.Object({
+    width: Type.Integer({ minimum: 1, description: "Map width in tiles." }),
+    height: Type.Integer({ minimum: 1, description: "Map height in tiles." }),
+
+    landMask: TypedArraySchemas.u8({ description: "Land mask per tile (1=land, 0=water)." }),
+    boundaryCloseness: TypedArraySchemas.u8({ description: "Boundary proximity per tile (0..255)." }),
+    boundaryType: TypedArraySchemas.u8({ description: "Boundary type per tile (domain-coded; e.g. conv/div/trans)." }),
+    shieldStability: TypedArraySchemas.u8({ description: "Shield stability per tile (0..255)." }),
+
+    meltFlux: TypedArraySchemas.u8({
+      description:
+        "Melt flux per tile (0..255). Foundation-owned volcanism signal (truth); not an overlay and not engine-derived.",
+    }),
+
+    rngSeed: Type.Integer({ description: "Deterministic RNG seed supplied by the step." }),
+  }),
+  output: Type.Object({
+    volcanoes: Type.Array(VolcanoPlacementSchema, { description: "Planned volcano placements." }),
+  }),
   strategies: {
-    default: Type.Object(
-      {
-        targetCount: Type.Optional(Type.Integer({ minimum: 0, default: 12 })),
-        minDistance: Type.Optional(Type.Integer({ minimum: 0, default: 6 })),
-      },
-      { additionalProperties: false, default: {} }
-    ),
-    hotspotClusters: Type.Object(
-      {
-        targetCount: Type.Optional(Type.Integer({ minimum: 0, default: 12 })),
-        minDistance: Type.Optional(Type.Integer({ minimum: 0, default: 6 })),
-        seedCount: Type.Optional(Type.Integer({ minimum: 1, default: 3 })),
-      },
-      { additionalProperties: false, default: {} }
-    ),
+    default: Type.Object({
+      enabled: Type.Boolean({ description: "Master toggle for volcano placement." }),
+      baseDensityPerLandTile: Type.Number({
+        description: "Baseline volcanoes per land tile; higher density spawns more vents overall.",
+        minimum: 0,
+      }),
+      minSpacingTiles: Type.Number({
+        description:
+          "Minimum spacing between volcanoes in tiles, using cylinder topology (wrapX, no wrapY).",
+        minimum: 0,
+      }),
+      boundaryThreshold01: Type.Number({
+        description: "Boundary closeness threshold (0..1) for treating a tile as boundary-adjacent.",
+        minimum: 0,
+        maximum: 1,
+      }),
+      boundaryWeight: Type.Number({ description: "Base weight applied near boundaries.", minimum: 0 }),
+      convergentMultiplier: Type.Number({ description: "Weight multiplier for convergent boundaries.", minimum: 0 }),
+      divergentMultiplier: Type.Number({ description: "Weight multiplier for divergent boundaries.", minimum: 0 }),
+      transformMultiplier: Type.Number({ description: "Weight multiplier for transform boundaries.", minimum: 0 }),
+      meltFluxWeight: Type.Number({ description: "Weight contribution for melt flux (interior volcanism).", minimum: 0 }),
+      shieldPenalty01: Type.Number({
+        description: "Penalty applied using shield stability (0..1). Higher suppresses ancient-craton volcanoes.",
+        minimum: 0,
+        maximum: 1,
+      }),
+      randomJitterWeight: Type.Number({
+        description:
+          "Additive random jitter to break up deterministic patterns (applied with labeled RNG).",
+        minimum: 0,
+      }),
+      minVolcanoes: Type.Integer({ description: "Minimum guaranteed count target.", minimum: 0 }),
+      maxVolcanoes: Type.Integer({ description: "Maximum cap; set to 0 to mean “no cap”.", minimum: 0 }),
+    }),
   },
 } as const);
 ```
 
-```ts
-// src/domain/morphology/volcanoes/ops/plan-volcanoes/types.ts
-import type { OpTypeBag } from "@swooper/mapgen-core/authoring";
+### Rule: spacing under Civ7 cylinder topology (wrapX only)
 
-type Contract = typeof import("./contract.js").PlanVolcanoesContract;
-
-export type PlanVolcanoesTypes = OpTypeBag<Contract>;
-```
+The topology is a modeling invariant; it is not a contract parameter.
 
 ```ts
-// src/domain/morphology/volcanoes/ops/plan-volcanoes/rules/index.ts
-export { enforceMinDistance } from "./enforce-min-distance.js";
-export { pickWeightedIndex } from "./pick-weighted.js";
-```
+// mods/mod-swooper-maps/src/domain/morphology/ops/plan-volcanoes/rules/is-too-close.ts
+import { wrapAbsDeltaPeriodic } from "@swooper/mapgen-core/lib/math";
 
-```ts
-// src/domain/morphology/volcanoes/ops/plan-volcanoes/rules/pick-weighted.ts
-export function pickWeightedIndex(weights: Float32Array, rng01: () => number): number {
-  let sum = 0;
-  for (let i = 0; i < weights.length; i++) sum += Math.max(0, weights[i]);
-  if (sum <= 0) return -1;
-
-  let r = Math.max(0, Math.min(0.999999, rng01())) * sum;
-  for (let i = 0; i < weights.length; i++) {
-    r -= Math.max(0, weights[i]);
-    if (r <= 0) return i;
-  }
-
-  return weights.length - 1;
-}
-```
-
-```ts
-// src/domain/morphology/volcanoes/ops/plan-volcanoes/rules/enforce-min-distance.ts
-export function enforceMinDistance(
+export function isTooClose(
   dims: { width: number; height: number },
-  chosen: { x: number; y: number }[],
+  placed: Array<{ x: number; y: number }>,
   candidate: { x: number; y: number },
-  minDistance: number
+  minSpacing: number
 ): boolean {
-  if (minDistance <= 0) return true;
+  if (minSpacing <= 0) return false;
 
-  for (const p of chosen) {
-    const dx = p.x - candidate.x;
-    const dy = p.y - candidate.y;
-    if (dx * dx + dy * dy < minDistance * minDistance) return false;
+  for (const p of placed) {
+    const dx = wrapAbsDeltaPeriodic(p.x - candidate.x, dims.width);
+    const dy = p.y - candidate.y; // NOTE: wrapY is false; do not wrap.
+    if (dx * dx + dy * dy < minSpacing * minSpacing) return true;
   }
-
-  return (
-    candidate.x >= 0 &&
-    candidate.y >= 0 &&
-    candidate.x < dims.width &&
-    candidate.y < dims.height
-  );
+  return false;
 }
 ```
 
+### Strategy: deterministic selection + stable tie-breakers
+
+Key determinism requirements:
+- Derive randomness from `rngSeed` and stable labels (never from iteration order over hash maps/sets).
+- When ordering candidates, use a stable secondary key (`tileIndex`) so weights ties are deterministic.
+
 ```ts
-// src/domain/morphology/volcanoes/ops/plan-volcanoes/strategies/default.ts
+// mods/mod-swooper-maps/src/domain/morphology/ops/plan-volcanoes/strategies/default.ts
 import { createStrategy } from "@swooper/mapgen-core/authoring";
+import { createLabelRng } from "@swooper/mapgen-core/lib/rng";
 import { PlanVolcanoesContract } from "../contract.js";
-import { enforceMinDistance, pickWeightedIndex } from "../rules/index.js";
+import { isTooClose } from "../rules/is-too-close.js";
 
 export const defaultStrategy = createStrategy(PlanVolcanoesContract, "default", {
-  run: (inputs, cfg) => {
-    const target = cfg.targetCount ?? 12;
-    const minD = cfg.minDistance ?? 6;
+  run: (input, config) => {
+    if (!config.enabled) return { volcanoes: [] };
 
-    let draw = 0;
-    const rng01 = (): number => {
-      const x = Math.imul((inputs.rngSeed | 0) ^ draw++, 0x9e3779b1);
-      return (x >>> 0) / 2 ** 32;
-    };
-
-    const { width, height } = inputs;
+    const { width, height } = input;
     const size = width * height;
 
-    const chosen: { x: number; y: number; intensity: number }[] = [];
-    const weights = new Float32Array(size);
-    for (let i = 0; i < size; i++) weights[i] = inputs.suitability[i];
+    let landTiles = 0;
+    for (let i = 0; i < size; i++) if (input.landMask[i] === 1) landTiles++;
 
-    while (chosen.length < target) {
-      const i = pickWeightedIndex(weights, rng01);
-      if (i < 0) break;
+    const uncappedTarget = Math.round(landTiles * config.baseDensityPerLandTile);
+    const clampedTarget = Math.max(config.minVolcanoes, uncappedTarget);
+    const target =
+      config.maxVolcanoes > 0 ? Math.min(clampedTarget, config.maxVolcanoes) : clampedTarget;
+    if (target <= 0) return { volcanoes: [] };
 
-      const x = i % width;
-      const y = (i / width) | 0;
+    const rng = createLabelRng(input.rngSeed | 0);
+    const candidates: Array<{ tileIndex: number; weight: number }> = [];
 
-      if (!enforceMinDistance({ width, height }, chosen, { x, y }, minD)) {
-        weights[i] = 0;
-        continue;
+    const threshold255 = Math.round(config.boundaryThreshold01 * 255);
+
+    for (let tileIndex = 0; tileIndex < size; tileIndex++) {
+      if (input.landMask[tileIndex] === 0) continue;
+
+      const closeness255 = input.boundaryCloseness[tileIndex] | 0;
+      const boundaryAdj = closeness255 >= threshold255;
+
+      const boundaryType = input.boundaryType[tileIndex] | 0;
+      const convergent = boundaryType === 1 ? 1 : 0;
+      const divergent = boundaryType === 2 ? 1 : 0;
+      const transform = boundaryType === 3 ? 1 : 0;
+
+      const melt01 = (input.meltFlux[tileIndex] | 0) / 255;
+      const shield01 = (input.shieldStability[tileIndex] | 0) / 255;
+
+      let weight = 0;
+
+      if (boundaryAdj) {
+        weight += config.boundaryWeight;
+        if (convergent) weight *= config.convergentMultiplier;
+        if (divergent) weight *= config.divergentMultiplier;
+        if (transform) weight *= config.transformMultiplier;
       }
 
-      chosen.push({ x, y, intensity: 1 });
-      weights[i] = 0;
+      weight += melt01 * config.meltFluxWeight;
+
+      // Ancient shields suppress volcanism.
+      weight *= 1 - config.shieldPenalty01 * shield01;
+
+      // Jitter is labeled by tile index for stable randomness across refactors.
+      const jitter01 = rng(1_000_000, `tile:${tileIndex}`) / 1_000_000;
+      weight += (jitter01 - 0.5) * 2 * config.randomJitterWeight;
+
+      if (weight > 0) candidates.push({ tileIndex, weight });
     }
 
-    return { placements: chosen };
+    // Stable ordering: weight desc, then tileIndex asc (tie-breaker).
+    candidates.sort((a, b) => (b.weight - a.weight) || (a.tileIndex - b.tileIndex));
+
+    const placed: Array<{ x: number; y: number; tileIndex: number }> = [];
+    for (const candidate of candidates) {
+      if (placed.length >= target) break;
+      const y = (candidate.tileIndex / width) | 0;
+      const x = candidate.tileIndex - y * width;
+      if (isTooClose({ width, height }, placed, { x, y }, config.minSpacingTiles)) continue;
+      placed.push({ x, y, tileIndex: candidate.tileIndex });
+    }
+
+    return { volcanoes: placed.map((p) => ({ tileIndex: p.tileIndex })) };
   },
 });
 ```
 
-```ts
-// src/domain/morphology/volcanoes/ops/plan-volcanoes/strategies/hotspot-clusters.ts
-import { createStrategy } from "@swooper/mapgen-core/authoring";
-import { PlanVolcanoesContract } from "../contract.js";
-import { enforceMinDistance, pickWeightedIndex } from "../rules/index.js";
+## Physics step: `morphology/plan-volcanoes` (publishes truth)
 
-export const hotspotClustersStrategy = createStrategy(PlanVolcanoesContract, "hotspotClusters", {
-  run: (inputs, cfg) => {
-    const target = cfg.targetCount ?? 12;
-    const minD = cfg.minDistance ?? 6;
-
-    let draw = 0;
-    const rng01 = (): number => {
-      const x = Math.imul((inputs.rngSeed | 0) ^ draw++, 0x9e3779b1);
-      return (x >>> 0) / 2 ** 32;
-    };
-
-    const { width, height } = inputs;
-    const size = width * height;
-
-    const chosen: { x: number; y: number; intensity: number }[] = [];
-    const weights = new Float32Array(size);
-    for (let i = 0; i < size; i++) weights[i] = inputs.suitability[i];
-
-    const seedCount = Math.min(cfg.seedCount ?? 3, target);
-    while (chosen.length < seedCount) {
-      const i = pickWeightedIndex(weights, rng01);
-      if (i < 0) break;
-
-      const x = i % width;
-      const y = (i / width) | 0;
-      if (!enforceMinDistance({ width, height }, chosen, { x, y }, minD)) {
-        weights[i] = 0;
-        continue;
-      }
-      chosen.push({ x, y, intensity: 2 });
-      weights[i] = 0;
-    }
-
-    while (chosen.length < target) {
-      const i = pickWeightedIndex(weights, rng01);
-      if (i < 0) break;
-
-      const x = i % width;
-      const y = (i / width) | 0;
-      if (!enforceMinDistance({ width, height }, chosen, { x, y }, minD)) {
-        weights[i] = 0;
-        continue;
-      }
-
-      chosen.push({ x, y, intensity: 1 });
-      weights[i] = 0;
-    }
-
-    return { placements: chosen };
-  },
-});
-```
+This step is pure: it reads upstream truth artifacts and buffers, calls the op, then publishes a truth artifact. It does not read or write the adapter.
 
 ```ts
-// src/domain/morphology/volcanoes/ops/plan-volcanoes/strategies/index.ts
-export { defaultStrategy } from "./default.js";
-export { hotspotClustersStrategy } from "./hotspot-clusters.js";
-```
-
-```ts
-// src/domain/morphology/volcanoes/ops/plan-volcanoes/index.ts
-import { createOp } from "@swooper/mapgen-core/authoring";
-import { PlanVolcanoesContract } from "./contract.js";
-import { defaultStrategy, hotspotClustersStrategy } from "./strategies/index.js";
-
-export const planVolcanoes = createOp(PlanVolcanoesContract, {
-  strategies: {
-    default: defaultStrategy,
-    hotspotClusters: hotspotClustersStrategy,
-  },
-});
-
-export * from "./contract.js";
-export type * from "./types.js";
-```
-
-## Domain index (public surface)
-
-Steps import the domain **contract entrypoint** and only see op **contracts** (not implementations, rules, or strategies).
-
-```ts
-// src/domain/morphology/volcanoes/index.ts
-import { defineDomain } from "@swooper/mapgen-core/authoring";
-import ops from "./ops/contracts.js";
-
-const volcanoes = defineDomain({ id: "morphology/volcanoes", ops } as const);
-
-export default volcanoes;
-```
-
-## Step: build inputs → call ops → apply/publish (runtime boundary)
-
-The step owns adapter/engine interaction and artifact publishing. The step never imports domain rules or strategy modules.
-
-```ts
-// src/recipes/standard/stages/morphology-post/steps/volcanoes/contract.ts
+// Illustrative contract shape (ids are canonical patterns; artifact ids are illustrative).
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
-import volcanoes from "@mapgen/domain/morphology/volcanoes";
+import morphology from "@mapgen/domain/morphology";
 
-export const VolcanoesStepContract = defineStep({
-  id: "volcanoes",
-  phase: "morphology-post",
-  requires: ["artifact:plates", "field:elevation"],
-  provides: ["artifact:volcanoPlacements", "effect:volcanoesPlaced"],
-  ops: {
-    computeSuitability: volcanoes.ops.computeSuitability,
-    planVolcanoes: volcanoes.ops.planVolcanoes,
-  },
-  schema: Type.Object({}, { additionalProperties: false }),
+export const PlanVolcanoesStepContract = defineStep({
+  id: "plan-volcanoes",
+  phase: "morphology",
+  requires: ["artifact:foundation.plates", "buffer:heightfield"],
+  provides: ["artifact:morphology.volcanoPlan"],
+  ops: { planVolcanoes: morphology.ops.planVolcanoes },
+  schema: Type.Object({
+    planVolcanoes: morphology.ops.planVolcanoes.config,
+  }),
 } as const);
 ```
 
+Runtime sketch:
+- Read `landMask` from `ctx.buffers.heightfield.landMask` (buffer; not adapter).
+- Read `boundaryCloseness`, `boundaryType`, `shieldStability`, and `meltFlux` from Foundation truth (e.g., `artifact:foundation.plates` / `artifact:foundation.tectonics`).
+- Derive `rngSeed` deterministically from the step id and run seed (e.g., `ctxRandom` + `ctxRandomLabel`).
+
+## Gameplay/materialization step: `plot-volcanoes` (publishes `artifact:map.*` + stamps + provides effect)
+
+This step is Gameplay-owned by posture because it touches the adapter and provides an `effect:map.*`.
+It can live inside a Morphology stage/phase (braided) without becoming “physics”: ownership comes from what it does and what it produces/consumes, not from the folder name.
+
+Key boundary posture:
+- This step MAY read Physics truth (`artifact:morphology.volcanoPlan`, `artifact:morphology.topography`, etc.).
+- This step MUST NOT feed anything back into Physics truth (no “engine readback into truth”).
+- This step publishes map-facing projections/annotations under `artifact:map.*` and performs adapter writes.
+
+Illustrative contract shape (artifact ids are illustrative; phase is the braid’s phase, not “map”):
+
 ```ts
-// src/recipes/standard/stages/morphology-post/steps/volcanoes/lib/inputs.ts
-import { expectedGridSize } from "@swooper/mapgen-core/authoring";
+import { Type, defineStep } from "@swooper/mapgen-core/authoring";
 
-type VolcanoInputsContext = {
-  dimensions: { width: number; height: number };
-  adapter: {
-    isWater: (x: number, y: number) => boolean;
-    getElevation: (x: number, y: number) => number;
-  };
-  artifacts: { get: (key: string) => unknown };
-};
-
-export function buildVolcanoInputs(ctx: VolcanoInputsContext) {
-  const { width, height } = ctx.dimensions;
-  const size = expectedGridSize(width, height);
-
-  const isLand = new Uint8Array(size);
-  const elevation = new Int16Array(size);
-  const plateBoundaryProximity = new Uint8Array(size);
-
-  for (let y = 0; y < height; y++) {
-    for (let x = 0; x < width; x++) {
-      const i = y * width + x;
-      isLand[i] = ctx.adapter.isWater(x, y) ? 0 : 1;
-      elevation[i] = ctx.adapter.getElevation(x, y) | 0;
-      plateBoundaryProximity[i] = 0;
-    }
-  }
-
-  return { width, height, isLand, elevation, plateBoundaryProximity };
-}
+export const PlotVolcanoesStepContract = defineStep({
+  id: "plot-volcanoes",
+  phase: "morphology", // braided into a morphology stage; not a separate “map phase”
+  requires: ["artifact:morphology.volcanoPlan"],
+  provides: ["artifact:map.volcanoes", "effect:map.volcanoesPlotted"],
+  schema: Type.Object({}),
+} as const);
 ```
 
-```ts
-// src/recipes/standard/stages/morphology-post/steps/volcanoes/lib/apply.ts
-export type VolcanoPlacement = { x: number; y: number; intensity: number };
+Runtime sketch:
+- Compute `artifact:map.volcanoes` as an immutable projection/annotation:
+  - e.g. `{ placements: [{ tileIndex, kind: "volcano" }], ... }`
+- Stamp via adapter using the same computed placements (no recompute).
+- Provide `effect:map.volcanoesPlotted` only after adapter writes complete successfully.
+Suggested `artifact:map.volcanoes` payload (illustrative):
 
-export function applyVolcanoPlacements(
-  adapter: { setVolcano: (x: number, y: number, intensity: number) => void },
-  placements: VolcanoPlacement[]
-) {
-  for (const p of placements) adapter.setVolcano(p.x, p.y, p.intensity);
-}
+```ts
+type MapVolcanoes = Readonly<{
+  placements: ReadonlyArray<
+    Readonly<{
+      tileIndex: number;
+      kind: "volcano";
+    }>
+  >;
+
+  // Optional observability layer: -1 for none, otherwise a stable index into `placements`.
+  volcanoIndexByTile?: Readonly<Int16Array>;
+}>;
 ```
 
+Stamping rules:
+- Do not publish any `artifact:map.realized.*` surfaces. The guarantee is the effect.
+- Any engine-derived reads (e.g., Civ7 cliffs/elevation bands) must happen only in Gameplay and only after the relevant effect boundary (e.g., after `effect:map.elevationBuilt` for cliff/elevation-band correctness).
+- Do not take raw engine ids as config unless it’s truly a user-facing choice; prefer adapter-resolved lookups for engine enums/constants.
+
+## Complete, deterministic config example (no defaults)
+
+This example is intentionally explicit to avoid hidden behavior changes from evolving defaults.
+
 ```ts
-// src/recipes/standard/stages/morphology-post/steps/volcanoes/index.ts
-import { createStep } from "@swooper/mapgen-core/authoring";
-import { ctxRandom } from "@swooper/mapgen-core";
-
-import { VolcanoesStepContract } from "./contract.js";
-import { applyVolcanoPlacements } from "./lib/apply.js";
-import { buildVolcanoInputs } from "./lib/inputs.js";
-
-export default createStep(VolcanoesStepContract, {
-  run: (context, config, ops) => {
-    const inputs = buildVolcanoInputs(context);
-
-    const { suitability } = ops.computeSuitability(inputs, config.computeSuitability);
-
-    const { placements } = ops.planVolcanoes(
-      {
-        width: inputs.width,
-        height: inputs.height,
-        suitability,
-        rngSeed: ctxRandom(context, "volcanoes:planVolcanoes:rngSeed", 1_000_000) | 0,
-      },
-      config.planVolcanoes
-    );
-
-    applyVolcanoPlacements(context.adapter, placements);
-    context.artifacts.set("artifact:volcanoPlacements", { placements });
+export const volcanoExampleConfig = {
+  planVolcanoes: {
+    strategy: "default",
+    config: {
+      enabled: true,
+      baseDensityPerLandTile: 1 / 170,
+      minSpacingTiles: 3,
+      boundaryThreshold01: 0.35,
+      boundaryWeight: 1.2,
+      convergentMultiplier: 2.4,
+      divergentMultiplier: 0.35,
+      transformMultiplier: 1.1,
+      meltFluxWeight: 0.12,
+      shieldPenalty01: 0.6,
+      randomJitterWeight: 0.08,
+      minVolcanoes: 5,
+      maxVolcanoes: 40,
+    },
   },
-});
+} as const;
 ```

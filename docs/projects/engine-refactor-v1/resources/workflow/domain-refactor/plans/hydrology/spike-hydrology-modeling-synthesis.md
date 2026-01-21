@@ -146,7 +146,7 @@ Downstream-facing artifacts:
 
 Compatibility posture:
 - Hydrology publishes **only the new typed artifacts**.
-- If a legacy shape must exist temporarily, it is produced downstream as a deprecated shim with explicit removal triggers.
+- Legacy shapes are migrated to the canonical typed artifacts directly. We do not introduce deprecated shims/compat layers as a refactor technique.
 
 ---
 
@@ -279,7 +279,7 @@ This classification is used by Phase 3 planning; it does not prescribe slices he
 Legend:
 - **Keep**: survives largely as-is.
 - **Migrate**: mechanism survives; shape/placement changes to fit the new model.
-- **Kill**: removed from Hydrology; if needed at all, rehomed downstream as deprecated shim or eliminated.
+- **Kill**: removed from Hydrology. If the capability is still needed, it must be re-modeled as a real canonical contract in its proper owner domain (not as a shim); otherwise it is eliminated.
 
 ### Config concepts (current) → disposition
 

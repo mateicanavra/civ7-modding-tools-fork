@@ -313,15 +313,15 @@ callers:
   - path: /src/recipes/standard/stages/morphology-pre/steps/landmassPlates.contract.ts
     notes: Requires foundationPlates.
   - path: /src/recipes/standard/stages/morphology-mid/steps/ruggedCoasts.contract.ts
-    notes: Requires foundationPlates (and storyOverlays).
+    notes: Requires foundationPlates. Also requires storyOverlays in current wiring (LEGACY overlay input; forbidden in target posture; must be deleted/rewired in refactor).
   - path: /src/recipes/standard/stages/morphology-post/steps/mountains.contract.ts
     notes: Requires foundationPlates.
   - path: /src/recipes/standard/stages/morphology-post/steps/volcanoes.contract.ts
     notes: Requires foundationPlates.
   - path: /src/recipes/standard/stages/narrative-pre/steps/storyRifts.contract.ts
-    notes: Requires foundationPlates (and storyOverlays).
+    notes: Requires foundationPlates. Also requires storyOverlays in current wiring (LEGACY overlay input; forbidden in target posture; must be deleted/rewired in refactor).
   - path: /src/recipes/standard/stages/narrative-mid/steps/storyOrogeny.contract.ts
-    notes: Requires foundationPlates + foundationDynamics (and storyOverlays).
+    notes: Requires foundationPlates + foundationDynamics. Also requires storyOverlays in current wiring (LEGACY overlay input; forbidden in target posture; must be deleted/rewired in refactor).
   - path: /src/recipes/standard/stages/narrative-swatches/steps/storySwatches.contract.ts
     notes: Requires foundationDynamics (and heightfield/climateField/overlays).
   - path: /src/recipes/standard/stages/hydrology-post/steps/climateRefine.contract.ts

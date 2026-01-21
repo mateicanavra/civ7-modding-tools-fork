@@ -172,6 +172,7 @@ steps:
 
   - id: morphology-mid/rugged-coasts
     title: "Rugged coasts (margin/corridor-aware)"
+    notes: "LEGACY: requires storyOverlays in current wiring. Overlay-shaped inputs are forbidden in the target posture; must be deleted/rewired in the refactor."
     requires:
       artifacts: [artifact:foundation.plates]
       buffers: []
@@ -184,6 +185,7 @@ steps:
 
   - id: narrative-pre/story-rifts
     title: "Story motifs: rift valleys"
+    notes: "LEGACY: Narrative/overlays are not canonical domains in the target posture; these overlay requirements exist only in current wiring and must not be propagated."
     requires:
       artifacts: [artifact:foundation.plates]
       buffers: []
@@ -196,6 +198,7 @@ steps:
 
   - id: narrative-mid/story-orogeny
     title: "Story motifs: orogeny belts"
+    notes: "LEGACY: Narrative/overlays are not canonical domains in the target posture; these overlay requirements exist only in current wiring and must not be propagated."
     requires:
       artifacts: [artifact:foundation.plates, artifact:foundation.dynamics]
       buffers: []

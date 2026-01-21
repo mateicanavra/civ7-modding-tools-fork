@@ -24,6 +24,22 @@ Keep open while implementing:
 - Default to deletions. Within scope, remove legacy surfaces, compat, placeholders, and dead bags; do not preserve them “just in case.”
 - If a locked decision is threatened, stop the line: update the Phase 3 issue and add a guardrail before proceeding.
 
+## Phase 2 posture locks (gates; enforce per slice)
+
+These locks are not “directional”; they are non-negotiable. If you touch any relevant code paths in a slice, add guardrails (tests/scans) in the same slice.
+
+Canonical anchors:
+- `docs/projects/engine-refactor-v1/resources/spec/SPEC-DOMAIN-MODELING-GUIDELINES.md`
+- The Phase 2 canon for the domain you are implementing (typically: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/<domain>/spec/PHASE-2-*.md`)
+
+- **Topology invariant:** Civ7 is `wrapX=true`, `wrapY=false` always. No env/config/knob for wrap; wrap flags must not appear in op/step/artifact contracts.
+- **Boundary:** Physics domains publish truth-only artifacts (pure). Gameplay owns `artifact:map.*` projections/annotations and all adapter stamping/materialization.
+- **No backfeeding:** Physics steps MUST NOT `require`/consume `artifact:map.*` or `effect:map.*`.
+- **Effects are boolean:** `effect:map.<thing><Verb>` (use a semantically correct verb; keep verbs short and consolidated; no receipts/hashes/versions).
+- **Hard ban:** no `artifact:map.realized.*` namespace anywhere.
+- **TerrainBuilder no-drift:** Civ7 elevation/cliffs come from `TerrainBuilder.buildElevation()` and cannot be set directly. Any cliff/elevation-band-correct decisions belong in Gameplay after `effect:map.elevationBuilt`.
+- **Effect honesty via freeze:** any published `artifact:map.*` intent consumed by stamping must be publish-once/frozen before stamping begins; assert the `effect:map.*` only after successful adapter writes.
+
 ## How to think about slicing (guardrails)
 
 You (the implementer) choose slices **ad hoc** based on the domain inventory. The workflow is not prescriptive about slice boundaries, but it is strict about slice **completion** (no half-migrations).
@@ -63,6 +79,7 @@ Before writing code, write a short slicing plan in the domain issue doc:
 - Tests to add/update for that slice (op contract test + any thin integration edge)
 - Expected guardrail scope (which domains to run via `REFRACTOR_DOMAINS=...`)
 - Locked decisions + bans (and how each becomes a guardrail)
+- If the slice touches Gameplay stamping/build steps: name the `effect:map.*` tags introduced/required, enforce projection intent freeze, and enforce TerrainBuilder no-drift (`build-elevation` ordering; no implicit re-builds).
 - Step decomposition plan (causality spine → step boundaries → artifacts/buffers)
 - Consumer inventory + migration matrix (break/fix by slice)
 
@@ -98,8 +115,8 @@ This is the “definition of done” for a slice. You must complete it before mo
 
 - Delete the legacy entrypoints and helpers that the migrated step(s) used.
 - Do not leave compat exports or an “old/new” switch.
-- Remove any compat/projection surfaces from this domain. If downstream needs transitional compatibility, implement it downstream with explicit `DEPRECATED` / `DEPRECATE ME` markers.
-- No dual-path compute: if old and new both produce the same concept, delete the old path in this slice unless an explicit deferral trigger is recorded.
+- Remove any compat/projection surfaces from this domain. Do not introduce transitional compatibility as a refactor technique; migrate consumers and delete in-slice.
+- No dual-path compute: if old and new both produce the same concept, delete the old path in this slice (the slice design must include consumer migration so it can).
 
 ### 4) Tests for the slice
 
@@ -305,7 +322,7 @@ In the final slice, do the “around-the-block” cleanup:
 - remove now-unused shared helpers that existed only to support legacy paths,
 - remove obsolete exports/re-exports that bypass the op boundary,
 - update docs/presets/tests that referenced removed legacy structures.
-- if any downstream deprecated shims were added, add a cleanup item in `docs/projects/engine-refactor-v1/triage.md`, or open a dedicated downstream issue if the next domain can remove them safely (link the issue from triage).
+- do not leave behind deprecated shims/compat layers. If a shim exists, the slice plan is wrong; redesign the slice to migrate consumers and delete the legacy surface in-slice.
 
 Before the full repo gates, run the fast refactor gates:
 ```bash
@@ -325,4 +342,4 @@ pnpm deploy:mods
 
 Finally, do the Phase 5 traceability pass:
 - Update the Phase 3 issue doc Lookback 4 (what changed vs plan, and why).
-- Record true deferrals with explicit triggers in `docs/projects/engine-refactor-v1/deferrals.md` (do not “defer” planned work casually).
+- Record any environmental gate constraints (e.g. deploy not runnable locally) with evidence. Do not defer in-scope migrations/deletions; redesign slices until they are straight-through cutovers.

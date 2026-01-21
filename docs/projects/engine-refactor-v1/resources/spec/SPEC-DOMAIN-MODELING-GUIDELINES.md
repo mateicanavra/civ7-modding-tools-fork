@@ -11,6 +11,9 @@
 - Strategy: algorithmic variant of a single op with identical input/output.
 - Operation (op): stable, step-callable contract; pure input/config -> output.
 - Step: orchestration + effect boundary; builds inputs, calls ops, applies outputs, publishes artifacts.
+- Truth artifact: Physics-owned, engine-agnostic published state (no engine ids/adapter coupling; MAY be tile-indexed and MAY include `tileIndex`).
+- Projection artifact: Gameplay-owned, canonical map-facing published state under `artifact:map.*`.
+- Effect: a step-emitted execution guarantee (e.g. stamping/materialization completion via `effect:map.<thing><Verb>`; use a semantically correct, short, consolidated verb—`*Plotted` for stamping/placement, `*Built` for TerrainBuilder build steps).
 
 3) Decision framework (what becomes what)
 - If a unit has a stable I/O contract and should be observable independently -> op.
@@ -99,6 +102,35 @@ This document is intentionally aligned to the implemented surfaces in `packages/
 - `step.normalize(config, { env, knobs })` is **compile-time only** (invoked by the recipe compiler).
 - `step.run(context, config)` is **runtime** execution.
 
+### 2.1) Artifacts and effects (locked posture: truth vs projection)
+
+This posture is locked for Phase 2+ modeling:
+
+- Physics domains publish **truth-only artifacts**: stable, deterministic, engine-agnostic state.
+  - Truth artifacts MUST NOT embed engine ids, adapter objects, or other adapter/engine coupling.
+  - Truth artifacts MAY be tile-indexed and MAY reference `tileIndex` (including in lists like volcano placements).
+  - Physics truth MUST NOT depend on Gameplay `artifact:map.*` or `effect:map.*` as inputs (no backfeeding from projections/stamping into physics).
+- Gameplay owns **projection artifacts** and **stamping**:
+  - Canonical map-facing projection interfaces live under `artifact:map.*` and are Gameplay-owned.
+  - `artifact:map.*` SHOULD publish observability/debug layers that are sensible and potentially useful for future Gameplay reads, even when not stamped to the engine yet.
+    - Examples (non-exhaustive): `artifact:map.plateIdByTile` (computed by Gameplay from Physics truths, ideally via shared projection utilities; not a required mirror of any `artifact:foundation.*` surface), coasts, cliffs (Civ7 cliff crossings; engine-derived after `effect:map.elevationBuilt`), mountains, volcanoes, plates, features, resources, etc.
+  - Projection artifacts MAY be tile-indexed and MAY carry game-facing identifiers, but must remain pure data (no adapter calls).
+- Execution guarantees are modeled as **boolean effects** emitted by the stamping step:
+- “Stamping happened” MUST be represented as `effect:map.<thing><Verb>` with a semantically correct, short, consolidated verb (avoid wordy verbs; no versioning).
+  - `*Plotted` is reserved for stamping/placement (terrain/features/resources/etc.).
+  - `*Built` is reserved for TerrainBuilder build steps (e.g., `buildElevation()` → `effect:map.elevationBuilt`).
+  - Steps are the effect boundary; ops remain data-pure and do not emit/verify effects.
+
+**Example: Physics truth → Gameplay projection → stamping effect**
+- Physics computes and publishes truth (no engine coupling): `artifact:<physicsDomain>.<truth>` (e.g. `artifact:ecology.biomeClassification`).
+- Gameplay projects into the canonical map interface: `artifact:map.<projection>` (e.g. `artifact:map.biomeIdByTile`).
+- A Gameplay stamping/build step reads Physics truth (and optionally `artifact:map.*` surfaces), performs adapter writes/reads, then provides `effect:map.<thing><Verb>` (e.g. `effect:map.biomesPlotted`, `effect:map.elevationBuilt`).
+
+**Shared projection algorithm posture (locked: single home, no per-domain duplicates)**
+- If multiple domains/steps need the same projection algorithm (e.g., mesh→tile sampling, neighbor iteration, tile-space transforms), implement it once in shared/core libraries.
+  - Prefer `packages/mapgen-core/` for core runtime + neutral utilities, and `packages/sdk/` for SDK-facing/shared tooling, per the target packaging specs.
+  - Steps should call shared projection helpers; do not re-implement “the same projection” separately in each domain step.
+
 ### 3) Composition boundaries (hard rules)
 
 - Steps **call** ops; ops **never** call steps.
@@ -126,6 +158,40 @@ Use this as the “current mental model” for refactors:
 - **Recipe compiler**
   - `compileRecipeConfig(...)` in `packages/mapgen-core/src/compiler/recipe-compile.ts`
   - This is where `step.normalize` is invoked and where strict schema normalization happens.
+
+### 3.2) Topology invariants (locked: wrap)
+
+When you define adjacency, bounding boxes, “nearest”, and distance semantics:
+
+- Treat topology as a **cylinder**: `wrapX=true` always (east–west wraps), `wrapY=false` always (north–south does not wrap).
+- Do not introduce environment/config/knobs for wrap, and do not accept wrap flags as op/step inputs; wrap is a modeling invariant, not a contract parameter.
+- Any neighbor iteration / BFS / distance over tiles MUST use the canonical semantics implied by this topology (periodic X, bounded Y).
+
+### 3.3) Single-path posture (no shims / no dual paths)
+
+- Do not model parallel “legacy + new” dependency paths for the same guarantee (e.g. dual effect ids for the same stamping boundary).
+- Do not place adapter/engine logic outside steps; any side effects must be step-owned and surfaced via artifacts/effects, not hidden in helpers.
+
+### 3.4) Maximal boundary posture (Physics vs `artifact:map.*` / `effect:map.*`)
+
+This boundary is **hard** and **non-negotiable**. It exists to prevent drift and to keep the “truth vs projection/materialization” split legible across the entire pipeline.
+
+**Physics domains (truth-only)**
+- Physics steps MUST NOT `require` or consume `artifact:map.*` as inputs.
+- Physics steps MUST NOT `require` or consume `effect:map.*` as inputs.
+- Physics MAY publish tile-indexed truth artifacts when they are part of physics contracts/algorithms. `tileIndex` is allowed; the ban is on **engine/game-facing ids** and on **consuming map-layer artifacts/effects**.
+
+**Gameplay / map layer (projection + materialization lane)**
+- `artifact:map.*` is Gameplay-owned. It is the canonical map-facing projection/annotation layer (including debug/observability layers).
+- “Materialization happened” MUST be represented by boolean effects: `effect:map.<thing><Verb>` (short, stable names; no versioning; semantically correct consolidated verbs).
+- Any step that touches the engine adapter (read or write) is Gameplay-owned and MUST provide the corresponding `effect:map.<thing><Verb>` for what it did.
+- Engine-derived fields posture (example: elevation/cliffs):
+  - If a rule/strategy must match *actual Civ7* engine-derived surfaces (e.g., elevation bands, `GameplayMap.isCliffCrossing`), that rule/strategy is Gameplay/map logic and must run after the relevant effect boundary (e.g., `effect:map.elevationBuilt`).
+  - Physics domains may publish complementary physics signals (slope/roughness/relief), but they must not claim “Civ7 cliffs” as Physics truth.
+
+**Zero-legacy cutover requirement**
+- We are switching to this posture and cutting over end-to-end. Do not plan or implement shims, dual paths, or “temporary compat”.
+- If any existing step currently violates this posture (e.g., a physics stage reads adapter state), the fix is to **reclassify** that step into the Gameplay/materialization lane and adjust dependencies so physics truth remains truth-only.
 
 ### 4) Decision framework (what becomes what)
 
@@ -195,6 +261,23 @@ Steps are **action boundaries**:
 
 Steps are **not** planning units:
 - Planning belongs to ops.
+
+### 8.1) Map projections are first-class (observability + future consumers)
+
+`artifact:map.*` is not “optional extra polish.” If a tile-indexed layer is reasonably useful for understanding, debugging, inspection tooling, or likely Gameplay reads later, it SHOULD exist under `artifact:map.*` as a projection/annotation layer.
+
+Hard rules:
+- Physics never consumes `artifact:map.*`.
+- Do not model `artifact:map.*` as a “direct mirror” of physics truth by contract. It is derived independently in Gameplay projection/materialization steps from physics truth artifacts.
+
+Step granularity posture (avoid over-modeling):
+- Do not introduce a separate “project-*” step purely to publish `artifact:map.*` if the same cohesive step is already responsible for stamping/materialization.
+- Prefer a single `plot-*` / `apply-*` / `build-*` step that:
+  - derives the needed `artifact:map.*` projection/annotation layers, and
+  - performs adapter work, and
+  - provides the matching boolean `effect:map.<thing><Verb>`.
+
+Examples (non-exhaustive): coasts, cliffs (Civ7 cliff crossings; engine-derived after `effect:map.elevationBuilt`), mountains, volcanoes, plates, landmasses, features, resources, region slots/ids, etc.
 - A step named “plan-*” is a modeling smell; rename it to reflect action (e.g., `plot-*`, `apply-*`, `publish-*`).
 
 **Compile-first configuration rule (current architecture)**
@@ -236,6 +319,9 @@ When refactoring a domain:
 - **Step-level planning** (steps encoding domain heuristics).
 - **Strategy misuse** (different I/O shapes under one op).
 - **Rule leakage** (rules exported as public contracts or type sources).
+- **Truth/projection coupling** (Physics truth embedding engine ids/adapter coupling, or Physics requiring `artifact:map.*` / `effect:map.*` as inputs).
+- **Shims / dual paths** (publishing multiple keys for the same guarantee; “just in case” compatibility paths).
+- **Logic outside steps** (adapter/engine calls or effect verification performed anywhere other than a step).
 
 ### 11) Required outputs for the domain inventory
 

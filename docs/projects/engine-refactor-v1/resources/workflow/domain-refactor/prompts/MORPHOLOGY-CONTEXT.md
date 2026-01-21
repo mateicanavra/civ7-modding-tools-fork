@@ -10,7 +10,35 @@ This document is not:
 - The Morphology Phase 0.5/1/2/3 deliverable.
 - A prescriptive algorithm/design spec.
 
-Authoritative workflow + locked decisions live in the domain-refactor workflow docs.
+Authoritative workflow + locked decisions live in the domain-refactor workflow docs and the Morphology Phase 2 canon:
+- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/WORKFLOW.md`
+- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-CORE-MODEL-AND-PIPELINE.md`
+- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-CONTRACTS.md`
+- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-MAP-PROJECTIONS-AND-STAMPING.md`
+
+### 0) Locked Phase 2 posture (non-negotiable; do not reinterpret)
+
+These are hard constraints. If you disagree, stop and escalate in the Phase 3 issue doc — do not “work around” them.
+
+- Topology invariant is locked:
+  - `wrapX = true` always, `wrapY = false` always.
+  - No environment/config/knobs for wrap; wrap flags do not appear in input contracts.
+- Truth vs map boundary is locked:
+  - Physics domains publish truth-only artifacts (pure; engine-agnostic).
+  - Gameplay/map owns `artifact:map.*` projection/annotation layers and adapter stamping.
+  - No backfeeding: Physics MUST NOT consume `artifact:map.*` or `effect:map.*` (even “just for debugging”).
+- Effects are locked:
+  - `effect:map.<thing><Verb>` are boolean execution guarantees.
+  - Convention: `<Verb> = Plotted` (short verbs only).
+  - No receipts/hashes/versioning; effects are not audit logs.
+- Hard ban is locked:
+  - Do not introduce `artifact:map.realized.*`, and do not invent a runtime “map.realized” concept.
+- TerrainBuilder no-drift is locked:
+  - `TerrainBuilder.buildElevation()` produces engine-derived elevation/cliffs; there is no setter.
+- Anything that must match Civ7 elevation bands / cliff crossings belongs in Gameplay after `effect:map.elevationBuilt` and may read engine surfaces.
+  - Physics may publish complementary signals (slope/roughness/relief/etc.) but MUST NOT claim “Civ7 cliffs” as Physics truth.
+- Nuance (explicitly allowed):
+  - Physics truth MAY be tile-indexed and MAY include `tileIndex`. The ban is on engine/game-facing ids and on consuming map-layer projections/effects.
 
 ### 1) What Morphology owns (responsibility framing)
 
@@ -39,7 +67,7 @@ Contract hygiene:
 
 Compat posture:
 - No compat surfaces inside Morphology.
-- If legacy projections exist, they must be downstream and explicitly deprecated with a planned removal slice.
+- If legacy projections exist, they must be migrated and deleted (pipeline-green, no shims/dual paths).
 
 ### 3) Inputs (categories, not commitments)
 

@@ -1,5 +1,10 @@
 # Context Packet: Fixing the Morphology Phase 2 Modeling Spike
 
+> **LEGACY / NOT CANONICAL**
+> This document is historical context used while producing the Phase 2 canonical spec in `plans/morphology/spec/`.
+> If anything here conflicts with the Phase 2 canonical spec, treat `spec/` as authoritative.
+> Canonical tag syntax uses `artifact:<ns>.<name>` and `effect:<ns>.<name>` (not `artifacts.<...>`).
+
 ## Purpose of this packet
 
 This document summarizes:
@@ -84,6 +89,18 @@ No overlays, story masks, or gameplay constraints feed into physics.
 Any engine-facing surfaces (terrain indices, region IDs, tags) are derived downstream.
 
 * Physics domains (including Morphology) must not treat engine tags or projections as authoritative inputs.
+
+This is a generalized boundary (not just a warning about “inputs”):
+
+* **Gameplay owns all projections/indices:** terrain IDs, feature IDs, resource IDs, player IDs, region IDs, plot tags, placements, and any other game-facing index/tag surface are **Gameplay-owned derived artifacts**.
+* **Physics artifacts must be pure truth surfaces:** physics domains must not embed engine IDs or other projection fields inside their truth artifacts as “the truth.” If legacy artifacts currently do this, treat it as migration work into Gameplay’s projection/stamping layer.
+
+Where the engine is actually touched:
+
+* All domains’ core logic is pure-only. Engine stamping (terrain/features/resources/players/tags) happens in **pipeline stages/steps that have access to an engine adapter**, by:
+  1) reading physics truth artifacts,
+  2) invoking Gameplay’s pure projection logic to produce indices/placements,
+  3) stamping via the adapter, then running required postprocess/validation phases.
 
 ### 5) Determinism, knobs-last, no presence-gating
 
@@ -395,7 +412,7 @@ Terrain stamping requirements are not speculative. Agents must inspect Civ7 reso
 * mountain/cliff representation,
 * required TerrainBuilder phases / recalc steps / validations,
 * landmass region semantics,
-* any map topology constraints (explicitly: **no east/west wrap**, and **no non-standard maps** — do not leave wrap as an open question).
+* map topology constraints (explicitly: **east–west wrap is always on**, **north–south wrap is always off**; do not treat wrap flags as optional, configurable, or an open question; also: **no non-standard maps**).
 
 ### Mapgen repo (must consult)
 

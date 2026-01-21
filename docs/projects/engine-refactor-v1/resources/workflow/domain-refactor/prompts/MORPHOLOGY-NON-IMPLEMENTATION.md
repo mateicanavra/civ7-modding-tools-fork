@@ -6,6 +6,11 @@ You are strictly in read-only mode:
 - Do not generate or modify generated artifacts.
 - Your job is analysis, modeling, and planning only.
 
+IMPORTANT CURRENT STATE:
+- For Morphology, Phase 0.5 / Phase 1 / Phase 2 are already complete and the spike material is archived.
+- Do NOT regenerate or “re-run” Phase 0.5–2 deliverables.
+- Your work should begin at Phase 3 (implementation plan + slicing) using the canonical Phase 2 spec trilogy as authority.
+
 CRITICAL: Before starting ANY phase work, open and follow the canonical workflow + templates in-repo.
 Treat the workflow docs as the “shape contract” for each phase deliverable. Do not invent new phase formats.
 
@@ -22,7 +27,20 @@ Required repo docs to read + follow (shared root: docs/projects/engine-refactor-
 - resources/workflow/domain-refactor/references/verification-and-guardrails.md
 - resources/workflow/domain-refactor/references/implementation-traps-and-locked-decisions.md
 
-Canonical domain context (domain-only meaning; not workflow shape):
+Canonical Morphology Phase 2 model (authoritative; do not reinterpret; Phase 2 + Phase 3 anchor):
+- resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-CORE-MODEL-AND-PIPELINE.md
+- resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-CONTRACTS.md
+- resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-MAP-PROJECTIONS-AND-STAMPING.md
+- resources/workflow/domain-refactor/plans/morphology/MORPHOLOGY.md (index)
+
+Historical source material (archived; do not edit; read only if you need historical context):
+- resources/workflow/domain-refactor/plans/morphology/_archive/v3/spike-morphology-greenfield-gpt.md
+- resources/workflow/domain-refactor/plans/morphology/_archive/v3/spike-morphology-current-state-gpt.md
+- resources/workflow/domain-refactor/plans/morphology/_archive/v3/spike-morphology-modeling-gpt.md
+- resources/workflow/domain-refactor/plans/morphology/_archive/v3/spike-morphology-modeling-gpt-addendum-full.md
+- resources/workflow/domain-refactor/plans/morphology/_archive/v3/spike-morphology-modeling-gpt-addendum-braided-map-projection-draft.md
+
+Legacy background context (may be outdated vs the current architecture; use only for historical meaning):
 - docs/system/libs/mapgen/morphology.md
 
 Morphology prior art / existing bones (IMPORTANT posture):
@@ -33,9 +51,6 @@ Morphology prior art / existing bones (IMPORTANT posture):
 - If a prior-art file has the same name/path as a required deliverable, your output MUST overwrite/supersede it.
 - Prior art locations:
   - resources/workflow/domain-refactor/plans/morphology/MORPHOLOGY.md
-  - resources/workflow/domain-refactor/plans/morphology/spike-morphology-greenfield.md
-  - resources/workflow/domain-refactor/plans/morphology/spike-morphology-current-state.md
-  - resources/workflow/domain-refactor/plans/morphology/spike-morphology-modeling.md
   - resources/workflow/domain-refactor/plans/morphology/_archive/v1/MORPHOLOGY.md
   - resources/workflow/domain-refactor/plans/morphology/_archive/v1/spike-morphology-current-state.md
   - resources/workflow/domain-refactor/plans/morphology/_archive/v1/spike-morphology-modeling.md
@@ -54,9 +69,9 @@ MILESTONE:
 - All Phase 3 issues must use `issues/LOCAL-TBD-<milestone>-morphology-*.md`.
 
 Canonical artifacts you must produce (ALL live under the Morphology domain plan directory; no top-level spike dir):
-- resources/workflow/domain-refactor/plans/morphology/spike-morphology-greenfield.md
-- resources/workflow/domain-refactor/plans/morphology/spike-morphology-current-state.md
-- resources/workflow/domain-refactor/plans/morphology/spike-morphology-modeling.md
+- resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-CORE-MODEL-AND-PIPELINE.md
+- resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-CONTRACTS.md
+- resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-MAP-PROJECTIONS-AND-STAMPING.md
 - docs/projects/engine-refactor-v1/issues/LOCAL-TBD-<milestone>-morphology-*.md
 - docs/projects/engine-refactor-v1/triage.md
 
@@ -141,6 +156,28 @@ Hard ban: narrative/story overlays (legacy concept).
 Hard rule: engine/projection truth is derived-only (never an input).
 - Engine-facing projections (terrain indices, adjacency masks, engine tags) must be derived from Morphology outputs.
 - Morphology must not read engine-projected surfaces back in as “truth” (this inverts the contract and poisons downstream correctness).
+- Projections/indices are Gameplay-owned derived artifacts:
+  - Terrain IDs, feature IDs, resource IDs, player IDs, region IDs, plot tags, placements, and other game-facing indices belong to Gameplay (projection policy), not to Morphology (physics truth).
+  - Physics domains must not embed engine IDs or adapter coupling inside physics truth artifacts as “the truth.” Tile indexing (`tileIndex`) is allowed in truth artifacts; the prohibition is on engine/game-facing ids and on consuming map-layer projections/materialization:
+    - Physics steps MUST NOT `require`/consume `artifact:map.*`.
+    - Physics steps MUST NOT `require`/consume `effect:map.*`.
+- Canonical map projection surfaces and stamping guarantees:
+  - Projection artifacts are `artifact:map.*` (Gameplay-owned).
+  - Stamping completion is represented by boolean effects like `effect:map.<thing><Verb>` (e.g., `effect:map.mountainsPlotted`), emitted by the stamping step.
+    - Convention: `<Verb> = Plotted` (short verbs only).
+    - Hard ban: no receipts/hashes/versions; the effect is boolean only.
+  - Hard ban: no `artifact:map.realized.*` namespace, and do not invent a runtime “map.realized” concept.
+    - Observability/debug layers belong under explicit `artifact:map.*` names (Gameplay-owned), not a “realized snapshot” namespace.
+  - TerrainBuilder no-drift (do not re-open):
+    - `TerrainBuilder.buildElevation()` produces engine-derived elevation/cliffs; there is no setter.
+    - Any decision that must match *actual Civ7* elevation bands / cliff crossings belongs in Gameplay/map logic after `effect:map.elevationBuilt` and may read engine surfaces.
+    - Physics may publish complementary signals (slope/roughness/relief/etc.) but MUST NOT claim “Civ7 cliffs” as Physics truth.
+- Engine writes (“stamping”) happen only in steps with an engine adapter:
+  - Core domain logic is pure-only; recipe stages/steps invoke physics ops to compute truths, invoke Gameplay ops to project truths into indices, then stamp via the adapter.
+
+Topology lock (non-negotiable invariant):
+- Civ7 maps are a cylinder: `wrapX = true` always; `wrapY = false` always.
+- There is no environment/config/knob that can change wrap behavior; wrap flags must not appear as input contract fields.
 
 Hard ban: presence / compare-to-default gating for knobs/config.
 - Knobs + advanced config must compose as a single locked contract (knobs apply last as transforms).
@@ -154,11 +191,10 @@ Hard ban: hidden multipliers/constants/defaults.
 
 Hard ban: placeholders / dead bags.
 - No placeholder directories/modules/bags.
-- Phase 3 must explicitly plan removal of all temporary shims/compat introduced during implementation.
+- No shims or compat layers are allowed as a refactor technique. If a consumer blocks deletion, the slice must include the migration and the deletion (pipeline-green, no dual paths).
 
 Compat posture (non-negotiable invariant):
-- Compat is forbidden inside the refactored Morphology domain.
-- Compat may exist ONLY downstream as explicitly deprecated shims with removal triggers and a planned deletion slice.
+- Compat is forbidden as a design pattern (inside or outside the refactored domain). Do not introduce “temporary” shims that survive beyond the slice.
 
 Determinism & purity posture (contract expectation; keep details in workflow refs):
 - Prefer passing determinism inputs across boundaries as data (seeds/inputs), not as runtime RNG objects/functions.
@@ -240,6 +276,22 @@ Phase 2 — Modeling spike (model-first; must iterate twice; no slice plan):
 Phase 3 — Implementation plan + slice plan (no model content):
 - Produce an executable issue document (the handoff) under:
   - docs/projects/engine-refactor-v1/issues/LOCAL-TBD-<milestone>-morphology-*.md
+- Ground yourself before writing the plan (required):
+  - Re-read the canonical Morphology Phase 2 spec trilogy and treat it as authority (do not reinterpret):
+    - resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-CORE-MODEL-AND-PIPELINE.md
+    - resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-CONTRACTS.md
+    - resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-MAP-PROJECTIONS-AND-STAMPING.md
+    - resources/workflow/domain-refactor/plans/morphology/MORPHOLOGY.md (index)
+  - Re-read the Phase 3 workflow template and treat it as the “issue shape contract”:
+    - resources/workflow/domain-refactor/references/phase-3-implementation-plan.md
+  - Re-check the global refactor locks and implementation traps you must enforce in the slice plan:
+    - resources/workflow/domain-refactor/references/implementation-traps-and-locked-decisions.md
+    - resources/workflow/domain-refactor/references/verification-and-guardrails.md
+  - Use the canonical domain-modeling guideline doc to keep step/op/stage granularity correct:
+    - resources/spec/SPEC-DOMAIN-MODELING-GUIDELINES.md
+  - Use the domain-refactor examples to stay aligned on “truth vs map projection/materialization” and TerrainBuilder “no drift” posture:
+    - resources/workflow/domain-refactor/examples/VOLCANO.md
+    - resources/workflow/domain-refactor/examples/ELEVATION_AND_CLIFFS.md
 - The issue must include:
   - locked decisions/bans with guardrails
   - config semantics references (Phase 2 table + default/empty/determinism policies)

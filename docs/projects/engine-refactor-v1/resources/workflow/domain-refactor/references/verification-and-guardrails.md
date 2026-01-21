@@ -16,15 +16,25 @@ Run it from repo root:
 
 Hard rule:
 - Always set `REFRACTOR_DOMAINS` to the domain(s) you refactored in this change.
+  - Default run profile is boundary-only (fast, pre-commit safe).
+  - Use `DOMAIN_REFACTOR_GUARDRAILS_PROFILE=full` only when you explicitly want the stricter checks.
 
 Import guardrails (lint-enforced):
 - `rules/**` must not import `../contract.js` (type-only or runtime).
 - `rules/**` must not export or re-export types; shared op types live in `types.ts`.
 - When using TypeBox in examples/tests, import `Type`/`Static` from `@swooper/mapgen-core/authoring`.
 
+Truth vs map boundary guardrails (lint-enforced):
+- Physics ops and Physics step/stage contracts MUST NOT reference or consume `artifact:map.*` / `effect:map.*`.
+  - Physics truth MAY be tile-indexed (including `tileIndex`). The ban is on engine/game-facing ids, adapter coupling, and consuming map-layer projections/materialization.
+- Gameplay/map steps own projections + materialization:
+  - `artifact:map.*` is Gameplay-owned.
+  - Adapter writes must provide `effect:map.<thing><Verb>` after the adapter write completes (semantic short verbs; e.g., `effect:map.mountainsPlotted`, `effect:map.elevationBuilt`).
+
 To run guardrails for the domain(s) you touched:
 ```bash
 REFRACTOR_DOMAINS="ecology,foundation" ./scripts/lint/lint-domain-refactor-guardrails.sh
+REFRACTOR_DOMAINS="ecology,foundation" DOMAIN_REFACTOR_GUARDRAILS_PROFILE=full ./scripts/lint/lint-domain-refactor-guardrails.sh
 ```
 
 ## Documentation (required)
@@ -69,7 +79,7 @@ If the subissue affects artifact contracts across steps, add one minimal pipelin
 After migrating a callsite to ops + step modules:
 - remove the old entrypoints for the extracted logic (no “compat exports”),
 - remove dead helpers, adapters, translators, and unused exports.
-- remove any remaining compat/projection surfaces inside this domain; if downstream needs transitional compatibility, it must be implemented downstream and explicitly marked as deprecated.
+- remove any remaining compat/projection surfaces inside this domain; do not introduce compatibility shims as a refactor technique—migrate and delete in-slice.
 - remove placeholders / dead bags: empty directories, placeholder modules, empty config bags/schemas, and any “future scaffolding” that is not actively used in the refactor.
 - remove hidden behavior: do not leave unnamed multipliers/thresholds/defaults in compile/normalize/run paths. Any behavior-shaping constant must be either explicit config/knobs or a named internal constant with explicit intent (and reflected in docs/tests where it affects semantics).
 
@@ -99,7 +109,7 @@ After the domain refactor lands:
 - remove duplicate map entrypoint wiring that is now redundant,
 - remove obsolete exports/re-exports that bypass the op boundary,
 - remove stale docs references and update any canonical docs that named legacy structures.
-- if any downstream deprecated shims were added, add a cleanup item in `docs/projects/engine-refactor-v1/triage.md`, or open a dedicated downstream issue if the next domain can remove them safely (link the issue from triage).
+- do not leave behind “temporary” deprecated shims; if a shim exists, it is a bug in the slice plan and must be removed by redesigning the slice to migrate and delete.
 - confirm there are no placeholder directories/modules or dead config bags/schemas remaining in refactor scope (placeholders/dead bags are not deferrable).
 - confirm there are no unnamed behavior-shaping multipliers/thresholds/defaults remaining in compile/normalize/run paths; convert them to config/knobs or named constants with explicit intent.
 

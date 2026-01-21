@@ -16,12 +16,12 @@ The Phase 3 Gameplay issue doc is the authoritative tracker for:
 Execution posture:
 - One Graphite branch/PR per slice (or explicit subissue you carve out inside a slice).
 - Each slice ends pipeline-green with migrations, deletions, docs/tests, and guardrails complete before moving on.
-- No dual paths within scope. If a temporary shim/adapter is truly required to keep the pipeline green, it must be explicitly planned, explicitly deprecated, and explicitly removed on schedule (tracked in the Phase 3 issue).
+- No dual paths within scope. No shims/compat layers are allowed as a refactor technique; redesign the slice to migrate and delete instead.
 
 Non-negotiable invariants (drift prevention):
 - Model-first: the canonical model is the source of truth even if artifacts/projections change.
 - No compat inside Gameplay: Gameplay must not publish or retain legacy compat/projection surfaces.
-  If transitional compatibility is required, it must live downstream, be explicitly deprecated, and be tracked for removal.
+  Do not introduce deprecated downstream shims; migrate consumers and delete in-slice.
 - Narrative overlays are forbidden in this refactor phase: remove story/narrative/overlay surfaces entirely. Replace any load-bearing ones with canonical, domain-anchored contracts and migrate consumers.
 - Ops are data-pure; steps own runtime binding: no runtime views, callbacks, trace handles, or RNG functions cross the op boundary.
 - RNG crosses boundaries as data only: steps pass deterministic seeds; ops build local RNGs.
@@ -83,4 +83,3 @@ Gameplay evidence / context:
 Paths (Civ7 official resources; engine interop constraints only)
 - .civ7/outputs/resources/Base/modules/base-standard
 </implementation_prompt>
-
