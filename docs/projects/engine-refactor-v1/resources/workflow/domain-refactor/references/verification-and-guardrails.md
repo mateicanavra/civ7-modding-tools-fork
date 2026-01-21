@@ -29,7 +29,7 @@ Truth vs map boundary guardrails (lint-enforced):
   - Physics truth MAY be tile-indexed (including `tileIndex`). The ban is on engine/game-facing ids, adapter coupling, and consuming map-layer projections/materialization.
 - Gameplay/map steps own projections + materialization:
   - `artifact:map.*` is Gameplay-owned.
-  - Adapter writes must provide `effect:map.<thing>Plotted` after the adapter write completes.
+  - Adapter writes must provide `effect:map.<thing><Verb>` after the adapter write completes (semantic short verbs; e.g., `effect:map.mountainsPlotted`, `effect:map.elevationBuilt`).
 
 To run guardrails for the domain(s) you touched:
 ```bash

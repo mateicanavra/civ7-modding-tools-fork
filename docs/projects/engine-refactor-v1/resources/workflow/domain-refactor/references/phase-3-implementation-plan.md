@@ -82,19 +82,19 @@ Hard requirements:
 - Physics steps MUST NOT `require`/consume `effect:map.*` as inputs.
 - Physics truth MAY be tile-indexed and MAY include `tileIndex`; the ban is on engine/game-facing ids, adapter coupling, and consuming map-layer projections/materialization.
 - `artifact:map.*` is Gameplay-owned and exists for projection/annotation/observability and future gameplay reads.
-- Hard ban: do not introduce any `artifact:map.realized.*` namespace. Use `effect:map.*` for execution guarantees; use narrowly scoped `artifact:map.*` observation layers only when needed (e.g., engine-derived elevation/cliff masks after `effect:map.elevationPlotted`).
-- Adapter/engine reads/writes happen only in Gameplay-owned steps and must provide the corresponding `effect:map.<thing>Plotted`.
+- Hard ban: do not introduce any `artifact:map.realized.*` namespace. Use `effect:map.*` for execution guarantees; use narrowly scoped `artifact:map.*` observation layers only when needed (e.g., engine-derived elevation/cliff masks after `effect:map.elevationBuilt`).
+- Adapter/engine reads/writes happen only in Gameplay-owned steps and must provide the corresponding `effect:map.<thing><Verb>` (use a semantically correct, short, consolidated verb; e.g. `effect:map.mountainsPlotted`, `effect:map.elevationBuilt`).
 - Any existing engine-coupled work currently living in “physics stages” must be reclassified into the Gameplay/materialization lane as part of the cutover (even if braided in the same phase ordering).
 
 Additional hard requirement (TerrainBuilder / engine-derived fields):
-- Any use of engine-derived elevation/cliffs (`TerrainBuilder.buildElevation()`; `GameplayMap.getElevation(...)`; `GameplayMap.isCliffCrossing(...)`) MUST be confined to Gameplay `plot-*` steps and gated by `effect:map.elevationPlotted`.
+- Any use of engine-derived elevation/cliffs (`TerrainBuilder.buildElevation()`; `GameplayMap.getElevation(...)`; `GameplayMap.isCliffCrossing(...)`) MUST be confined to Gameplay steps (build/plot) and gated by `effect:map.elevationBuilt`.
 - Phase 3 must delete all Physics-stage “engine sync” patterns (example: `syncHeightfield(...)`) and any Physics-step reads from the adapter/engine surfaces. Physics must consume Physics truth artifacts only.
-- Closure rule (avoid “two truths” bugs): if a rule/strategy needs the *actual Civ7* elevation bands or cliff crossings to be correct, that rule/strategy is Gameplay/map logic and must run after `plot-elevation` (never inside Physics).
+- Closure rule (avoid “two truths” bugs): if a rule/strategy needs the *actual Civ7* elevation bands or cliff crossings to be correct, that rule/strategy is Gameplay/map logic and must run after `build-elevation` (never inside Physics).
 - Gameplay plotting/stamping steps MAY (and often should) combine:
   - Physics truths + complementary Physics signals (e.g., slope/roughness/plateau-ness), and
-  - engine-derived elevation/cliffs after `effect:map.elevationPlotted`,
+  - engine-derived elevation/cliffs after `effect:map.elevationBuilt`,
   to ensure downstream decisions match the stamped map without backfeeding engine state into Physics truth.
-- Ordering guardrail (no implicit re-plots): Phase 3 must structure the pipeline so all elevation-affecting terrain/feature writes occur before `plot-elevation`. After `effect:map.elevationPlotted`, steps must not perform terrain edits that would require re-running `buildElevation()` to remain correct.
+- Ordering guardrail (no implicit re-builds): Phase 3 must structure the pipeline so all elevation-affecting terrain/feature writes occur before `build-elevation`. After `effect:map.elevationBuilt`, steps must not perform terrain edits that would require re-running `buildElevation()` to remain correct.
 
 Non-negotiable:
 - No shims. No compat layers. No “we’ll delete it later”. If the pipeline cannot be kept green without a shim, the slice design is wrong and must be redesigned.

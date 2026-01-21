@@ -61,9 +61,9 @@ Non-negotiable locks:
 - **Topology invariant:** Civ7 is `wrapX=true`, `wrapY=false` always. No env/config/knob for wrap; wrap flags must not appear in op/step/artifact contracts.
 - **Boundary:** Physics domains publish truth-only artifacts (pure). Gameplay owns `artifact:map.*` projections/annotations and all adapter stamping/materialization.
 - **No backfeeding:** Physics steps MUST NOT `require`/consume `artifact:map.*` or `effect:map.*`.
-- **Effects are boolean:** `effect:map.<thing><Verb>` (default `*Plotted`; short verbs only; no receipts/hashes/versions).
+- **Effects are boolean:** `effect:map.<thing><Verb>` (use a semantically correct verb; keep verbs short and consolidated; no receipts/hashes/versions).
 - **Hard ban:** no `artifact:map.realized.*` namespace anywhere.
-- **TerrainBuilder no-drift:** Civ7 elevation/cliffs come from `TerrainBuilder.buildElevation()` and cannot be set directly. Any cliff/elevation-band-correct decisions belong in Gameplay after `effect:map.elevationPlotted`.
+- **TerrainBuilder no-drift:** Civ7 elevation/cliffs come from `TerrainBuilder.buildElevation()` and cannot be set directly. Any cliff/elevation-band-correct decisions belong in Gameplay after `effect:map.elevationBuilt`.
 - **Effect honesty via freeze:** any published `artifact:map.*` intent consumed by stamping must be publish-once/frozen before stamping begins; assert the `effect:map.*` only after successful adapter writes.
 
 ### Maximal boundary posture (truth vs map projection/materialization)
@@ -76,7 +76,7 @@ This is a hard, repo-wide modeling and implementation posture for domain refacto
   - Physics steps MUST NOT `require`/consume `effect:map.*`.
 - Gameplay/map layer owns projections + materialization:
   - `artifact:map.*` is the canonical map-facing projection/annotation layer (including observability/debug layers).
-  - Adapter/engine reads and writes happen only in Gameplay-owned steps and must provide `effect:map.<thing>Plotted`.
+  - Adapter/engine reads and writes happen only in Gameplay-owned steps and must provide `effect:map.<thing><Verb>` (e.g., `effect:map.mountainsPlotted`, `effect:map.elevationBuilt`).
   - Hard ban: do not introduce `artifact:map.realized.*` (use effects for execution guarantees; use narrowly scoped `artifact:map.*` observation layers only when needed).
 
 Cutover posture:

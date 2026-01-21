@@ -891,7 +891,7 @@ One known consumer adaptation: **map scripts themselves**. In Civ7, map generati
 No downstream domain needs to "fix" problems caused by Morphology because we aim to not create such problems (like crazy terrain requiring fix). We explicitly banned that kind of thing. Downstream just needs to change where they get their info.
 
 One required documentation update (to prevent drift in agent work): the tag registry/spec docs must be updated to reflect the canonical surfaces locked here:
-- `docs/projects/engine-refactor-v1/resources/spec/SPEC-tag-registry.md` should remove Narrative/Placement-era tags and add/align `artifact:map.*` + `effect:map.<thing>Plotted` as the canonical projection/stamping surfaces.
+- `docs/projects/engine-refactor-v1/resources/spec/SPEC-tag-registry.md` should remove Narrative/Placement-era tags and add/align `artifact:map.*` + `effect:map.<thing><Verb>` as the canonical projection/stamping surfaces (semantic short verbs; e.g., `*Plotted` for stamping/placement, `*Built` for TerrainBuilder build steps like elevation).
 
 ## 16) Architecture alignment notes
 

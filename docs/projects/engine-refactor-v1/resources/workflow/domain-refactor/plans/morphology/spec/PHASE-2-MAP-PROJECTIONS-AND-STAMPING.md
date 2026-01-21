@@ -8,7 +8,7 @@ Rules:
 
 This file owns:
 - `artifact:map.*` projection artifacts (Gameplay-owned; map surfaces).
-- `effect:map.*<Verb>` execution guarantees (Gameplay-owned; boolean; `*Plotted` is the default convention).
+- `effect:map.*<Verb>` execution guarantees (Gameplay-owned; boolean; semantic short verbs; no receipts/hashes/versions).
 - Civ7 stamping/materialization modeling (engine calls + ordering constraints), with evidence pointers.
 
 This file does not own:
@@ -36,9 +36,10 @@ This file does not own:
   - the canonical derived tile view `artifact:foundation.plates` (see `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-CONTRACTS.md`).
 - Duplicating `artifact:foundation.plates` under `artifact:map.*` is allowed only when Gameplay needs a distinct freeze/reshaping boundary. Default: Gameplay reads the physics artifact directly for annotation/logic.
 - “Stamping happened” is represented only by short boolean effects: `effect:map.<thing><Verb>` (no receipts/hashes/versions).
-  - Convention: `<Verb> = Plotted` (e.g., `effect:map.mountainsPlotted`, `effect:map.volcanoesPlotted`, `effect:map.elevationPlotted`).
-  - If a different short verb is structurally clearer (e.g., `Built`), it is allowed — but avoid wordy names and avoid proliferating verbs without need.
-- Granular step posture: “project-map”/“stamp-map” are template terms only; real step boundaries are `plot-*` steps that assert their `effect:map.*Plotted`.
+  - Verb posture: use a semantically correct, short, consolidated verb; avoid proliferating verbs without need.
+    - `*Plotted` is reserved for stamping/placement (terrain/features/resources/etc.).
+    - `*Built` is reserved for TerrainBuilder build steps (e.g., `buildElevation()` → `effect:map.elevationBuilt`).
+- Granular step posture: “project-map”/“stamp-map” are template terms only; real step boundaries are granular Gameplay steps (e.g., `plot-*`, `build-*`) that assert the matching `effect:map.<thing><Verb>`.
 
 ---
 
@@ -48,7 +49,7 @@ This file does not own:
 
 `artifact:map.*` is the Gameplay-owned, stable map-surface interface. It includes:
 - projection/annotation intent derived deterministically from frozen physics truths (and Gameplay configs), adapter-agnostic where possible (names/slots/keys, not engine numeric IDs), and
-- (when needed) engine-derived observation layers produced after an explicit `effect:map.*` boundary (e.g., elevation/cliff surfaces after `effect:map.elevationPlotted`) for downstream Gameplay decisions and debugging.
+- (when needed) engine-derived observation layers produced after an explicit `effect:map.*` boundary (e.g., elevation/cliff surfaces after `effect:map.elevationBuilt`) for downstream Gameplay decisions and debugging.
 Ban:
 - Do not introduce any `artifact:map.realized.*` namespace. Execution guarantees are effects, and any needed engine-derived observations belong under clearly named `artifact:map.*` layers (e.g., `artifact:map.engineElevationByTile`), not a second “realized snapshot” layer.
 
@@ -56,13 +57,13 @@ Rationale:
 - Prevent engine coupling from leaking into physics truth.
 - Keep effects honest: a boolean “Plotted” effect is safe only if the corresponding intent cannot mutate after stamping begins.
 
-### 2.2 `effect:map.*Plotted` is execution (adapter/engine side effects)
+### 2.2 `effect:map.*<Verb>` is execution (adapter/engine side effects)
 
-A `plot-*` step:
+A Gameplay execution step (e.g., `plot-*` or `build-*`) typically:
 - reads physics truth (read-only),
 - computes the required projection intent deterministically (publishing `artifact:map.*` only when it is a downstream contract surface),
 - performs adapter writes (engine stamping/materialization),
-- then asserts `effect:map.<thing>Plotted` to signal “this intent has been applied”.
+- then asserts `effect:map.<thing><Verb>` to signal “this work has happened”.
 
 ---
 
@@ -133,7 +134,7 @@ Constraint (truth preservation; no hidden backfeeding):
   - Meaning: coastline expansion has been invoked (`expandCoasts(width,height)`), and the runtime map state required by subsequent steps has been synchronized (if the recipe maintains local copies like `heightfield.landMask/terrain`).
 - `effect:map.continentsPlotted`
   - Meaning: continent stamping has been executed (`stampContinents()`), with required `AreaBuilder.recalculateAreas()` ordering.
-- `effect:map.elevationPlotted`
+- `effect:map.elevationBuilt`
   - Meaning: elevation build has been executed (`buildElevation()`), with required `AreaBuilder.recalculateAreas()` ordering.
 - `effect:map.mountainsPlotted`
   - Meaning: mountain/hill terrain has been applied for all tiles in the step’s declared scope (via per-tile `setTerrainType(x,y,...)` / `adapter.setTerrainType`), and any required immediate engine validation has been performed.
@@ -261,30 +262,30 @@ Verified (engine/adapters in this repo):
   - Evidence: `mods/mod-swooper-maps/src/recipes/standard/stages/morphology-pre/steps/landmassPlates.ts`.
 - Phase 2 contract: `plot-continents` MUST include `recalculateAreas()` immediately before `stampContinents()`.
 
-#### Elevation build (`effect:map.elevationPlotted`)
+#### Elevation build (`effect:map.elevationBuilt`)
 
 - Verified (repo ordering): `recalculateAreas()` → `buildElevation()` → `recalculateAreas()` → `stampContinents()`.
   - Evidence: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-baseline/steps/climateBaseline.ts`.
 - Verified (base-standard posture): Civ7 scripts call `TerrainBuilder.buildElevation()` once, then read `GameplayMap.getElevation(...)` and `GameplayMap.isCliffCrossing(...)` to drive additional terrain decisions (e.g., hill placement).
   - Evidence: `.civ7/outputs/resources/Base/modules/base-standard/maps/terra-incognita.js` and `.civ7/outputs/resources/Base/modules/base-standard/maps/elevation-terrain-generator.js`.
 - Phase 2 contract:
-  - `buildElevation()` produces an engine-derived elevation/cliff field and MUST be represented as a first-class `plot-*` effect boundary (never as an implicit side-effect).
+  - `buildElevation()` produces an engine-derived elevation/cliff field and MUST be represented as a first-class `build-*` effect boundary (never as an implicit side-effect).
   - Engine-derived elevation/cliffs are Gameplay/map state only:
-    - allowed consumers: Gameplay `plot-*` steps that run after `effect:map.elevationPlotted`,
+    - allowed consumers: Gameplay steps that run after `effect:map.elevationBuilt` (typically `plot-*` stamping steps),
     - forbidden consumers: all Physics domain steps (no backfeeding via engine reads).
-  - Any existing use of `buildElevation()` + engine readback (`GameplayMap.getElevation(...)`, `GameplayMap.isCliffCrossing(...)`, `syncHeightfield(...)`) inside Physics stages is legacy wiring that Phase 3 must delete or re-home into `plot-elevation` and other Gameplay `plot-*` steps (pipeline-green; no shims).
+  - Any existing use of `buildElevation()` + engine readback (`GameplayMap.getElevation(...)`, `GameplayMap.isCliffCrossing(...)`, `syncHeightfield(...)`) inside Physics stages is legacy wiring that Phase 3 must delete or re-home into `build-elevation` and other Gameplay steps (pipeline-green; no shims).
   - “No drift” closure:
     - Physics does not define “cliffs” as a canonical truth artifact. Civ7 cliffs are an engine-derived, adjacency-level property exposed as `GameplayMap.isCliffCrossing(...)`.
-    - If a decision must match the actual Civ7 cliff layout (e.g., any rule that queries `isCliffCrossing` or uses engine elevation bands), that decision belongs in Gameplay/map `plot-*` steps that run **after** `effect:map.elevationPlotted`, and it must read the engine-derived surfaces directly (or via `artifact:map.*` projections produced after the effect).
+    - If a decision must match the actual Civ7 cliff layout (e.g., any rule that queries `isCliffCrossing` or uses engine elevation bands), that decision belongs in Gameplay/map `plot-*` steps that run **after** `effect:map.elevationBuilt`, and it must read the engine-derived surfaces directly (or via `artifact:map.*` projections produced after the effect).
     - Physics domains may compute cliff-like *physics signals* (slope/roughness/relief, plateau-ness, escarpment likelihood) from Physics elevation for physics processes, but those signals must not be treated as “the Civ7 cliffs”.
   - “No drift” concretely means:
-    - If a downstream decision must be correct against the *actual stamped map* (e.g., “avoid cliffs when stamping biome X”, “place feature only on elevation band Y”, “prefer a pass where there is no cliff crossing”), it is a Gameplay decision that consumes engine-derived surfaces after `effect:map.elevationPlotted`.
+    - If a downstream decision must be correct against the *actual stamped map* (e.g., “avoid cliffs when stamping biome X”, “place feature only on elevation band Y”, “prefer a pass where there is no cliff crossing”), it is a Gameplay decision that consumes engine-derived surfaces after `effect:map.elevationBuilt`.
     - If a downstream decision only needs physical plausibility (not exact Civ7 cliff layout), it should use Physics truth/signal fields and must not call engine queries.
     - Avoid the bug class “Physics proxy says cliff here, but Civ7 stamped cliff elsewhere” by never using Physics proxies for decisions that require Civ7 cliff correctness.
 
-##### Optional `artifact:map.*` observations derived from `plot-elevation`
+##### Optional `artifact:map.*` observations derived from `build-elevation`
 
-If downstream Gameplay steps need stable, testable access without re-querying the engine repeatedly, `plot-elevation` MAY publish:
+If downstream Gameplay steps need stable, testable access without re-querying the engine repeatedly, `build-elevation` MAY publish:
 - `artifact:map.engineElevationByTile` (allowed; derived-only)
   - Per-tile numeric values equal to `GameplayMap.getElevation(x,y)` captured immediately after `adapter.buildElevation()`.
 - `artifact:map.cliffCrossingMaskByTile` (allowed; derived-only)
@@ -330,12 +331,12 @@ This table is the contract-facing mapping Phase 2 expects downstream authors to 
 - each row defines an effect boundary and its allowed Physics truth inputs,
 - Physics steps must never `require`/consume any of these `effect:map.*` guarantees.
 
-| `plot-*` step (canonical) | Provides | Allowed Physics truth reads | Publishes `artifact:map.*` surfaces | Adapter writes / required engine calls |
+| Gameplay execution step (canonical) | Provides | Allowed Physics truth reads | Publishes `artifact:map.*` surfaces | Adapter writes / required engine calls |
 |---|---|---|---|---|
 | `plot-landmass-regions` | `effect:map.landmassRegionsPlotted` | `artifact:morphology.landmasses`, `artifact:morphology.topography.landMask` | `artifact:map.projectionMeta`, `artifact:map.landmassRegionSlotByTile` (and optionally the derived-only debug view `artifact:map.landmassRegionIdByTile`) | `adapter.setLandmassRegionId(x,y, ...)` using `adapter.getLandmassId("WEST"|"EAST"|"NONE")` only |
 | `plot-coasts` | `effect:map.coastsPlotted` | `artifact:morphology.topography.landMask` (validation/guardrail only) | — | `adapter.expandCoasts(width,height)` + required sync of any runtime-local buffers before asserting the effect |
 | `plot-continents` | `effect:map.continentsPlotted` | — | — | `adapter.validateAndFixTerrain()` → `adapter.recalculateAreas()` → `adapter.stampContinents()` |
-| `plot-elevation` | `effect:map.elevationPlotted` | — | — (optional: `artifact:map.engineElevationByTile`, `artifact:map.cliffCrossingMaskByTile`) | `adapter.recalculateAreas()` → `adapter.buildElevation()` → `adapter.recalculateAreas()` → `adapter.stampContinents()` |
+| `build-elevation` | `effect:map.elevationBuilt` | — | — (optional: `artifact:map.engineElevationByTile`, `artifact:map.cliffCrossingMaskByTile`) | `adapter.recalculateAreas()` → `adapter.buildElevation()` → `adapter.recalculateAreas()` → `adapter.stampContinents()` |
 | `plot-mountains` | `effect:map.mountainsPlotted` | `artifact:morphology.topography` (elevation/landMask), `artifact:foundation.plates` (boundary context) | — | per-tile terrain writes (e.g., `adapter.setTerrainType(x,y,...)`) + required immediate validation (if used by the runtime) |
 | `plot-volcanoes` | `effect:map.volcanoesPlotted` | `artifact:morphology.volcanoes`, `artifact:morphology.topography.landMask` (land-only invariant), `artifact:foundation.plates` (context) | — | per-tile feature writes (e.g., `adapter.setFeatureType(x,y, FeatureData)`) and any required companion terrain writes + required immediate validation (if used by the runtime) |
 | `plot-rivers` | `effect:map.riversPlotted` | `artifact:hydrology.hydrography` | — | `adapter.modelRivers(...)` → `adapter.validateAndFixTerrain()` → `adapter.defineNamedRivers()` (+ required sync of any internal caches before asserting the effect) |

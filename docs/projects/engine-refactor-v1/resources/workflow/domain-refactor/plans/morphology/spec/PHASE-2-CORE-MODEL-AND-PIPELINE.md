@@ -51,11 +51,13 @@ Evidence pointers:
 
 - Stamping/materialization completion is represented only by short boolean effect tags:
   - `effect:map.<thing><Verb>` with a short verb (examples: `effect:map.mountainsPlotted`, `effect:map.volcanoesPlotted`).
-  - Convention: `<Verb> = Plotted` (avoid wordy verbs; no receipts/hashes/versions).
-- “project-map” / “stamp-map” are template terms; Phase 2 uses granular `plot-*` steps that provide the above effects.
+  - Verb posture: use a semantically correct, short, consolidated verb (avoid wordy verbs; no receipts/hashes/versions).
+    - `*Plotted` is reserved for stamping/placement (terrain/features/resources/etc.).
+    - `*Built` is reserved for TerrainBuilder build steps (e.g. `buildElevation()` → `effect:map.elevationBuilt`).
+- “project-map” / “stamp-map” are template terms; Phase 2 uses granular Gameplay steps (e.g., `plot-*`, `build-*`) that provide the above effects.
 - Engine-derived surfaces posture (closure-grade):
-  - Civ7 elevation/cliffs are engine-derived after the `plot-elevation` boundary (`effect:map.elevationPlotted`).
-  - Any decision that must match *actual Civ7* elevation bands or cliff crossings belongs in Gameplay/map logic after `effect:map.elevationPlotted` (never in Physics). See `spec/PHASE-2-MAP-PROJECTIONS-AND-STAMPING.md`.
+  - Civ7 elevation/cliffs are engine-derived after the `build-elevation` boundary (`effect:map.elevationBuilt`).
+  - Any decision that must match *actual Civ7* elevation bands or cliff crossings belongs in Gameplay/map logic after `effect:map.elevationBuilt` (never in Physics). See `spec/PHASE-2-MAP-PROJECTIONS-AND-STAMPING.md`.
 
 ---
 

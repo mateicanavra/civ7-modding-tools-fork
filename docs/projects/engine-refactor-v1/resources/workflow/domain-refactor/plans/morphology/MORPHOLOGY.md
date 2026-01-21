@@ -39,7 +39,7 @@ Implementation guardrails (locked decisions; see implementation-traps reference)
 - RNG crosses boundaries as data (seed); ops build local RNGs.
 - Defaults live in schemas/normalize; no hidden runtime defaults.
 - Hard ban: narrative/story overlays as domain dependencies.
-- Projection surfaces are Gameplay-owned: map projections are `artifact:map.*` and stamping completion is `effect:map.<thing>Plotted`.
+- Projection surfaces are Gameplay-owned: map projections are `artifact:map.*` and execution guarantees are `effect:map.<thing><Verb>` (semantic short verbs; e.g., `effect:map.mountainsPlotted`, `effect:map.elevationBuilt`).
 - Topology is locked: `wrapX=true` always, `wrapY=false` always; no wrap knobs/env/config.
 - Hard ban: hidden multipliers/constants/defaults.
 - Hard ban: placeholders/dead bags.

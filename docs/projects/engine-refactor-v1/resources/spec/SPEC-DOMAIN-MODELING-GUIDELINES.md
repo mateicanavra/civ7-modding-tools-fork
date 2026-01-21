@@ -13,7 +13,7 @@
 - Step: orchestration + effect boundary; builds inputs, calls ops, applies outputs, publishes artifacts.
 - Truth artifact: Physics-owned, engine-agnostic published state (no engine ids/adapter coupling; MAY be tile-indexed and MAY include `tileIndex`).
 - Projection artifact: Gameplay-owned, canonical map-facing published state under `artifact:map.*`.
-- Effect: a step-emitted execution guarantee (e.g. stamping/materialization completion via `effect:map.<thing><Verb>`; `*Plotted` is the default convention).
+- Effect: a step-emitted execution guarantee (e.g. stamping/materialization completion via `effect:map.<thing><Verb>`; use a semantically correct, short, consolidated verb—`*Plotted` for stamping/placement, `*Built` for TerrainBuilder build steps).
 
 3) Decision framework (what becomes what)
 - If a unit has a stable I/O contract and should be observable independently -> op.
@@ -113,16 +113,18 @@ This posture is locked for Phase 2+ modeling:
 - Gameplay owns **projection artifacts** and **stamping**:
   - Canonical map-facing projection interfaces live under `artifact:map.*` and are Gameplay-owned.
   - `artifact:map.*` SHOULD publish observability/debug layers that are sensible and potentially useful for future Gameplay reads, even when not stamped to the engine yet.
-    - Examples (non-exhaustive): `artifact:map.plateIdByTile` (computed by Gameplay from Physics truths, ideally via shared projection utilities; not a required mirror of any `artifact:foundation.*` surface), coasts, cliffs (Civ7 cliff crossings; engine-derived after `effect:map.elevationPlotted`), mountains, volcanoes, plates, features, resources, etc.
+    - Examples (non-exhaustive): `artifact:map.plateIdByTile` (computed by Gameplay from Physics truths, ideally via shared projection utilities; not a required mirror of any `artifact:foundation.*` surface), coasts, cliffs (Civ7 cliff crossings; engine-derived after `effect:map.elevationBuilt`), mountains, volcanoes, plates, features, resources, etc.
   - Projection artifacts MAY be tile-indexed and MAY carry game-facing identifiers, but must remain pure data (no adapter calls).
 - Execution guarantees are modeled as **boolean effects** emitted by the stamping step:
-- “Stamping happened” MUST be represented as `effect:map.<thing><Verb>` with a short verb (`*Plotted` by convention; avoid wordy verbs; no versioning).
+- “Stamping happened” MUST be represented as `effect:map.<thing><Verb>` with a semantically correct, short, consolidated verb (avoid wordy verbs; no versioning).
+  - `*Plotted` is reserved for stamping/placement (terrain/features/resources/etc.).
+  - `*Built` is reserved for TerrainBuilder build steps (e.g., `buildElevation()` → `effect:map.elevationBuilt`).
   - Steps are the effect boundary; ops remain data-pure and do not emit/verify effects.
 
 **Example: Physics truth → Gameplay projection → stamping effect**
 - Physics computes and publishes truth (no engine coupling): `artifact:<physicsDomain>.<truth>` (e.g. `artifact:ecology.biomeClassification`).
 - Gameplay projects into the canonical map interface: `artifact:map.<projection>` (e.g. `artifact:map.biomeIdByTile`).
-- A Gameplay `plot-*` stamping step reads Physics truth (and optionally `artifact:map.*` surfaces), performs adapter writes/reads, then provides `effect:map.<thing><Verb>` (e.g. `effect:map.biomesPlotted`).
+- A Gameplay stamping/build step reads Physics truth (and optionally `artifact:map.*` surfaces), performs adapter writes/reads, then provides `effect:map.<thing><Verb>` (e.g. `effect:map.biomesPlotted`, `effect:map.elevationBuilt`).
 
 **Shared projection algorithm posture (locked: single home, no per-domain duplicates)**
 - If multiple domains/steps need the same projection algorithm (e.g., mesh→tile sampling, neighbor iteration, tile-space transforms), implement it once in shared/core libraries.
@@ -181,10 +183,10 @@ This boundary is **hard** and **non-negotiable**. It exists to prevent drift and
 
 **Gameplay / map layer (projection + materialization lane)**
 - `artifact:map.*` is Gameplay-owned. It is the canonical map-facing projection/annotation layer (including debug/observability layers).
-- “Materialization happened” MUST be represented by boolean effects: `effect:map.<thing><Verb>` (short, stable names; no versioning; `*Plotted` by convention).
+- “Materialization happened” MUST be represented by boolean effects: `effect:map.<thing><Verb>` (short, stable names; no versioning; semantically correct consolidated verbs).
 - Any step that touches the engine adapter (read or write) is Gameplay-owned and MUST provide the corresponding `effect:map.<thing><Verb>` for what it did.
 - Engine-derived fields posture (example: elevation/cliffs):
-  - If a rule/strategy must match *actual Civ7* engine-derived surfaces (e.g., elevation bands, `GameplayMap.isCliffCrossing`), that rule/strategy is Gameplay/map logic and must run after the relevant effect boundary (e.g., `effect:map.elevationPlotted`).
+  - If a rule/strategy must match *actual Civ7* engine-derived surfaces (e.g., elevation bands, `GameplayMap.isCliffCrossing`), that rule/strategy is Gameplay/map logic and must run after the relevant effect boundary (e.g., `effect:map.elevationBuilt`).
   - Physics domains may publish complementary physics signals (slope/roughness/relief), but they must not claim “Civ7 cliffs” as Physics truth.
 
 **Zero-legacy cutover requirement**
@@ -268,7 +270,7 @@ Hard rules:
 - Physics never consumes `artifact:map.*`.
 - Do not model `artifact:map.*` as a “direct mirror” of physics truth by contract. It is derived independently in Gameplay projection steps from physics truth artifacts.
 
-Examples (non-exhaustive): coasts, cliffs (Civ7 cliff crossings; engine-derived after `effect:map.elevationPlotted`), mountains, volcanoes, plates, landmasses, features, resources, region slots/ids, etc.
+Examples (non-exhaustive): coasts, cliffs (Civ7 cliff crossings; engine-derived after `effect:map.elevationBuilt`), mountains, volcanoes, plates, landmasses, features, resources, region slots/ids, etc.
 - A step named “plan-*” is a modeling smell; rename it to reflect action (e.g., `plot-*`, `apply-*`, `publish-*`).
 
 **Compile-first configuration rule (current architecture)**

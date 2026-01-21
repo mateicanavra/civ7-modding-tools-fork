@@ -14,7 +14,7 @@ This example is canonical for Phase 3 implementers. It is designed to prevent th
 - **No backfeeding:** Physics steps do not consume `artifact:map.*` or `effect:map.*`.
 - **Effects are boolean execution guarantees:** `effect:map.<thing><Verb>` (`*Plotted` by convention).
 - **Hard ban:** no `artifact:map.realized.*`.
-- **TerrainBuilder no-drift:** this example does not use engine-derived elevation/cliffs in Physics. If a rule must match Civ7 elevation bands/cliffs, it is Gameplay logic and runs only after `effect:map.elevationPlotted`.
+- **TerrainBuilder no-drift:** this example does not use engine-derived elevation/cliffs in Physics. If a rule must match Civ7 elevation bands/cliffs, it is Gameplay logic and runs only after `effect:map.elevationBuilt`.
 - **Schema posture:** top-level operation/strategy/step schemas in this example have **no `additionalProperties`** and **no top-level defaults**. Prefer explicit required fields and explicit normalization at the boundary.
 
 Repo-path note:
@@ -309,7 +309,7 @@ export const PlotVolcanoesStepContract = defineStep({
 
 Stamping rules:
 - Do not publish any `artifact:map.realized.*` surfaces. The guarantee is the effect.
-- Any engine-derived reads (e.g., Civ7 cliffs/elevation bands) must happen only in Gameplay and only after the relevant effect boundary (e.g., after `effect:map.elevationPlotted` for cliff/elevation-band correctness).
+- Any engine-derived reads (e.g., Civ7 cliffs/elevation bands) must happen only in Gameplay and only after the relevant effect boundary (e.g., after `effect:map.elevationBuilt` for cliff/elevation-band correctness).
 
 ## Complete, deterministic config example (no defaults)
 

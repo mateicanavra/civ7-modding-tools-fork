@@ -35,7 +35,7 @@ These are hard constraints. If you disagree, stop and escalate in the Phase 3 is
   - Do not introduce `artifact:map.realized.*`, and do not invent a runtime “map.realized” concept.
 - TerrainBuilder no-drift is locked:
   - `TerrainBuilder.buildElevation()` produces engine-derived elevation/cliffs; there is no setter.
-  - Anything that must match Civ7 elevation bands / cliff crossings belongs in Gameplay after `effect:map.elevationPlotted` and may read engine surfaces.
+- Anything that must match Civ7 elevation bands / cliff crossings belongs in Gameplay after `effect:map.elevationBuilt` and may read engine surfaces.
   - Physics may publish complementary signals (slope/roughness/relief/etc.) but MUST NOT claim “Civ7 cliffs” as Physics truth.
 - Nuance (explicitly allowed):
   - Physics truth MAY be tile-indexed and MAY include `tileIndex`. The ban is on engine/game-facing ids and on consuming map-layer projections/effects.

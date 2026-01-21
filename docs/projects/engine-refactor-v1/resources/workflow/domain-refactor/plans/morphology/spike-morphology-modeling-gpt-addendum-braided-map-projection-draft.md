@@ -144,7 +144,7 @@ With this invariant, “effect satisfied” cannot accidentally refer to a diffe
 
 - No version suffixes.
 - No wordy/stacked names.
-- Prefer `effect:map.<thing>Plotted` (examples below); this remains true even though the step uses the Civ7 adapter/engine under the hood.
+- Prefer `effect:map.<thing><Verb>` with a semantic short verb (examples below); this remains true even though the step uses the Civ7 adapter/engine under the hood (e.g., `*Plotted` for stamping/placement, `*Built` for TerrainBuilder build steps like elevation).
 
 Examples:
 - `effect:map.mountainsPlotted`

@@ -161,7 +161,7 @@ Hard rule: engine/projection truth is derived-only (never an input).
     - Observability/debug layers belong under explicit `artifact:map.*` names (Gameplay-owned), not a “realized snapshot” namespace.
   - TerrainBuilder no-drift (do not re-open):
     - `TerrainBuilder.buildElevation()` produces engine-derived elevation/cliffs; there is no setter.
-    - Any decision that must match *actual Civ7* elevation bands / cliff crossings belongs in Gameplay/map logic after `effect:map.elevationPlotted` and may read engine surfaces.
+    - Any decision that must match *actual Civ7* elevation bands / cliff crossings belongs in Gameplay/map logic after `effect:map.elevationBuilt` and may read engine surfaces.
     - Physics may publish complementary signals (slope/roughness/relief/etc.) but MUST NOT claim “Civ7 cliffs” as Physics truth.
 - Engine writes (“stamping”) happen only in steps with an engine adapter:
   - Core domain logic is pure-only; recipe stages/steps invoke physics ops to compute truths, invoke Gameplay ops to project truths into indices, then stamp via the adapter.

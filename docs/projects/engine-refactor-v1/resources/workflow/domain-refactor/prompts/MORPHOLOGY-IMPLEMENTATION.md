@@ -30,15 +30,16 @@
 		  - Projection-as-truth is forbidden:
 		    - Morphology must not read back engine-facing projections (tile queries, adjacency, terrain indices) as “domain truth”.
 		    - Engine-facing projections are derived outputs/adapters only.
-		    - Canonical map projection artifacts are `artifact:map.*` (Gameplay-owned) and stamping completion is represented by boolean effects `effect:map.<thing>Plotted` (e.g., `effect:map.mountainsPlotted`).
+			    - Canonical map projection artifacts are `artifact:map.*` (Gameplay-owned) and execution guarantees are boolean effects `effect:map.<thing><Verb>` (e.g., `effect:map.mountainsPlotted`, `effect:map.elevationBuilt`).
 		    - Nuance: Physics truth MAY be tile-indexed and MAY include `tileIndex`. The ban is on engine/game-facing ids and on consuming map-layer projections/effects as inputs.
 		  - Hard ban: do not introduce `artifact:map.realized.*`, and do not invent a runtime “map.realized” concept.
-		  - Effects are boolean execution guarantees only:
-		    - `effect:map.<thing><Verb>` (convention: `<Verb> = Plotted`; short verbs only).
-		    - No receipts/hashes/versions; effects are not audit logs.
+			  - Effects are boolean execution guarantees only:
+			    - `effect:map.<thing><Verb>` with a semantically correct, short, consolidated verb.
+			      - `*Plotted` is reserved for stamping/placement; `*Built` is used for TerrainBuilder build steps (e.g., `effect:map.elevationBuilt`).
+			    - No receipts/hashes/versions; effects are not audit logs.
 		  - TerrainBuilder no-drift (do not re-open):
 		    - `TerrainBuilder.buildElevation()` produces engine-derived elevation/cliffs; there is no setter.
-		    - Anything that must match actual Civ7 elevation bands / cliff crossings is Gameplay/map logic after `effect:map.elevationPlotted` and may read engine surfaces.
+		  - Anything that must match actual Civ7 elevation bands / cliff crossings is Gameplay/map logic after `effect:map.elevationBuilt` and may read engine surfaces.
 		    - Physics may publish complementary signals (slope/roughness/relief/etc.) but MUST NOT claim “Civ7 cliffs” as Physics truth.
 		  - Topology is locked:
 		    - `wrapX = true` always (east–west wraps), `wrapY = false` always (north–south does not wrap).
