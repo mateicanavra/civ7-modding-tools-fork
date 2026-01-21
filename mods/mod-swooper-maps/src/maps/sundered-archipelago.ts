@@ -143,66 +143,6 @@ export default createMap({
     },
     coastlines: {},
   },
-  "narrative-pre": {
-    "story-seed": {
-      margins: {
-        // Very high active fraction for volcanic arcs
-        activeFraction: 0.55,
-        passiveFraction: 0.12,
-        minSegmentLength: 8,
-      },
-    },
-    "story-hotspots": {
-      story: {
-        hotspot: {
-          maxTrails: 12,
-          steps: 15,
-          stepLen: 2,
-          minDistFromLand: 5,
-          minTrailSeparation: 12,
-          paradiseBias: 3,
-          volcanicBias: 3,
-          volcanicPeakChance: 0.5,
-        },
-      },
-    },
-    "story-rifts": {
-      story: {
-        rift: {
-          maxRiftsPerMap: 3,
-          lineSteps: 18,
-          stepLen: 2,
-          shoulderWidth: 1,
-        },
-      },
-    },
-    "story-corridors-pre": {
-      corridors: {
-        sea: {
-          protection: "hard",
-          softChanceMultiplier: 0.5,
-          avoidRadius: 2,
-          maxLanes: 3,
-          scanStride: 6,
-          minLengthFrac: 0.7,
-          preferDiagonals: false,
-          laneSpacing: 6,
-          minChannelWidth: 3,
-        },
-        land: {
-          biomesBiasStrength: 0.6,
-          useRiftShoulders: true,
-          maxCorridors: 2,
-          minRunLength: 24,
-          spacing: 0,
-        },
-        islandHop: {
-          useHotspots: true,
-          maxArcs: 2,
-        },
-      },
-    },
-  },
   "morphology-mid": {
     "rugged-coasts": {
       coastlines: {
@@ -262,18 +202,6 @@ export default createMap({
             eras: 2,
           },
           worldAge: "mature",
-        },
-      },
-    },
-  },
-  "narrative-mid": {
-    "story-orogeny": {
-      story: {
-        orogeny: {
-          radius: 2,
-          beltMinLength: 24,
-          windwardBoost: 4,
-          leeDrynessAmplifier: 1.1,
         },
       },
     },
