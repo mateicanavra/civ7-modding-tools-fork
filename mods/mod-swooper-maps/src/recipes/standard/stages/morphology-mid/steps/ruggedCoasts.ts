@@ -8,16 +8,9 @@ import {
   writeHeightfield,
 } from "@swooper/mapgen-core";
 import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
-import { readOverlayCorridors, readOverlayMotifsMargins } from "../../../overlays.js";
 import RuggedCoastsStepContract from "./ruggedCoasts.contract.js";
 
 type ArtifactValidationIssue = Readonly<{ message: string }>;
-
-type OverlayMasks = {
-  seaLanes: Uint8Array;
-  activeMargin: Uint8Array;
-  passiveShelf: Uint8Array;
-};
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return value !== null && typeof value === "object" && !Array.isArray(value);
@@ -59,28 +52,8 @@ function validateCoastlineMetrics(value: unknown, dimensions: MapDimensions): Ar
   return errors;
 }
 
-function fillMaskFromKeys(width: number, height: number, keys: Set<string> | null | undefined): Uint8Array {
-  const mask = new Uint8Array(width * height);
-  if (!keys) return mask;
-  for (const key of keys) {
-    const [xs, ys] = key.split(",");
-    const x = Number(xs);
-    const y = Number(ys);
-    if (!Number.isFinite(x) || !Number.isFinite(y)) continue;
-    if (x < 0 || x >= width || y < 0 || y >= height) continue;
-    mask[y * width + x] = 1;
-  }
-  return mask;
-}
-
-function buildOverlayMasks(width: number, height: number, overlays: unknown): OverlayMasks {
-  const margins = readOverlayMotifsMargins(overlays as any);
-  const corridors = readOverlayCorridors(overlays as any);
-  return {
-    seaLanes: fillMaskFromKeys(width, height, corridors?.seaLanes),
-    activeMargin: fillMaskFromKeys(width, height, margins?.activeMargin),
-    passiveShelf: fillMaskFromKeys(width, height, margins?.passiveShelf),
-  };
+function buildEmptyMask(width: number, height: number): Uint8Array {
+  return new Uint8Array(width * height);
 }
 
 function buildFractalArray(
@@ -112,11 +85,10 @@ export default createStep(RuggedCoastsStepContract, {
   run: (context, config, ops, deps) => {
     const { width, height } = context.dimensions;
     const plates = deps.artifacts.foundationPlates.read(context);
-    const overlays = deps.artifacts.overlays.read(context);
     const heightfield = context.buffers.heightfield;
     const stepId = `${RuggedCoastsStepContract.phase}/${RuggedCoastsStepContract.id}`;
 
-    const masks = buildOverlayMasks(width, height, overlays);
+    const emptyMask = buildEmptyMask(width, height);
     const fractal = buildFractalArray(context, width, height, 1, 4);
 
     const result = ops.coastlines(
@@ -126,9 +98,9 @@ export default createStep(RuggedCoastsStepContract, {
         landMask: heightfield.landMask,
         boundaryCloseness: plates.boundaryCloseness,
         boundaryType: plates.boundaryType,
-        seaLaneMask: masks.seaLanes,
-        activeMarginMask: masks.activeMargin,
-        passiveShelfMask: masks.passiveShelf,
+        seaLaneMask: emptyMask,
+        activeMarginMask: emptyMask,
+        passiveShelfMask: emptyMask,
         fractal,
         rngSeed: ctxRandom(
           context,
