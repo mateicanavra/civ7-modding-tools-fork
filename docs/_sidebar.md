@@ -15,7 +15,7 @@
     - [deferrals](/projects/engine-refactor-v1/deferrals.md)
     - [triage](/projects/engine-refactor-v1/triage.md)
     - **Issues**
-      - [LOCAL TBD M10 morphology phase 3 implementation plan](/projects/engine-refactor-v1/issues/LOCAL-TBD-M10-morphology-phase-3-implementation-plan.md)
+      - [LOCAL TBD M10 morphology phase 3 implementation plan (moved)](/projects/engine-refactor-v1/issues/LOCAL-TBD-M10-morphology-phase-3-implementation-plan.md)
       - [LOCAL TBD M8 U21 foundation vertical domain refactor](/projects/engine-refactor-v1/issues/LOCAL-TBD-M8-U21-foundation-vertical-domain-refactor.md)
       - [LOCAL TBD M9 hydrology s1 delete authored interventions](/projects/engine-refactor-v1/issues/LOCAL-TBD-M9-hydrology-s1-delete-authored-interventions.md)
       - [LOCAL TBD M9 hydrology s2 knobs and params boundary](/projects/engine-refactor-v1/issues/LOCAL-TBD-M9-hydrology-s2-knobs-and-params-boundary.md)
@@ -26,6 +26,7 @@
       - [LOCAL TBD hydrology vertical domain refactor](/projects/engine-refactor-v1/issues/LOCAL-TBD-hydrology-vertical-domain-refactor.md)
       - [LOCAL TBD placement domain refactor](/projects/engine-refactor-v1/issues/LOCAL-TBD-placement-domain-refactor.md)
     - **Milestones**
+      - [M10 morphology domain refactor](/projects/engine-refactor-v1/milestones/M10-morphology-domain-refactor.md)
     - **Resources**
       - [PRD plate generation](/projects/engine-refactor-v1/resources/PRD-plate-generation.md)
       - [PRD target context and dependency contract](/projects/engine-refactor-v1/resources/PRD-target-context-and-dependency-contract.md)
