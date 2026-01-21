@@ -42,6 +42,7 @@ Cut over the standard recipe to the Phase 2 Morphology posture: Morphology becom
     - Remove engine terrain IDs from Morphology truth artifacts (current violation: `mods/mod-swooper-maps/src/recipes/standard/stages/morphology-pre/artifacts.ts` includes `topography.terrain` described as “Engine terrain id per tile”).
   - Remove Morphology-relevant Physics-side “engine sync” coupling where it exists for Morphology-owned concepts:
     - `syncHeightfield(...)` usage in Hydrology climate baseline that exists to read engine elevation/cliffs today (`mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-baseline/steps/climateBaseline.ts`).
+    - Phase 2 lock: Hydrology must not rely on legacy `artifact:heightfield` reads; migrate Hydrology truth steps to consume `artifact:morphology.topography` instead (and treat any remaining heightfield buffers as Gameplay-only runtime state).
   - Remove cross-domain dependencies that Phase 2 explicitly disallows for Morphology:
     - `artifact:morphology.routing` is internal-only (not a cross-domain contract); migrate any downstream consumers accordingly (see consumer matrix + Slice plan).
   - Re-home downstream adapter stamping steps that are currently misclassified as Physics (required to keep pipeline-green once Morphology stamping moves, and to satisfy the “Physics truth-only” boundary):
@@ -52,6 +53,7 @@ Cut over the standard recipe to the Phase 2 Morphology posture: Morphology becom
 
 - Out of scope:
   - Non-Morphology domain refactors beyond the minimal consumer migrations required to (a) remove overlays entirely and (b) preserve pipeline-green while moving Morphology stamping/materialization into Gameplay-owned steps.
+  - Foundation refactors beyond the minimal tile-projection contract changes required to satisfy Phase 2 Morphology inputs (e.g., if `artifact:foundation.plates` is missing Phase 2-required drivers like `volcanism`, only add what Phase 2 requires and only to unblock Morphology).
   - Re-deriving or changing Phase 2 Morphology semantics (model changes belong in Phase 2 canon, not here).
   - Changing Civ7 adapter behavior or `packages/civ7-types` declarations (except where Phase 4 requires adding/renaming *effect tags* at the recipe layer).
 
@@ -101,7 +103,7 @@ Locked decision → enforcement → slice (explicit):
 | Lock | Enforcement mechanism | Slice introduced |
 |---|---|---:|
 | Topology lock (no wrap knobs; wrap not an input) | Extend `mods/mod-swooper-maps/test/morphology/contract-guard.test.ts` to fail on `wrapX`/`wrapY` authored fields in Morphology contracts/config; ensure `artifact:map.projectionMeta` uses fixed values | 1 (guard), 5 (projectionMeta) |
-| No story overlays (no producers/consumers) | Contract-guard test bans `artifact:storyOverlays` in any step contract + `rg` bans overlay helper imports in non-Gameplay scopes + delete narrative stages | 2 |
+| No story overlays (no producers/consumers) | Contract-guard test bans `artifact:storyOverlays` in any step contract + `rg` bans overlay helper imports in non-Gameplay scopes + delete narrative stages | 1 (Morphology ban), 2 (full delete) |
 | No `artifact:map.realized.*` | `rg` gate + add to pipeline contract guard | 1 (rg), 3 (pipeline test) |
 | Boundary + no backfeeding (Physics cannot consume `artifact:map.*` / `effect:map.*`) | Guardrail script + contract inspection test for Morphology step contracts; full-profile guardrail once stamping removed from Morphology | 1 (script), 4 (full profile) |
 | Effects posture (`effect:map.*` boolean; short verbs) | Regex-based contract guard on all `effect:map.*` ids + “no scattered literals” rule (tag catalog only) | 3 |
@@ -117,6 +119,7 @@ Locked decision → enforcement → slice (explicit):
 - Overlay purge + recipe surgery (delete `narrative-pre`/`narrative-mid` stages; remove `artifact:storyOverlays` from the recipe; migrate any consumers/tests/configs in-slice).
 - Gameplay stamping steps + effects (`map-morphology` stage; `effect:map.*` guarantees; adapter call allowlists).
 - Gameplay map projections + stamping effects (`artifact:map.*` and `effect:map.*` introduction, naming lock, and allowlists for adapter/engine calls).
+- Tracing / observability pass (dedicated; cross-slice): preserve debug value while removing adapter-coupled logging from Physics steps (trace pure fields/artifacts/indices) and adding engine-surface dumps in Gameplay at the `effect:map.*` boundaries.
 - Guardrails + verification gates (fast vs full), plus a cleanup/removal ledger with per-slice deletions.
 
 ## 5) Slice plan (required)
@@ -154,12 +157,12 @@ Current order (verified): `mods/mod-swooper-maps/src/recipes/standard/recipe.ts`
 - `foundation → morphology-pre → narrative-pre → morphology-mid → narrative-mid → morphology-post → hydrology-* → ecology → placement`
 
 Target order after M10 (Physics truth first; Gameplay later; no overlays):
-- `foundation → morphology-pre → morphology-mid → morphology-post → hydrology-* → ecology → map-morphology (new) → placement`
+- `foundation → morphology-pre → morphology-mid → morphology-post → hydrology-* (truth-only) → ecology (truth-only) → map-morphology (new) → map-hydrology (new) → map-ecology (new) → placement`
 
 Notes:
 - `narrative-pre` / `narrative-mid` are removed in M10 (no overlay producers/consumers remain).
 - `map-morphology` is a Gameplay-owned stamping stage that consumes frozen Physics truth and provides `effect:map.*`.
-- Gameplay lane may contain additional post-`map-morphology` stamping stages (e.g., re-homed Hydrology/Ecology adapter steps) as needed; those must not backfeed into Physics.
+- `map-hydrology` / `map-ecology` are Gameplay-owned stamping stages that host adapter lake/river/feature stamping (moved out of Physics in Slice 4); they must not backfeed into Physics.
 
 Interim ordering for pipeline-green slicing:
 - Slice 3 inserts `map-morphology` at the legacy stamping boundary (before Hydrology/Ecology) to keep existing downstream engine-stamping steps runnable while they are re-homed.
@@ -210,6 +213,10 @@ Additional Gameplay stamping stages (introduced in Slice 4 for topology cutover;
 - `map-hydrology` (Gameplay) — hosts adapter lake/river stamping that must not live in Physics stages.
 - `map-ecology` (Gameplay) — hosts adapter feature stamping that must not live in the Ecology Physics stage.
 
+Proposed stage roots:
+- `mods/mod-swooper-maps/src/recipes/standard/stages/map-hydrology/index.ts`
+- `mods/mod-swooper-maps/src/recipes/standard/stages/map-ecology/index.ts`
+
 ### Public surface vs internal-only posture (required)
 
 - Public Morphology truth surfaces (cross-domain consumers; Phase 2 contracts are authority):
@@ -238,8 +245,8 @@ Legend:
 | `morphology-mid/rugged-coasts` | `artifact:storyOverlays` | Break | No-op | No-op | Break (stamping removed) | No-op |
 | `morphology-post/islands` | `artifact:storyOverlays` | Break | No-op | No-op | Break (stamping removed / move earlier if needed) | No-op |
 | `morphology-post/volcanoes` | `artifact:storyOverlays` | Break | No-op | No-op | Break (stamping removed) | No-op |
-| `hydrology-climate-baseline/climate-baseline` | `buildElevation()` + engine sync/read + `stampContinents()` | No-op | No-op | No-op | Break (remove `buildElevation()` + `stampContinents()` + engine sync/read) | No-op |
-| `hydrology-climate-baseline/lakes` | adapter lake modeling + `syncHeightfield` backfeed | No-op | No-op | No-op | Break (move to Gameplay stamping) | No-op |
+| `hydrology-climate-baseline/climate-baseline` | legacy `artifact:heightfield` reads + `buildElevation()` + engine sync/read + `stampContinents()` + `adapter.getLatitude` | No-op | No-op | No-op | Break (remove legacy heightfield + `buildElevation()` + `stampContinents()` + engine sync/read + adapter latitude reads) | No-op |
+| `hydrology-climate-baseline/lakes` | adapter lake modeling + `syncHeightfield` backfeed | No-op | No-op | No-op | Break (move to Gameplay stamping; delete `syncHeightfield`; publish derived-only `artifact:map.*` readback if Gameplay needs a snapshot) | No-op |
 | `hydrology-hydrography/rivers` | requires `artifact:morphology.routing` | No-op | No-op | No-op | Break (migrate off Morphology routing) | No-op |
 | `ecology/features` | `artifact:storyOverlays` (bias overlays) | No-op | Break (drop overlays) | No-op | Break (move to Gameplay stamping) | No-op |
 | `narrative-pre/*` + `narrative-mid/*` | produces/consumes overlays | No-op | Break (delete stages + migrate tests/configs) | No-op | No-op | No-op |
@@ -253,12 +260,15 @@ Legend:
 | Overlay-derived inputs in Morphology ops (`plan-volcanoes`, `compute-coastline-metrics`, `plan-island-chains` if present) | Overlays removed in M10 | 1 |
 | `artifact:storyOverlays` in any step contract under `mods/mod-swooper-maps/src/recipes/standard/stages/**` | Overlays removed in M10 | 2 |
 | `narrative-pre` + `narrative-mid` stages in the standard recipe | Overlays removed in M10 | 2 |
-| Adapter calls in `morphology-pre/landmassPlates.ts` (`validateAndFixTerrain`, `stampContinents`, `writeHeightfield`) | Boundary lock (Physics purity) | 2 |
-| Adapter calls + sync in `morphology-pre/coastlines.ts` (`expandCoasts` + manual engine sync) | Boundary lock (Physics purity) | 2 |
-| `artifact:morphology.coastlinesExpanded` (engine-expansion marker) | Boundary lock (Gameplay owns map stamping) | 2 |
-| Engine terrain ids in Morphology truth (`artifact:morphology.topography.terrain`) | Truth-only artifact lock | 2 |
+| Adapter calls in `morphology-pre/landmassPlates.ts` (`validateAndFixTerrain`, `stampContinents`, `writeHeightfield`) | Boundary lock (Physics purity) | 3 |
+| Adapter-coupled tracing/logging helpers in Morphology Physics steps (e.g. `logLandmassAscii`) | Boundary lock (Physics purity; no adapter coupling) | 3 |
+| Adapter calls + sync in `morphology-pre/coastlines.ts` (`expandCoasts` + manual engine sync) | Boundary lock (Physics purity) | 3 |
+| `artifact:morphology.coastlinesExpanded` (engine-expansion marker) | Boundary lock (Gameplay owns map stamping) | 3 |
+| Engine terrain ids in Morphology truth (`artifact:morphology.topography.terrain`) | Truth-only artifact lock | 3 |
 | `buildElevation()` + `stampContinents()` in `hydrology-climate-baseline/climateBaseline.ts` | TerrainBuilder no-drift + boundary lock | 4 |
-| Adapter lake/river modeling + `syncHeightfield` backfeed in Hydrology steps | Boundary lock (Physics purity) | 4 |
+| Adapter lake/river modeling + `syncHeightfield` backfeed in Hydrology steps | Boundary lock (Physics purity; remove backfeed, not just re-home it) | 4 |
+| Hydrology truth steps relying on legacy `artifact:heightfield` reads (`heightfield.elevation/terrain/landMask`) | Phase 2 Hydrology input lock (use `artifact:morphology.topography` as canonical topography input) | 4 |
+| Physics-stage `adapter.getLatitude(...)` usage in Hydrology/Ecology truth steps | Boundary lock (Physics purity; use `context.env.latitudeBounds` instead) | 4 |
 | `writeHeightfield` in `morphology-mid/ruggedCoasts.ts` | Boundary lock (Physics purity) | 4 |
 | `writeHeightfield` in `morphology-post/islands.ts` | Boundary lock (Physics purity) | 4 |
 | `writeHeightfield` in `morphology-post/mountains.ts` | Boundary lock (Physics purity) | 4 |
@@ -283,6 +293,63 @@ Legend:
 
 ---
 
+### Tracing pass — Observability hardening (dedicated milestone work item; cross-slice)
+
+**Purpose**
+- Slice 3+ deletes adapter-coupled debug helpers (e.g. `logLandmassAscii(trace, adapter, ...)`) from Physics steps. This work item preserves (and upgrades) tracing so debug value is not lost during the Physics/GamePlay boundary cutover.
+
+**Boundary posture (non-negotiable)**
+- Physics:
+  - Traces must be derived from truth artifacts/buffers/indices only (no `context.adapter.*`, no engine reads, no overlays, no `artifact:map.*` / `effect:map.*` inputs).
+  - Heavy traces are `trace.isVerbose` gated (ASCII grids, histograms, long index lists).
+- Gameplay:
+  - Traces/dumps must run at correct boundaries: after the step’s stamping/build work and before it returns (i.e., after the step can legitimately provide its `effect:map.*`).
+  - Engine surface dumps must use adapter-wrapped reads/writes only (no direct Civ7 globals from steps).
+
+**Concrete trace requirements (minimum; per stage/step)**
+- Morphology Physics (truth-only):
+  - `morphology-pre/landmass-plates`:
+    - Emit `type: "morphology.landmassPlates.summary"`: dimensions, land share, sea-level scalar, quick stats for key truth fields, stable fingerprints for key typed arrays.
+    - Emit `type: "morphology.landmassPlates.ascii.landMask"`: ASCII land/water grid derived from Morphology truth `landMask` (no adapter).
+  - `morphology-mid/routing`:
+    - Emit `type: "morphology.routing.summary"`: quick stats + stable fingerprints (`flowDir`, `flowAccum`).
+  - `morphology-mid/geomorphology`:
+    - Emit `type: "morphology.geomorphology.summary"`: elevation delta stats + stable fingerprints (at minimum “after” + delta signature).
+  - `morphology-mid/rugged-coasts`:
+    - Emit `type: "morphology.coastlines.summary"`: coastMask/landMask edit counts + stable fingerprints for coastline-metrics outputs.
+    - Emit `type: "morphology.coastlines.ascii.coastMask"`: ASCII overlay of coasts vs land/water (no adapter).
+  - `morphology-post/islands`:
+    - Emit `type: "morphology.islands.plan"`: edit count by kind + top-N indices (deterministic ordering).
+    - Emit `type: "morphology.islands.ascii.edits"`: ASCII overlay for island edits (no adapter).
+  - `morphology-post/mountains`:
+    - Emit `type: "morphology.mountains.plan"`: mountain/hill mask counts + top-N indices.
+    - Emit `type: "morphology.mountains.ascii.reliefMask"`: ASCII overlay from mountain/hill masks (no adapter).
+  - `morphology-post/volcanoes`:
+    - Emit `type: "morphology.volcanoes.plan"`: volcano count + top-N indices (deterministic ordering).
+    - Emit `type: "morphology.volcanoes.ascii.indices"`: ASCII overlay of volcano indices (no adapter).
+- Gameplay stamping / materialization (adapter-owned):
+  - `map-morphology/*`:
+    - Each step emits at least one engine-surface dump at step end:
+      - Summary: terrain shares + elevation summary (adapter reads).
+      - ASCII: land/water and relief/feature overlays where useful (adapter reads).
+  - `map-hydrology/*` and `map-ecology/*` (Slice 4):
+    - Each Gameplay stamping step follows the same rule: dump engine surface at step end.
+
+**Helper placement recommendation (minimize drift)**
+- Pure Physics tracing helpers belong in `packages/mapgen-core` as reusable utilities (ASCII renderers + summaries + typed-array fingerprints).
+  - Avoid step-local helper clones: they drift and make guardrails/tests brittle.
+- Gameplay dumps should reuse existing centralized adapter-surface debug helpers (`packages/mapgen-core/src/dev/*`) where possible; only add new `EngineAdapter` methods if truly needed for “official” dumps beyond what adapter reads can provide.
+
+**Prework prompt (only if needed)**
+- If “official” Civ7 surface dumps are required beyond adapter-readable grids:
+  - Inventory what Civ7 runtime exposes (and which base-standard modules provide dumps).
+  - Decide whether to add new `EngineAdapter` debug methods (implemented only inside `packages/civ7-adapter`) or keep dumps as adapter-read ASCII/summaries in Gameplay steps.
+
+**Verification hooks (wire into Slice 3/4 gates)**
+- Add a trace smoke test that runs the Morphology Physics steps with `trace.steps.<id>=verbose` and asserts required `morphology.*` trace event types exist.
+- Add per-slice `rg` gates to ensure adapter-coupled tracing helpers are gone from Morphology Physics and replaced by truth-based traces.
+
+<!-- <slice id="1" /> -->
 ### Slice 1 — Delete overlays as Morphology inputs (behavior-preserving where possible)
 
 - Scope:
@@ -297,13 +364,44 @@ Legend:
   - Remove overlay-derived inputs from Morphology ops:
     - `mods/mod-swooper-maps/src/domain/morphology/ops/plan-volcanoes/contract.ts` (remove overlay masks; no overlays permitted):
       - required: `artifact:morphology.topography.landMask` (vents are land-only)
-      - required: tile-space Foundation drivers already available to Morphology (e.g. plate boundary regime signals) to determine `VolcanoKind`
+      - required: `artifact:foundation.plates` (tile-space boundary context)
+      - required: `artifact:foundation.tectonics` (mesh-space upstream driver; use field `volcanism`; no overlays)
       - optional (Phase 2 tie-breaker): `artifact:morphology.topography.elevation`
-      - note: do not require mesh-space `artifact:foundation.tectonics.volcanism` unless there is an existing, explicit tile projection artifact for it.
+      - note: if Morphology’s volcano planning needs tile-space volcanism/tectonics signals, produce them deterministically from Foundation truth (prefer extending `artifact:foundation.plates` projection; do not re-introduce overlays).
     - `mods/mod-swooper-maps/src/domain/morphology/ops/compute-coastline-metrics/contract.ts` (remove overlay-derived masks/inputs if present).
-    - `mods/mod-swooper-maps/src/domain/morphology/ops/plan-island-chains/contract.ts` (remove overlay-derived masks/inputs if present; island chains are not an overlay in the M10 posture).
+    - `mods/mod-swooper-maps/src/domain/morphology/ops/plan-island-chains/contract.ts` (remove overlay-derived masks/inputs; this is a Morphology-internal helper, not an overlay and not a Gameplay plotting step):
+      - Delete overlay-coupled mask inputs (`seaLaneMask`, `activeMarginMask`, `passiveShelfMask`, `hotspotMask`) and any `HotspotBias*` config surfaces.
+      - Replace with deterministic Physics truth drivers only (Foundation/Morphology truth artifacts and/or stage-local computed masks); do not reintroduce optional “motif” or “narrative” masks.
 - Cutovers/deletions:
   - Delete/replace any `readOverlay*` dependency from Morphology call paths (overlays are removed in M10; delete overlay helpers where they become unused).
+- Prework Prompt (Agent Brief): Island chains without overlays (Physics truth only)
+  - **Purpose:** Make `morphology/plan-island-chains` consistent with Phase 2 and the M10 “no overlays” posture: island placement derives from Physics truth drivers, not narrative motifs/hotspots/corridors.
+  - **Expected Output:**
+    - Inventory current inputs/masks and their sources (overlay reads, adapter fractals, etc.).
+    - Propose the minimal replacement inputs derived from Foundation/Morphology truth (e.g., plate boundary context, shelf/roughness, sea-level/topography) plus a pure deterministic noise source.
+    - Provide an explicit contract edit list for:
+      - `mods/mod-swooper-maps/src/domain/morphology/ops/plan-island-chains/contract.ts`
+      - `mods/mod-swooper-maps/src/recipes/standard/stages/morphology-post/steps/islands.ts`
+- Prework Prompt (Agent Brief): Foundation volcanism + tectonics drivers for Morphology (no overlays)
+  - **Purpose:** Make Phase 2’s upstream driver posture executable: Morphology volcano intent must be derived from Foundation truth (`artifact:foundation.plates` + `artifact:foundation.tectonics` field `volcanism`) with no overlay inputs.
+  - **Expected Output:**
+    - Confirm current `artifact:foundation.plates` schema vs Phase 2 required fields; list deltas.
+    - Decide how tile-space Morphology consumes volcanism deterministically:
+      - (A) extend the Foundation projection (`foundation/steps/projection` + `ops.computePlates`) to include the Phase 2 tile-space fields Morphology needs (preferred), or
+      - (B) keep `artifact:foundation.plates` as-is and derive any needed tile-space volcanism signals inside Morphology from `artifact:foundation.tectonics` + `artifact:foundation.mesh` (only if Phase 2 allows and it does not create a second projection path).
+    - Produce a concrete “contract patch” list:
+      - `mods/mod-swooper-maps/src/recipes/standard/stages/foundation/artifacts.ts` (schema updates if needed)
+      - `mods/mod-swooper-maps/src/recipes/standard/stages/foundation/steps/projection.ts` + `.../projection.contract.ts` (if projection output changes)
+      - `mods/mod-swooper-maps/src/domain/foundation/ops/compute-plates-tensors/contract.ts` (if op outputs change)
+      - `mods/mod-swooper-maps/src/domain/morphology/ops/plan-volcanoes/contract.ts` (final requires list; overlays removed)
+    - Add/extend guard tests for the new contract fields (no silent defaults).
+  - **Sources to Check:**
+    - Phase 2 authority:
+      - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-CORE-MODEL-AND-PIPELINE.md`
+      - `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-CONTRACTS.md`
+    - Current repo truth:
+      - `mods/mod-swooper-maps/src/recipes/standard/stages/foundation/artifacts.ts`
+      - `mods/mod-swooper-maps/src/recipes/standard/stages/foundation/steps/projection.ts`
 - Downstream:
   - Consumer matrix “Break” rows completed in-slice:
     - `morphology-mid/rugged-coasts` (stop requiring overlays)
@@ -321,6 +419,28 @@ Legend:
     - Delete any newly-unused overlay helper imports from the touched files.
     - Run fast gates.
 
+**Acceptance criteria (Slice 1):**
+- [ ] No Morphology step contract in `mods/mod-swooper-maps/src/recipes/standard/stages/morphology-*` requires `artifact:storyOverlays`.
+- [ ] No Morphology step implementation imports `overlays.js` or `readOverlay*`.
+- [ ] Morphology ops touched in this slice have zero overlay-derived inputs (contracts enforce this).
+- [ ] `REFRACTOR_DOMAINS="morphology" ./scripts/lint/lint-domain-refactor-guardrails.sh` passes.
+
+**Files (Slice 1):**
+```yaml
+files:
+  - path: mods/mod-swooper-maps/src/recipes/standard/stages/morphology-mid/steps/ruggedCoasts.contract.ts
+    notes: Drop `artifact:storyOverlays` requires
+  - path: mods/mod-swooper-maps/src/recipes/standard/stages/morphology-post/steps/islands.contract.ts
+    notes: Drop `artifact:storyOverlays` requires
+  - path: mods/mod-swooper-maps/src/recipes/standard/stages/morphology-post/steps/volcanoes.contract.ts
+    notes: Drop `artifact:storyOverlays` requires
+  - path: mods/mod-swooper-maps/src/domain/morphology/ops/plan-volcanoes/contract.ts
+    notes: Remove overlay masks; require Foundation drivers per Phase 2
+  - path: mods/mod-swooper-maps/test/morphology/contract-guard.test.ts
+    notes: Enforce “no overlays” posture for Morphology contracts + implementations
+```
+
+<!-- <slice id="2" /> -->
 ### Slice 2 — Delete the overlay system (no producers/consumers; delete Narrative stages)
 
 - Scope:
@@ -352,12 +472,40 @@ Legend:
     - Delete any now-unused overlay helpers/contracts/artifacts.
     - Run fast gates.
 
+**Acceptance criteria (Slice 2):**
+- [ ] `narrative-pre` and `narrative-mid` are removed from `mods/mod-swooper-maps/src/recipes/standard/recipe.ts`.
+- [ ] `mods/mod-swooper-maps/src/recipes/standard/stages/narrative-pre` and `mods/mod-swooper-maps/src/recipes/standard/stages/narrative-mid` are deleted (no dead bags remain).
+- [ ] `rg -n "artifact:storyOverlays|narrativePreArtifacts\\.overlays|readOverlay|overlays\\.js" mods/mod-swooper-maps/src` returns zero hits (outside `docs/**`).
+- [ ] `ecology/features` no longer requires overlays (and no replacement overlays are introduced).
+- [ ] Standard recipe tests referencing narrative stages are migrated/deleted in-slice (no dual config paths).
+
+**Files (Slice 2):**
+```yaml
+files:
+  - path: mods/mod-swooper-maps/src/recipes/standard/recipe.ts
+    notes: Remove `narrative-pre` and `narrative-mid` stages from standard recipe ordering
+  - path: mods/mod-swooper-maps/src/recipes/standard/stages/narrative-pre/artifacts.ts
+    notes: Deleted after stage removal
+  - path: mods/mod-swooper-maps/src/recipes/standard/stages/narrative-mid/artifacts.ts
+    notes: Deleted after stage removal
+  - path: mods/mod-swooper-maps/src/recipes/standard/overlays.ts
+    notes: Deleted once overlay system is removed
+  - path: mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/features/contract.ts
+    notes: Drop overlay requires; delete overlay-bias logic
+  - path: mods/mod-swooper-maps/test/standard-run.test.ts
+    notes: Remove narrative stage expectations/config
+  - path: mods/mod-swooper-maps/test/standard-recipe.test.ts
+    notes: Remove narrative stage expectations/config
+```
+
+<!-- <slice id="3" /> -->
 ### Slice 3 — Introduce `map-morphology` (Gameplay stamping) + re-home coasts/continents/effects
 
 - Scope:
   - Convert Morphology-pre steps to truth-only (no adapter writes):
     - `mods/mod-swooper-maps/src/recipes/standard/stages/morphology-pre/steps/landmassPlates.ts`
-      - Replace `writeHeightfield(...)` usage with buffer-only writes (no `context.adapter.*` calls).
+      - Replace `writeHeightfield(...)` usage with truth-only writes (Morphology truth artifacts + op-private scratch only; no `context.adapter.*` calls; do not publish or depend on legacy `artifact:heightfield` from Morphology).
+      - Remove adapter-coupled debug/tracing helpers (e.g. `logLandmassAscii(context.trace, context.adapter, ...)`) from Physics steps (no adapter coupling).
     - Delete the now-obsolete Morphology coastline-expansion step (engine work moved to Gameplay):
       - `mods/mod-swooper-maps/src/recipes/standard/stages/morphology-pre/steps/coastlines.contract.ts`
       - `mods/mod-swooper-maps/src/recipes/standard/stages/morphology-pre/steps/coastlines.ts`
@@ -369,9 +517,22 @@ Legend:
     - Steps:
       - `plot-continents` provides `effect:map.continentsPlotted`
       - `plot-coasts` provides `effect:map.coastsPlotted`
+    - Required adapter ordering (Phase 2 stamping spec):
+      - `plot-coasts` (engine fixup; must not backfeed into Physics truth):
+        - Call `adapter.expandCoasts(width,height)` (Phase 2 contract meaning for `effect:map.coastsPlotted`).
+        - Immediately assert **no land/water drift** against Morphology truth landMask:
+          - For every tile, require: `morphology.topography.landMask[i] === 1` implies `adapter.isWater(x,y) === false`, and `landMask[i] === 0` implies `adapter.isWater(x,y) === true`.
+          - If this assertion fails, treat it as a hard error: the engine is “playing house” by changing land/water classification, which is banned.
+          - Fallback (only if proven necessary): replace engine coast expansion with a deterministic Gameplay plotter that stamps coastal water terrain by adjacency to Morphology truth landMask (no land/water mutation). If this diverges from Phase 2’s implied engine behavior, capture it as a Phase 2 canon follow-up (out of scope for M10 implementation).
+        - Sync only Gameplay/runtime-local projections (if any) needed by downstream Gameplay steps; do not write back into Morphology truth artifacts.
+      - `plot-continents` (engine fixup; must not define Physics truth landmasses/regions):
+        - Call `adapter.validateAndFixTerrain()` → `adapter.recalculateAreas()` → `adapter.stampContinents()` (Phase 2 required ordering for `effect:map.continentsPlotted`).
+        - Immediately assert **no land/water drift** against Morphology truth landMask (same check as `plot-coasts`).
+        - Note: `stampContinents()` is an engine-internal stamp; it must not be used as the source of truth for `artifact:morphology.landmasses` or `artifact:map.landmassRegionSlotByTile` (those derive from Morphology truth per Phase 2).
   - Insert `map-morphology` at the legacy stamping boundary (interim; pipeline-green):
     - `foundation → morphology-pre → morphology-mid → morphology-post → map-morphology → hydrology-* → ecology → placement`
     - Rationale: existing Hydrology/Ecology steps still depend on engine-stamped terrain/elevation today; Slice 4 re-homes those adapter-stamping steps into Gameplay and then moves `map-morphology` to its final post-Physics position.
+    - Explicit note: this is a transitional, legacy-coupled ordering. Slice 4 is non-optional and must remove this Gameplay→(truth) dependency by making Hydrology/Ecology truth-only and moving all stamping behind `effect:map.*`.
   - Introduce map effect tags in a single place (no string literals):
     - `mods/mod-swooper-maps/src/recipes/standard/tags.ts` (`M10_EFFECT_TAGS.map.*`, `EFFECT_OWNERS`)
 - Guardrails introduced in-slice:
@@ -381,6 +542,9 @@ Legend:
     - Ban `artifact:map.realized.*` globally (cheap, global lock).
   - Add effect naming guardrail for newly introduced map effects:
     - All `effect:map.*` must match `^effect:map\\.[a-z][a-zA-Z0-9]*(Plotted|Built)$`.
+
+  - Dedicated work item (required): Tracing pass / observability hardening (see “Tracing pass — Observability hardening” cross-slice section)
+    - Slice 3 hook: implement the required Morphology-pre truth-based traces and `map-morphology` engine-surface dumps while deleting adapter-coupled Physics logging helpers.
 - Downstream:
   - Consumer matrix “Break” rows completed in-slice:
     - `morphology-pre/*` (no adapter writes)
@@ -390,22 +554,67 @@ Legend:
     - Delete any now-unused legacy Morphology stamping helpers/artifacts.
     - Run fast gates.
 
+**Acceptance criteria (Slice 3):**
+- [ ] `morphology-pre/landmass-plates` and any remaining `morphology-pre/*` steps contain zero adapter calls (`context.adapter.*`) and perform no engine stamping.
+- [ ] No Morphology-pre Physics step depends on adapter-coupled tracing/logging helpers (e.g. `logLandmassAscii`).
+- [ ] Morphology-pre Physics steps emit truth-based trace events (`type: "morphology.*"`) including an ASCII-able representation where useful.
+- [ ] `map-morphology` plot steps emit engine-surface dumps at the end of each step (adapter-wrapped; correct boundaries).
+- [ ] `morphology-pre/coastlines` step is deleted and removed from `mods/mod-swooper-maps/src/recipes/standard/stages/morphology-pre/index.ts`.
+- [ ] `artifact:morphology.topography.terrain` and `artifact:morphology.coastlinesExpanded` are deleted (no engine IDs or engine-expansion markers in Physics truth).
+- [ ] `map-morphology` exists and provides `effect:map.coastsPlotted` + `effect:map.continentsPlotted` via `plot-coasts` + `plot-continents`.
+- [ ] A pipeline-level contract guard exists and prevents Physics contracts from requiring `artifact:map.*` / `effect:map.*`.
+
+**Files (Slice 3):**
+```yaml
+files:
+  - path: mods/mod-swooper-maps/src/recipes/standard/stages/morphology-pre/steps/landmassPlates.ts
+    notes: Remove adapter calls + adapter-coupled debug; write truth-only buffers
+  - path: mods/mod-swooper-maps/src/recipes/standard/stages/morphology-pre/steps/coastlines.ts
+    notes: Deleted (engine expansion moved to Gameplay)
+  - path: mods/mod-swooper-maps/src/recipes/standard/stages/morphology-pre/index.ts
+    notes: Remove `coastlines` from step list
+  - path: mods/mod-swooper-maps/src/recipes/standard/stages/morphology-pre/artifacts.ts
+    notes: Delete `topography.terrain` and `artifact:morphology.coastlinesExpanded`
+  - path: mods/mod-swooper-maps/src/recipes/standard/stages/map-morphology/index.ts
+    notes: New Gameplay stamping stage (plot-coasts, plot-continents)
+  - path: mods/mod-swooper-maps/src/recipes/standard/tags.ts
+    notes: Define `effect:map.*` tags in one place; add owners
+  - path: mods/mod-swooper-maps/test/pipeline/map-stamping.contract-guard.test.ts
+    notes: New pipeline contract guard seeded here
+```
+
+<!-- <slice id="4" /> -->
 ### Slice 4 — Re-home TerrainBuilder elevation + remaining Morphology stamping into Gameplay
 
 - Scope:
   - Complete the Phase 2 topology cutover (final ordering; no overlays; Gameplay after Physics):
     - Re-home downstream adapter stamping steps currently living in Physics:
-      - Move Hydrology lake/river adapter modeling + `syncHeightfield` out of Physics stages (Gameplay-owned stamping steps).
+      - Move Hydrology lake/river adapter modeling out of Physics stages (Gameplay-owned stamping steps) and delete the legacy `syncHeightfield` backfeed mechanism.
+        - If any Gameplay step needs an engine readback snapshot for debugging or subsequent Gameplay-only computation, publish it as derived-only `artifact:map.*` after the corresponding `effect:map.*` is asserted (do not reintroduce legacy `artifact:heightfield`).
         - Evidence loci:
           - `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-baseline/steps/lakes.ts`
           - `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-hydrography/steps/rivers.ts`
+      - Remove legacy Hydrology Physics dependencies on `artifact:heightfield` (Phase 2 ban):
+        - Update Hydrology truth steps to consume `artifact:morphology.topography` as the canonical topography input (minimum: `elevation` + `landMask`), not `heightfield.elevation/terrain/landMask`.
+        - If Hydrology requires additional Morphology topography fields (e.g. sea level / bathymetry), land them as part of the Slice 5 truth artifact alignment, not via engine readback.
+        - Delete (or move to Gameplay-only runtime) any `deps.artifacts.heightfield.read(...)` usage in Hydrology Physics steps.
+      - Remove remaining adapter reads in Hydrology/Ecology truth steps:
+        - Replace `context.adapter.getLatitude(...)` in Hydrology and Ecology with a pure latitude computation derived from `context.env.latitudeBounds` + row index (no adapter reads in Physics).
       - Move Ecology `features` (and any associated “apply” stamping step) out of the Ecology Physics stage into a Gameplay-owned stamping step.
         - Evidence locus: `mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/features/contract.ts`
     - Then update recipe order to the final M10 topology:
       - `foundation → morphology-pre → morphology-mid → morphology-post → hydrology-* (truth-only) → ecology (truth-only) → map-morphology → map-hydrology (new) → map-ecology (new) → placement`
   - Add Gameplay-owned `build-elevation` step in `map-morphology`:
     - Calls `recalculateAreas()` → `buildElevation()` → `recalculateAreas()` → `stampContinents()` via adapter (Phase 2 required ordering).
+    - Immediately assert **no land/water drift** against Morphology truth landMask (same check as `plot-coasts`).
     - Provides `effect:map.elevationBuilt`.
+    - Note: legacy orchestration evidence differs on whether a post-`buildElevation()` `stampContinents()` is necessary. Treat this as a parity check, not a license to change Phase 2 canon.
+  - Prework Prompt (Agent Brief): `buildElevation()` ordering parity (`stampContinents()` after build)
+    - **Purpose:** Confirm whether `stampContinents()` after `buildElevation()` is required by Civ7 materialization (or is legacy drift).
+    - **Expected Output:**
+      - Compare current TS ordering (`mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-baseline/steps/climateBaseline.ts`) vs legacy JS orchestrator (`docs/system/libs/mapgen/_archive/original-mod-swooper-maps-js/map_orchestrator.js`) and (if available) extracted Civ7 official scripts.
+      - Identify any downstream consumer that requires the post-`buildElevation()` `stampContinents()` evidence.
+      - Recommendation: keep as-is (Phase 2) or open a Phase 2 canon correction follow-up (out of scope for M10 implementation).
   - Remove `buildElevation()` (and any coupled `stampContinents()` repetition) from:
     - `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-baseline/steps/climateBaseline.ts`
   - Remove adapter writes from Morphology steps (truth-only):
@@ -420,9 +629,23 @@ Legend:
   - Add TerrainBuilder boundary allowlist:
     - `.buildElevation(` callsites only in Gameplay `build-elevation` step.
     - `.getElevation(` / `.isCliffCrossing(` callsites only in Gameplay steps that `require` `effect:map.elevationBuilt`.
-  - Allowlist `writeHeightfield` / `setFeatureType` / `createFractal` / `getFractalHeight` to Gameplay plotting steps only.
+  - Allowlist `writeHeightfield` / `setFeatureType` callsites to Gameplay plotting steps only.
+  - Hard-ban adapter fractal calls everywhere (Physics and Gameplay): `createFractal` / `getFractalHeight` are shaping utilities and must be replaced by pure Morphology noise/field ops (Phase 2 posture).
   - Enable guardrail script “full profile” once Morphology stages are truth-only:
     - `REFRACTOR_DOMAINS="<slice-domains>" DOMAIN_REFACTOR_GUARDRAILS_PROFILE=full ./scripts/lint/lint-domain-refactor-guardrails.sh`
+- Prework Prompt (Agent Brief): Hydrology rivers without `artifact:morphology.routing`
+  - **Purpose:** Phase 2 locks `artifact:morphology.routing` as Morphology-internal. Hydrology must become independent of Morphology routing and derive its river modeling inputs from public truth artifacts.
+  - **Expected Output:**
+    - Inventory all call paths that read `artifact:morphology.routing` and what they use it for.
+    - Propose the minimal replacement inputs for Hydrology rivers (prefer `artifact:morphology.topography` + `artifact:morphology.substrate` over any new cross-domain artifacts).
+    - Produce a concrete contract patch list:
+      - `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-hydrography/steps/rivers.contract.ts`
+      - `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-hydrography/steps/rivers.ts`
+      - Any Morphology internal exports that can be deleted once the consumer migration lands.
+    - Define the slice-local verification for “no routing backfeed” (contract guard + `rg`).
+  - **Sources to Check:**
+    - Phase 2 authority: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-CONTRACTS.md`
+    - Current code: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-hydrography/steps/rivers.ts`
 - Downstream:
   - Consumer matrix “Break” rows completed in-slice:
     - `hydrology-climate-baseline/climate-baseline` (remove `buildElevation()` + `stampContinents()` + engine sync/read usage)
@@ -439,6 +662,39 @@ Legend:
     - Delete any now-unused legacy stamping helpers and compat exports in touched scopes.
     - Run fast gates.
 
+**Acceptance criteria (Slice 4):**
+- [ ] `TerrainBuilder.buildElevation()` is called only from Gameplay (`map-morphology/build-elevation`) and provides `effect:map.elevationBuilt`.
+- [ ] No Hydrology or Ecology Physics step reads `artifact:heightfield` or calls `syncHeightfield` to backfeed engine state into Physics decisions.
+- [ ] No Hydrology or Ecology Physics step calls `context.adapter.getLatitude(...)` (latitude is derived from `context.env.latitudeBounds`).
+- [ ] No Morphology Physics step performs adapter writes (`writeHeightfield`, `setFeatureType`, `createFractal`, `getFractalHeight`).
+- [ ] Morphology Physics steps emit truth-based trace events (`type: "morphology.*"`) including ASCII-able representations for key masks/indices.
+- [ ] Gameplay stamping steps (`map-morphology`, `map-hydrology`, `map-ecology`) emit engine-surface dumps at the end of each step (adapter-wrapped; correct boundaries).
+- [ ] `map-hydrology` and `map-ecology` stages exist (or equivalent Gameplay steps) and own all adapter stamping previously in Physics Hydrology/Ecology.
+
+**Files (Slice 4):**
+```yaml
+files:
+  - path: mods/mod-swooper-maps/src/recipes/standard/stages/map-morphology/steps/buildElevation.ts
+    notes: New Gameplay build step; owns `buildElevation()` ordering + effect
+  - path: mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-baseline/steps/climateBaseline.ts
+    notes: Remove `buildElevation()` + engine sync/read; consume Morphology topography
+  - path: mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-refine/steps/climateRefine.ts
+    notes: Remove `adapter.getLatitude`; compute from `context.env.latitudeBounds`
+  - path: mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/biomes/helpers/inputs.ts
+    notes: Remove `adapter.getLatitude`; compute from `context.env.latitudeBounds`
+  - path: mods/mod-swooper-maps/src/recipes/standard/stages/morphology-mid/steps/ruggedCoasts.ts
+    notes: Remove adapter writes + fractal access; truth-only
+  - path: mods/mod-swooper-maps/src/recipes/standard/stages/morphology-post/steps/islands.ts
+    notes: Remove adapter writes + fractal access; truth-only
+  - path: mods/mod-swooper-maps/src/recipes/standard/stages/morphology-post/steps/mountains.ts
+    notes: Remove adapter writes + fractal access; truth-only
+  - path: mods/mod-swooper-maps/src/recipes/standard/stages/morphology-post/steps/volcanoes.ts
+    notes: Remove adapter writes; publish intent truth only
+  - path: mods/mod-swooper-maps/src/recipes/standard/recipe.ts
+    notes: Final topology order; insert `map-hydrology` + `map-ecology` after `map-morphology`
+```
+
+<!-- <slice id="5" /> -->
 ### Slice 5 — Truth artifact cleanup + required map projection artifacts + deletion sweep
 
 - Scope:
@@ -460,9 +716,11 @@ Legend:
       - `mods/mod-swooper-maps/src/recipes/standard/stages/placement/steps/index.ts` (export it)
     - Migration within Placement:
       - `mods/mod-swooper-maps/src/recipes/standard/stages/placement/steps/placement/apply.ts` consumes `artifact:map.landmassRegionSlotByTile` and does no slot computation.
-  - Cleanup sweep (Morphology scope):
+  - Cleanup sweep (M10 scope):
     - Ensure `rg -n "artifact:map\\.realized\\." mods/mod-swooper-maps/src packages/mapgen-core/src` remains empty.
     - Ensure no `syncHeightfield` is used to backfeed engine state into Morphology truth or Physics decisions for Morphology-owned concepts.
+    - Ensure legacy `artifact:heightfield` is deleted (or isolated to Gameplay-only runtime state with no cross-domain contracts):
+      - `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-baseline/artifacts.ts` (`id: "artifact:heightfield"`)
 - Guardrails introduced in-slice:
   - Expand the pipeline-level contract guard (seeded in Slice 3) to full coverage of map-stamping posture:
     - `mods/mod-swooper-maps/test/pipeline/map-stamping.contract-guard.test.ts`
@@ -478,6 +736,28 @@ Legend:
   - Phase 2 contract surfaces exist and are the only sources (no duplicate computations, no engine IDs in Physics truth, no lingering legacy stamping in Physics).
   - Ruthlessness mini-pass (Phase 5 gate; do not defer):
     - Run the Phase 5 checklist (see `## 6) Acceptance criteria`).
+
+**Acceptance criteria (Slice 5):**
+- [ ] Morphology truth artifacts match Phase 2 schemas (including required fields + invariants; no engine terrain IDs).
+- [ ] `artifact:map.projectionMeta` exists with fixed `wrapX=true`, `wrapY=false` values (not authored knobs).
+- [ ] `artifact:map.landmassRegionSlotByTile` exists and Placement consumes it (no slot computation in placement apply).
+- [ ] No legacy `artifact:heightfield` remains as a cross-domain contract input (Hydrology does not read it).
+- [ ] Full-profile guardrails pass for `morphology` and the pipeline contract guard enforces map-stamping posture.
+
+**Files (Slice 5):**
+```yaml
+files:
+  - path: mods/mod-swooper-maps/src/recipes/standard/stages/morphology-pre/artifacts.ts
+    notes: Final Phase 2 topography truth shape (no engine IDs)
+  - path: mods/mod-swooper-maps/src/recipes/standard/stages/placement/steps/plot-landmass-regions/contract.ts
+    notes: New Placement projection contract
+  - path: mods/mod-swooper-maps/src/recipes/standard/stages/placement/steps/plot-landmass-regions/index.ts
+    notes: New Placement projection implementation
+  - path: mods/mod-swooper-maps/src/recipes/standard/stages/placement/steps/placement/apply.ts
+    notes: Consume `artifact:map.landmassRegionSlotByTile` only
+  - path: mods/mod-swooper-maps/test/pipeline/map-stamping.contract-guard.test.ts
+    notes: Expanded pipeline guard coverage
+```
 
 ## 6) Acceptance criteria (required)
 
@@ -537,11 +817,11 @@ Fill in at the end of Phase 4 (plan vs actual):
 ## 7) Verification commands (required)
 
 Per-slice domain set (`<slice-domains>`):
-- Slice 1: `morphology`
+- Slice 1: `foundation,morphology` (Foundation only if needed to satisfy Phase 2 Morphology driver inputs; see Slice 1 prework prompt)
 - Slice 2: `morphology,ecology` (plus recipe/config/test migrations)
 - Slice 3: `morphology` (plus recipe wiring + new Gameplay stage)
 - Slice 4: `morphology,hydrology,ecology` (plus any moved/updated consumers)
-- Slice 5: `morphology,placement`
+- Slice 5: `morphology,hydrology,placement` (includes deletion of legacy `artifact:heightfield` if still present)
 
 Fast gates (per-slice exit gates):
 
@@ -553,6 +833,19 @@ rg -n "artifact:storyOverlays|narrativePreArtifacts\\.overlays|readOverlay|overl
 
 rg -n "artifact:map\\.realized\\." mods/mod-swooper-maps/src packages/mapgen-core/src
 
+# legacy heightfield contract + adapter latitude reads must be gone from Physics after Slice 4
+rg -n "artifact:heightfield|hydrologyClimateBaselineArtifacts\\.heightfield|deps\\.artifacts\\.heightfield\\.read" mods/mod-swooper-maps/src
+rg -n "adapter\\.getLatitude\\(" mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-* mods/mod-swooper-maps/src/recipes/standard/stages/ecology
+
+# legacy engine→buffer backfeed helper must be deleted after Slice 4
+rg -n "syncHeightfield\\(" mods/mod-swooper-maps/src packages/mapgen-core/src
+
+# adapter fractal helpers must be gone everywhere (Physics + Gameplay) after Slice 4
+rg -n "adapter\\.(createFractal|getFractalHeight)\\(" mods/mod-swooper-maps/src
+
+# adapter-coupled ASCII logging must not be used from Physics (Morphology) steps
+rg -n "logLandmassAscii\\(|logReliefAscii\\(|logFoundationAscii\\(|logMountainSummary\\(|logVolcanoSummary\\(" mods/mod-swooper-maps/src/recipes/standard/stages/morphology-*
+
 pnpm -C packages/mapgen-core check
 pnpm -C mods/mod-swooper-maps check
 
@@ -560,6 +853,9 @@ pnpm -C mods/mod-swooper-maps test -- test/morphology/contract-guard.test.ts tes
 
 # after Slice 3 introduces `effect:map.*` + `map-morphology`
 pnpm -C mods/mod-swooper-maps test -- test/pipeline/map-stamping.contract-guard.test.ts
+
+# tracing pass (expected to be non-empty once implemented)
+rg -n "type: \"morphology\\." mods/mod-swooper-maps/src/recipes/standard/stages/morphology-*
 ```
 
 Full gates (pre-merge / phase completion):
