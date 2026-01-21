@@ -4,6 +4,7 @@ import hydrology from "@mapgen/domain/hydrology";
 import { hydrologyHydrographyArtifacts } from "../../hydrology-hydrography/artifacts.js";
 import { hydrologyClimateBaselineArtifacts } from "../../hydrology-climate-baseline/artifacts.js";
 import { hydrologyClimateRefineArtifacts } from "../artifacts.js";
+import { morphologyArtifacts } from "../../morphology-pre/artifacts.js";
 
 /**
  * Hydrology refinement + diagnostics step (bounded, deterministic).
@@ -30,7 +31,7 @@ const ClimateRefineStepContract = defineStep({
   provides: [],
   artifacts: {
     requires: [
-      hydrologyClimateBaselineArtifacts.heightfield,
+      morphologyArtifacts.topography,
       hydrologyClimateBaselineArtifacts.climateField,
       hydrologyClimateBaselineArtifacts.windField,
       hydrologyHydrographyArtifacts.hydrography,

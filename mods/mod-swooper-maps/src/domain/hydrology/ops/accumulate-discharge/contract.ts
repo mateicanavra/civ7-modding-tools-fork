@@ -1,10 +1,10 @@
 import { Type, TypedArraySchemas, defineOp } from "@swooper/mapgen-core/authoring";
 
 /**
- * Computes a runoff proxy and accumulates it along Morphology-owned routing to derive discharge.
+ * Computes a runoff proxy and accumulates it along Hydrology-derived routing to derive discharge.
  *
  * Routing ownership invariant:
- * - `flowDir` is owned upstream (Morphology). Hydrology consumes it and must not recompute routing here.
+ * - `flowDir` is owned within Hydrology (derived from Morphology topography), and should not be recomputed inside this op.
  */
 const AccumulateDischargeInputSchema = Type.Object(
   {
