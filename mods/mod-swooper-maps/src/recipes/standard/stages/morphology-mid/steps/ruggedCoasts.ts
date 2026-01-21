@@ -3,12 +3,11 @@ import {
   COAST_TERRAIN,
   FLAT_TERRAIN,
   OCEAN_TERRAIN,
-  ctxRandom,
-  ctxRandomLabel,
   writeHeightfield,
 } from "@swooper/mapgen-core";
 import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import RuggedCoastsStepContract from "./ruggedCoasts.contract.js";
+import { deriveStepSeed } from "../../ecology/steps/helpers/seed.js";
 
 type ArtifactValidationIssue = Readonly<{ message: string }>;
 
@@ -52,30 +51,6 @@ function validateCoastlineMetrics(value: unknown, dimensions: MapDimensions): Ar
   return errors;
 }
 
-function buildEmptyMask(width: number, height: number): Uint8Array {
-  return new Uint8Array(width * height);
-}
-
-function buildFractalArray(
-  context: Parameters<typeof writeHeightfield>[0],
-  width: number,
-  height: number,
-  fractalId: number,
-  grain: number
-): Int16Array {
-  const fractal = new Int16Array(width * height);
-  if (context.adapter?.createFractal && context.adapter?.getFractalHeight) {
-    context.adapter.createFractal(fractalId, width, height, grain, 0);
-    for (let y = 0; y < height; y++) {
-      for (let x = 0; x < width; x++) {
-        const i = y * width + x;
-        fractal[i] = context.adapter.getFractalHeight(fractalId, x, y) | 0;
-      }
-    }
-  }
-  return fractal;
-}
-
 export default createStep(RuggedCoastsStepContract, {
   artifacts: implementArtifacts(RuggedCoastsStepContract.artifacts!.provides!, {
     coastlineMetrics: {
@@ -86,10 +61,7 @@ export default createStep(RuggedCoastsStepContract, {
     const { width, height } = context.dimensions;
     const plates = deps.artifacts.foundationPlates.read(context);
     const heightfield = context.buffers.heightfield;
-    const stepId = `${RuggedCoastsStepContract.phase}/${RuggedCoastsStepContract.id}`;
-
-    const emptyMask = buildEmptyMask(width, height);
-    const fractal = buildFractalArray(context, width, height, 1, 4);
+    const rngSeed = deriveStepSeed(context.env.seed, "morphology:computeCoastlineMetrics");
 
     const result = ops.coastlines(
       {
@@ -98,15 +70,7 @@ export default createStep(RuggedCoastsStepContract, {
         landMask: heightfield.landMask,
         boundaryCloseness: plates.boundaryCloseness,
         boundaryType: plates.boundaryType,
-        seaLaneMask: emptyMask,
-        activeMarginMask: emptyMask,
-        passiveShelfMask: emptyMask,
-        fractal,
-        rngSeed: ctxRandom(
-          context,
-          ctxRandomLabel(stepId, "morphology/compute-coastline-metrics"),
-          2_147_483_647
-        ),
+        rngSeed,
       },
       config.coastlines
     );

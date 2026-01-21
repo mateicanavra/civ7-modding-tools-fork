@@ -230,11 +230,6 @@ export default createMap({
               activeBonus: 1,
               passiveBonus: 2,
             },
-            minSeaLaneWidth: 3,
-          },
-          seaLanes: {
-            mode: "soft",
-            softChanceMultiplier: 1,
           },
         },
       },

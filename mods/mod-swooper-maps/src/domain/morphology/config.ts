@@ -677,11 +677,6 @@ export const CoastConfigSchema = Type.Object(
     bay: CoastlineBayConfigSchema,
     fjord: CoastlineFjordConfigSchema,
     plateBias: CoastlinePlateBiasConfigSchema,
-    minSeaLaneWidth: Type.Number({
-      description: "Minimum channel width preserved for naval passage when carving bays and fjords (tiles).",
-      default: 3,
-      minimum: 0,
-    }),
   }
 );
 

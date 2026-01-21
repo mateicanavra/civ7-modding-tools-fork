@@ -204,11 +204,6 @@ export const swooperEarthlikeConfig = {
               activeBonus: 2,
               passiveBonus: 1,
             },
-            minSeaLaneWidth: 3,
-          },
-          seaLanes: {
-            mode: "soft",
-            softChanceMultiplier: 1,
           },
         },
       },
