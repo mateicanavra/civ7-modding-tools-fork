@@ -23,29 +23,65 @@ Repo-path note:
 
 ## Pipeline overview (end-to-end)
 
-This example uses three explicit boundaries so ownership stays legible and no backfeeding sneaks in:
+This example uses **two** explicit step boundaries:
+- a **Physics** step that publishes truth, and
+- a **Gameplay/materialization** step (braided into the same physics phase) that both:
+  - publishes `artifact:map.*` projection/annotation layers, and
+  - performs adapter stamping and provides a boolean `effect:map.*`.
+
+This avoids an over-modeled “project vs plot” split at the step level: projection is planning (pure) and stamping is side-effecting, but both can live in the same step as long as the step is cohesive and provides the correct effect boundary.
 
 ```txt
 PHYSICS (pure; no adapter reads/writes)
-  step: morphology/plan-volcanoes
+  phase: morphology
+    step: plan-volcanoes
     requires: artifact:foundation.plates, buffer:heightfield
     provides: artifact:morphology.volcanoPlan
 
-GAMEPLAY (pure projection; no adapter writes)
-  step: map/project-volcanoes
-    requires: artifact:morphology.volcanoPlan
-    provides: artifact:map.volcanoes
-
-GAMEPLAY (stamping; adapter writes + boolean effect)
-  step: map/plot-volcanoes
-    requires: artifact:map.volcanoes
-    provides: effect:map.volcanoesPlotted
+GAMEPLAY / MATERIALIZATION (adapter writes; braided into a physics phase)
+  phase: morphology (example braid; not a “map phase”)
+    step: plot-volcanoes
+      requires: artifact:morphology.volcanoPlan
+      provides: artifact:map.volcanoes, effect:map.volcanoesPlotted
 ```
 
 Notes:
 - Physics does not require or read `artifact:map.*` or `effect:map.*` (no backfeeding).
 - The stamping step provides `effect:map.volcanoesPlotted` only when adapter writes complete successfully (pipeline marks provides on step success).
-- `artifact:map.volcanoes` is published once and treated as immutable intent; stamping consumes it without mutation.
+- `artifact:map.volcanoes` is published once and treated as immutable intent/annotation for debugging and future Gameplay reads.
+- `plot-volcanoes` computes the projection once and uses that same in-memory result both to:
+  - publish `artifact:map.volcanoes`, and
+  - drive adapter stamping (no re-derivation drift inside the step).
+
+## Example file tree (illustrative)
+
+This shows the intended separation (ops vs steps) without inventing extra pipeline phases:
+
+```txt
+mods/mod-swooper-maps/
+  src/
+    domain/
+      morphology/
+        ops/
+          plan-volcanoes/
+            contract.ts
+            index.ts
+            strategies/
+              default.ts
+            rules/
+              is-too-close.ts
+    recipes/
+      standard/
+        stages/
+          morphology-post/                 # example: where volcanoes are finalized
+            steps/
+              plan-volcanoes/              # Physics step (no adapter)
+                contract.ts
+                index.ts
+              plot-volcanoes/              # Gameplay/materialization step (adapter)
+                contract.ts
+                index.ts
+```
 
 ## Domain operation: `morphology/plan-volcanoes` (Physics; pure)
 
@@ -258,58 +294,56 @@ Runtime sketch:
 - Read `landMask` from `ctx.buffers.heightfield.landMask` (buffer; not adapter).
 - Read `boundaryCloseness`, `boundaryType`, `shieldStability`, and `meltFlux` from Foundation truth (e.g., `artifact:foundation.plates` / `artifact:foundation.tectonics`).
 - Derive `rngSeed` deterministically from the step id and run seed (e.g., `ctxRandom` + `ctxRandomLabel`).
-- Publish `artifact:morphology.volcanoPlan` as an immutable snapshot (publish-once).
 
-## Gameplay projection step: `map/project-volcanoes` (publishes `artifact:map.*` intent)
+## Gameplay/materialization step: `plot-volcanoes` (publishes `artifact:map.*` + stamps + provides effect)
 
-This step projects Physics truth into the canonical map-facing interface under `artifact:map.*`. It does not touch the adapter.
+This step is Gameplay-owned by posture because it touches the adapter and provides an `effect:map.*`.
+It can live inside a Morphology stage/phase (braided) without becoming “physics”: ownership comes from what it does and what it produces/consumes, not from the folder name.
 
-```ts
-import { Type, defineStep } from "@swooper/mapgen-core/authoring";
+Key boundary posture:
+- This step MAY read Physics truth (`artifact:morphology.volcanoPlan`, `artifact:morphology.topography`, etc.).
+- This step MUST NOT feed anything back into Physics truth (no “engine readback into truth”).
+- This step publishes map-facing projections/annotations under `artifact:map.*` and performs adapter writes.
 
-export const ProjectVolcanoesStepContract = defineStep({
-  id: "project-volcanoes",
-  phase: "map",
-  requires: ["artifact:morphology.volcanoPlan"],
-  provides: ["artifact:map.volcanoes"],
-  schema: Type.Object({}),
-} as const);
-```
-
-Suggested `artifact:map.volcanoes` payload (illustrative):
-
-```ts
-type MapVolcanoes = Readonly<{
-  volcanoes: ReadonlyArray<Readonly<{ tileIndex: number }>>;
-  volcanoIdByTile: Readonly<Int16Array>; // optional observability layer (e.g., -1 for none)
-}>;
-```
-
-## Gameplay stamping step: `map/plot-volcanoes` (adapter writes + `effect:map.*`)
-
-This step consumes frozen intent (`artifact:map.*`), writes to the engine adapter, and provides a boolean effect that the write happened.
+Illustrative contract shape (artifact ids are illustrative; phase is the braid’s phase, not “map”):
 
 ```ts
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
 
 export const PlotVolcanoesStepContract = defineStep({
   id: "plot-volcanoes",
-  phase: "map",
-  requires: ["artifact:map.volcanoes"],
-  provides: ["effect:map.volcanoesPlotted"],
-  schema: Type.Object({
-    volcanoFeatureId: Type.Integer({
-      description:
-        "Engine feature id for volcanoes (resolved at the boundary; do not embed engine ids in Physics truth).",
-      minimum: 0,
-    }),
-  }),
+  phase: "morphology", // braided into a morphology stage; not a separate “map phase”
+  requires: ["artifact:morphology.volcanoPlan"],
+  provides: ["artifact:map.volcanoes", "effect:map.volcanoesPlotted"],
+  schema: Type.Object({}),
 } as const);
+```
+
+Runtime sketch:
+- Compute `artifact:map.volcanoes` as an immutable projection/annotation:
+  - e.g. `{ placements: [{ tileIndex, kind: "volcano" }], ... }`
+- Stamp via adapter using the same computed placements (no recompute).
+- Provide `effect:map.volcanoesPlotted` only after adapter writes complete successfully.
+Suggested `artifact:map.volcanoes` payload (illustrative):
+
+```ts
+type MapVolcanoes = Readonly<{
+  placements: ReadonlyArray<
+    Readonly<{
+      tileIndex: number;
+      kind: "volcano";
+    }>
+  >;
+
+  // Optional observability layer: -1 for none, otherwise a stable index into `placements`.
+  volcanoIndexByTile?: Readonly<Int16Array>;
+}>;
 ```
 
 Stamping rules:
 - Do not publish any `artifact:map.realized.*` surfaces. The guarantee is the effect.
 - Any engine-derived reads (e.g., Civ7 cliffs/elevation bands) must happen only in Gameplay and only after the relevant effect boundary (e.g., after `effect:map.elevationBuilt` for cliff/elevation-band correctness).
+- Do not take raw engine ids as config unless it’s truly a user-facing choice; prefer adapter-resolved lookups for engine enums/constants.
 
 ## Complete, deterministic config example (no defaults)
 
@@ -334,9 +368,6 @@ export const volcanoExampleConfig = {
       minVolcanoes: 5,
       maxVolcanoes: 40,
     },
-  },
-  plotVolcanoes: {
-    volcanoFeatureId: 123, // resolved at boundary in the real pipeline
   },
 } as const;
 ```

@@ -6,6 +6,11 @@ You are strictly in read-only mode:
 - Do not generate or modify generated artifacts.
 - Your job is analysis, modeling, and planning only.
 
+IMPORTANT CURRENT STATE:
+- For Morphology, Phase 0.5 / Phase 1 / Phase 2 are already complete and the spike material is archived.
+- Do NOT regenerate or “re-run” Phase 0.5–2 deliverables.
+- Your work should begin at Phase 3 (implementation plan + slicing) using the canonical Phase 2 spec trilogy as authority.
+
 CRITICAL: Before starting ANY phase work, open and follow the canonical workflow + templates in-repo.
 Treat the workflow docs as the “shape contract” for each phase deliverable. Do not invent new phase formats.
 
@@ -26,7 +31,14 @@ Canonical Morphology Phase 2 model (authoritative; do not reinterpret; Phase 2 +
 - resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-CORE-MODEL-AND-PIPELINE.md
 - resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-CONTRACTS.md
 - resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-MAP-PROJECTIONS-AND-STAMPING.md
-- resources/workflow/domain-refactor/plans/morphology/spike-morphology-modeling-gpt.md (Phase 2 deliverable index; may contain drafts/notes — if it conflicts, the spec files win)
+- resources/workflow/domain-refactor/plans/morphology/MORPHOLOGY.md (index)
+
+Historical source material (archived; do not edit; read only if you need historical context):
+- resources/workflow/domain-refactor/plans/morphology/_archive/v3/spike-morphology-greenfield-gpt.md
+- resources/workflow/domain-refactor/plans/morphology/_archive/v3/spike-morphology-current-state-gpt.md
+- resources/workflow/domain-refactor/plans/morphology/_archive/v3/spike-morphology-modeling-gpt.md
+- resources/workflow/domain-refactor/plans/morphology/_archive/v3/spike-morphology-modeling-gpt-addendum-full.md
+- resources/workflow/domain-refactor/plans/morphology/_archive/v3/spike-morphology-modeling-gpt-addendum-braided-map-projection-draft.md
 
 Legacy background context (may be outdated vs the current architecture; use only for historical meaning):
 - docs/system/libs/mapgen/morphology.md
@@ -57,9 +69,6 @@ MILESTONE:
 - All Phase 3 issues must use `issues/LOCAL-TBD-<milestone>-morphology-*.md`.
 
 Canonical artifacts you must produce (ALL live under the Morphology domain plan directory; no top-level spike dir):
-- resources/workflow/domain-refactor/plans/morphology/spike-morphology-greenfield-gpt.md
-- resources/workflow/domain-refactor/plans/morphology/spike-morphology-current-state-gpt.md
-- resources/workflow/domain-refactor/plans/morphology/spike-morphology-modeling-gpt.md
 - resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-CORE-MODEL-AND-PIPELINE.md
 - resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-CONTRACTS.md
 - resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-MAP-PROJECTIONS-AND-STAMPING.md

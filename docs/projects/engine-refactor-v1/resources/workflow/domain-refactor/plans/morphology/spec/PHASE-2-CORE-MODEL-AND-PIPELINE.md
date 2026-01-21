@@ -9,10 +9,10 @@ This file is the **Phase 2 canonical spine** for Morphology modeling:
   - `spec/PHASE-2-CONTRACTS.md` (schemas/field lists; Agent Split 2),
   - `spec/PHASE-2-MAP-PROJECTIONS-AND-STAMPING.md` (`artifact:map.*` posture + Civ7 stamping; Agent Split 3).
 
-Source material (do not edit during this run):
-- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/spike-morphology-modeling-gpt.md`
-- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/spike-morphology-modeling-gpt-addendum-full.md`
-- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/spike-morphology-modeling-gpt-addendum-braided-map-projection-draft.md`
+Source material (archived; do not edit during this run):
+- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/_archive/v3/spike-morphology-modeling-gpt.md`
+- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/_archive/v3/spike-morphology-modeling-gpt-addendum-full.md`
+- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/_archive/v3/spike-morphology-modeling-gpt-addendum-braided-map-projection-draft.md`
 - `docs/projects/engine-refactor-v1/resources/spec/SPEC-DOMAIN-MODELING-GUIDELINES.md`
 
 ---

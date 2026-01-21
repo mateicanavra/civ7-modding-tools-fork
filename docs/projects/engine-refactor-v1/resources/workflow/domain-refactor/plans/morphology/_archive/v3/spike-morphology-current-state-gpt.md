@@ -8,10 +8,10 @@ Purpose: Document the current state of the Morphology domain in Civ7 MapGen, bas
 ## References:
 
 - Workflow reference (domain refactor): `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/WORKFLOW.md`
-- Phase 0.5 (Morphology greenfield sketch): `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/spike-morphology-greenfield-gpt.md`
+- Phase 0.5 (Morphology greenfield sketch): `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/_archive/v3/spike-morphology-greenfield-gpt.md`
 - Phase 1 template: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/references/phase-1-current-state.md` (structure guidelines)
 - Morphology context packet: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/prompts/MORPHOLOGY-CONTEXT.md`
-- Phase 0.5 spike (greenfield): `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/spike-morphology-greenfield-gpt.md`
+- Phase 0.5 spike (greenfield): `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/_archive/v3/spike-morphology-greenfield-gpt.md`
 
 ## Scope guardrails:
 

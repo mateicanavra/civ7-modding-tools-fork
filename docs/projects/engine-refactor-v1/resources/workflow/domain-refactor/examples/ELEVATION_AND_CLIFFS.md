@@ -3,7 +3,7 @@ name: example-elevation-and-cliffs-terrainbuilder-no-drift
 description: |
   Canonical example for the TerrainBuilder no-drift lock:
   `TerrainBuilder.buildElevation()` is the source of truth for Civ7 elevation bands/cliffs,
-  and engine-derived reads happen only in Gameplay after `effect:map.elevationBuilt`.
+  and engine-derived reads happen only in Gameplay after `buildElevation()` (with `effect:map.elevationBuilt` as the downstream guarantee).
 ---
 
 # EXAMPLE: Elevation & Cliffs (TerrainBuilder No-Drift)
@@ -14,7 +14,7 @@ Hard locks demonstrated:
 - Civ7 topology is fixed: `wrapX=true`, `wrapY=false` (no wrap knobs/config).
 - Physics domains stay pure (no adapter reads/writes; no `artifact:map.*` / `effect:map.*` inputs).
 - `TerrainBuilder.buildElevation()` is the only source of banded elevation/cliffs.
-- Gameplay reads `GameplayMap.*` / adapter surfaces only **after** `effect:map.elevationBuilt`.
+- Gameplay reads `GameplayMap.*` / adapter surfaces only **after** `buildElevation()` (with `effect:map.elevationBuilt` as the downstream guarantee boundary).
 - Effects are boolean execution guarantees: `effect:map.<thing><Verb>` (use a semantically correct verb; `*Plotted` is reserved for stamping/placement, `*Built` is used for TerrainBuilder build steps).
 - No `artifact:map.realized.*` namespace (effects express execution; `artifact:map.*` expresses intent/observability).
 
@@ -24,25 +24,37 @@ Hard locks demonstrated:
 PHYSICS (pure; no adapter reads/writes)
   ... upstream domains publish truth and/or buffers (heightfield, terrain intent, etc.)
 
-GAMEPLAY (stamping; adapter writes + boolean effect)
-  step: map/build-elevation
-    requires: buffer:heightfield (or the upstream terrain intent/buffers your project uses)
-    provides: effect:map.elevationBuilt
-    does: adapter.buildElevation()
-
-GAMEPLAY (projection; adapter/engine reads after effect)
-  step: map/project-elevation-and-cliffs
-    requires: effect:map.elevationBuilt
-    provides: artifact:map.elevationByTile, artifact:map.cliffCrossingByEdge
-    does: reads engine-derived elevation/cliff surfaces, publishes immutable map annotations
+GAMEPLAY / MATERIALIZATION (adapter writes + engine reads; braided into a physics phase)
+  phase: <the phase you braid this into> (not a “map phase”)
+    step: build-elevation
+      requires: buffer:heightfield (or the upstream terrain intent/buffers your project uses)
+      provides: effect:map.elevationBuilt, artifact:map.elevationByTile, artifact:map.cliffCrossingByEdge
+      does:
+        - adapter.buildElevation()
+        - reads engine-derived elevation/cliff surfaces
+        - publishes immutable map annotations
 ```
 
 Notes:
-- The “engine read” step is Gameplay-owned by definition (it consumes `effect:map.elevationBuilt` and reads engine surfaces).
-- The “engine read” step is Gameplay-owned by definition (it consumes `effect:map.elevationBuilt` and reads engine surfaces).
+- This is a single cohesive step: `buildElevation()` is the permission boundary, and engine reads happen immediately after it inside the same step.
 - Physics never consumes these `artifact:map.*` projections (no backfeeding).
 
-## Gameplay build step: `map/build-elevation`
+## Example file tree (illustrative)
+
+```txt
+mods/mod-swooper-maps/
+  src/
+    recipes/
+      standard/
+        stages/
+          <some-physics-stage>/            # example: where materialization is braided in
+            steps/
+              build-elevation/             # Gameplay/materialization step (adapter + reads)
+                contract.ts
+                index.ts
+```
+
+## Gameplay/materialization step: `build-elevation`
 
 This step is an effect boundary: it performs adapter calls and provides a boolean effect on success.
 
@@ -51,9 +63,9 @@ import { Type, defineStep } from "@swooper/mapgen-core/authoring";
 
 export const BuildElevationStepContract = defineStep({
   id: "build-elevation",
-  phase: "map",
+  phase: "morphology", // example braid; not a “map phase”
   requires: ["buffer:heightfield"],
-  provides: ["effect:map.elevationBuilt"],
+  provides: ["effect:map.elevationBuilt", "artifact:map.elevationByTile", "artifact:map.cliffCrossingByEdge"],
   schema: Type.Object({}),
 } as const);
 ```
@@ -62,22 +74,7 @@ Runtime sketch (Gameplay-owned, side effects allowed):
 - Optionally call `adapter.recalculateAreas()` if required by the engine’s internal invariants.
 - Call `adapter.buildElevation()` (wraps `TerrainBuilder.buildElevation()`).
 - Do not attempt to set cliffs/elevation bands directly; this step is the sole canonical “engine elevation computed” boundary.
-
-## Gameplay projection step: `map/project-elevation-and-cliffs`
-
-This step reads engine-derived surfaces and publishes map-facing projection/observability layers.
-
-```ts
-import { Type, defineStep } from "@swooper/mapgen-core/authoring";
-
-export const ProjectElevationAndCliffsStepContract = defineStep({
-  id: "project-elevation-and-cliffs",
-  phase: "map",
-  requires: ["effect:map.elevationBuilt"],
-  provides: ["artifact:map.elevationByTile", "artifact:map.cliffCrossingByEdge"],
-  schema: Type.Object({}),
-} as const);
-```
+- After `buildElevation()`, read engine-derived surfaces (Gameplay-only) and publish `artifact:map.*` projections as immutable snapshots.
 
 Projection rules (canonical posture):
 - Elevation bands/cliffs are **engine-derived**; treat them as Gameplay/map-layer facts.
@@ -96,7 +93,7 @@ type MapCliffCrossingByEdge = Readonly<{
 }>;
 ```
 
-Engine read sketch (Gameplay-only; runs after `effect:map.elevationBuilt`):
+Engine read sketch (Gameplay-only; runs after `buildElevation()` inside this step):
 - Read `width`/`height` from `context.dimensions` (not from config).
 - `elevationM[i] = context.adapter.getElevation(x, y)` (already wrapped in `packages/civ7-adapter`).
 - `cliff = GameplayMap.isCliffCrossing(x, y, direction)` (engine global; adapter wrapper may be added later).

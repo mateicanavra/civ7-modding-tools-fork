@@ -52,17 +52,19 @@ items:
   - name: Phase 0.5
     meaning: Greenfield pre-work spike (historical context).
     files:
-      - docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/spike-morphology-greenfield-gpt.md
+      - docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/_archive/v3/spike-morphology-greenfield-gpt.md
     status: complete
   - name: Phase 1
     meaning: Current-state spike (historical context).
     files:
-      - docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/spike-morphology-current-state-gpt.md
+      - docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/_archive/v3/spike-morphology-current-state-gpt.md
     status: complete
-  - name: Phase 2 (entrypoint)
-    meaning: Phase 2 overview/index; canonical spec is in `spec/`.
+  - name: Phase 2 (archived spike)
+    meaning: Earlier Phase 2 spike material (historical context; do not edit).
     files:
-      - docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/spike-morphology-modeling-gpt.md
+      - docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/_archive/v3/spike-morphology-modeling-gpt.md
+      - docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/_archive/v3/spike-morphology-modeling-gpt-addendum-full.md
+      - docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/_archive/v3/spike-morphology-modeling-gpt-addendum-braided-map-projection-draft.md
     status: complete
   - name: Phase 2 (canonical)
     meaning: Canonical Phase 2 spec surfaces (authoritative).

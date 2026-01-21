@@ -1174,8 +1174,8 @@ This spec is intended to be readable as a *single canonical body*. To keep futur
 
 1. `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/MORPHOLOGY.md` — Morphology vertical refactor plan.
 2. `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/WORKFLOW.md` — Backbone workflow for the domain refactor.
-3. `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/spike-morphology-greenfield-gpt.md` — Phase 0.5 greenfield morphology exploration.
-4. `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/spike-morphology-current-state-gpt.md` — Phase 1 current-state analysis.
+3. `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/_archive/v3/spike-morphology-greenfield-gpt.md` — Phase 0.5 greenfield morphology exploration.
+4. `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/_archive/v3/spike-morphology-current-state-gpt.md` — Phase 1 current-state analysis.
 5. `docs/system/libs/mapgen/morphology.md` — Canonical Morphology domain responsibilities and outputs.
 6. `docs/system/libs/mapgen/architecture.md` — Cross-domain data model and artifact/buffer relationships.
 7. `docs/system/libs/mapgen/foundation.md` — Foundation domain outputs relied on by Morphology.

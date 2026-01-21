@@ -95,9 +95,10 @@
 
 	  Morphology artifacts and tracker:
 	  - issues/LOCAL-TBD-<milestone>-morphology-*.md
-	  - resources/workflow/domain-refactor/plans/morphology/spike-morphology-greenfield-gpt.md
-	  - resources/workflow/domain-refactor/plans/morphology/spike-morphology-current-state-gpt.md
-	  - resources/workflow/domain-refactor/plans/morphology/spike-morphology-modeling-gpt.md
+	  - resources/workflow/domain-refactor/plans/morphology/MORPHOLOGY.md
+	  - resources/workflow/domain-refactor/plans/morphology/_archive/v3/spike-morphology-greenfield-gpt.md (archived; historical)
+	  - resources/workflow/domain-refactor/plans/morphology/_archive/v3/spike-morphology-current-state-gpt.md (archived; historical)
+	  - resources/workflow/domain-refactor/plans/morphology/_archive/v3/spike-morphology-modeling-gpt.md (archived; historical)
 	  - resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-CORE-MODEL-AND-PIPELINE.md
 	  - resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-CONTRACTS.md
 	  - resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-MAP-PROJECTIONS-AND-STAMPING.md

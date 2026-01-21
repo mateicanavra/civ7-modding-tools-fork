@@ -268,7 +268,14 @@ Steps are **not** planning units:
 
 Hard rules:
 - Physics never consumes `artifact:map.*`.
-- Do not model `artifact:map.*` as a “direct mirror” of physics truth by contract. It is derived independently in Gameplay projection steps from physics truth artifacts.
+- Do not model `artifact:map.*` as a “direct mirror” of physics truth by contract. It is derived independently in Gameplay projection/materialization steps from physics truth artifacts.
+
+Step granularity posture (avoid over-modeling):
+- Do not introduce a separate “project-*” step purely to publish `artifact:map.*` if the same cohesive step is already responsible for stamping/materialization.
+- Prefer a single `plot-*` / `apply-*` / `build-*` step that:
+  - derives the needed `artifact:map.*` projection/annotation layers, and
+  - performs adapter work, and
+  - provides the matching boolean `effect:map.<thing><Verb>`.
 
 Examples (non-exhaustive): coasts, cliffs (Civ7 cliff crossings; engine-derived after `effect:map.elevationBuilt`), mountains, volcanoes, plates, landmasses, features, resources, region slots/ids, etc.
 - A step named “plan-*” is a modeling smell; rename it to reflect action (e.g., `plot-*`, `apply-*`, `publish-*`).
