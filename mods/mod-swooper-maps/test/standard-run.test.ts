@@ -436,9 +436,11 @@ const standardConfig = {
     islands: {
       islands: { strategy: "default", config: islandsPlanConfig },
     },
-    mountains: { mountains: { strategy: "default", config: mountainsConfig } },
     volcanoes: { volcanoes: { strategy: "default", config: volcanoesConfig } },
     landmasses: { landmasses: { strategy: "default", config: {} } },
+  },
+  "map-morphology": {
+    mountains: { mountains: { strategy: "default", config: mountainsConfig } },
   },
   "hydrology-climate-baseline": {
     knobs: {
@@ -446,7 +448,6 @@ const standardConfig = {
       temperature: "temperate",
       seasonality: "normal",
       oceanCoupling: "earthlike",
-      lakeiness: "normal",
     },
   },
   "hydrology-hydrography": {
@@ -461,8 +462,17 @@ const standardConfig = {
       cryosphere: "on",
     },
   },
+  "map-hydrology": {
+    knobs: {
+      riverDensity: "normal",
+      lakeiness: "normal",
+    },
+  },
   ecology: {
-    biomes: { classify: biomesConfig, bindings: biomeBindingsConfig },
+    biomes: { classify: biomesConfig },
+  },
+  "map-ecology": {
+    biomes: { bindings: biomeBindingsConfig },
     plotEffects: { plotEffects: plotEffectsConfig },
   },
   placement: {
@@ -676,7 +686,7 @@ describe("standard recipe execution", () => {
     expect(signatureA).toBe(signatureB);
   });
 
-	  it("yields more freeze persistence when temperature is cold vs hot (same seed)", () => {
+  it("yields more freeze persistence when temperature is cold vs hot (same seed)", () => {
     const width = 24;
     const height = 18;
     const seed = 123;
@@ -708,8 +718,8 @@ describe("standard recipe execution", () => {
       const mapInfo = {
         GridWidth: width,
         GridHeight: height,
-        MinLatitude: -60,
-        MaxLatitude: 60,
+        MinLatitude: -85,
+        MaxLatitude: 85,
         PlayersLandmass1: 4,
         PlayersLandmass2: 4,
         StartSectorRows: 4,
@@ -737,10 +747,10 @@ describe("standard recipe execution", () => {
       return sum / Math.max(1, freeze.length);
     };
 
-	    const meanCold = runAndMeanFreezeIndex(configCold);
-	    const meanHot = runAndMeanFreezeIndex(configHot);
-	    expect(meanCold).toBeGreaterThan(meanHot);
-	  });
+    const meanCold = runAndMeanFreezeIndex(configCold);
+    const meanHot = runAndMeanFreezeIndex(configHot);
+    expect(meanCold).toBeGreaterThan(meanHot);
+  });
 
 	  it("projects more river tiles when riverDensity is dense vs sparse (same seed)", () => {
 	    const width = 24;
