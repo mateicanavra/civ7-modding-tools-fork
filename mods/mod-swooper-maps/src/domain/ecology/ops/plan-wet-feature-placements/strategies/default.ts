@@ -56,20 +56,18 @@ export const defaultStrategy = createStrategy(PlanWetFeaturePlacementsContract, 
       biomeIndex,
       surfaceTemperature,
       landMask,
-      terrainType,
+      navigableRiverMask,
       featureKeyField,
       nearRiverMask,
       isolatedRiverMask,
-      navigableRiverTerrain,
     } = input;
 
     const featureField = featureKeyField.slice();
     const placements: Array<{ x: number; y: number; feature: FeatureKey }> = [];
 
     const isWater = (x: number, y: number): boolean => landMask[y * width + x] === 0;
-    const getTerrainType = (x: number, y: number): number => terrainType[y * width + x];
     const isNavigableRiverPlot = (x: number, y: number): boolean =>
-      navigableRiverTerrain >= 0 && getTerrainType(x, y) === navigableRiverTerrain;
+      navigableRiverMask[y * width + x] === 1;
 
     const canPlaceAt = (x: number, y: number): boolean =>
       featureField[y * width + x] === NO_FEATURE;

@@ -55,10 +55,9 @@ export const defaultStrategy = createStrategy(PlanVegetatedFeaturePlacementsCont
   run: (input, config) => {
     const rng = createLabelRng(input.seed);
 
-    const { width, height, landMask, terrainType, featureKeyField, navigableRiverTerrain } = input;
-    const getTerrainType = (x: number, y: number): number => terrainType[y * width + x];
+    const { width, height, landMask, navigableRiverMask, featureKeyField } = input;
     const isNavigableRiverPlot = (x: number, y: number): boolean =>
-      navigableRiverTerrain >= 0 && getTerrainType(x, y) === navigableRiverTerrain;
+      navigableRiverMask[y * width + x] === 1;
 
     const featureField = featureKeyField.slice();
     const placements: Array<{ x: number; y: number; feature: FeatureKey }> = [];
