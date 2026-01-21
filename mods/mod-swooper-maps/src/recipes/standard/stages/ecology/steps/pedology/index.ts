@@ -11,15 +11,15 @@ export default createStep(PedologyStepContract, {
   }),
   run: (context, config, ops, deps) => {
     const climateField = deps.artifacts.climateField.read(context);
-    const heightfield = deps.artifacts.heightfield.read(context);
+    const topography = deps.artifacts.topography.read(context);
     const { width, height } = context.dimensions;
 
     const result = ops.classify(
       {
         width,
         height,
-        landMask: heightfield.landMask,
-        elevation: heightfield.elevation,
+        landMask: topography.landMask,
+        elevation: topography.elevation,
         rainfall: climateField.rainfall,
         humidity: climateField.humidity,
       },

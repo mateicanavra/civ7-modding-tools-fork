@@ -1,13 +1,12 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
 
 import { morphologyArtifacts } from "../../morphology-pre/artifacts.js";
-import { hydrologyClimateBaselineArtifacts } from "../artifacts.js";
 
 /**
  * Lake projection step (engine-facing).
  *
- * Lakes are currently projected via engine mechanisms and then surfaced as part of Hydrology’s heightfield handle.
- * This step must remain deterministic and must not embed regional “paint” behavior inside Hydrology.
+ * Lakes are projected via engine mechanisms as a Gameplay projection only.
+ * This step must remain deterministic and must not embed regional “paint” behavior inside Hydrology truth.
  */
 const LakesStepConfigSchema = Type.Object(
   {
@@ -34,12 +33,11 @@ const LakesStepConfigSchema = Type.Object(
 
 const LakesStepContract = defineStep({
   id: "lakes",
-  phase: "hydrology",
+  phase: "gameplay",
   requires: [],
   provides: [],
   artifacts: {
     requires: [morphologyArtifacts.topography],
-    provides: [hydrologyClimateBaselineArtifacts.heightfield],
   },
   schema: LakesStepConfigSchema,
 });

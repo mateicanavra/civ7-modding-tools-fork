@@ -12,14 +12,14 @@ export default createStep(ResourceBasinsStepContract, {
   run: (context, config, ops, deps) => {
     const { width, height } = context.dimensions;
     const pedology = deps.artifacts.pedology.read(context);
-    const heightfield = deps.artifacts.heightfield.read(context);
+    const topography = deps.artifacts.topography.read(context);
     const climate = deps.artifacts.climateField.read(context);
 
     const planned = ops.plan(
       {
         width,
         height,
-        landMask: heightfield.landMask,
+        landMask: topography.landMask,
         fertility: pedology.fertility,
         soilType: pedology.soilType,
         rainfall: climate.rainfall,

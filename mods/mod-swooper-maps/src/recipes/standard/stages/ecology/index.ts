@@ -8,8 +8,6 @@ const publicSchema = Type.Object(
     biomes: Type.Optional(steps.biomes.contract.schema),
     biomeEdgeRefine: Type.Optional(steps.biomeEdgeRefine.contract.schema),
     featuresPlan: Type.Optional(steps.featuresPlan.contract.schema),
-    featuresApply: Type.Optional(steps.featuresApply.contract.schema),
-    plotEffects: Type.Optional(steps.plotEffects.contract.schema),
   },
   { additionalProperties: false }
 );
@@ -27,8 +25,6 @@ export default createStage({
       biomes: config.biomes,
       "biome-edge-refine": config.biomeEdgeRefine,
       "features-plan": config.featuresPlan,
-      "features-apply": config.featuresApply,
-      "plot-effects": config.plotEffects,
     };
   },
   steps: [
@@ -37,7 +33,5 @@ export default createStage({
     steps.biomes,
     steps.biomeEdgeRefine,
     steps.featuresPlan,
-    steps.featuresApply,
-    steps.plotEffects,
   ],
 });
