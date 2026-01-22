@@ -2,6 +2,7 @@ import { forEachHexNeighborOddQ, projectOddqToHexSpace } from "@swooper/mapgen-c
 import { wrapAbsDeltaPeriodic } from "@swooper/mapgen-core/lib/math";
 
 import type { FoundationMesh } from "../ops/compute-mesh/contract.js";
+import type { FoundationCrust } from "../ops/compute-crust/contract.js";
 import type { FoundationPlateGraph } from "../ops/compute-plate-graph/contract.js";
 import type { FoundationTectonics } from "../ops/compute-tectonics/contract.js";
 import { BOUNDARY_TYPE } from "../constants.js";
@@ -68,6 +69,7 @@ export function projectPlatesFromModel(input: {
   width: number;
   height: number;
   mesh: FoundationMesh;
+  crust: FoundationCrust;
   plateGraph: FoundationPlateGraph;
   tectonics: FoundationTectonics;
   boundaryInfluenceDistance: number;
@@ -75,6 +77,11 @@ export function projectPlatesFromModel(input: {
   movementScale: number;
   rotationScale: number;
 }): {
+  tileToCellIndex: Int32Array;
+  crustTiles: {
+    type: Uint8Array;
+    age: Uint8Array;
+  };
   plates: {
     id: Int16Array;
     boundaryCloseness: Uint8Array;
@@ -93,6 +100,7 @@ export function projectPlatesFromModel(input: {
   const height = input.height | 0;
   const size = Math.max(0, width * height);
   const mesh = input.mesh;
+  const crust = input.crust;
   const plateGraph = input.plateGraph;
   const tectonics = input.tectonics;
 
@@ -123,7 +131,7 @@ export function projectPlatesFromModel(input: {
   const movementV = new Int8Array(size);
   const rotation = new Int8Array(size);
 
-  const tileToCell = new Int32Array(size);
+  const tileToCellIndex = new Int32Array(size);
 
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
@@ -140,7 +148,7 @@ export function projectPlatesFromModel(input: {
         }
       }
 
-      tileToCell[i] = bestCell;
+      tileToCellIndex[i] = bestCell;
       const plate = plateGraph.cellToPlate[bestCell] ?? 0;
       plateId[i] = plate;
 
@@ -149,6 +157,14 @@ export function projectPlatesFromModel(input: {
       movementV[i] = plateMovementV[plateIndex] ?? 0;
       rotation[i] = plateRotation[plateIndex] ?? 0;
     }
+  }
+
+  const crustType = new Uint8Array(size);
+  const crustAge = new Uint8Array(size);
+  for (let i = 0; i < size; i++) {
+    const cellId = tileToCellIndex[i] ?? 0;
+    crustType[i] = crust.type[cellId] ?? 0;
+    crustAge[i] = crust.age[cellId] ?? 0;
   }
 
   const isBoundary = new Uint8Array(size);
@@ -170,7 +186,7 @@ export function projectPlatesFromModel(input: {
   const decay = input.boundaryDecay;
 
   for (let i = 0; i < size; i++) {
-    const cellId = tileToCell[i] ?? 0;
+    const cellId = tileToCellIndex[i] ?? 0;
     const tectonicBoundary = tectonics.boundaryType[cellId] ?? BOUNDARY_TYPE.none;
     boundaryType[i] = isBoundary[i] ? tectonicBoundary : BOUNDARY_TYPE.none;
 
@@ -191,6 +207,11 @@ export function projectPlatesFromModel(input: {
   }
 
   return {
+    tileToCellIndex,
+    crustTiles: {
+      type: crustType,
+      age: crustAge,
+    },
     plates: {
       id: plateId,
       boundaryCloseness,
