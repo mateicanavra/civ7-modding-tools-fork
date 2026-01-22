@@ -78,11 +78,13 @@ createMap({
   recipe: standardRecipe,
   config: {
     foundation: {
-      mesh: {
-        computeMesh: {
-          strategy: "default",
-          config: {
-            plateCount: 3,
+      advanced: {
+        mesh: {
+          computeMesh: {
+            strategy: "default",
+            config: {
+              plateCount: 3,
+            },
           },
         },
       },
