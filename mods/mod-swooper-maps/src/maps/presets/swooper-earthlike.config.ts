@@ -55,8 +55,10 @@ export const swooperEarthlikeConfig = {
       substrate: {
         strategy: "default",
         config: {
-          baseErodibility: 0.58, // Slightly tighter cohesion for broader lowlands
-          baseSediment: 0.24, // More shelf/alluvial material
+          continentalBaseErodibility: 0.63, // Higher land erodibility for broader lowlands
+          oceanicBaseErodibility: 0.53, // Lower oceanic erodibility baseline
+          continentalBaseSediment: 0.19, // More shelf/alluvial material
+          oceanicBaseSediment: 0.29,
           upliftErodibilityBoost: 0.35, // Keep mountains crisp without over-thinning
           riftSedimentBoost: 0.34, // Preserve inland basins without flooding shelves
         },
