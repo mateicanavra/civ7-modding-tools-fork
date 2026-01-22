@@ -1,4 +1,5 @@
 import type { MapDimensions } from "@civ7/adapter";
+import { computeSampleStep, renderAsciiGrid } from "@swooper/mapgen-core";
 import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import RuggedCoastsStepContract from "./ruggedCoasts.contract.js";
 import { deriveStepSeed } from "@swooper/mapgen-core/lib/rng";
@@ -82,6 +83,42 @@ export default createStep(RuggedCoastsStepContract, {
         heightfield.landMask[i] = updatedLandMask[i] === 1 ? 1 : 0;
       }
     }
+
+    context.trace.event(() => {
+      const size = Math.max(0, (width | 0) * (height | 0));
+      let coastTiles = 0;
+      let landTiles = 0;
+      for (let i = 0; i < size; i++) {
+        if (coastMask[i] === 1) coastTiles += 1;
+        if (heightfield.landMask[i] === 1) landTiles += 1;
+      }
+      return {
+        kind: "morphology.coastlines.summary",
+        coastTiles,
+        landTiles,
+        waterTiles: Math.max(0, size - landTiles),
+      };
+    });
+    context.trace.event(() => {
+      const sampleStep = computeSampleStep(width, height);
+      const rows = renderAsciiGrid({
+        width,
+        height,
+        sampleStep,
+        cellFn: (x, y) => {
+          const idx = y * width + x;
+          const base = heightfield.landMask[idx] === 1 ? "." : "~";
+          const overlay = coastMask[idx] === 1 ? "," : undefined;
+          return { base, overlay };
+        },
+      });
+      return {
+        kind: "morphology.coastlines.ascii.coastMask",
+        sampleStep,
+        legend: ".=land ~=water ,=coast",
+        rows,
+      };
+    });
 
     deps.artifacts.coastlineMetrics.publish(context, {
       coastalLand: result.coastalLand,

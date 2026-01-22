@@ -1,4 +1,4 @@
-import { ctxRandom, ctxRandomLabel } from "@swooper/mapgen-core";
+import { computeSampleStep, ctxRandom, ctxRandomLabel, renderAsciiGrid } from "@swooper/mapgen-core";
 import type { MapDimensions } from "@civ7/adapter";
 import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import LandmassPlatesStepContract from "./landmassPlates.contract.js";
@@ -164,6 +164,25 @@ export default createStep(LandmassPlatesStepContract, {
       elevationMin: stats.minElevation,
       elevationMax: stats.maxElevation,
     }));
+    context.trace.event(() => {
+      const sampleStep = computeSampleStep(width, height);
+      const rows = renderAsciiGrid({
+        width,
+        height,
+        sampleStep,
+        cellFn: (x, y) => {
+          const idx = y * width + x;
+          const isLand = context.buffers.heightfield.landMask[idx] === 1;
+          return { base: isLand ? "." : "~" };
+        },
+      });
+      return {
+        kind: "morphology.landmassPlates.ascii.landMask",
+        sampleStep,
+        legend: ".=land ~=water",
+        rows,
+      };
+    });
 
     deps.artifacts.topography.publish(context, context.buffers.heightfield);
     deps.artifacts.substrate.publish(context, substrate);

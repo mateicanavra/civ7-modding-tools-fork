@@ -66,6 +66,40 @@ export default createStep(RoutingStepContract, {
       },
       config.routing
     );
+    context.trace.event(() => {
+      const size = Math.max(0, (width | 0) * (height | 0));
+      const flowDir = routing.flowDir;
+      const flowAccum = routing.flowAccum;
+      const landMask = topography.landMask;
+
+      let landTiles = 0;
+      let sinks = 0;
+      let minFlow = 0;
+      let maxFlow = 0;
+      let sumFlow = 0;
+
+      for (let i = 0; i < size; i++) {
+        if (landMask[i] !== 1) continue;
+        landTiles += 1;
+
+        const dir = flowDir[i] ?? -1;
+        if (dir < 0) sinks += 1;
+
+        const flow = flowAccum[i] ?? 0;
+        if (landTiles === 1 || flow < minFlow) minFlow = flow;
+        if (landTiles === 1 || flow > maxFlow) maxFlow = flow;
+        sumFlow += flow;
+      }
+
+      return {
+        kind: "morphology.routing.summary",
+        landTiles,
+        sinks,
+        flowAccumMin: landTiles ? Number(minFlow.toFixed(4)) : 0,
+        flowAccumMax: landTiles ? Number(maxFlow.toFixed(4)) : 0,
+        flowAccumMean: landTiles ? Number((sumFlow / landTiles).toFixed(4)) : 0,
+      };
+    });
     deps.artifacts.routing.publish(context, routing);
   },
 });
