@@ -11,6 +11,12 @@ import { PerlinNoise } from "@swooper/mapgen-core/lib/noise";
 import { deriveStepSeed } from "@swooper/mapgen-core/lib/rng";
 import PlotMountainsStepContract from "./plotMountains.contract.js";
 import { assertNoWaterDrift } from "./assertions.js";
+import {
+  MORPHOLOGY_OROGENY_HILL_THRESHOLD_DELTA,
+  MORPHOLOGY_OROGENY_MOUNTAIN_THRESHOLD_DELTA,
+  MORPHOLOGY_OROGENY_TECTONIC_INTENSITY_MULTIPLIER,
+} from "@mapgen/domain/morphology/shared/knob-multipliers.js";
+import type { MorphologyOrogenyKnob } from "@mapgen/domain/morphology/shared/knobs.js";
 
 function buildFractalArray(
   width: number,
@@ -32,7 +38,36 @@ function buildFractalArray(
   return fractal;
 }
 
+function clampNumber(value: number, bounds: { min: number; max?: number }): number {
+  if (!Number.isFinite(value)) return bounds.min;
+  const max = bounds.max ?? Number.POSITIVE_INFINITY;
+  return Math.max(bounds.min, Math.min(max, value));
+}
+
 export default createStep(PlotMountainsStepContract, {
+  normalize: (config, ctx) => {
+    const { orogeny } = ctx.knobs as Readonly<{ orogeny?: MorphologyOrogenyKnob }>;
+    const multiplier = MORPHOLOGY_OROGENY_TECTONIC_INTENSITY_MULTIPLIER[orogeny ?? "normal"] ?? 1.0;
+    const mountainThresholdDelta = MORPHOLOGY_OROGENY_MOUNTAIN_THRESHOLD_DELTA[orogeny ?? "normal"] ?? 0;
+    const hillThresholdDelta = MORPHOLOGY_OROGENY_HILL_THRESHOLD_DELTA[orogeny ?? "normal"] ?? 0;
+
+    const mountainsSelection =
+      config.mountains.strategy === "default"
+        ? {
+            ...config.mountains,
+            config: {
+              ...config.mountains.config,
+              tectonicIntensity: clampNumber(config.mountains.config.tectonicIntensity * multiplier, { min: 0 }),
+              mountainThreshold: clampNumber(config.mountains.config.mountainThreshold + mountainThresholdDelta, {
+                min: 0,
+              }),
+              hillThreshold: clampNumber(config.mountains.config.hillThreshold + hillThresholdDelta, { min: 0 }),
+            },
+          }
+        : config.mountains;
+
+    return { ...config, mountains: mountainsSelection };
+  },
   run: (context, config, ops, deps) => {
     const topography = deps.artifacts.topography.read(context);
     const plates = deps.artifacts.foundationPlates.read(context);
