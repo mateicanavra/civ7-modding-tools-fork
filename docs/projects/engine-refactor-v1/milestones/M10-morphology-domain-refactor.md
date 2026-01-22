@@ -139,7 +139,7 @@ U04 enforcement (cross-boundary import hygiene):
 - Two-truth drift between engine surfaces and Morphology truth.
   - Mitigation: explicit Gameplay stamping steps with `effect:map.*` and no backfeed.
 - Physics-first quality gap (placeholder upstream drivers; spec/example drift) masked by “architecture-green” guardrails.
-  - Mitigation: track and execute post-M10 remediation spike: `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-SPIKE-morphology-physics-first-gap-remediation.md`.
+  - Mitigation: execute M11 remediation plan: `docs/projects/engine-refactor-v1/milestones/M11-physics-first-realism-upgrade.md` and `docs/projects/engine-refactor-v1/issues/M11-U00-physics-first-realism-upgrade-plan.md`.
 - Overlay backfeeding reintroduced through “helpful” masks.
   - Mitigation: contract guards and overlay purge gates.
 - TerrainBuilder ordering drift.

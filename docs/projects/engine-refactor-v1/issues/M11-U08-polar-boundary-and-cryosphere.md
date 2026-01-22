@@ -1,18 +1,18 @@
 ---
-id: LOCAL-TBD
-title: "[POST-M10] Polar boundary conditions + cryosphere truth (edge physics + ice proxies)"
+id: M11-U08
+title: "[M11/U08] Polar boundary conditions + cryosphere truth (edge physics + ice proxies)"
 state: planned
 priority: 2
 estimate: 4
 project: engine-refactor-v1
-milestone: TBD
+milestone: M11
 assignees: []
 labels: [foundation, hydrology, morphology, ecology, physics]
 parent: null
 children: []
 blocked_by: []
 blocked: []
-related_to: [LOCAL-TBD]
+related_to: [M11-U00]
 ---
 
 <!-- SECTION SCOPE [SYNC] -->

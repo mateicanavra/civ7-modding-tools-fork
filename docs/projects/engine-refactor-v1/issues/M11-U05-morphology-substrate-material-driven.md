@@ -1,18 +1,18 @@
 ---
-id: LOCAL-TBD
-title: "[POST-M10] Morphology substrate material-driven rewrite (`erodibilityK` from crust/material)"
+id: M11-U05
+title: "[M11/U05] Morphology substrate material-driven rewrite (`erodibilityK` from crust/material)"
 state: planned
 priority: 2
 estimate: 3
 project: engine-refactor-v1
-milestone: TBD
+milestone: M11
 assignees: []
 labels: [morphology, physics, contracts]
 parent: null
 children: []
-blocked_by: [LOCAL-TBD]
+blocked_by: [M11-U04]
 blocked: []
-related_to: [LOCAL-TBD]
+related_to: [M11-U00]
 ---
 
 <!-- SECTION SCOPE [SYNC] -->
