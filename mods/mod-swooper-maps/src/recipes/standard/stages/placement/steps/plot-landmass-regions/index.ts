@@ -18,7 +18,7 @@ function resolveSlotByTile(input: {
   height: number;
   landMask: Uint8Array;
   landmassIdByTile: Int32Array;
-  landmasses: Array<{ id: number; bbox: { west: number; east: number } }>;
+  landmasses: ReadonlyArray<{ id: number; bbox: { west: number; east: number } }>;
 }): Uint8Array {
   const { width, height, landMask, landmassIdByTile, landmasses } = input;
   const size = Math.max(0, (width | 0) * (height | 0));
@@ -72,7 +72,7 @@ export default createStep(PlotLandmassRegionsStepContract, {
       height,
       landMask: topography.landMask as Uint8Array,
       landmassIdByTile: landmasses.landmassIdByTile as Int32Array,
-      landmasses: landmasses.landmasses as Array<{ id: number; bbox: { west: number; east: number } }>,
+      landmasses: landmasses.landmasses,
     });
 
     const westRegionId = context.adapter.getLandmassId("WEST");
