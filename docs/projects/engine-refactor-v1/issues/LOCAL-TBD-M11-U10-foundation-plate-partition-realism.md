@@ -8,7 +8,7 @@ project: engine-refactor-v1
 milestone: M11
 assignees: []
 labels: [foundation, plates, realism, contracts]
-parent: null
+parent: LOCAL-TBD-M11-U15
 children: []
 blocked_by: []
 blocked: []
@@ -21,13 +21,7 @@ related_to: [M11-U00]
 - Why now: M11’s physics-first realism work needs a non-Voronoi partition so tectonics/morphology don’t inherit a uniform “fake mosaic” substrate, and so we can validate plate realism with topology metrics.
 
 ## Deliverables
-- **Shared slice invariants (U10–U14; reference by ID, do not restate elsewhere)**
-  - **FND-INV-CYLINDER-TOPOLOGY:** cylinder topology everywhere (`wrapX=true`, `wrapY=false`) for partitioning, topology, tectonics, and projections; not a config flag.
-  - **FND-INV-DETERMINISM:** same `{seed, config, dimensions}` ⇒ identical outputs for any `artifact:foundation.*` touched by these issues.
-  - **FND-INV-NO-DUAL-PATHS:** no shims/dual paths; cut over cleanly (no legacy Voronoi partition, no legacy neighbor-scan tectonics, no polar injection fallbacks).
-  - **FND-INV-TRUTH-PROJECTION-BOUNDARY:** mesh truth artifacts are authoritative; tile tensors are explicit projections; no `artifact:map.*`/engine surfaces in Foundation truth.
-  - **FND-INV-DRIVER-KNOBS-ONLY:** author knobs steer physical drivers (cost fields, kernel widths, era weights), not post-hoc outcome clamps.
-  - **FND-INV-NO-LATITUDE-OVERRIDES:** no latitude/`y`-band logic that injects regimes/intensities or projection seeds (poles emerge from topology + kinematics).
+- Shared slice invariants: see `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M11-U15-foundation-realism-execution-spine.md` (`FND-INV-*`).
 - [ ] Replace `foundation/compute-plate-graph`’s Voronoi-nearest assignment with a realism-first partition:
   - Multi-source weighted region growth (Dijkstra/flood fill) over mesh adjacency.
   - Variable-size distribution by default (few large plates + tail of smaller plates/microplates).

@@ -8,9 +8,9 @@ project: engine-refactor-v1
 milestone: M11
 assignees: []
 labels: [foundation, polar, realism, contracts]
-parent: null
+parent: LOCAL-TBD-M11-U15
 children: []
-blocked_by: [LOCAL-TBD-M11-U10]
+blocked_by: [LOCAL-TBD-M11-U11]
 blocked: []
 related_to: [M11-U00, M11-U06, LOCAL-TBD-M11-U10, LOCAL-TBD-M11-U11, LOCAL-TBD-M11-U14]
 ---
@@ -20,7 +20,7 @@ related_to: [M11-U00, M11-U06, LOCAL-TBD-M11-U10, LOCAL-TBD-M11-U11, LOCAL-TBD-M
 - Make polar rims emerge from real polar cap plates + kinematics (tangential motion, optional microplates) and remove the current polar regime + projection hacks that create thin one-tile belts.
 
 ## Deliverables
-- Shared slice invariants: see `[M11/U10]` Deliverables (`FND-INV-*`).
+- Shared slice invariants: see `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M11-U15-foundation-realism-execution-spine.md` (`FND-INV-*`).
 - Implement a polar plate policy in `foundation/compute-plate-graph` (post-U10 cutover) so polar boundary geometry/topology is explicit and testable:
   - North + south cap plates are always present and contiguous.
   - Cap kinematics are tangential by default (policy-driven, not latitude-driven regime injection).

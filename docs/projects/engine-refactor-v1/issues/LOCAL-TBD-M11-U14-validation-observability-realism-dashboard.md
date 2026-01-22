@@ -8,9 +8,9 @@ project: engine-refactor-v1
 milestone: M11
 assignees: []
 labels: [tests, observability, foundation, morphology, realism]
-parent: null
+parent: LOCAL-TBD-M11-U15
 children: []
-blocked_by: [LOCAL-TBD-M11-U10, LOCAL-TBD-M11-U11, LOCAL-TBD-M11-U12, LOCAL-TBD-M11-U13]
+blocked_by: [LOCAL-TBD-M11-U13]
 blocked: []
 related_to: [M11-U00, M11-U06, M10-U06, LOCAL-TBD-M11-U10, LOCAL-TBD-M11-U11, LOCAL-TBD-M11-U12, LOCAL-TBD-M11-U13]
 ---
@@ -20,7 +20,7 @@ related_to: [M11-U00, M11-U06, M10-U06, LOCAL-TBD-M11-U10, LOCAL-TBD-M11-U11, LO
 - Add a small suite of realism invariants + metrics-backed traces so plate/belt outputs and belt→mountain coupling regressions (especially “mountain walls”) are caught in tests and visible in logs without rendering.
 
 ## Deliverables
-- Shared slice invariants: see `[M11/U10]` Deliverables (`FND-INV-*`).
+- Shared slice invariants: see `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M11-U15-foundation-realism-execution-spine.md` (`FND-INV-*`).
 - Define a small suite of realism invariants (IDs; tests + traces reference these exactly), validated without rendering.
 - **Invariant scope (default):**
   - Preset: `mods/mod-swooper-maps/src/maps/presets/swooper-earthlike.config.js#swooperEarthlikeConfig`

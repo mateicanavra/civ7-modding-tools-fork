@@ -8,7 +8,7 @@ project: engine-refactor-v1
 milestone: M11
 assignees: []
 labels: [foundation, tectonics, realism, contracts]
-parent: null
+parent: LOCAL-TBD-M11-U15
 children: []
 blocked_by: [LOCAL-TBD-M11-U10]
 blocked: []
@@ -22,7 +22,7 @@ related_to: [M11-U00, M11-U04, M11-U06, LOCAL-TBD-M11-U12, LOCAL-TBD-M11-U14]
 - **Out of scope:** changing plate partitioning/kinematics beyond required contracts (owned by U10), true plate lineage/microplate creation, and building the full observability dashboard (owned elsewhere).
 
 ## Deliverables
-- Shared slice invariants: see `[M11/U10]` Deliverables (`FND-INV-*`).
+- Shared slice invariants: see `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M11-U15-foundation-realism-execution-spine.md` (`FND-INV-*`).
 - **Issue-specific invariants (U11-owned)**
   - Segment-first tectonics: regime/intensity/polarity is computed on **plate-contact boundary segments** (geometry + kinematics + crust pairing), never “scan neighbors for max dot”.
   - History-first outputs: downstream drivers come from a **multi-era tectonic history**; any “present-day” fields are derived from the history model (no parallel truth lanes).
