@@ -4,6 +4,8 @@ import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import RuggedCoastsStepContract from "./ruggedCoasts.contract.js";
 import { deriveStepSeed } from "@swooper/mapgen-core/lib/rng";
 import { forEachHexNeighborOddQ } from "@swooper/mapgen-core/lib/grid";
+import { MORPHOLOGY_COAST_RUGGEDNESS_MULTIPLIER } from "@mapgen/domain/morphology/shared/knob-multipliers.js";
+import type { MorphologyCoastRuggednessKnob } from "@mapgen/domain/morphology/shared/knobs.js";
 
 type ArtifactValidationIssue = Readonly<{ message: string }>;
 
@@ -58,6 +60,12 @@ function clampInt16(value: number): number {
   return value;
 }
 
+function clampNumber(value: number, bounds: { min: number; max?: number }): number {
+  if (!Number.isFinite(value)) return bounds.min;
+  const max = bounds.max ?? Number.POSITIVE_INFINITY;
+  return Math.max(bounds.min, Math.min(max, value));
+}
+
 function computeDistanceToCoast(width: number, height: number, coastal: Uint8Array): Uint16Array {
   const size = Math.max(0, (width | 0) * (height | 0));
   const distance = new Uint16Array(size);
@@ -97,6 +105,36 @@ export default createStep(RuggedCoastsStepContract, {
       validate: (value, context) => validateCoastlineMetrics(value, context.dimensions),
     },
   }),
+  normalize: (config, ctx) => {
+    const { coastRuggedness } = ctx.knobs as Readonly<{ coastRuggedness?: MorphologyCoastRuggednessKnob }>;
+    const multiplier = MORPHOLOGY_COAST_RUGGEDNESS_MULTIPLIER[coastRuggedness ?? "normal"] ?? 1.0;
+
+    const coastlinesSelection =
+      config.coastlines.strategy === "default"
+        ? {
+            ...config.coastlines,
+            config: {
+              ...config.coastlines.config,
+              coast: {
+                ...config.coastlines.config.coast,
+                plateBias: {
+                  ...config.coastlines.config.coast.plateBias,
+                  bayWeight: clampNumber(config.coastlines.config.coast.plateBias.bayWeight * multiplier, { min: 0 }),
+                  bayNoiseBonus: clampNumber(
+                    config.coastlines.config.coast.plateBias.bayNoiseBonus * multiplier,
+                    { min: 0 }
+                  ),
+                  fjordWeight: clampNumber(config.coastlines.config.coast.plateBias.fjordWeight * multiplier, {
+                    min: 0,
+                  }),
+                },
+              },
+            },
+          }
+        : config.coastlines;
+
+    return { ...config, coastlines: coastlinesSelection };
+  },
   run: (context, config, ops, deps) => {
     const { width, height } = context.dimensions;
     const plates = deps.artifacts.foundationPlates.read(context);
