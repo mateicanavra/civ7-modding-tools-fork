@@ -68,6 +68,18 @@ This spike assumes M10 completes as planned (especially U05):
 
 This spike is specifically about the remaining “physics-first” quality gap after the architecture cutover is done.
 
+### Research synthesis (deep dives)
+
+Spec-grade research inputs (synthesis of agent deep dives):
+- `docs/projects/engine-refactor-v1/issues/research/physics-first-gap-research.md`
+
+High-signal recommendations (post-M10 remediation direction):
+- **Foundation must provide coherent drivers** (not IID placeholders): polar boundary conditions, coherent crust type+age, continuous regime blends, oceanic age/subsidence proxies, and deformation/strain/fracture fields.
+- **Morphology substrate must become materially driven** (Phase 2 semantic intent): `erodibilityK` must be derivable from crust/material drivers + regime signals.
+- **Mountains/hills must not be “chosen by noise”**: if deterministic noise remains, it should be micro-structure only and amplitude-gated by physics drivers (fracture/orogeny), never creating mountains where physics indicates none.
+- **Volcano truth must match Phase 2 shape**: `volcanoMask` plus a deterministic intent list `{ tileIndex, kind, strength01 }` (land-only; sorted).
+- **Engine hard stops remain Gameplay-only**: any logic that depends on Civ7 engine-derived elevation/cliffs must live after `effect:map.elevationBuilt`.
+
 ### Quick Navigation
 - [TL;DR](#tldr)
 - [Deliverables](#deliverables)
@@ -314,6 +326,8 @@ These are tracked as separate local issue docs (see files list at the end). They
 - [LOCAL-TBD-POST-M10-foundation-tile-crust-material-drivers](./LOCAL-TBD-POST-M10-foundation-tile-crust-material-drivers.md)
 - [LOCAL-TBD-POST-M10-morphology-substrate-material-driven](./LOCAL-TBD-POST-M10-morphology-substrate-material-driven.md)
 - [LOCAL-TBD-POST-M10-volcanoes-truth-contract-completion](./LOCAL-TBD-POST-M10-volcanoes-truth-contract-completion.md)
+- [LOCAL-TBD-POST-M10-orogeny-mountains-physics-anchored](./LOCAL-TBD-POST-M10-orogeny-mountains-physics-anchored.md)
+- [LOCAL-TBD-POST-M10-polar-boundary-and-cryosphere-truth](./LOCAL-TBD-POST-M10-polar-boundary-and-cryosphere-truth.md)
 
 ---
 
