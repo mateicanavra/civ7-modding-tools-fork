@@ -1,4 +1,4 @@
-import { FLAT_TERRAIN, OCEAN_TERRAIN } from "@swooper/mapgen-core";
+import { FLAT_TERRAIN, OCEAN_TERRAIN, logLandmassAscii } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
 import PlotCoastsStepContract from "./plotCoasts.contract.js";
 import { assertNoWaterDrift } from "./assertions.js";
@@ -18,6 +18,7 @@ export default createStep(PlotCoastsStepContract, {
 
     context.adapter.expandCoasts(width, height);
 
+    logLandmassAscii(context.trace, context.adapter, width, height);
     assertNoWaterDrift(context, topography.landMask, "map-morphology/plot-coasts");
   },
 });
