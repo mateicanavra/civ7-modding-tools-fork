@@ -23,7 +23,7 @@ Non-negotiables (carry forward):
 ## Issue Index (proposed sequence)
 
 - [x] [M11-U00 — Physics-first realism upgrade plan (spike → spec)](../issues/M11-U00-physics-first-realism-upgrade-plan.md) (branch: `agent-KIMMY-M11-U00-physics-first-realism-upgrade-plan`)
-- [ ] [M11-U01 — Spec authority reconciliation (Phase 0.5 vs Phase 2 vs Phase 3)](../issues/M11-U01-spec-authority-reconciliation.md)
+- [x] [M11-U01 — Spec authority reconciliation (Phase 0.5 vs Phase 2 vs Phase 3)](../issues/M11-U01-spec-authority-reconciliation.md) (branch: `agent-KIMMY-M11-U01-spec-authority-reconciliation`)
 - [ ] [M11-U02 — Author config overhaul: knobs + presets + config layering](../issues/M11-U02-config-knobs-and-presets.md)
 - [ ] [M11-U03 — Foundation crust coherence upgrade](../issues/M11-U03-foundation-crust-coherence-upgrade.md)
 - [ ] [M11-U04 — Foundation tile material drivers + polar boundary conditions](../issues/M11-U04-foundation-tile-material-drivers.md)
