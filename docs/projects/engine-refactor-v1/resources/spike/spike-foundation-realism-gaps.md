@@ -17,6 +17,13 @@ Scope guardrails:
 - Deterministic noise is acceptable only as **bounded micro-structure**, never as the primary driver of landforms.
 - Knobs should primarily be **inputs to algorithms** (physical drivers), not output fudges that force shapes post-hoc.
 
+Deep dives (this spike set; area ownership):
+- Plate partition realism: `foundation-realism/plate-partition-realism.md`
+- Segment-based tectonics + tectonic history: `foundation-realism/tectonic-segments-and-history.md`
+- Polar caps as plates: `foundation-realism/polar-caps-as-plates.md`
+- Crust as load-bearing prior: `foundation-realism/crust-load-bearing-prior.md`
+- Validation + observability: `foundation-realism/validation-and-observability.md`
+
 ---
 
 ## Executive summary
@@ -489,6 +496,8 @@ Where it plugs in:
 
 ## Open questions (to resolve before a final implementation plan)
 
+Area-specific alternatives + recommendations live in `foundation-realism/README.md` (and linked docs).
+
 ### Modeling choices
 - Should crust be “owned” per plate (plate-scale) or per mesh cell (with plate-scale coherence constraints)?
 - How many “eras” do we actually want (0/2/3)? What should accumulate (uplift only vs uplift+fracture+volcanism)?
@@ -519,12 +528,16 @@ These are the immediate deep-dive tasks that unblock a confident implementation 
 
 ### Task A: Plate partition realism (non-Voronoi, variable-size, deterministic)
 
+Deep dive: `foundation-realism/plate-partition-realism.md`
+
 Deliverable:
 - High level: what “realistic plates” means for Civ7 (size distribution, plate adjacency feel, polar participation).
 - Mid level: a `compute-plate-partition` op model (strategies + rules) and the config driver inventory (area distribution, growth cost model, polar caps, rifting resistance).
 - Low level: concrete code hotspots + cutover diff (what to delete/replace), plus validation metrics and a migration plan that removes legacy Voronoi as the default.
 
 ### Task B: Segment-based tectonics (regime + polarity + intensity; rotation-aware)
+
+Deep dive: `foundation-realism/tectonic-segments-and-history.md`
 
 Deliverable:
 - High level: what signals Morphology needs to get believable belts (compression/extension/shear, polarity, history).
@@ -533,6 +546,8 @@ Deliverable:
 
 ### Task C: Polar caps as plates (no latitude override; 3 regimes available)
 
+Deep dive: `foundation-realism/polar-caps-as-plates.md`
+
 Deliverable:
 - High level: what “good polar tectonics” looks like (no one-tile belts; three regimes; believable rims/cryosphere hooks without latitude hacks).
 - Mid level: polar-cap plate policy (one plate vs microplates) + how kinematics yields the three regimes without direct regime injection.
@@ -540,12 +555,16 @@ Deliverable:
 
 ### Task D: Crust as load-bearing prior (buoyancy/isostasy + age history)
 
+Deep dive: `foundation-realism/crust-load-bearing-prior.md`
+
 Deliverable:
 - High level: what crust must explain (continents vs basins, shelves, cratons, passive margins).
 - Mid level: a crust truth model (types + thickness/age proxies) and how it drives an isostatic/buoyancy baseline heightfield.
 - Low level: concrete cutover plan to plate-coherent crust typing and projection, and how Morphology’s base topography uses it as a true prior.
 
 ### Task E: Validation + observability (realism invariants + trace layers)
+
+Deep dive: `foundation-realism/validation-and-observability.md`
 
 Deliverable:
 - High level: what we can measure without rendering that correlates with “feels real”.
