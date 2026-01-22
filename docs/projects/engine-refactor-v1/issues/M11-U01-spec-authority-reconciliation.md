@@ -1,18 +1,18 @@
 ---
-id: LOCAL-TBD
-title: "[POST-M10] Phase 2 spec + docs authority reconciliation (Morphology physics-first)"
+id: M11-U01
+title: "[M11/U01] Phase 2 spec + docs authority reconciliation (Morphology physics-first)"
 state: planned
 priority: 2
 estimate: 2
 project: engine-refactor-v1
-milestone: TBD
+milestone: M11
 assignees: []
 labels: [morphology, docs, spec, guardrails]
 parent: null
 children: []
 blocked_by: []
 blocked: []
-related_to: [M10-U05, LOCAL-TBD]
+related_to: [M11-U00, M10-U05]
 ---
 
 <!-- SECTION SCOPE [SYNC] -->

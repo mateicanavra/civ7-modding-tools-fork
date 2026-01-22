@@ -1,18 +1,18 @@
 ---
-id: LOCAL-TBD
-title: "[POST-M10] Orogeny + mountains: physics-anchored planning (noise as micro-structure only)"
+id: M11-U06
+title: "[M11/U06] Orogeny + mountains: physics-anchored planning (noise as micro-structure only)"
 state: planned
 priority: 2
 estimate: 4
 project: engine-refactor-v1
-milestone: TBD
+milestone: M11
 assignees: []
 labels: [morphology, foundation, physics, gameplay]
 parent: null
 children: []
 blocked_by: []
 blocked: []
-related_to: [LOCAL-TBD]
+related_to: [M11-U00]
 ---
 
 <!-- SECTION SCOPE [SYNC] -->
