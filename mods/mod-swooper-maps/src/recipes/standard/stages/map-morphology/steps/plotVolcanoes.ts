@@ -11,7 +11,7 @@ export default createStep(PlotVolcanoesStepContract, {
     const { width, height } = context.dimensions;
 
     for (const entry of plan.volcanoes) {
-      const index = entry.index | 0;
+      const index = entry.tileIndex | 0;
       const y = (index / width) | 0;
       const x = index - y * width;
       if (x < 0 || x >= width || y < 0 || y >= height) continue;

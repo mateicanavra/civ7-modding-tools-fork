@@ -41,10 +41,16 @@ function validateHeightfieldBuffer(value: unknown, dimensions: MapDimensions): A
   const size = expectedSize(dimensions);
   const candidate = value as {
     elevation?: unknown;
+    seaLevel?: unknown;
     landMask?: unknown;
+    bathymetry?: unknown;
   };
   validateTypedArray(errors, "topography.elevation", candidate.elevation, Int16Array, size);
+  if (typeof candidate.seaLevel !== "number" || !Number.isFinite(candidate.seaLevel)) {
+    errors.push({ message: "Expected topography.seaLevel to be a finite number." });
+  }
   validateTypedArray(errors, "topography.landMask", candidate.landMask, Uint8Array, size);
+  validateTypedArray(errors, "topography.bathymetry", candidate.bathymetry, Int16Array, size);
   return errors;
 }
 
@@ -89,6 +95,16 @@ function applyBaseTerrainBuffers(
   }
 
   return { landCount, waterCount, minElevation, maxElevation };
+}
+
+function roundHalfAwayFromZero(value: number): number {
+  return value >= 0 ? Math.floor(value + 0.5) : Math.ceil(value - 0.5);
+}
+
+function clampInt16(value: number): number {
+  if (value > 32767) return 32767;
+  if (value < -32768) return -32768;
+  return value;
 }
 
 export default createStep(LandmassPlatesStepContract, {
@@ -157,12 +173,46 @@ export default createStep(LandmassPlatesStepContract, {
       landmask.landMask,
       context.buffers.heightfield
     );
+
+    const seaLevelValue = seaLevel.seaLevel;
+    const waterElevation = clampInt16(Math.floor(seaLevelValue));
+    const landElevation = clampInt16(Math.floor(seaLevelValue) + 1);
+    for (let i = 0; i < context.buffers.heightfield.elevation.length; i++) {
+      const isLand = context.buffers.heightfield.landMask[i] === 1;
+      const current = context.buffers.heightfield.elevation[i] ?? 0;
+      if (isLand) {
+        if (current <= seaLevelValue) context.buffers.heightfield.elevation[i] = landElevation;
+      } else {
+        if (current > seaLevelValue) context.buffers.heightfield.elevation[i] = waterElevation;
+      }
+    }
+
+    const bathymetry = new Int16Array(Math.max(0, (width | 0) * (height | 0)));
+    for (let i = 0; i < bathymetry.length; i++) {
+      const elevationMeters = context.buffers.heightfield.elevation[i] ?? 0;
+      const isLand = context.buffers.heightfield.landMask[i] === 1;
+      if (isLand) {
+        bathymetry[i] = 0;
+        continue;
+      }
+      const delta = Math.min(0, elevationMeters - seaLevelValue);
+      bathymetry[i] = clampInt16(roundHalfAwayFromZero(delta));
+    }
+
+    const topography = {
+      elevation: context.buffers.heightfield.elevation,
+      seaLevel: seaLevelValue,
+      landMask: context.buffers.heightfield.landMask,
+      bathymetry,
+    };
+
     context.trace.event(() => ({
       kind: "morphology.landmassPlates.summary",
       landTiles: stats.landCount,
       waterTiles: stats.waterCount,
       elevationMin: stats.minElevation,
       elevationMax: stats.maxElevation,
+      seaLevel: seaLevelValue,
     }));
     context.trace.event(() => {
       const sampleStep = computeSampleStep(width, height);
@@ -184,7 +234,7 @@ export default createStep(LandmassPlatesStepContract, {
       };
     });
 
-    deps.artifacts.topography.publish(context, context.buffers.heightfield);
+    deps.artifacts.topography.publish(context, topography);
     deps.artifacts.substrate.publish(context, substrate);
   },
 });

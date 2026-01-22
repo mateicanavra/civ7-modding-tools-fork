@@ -8,8 +8,16 @@ function clampInt16(value: number): number {
   return value;
 }
 
+function roundHalfAwayFromZero(value: number): number {
+  return value >= 0 ? Math.floor(value + 0.5) : Math.ceil(value - 0.5);
+}
+
 export default createStep(GeomorphologyStepContract, {
   run: (context, config, ops, deps) => {
+    const topography = deps.artifacts.topography.read(context) as {
+      seaLevel?: number;
+      bathymetry?: Int16Array;
+    };
     const routing = deps.artifacts.routing.read(context);
     const substrate = deps.artifacts.substrate.read(context) as {
       erodibilityK: Float32Array;
@@ -38,6 +46,22 @@ export default createStep(GeomorphologyStepContract, {
       const nextElevation = clampInt16(Math.round(elevation[i] + deltas.elevationDelta[i]));
       elevation[i] = nextElevation;
       sedimentDepth[i] = Math.max(0, sedimentDepth[i] + deltas.sedimentDelta[i]);
+    }
+
+    const seaLevel = typeof topography.seaLevel === "number" ? topography.seaLevel : 0;
+    const bathymetry = topography.bathymetry;
+    if (!(bathymetry instanceof Int16Array) || bathymetry.length !== elevation.length) {
+      throw new Error("Morphology topography bathymetry buffer missing or shape-mismatched.");
+    }
+    for (let i = 0; i < elevation.length; i++) {
+      const isLand = elevation[i] > seaLevel;
+      heightfield.landMask[i] = isLand ? 1 : 0;
+      if (isLand) {
+        bathymetry[i] = 0;
+      } else {
+        const delta = Math.min(0, elevation[i] - seaLevel);
+        bathymetry[i] = clampInt16(roundHalfAwayFromZero(delta));
+      }
     }
 
     context.trace.event(() => {

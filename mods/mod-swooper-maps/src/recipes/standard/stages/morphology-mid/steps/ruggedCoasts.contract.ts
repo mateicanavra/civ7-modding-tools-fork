@@ -13,7 +13,7 @@ const RuggedCoastsStepContract = defineStep({
   requires: [],
   provides: [],
   artifacts: {
-    requires: [foundationArtifacts.plates],
+    requires: [foundationArtifacts.plates, morphologyArtifacts.topography],
     provides: [morphologyArtifacts.coastlineMetrics],
   },
   ops: {
