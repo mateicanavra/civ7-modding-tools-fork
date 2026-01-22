@@ -1,11 +1,11 @@
 import { forEachHexNeighborOddQ, projectOddqToHexSpace } from "@swooper/mapgen-core/lib/grid";
 import { wrapAbsDeltaPeriodic } from "@swooper/mapgen-core/lib/math";
 
-import type { FoundationMesh } from "../ops/compute-mesh/contract.js";
-import type { FoundationCrust } from "../ops/compute-crust/contract.js";
-import type { FoundationPlateGraph } from "../ops/compute-plate-graph/contract.js";
-import type { FoundationTectonics } from "../ops/compute-tectonics/contract.js";
-import { BOUNDARY_TYPE } from "../constants.js";
+import type { FoundationMesh } from "../../compute-mesh/contract.js";
+import type { FoundationCrust } from "../../compute-crust/contract.js";
+import type { FoundationPlateGraph } from "../../compute-plate-graph/contract.js";
+import type { FoundationTectonics } from "../../compute-tectonics/contract.js";
+import { BOUNDARY_TYPE } from "../../../constants.js";
 
 function hexDistanceSq(
   ax: number,
