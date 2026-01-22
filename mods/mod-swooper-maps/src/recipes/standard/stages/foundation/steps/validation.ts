@@ -129,6 +129,46 @@ export function validatePlateGraphArtifact(value: unknown): void {
   }
 }
 
+export function validatePlateTopologyArtifact(value: unknown): void {
+  if (!value || typeof value !== "object") {
+    throw new Error("[FoundationArtifact] Missing foundation plateTopology artifact payload.");
+  }
+  const topology = value as {
+    plateCount?: unknown;
+    plates?: unknown;
+  };
+  const plateCount = typeof topology.plateCount === "number" ? (topology.plateCount | 0) : 0;
+  if (plateCount <= 0) {
+    throw new Error("[FoundationArtifact] Invalid foundation plateTopology.plateCount.");
+  }
+  if (!Array.isArray(topology.plates) || topology.plates.length !== plateCount) {
+    throw new Error("[FoundationArtifact] Invalid foundation plateTopology.plates.");
+  }
+  for (let i = 0; i < topology.plates.length; i++) {
+    const plate = topology.plates[i] as
+      | { id?: unknown; area?: unknown; centroid?: unknown; neighbors?: unknown }
+      | undefined;
+    const id = typeof plate?.id === "number" ? (plate.id | 0) : -1;
+    if (id < 0 || id >= plateCount) {
+      throw new Error("[FoundationArtifact] Invalid foundation plateTopology plate id.");
+    }
+    const area = typeof plate?.area === "number" ? (plate.area | 0) : -1;
+    if (area < 0) {
+      throw new Error("[FoundationArtifact] Invalid foundation plateTopology plate area.");
+    }
+    const centroid = plate?.centroid as { x?: unknown; y?: unknown } | undefined;
+    if (!centroid || typeof centroid !== "object") {
+      throw new Error("[FoundationArtifact] Invalid foundation plateTopology plate centroid.");
+    }
+    if (typeof centroid.x !== "number" || typeof centroid.y !== "number") {
+      throw new Error("[FoundationArtifact] Invalid foundation plateTopology plate centroid.");
+    }
+    if (plate?.neighbors != null && !Array.isArray(plate.neighbors)) {
+      throw new Error("[FoundationArtifact] Invalid foundation plateTopology plate neighbors.");
+    }
+  }
+}
+
 export function validateTectonicsArtifact(value: unknown): void {
   if (!value || typeof value !== "object") {
     throw new Error("[FoundationArtifact] Missing foundation tectonics artifact payload.");
