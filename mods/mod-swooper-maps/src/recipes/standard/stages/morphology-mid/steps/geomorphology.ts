@@ -39,5 +39,41 @@ export default createStep(GeomorphologyStepContract, {
       elevation[i] = nextElevation;
       sedimentDepth[i] = Math.max(0, sedimentDepth[i] + deltas.sedimentDelta[i]);
     }
+
+    context.trace.event(() => {
+      const size = Math.max(0, (width | 0) * (height | 0));
+      const landMask = heightfield.landMask;
+
+      let landTiles = 0;
+      let deltaMin = 0;
+      let deltaMax = 0;
+      let deltaSum = 0;
+      let elevationMin = 0;
+      let elevationMax = 0;
+
+      for (let i = 0; i < size; i++) {
+        if (landMask[i] !== 1) continue;
+        landTiles += 1;
+
+        const delta = deltas.elevationDelta[i] ?? 0;
+        if (landTiles === 1 || delta < deltaMin) deltaMin = delta;
+        if (landTiles === 1 || delta > deltaMax) deltaMax = delta;
+        deltaSum += delta;
+
+        const nextElevation = elevation[i] ?? 0;
+        if (landTiles === 1 || nextElevation < elevationMin) elevationMin = nextElevation;
+        if (landTiles === 1 || nextElevation > elevationMax) elevationMax = nextElevation;
+      }
+
+      return {
+        kind: "morphology.geomorphology.summary",
+        landTiles,
+        elevationDeltaMin: landTiles ? Number(deltaMin.toFixed(4)) : 0,
+        elevationDeltaMax: landTiles ? Number(deltaMax.toFixed(4)) : 0,
+        elevationDeltaMean: landTiles ? Number((deltaSum / landTiles).toFixed(4)) : 0,
+        elevationMin,
+        elevationMax,
+      };
+    });
   },
 });

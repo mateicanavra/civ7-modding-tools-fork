@@ -1,3 +1,4 @@
+import { computeSampleStep, renderAsciiGrid } from "@swooper/mapgen-core";
 import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import VolcanoesStepContract from "./volcanoes.contract.js";
 import { deriveStepSeed } from "@swooper/mapgen-core/lib/rng";
@@ -49,6 +50,39 @@ export default createStep(VolcanoesStepContract, {
       },
       config.volcanoes
     );
+
+    context.trace.event(() => ({
+      kind: "morphology.volcanoes.summary",
+      volcanoes: plan.volcanoes.length,
+    }));
+    context.trace.event(() => {
+      const size = Math.max(0, (width | 0) * (height | 0));
+      const volcanoMask = new Uint8Array(size);
+      for (const entry of plan.volcanoes) {
+        const index = entry.index | 0;
+        if (index < 0 || index >= size) continue;
+        volcanoMask[index] = 1;
+      }
+
+      const sampleStep = computeSampleStep(width, height);
+      const rows = renderAsciiGrid({
+        width,
+        height,
+        sampleStep,
+        cellFn: (x, y) => {
+          const idx = y * width + x;
+          const base = topography.landMask[idx] === 1 ? "." : "~";
+          const overlay = volcanoMask[idx] === 1 ? "V" : undefined;
+          return { base, overlay };
+        },
+      });
+      return {
+        kind: "morphology.volcanoes.ascii.indices",
+        sampleStep,
+        legend: ".=land ~=water V=volcano",
+        rows,
+      };
+    });
 
     deps.artifacts.volcanoes.publish(context, {
       volcanoes: plan.volcanoes,
