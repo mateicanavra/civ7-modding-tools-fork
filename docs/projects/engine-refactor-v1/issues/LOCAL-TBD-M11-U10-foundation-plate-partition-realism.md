@@ -70,6 +70,7 @@ related_to: [M11-U00]
 - North-star algorithm expectations: `docs/projects/engine-refactor-v1/resources/PRD-plate-generation.md` (see “7.3 Plate partitioning”)
 - Traceability:
   - Branch: `agent-RAMBO-M11-U10-foundation-plate-partition-realism`
+  - PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/708
 - Notes
   - This issue intentionally does **not** tackle tectonic segments/history, polar plates, or crust ownership changes; it focuses on making the partition (and its topology) realism-grade so downstream physics can build on it.
 
