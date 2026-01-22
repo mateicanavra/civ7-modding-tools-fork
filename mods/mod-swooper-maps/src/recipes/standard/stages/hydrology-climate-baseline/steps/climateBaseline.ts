@@ -333,7 +333,6 @@ export default createStep(ClimateBaselineStepContract, {
     }
 
     const topography = deps.artifacts.topography.read(context);
-    const heightfield = context.buffers.heightfield;
     const elevation = topography.elevation;
     const landMask = topography.landMask;
     const isWaterMask = new Uint8Array(width * height);
