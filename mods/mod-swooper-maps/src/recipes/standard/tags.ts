@@ -71,6 +71,11 @@ const EFFECT_OWNERS: Record<string, TagOwner> = {
     phase: "gameplay",
     stepId: "build-elevation",
   },
+  [M10_EFFECT_TAGS.map.landmassRegionsPlotted]: {
+    pkg: "mod-swooper-maps",
+    phase: "gameplay",
+    stepId: "plot-landmass-regions",
+  },
   [M4_EFFECT_TAGS.engine.riversModeled]: {
     pkg: "mod-swooper-maps",
     phase: "gameplay",
