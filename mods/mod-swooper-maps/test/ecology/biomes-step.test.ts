@@ -10,6 +10,7 @@ import plotBiomesStep from "../../src/recipes/standard/stages/map-ecology/steps/
 import { ecologyArtifacts } from "../../src/recipes/standard/stages/ecology/artifacts.js";
 import { hydrologyHydrographyArtifacts } from "../../src/recipes/standard/stages/hydrology-hydrography/artifacts.js";
 import { hydrologyClimateBaselineArtifacts } from "../../src/recipes/standard/stages/hydrology-climate-baseline/artifacts.js";
+import { hydrologyClimateRefineArtifacts } from "../../src/recipes/standard/stages/hydrology-climate-refine/artifacts.js";
 import { morphologyArtifacts } from "../../src/recipes/standard/stages/morphology-pre/artifacts.js";
 import { normalizeOpSelectionOrThrow } from "../support/compiler-helpers.js";
 import { buildTestDeps } from "../support/step-deps.js";
@@ -44,8 +45,9 @@ describe("biomes step", () => {
         morphologyArtifacts.topography,
         hydrologyClimateBaselineArtifacts.climateField,
         hydrologyHydrographyArtifacts.hydrography,
+        hydrologyClimateRefineArtifacts.cryosphere,
       ],
-      { topography: {}, climateField: {}, hydrography: {} }
+      { topography: {}, climateField: {}, hydrography: {}, cryosphere: {} }
     );
     const seaLevel = 0;
     const bathymetry = new Int16Array(size);
@@ -62,6 +64,14 @@ describe("biomes step", () => {
       riverClass: new Uint8Array(size),
       sinkMask: new Uint8Array(size),
       outletMask: new Uint8Array(size),
+    });
+    hydrologyArtifacts.cryosphere.publish(ctx, {
+      snowCover: new Uint8Array(size),
+      seaIceCover: new Uint8Array(size),
+      albedo: new Uint8Array(size),
+      groundIce01: new Float32Array(size),
+      permafrost01: new Float32Array(size),
+      meltPotential01: new Float32Array(size),
     });
 
     const classifyConfig = normalizeOpSelectionOrThrow(ecology.ops.classifyBiomes, {
@@ -139,8 +149,9 @@ describe("biomes step", () => {
           morphologyArtifacts.topography,
           hydrologyClimateBaselineArtifacts.climateField,
           hydrologyHydrographyArtifacts.hydrography,
+          hydrologyClimateRefineArtifacts.cryosphere,
         ],
-        { topography: {}, climateField: {}, hydrography: {} }
+        { topography: {}, climateField: {}, hydrography: {}, cryosphere: {} }
       );
       const seaLevel = 0;
       const bathymetry = new Int16Array(size);
@@ -157,6 +168,14 @@ describe("biomes step", () => {
         riverClass,
         sinkMask: new Uint8Array(size),
         outletMask: new Uint8Array(size),
+      });
+      hydrologyArtifacts.cryosphere.publish(ctx, {
+        snowCover: new Uint8Array(size),
+        seaIceCover: new Uint8Array(size),
+        albedo: new Uint8Array(size),
+        groundIce01: new Float32Array(size),
+        permafrost01: new Float32Array(size),
+        meltPotential01: new Float32Array(size),
       });
 
       const ops = ecology.ops.bind(biomesStep.contract.ops!).runtime;

@@ -625,8 +625,14 @@ export const GeomorphologyConfigSchema = Type.Object(
           minimum: 0,
           maximum: 1,
         }),
-        m: Type.Number({ description: "Stream power exponent m.", default: 0.5 }),
-        n: Type.Number({ description: "Stream power exponent n.", default: 1.0 }),
+        m: Type.Number({
+          description: "Stream power exponent m for discharge proxy (flowAccum normalized by max).",
+          default: 0.5,
+        }),
+        n: Type.Number({
+          description: "Stream power exponent n for slope proxy (drop-to-receiver normalized by max).",
+          default: 1.0,
+        }),
       }
     ),
     diffusion: Type.Object(
@@ -649,7 +655,8 @@ export const GeomorphologyConfigSchema = Type.Object(
     deposition: Type.Object(
       {
         rate: Type.Number({
-          description: "Sediment deposition rate (0..1).",
+          description:
+            "Sediment settling/transport rate (0..1). Deposits where stream power is low and transports where stream power is high.",
           default: 0.1,
           minimum: 0,
           maximum: 1,
