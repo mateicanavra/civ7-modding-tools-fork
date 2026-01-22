@@ -2,6 +2,7 @@ import { TypedArraySchemas, Type, defineOp } from "@swooper/mapgen-core/authorin
 import type { Static } from "@swooper/mapgen-core/authoring";
 
 import { FoundationMeshSchema } from "../compute-mesh/contract.js";
+import { FoundationCrustSchema } from "../compute-crust/contract.js";
 import { FoundationPlateGraphSchema } from "../compute-plate-graph/contract.js";
 import { FoundationTectonicsSchema } from "../compute-tectonics/contract.js";
 
@@ -43,6 +44,7 @@ const ComputePlatesTensorsContract = defineOp({
       width: Type.Integer({ minimum: 1 }),
       height: Type.Integer({ minimum: 1 }),
       mesh: FoundationMeshSchema,
+      crust: FoundationCrustSchema,
       plateGraph: FoundationPlateGraphSchema,
       tectonics: FoundationTectonicsSchema,
     },
@@ -50,6 +52,20 @@ const ComputePlatesTensorsContract = defineOp({
   ),
   output: Type.Object(
     {
+      tileToCellIndex: TypedArraySchemas.i32({
+        description: "Nearest mesh cellIndex per tileIndex (canonical mesh→tile projection mapping).",
+      }),
+      crustTiles: Type.Object(
+        {
+          type: TypedArraySchemas.u8({
+            description: "Crust type per tile (0=oceanic, 1=continental), sampled via tileToCellIndex.",
+          }),
+          age: TypedArraySchemas.u8({
+            description: "Crust age per tile (0=new, 255=ancient), sampled via tileToCellIndex.",
+          }),
+        },
+        { additionalProperties: false }
+      ),
       plates: Type.Object(
         {
           id: TypedArraySchemas.i16({ description: "Plate id per tile." }),

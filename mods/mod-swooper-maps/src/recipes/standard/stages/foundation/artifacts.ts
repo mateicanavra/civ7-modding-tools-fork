@@ -1,10 +1,12 @@
 import { TypedArraySchemas, Type, defineArtifact } from "@swooper/mapgen-core/authoring";
 import {
   FOUNDATION_CRUST_ARTIFACT_TAG,
+  FOUNDATION_CRUST_TILES_ARTIFACT_TAG,
   FOUNDATION_MESH_ARTIFACT_TAG,
   FOUNDATION_PLATE_GRAPH_ARTIFACT_TAG,
   FOUNDATION_PLATES_ARTIFACT_TAG,
   FOUNDATION_TECTONICS_ARTIFACT_TAG,
+  FOUNDATION_TILE_TO_CELL_INDEX_ARTIFACT_TAG,
 } from "@swooper/mapgen-core";
 
 const FoundationPlatesArtifactSchema = Type.Object(
@@ -63,6 +65,25 @@ const FoundationCrustArtifactSchema = Type.Object(
   { additionalProperties: false }
 );
 
+const FoundationTileToCellIndexArtifactSchema = TypedArraySchemas.i32({
+  shape: null,
+  description: "Nearest mesh cellIndex per tileIndex (canonical mesh→tile projection mapping).",
+});
+
+const FoundationCrustTilesArtifactSchema = Type.Object(
+  {
+    type: TypedArraySchemas.u8({
+      shape: null,
+      description: "Crust type per tile (0=oceanic, 1=continental), sampled via tileToCellIndex.",
+    }),
+    age: TypedArraySchemas.u8({
+      shape: null,
+      description: "Crust age per tile (0=new, 255=ancient), sampled via tileToCellIndex.",
+    }),
+  },
+  { additionalProperties: false }
+);
+
 const FoundationPlateGraphArtifactSchema = Type.Object(
   {
     cellToPlate: TypedArraySchemas.i16({ shape: null, description: "Plate id per mesh cell." }),
@@ -116,6 +137,16 @@ export const foundationArtifacts = {
     name: "foundationCrust",
     id: FOUNDATION_CRUST_ARTIFACT_TAG,
     schema: FoundationCrustArtifactSchema,
+  }),
+  tileToCellIndex: defineArtifact({
+    name: "foundationTileToCellIndex",
+    id: FOUNDATION_TILE_TO_CELL_INDEX_ARTIFACT_TAG,
+    schema: FoundationTileToCellIndexArtifactSchema,
+  }),
+  crustTiles: defineArtifact({
+    name: "foundationCrustTiles",
+    id: FOUNDATION_CRUST_TILES_ARTIFACT_TAG,
+    schema: FoundationCrustTilesArtifactSchema,
   }),
   plateGraph: defineArtifact({
     name: "foundationPlateGraph",
