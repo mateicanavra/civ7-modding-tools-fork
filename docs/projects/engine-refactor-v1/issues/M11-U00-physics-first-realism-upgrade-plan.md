@@ -1,7 +1,7 @@
 ---
 id: M11-U00
 title: "[M11/U00] Physics-first realism upgrade plan (spike → spec)"
-state: planned
+state: done
 priority: 2
 estimate: 4
 project: engine-refactor-v1
@@ -39,6 +39,49 @@ related_to: [M10-U04, M10-U05, M10-U06]
   - whether deterministic noise is allowed in Physics truth ops vs Gameplay-only projections
   - authoritative resolution + projection rules for crust/lithology signals (mesh → tile)
 - Follow-up issues are defined (with local docs created) for any remediation that requires code changes.
+
+## Drift Ledger (Evidence-Backed)
+
+This ledger is the minimal “what drifted + why it matters” spine that the M11 follow-up issues resolve.
+
+- **Substrate material drivers (crust/lithology) are called required by Phase 2 but not implemented**
+  - **Category:** (C) implementation incomplete (and possibly (A) spec inconsistency depending on the step maps)
+  - **Phase 2 authority:** `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-CONTRACTS.md`
+  - **Phase 2 causality spine:** `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-CORE-MODEL-AND-PIPELINE.md`
+  - **Current impl:** `mods/mod-swooper-maps/src/domain/morphology/ops/compute-substrate/contract.ts` (uplift/rift-only)
+  - **Upstream gap:** `artifact:foundation.crust` is mesh-level and not projected for Morphology consumers
+
+- **Noise-as-crutch exists in truth and planning paths**
+  - **Category:** (B) missing upstream drivers and/or (D) intentional downscope that must be explicit
+  - **Truth noise:** `mods/mod-swooper-maps/src/domain/morphology/ops/compute-base-topography/strategies/default.ts`
+  - **Gameplay mountain planning inputs:** `mods/mod-swooper-maps/src/domain/morphology/ops/plan-ridges-and-foothills/contract.ts` (fractal tensors)
+  - **Gameplay stamping use:** `mods/mod-swooper-maps/src/recipes/standard/stages/map-morphology/steps/plotMountains.ts`
+
+- **Canonical docs/examples contradict Phase 2 bans**
+  - **Category:** (A) spec authority drift (docs/examples treated as canon)
+  - **Candidate:** `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/examples/VOLCANO.md`
+  - **Candidate:** `docs/system/libs/mapgen/morphology.md`
+
+## Decision Recommendations (Spec-Grade)
+
+### Amend Phase 2 canon only for contradictions; treat realism upgrades as Phase 4+ evolution
+- **Context:** Phase 2 docs are used as “locked posture” authority; some files disagree internally and with examples.
+- **Options:** (A) retroactively amend Phase 2 as if it always required missing drivers, (B) treat missing drivers as Phase 4+ evolution with explicit scope.
+- **Choice:** (A) only for clear internal contradictions; otherwise (B) as explicit Phase 4+ evolution.
+- **Rationale:** preserves Phase 2 as a stable cutover target while keeping realism upgrades reviewable and non-silent.
+- **Risk:** if we over-amend Phase 2, older downstream assumptions may silently break; if we under-amend, Phase 2 remains ambiguous.
+
+### Deterministic noise is allowed only as bounded micro-structure, never as the primary driver
+- **Context:** current truth/planning uses noise where physics drivers are weak.
+- **Options:** (A) ban deterministic noise from Physics truth entirely, (B) permit it only as a bounded, documented secondary signal.
+- **Choice:** (B) bounded secondary signal, with amplitude gated by physics drivers (fracture/orogeny), and guardrails to prevent “noise creates mountains.”
+- **Risk:** overly strict bans can reduce variety; overly lax allows drift back to “noise-first.”
+
+### Crust/material projection rule should be mesh→tile and explicit (no hidden heuristics)
+- **Context:** Foundation produces crust on the mesh; Morphology needs tile-indexed drivers.
+- **Options:** (A) add a first-class mesh→tile projection artifact (e.g. tileToCell + projected crust fields), (B) re-derive crust-like signals in Morphology from plates/tensors.
+- **Choice:** (A) explicit projection from Foundation (single source of truth).
+- **Risk:** projection rule becomes part of a cross-domain contract; must be deterministic and topology-correct.
 
 ## Testing / Verification
 - N/A (analysis spike).
