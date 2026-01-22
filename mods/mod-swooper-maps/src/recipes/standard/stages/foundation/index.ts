@@ -1,5 +1,5 @@
 import { Type, createStage, type Static } from "@swooper/mapgen-core/authoring";
-import { crust, mesh, plateGraph, projection, tectonics } from "./steps/index.js";
+import { crust, mesh, plateGraph, plateTopology, projection, tectonics } from "./steps/index.js";
 import {
   FoundationPlateActivityKnobSchema,
   FoundationPlateCountKnobSchema,
@@ -32,6 +32,7 @@ const publicSchema = Type.Object(
           "plate-graph": Type.Optional(plateGraph.contract.schema),
           tectonics: Type.Optional(tectonics.contract.schema),
           projection: Type.Optional(projection.contract.schema),
+          "plate-topology": Type.Optional(plateTopology.contract.schema),
         },
         {
           additionalProperties: false,
@@ -51,5 +52,5 @@ export default createStage({
   knobsSchema,
   public: publicSchema,
   compile: ({ config }: { config: FoundationStageConfig }) => config.advanced ?? {},
-  steps: [mesh, crust, plateGraph, tectonics, projection],
+  steps: [mesh, crust, plateGraph, tectonics, projection, plateTopology],
 } as const);

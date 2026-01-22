@@ -683,6 +683,7 @@ describe("standard recipe execution", () => {
     expect(cryosphere?.seaIceCover instanceof Uint8Array).toBe(true);
 
     expect(context.artifacts.get(foundationArtifacts.plates.id)).toBeTruthy();
+    expect(context.artifacts.get(foundationArtifacts.plateTopology.id)).toBeTruthy();
     expect(context.artifacts.get(placementArtifacts.placementOutputs.id)).toBeTruthy();
   });
 
