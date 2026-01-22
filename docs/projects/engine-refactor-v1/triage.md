@@ -24,6 +24,12 @@ Time-bound temporary compatibility tradeoffs live in `docs/projects/engine-refac
   - **Notes:** Phase 2 causality spine targets removing “rivers drive climate” feedback; revisit during Slice 5 cutover to replace with discharge/wetness-owned projections (or delete entirely if consumers are migrated).
   - **Next check:** when starting `LOCAL-TBD-M9-hydrology-s5-hydrography-cutover`.
 
+- **M11: Close the physics-first realism gap (Foundation + Morphology)** [Source: M11-U00]
+  - **Context:** Phase 0.5 greenfield intent vs Phase 2/3 reality drift; architecture can be “correct” while physics driver richness remains placeholder-grade and projections lean on noise. See `docs/projects/engine-refactor-v1/milestones/M11-physics-first-realism-upgrade.md`.
+  - **Type:** triage
+  - **Notes:** Treat this as a deliberate post-M10 evolution: upgrade Foundation drivers (crust/material, regime blends, polar boundary conditions) and make Morphology projections/truth consume those drivers so noise becomes micro-structure only. Add semantic guardrails so this drift class can’t recur while architecture guardrails still pass.
+  - **Next check:** when starting M11 implementation planning (create Linear issues from `docs/projects/engine-refactor-v1/issues/M11-U00-physics-first-realism-upgrade-plan.md`).
+
 - **Morphology coastline marker artifact renamed + published** [Source: LOCAL-TBD-M9-hydrology-s1-delete-authored-interventions]
   - **Context:** Slice 1 enforcement work needed a stable, contract-first “coastlines complete” gate for Narrative seed steps.
   - **Type:** triage
