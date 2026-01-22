@@ -1,7 +1,7 @@
 ---
 id: M11-U03
 title: "[M11/U03] Foundation crust coherence upgrade (make `foundation.crust` a real driver)"
-state: planned
+state: done
 priority: 2
 estimate: 4
 project: engine-refactor-v1
@@ -39,3 +39,22 @@ related_to: [M11-U00]
 ## Dependencies / Notes
 - Current placeholder implementation: `mods/mod-swooper-maps/src/domain/foundation/ops/compute-crust/index.ts`.
 - This issue intentionally avoids inventing new contract fields; it upgrades driver quality within the existing Phase 2 contract surface.
+
+## Implementation Decisions
+
+### Upgrade `foundation.crust` using proto-plate coherence (no per-cell RNG fields)
+- **Context:** Phase 2 `foundation.crust` was IID per-cell RNG (“salt and pepper”) and couldn’t serve as a meaningful downstream driver.
+- **Options:** (A) add new contract fields / new artifacts, (B) upgrade within existing `type`/`age` surface.
+- **Choice:** B.
+- **Rationale:** Keeps Phase 2 surface area stable while materially improving signal quality for downstream substrate/erodibility.
+- **Risk:** This is a simplified physical model; later issues may still want an explicit “material driver” artifact for tiles.
+
+### Semantics for `type` and `age`
+- **Context:** Downstream systems need consistent meaning, not just coherent noise.
+- **Choice:** Derive both fields from a deterministic proto-plate partition over the mesh.
+- **Semantics:**
+  - `type`: mesh cells are assigned to a proto-plate via nearest-seed Voronoi in mesh-space; proto-plates are marked continental via contiguous growth on the proto-plate adjacency graph until the configured `continentalRatio` target is reached.
+  - `age`: per cell, age is proportional to distance from the proto-plate boundary (young at boundaries, old toward interiors), with a small per-plate deterministic bias to avoid uniform fields within same-distance bands.
+
+### Determinism anchors
+- **Choice:** All randomness is derived from `createLabelRng(rngSeed)` with explicit labels (`CrustSeedShuffle`, `CrustContinentSeedShuffle`, `CrustContinentFrontierPick`, `CrustPlateAgeBias`).

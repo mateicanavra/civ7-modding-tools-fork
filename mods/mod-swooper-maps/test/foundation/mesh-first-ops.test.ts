@@ -177,4 +177,68 @@ describe("foundation mesh-first ops (slice 2)", () => {
     expect(tectA.fracture.length).toBe(mesh.cellCount);
     expect(tectA.cumulativeUplift.length).toBe(mesh.cellCount);
   });
+
+  it("compute-crust exhibits spatial coherence (non-IID)", () => {
+    const width = 60;
+    const height = 30;
+
+    const ctx = { env: { dimensions: { width, height } }, knobs: {} };
+    const meshConfig = computeMesh.normalize(
+      {
+        strategy: "default",
+        config: { plateCount: 16, cellsPerPlate: 4, relaxationSteps: 2, referenceArea: 800, plateScalePower: 0 },
+      },
+      ctx as any
+    );
+
+    const mesh = computeMesh.run(
+      {
+        width,
+        height,
+        rngSeed: 10,
+      },
+      meshConfig
+    ).mesh;
+
+    const crust = computeCrust.run(
+      {
+        mesh,
+        rngSeed: 11,
+      },
+      { strategy: "default", config: { continentalRatio: 0.35 } }
+    ).crust;
+
+    let sameTypeEdges = 0;
+    let totalEdges = 0;
+    for (let i = 0; i < mesh.cellCount; i++) {
+      const neighbors = neighborsFor(mesh, i);
+      for (let j = 0; j < neighbors.length; j++) {
+        const n = neighbors[j]!;
+        if (n <= i) continue;
+        totalEdges++;
+        if (crust.type[i] === crust.type[n]) sameTypeEdges++;
+      }
+    }
+
+    const sameTypeRatio = totalEdges <= 0 ? 1 : sameTypeEdges / totalEdges;
+    expect(sameTypeRatio).toBeGreaterThan(0.7);
+
+    let contSum = 0;
+    let contCount = 0;
+    let oceanSum = 0;
+    let oceanCount = 0;
+    for (let i = 0; i < mesh.cellCount; i++) {
+      if (crust.type[i] === 1) {
+        contSum += crust.age[i] ?? 0;
+        contCount++;
+      } else {
+        oceanSum += crust.age[i] ?? 0;
+        oceanCount++;
+      }
+    }
+
+    if (contCount > 0 && oceanCount > 0) {
+      expect(contSum / contCount).toBeGreaterThan(oceanSum / oceanCount);
+    }
+  });
 });
