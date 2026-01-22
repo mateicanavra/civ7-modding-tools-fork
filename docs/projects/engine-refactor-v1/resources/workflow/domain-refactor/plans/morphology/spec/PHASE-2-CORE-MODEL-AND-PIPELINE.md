@@ -296,7 +296,8 @@ Each entry below is a Phase 2 contract surface:
 
 - Purpose: derive substrate truth buffers from Foundation driver fields.
 - Inputs (derived from frozen Foundation truths at F1):
-  - `upliftPotential`, `riftPotential` from `artifact:foundation.plates`
+  - Phase 2 baseline: `upliftPotential`, `riftPotential` from `artifact:foundation.plates`
+  - Evolution (explicit; not silently assumed): projected material/lithology drivers may be added as additional inputs once Foundation publishes them as truth surfaces
   - `width`, `height`
 - Output (feeds `artifact:morphology.substrate` at F2): `erodibilityK`, `sedimentDepth`
 - Config: `SubstrateConfig` (strategy id `default`), normalized (defaults applied).
@@ -422,7 +423,7 @@ Notes:
 
 | Step id (canonical) | Calls ops | Reads (frozen Physics truth) | Produces (stage-local buffers / snapshots) |
 |---|---|---|---|
-| `morphology/step-substrate` | `morphology/compute-substrate` | `artifact:foundation.plates` (`upliftPotential`, `riftPotential`), `width|height` | substrate buffers (`erodibilityK`, `sedimentDepth`) |
+| `morphology/step-substrate` | `morphology/compute-substrate` | Phase 2 baseline: `artifact:foundation.plates` (`upliftPotential`, `riftPotential`), `width|height` | substrate buffers (`erodibilityK`, `sedimentDepth`) |
 | `morphology/step-base-topography` | `morphology/compute-base-topography` | `artifact:foundation.plates` (`boundaryCloseness`, `upliftPotential`, `riftPotential`), `context.env.seed`, `width|height` | elevation buffer |
 | `morphology/step-sea-level` | `morphology/compute-sea-level` | elevation buffer, `artifact:foundation.plates` (`boundaryCloseness`, `upliftPotential`), `context.env.seed`, `width|height` | seaLevel scalar |
 | `morphology/step-landmask` | `morphology/compute-landmask` | elevation buffer, seaLevel scalar, `artifact:foundation.plates.boundaryCloseness`, `width|height` | landMask buffer + distance-to-coast buffer |

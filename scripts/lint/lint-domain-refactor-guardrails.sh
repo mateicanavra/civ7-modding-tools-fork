@@ -327,6 +327,12 @@ for domain in "${DOMAINS[@]}"; do
   fi
 done
 
+run_rg "Domain-refactor examples: Physics requires heightfield buffer" "(?s)PHYSICS[\\s\\S]*?requires:.*buffer:heightfield[\\s\\S]*?GAMEPLAY" -P -U -- \
+  "docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/examples"
+
+run_rg "Domain-refactor examples: Physics requires map artifacts/effects" "(?s)PHYSICS[\\s\\S]*?requires:.*(artifact|effect):map\\.[\\s\\S]*?GAMEPLAY" -P -U -- \
+  "docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/examples"
+
 if [ "$DOMAIN_REFACTOR_GUARDRAILS_PROFILE" = "full" ]; then
   run_rg "Runtime typebox/value imports" "typebox/value" -- \
     "packages/mapgen-core/src/engine" \
