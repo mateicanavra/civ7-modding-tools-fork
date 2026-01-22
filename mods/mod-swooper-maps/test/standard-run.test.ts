@@ -398,46 +398,52 @@ const placementConfig = {
   starts: { strategy: "default", config: {} },
 };
 const standardConfig = {
-  foundation: foundationConfig,
+  foundation: { advanced: foundationConfig },
   "morphology-pre": {
-    "landmass-plates": {
-      substrate: { strategy: "default", config: {} },
-      baseTopography: { strategy: "default", config: reliefConfig },
-      seaLevel: { strategy: "default", config: hypsometryConfig },
-      landmask: {
-        strategy: "default",
-        config: { basinSeparation: basinSeparationConfig },
+    advanced: {
+      "landmass-plates": {
+        substrate: { strategy: "default", config: {} },
+        baseTopography: { strategy: "default", config: reliefConfig },
+        seaLevel: { strategy: "default", config: hypsometryConfig },
+        landmask: {
+          strategy: "default",
+          config: { basinSeparation: basinSeparationConfig },
+        },
       },
     },
   },
   "morphology-mid": {
-    "rugged-coasts": {
-      coastlines: {
-        strategy: "default",
-        config: {
-          coast: coastConfig,
+    advanced: {
+      "rugged-coasts": {
+        coastlines: {
+          strategy: "default",
+          config: {
+            coast: coastConfig,
+          },
         },
       },
-    },
-    routing: {
-      routing: { strategy: "default", config: {} },
-    },
-    geomorphology: {
+      routing: {
+        routing: { strategy: "default", config: {} },
+      },
       geomorphology: {
-        strategy: "default",
-        config: {
-          geomorphology: geomorphologyConfig,
-          worldAge: "mature",
+        geomorphology: {
+          strategy: "default",
+          config: {
+            geomorphology: geomorphologyConfig,
+            worldAge: "mature",
+          },
         },
       },
     },
   },
   "morphology-post": {
-    islands: {
-      islands: { strategy: "default", config: islandsPlanConfig },
+    advanced: {
+      islands: {
+        islands: { strategy: "default", config: islandsPlanConfig },
+      },
+      volcanoes: { volcanoes: { strategy: "default", config: volcanoesConfig } },
+      landmasses: { landmasses: { strategy: "default", config: {} } },
     },
-    volcanoes: { volcanoes: { strategy: "default", config: volcanoesConfig } },
-    landmasses: { landmasses: { strategy: "default", config: {} } },
   },
   "map-morphology": {
     mountains: { mountains: { strategy: "default", config: mountainsConfig } },

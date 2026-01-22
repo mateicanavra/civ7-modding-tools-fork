@@ -171,12 +171,16 @@ export function projectPlatesFromModel(input: {
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
       const i = y * width + x;
+      const cellId = tileToCellIndex[i] ?? 0;
+      const tectonicBoundary = tectonics.boundaryType[cellId] ?? BOUNDARY_TYPE.none;
       const myPlate = plateId[i]!;
-      let boundary = false;
-      forEachHexNeighborOddQ(x, y, width, height, (nx, ny) => {
-        const ni = ny * width + nx;
-        if (plateId[ni] !== myPlate) boundary = true;
-      });
+      let boundary = tectonicBoundary !== BOUNDARY_TYPE.none;
+      if (!boundary) {
+        forEachHexNeighborOddQ(x, y, width, height, (nx, ny) => {
+          const ni = ny * width + nx;
+          if (plateId[ni] !== myPlate) boundary = true;
+        });
+      }
       isBoundary[i] = boundary ? 1 : 0;
     }
   }

@@ -30,58 +30,64 @@ describe("M11 config layering: knobs-last (foundation + morphology)", () => {
     const compiled = standardRecipe.compileConfig(env, {
       foundation: {
         knobs: { plateCount: "dense", plateActivity: "high" },
-        mesh: { computeMesh: { strategy: "default", config: { plateCount: 10 } } },
-        "plate-graph": { computePlateGraph: { strategy: "default", config: { plateCount: 10 } } },
-        projection: {
-          computePlates: {
-            strategy: "default",
-            config: {
-              boundaryInfluenceDistance: 5,
-              boundaryDecay: 0.55,
-              movementScale: 100,
-              rotationScale: 100,
+        advanced: {
+          mesh: { computeMesh: { strategy: "default", config: { plateCount: 10 } } },
+          "plate-graph": { computePlateGraph: { strategy: "default", config: { plateCount: 10 } } },
+          projection: {
+            computePlates: {
+              strategy: "default",
+              config: {
+                boundaryInfluenceDistance: 5,
+                boundaryDecay: 0.55,
+                movementScale: 100,
+                rotationScale: 100,
+              },
             },
           },
         },
       },
       "morphology-pre": {
         knobs: { seaLevel: "water-heavy" },
-        "landmass-plates": { seaLevel: { strategy: "default", config: { targetWaterPercent: 60 } } },
+        advanced: {
+          "landmass-plates": { seaLevel: { strategy: "default", config: { targetWaterPercent: 60 } } },
+        },
       },
       "morphology-mid": {
         knobs: { erosion: "high", coastRuggedness: "rugged" },
-        geomorphology: {
+        advanced: {
           geomorphology: {
-            strategy: "default",
-            config: {
-              geomorphology: {
-                fluvial: { rate: 0.2, m: 0.5, n: 1.0 },
-                diffusion: { rate: 0.2, talus: 0.5 },
-                deposition: { rate: 0.1 },
-                eras: 2,
+            geomorphology: {
+              strategy: "default",
+              config: {
+                geomorphology: {
+                  fluvial: { rate: 0.2, m: 0.5, n: 1.0 },
+                  diffusion: { rate: 0.2, talus: 0.5 },
+                  deposition: { rate: 0.1 },
+                  eras: 2,
+                },
+                worldAge: "mature",
               },
-              worldAge: "mature",
             },
           },
-        },
-        "rugged-coasts": {
-          coastlines: {
-            strategy: "default",
-            config: {
-              coast: {
-                plateBias: {
-                  threshold: 0.4,
-                  power: 1.4,
-                  convergent: 2.2,
-                  transform: 0.3,
-                  divergent: -0.3,
-                  interior: 0.5,
-                  bayWeight: 1.0,
-                  bayNoiseBonus: 0.6,
-                  fjordWeight: 0.7,
+          "rugged-coasts": {
+            coastlines: {
+              strategy: "default",
+              config: {
+                coast: {
+                  plateBias: {
+                    threshold: 0.4,
+                    power: 1.4,
+                    convergent: 2.2,
+                    transform: 0.3,
+                    divergent: -0.3,
+                    interior: 0.5,
+                    bayWeight: 1.0,
+                    bayNoiseBonus: 0.6,
+                    fjordWeight: 0.7,
+                  },
+                  bay: { noiseGateAdd: 0, rollDenActive: 4, rollDenDefault: 5 },
+                  fjord: { baseDenom: 12, activeBonus: 1, passiveBonus: 2 },
                 },
-                bay: { noiseGateAdd: 0, rollDenActive: 4, rollDenDefault: 5 },
-                fjord: { baseDenom: 12, activeBonus: 1, passiveBonus: 2 },
               },
             },
           },
@@ -89,7 +95,14 @@ describe("M11 config layering: knobs-last (foundation + morphology)", () => {
       },
       "morphology-post": {
         knobs: { volcanism: "high" },
-        volcanoes: { volcanoes: { strategy: "default", config: { baseDensity: 0.01, hotspotWeight: 0.12, convergentMultiplier: 2.4 } } },
+        advanced: {
+          volcanoes: {
+            volcanoes: {
+              strategy: "default",
+              config: { baseDensity: 0.01, hotspotWeight: 0.12, convergentMultiplier: 2.4 },
+            },
+          },
+        },
       },
       "map-morphology": {
         knobs: { orogeny: "high" },

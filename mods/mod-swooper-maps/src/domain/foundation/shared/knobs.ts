@@ -8,6 +8,9 @@ import { Type, type Static } from "@swooper/mapgen-core/authoring";
  *
  * Stage scope:
  * - Used by `foundation` mesh + plate graph steps.
+ *
+ * Description:
+ * - Plate count preset (sparse/normal/dense). Applies as a deterministic multiplier over authored/defaulted plateCount (no presence-gating).
  */
 export const FoundationPlateCountKnobSchema = Type.Union(
   [Type.Literal("sparse"), Type.Literal("normal"), Type.Literal("dense")],
@@ -28,6 +31,9 @@ export type FoundationPlateCountKnob = Static<typeof FoundationPlateCountKnobSch
  *
  * Stage scope:
  * - Used by `foundation` projection step only.
+ *
+ * Description:
+ * - Plate activity preset (low/normal/high). Applies as deterministic transforms over projection kinematics and boundary influence distance.
  */
 export const FoundationPlateActivityKnobSchema = Type.Union(
   [Type.Literal("low"), Type.Literal("normal"), Type.Literal("high")],
@@ -39,4 +45,3 @@ export const FoundationPlateActivityKnobSchema = Type.Union(
 );
 
 export type FoundationPlateActivityKnob = Static<typeof FoundationPlateActivityKnobSchema>;
-
