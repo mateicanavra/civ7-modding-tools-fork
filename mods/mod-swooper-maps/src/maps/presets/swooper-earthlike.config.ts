@@ -20,11 +20,11 @@ export const swooperEarthlikeConfig = {
         computeMesh: {
           strategy: "default",
           config: {
-            plateCount: 11, // Fewer, larger major plates plus some microplates
+            plateCount: 19, // Fewer, larger major plates plus some microplates
             cellsPerPlate: 7, // Slightly denser cells per plate for sharper margins
             relaxationSteps: 6, // Extra smoothing for coherent plate footprints
             referenceArea: 16000, // Standard reference
-            plateScalePower: 0.91, // Still heavy-tailed but fewer tiny microplates
+            plateScalePower: 1, // Still heavy-tailed but fewer tiny microplates
           },
         },
       },
@@ -32,7 +32,7 @@ export const swooperEarthlikeConfig = {
         computeCrust: {
           strategy: "default",
           config: {
-            continentalRatio: 0.31, // Earth-ish crust share while leaving room for shelves
+            continentalRatio: 0.37, // Earth-ish crust share while leaving room for shelves
           },
         },
       },
@@ -40,9 +40,9 @@ export const swooperEarthlikeConfig = {
         computePlateGraph: {
           strategy: "default",
           config: {
-            plateCount: 11, // Match mesh plateCount
+            plateCount: 19, // Match mesh plateCount
             referenceArea: 16000,
-            plateScalePower: 0.91,
+            plateScalePower: 1,
           },
         },
       },
