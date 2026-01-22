@@ -126,7 +126,7 @@ Contracts live under `mods/mod-swooper-maps/src/domain/hydrology/ops/*/contract.
 - `hydrology/compute-land-water-budget` — rainfall/humidity/temperature → PET + aridityIndex (advisory)
 - `hydrology/accumulate-discharge` — Morphology routing + climate → runoff + discharge + sink/outlet masks
 - `hydrology/project-river-network` — discharge → riverClass + computed thresholds (projection-only; monotonic)
-- `hydrology/compute-cryosphere-state` — temperature + rainfall → snow/ice/albedo + freezeIndex
+- `hydrology/compute-cryosphere-state` — temperature + rainfall → snow/ice/albedo + freezeIndex + (groundIce01/permafrost01/meltPotential01)
 - `hydrology/apply-albedo-feedback` — bounded iterations → temperature refinement (optional/knob-gated)
 - `hydrology/compute-climate-diagnostics` — climate signals → advisory diagnostics indices
 
