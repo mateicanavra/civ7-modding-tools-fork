@@ -18,6 +18,13 @@ This document explores the spike’s **Open Questions** and proposes 2–3 plaus
 - Driver-knobs posture
   - Prefer **physics drivers** + consumer-side interpretation; avoid outcome clamps like “force X% mountains”.
 
+This content is also “verticalized” into area-owned docs under `foundation-realism/`:
+- Plate partition realism: `foundation-realism/plate-partition-realism.md` (Q4)
+- Segment-based tectonics + history: `foundation-realism/tectonic-segments-and-history.md` (Q2, Q3, Q5)
+- Polar caps as plates: `foundation-realism/polar-caps-as-plates.md` (Q6, Q7)
+- Crust as load-bearing prior: `foundation-realism/crust-load-bearing-prior.md` (Q1)
+- Validation + observability: `foundation-realism/validation-and-observability.md` (Q8, Q9, Q10)
+
 ## Evidence pointers (current code touchpoints)
 
 These are the current “landing zones” implied by the spike; alternatives below reference them:
@@ -564,4 +571,3 @@ Choose **Alternative B + C**:
 
 - “Mountain wall regressions” are ultimately an output-feel issue; measure them on **morphology truth outputs**, not engine-stamped surfaces.
 - Add the belt→mountain correlation as a guardrail that preserves the driver-first posture across refactors.
-
