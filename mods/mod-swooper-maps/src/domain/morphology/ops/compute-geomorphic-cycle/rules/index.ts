@@ -17,6 +17,7 @@ export function validateGeomorphicInputs(
 ): {
   size: number;
   elevation: Int16Array;
+  flowDir: Int32Array;
   flowAccum: Float32Array;
   erodibility: Float32Array;
   sedimentDepth: Float32Array;
@@ -25,6 +26,7 @@ export function validateGeomorphicInputs(
   const { width, height } = input;
   const size = Math.max(0, (width | 0) * (height | 0));
   const elevation = input.elevation as Int16Array;
+  const flowDir = input.flowDir as Int32Array;
   const flowAccum = input.flowAccum as Float32Array;
   const erodibility = input.erodibilityK as Float32Array;
   const sedimentDepth = input.sedimentDepth as Float32Array;
@@ -32,6 +34,7 @@ export function validateGeomorphicInputs(
 
   if (
     elevation.length !== size ||
+    flowDir.length !== size ||
     flowAccum.length !== size ||
     erodibility.length !== size ||
     sedimentDepth.length !== size ||
@@ -40,7 +43,7 @@ export function validateGeomorphicInputs(
     throw new Error("[Geomorphology] Input tensors must match width*height.");
   }
 
-  return { size, elevation, flowAccum, erodibility, sedimentDepth, landMask };
+  return { size, elevation, flowDir, flowAccum, erodibility, sedimentDepth, landMask };
 }
 
 /**
@@ -57,13 +60,15 @@ export function computeGeomorphicDeltas(params: {
   width: number;
   height: number;
   elevation: Int16Array;
+  flowDir: Int32Array;
   flowAccum: Float32Array;
   erodibility: Float32Array;
   sedimentDepth: Float32Array;
   landMask: Uint8Array;
   config: ComputeGeomorphicCycleTypes["config"]["default"];
 }): { elevationDelta: Float32Array; sedimentDelta: Float32Array } {
-  const { width, height, elevation, flowAccum, erodibility, sedimentDepth, landMask, config } = params;
+  const { width, height, elevation, flowDir, flowAccum, erodibility, sedimentDepth, landMask, config } =
+    params;
   const size = elevation.length;
 
   let maxFlow = 1;
@@ -80,29 +85,84 @@ export function computeGeomorphicDeltas(params: {
   const elevationDelta = new Float32Array(size);
   const sedimentDelta = new Float32Array(size);
 
+  const scratchElevation = new Float32Array(size);
+  const scratchSediment = new Float32Array(size);
+  for (let i = 0; i < size; i++) {
+    scratchElevation[i] = elevation[i] ?? 0;
+    scratchSediment[i] = sedimentDepth[i] ?? 0;
+  }
+
+  const erosionRate = fluvial.rate * ageScale;
+  const diffusionRate = diffusion.rate * ageScale;
+  const depositionRate = deposition.rate * ageScale;
+
+  const m = fluvial.m;
+  const n = fluvial.n;
+
   for (let era = 0; era < eras; era++) {
+    let maxDrop = 1;
+    for (let i = 0; i < size; i++) {
+      if (landMask[i] !== 1) continue;
+      const dest = flowDir[i] ?? -1;
+      if (dest < 0 || dest >= size) continue;
+      const drop = (scratchElevation[i] ?? 0) - (scratchElevation[dest] ?? 0);
+      if (drop > maxDrop) maxDrop = drop;
+    }
+
+    const elevationDeltaEra = new Float32Array(size);
+    const sedimentDeltaEra = new Float32Array(size);
+
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {
         const i = y * width + x;
-        if (landMask[i] === 0) continue;
-        const elev = elevation[i];
-        let neighborSum = elev;
-        let neighborCount = 1;
-        forEachHexNeighborOddQ(x, y, width, height, (nx, ny) => {
-          const ni = ny * width + nx;
-          neighborSum += elevation[ni];
-          neighborCount++;
-        });
+        const elev = scratchElevation[i] ?? 0;
 
-        const avg = neighborSum / neighborCount;
-        const diffusionDelta = (avg - elev) * diffusion.rate;
-        const flowNorm = clamp(flowAccum[i] / maxFlow, 0, 1);
-        const erosion = flowNorm * fluvial.rate * erodibility[i];
-        const deposit = (1 - flowNorm) * deposition.rate * sedimentDepth[i];
+        const isLand = landMask[i] === 1;
 
-        elevationDelta[i] += (diffusionDelta - erosion + deposit) * ageScale;
-        sedimentDelta[i] += (deposit - erosion * 0.5) * ageScale;
+        let diffusionDelta = 0;
+        if (isLand && diffusionRate > 0) {
+          let neighborSum = elev;
+          let neighborCount = 1;
+          forEachHexNeighborOddQ(x, y, width, height, (nx, ny) => {
+            const ni = ny * width + nx;
+            neighborSum += scratchElevation[ni] ?? 0;
+            neighborCount++;
+          });
+          const avg = neighborSum / neighborCount;
+          diffusionDelta = (avg - elev) * diffusionRate;
+        }
+
+        const dest = flowDir[i] ?? -1;
+        const aNorm = clamp((flowAccum[i] ?? 0) / maxFlow, 0, 1);
+        const discharge = Math.pow(aNorm, m);
+        const drop =
+          dest >= 0 && dest < size ? Math.max(0, elev - (scratchElevation[dest] ?? 0)) : 0;
+        const slopeNorm = clamp(drop / maxDrop, 0, 1);
+        const slope = Math.pow(slopeNorm, n);
+        const streamPower = clamp(discharge * slope, 0, 1);
+
+        const erosion = isLand ? erosionRate * (erodibility[i] ?? 0) * streamPower : 0;
+        const baseSediment = Math.max(0, (scratchSediment[i] ?? 0) + erosion);
+
+        const settles = baseSediment * depositionRate * (1 - streamPower);
+        const transports =
+          dest >= 0 && dest < size ? baseSediment * depositionRate * streamPower : 0;
+
+        elevationDeltaEra[i] += diffusionDelta - erosion + settles;
+        sedimentDeltaEra[i] += erosion - settles - transports;
+        if (dest >= 0 && dest < size) {
+          sedimentDeltaEra[dest] += transports;
+        }
       }
+    }
+
+    for (let i = 0; i < size; i++) {
+      const dE = elevationDeltaEra[i] ?? 0;
+      const dS = sedimentDeltaEra[i] ?? 0;
+      elevationDelta[i] += dE;
+      sedimentDelta[i] += dS;
+      scratchElevation[i] += dE;
+      scratchSediment[i] = Math.max(0, scratchSediment[i] + dS);
     }
   }
 
