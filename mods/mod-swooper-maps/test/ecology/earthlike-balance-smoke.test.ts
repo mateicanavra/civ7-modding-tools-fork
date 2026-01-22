@@ -7,7 +7,7 @@ import standardRecipe from "../../src/recipes/standard/recipe.js";
 import { initializeStandardRuntime } from "../../src/recipes/standard/runtime.js";
 import { ecologyArtifacts } from "../../src/recipes/standard/stages/ecology/artifacts.js";
 import { BIOME_SYMBOL_TO_INDEX } from "@mapgen/domain/ecology/types.js";
-import { swooperEarthlikeConfig } from "../../src/maps/presets/swooper-earthlike.config.js";
+import { realismEarthlikeConfig } from "../../src/maps/presets/realism/earthlike.config.js";
 
 describe("Earthlike ecology balance (smoke)", () => {
   it("has desert/boreal presence and non-zero vegetation without drowning coasts", () => {
@@ -46,7 +46,7 @@ describe("Earthlike ecology balance (smoke)", () => {
     const context = createExtendedMapContext({ width, height }, adapter, env);
     initializeStandardRuntime(context, { mapInfo, logPrefix: "[test]", storyEnabled: true });
 
-    standardRecipe.run(context, env, swooperEarthlikeConfig, { log: () => {} });
+    standardRecipe.run(context, env, realismEarthlikeConfig, { log: () => {} });
 
     const classification = context.artifacts.get(ecologyArtifacts.biomeClassification.id) as
       | { biomeIndex?: Uint8Array }

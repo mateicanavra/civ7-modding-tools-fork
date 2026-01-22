@@ -6,7 +6,7 @@ import type { TraceEvent } from "@swooper/mapgen-core";
 
 import standardRecipe from "../../src/recipes/standard/recipe.js";
 import { initializeStandardRuntime } from "../../src/recipes/standard/runtime.js";
-import { swooperEarthlikeConfig } from "../../src/maps/presets/swooper-earthlike.config.js";
+import { realismEarthlikeConfig } from "../../src/maps/presets/realism/earthlike.config.js";
 
 type KindEvent = { kind: string };
 
@@ -65,7 +65,7 @@ describe("Morphology tracing (observability hardening smoke)", () => {
     initializeStandardRuntime(context, { mapInfo, logPrefix: "[test]", storyEnabled: true });
 
     const events: TraceEvent[] = [];
-    standardRecipe.run(context, env, swooperEarthlikeConfig, {
+    standardRecipe.run(context, env, realismEarthlikeConfig, {
       log: () => {},
       traceSink: { emit: (event) => events.push(event) },
     });
@@ -98,4 +98,3 @@ describe("Morphology tracing (observability hardening smoke)", () => {
     }
   });
 });
-

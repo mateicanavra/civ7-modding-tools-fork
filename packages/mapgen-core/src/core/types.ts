@@ -124,7 +124,6 @@ export const FOUNDATION_PLATES_ARTIFACT_TAG = "artifact:foundation.plates";
 export const FOUNDATION_MESH_ARTIFACT_TAG = "artifact:foundation.mesh";
 export const FOUNDATION_CRUST_ARTIFACT_TAG = "artifact:foundation.crust";
 export const FOUNDATION_PLATE_GRAPH_ARTIFACT_TAG = "artifact:foundation.plateGraph";
-export const FOUNDATION_PLATE_TOPOLOGY_ARTIFACT_TAG = "artifact:foundation.plateTopology";
 export const FOUNDATION_TECTONICS_ARTIFACT_TAG = "artifact:foundation.tectonics";
 export const FOUNDATION_TILE_TO_CELL_INDEX_ARTIFACT_TAG = "artifact:foundation.tileToCellIndex";
 export const FOUNDATION_CRUST_TILES_ARTIFACT_TAG = "artifact:foundation.crustTiles";
