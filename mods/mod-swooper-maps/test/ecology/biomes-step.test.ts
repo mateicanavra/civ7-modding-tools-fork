@@ -33,7 +33,8 @@ describe("biomes step", () => {
 
     ctx.buffers.heightfield.landMask.fill(1);
     ctx.buffers.heightfield.landMask[0] = 0;
-    ctx.buffers.heightfield.elevation.fill(0);
+    ctx.buffers.heightfield.elevation.fill(1);
+    ctx.buffers.heightfield.elevation[0] = 0;
 
     ctx.buffers.climate.rainfall.fill(120);
     ctx.buffers.climate.humidity.fill(80);
@@ -46,9 +47,13 @@ describe("biomes step", () => {
       ],
       { topography: {}, climateField: {}, hydrography: {} }
     );
+    const seaLevel = 0;
+    const bathymetry = new Int16Array(size);
     hydrologyArtifacts.topography.publish(ctx, {
       elevation: ctx.buffers.heightfield.elevation,
+      seaLevel,
       landMask: ctx.buffers.heightfield.landMask,
+      bathymetry,
     });
     hydrologyArtifacts.climateField.publish(ctx, ctx.buffers.climate);
     hydrologyArtifacts.hydrography.publish(ctx, {
@@ -125,7 +130,7 @@ describe("biomes step", () => {
       const ctx = createExtendedMapContext({ width, height }, adapter, env);
 
       ctx.buffers.heightfield.landMask.fill(1);
-      ctx.buffers.heightfield.elevation.fill(0);
+      ctx.buffers.heightfield.elevation.fill(1);
       ctx.buffers.climate.rainfall.fill(120);
       ctx.buffers.climate.humidity.fill(80);
 
@@ -137,9 +142,13 @@ describe("biomes step", () => {
         ],
         { topography: {}, climateField: {}, hydrography: {} }
       );
+      const seaLevel = 0;
+      const bathymetry = new Int16Array(size);
       hydrologyArtifacts.topography.publish(ctx, {
         elevation: ctx.buffers.heightfield.elevation,
+        seaLevel,
         landMask: ctx.buffers.heightfield.landMask,
+        bathymetry,
       });
       hydrologyArtifacts.climateField.publish(ctx, ctx.buffers.climate);
       hydrologyArtifacts.hydrography.publish(ctx, {

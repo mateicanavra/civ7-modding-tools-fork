@@ -330,7 +330,7 @@ export function createFeaturesTestContext(options: FeaturesTestContextOptions) {
   const ctx = createExtendedMapContext({ width, height }, adapter, env);
 
   const size = width * height;
-  ctx.buffers.heightfield.elevation.fill(0);
+  ctx.buffers.heightfield.elevation.fill(1);
   ctx.buffers.heightfield.landMask.fill(1);
   ctx.buffers.climate.rainfall.fill(defaultRainfall);
   ctx.buffers.climate.humidity.fill(defaultHumidity);
@@ -345,6 +345,7 @@ export function createFeaturesTestContext(options: FeaturesTestContextOptions) {
       if (isWater(x, y)) {
         adapter.setWater(x, y, true);
         ctx.buffers.heightfield.landMask[idx] = 0;
+        ctx.buffers.heightfield.elevation[idx] = 0;
         ctx.fields.biomeId[idx] = marineId;
       } else {
         ctx.fields.biomeId[idx] = landId;
@@ -365,9 +366,13 @@ export function createFeaturesTestContext(options: FeaturesTestContextOptions) {
     [morphologyArtifacts.topography, hydrologyClimateBaselineArtifacts.climateField],
     { topography: {}, climateField: {} }
   );
+  const seaLevel = 0;
+  const bathymetry = new Int16Array(size);
   hydrologyArtifacts.topography.publish(ctx, {
     elevation: ctx.buffers.heightfield.elevation,
+    seaLevel,
     landMask: ctx.buffers.heightfield.landMask,
+    bathymetry,
   });
   hydrologyArtifacts.climateField.publish(ctx, ctx.buffers.climate);
 

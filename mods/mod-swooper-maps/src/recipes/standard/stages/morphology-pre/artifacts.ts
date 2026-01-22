@@ -4,14 +4,25 @@ const MorphologyTopographyArtifactSchema = Type.Object(
   {
     elevation: TypedArraySchemas.i16({
       description:
-        "Signed heightfield elevation per tile. Publish-once buffer handle; steps may mutate in-place via ctx.buffers.heightfield.",
+        "Signed elevation per tile (integer meters). Publish-once buffer handle; steps may mutate in-place via ctx.buffers.heightfield.",
+    }),
+    seaLevel: Type.Number({
+      description:
+        "Global sea level threshold in the same datum/units as elevation (meters; may be fractional).",
     }),
     landMask: TypedArraySchemas.u8({
       description:
-        "Land/water mask per tile (1=land, 0=water). Publish-once buffer handle; steps may mutate in-place via ctx.buffers.heightfield.",
+        "Land/water mask per tile (1=land, 0=water). Must be consistent with elevation > seaLevel.",
+    }),
+    bathymetry: TypedArraySchemas.i16({
+      description:
+        "Derived bathymetry per tile (integer meters): 0 on land; <=0 in water; consistent with elevation/seaLevel.",
     }),
   },
-  { description: "Canonical morphology topography buffer handle (publish once)." }
+  {
+    additionalProperties: false,
+    description: "Canonical Morphology topography truth (Phase 2 schema; publish-once handle).",
+  }
 );
 
 const MorphologyRoutingArtifactSchema = Type.Object(
@@ -43,14 +54,26 @@ const MorphologyCoastlineMetricsArtifactSchema = Type.Object(
   {
     coastalLand: TypedArraySchemas.u8({ description: "Mask (1/0): land tiles adjacent to water." }),
     coastalWater: TypedArraySchemas.u8({ description: "Mask (1/0): water tiles adjacent to land." }),
+    distanceToCoast: TypedArraySchemas.u16({
+      description:
+        "Minimum tile-graph distance to any coastline tile (0=coast), using wrapX=true and wrapY=false.",
+    }),
   },
-  { description: "Derived coastline metrics snapshot (immutable)." }
+  {
+    additionalProperties: false,
+    description: "Derived coastline metrics snapshot (Phase 2 schema; immutable at F2).",
+  }
 );
 
 const MorphologyLandmassArtifactSchema = Type.Object(
   {
     id: Type.Integer({ minimum: 0, description: "Stable index within this snapshot (0..n-1)." }),
     tileCount: Type.Integer({ minimum: 0, description: "Number of land tiles in this landmass." }),
+    coastlineLength: Type.Integer({
+      minimum: 0,
+      description:
+        "Count of land↔water adjacency edges along the coastline (canonical hex neighbor graph; wrapX=true).",
+    }),
     bbox: Type.Object(
       {
         west: Type.Integer({ minimum: 0, description: "West bound (inclusive) in tile x-coordinates." }),
@@ -65,7 +88,10 @@ const MorphologyLandmassArtifactSchema = Type.Object(
       }
     ),
   },
-  { description: "One connected land component derived from the landMask." }
+  {
+    additionalProperties: false,
+    description: "One connected land component derived from the landMask (Phase 2 schema).",
+  }
 );
 
 const MorphologyLandmassesArtifactSchema = Type.Object(
@@ -76,21 +102,42 @@ const MorphologyLandmassesArtifactSchema = Type.Object(
         "Per-tile landmass component id (-1 for water). Values map to the landmasses[] entries.",
     }),
   },
-  { description: "Landmass decomposition snapshot (immutable)." }
+  {
+    additionalProperties: false,
+    description: "Landmass decomposition snapshot (Phase 2 schema; immutable at F2).",
+  }
 );
+
+const VolcanoKindSchema = Type.Union([
+  Type.Literal("subductionArc"),
+  Type.Literal("rift"),
+  Type.Literal("hotspot"),
+]);
 
 const MorphologyVolcanoesArtifactSchema = Type.Object(
   {
-    volcanoes: Type.Array(
+    volcanoMask: TypedArraySchemas.u8({ description: "Mask (1/0): tiles containing a volcano vent." }),
+    volcanoes: Type.Immutable(
+      Type.Array(
       Type.Object(
         {
-          index: Type.Integer({ minimum: 0, description: "Tile index in row-major order." }),
+          tileIndex: Type.Integer({ minimum: 0, description: "Tile index in row-major order." }),
+          kind: VolcanoKindSchema,
+          strength01: Type.Number({
+            minimum: 0,
+            maximum: 1,
+            description: "Normalized intensity (0..1) derived from volcanism driver strength.",
+          }),
         },
         { additionalProperties: false }
       )
     ),
+    ),
   },
-  { description: "Volcano placement snapshot (immutable)." }
+  {
+    additionalProperties: false,
+    description: "Volcano intent snapshot (Phase 2 schema; immutable at F2).",
+  }
 );
 
 export const morphologyArtifacts = {

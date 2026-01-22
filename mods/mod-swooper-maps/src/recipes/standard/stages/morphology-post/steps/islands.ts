@@ -3,11 +3,24 @@ import { createStep } from "@swooper/mapgen-core/authoring";
 import IslandsStepContract from "./islands.contract.js";
 import { deriveStepSeed } from "@swooper/mapgen-core/lib/rng";
 
+function clampInt16(value: number): number {
+  if (value > 32767) return 32767;
+  if (value < -32768) return -32768;
+  return value;
+}
+
 export default createStep(IslandsStepContract, {
   run: (context, config, ops, deps) => {
     const { width, height } = context.dimensions;
     const plates = deps.artifacts.foundationPlates.read(context);
+    const topography = deps.artifacts.topography.read(context) as { seaLevel?: number; bathymetry?: Int16Array };
     const heightfield = context.buffers.heightfield;
+    const seaLevelValue = typeof topography.seaLevel === "number" ? topography.seaLevel : 0;
+    const landElevation = clampInt16(Math.floor(seaLevelValue) + 1);
+    const bathymetry = topography.bathymetry;
+    if (!(bathymetry instanceof Int16Array) || bathymetry.length !== heightfield.elevation.length) {
+      throw new Error("Morphology topography bathymetry buffer missing or shape-mismatched.");
+    }
     const rngSeed = deriveStepSeed(context.env.seed, "morphology:planIslandChains");
 
     const plan = ops.islands(
@@ -30,6 +43,10 @@ export default createStep(IslandsStepContract, {
       if (x < 0 || x >= width || y < 0 || y >= height) continue;
       if (edit.kind === "peak") {
         heightfield.landMask[index] = 1;
+        if (heightfield.elevation[index] <= seaLevelValue) {
+          heightfield.elevation[index] = landElevation;
+        }
+        bathymetry[index] = 0;
       }
     }
 

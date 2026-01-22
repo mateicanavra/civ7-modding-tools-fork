@@ -3,6 +3,7 @@ import { computeSampleStep, renderAsciiGrid } from "@swooper/mapgen-core";
 import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import RuggedCoastsStepContract from "./ruggedCoasts.contract.js";
 import { deriveStepSeed } from "@swooper/mapgen-core/lib/rng";
+import { forEachHexNeighborOddQ } from "@swooper/mapgen-core/lib/grid";
 
 type ArtifactValidationIssue = Readonly<{ message: string }>;
 
@@ -40,10 +41,54 @@ function validateCoastlineMetrics(value: unknown, dimensions: MapDimensions): Ar
     return errors;
   }
   const size = expectedSize(dimensions);
-  const candidate = value as { coastalLand?: unknown; coastalWater?: unknown };
+  const candidate = value as { coastalLand?: unknown; coastalWater?: unknown; distanceToCoast?: unknown };
   validateTypedArray(errors, "coastlineMetrics.coastalLand", candidate.coastalLand, Uint8Array, size);
   validateTypedArray(errors, "coastlineMetrics.coastalWater", candidate.coastalWater, Uint8Array, size);
+  validateTypedArray(errors, "coastlineMetrics.distanceToCoast", candidate.distanceToCoast, Uint16Array, size);
   return errors;
+}
+
+function roundHalfAwayFromZero(value: number): number {
+  return value >= 0 ? Math.floor(value + 0.5) : Math.ceil(value - 0.5);
+}
+
+function clampInt16(value: number): number {
+  if (value > 32767) return 32767;
+  if (value < -32768) return -32768;
+  return value;
+}
+
+function computeDistanceToCoast(width: number, height: number, coastal: Uint8Array): Uint16Array {
+  const size = Math.max(0, (width | 0) * (height | 0));
+  const distance = new Uint16Array(size);
+  distance.fill(65535);
+
+  const queue = new Int32Array(size);
+  let head = 0;
+  let tail = 0;
+
+  for (let i = 0; i < size; i++) {
+    if ((coastal[i] | 0) !== 1) continue;
+    distance[i] = 0;
+    queue[tail++] = i;
+  }
+
+  while (head < tail) {
+    const idx = queue[head++]!;
+    const y = (idx / width) | 0;
+    const x = idx - y * width;
+    const dist = distance[idx] ?? 0;
+
+    forEachHexNeighborOddQ(x, y, width, height, (nx, ny) => {
+      const ni = ny * width + nx;
+      const next = (dist + 1) as number;
+      if (distance[ni] <= next) return;
+      distance[ni] = next;
+      queue[tail++] = ni;
+    });
+  }
+
+  return distance;
 }
 
 export default createStep(RuggedCoastsStepContract, {
@@ -55,6 +100,7 @@ export default createStep(RuggedCoastsStepContract, {
   run: (context, config, ops, deps) => {
     const { width, height } = context.dimensions;
     const plates = deps.artifacts.foundationPlates.read(context);
+    const topography = deps.artifacts.topography.read(context) as { seaLevel?: number; bathymetry?: Int16Array };
     const heightfield = context.buffers.heightfield;
     const rngSeed = deriveStepSeed(context.env.seed, "morphology:computeCoastlineMetrics");
 
@@ -73,14 +119,34 @@ export default createStep(RuggedCoastsStepContract, {
     const updatedLandMask = result.landMask;
     const coastMask = result.coastMask;
 
+    const seaLevelValue = typeof topography.seaLevel === "number" ? topography.seaLevel : 0;
+    const bathymetry = topography.bathymetry;
+    if (!(bathymetry instanceof Int16Array) || bathymetry.length !== heightfield.elevation.length) {
+      throw new Error("Morphology topography bathymetry buffer missing or shape-mismatched.");
+    }
+
+    const waterElevation = clampInt16(Math.floor(seaLevelValue));
+    const landElevation = clampInt16(Math.floor(seaLevelValue) + 1);
+
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {
         const i = y * width + x;
+        const desiredLand = coastMask[i] === 1 ? 0 : updatedLandMask[i] === 1 ? 1 : 0;
         if (coastMask[i] === 1) {
           heightfield.landMask[i] = 0;
-          continue;
+        } else {
+          heightfield.landMask[i] = updatedLandMask[i] === 1 ? 1 : 0;
         }
-        heightfield.landMask[i] = updatedLandMask[i] === 1 ? 1 : 0;
+
+        const elevation = heightfield.elevation[i] ?? 0;
+        if (desiredLand === 1) {
+          if (elevation <= seaLevelValue) heightfield.elevation[i] = landElevation;
+          bathymetry[i] = 0;
+        } else {
+          if (elevation > seaLevelValue) heightfield.elevation[i] = waterElevation;
+          const delta = Math.min(0, (heightfield.elevation[i] ?? 0) - seaLevelValue);
+          bathymetry[i] = clampInt16(roundHalfAwayFromZero(delta));
+        }
       }
     }
 
@@ -120,9 +186,16 @@ export default createStep(RuggedCoastsStepContract, {
       };
     });
 
+    const coastal = new Uint8Array(Math.max(0, (width | 0) * (height | 0)));
+    for (let i = 0; i < coastal.length; i++) {
+      coastal[i] = result.coastalLand[i] === 1 || result.coastalWater[i] === 1 ? 1 : 0;
+    }
+    const distanceToCoast = computeDistanceToCoast(width, height, coastal);
+
     deps.artifacts.coastlineMetrics.publish(context, {
       coastalLand: result.coastalLand,
       coastalWater: result.coastalWater,
+      distanceToCoast,
     });
   },
 });
