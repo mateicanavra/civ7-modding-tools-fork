@@ -40,6 +40,18 @@ const ComputeCryosphereStateOutputSchema = Type.Object(
     freezeIndex: TypedArraySchemas.f32({
       description: "Freeze persistence index (0..1) per tile (advisory).",
     }),
+    /** Ground ice persistence proxy (0..1) per tile; land-only. */
+    groundIce01: TypedArraySchemas.f32({
+      description: "Ground ice persistence proxy (0..1) per tile; land-only.",
+    }),
+    /** Permafrost proxy (0..1) per tile; land-only. */
+    permafrost01: TypedArraySchemas.f32({
+      description: "Permafrost proxy (0..1) per tile; land-only.",
+    }),
+    /** Melt potential proxy (0..1) per tile; land-only and snow-weighted. */
+    meltPotential01: TypedArraySchemas.f32({
+      description: "Melt potential proxy (0..1) per tile; land-only and snow-weighted.",
+    }),
   },
   {
     additionalProperties: false,
@@ -105,6 +117,41 @@ const ComputeCryosphereStateDefaultStrategySchema = Type.Object(
       minimum: 0,
       maximum: 1,
       description: "How much rainfall boosts snow cover accumulation (dimensionless).",
+    }),
+    /** Permafrost start threshold on freezeIndex (0..1). */
+    permafrostStartFreezeIndex: Type.Number({
+      default: 0.4,
+      minimum: 0,
+      maximum: 1,
+      description: "Permafrost start threshold on freezeIndex (0..1).",
+    }),
+    /** Permafrost full threshold on freezeIndex (0..1). */
+    permafrostFullFreezeIndex: Type.Number({
+      default: 0.8,
+      minimum: 0,
+      maximum: 1,
+      description: "Permafrost full threshold on freezeIndex (0..1).",
+    }),
+    /** Temperature at which meltPotential begins increasing (C). */
+    meltStartC: Type.Number({
+      default: 0,
+      minimum: -60,
+      maximum: 30,
+      description: "Temperature at which meltPotential begins increasing (C).",
+    }),
+    /** Temperature at which meltPotential is saturated (C). */
+    meltFullC: Type.Number({
+      default: 10,
+      minimum: -60,
+      maximum: 60,
+      description: "Temperature at which meltPotential is saturated (C).",
+    }),
+    /** How strongly snow cover weights ground ice persistence (0..1). */
+    groundIceSnowInfluence: Type.Number({
+      default: 0.75,
+      minimum: 0,
+      maximum: 1,
+      description: "How strongly snow cover weights ground ice persistence (0..1).",
     }),
     /** Baseline albedo proxy when no snow/ice is present. */
     baseAlbedo: Type.Integer({

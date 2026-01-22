@@ -1,7 +1,7 @@
 ---
 id: M11-U08
 title: "[M11/U08] Polar boundary conditions + cryosphere truth (edge physics + ice proxies)"
-state: planned
+state: done
 priority: 2
 estimate: 4
 project: engine-refactor-v1
@@ -40,3 +40,25 @@ related_to: [M11-U00]
 ## Dependencies / Notes
 - Polar boundary conditions are primarily a Foundation concern; cryosphere truth is primarily Hydrology.
 - Reference synthesis: `docs/projects/engine-refactor-v1/issues/research/physics-first-gap-research.md`.
+
+## Implementation Decisions
+
+### Implement polar boundary conditions inside `foundation/compute-tectonics`
+- **Context:** Phase 2 contracts require north/south edges to behave like real boundary regimes (no dead band; no wrapY knobs).
+- **Choice:** Add explicit `polarBoundary` + `polarBandFraction` config to `foundation/compute-tectonics` and inject tapered edge-band regime signals into driver fields.
+- **Rationale:** Keeps edge physics in Foundation and deterministic, and flows downstream through existing projections (`artifact:foundation.plates`).
+
+### Standardize cryosphere truth proxies in `hydrology/compute-cryosphere-state`
+- **Context:** Downstream consumers need explicit cryosphere state without re-deriving from temperature alone.
+- **Choice:** Extend `hydrology/compute-cryosphere-state` and `artifact:hydrology.cryosphere` to publish `groundIce01`, `permafrost01`, and `meltPotential01` (0..1, tile-indexed).
+- **Rationale:** Centralizes cryosphere semantics in Hydrology and keeps the signals deterministic and bounded.
+
+### Ecology cold constraints: publish cryosphere proxies via `artifact:ecology.biomeClassification`
+- **Context:** Consumers should not have to re-infer cold constraints from temperature-only heuristics.
+- **Choice:** Thread `groundIce01`, `permafrost01`, and `meltPotential01` into `artifact:ecology.biomeClassification` and publish a simple `treeLine01` proxy derived from permafrost.
+- **Rationale:** Makes cold constraints easily consumable by downstream steps without duplicating cryosphere heuristics.
+
+### Glacial modifiers (deferred within milestone scope)
+- **Context:** Glacial carving is a high-surface-area change in Morphology with significant regression risk.
+- **Choice:** Not implemented in this milestone slice.
+- **Rationale:** Land upstream edge physics + cryosphere truth first; glacial modifiers can land as a dedicated follow-up once erosion/cryosphere harnesses are expanded.

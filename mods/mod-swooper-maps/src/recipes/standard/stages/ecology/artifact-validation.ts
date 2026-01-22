@@ -46,7 +46,11 @@ function isBiomeClassificationArtifact(value: unknown): value is BiomeClassifica
     candidate.effectiveMoisture instanceof Float32Array &&
     candidate.surfaceTemperature instanceof Float32Array &&
     candidate.aridityIndex instanceof Float32Array &&
-    candidate.freezeIndex instanceof Float32Array
+    candidate.freezeIndex instanceof Float32Array &&
+    candidate.groundIce01 instanceof Float32Array &&
+    candidate.permafrost01 instanceof Float32Array &&
+    candidate.meltPotential01 instanceof Float32Array &&
+    candidate.treeLine01 instanceof Float32Array
   );
 }
 
@@ -105,6 +109,10 @@ export function validateBiomeClassificationArtifact(
   validateTypedArray(errors, "surfaceTemperature", value.surfaceTemperature, Float32Array, size);
   validateTypedArray(errors, "aridityIndex", value.aridityIndex, Float32Array, size);
   validateTypedArray(errors, "freezeIndex", value.freezeIndex, Float32Array, size);
+  validateTypedArray(errors, "groundIce01", value.groundIce01, Float32Array, size);
+  validateTypedArray(errors, "permafrost01", value.permafrost01, Float32Array, size);
+  validateTypedArray(errors, "meltPotential01", value.meltPotential01, Float32Array, size);
+  validateTypedArray(errors, "treeLine01", value.treeLine01, Float32Array, size);
   return errors;
 }
 

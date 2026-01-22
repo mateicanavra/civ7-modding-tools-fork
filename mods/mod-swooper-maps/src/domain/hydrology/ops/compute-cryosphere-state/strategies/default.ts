@@ -26,11 +26,18 @@ export const defaultStrategy = createStrategy(ComputeCryosphereStateContract, "d
     const seaIceCover = new Uint8Array(size);
     const albedo = new Uint8Array(size);
     const freezeIndex = new Float32Array(size);
+    const groundIce01 = new Float32Array(size);
+    const permafrost01 = new Float32Array(size);
+    const meltPotential01 = new Float32Array(size);
 
     const precipitationInfluence = config.precipitationInfluence;
     const baseAlbedo = config.baseAlbedo | 0;
     const snowBoost = config.snowAlbedoBoost | 0;
     const seaIceBoost = config.seaIceAlbedoBoost | 0;
+    const permafrostStart = config.permafrostStartFreezeIndex;
+    const permafrostFull = config.permafrostFullFreezeIndex;
+    const permafrostDenom = Math.max(1e-6, permafrostFull - permafrostStart);
+    const groundIceSnowInfluence = config.groundIceSnowInfluence;
 
     for (let i = 0; i < size; i++) {
       const temp = input.surfaceTemperatureC[i] ?? 0;
@@ -54,8 +61,22 @@ export const defaultStrategy = createStrategy(ComputeCryosphereStateContract, "d
       const snowF = (snowCover[i] ?? 0) / 255;
       const iceF = (seaIceCover[i] ?? 0) / 255;
       albedo[i] = clampU8(baseAlbedo + snowBoost * snowF + seaIceBoost * iceF);
+
+      if (isLand) {
+        const permafrost = clamp01((freeze - permafrostStart) / permafrostDenom);
+        permafrost01[i] = permafrost;
+
+        groundIce01[i] = clamp01(freeze * (1 - groundIceSnowInfluence + groundIceSnowInfluence * snowF));
+
+        const melt = lerp01(temp, config.meltStartC, config.meltFullC);
+        meltPotential01[i] = clamp01(melt * snowF);
+      } else {
+        groundIce01[i] = 0;
+        permafrost01[i] = 0;
+        meltPotential01[i] = 0;
+      }
     }
 
-    return { snowCover, seaIceCover, albedo, freezeIndex } as const;
+    return { snowCover, seaIceCover, albedo, freezeIndex, groundIce01, permafrost01, meltPotential01 } as const;
   },
 });

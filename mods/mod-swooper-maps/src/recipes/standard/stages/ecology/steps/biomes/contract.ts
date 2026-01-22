@@ -3,6 +3,7 @@ import ecology from "@mapgen/domain/ecology";
 
 import { ecologyArtifacts } from "../../artifacts.js";
 import { hydrologyClimateBaselineArtifacts } from "../../../hydrology-climate-baseline/artifacts.js";
+import { hydrologyClimateRefineArtifacts } from "../../../hydrology-climate-refine/artifacts.js";
 import { hydrologyHydrographyArtifacts } from "../../../hydrology-hydrography/artifacts.js";
 import { morphologyArtifacts } from "../../../morphology-pre/artifacts.js";
 
@@ -14,6 +15,7 @@ const BiomesStepContract = defineStep({
   artifacts: {
     requires: [
       hydrologyClimateBaselineArtifacts.climateField,
+      hydrologyClimateRefineArtifacts.cryosphere,
       morphologyArtifacts.topography,
       hydrologyHydrographyArtifacts.hydrography,
     ],
