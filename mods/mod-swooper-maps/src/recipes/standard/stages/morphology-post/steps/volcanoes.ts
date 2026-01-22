@@ -4,6 +4,7 @@ import VolcanoesStepContract from "./volcanoes.contract.js";
 import { deriveStepSeed } from "@swooper/mapgen-core/lib/rng";
 
 type ArtifactValidationIssue = Readonly<{ message: string }>;
+type VolcanoKind = "subductionArc" | "rift" | "hotspot";
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return value !== null && typeof value === "object" && !Array.isArray(value);
@@ -76,7 +77,7 @@ export default createStep(VolcanoesStepContract, {
       .map((tileIndex) => {
         volcanoMask[tileIndex] = 1;
         const bType = plates.boundaryType?.[tileIndex] ?? 0;
-        const kind = bType === 1 ? "subductionArc" : bType === 2 ? "rift" : "hotspot";
+        const kind: VolcanoKind = bType === 1 ? "subductionArc" : bType === 2 ? "rift" : "hotspot";
         const strength01 = clamp01((plates.volcanism?.[tileIndex] ?? 0) / 255);
         return { tileIndex, kind, strength01 };
       });
