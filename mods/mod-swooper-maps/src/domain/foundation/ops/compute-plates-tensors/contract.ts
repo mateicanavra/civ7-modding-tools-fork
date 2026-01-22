@@ -70,7 +70,13 @@ const ComputePlatesTensorsContract = defineOp({
         {
           id: TypedArraySchemas.i16({ description: "Plate id per tile." }),
           boundaryCloseness: TypedArraySchemas.u8({ description: "Boundary proximity per tile (0..255)." }),
-          boundaryType: TypedArraySchemas.u8({ description: "Boundary type per tile (BOUNDARY_TYPE values)." }),
+          /**
+           * Dominant boundary type per tile (BOUNDARY_TYPE values), inferred from the nearest boundary seed within the influence radius.
+           */
+          boundaryType: TypedArraySchemas.u8({
+            description:
+              "Dominant boundary type per tile (BOUNDARY_TYPE values), inferred from the nearest boundary seed within the influence radius.",
+          }),
           tectonicStress: TypedArraySchemas.u8({ description: "Tectonic stress per tile (0..255)." }),
           upliftPotential: TypedArraySchemas.u8({ description: "Uplift potential per tile (0..255)." }),
           riftPotential: TypedArraySchemas.u8({ description: "Rift potential per tile (0..255)." }),
