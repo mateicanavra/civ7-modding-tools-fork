@@ -1,7 +1,7 @@
 ---
 id: M11-U05
 title: "[M11/U05] Morphology substrate material-driven rewrite (`erodibilityK` from crust/material)"
-state: planned
+state: done
 priority: 2
 estimate: 3
 project: engine-refactor-v1
@@ -42,3 +42,12 @@ related_to: [M11-U00]
 
 ## Dependencies / Notes
 - Blocked by whichever issue provides tile crust/material drivers (Foundation projection surface).
+
+## Implementation Decisions
+
+### Use `artifact:foundation.crustTiles` as the canonical material baseline for substrate
+- **Context:** Phase 2 posture calls for substrate to be material-driven (no overlays), but baseline code used uplift/rift alone as a proxy.
+- **Options:** (A) keep uplift/rift proxy, (B) derive substrate primarily from `foundation.crustTiles` with tectonic adjustments.
+- **Choice:** B.
+- **Rationale:** Makes substrate semantics align with the “physics-first” posture while keeping signals deterministic and sourced only from Foundation truths.
+- **Risk:** Coefficients are heuristic; later milestones may want re-tuning once erosion/cryosphere systems land.

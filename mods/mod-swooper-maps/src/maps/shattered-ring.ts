@@ -74,8 +74,10 @@ export default createMap({
       substrate: {
         strategy: "default",
         config: {
-          baseErodibility: 0.6,
-          baseSediment: 0.2,
+          continentalBaseErodibility: 0.65,
+          oceanicBaseErodibility: 0.55,
+          continentalBaseSediment: 0.15,
+          oceanicBaseSediment: 0.25,
           upliftErodibilityBoost: 0.3,
           riftSedimentBoost: 0.2,
         },
