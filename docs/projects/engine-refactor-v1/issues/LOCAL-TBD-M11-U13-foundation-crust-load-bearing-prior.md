@@ -8,9 +8,9 @@ project: engine-refactor-v1
 milestone: M11
 assignees: []
 labels: [foundation, crust, realism, contracts]
-parent: null
+parent: LOCAL-TBD-M11-U15
 children: []
-blocked_by: [LOCAL-TBD-M11-U10, LOCAL-TBD-M11-U11]
+blocked_by: [LOCAL-TBD-M11-U12]
 blocked: []
 related_to: [M11-U00, M11-U04, M11-U06, LOCAL-TBD-M11-U10, LOCAL-TBD-M11-U11, LOCAL-TBD-M11-U14]
 ---
@@ -21,7 +21,7 @@ related_to: [M11-U00, M11-U04, M11-U06, LOCAL-TBD-M11-U10, LOCAL-TBD-M11-U11, LO
 - Why now: M11’s “physics-first realism” depends on crust being a causal prior; without an isostatic baseline, Morphology is forced to invent continents/sea basins from boundary noise and thresholds.
 
 ## Deliverables
-- Shared slice invariants: see `[M11/U10]` Deliverables (`FND-INV-*`).
+- Shared slice invariants: see `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M11-U15-foundation-realism-execution-spine.md` (`FND-INV-*`).
 - **Crust-specific invariants (must hold after cutover)**
   - Crust is authored as **mesh-cell truth**; tile crust is derived by projection via `tileToCellIndex`.
   - Plate IDs influence crust (if used) via **soft coherence/regularization only** (no plate-owned “continent templates” as hard switches).
