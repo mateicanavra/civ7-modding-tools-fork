@@ -48,10 +48,9 @@ export default createStep(ProjectionStepContract, {
     },
   }),
   normalize: (config, ctx) => {
-    const { plateActivity } = ctx.knobs as Readonly<{ plateActivity?: FoundationPlateActivityKnob }>;
-    const kinematicsMultiplier = FOUNDATION_PLATE_ACTIVITY_KINEMATICS_MULTIPLIER[plateActivity ?? "normal"] ?? 1.0;
-    const boundaryDelta =
-      FOUNDATION_PLATE_ACTIVITY_BOUNDARY_INFLUENCE_DISTANCE_DELTA[plateActivity ?? "normal"] ?? 0;
+    const { plateActivity } = ctx.knobs as Readonly<{ plateActivity: FoundationPlateActivityKnob }>;
+    const kinematicsMultiplier = FOUNDATION_PLATE_ACTIVITY_KINEMATICS_MULTIPLIER[plateActivity];
+    const boundaryDelta = FOUNDATION_PLATE_ACTIVITY_BOUNDARY_INFLUENCE_DISTANCE_DELTA[plateActivity];
 
     const computePlates =
       config.computePlates.strategy === "default"
@@ -60,14 +59,14 @@ export default createStep(ProjectionStepContract, {
             config: {
               ...config.computePlates.config,
               boundaryInfluenceDistance: clampInt(
-                (config.computePlates.config.boundaryInfluenceDistance ?? 0) + boundaryDelta,
+                config.computePlates.config.boundaryInfluenceDistance + boundaryDelta,
                 { min: 1, max: 32 }
               ),
-              movementScale: clampNumber((config.computePlates.config.movementScale ?? 0) * kinematicsMultiplier, {
+              movementScale: clampNumber(config.computePlates.config.movementScale * kinematicsMultiplier, {
                 min: 1,
                 max: 200,
               }),
-              rotationScale: clampNumber((config.computePlates.config.rotationScale ?? 0) * kinematicsMultiplier, {
+              rotationScale: clampNumber(config.computePlates.config.rotationScale * kinematicsMultiplier, {
                 min: 1,
                 max: 200,
               }),

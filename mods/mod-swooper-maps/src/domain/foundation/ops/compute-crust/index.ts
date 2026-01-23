@@ -1,5 +1,5 @@
 import { createOp } from "@swooper/mapgen-core/authoring";
-import { wrapDeltaPeriodic } from "@swooper/mapgen-core/lib/math";
+import { clamp01, wrapDeltaPeriodic } from "@swooper/mapgen-core/lib/math";
 import { createLabelRng } from "@swooper/mapgen-core/lib/rng";
 
 import { requireMesh } from "../../lib/require.js";
@@ -9,13 +9,6 @@ function distanceSq(ax: number, ay: number, bx: number, by: number, wrapWidth: n
   const dx = wrapDeltaPeriodic(ax - bx, wrapWidth);
   const dy = ay - by;
   return dx * dx + dy * dy;
-}
-
-function clamp01(value: number): number {
-  if (!Number.isFinite(value)) return 0;
-  if (value <= 0) return 0;
-  if (value >= 1) return 1;
-  return value;
 }
 
 function ageNorm(age: number): number {
@@ -49,14 +42,14 @@ const computeCrust = createOp(ComputeCrustContract, {
 
         const cellCount = mesh.cellCount | 0;
 
-        const continentalRatio = config.continentalRatio ?? 0.3;
-        const shelfWidthCells = Math.max(1, (config.shelfWidthCells ?? 6) | 0);
-        const shelfElevationBoost = clamp01(config.shelfElevationBoost ?? 0.12);
-        const marginElevationPenalty = clamp01(config.marginElevationPenalty ?? 0.04);
-        const continentalBaseElevation = clamp01(config.continentalBaseElevation ?? 0.78);
-        const continentalAgeBoost = clamp01(config.continentalAgeBoost ?? 0.12);
-        const oceanicBaseElevation = clamp01(config.oceanicBaseElevation ?? 0.32);
-        const oceanicAgeDepth = clamp01(config.oceanicAgeDepth ?? 0.22);
+        const continentalRatio = clamp01(config.continentalRatio);
+        const shelfWidthCells = Math.max(1, config.shelfWidthCells | 0);
+        const shelfElevationBoost = clamp01(config.shelfElevationBoost);
+        const marginElevationPenalty = clamp01(config.marginElevationPenalty);
+        const continentalBaseElevation = clamp01(config.continentalBaseElevation);
+        const continentalAgeBoost = clamp01(config.continentalAgeBoost);
+        const oceanicBaseElevation = clamp01(config.oceanicBaseElevation);
+        const oceanicAgeDepth = clamp01(config.oceanicAgeDepth);
 
         const type = new Uint8Array(cellCount);
         const age = new Uint8Array(cellCount);
@@ -212,7 +205,7 @@ const computeCrust = createOp(ComputeCrustContract, {
           const plateId = cellToPlate[i] | 0;
           const maxDist = plateMaxDist[plateId] | 0;
           const d = distToBoundary[i] | 0;
-          const dist01 = maxDist <= 0 ? 1 : d / maxDist;
+          const dist01 = maxDist <= 0 ? 0 : d / maxDist;
 
           const isContinental = isContinentalPlate[plateId] === 1;
           type[i] = isContinental ? 1 : 0;

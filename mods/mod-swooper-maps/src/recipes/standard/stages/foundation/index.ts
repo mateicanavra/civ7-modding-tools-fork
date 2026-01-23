@@ -10,8 +10,10 @@ import {
  */
 const knobsSchema = Type.Object(
   {
-    plateCount: Type.Optional(FoundationPlateCountKnobSchema),
-    plateActivity: Type.Optional(FoundationPlateActivityKnobSchema),
+    /** Plate count preset (sparse/normal/dense). Applies as a deterministic multiplier over authored/defaulted plateCount (no presence-gating). */
+    plateCount: FoundationPlateCountKnobSchema,
+    /** Plate activity preset (low/normal/high). Applies as deterministic transforms over projection kinematics and boundary influence distance. */
+    plateActivity: FoundationPlateActivityKnobSchema,
   },
   {
     description:

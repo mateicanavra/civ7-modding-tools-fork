@@ -19,8 +19,8 @@ export default createStep(MeshStepContract, {
     },
   }),
   normalize: (config, ctx) => {
-    const { plateCount } = ctx.knobs as Readonly<{ plateCount?: FoundationPlateCountKnob }>;
-    const multiplier = FOUNDATION_PLATE_COUNT_MULTIPLIER[plateCount ?? "normal"] ?? 1.0;
+    const { plateCount } = ctx.knobs as Readonly<{ plateCount: FoundationPlateCountKnob }>;
+    const multiplier = FOUNDATION_PLATE_COUNT_MULTIPLIER[plateCount];
 
     const computeMesh =
       config.computeMesh.strategy === "default"
@@ -28,7 +28,7 @@ export default createStep(MeshStepContract, {
             ...config.computeMesh,
             config: {
               ...config.computeMesh.config,
-              plateCount: clampInt((config.computeMesh.config.plateCount ?? 0) * multiplier, {
+              plateCount: clampInt(config.computeMesh.config.plateCount * multiplier, {
                 min: 2,
                 max: 256,
               }),
