@@ -110,6 +110,18 @@ const FoundationCrustArtifactSchema = Type.Object(
       shape: null,
       description: "Crust age per mesh cell (0=new, 255=ancient).",
     }),
+    buoyancy: TypedArraySchemas.f32({
+      shape: null,
+      description: "Crust buoyancy proxy per mesh cell (0..1).",
+    }),
+    baseElevation: TypedArraySchemas.f32({
+      shape: null,
+      description: "Isostatic base elevation proxy per mesh cell (0..1).",
+    }),
+    strength: TypedArraySchemas.f32({
+      shape: null,
+      description: "Lithospheric strength proxy per mesh cell (0..1).",
+    }),
   },
   { additionalProperties: false }
 );
@@ -128,6 +140,18 @@ const FoundationCrustTilesArtifactSchema = Type.Object(
     age: TypedArraySchemas.u8({
       shape: null,
       description: "Crust age per tile (0=new, 255=ancient), sampled via tileToCellIndex.",
+    }),
+    buoyancy: TypedArraySchemas.f32({
+      shape: null,
+      description: "Crust buoyancy proxy per tile (0..1), sampled via tileToCellIndex.",
+    }),
+    baseElevation: TypedArraySchemas.f32({
+      shape: null,
+      description: "Isostatic base elevation proxy per tile (0..1), sampled via tileToCellIndex.",
+    }),
+    strength: TypedArraySchemas.f32({
+      shape: null,
+      description: "Lithospheric strength proxy per tile (0..1), sampled via tileToCellIndex.",
     }),
   },
   { additionalProperties: false }
