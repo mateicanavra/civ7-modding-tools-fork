@@ -6,7 +6,7 @@ import { createLabelRng } from "@swooper/mapgen-core/lib/rng";
 
 import standardRecipe from "../../src/recipes/standard/recipe.js";
 import { initializeStandardRuntime } from "../../src/recipes/standard/runtime.js";
-import { realismEarthlikeConfig } from "../../src/maps/presets/realism/earthlike.config.js";
+import { createRealismEarthlikeConfig } from "../../src/maps/presets/realism/earthlike.config.js";
 
 describe("placement landmass region projection", () => {
   it("projects LandmassRegionId before resources and starts using adapter constants", () => {
@@ -56,7 +56,7 @@ describe("placement landmass region projection", () => {
 
     const context = createExtendedMapContext({ width, height }, adapter, env);
     initializeStandardRuntime(context, { mapInfo, logPrefix: "[test]", storyEnabled: true });
-    standardRecipe.run(context, env, realismEarthlikeConfig, { log: () => {} });
+    standardRecipe.run(context, env, createRealismEarthlikeConfig(), { log: () => {} });
 
     const firstProjection = callOrder.indexOf("setLandmassRegionId");
     const firstResources = callOrder.indexOf("generateResources");

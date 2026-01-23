@@ -13,8 +13,16 @@ This doc deep-dives the “realism invariants” and “feel metrics” area: wh
 Relevant current code touchpoints:
 - Foundation step traces:
   - `mods/mod-swooper-maps/src/recipes/standard/stages/foundation/steps/projection.ts`
+- Foundation realism helpers (pure, adapter-free):
+  - `mods/mod-swooper-maps/src/recipes/standard/stages/foundation/steps/realism-metrics.ts`
+- Morphology realism helpers (pure, adapter-free):
+  - `mods/mod-swooper-maps/src/recipes/standard/stages/map-morphology/steps/realism-metrics.ts`
 - Existing tests (Bun):
   - `mods/mod-swooper-maps/test/foundation/*`
+  - `mods/mod-swooper-maps/test/foundation/m11-realism-invariants.test.ts`
+  - `mods/mod-swooper-maps/test/foundation/tracing-observability-smoke.test.ts`
+  - `mods/mod-swooper-maps/test/morphology/m11-realism-mountain-walls.test.ts`
+  - `mods/mod-swooper-maps/test/morphology/tracing-observability-smoke.test.ts`
 
 ## Q8) Validation invariants: what can we test without rendering?
 

@@ -2,6 +2,7 @@ import { computeSampleStep, renderAsciiGrid } from "@swooper/mapgen-core";
 import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import { foundationArtifacts } from "../artifacts.js";
 import ProjectionStepContract from "./projection.contract.js";
+import { histogramBoundaryCloseness, summarizeFoundationPlates } from "./realism-metrics.js";
 import {
   validateCrustTilesArtifact,
   validatePlatesArtifact,
@@ -24,6 +25,14 @@ function clampNumber(value: number, bounds: { min: number; max?: number }): numb
   if (!Number.isFinite(value)) return bounds.min;
   const max = bounds.max ?? Number.POSITIVE_INFINITY;
   return Math.max(bounds.min, Math.min(max, value));
+}
+
+const SHADE_RAMP = " .:-=+*#%@";
+
+function shadeByte(value: number): string {
+  const v = Math.max(0, Math.min(255, value | 0));
+  const idx = Math.max(0, Math.min(SHADE_RAMP.length - 1, Math.floor((v / 255) * (SHADE_RAMP.length - 1))));
+  return SHADE_RAMP[idx] ?? "?";
 }
 
 export default createStep(ProjectionStepContract, {
@@ -91,6 +100,46 @@ export default createStep(ProjectionStepContract, {
     deps.artifacts.foundationTileToCellIndex.publish(context, platesResult.tileToCellIndex);
     deps.artifacts.foundationCrustTiles.publish(context, platesResult.crustTiles);
 
+    context.trace.event(() => {
+      const plates = platesResult.plates;
+      const summary = summarizeFoundationPlates({
+        width,
+        height,
+        boundaryCloseness: plates.boundaryCloseness,
+        boundaryType: plates.boundaryType,
+        upliftPotential: plates.upliftPotential,
+        riftPotential: plates.riftPotential,
+      });
+      return {
+        kind: "foundation.plates.summary",
+        ...summary,
+      };
+    });
+    context.trace.event(() => {
+      const histogram = histogramBoundaryCloseness(platesResult.plates.boundaryCloseness);
+      return {
+        kind: "foundation.plates.hist.boundaryCloseness",
+        ...histogram,
+      };
+    });
+    context.trace.event(() => {
+      const sampleStep = computeSampleStep(width, height);
+      const rows = renderAsciiGrid({
+        width,
+        height,
+        sampleStep,
+        cellFn: (x, y) => {
+          const idx = y * width + x;
+          return { base: shadeByte(platesResult.plates.boundaryCloseness[idx] ?? 0) };
+        },
+      });
+      return {
+        kind: "foundation.plates.ascii.boundaryCloseness",
+        sampleStep,
+        legend: `${SHADE_RAMP} (low→high)`,
+        rows,
+      };
+    });
     context.trace.event(() => {
       const sampleStep = computeSampleStep(width, height);
       const boundaryType = platesResult.plates.boundaryType;

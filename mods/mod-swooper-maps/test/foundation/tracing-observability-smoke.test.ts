@@ -14,8 +14,8 @@ function isKindEvent(value: unknown): value is KindEvent {
   return Boolean(value) && typeof value === "object" && typeof (value as KindEvent).kind === "string";
 }
 
-describe("Morphology tracing (observability hardening smoke)", () => {
-  it("emits required morphology.* kind events when steps are verbose", () => {
+describe("Foundation tracing (observability hardening smoke)", () => {
+  it("emits required foundation.plates.* kind events when steps are verbose", () => {
     const width = 20;
     const height = 12;
     const seed = 424242;
@@ -32,15 +32,7 @@ describe("Morphology tracing (observability hardening smoke)", () => {
     };
 
     const full = (stageId: string, stepId: string) => `mod-swooper-maps.standard.${stageId}.${stepId}`;
-    const verboseSteps = [
-      full("morphology-pre", "landmass-plates"),
-      full("morphology-mid", "routing"),
-      full("morphology-mid", "geomorphology"),
-      full("morphology-mid", "rugged-coasts"),
-      full("morphology-post", "islands"),
-      full("morphology-post", "volcanoes"),
-      full("map-morphology", "plot-mountains"),
-    ];
+    const verboseSteps = [full("foundation", "projection")];
 
     const env = {
       seed,
@@ -79,19 +71,10 @@ describe("Morphology tracing (observability hardening smoke)", () => {
     );
 
     const requiredKinds = [
-      "morphology.landmassPlates.summary",
-      "morphology.landmassPlates.ascii.landMask",
-      "morphology.routing.summary",
-      "morphology.geomorphology.summary",
-      "morphology.coastlines.summary",
-      "morphology.coastlines.ascii.coastMask",
-      "morphology.islands.summary",
-      "morphology.islands.ascii.edits",
-      "morphology.mountains.summary",
-      "morphology.mountains.metrics",
-      "morphology.mountains.ascii.reliefMask",
-      "morphology.volcanoes.summary",
-      "morphology.volcanoes.ascii.indices",
+      "foundation.plates.summary",
+      "foundation.plates.hist.boundaryCloseness",
+      "foundation.plates.ascii.boundaryCloseness",
+      "foundation.plates.ascii.boundaryType",
     ];
 
     for (const required of requiredKinds) {

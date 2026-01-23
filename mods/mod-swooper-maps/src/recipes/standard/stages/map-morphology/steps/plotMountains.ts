@@ -17,6 +17,7 @@ import {
   MORPHOLOGY_OROGENY_TECTONIC_INTENSITY_MULTIPLIER,
 } from "@mapgen/domain/morphology/shared/knob-multipliers.js";
 import type { MorphologyOrogenyKnob } from "@mapgen/domain/morphology/shared/knobs.js";
+import { computeBeltToMountainCorrelation, computeMountainWallinessOddQ } from "./realism-metrics.js";
 
 function buildFractalArray(
   width: number,
@@ -118,6 +119,25 @@ export default createStep(PlotMountainsStepContract, {
         mountainTiles,
         hillTiles,
       };
+    });
+    context.trace.event(() => {
+      const walliness = computeMountainWallinessOddQ({
+        width,
+        height,
+        mountainMask: plan.mountainMask,
+        landMask: topography.landMask,
+        minComponentTiles: 20,
+      });
+      const correlation = computeBeltToMountainCorrelation({
+        width,
+        height,
+        landMask: topography.landMask,
+        mountainMask: plan.mountainMask,
+        boundaryType: plates.boundaryType,
+        boundaryCloseness: plates.boundaryCloseness,
+        nearClosenessMin: 64,
+      });
+      return { kind: "morphology.mountains.metrics", walliness, correlation };
     });
     context.trace.event(() => {
       const sampleStep = computeSampleStep(width, height);

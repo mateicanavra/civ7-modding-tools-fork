@@ -215,17 +215,28 @@ export function projectPlatesFromModel(input: {
 
     const dist = distanceField[i]!;
     const influence = dist >= maxDistance ? 0 : Math.exp(-dist * decay);
-    boundaryCloseness[i] = clampByte(influence * 255);
+    const closeness = clampByte(influence * 255);
+    boundaryCloseness[i] = closeness;
+
+    if (closeness <= 0) {
+      boundaryType[i] = 0;
+      upliftPotential[i] = 0;
+      riftPotential[i] = 0;
+      volcanism[i] = 0;
+      tectonicStress[i] = 0;
+      shieldStability[i] = 255;
+      continue;
+    }
 
     boundaryType[i] = clampByte(baseBoundaryType);
-    upliftPotential[i] = clampByte(baseUplift);
-    riftPotential[i] = clampByte(baseRift);
-    const shearValue = clampByte(baseShear);
-    volcanism[i] = clampByte(baseVolcanism);
+    upliftPotential[i] = clampByte(baseUplift * influence);
+    riftPotential[i] = clampByte(baseRift * influence);
+    const shearValue = clampByte(baseShear * influence);
+    volcanism[i] = clampByte(baseVolcanism * influence);
 
     const stress = Math.max(upliftPotential[i]!, riftPotential[i]!, shearValue);
     tectonicStress[i] = clampByte(stress);
-    shieldStability[i] = 255 - boundaryCloseness[i]!;
+    shieldStability[i] = 255 - closeness;
   }
 
   return {

@@ -5,7 +5,7 @@ import { createLabelRng } from "@swooper/mapgen-core/lib/rng";
 
 import standardRecipe from "../../src/recipes/standard/recipe.js";
 import { initializeStandardRuntime } from "../../src/recipes/standard/runtime.js";
-import { realismEarthlikeConfig } from "../../src/maps/presets/realism/earthlike.config.js";
+import { createRealismEarthlikeConfig } from "../../src/maps/presets/realism/earthlike.config.js";
 
 type MorphologyTopographyArtifact = {
   landMask: Uint8Array;
@@ -54,7 +54,7 @@ describe("m11 volcanoes truth contract", () => {
     const context = createExtendedMapContext({ width, height }, adapter, env);
     initializeStandardRuntime(context, { mapInfo, logPrefix: "[test]", storyEnabled: true });
 
-    standardRecipe.run(context, env, realismEarthlikeConfig, { log: () => {} });
+    standardRecipe.run(context, env, createRealismEarthlikeConfig(), { log: () => {} });
 
     const topography = context.artifacts.get("artifact:morphology.topography") as MorphologyTopographyArtifact | undefined;
     const volcanoes = context.artifacts.get("artifact:morphology.volcanoes") as MorphologyVolcanoesArtifact | undefined;
