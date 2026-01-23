@@ -3,7 +3,8 @@ import { buildPlateTopology } from "@swooper/mapgen-core/lib/plates";
 import computeMesh from "../../src/domain/foundation/ops/compute-mesh/index.js";
 import computeCrust from "../../src/domain/foundation/ops/compute-crust/index.js";
 import computePlateGraph from "../../src/domain/foundation/ops/compute-plate-graph/index.js";
-import computeTectonics from "../../src/domain/foundation/ops/compute-tectonics/index.js";
+import computeTectonicHistory from "../../src/domain/foundation/ops/compute-tectonic-history/index.js";
+import computeTectonicSegments from "../../src/domain/foundation/ops/compute-tectonic-segments/index.js";
 import computePlatesTensors from "../../src/domain/foundation/ops/compute-plates-tensors/index.js";
 
 function neighborsFor(mesh: {
@@ -177,32 +178,46 @@ describe("foundation mesh-first ops (slice 2)", () => {
     expect(graphA.cellToPlate.length).toBe(mesh.cellCount);
     expect(graphA.plates.length).toBeGreaterThan(1);
 
-    const tectA = computeTectonics.run(
+    const segA = computeTectonicSegments.run(
       {
         mesh,
         crust: crustA,
         plateGraph: graphA,
       },
-      computeTectonics.defaultConfig
-    ).tectonics;
+      computeTectonicSegments.defaultConfig
+    ).segments;
 
-    const tectB = computeTectonics.run(
+    const segB = computeTectonicSegments.run(
       {
         mesh,
         crust: crustA,
         plateGraph: graphA,
       },
-      computeTectonics.defaultConfig
-    ).tectonics;
+      computeTectonicSegments.defaultConfig
+    ).segments;
 
-    expect(Array.from(tectA.boundaryType)).toEqual(Array.from(tectB.boundaryType));
-    expect(tectA.boundaryType.length).toBe(mesh.cellCount);
-    expect(tectA.upliftPotential.length).toBe(mesh.cellCount);
-    expect(tectA.riftPotential.length).toBe(mesh.cellCount);
-    expect(tectA.shearStress.length).toBe(mesh.cellCount);
-    expect(tectA.volcanism.length).toBe(mesh.cellCount);
-    expect(tectA.fracture.length).toBe(mesh.cellCount);
-    expect(tectA.cumulativeUplift.length).toBe(mesh.cellCount);
+    expect(segA.segmentCount).toBe(segB.segmentCount);
+    expect(Array.from(segA.aCell)).toEqual(Array.from(segB.aCell));
+    expect(Array.from(segA.bCell)).toEqual(Array.from(segB.bCell));
+    expect(Array.from(segA.regime)).toEqual(Array.from(segB.regime));
+
+    const histA = computeTectonicHistory.run(
+      { mesh, segments: segA },
+      computeTectonicHistory.defaultConfig
+    );
+    const histB = computeTectonicHistory.run(
+      { mesh, segments: segA },
+      computeTectonicHistory.defaultConfig
+    );
+
+    expect(Array.from(histA.tectonics.boundaryType)).toEqual(Array.from(histB.tectonics.boundaryType));
+    expect(histA.tectonics.boundaryType.length).toBe(mesh.cellCount);
+    expect(histA.tectonics.upliftPotential.length).toBe(mesh.cellCount);
+    expect(histA.tectonics.riftPotential.length).toBe(mesh.cellCount);
+    expect(histA.tectonics.shearStress.length).toBe(mesh.cellCount);
+    expect(histA.tectonics.volcanism.length).toBe(mesh.cellCount);
+    expect(histA.tectonics.fracture.length).toBe(mesh.cellCount);
+    expect(histA.tectonics.cumulativeUplift.length).toBe(mesh.cellCount);
   });
 
   it("plate partition yields non-uniform areas and plausible adjacency degrees (topology metrics)", () => {
@@ -227,9 +242,10 @@ describe("foundation mesh-first ops (slice 2)", () => {
         { strategy: "default", config: { plateCount: 16, referenceArea: 2400, plateScalePower: 0 } }
       ).plateGraph;
 
-      const tectonics = computeTectonics.run(
-        { mesh, crust, plateGraph },
-        computeTectonics.defaultConfig
+      const segments = computeTectonicSegments.run({ mesh, crust, plateGraph }, computeTectonicSegments.defaultConfig).segments;
+      const tectonics = computeTectonicHistory.run(
+        { mesh, segments },
+        computeTectonicHistory.defaultConfig
       ).tectonics;
 
       const platesTensors = computePlatesTensors.run(

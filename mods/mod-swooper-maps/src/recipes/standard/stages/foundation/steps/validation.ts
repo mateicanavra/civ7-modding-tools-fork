@@ -129,6 +129,105 @@ export function validatePlateGraphArtifact(value: unknown): void {
   }
 }
 
+export function validateTectonicSegmentsArtifact(value: unknown): void {
+  if (!value || typeof value !== "object") {
+    throw new Error("[FoundationArtifact] Missing foundation tectonicSegments artifact payload.");
+  }
+  const seg = value as Record<string, unknown> & { segmentCount?: unknown };
+  const segmentCount = typeof seg.segmentCount === "number" ? (seg.segmentCount | 0) : -1;
+  if (segmentCount < 0) {
+    throw new Error("[FoundationArtifact] Invalid foundation tectonicSegments.segmentCount.");
+  }
+
+  const arrays = [
+    "aCell",
+    "bCell",
+    "plateA",
+    "plateB",
+    "regime",
+    "polarity",
+    "compression",
+    "extension",
+    "shear",
+    "volcanism",
+    "fracture",
+    "driftU",
+    "driftV",
+  ] as const;
+
+  for (const key of arrays) {
+    const v = seg[key] as unknown;
+    const ok =
+      v instanceof Int32Array ||
+      v instanceof Int16Array ||
+      v instanceof Uint8Array ||
+      v instanceof Int8Array;
+    if (!ok) {
+      throw new Error(`[FoundationArtifact] Invalid foundation tectonicSegments.${key}.`);
+    }
+    if ((v as { length: number }).length !== segmentCount) {
+      throw new Error(`[FoundationArtifact] Invalid foundation tectonicSegments.${key} length.`);
+    }
+  }
+}
+
+export function validateTectonicHistoryArtifact(value: unknown): void {
+  if (!value || typeof value !== "object") {
+    throw new Error("[FoundationArtifact] Missing foundation tectonicHistory artifact payload.");
+  }
+  const history = value as {
+    eraCount?: unknown;
+    eras?: unknown;
+    upliftTotal?: unknown;
+    fractureTotal?: unknown;
+    volcanismTotal?: unknown;
+    upliftRecentFraction?: unknown;
+    lastActiveEra?: unknown;
+  };
+
+  const eraCount = typeof history.eraCount === "number" ? (history.eraCount | 0) : -1;
+  if (eraCount !== 3) {
+    throw new Error("[FoundationArtifact] Invalid foundation tectonicHistory.eraCount.");
+  }
+  if (!Array.isArray(history.eras) || history.eras.length !== eraCount) {
+    throw new Error("[FoundationArtifact] Invalid foundation tectonicHistory.eras.");
+  }
+
+  const totals = [
+    ["upliftTotal", history.upliftTotal],
+    ["fractureTotal", history.fractureTotal],
+    ["volcanismTotal", history.volcanismTotal],
+    ["upliftRecentFraction", history.upliftRecentFraction],
+    ["lastActiveEra", history.lastActiveEra],
+  ] as const;
+
+  let cellCount: number | null = null;
+  for (const [label, arr] of totals) {
+    if (!(arr instanceof Uint8Array)) {
+      throw new Error(`[FoundationArtifact] Invalid foundation tectonicHistory.${label}.`);
+    }
+    if (cellCount == null) cellCount = arr.length;
+    if (arr.length !== cellCount) {
+      throw new Error(`[FoundationArtifact] Invalid foundation tectonicHistory.${label} length.`);
+    }
+  }
+
+  for (let e = 0; e < history.eras.length; e++) {
+    const era = history.eras[e] as Record<string, unknown> | undefined;
+    if (!era) throw new Error("[FoundationArtifact] Invalid foundation tectonicHistory era payload.");
+    const fields = ["boundaryType", "upliftPotential", "riftPotential", "shearStress", "volcanism", "fracture"] as const;
+    for (const field of fields) {
+      const v = era[field] as unknown;
+      if (!(v instanceof Uint8Array)) {
+        throw new Error(`[FoundationArtifact] Invalid foundation tectonicHistory.eras[${e}].${field}.`);
+      }
+      if (cellCount != null && v.length !== cellCount) {
+        throw new Error(`[FoundationArtifact] Invalid foundation tectonicHistory.eras[${e}].${field} length.`);
+      }
+    }
+  }
+}
+
 export function validatePlateTopologyArtifact(value: unknown): void {
   if (!value || typeof value !== "object") {
     throw new Error("[FoundationArtifact] Missing foundation plateTopology artifact payload.");
