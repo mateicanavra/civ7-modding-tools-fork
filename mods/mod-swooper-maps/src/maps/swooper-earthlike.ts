@@ -56,20 +56,29 @@ export default createMap({
             }
           },
           "tectonics": {
-            "computeTectonics": {
+            "computeTectonicSegments": {
               "strategy": "default",
               "config": {
-                "polarBandFraction": 0.12,
-                "polarBoundary": {
-                  "north": {
-                    "regime": "transform",
-                    "intensity": 1
-                  },
-                  "south": {
-                    "regime": "transform",
-                    "intensity": 1
-                  }
-                }
+                "intensityScale": 180,
+                "regimeMinIntensity": 4
+              }
+            },
+            "computeTectonicHistory": {
+              "strategy": "default",
+              "config": {
+                "eraWeights": [
+                  0.35,
+                  0.35,
+                  0.3
+                ],
+                "driftStepsByEra": [
+                  2,
+                  1,
+                  0
+                ],
+                "beltInfluenceDistance": 8,
+                "beltDecay": 0.55,
+                "activityThreshold": 1
               }
             }
           },
