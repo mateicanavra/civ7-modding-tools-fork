@@ -24,8 +24,8 @@ describe("m11 tectonics (segments + history)", () => {
     const basePlateGraph = {
       cellToPlate: new Int16Array([0, 1]),
       plates: [
-        { id: 0, kind: "major", seedX: 0, seedY: 0, velocityX: 0, velocityY: 0, rotation: 0 },
-        { id: 1, kind: "major", seedX: 1, seedY: 0, velocityX: 0, velocityY: 0, rotation: 0 },
+        { id: 0, role: "tectonic", kind: "major", seedX: 0, seedY: 0, velocityX: 0, velocityY: 0, rotation: 0 },
+        { id: 1, role: "tectonic", kind: "major", seedX: 1, seedY: 0, velocityX: 0, velocityY: 0, rotation: 0 },
       ],
     } as const;
 
@@ -60,8 +60,8 @@ describe("m11 tectonics (segments + history)", () => {
     const plateGraph = {
       cellToPlate: new Int16Array([0, 1]),
       plates: [
-        { id: 0, kind: "major", seedX: 0, seedY: 0, velocityX: 0, velocityY: 0, rotation: 0 },
-        { id: 1, kind: "major", seedX: 1, seedY: 0, velocityX: -1.0, velocityY: 0, rotation: 0 },
+        { id: 0, role: "tectonic", kind: "major", seedX: 0, seedY: 0, velocityX: 0, velocityY: 0, rotation: 0 },
+        { id: 1, role: "tectonic", kind: "major", seedX: 1, seedY: 0, velocityX: -1.0, velocityY: 0, rotation: 0 },
       ],
     } as const;
 
@@ -82,8 +82,8 @@ describe("m11 tectonics (segments + history)", () => {
     const plateGraph = {
       cellToPlate: new Int16Array([0, 1]),
       plates: [
-        { id: 0, kind: "major", seedX: 0, seedY: 0, velocityX: 0, velocityY: 0, rotation: 0 },
-        { id: 1, kind: "major", seedX: 1, seedY: 0, velocityX: -1.0, velocityY: 0, rotation: 0 },
+        { id: 0, role: "tectonic", kind: "major", seedX: 0, seedY: 0, velocityX: 0, velocityY: 0, rotation: 0 },
+        { id: 1, role: "tectonic", kind: "major", seedX: 1, seedY: 0, velocityX: -1.0, velocityY: 0, rotation: 0 },
       ],
     } as const;
 
@@ -105,4 +105,3 @@ describe("m11 tectonics (segments + history)", () => {
     expect(a.tectonicHistory.lastActiveEra[1]).toBe(2);
   });
 });
-

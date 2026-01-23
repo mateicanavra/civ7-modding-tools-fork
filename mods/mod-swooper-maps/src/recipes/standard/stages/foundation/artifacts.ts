@@ -141,6 +141,7 @@ const FoundationPlateGraphArtifactSchema = Type.Object(
         Type.Object(
           {
             id: Type.Integer({ minimum: 0 }),
+            role: Type.Union([Type.Literal("polarCap"), Type.Literal("polarMicroplate"), Type.Literal("tectonic")]),
             kind: Type.Union([Type.Literal("major"), Type.Literal("minor")]),
             seedX: Type.Number(),
             seedY: Type.Number(),
