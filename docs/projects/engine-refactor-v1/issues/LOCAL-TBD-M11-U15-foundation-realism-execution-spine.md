@@ -1,7 +1,7 @@
 ---
 id: LOCAL-TBD-M11-U15
 title: "[M11/U15] Foundation realism execution spine (organizing issue for U10–U14)"
-state: planned
+state: completed
 priority: 1
 estimate: 4
 project: engine-refactor-v1
@@ -64,6 +64,12 @@ related_to: [M11-U00]
   - `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M11-U12-foundation-polar-caps-as-plates.md`
   - `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M11-U13-foundation-crust-load-bearing-prior.md`
   - `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M11-U14-validation-observability-realism-dashboard.md`
+ - PR stack:
+   - https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/708
+   - https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/709
+   - https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/710
+   - https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/711
+   - https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/712
 
 ---
 

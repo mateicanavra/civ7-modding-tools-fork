@@ -1,7 +1,7 @@
 ---
 id: LOCAL-TBD-M11-U12
 title: "[M11/U12] Make polar caps emergent plates (no latitude override; no thin polar belts)"
-state: planned
+state: completed
 priority: 1
 estimate: 8
 project: engine-refactor-v1

@@ -1,7 +1,7 @@
 ---
 id: LOCAL-TBD-M11-U11
 title: "[M11/U11] Replace tile-y tectonics with segment-based tectonics + 3-era tectonic history"
-state: planned
+state: completed
 priority: 1
 estimate: 16
 project: engine-refactor-v1

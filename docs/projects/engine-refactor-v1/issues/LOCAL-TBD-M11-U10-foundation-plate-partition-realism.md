@@ -1,7 +1,7 @@
 ---
 id: LOCAL-TBD-M11-U10
 title: "[M11/U10] Replace Voronoi plate partition with realism-first partition (+ topology artifact)"
-state: planned
+state: completed
 priority: 1
 estimate: 8
 project: engine-refactor-v1

@@ -1,7 +1,7 @@
 ---
 id: LOCAL-TBD-M11-U13
 title: "[M11/U13] Make crust a load-bearing prior (mesh truth + isostasy baseline drivers)"
-state: planned
+state: completed
 priority: 1
 estimate: 8
 project: engine-refactor-v1
