@@ -350,4 +350,45 @@ describe("foundation mesh-first ops (slice 2)", () => {
       expect(contSum / contCount).toBeGreaterThan(oceanSum / oceanCount);
     }
   });
+
+  it("crust publishes an isostatic baseline and projects it to tiles (continental > oceanic)", () => {
+    const width = 60;
+    const height = 40;
+
+    const ctx = { env: { dimensions: { width, height } }, knobs: {} };
+    const meshConfig = computeMesh.normalize(
+      {
+        strategy: "default",
+        config: { plateCount: 16, cellsPerPlate: 3, relaxationSteps: 2, referenceArea: 2400, plateScalePower: 0 },
+      },
+      ctx as any
+    );
+
+    const mesh = computeMesh.run({ width, height, rngSeed: 10 }, meshConfig).mesh;
+    const crust = computeCrust.run({ mesh, rngSeed: 11 }, { strategy: "default", config: { continentalRatio: 0.35 } }).crust;
+    const plateGraph = computePlateGraph.run(
+      { mesh, crust, rngSeed: 12 },
+      { strategy: "default", config: { plateCount: 16, referenceArea: 2400, plateScalePower: 0 } }
+    ).plateGraph;
+    const segments = computeTectonicSegments.run({ mesh, crust, plateGraph }, computeTectonicSegments.defaultConfig).segments;
+    const tectonics = computeTectonicHistory.run({ mesh, segments }, computeTectonicHistory.defaultConfig).tectonics;
+    const crustTiles = computePlatesTensors.run(
+      { width, height, mesh, crust, plateGraph, tectonics },
+      computePlatesTensors.defaultConfig
+    ).crustTiles;
+
+    const continental: number[] = [];
+    const oceanic: number[] = [];
+    for (let i = 0; i < crustTiles.type.length; i++) {
+      const value = crustTiles.baseElevation[i] ?? 0;
+      if (crustTiles.type[i] === 1) continental.push(value);
+      else oceanic.push(value);
+    }
+
+    continental.sort((a, b) => a - b);
+    oceanic.sort((a, b) => a - b);
+    if (continental.length > 0 && oceanic.length > 0) {
+      expect(quantile(continental, 0.5)).toBeGreaterThan(quantile(oceanic, 0.5));
+    }
+  });
 });
