@@ -63,6 +63,15 @@ const ComputePlatesTensorsContract = defineOp({
           age: TypedArraySchemas.u8({
             description: "Crust age per tile (0=new, 255=ancient), sampled via tileToCellIndex.",
           }),
+          buoyancy: TypedArraySchemas.f32({
+            description: "Crust buoyancy proxy per tile (0..1), sampled via tileToCellIndex.",
+          }),
+          baseElevation: TypedArraySchemas.f32({
+            description: "Isostatic base elevation proxy per tile (0..1), sampled via tileToCellIndex.",
+          }),
+          strength: TypedArraySchemas.f32({
+            description: "Lithospheric strength proxy per tile (0..1), sampled via tileToCellIndex.",
+          }),
         },
         { additionalProperties: false }
       ),

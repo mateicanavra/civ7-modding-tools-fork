@@ -9,19 +9,21 @@ export function validateBaseTopographyInputs(
   input: ComputeBaseTopographyTypes["input"]
 ): {
   size: number;
+  crustBaseElevation: Float32Array;
   uplift: Uint8Array;
   rift: Uint8Array;
   closeness: Uint8Array;
 } {
   const { width, height } = input;
   const size = Math.max(0, (width | 0) * (height | 0));
+  const crustBaseElevation = input.crustBaseElevation as Float32Array;
   const uplift = input.upliftPotential as Uint8Array;
   const rift = input.riftPotential as Uint8Array;
   const closeness = input.boundaryCloseness as Uint8Array;
-  if (uplift.length !== size || rift.length !== size || closeness.length !== size) {
+  if (crustBaseElevation.length !== size || uplift.length !== size || rift.length !== size || closeness.length !== size) {
     throw new Error("[BaseTopography] Input tensors must match width*height.");
   }
-  return { size, uplift, rift, closeness };
+  return { size, crustBaseElevation, uplift, rift, closeness };
 }
 
 /**
@@ -43,6 +45,7 @@ export function computeUpliftBlend(params: {
  * Computes a raw elevation sample before edge blending and scaling.
  */
 export function computeElevationRaw(params: {
+  crustBaseElevation01: number;
   upliftNorm: number;
   riftNorm: number;
   closenessNorm: number;
@@ -50,7 +53,7 @@ export function computeElevationRaw(params: {
   arcNoise: number;
   config: ComputeBaseTopographyTypes["config"]["default"];
 }): number {
-  const { upliftNorm, riftNorm, closenessNorm, noise, arcNoise, config } = params;
+  const { crustBaseElevation01, upliftNorm, riftNorm, closenessNorm, noise, arcNoise, config } = params;
   const upliftBlend = computeUpliftBlend({
     upliftNorm,
     closenessNorm,
@@ -58,10 +61,13 @@ export function computeElevationRaw(params: {
     boundaryArcWeight: config.tectonics.boundaryArcWeight,
     clusteringBias: config.clusteringBias,
   });
-  const base = config.oceanicHeight + (config.continentalHeight - config.oceanicHeight) * upliftBlend;
+  const reliefSpan = config.continentalHeight - config.oceanicHeight;
+  const crust01 = clamp(crustBaseElevation01, 0, 1);
+  const base = config.oceanicHeight + reliefSpan * crust01;
   const boundaryBoost = config.boundaryBias * closenessNorm;
-  const riftPenalty = 0 * riftNorm;
-  return base + boundaryBoost - riftPenalty + noise + arcNoise * closenessNorm;
+  const upliftEffect = upliftBlend * reliefSpan * 0.25;
+  const riftPenalty = riftNorm * reliefSpan * 0.15;
+  return base + upliftEffect + boundaryBoost - riftPenalty + noise + arcNoise * closenessNorm;
 }
 
 /**
