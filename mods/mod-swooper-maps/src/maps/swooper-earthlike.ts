@@ -41,7 +41,14 @@ export default createMap({
             "computeCrust": {
               "strategy": "default",
               "config": {
-                "continentalRatio": 0.37
+                "continentalRatio": 0.37,
+                "shelfWidthCells": 6,
+                "shelfElevationBoost": 0.12,
+                "marginElevationPenalty": 0.04,
+                "continentalBaseElevation": 0.78,
+                "continentalAgeBoost": 0.12,
+                "oceanicBaseElevation": 0.32,
+                "oceanicAgeDepth": 0.22
               }
             }
           },
@@ -51,7 +58,16 @@ export default createMap({
               "config": {
                 "plateCount": 19,
                 "referenceArea": 16000,
-                "plateScalePower": 1
+                "plateScalePower": 1,
+                "polarCaps": {
+                  "capFraction": 0.1,
+                  "microplateBandFraction": 0.2,
+                  "microplatesPerPole": 2,
+                  "microplatesMinPlateCount": 14,
+                  "microplateMinAreaCells": 8,
+                  "tangentialSpeed": 0.9,
+                  "tangentialJitterDeg": 12
+                }
               }
             }
           },
@@ -124,7 +140,7 @@ export default createMap({
               "strategy": "default",
               "config": {
                 "boundaryBias": 0.24,
-                "clusteringBias": 0.7,
+                "clusteringBias": 0.25,
                 "crustEdgeBlend": 0.6,
                 "crustNoiseAmplitude": 0.36,
                 "continentalHeight": 0.62,
@@ -718,24 +734,24 @@ export default createMap({
           "mountains": {
             "strategy": "default",
             "config": {
-              "tectonicIntensity": 0.64,
-              "mountainThreshold": 0.59,
-              "hillThreshold": 0.44,
-              "upliftWeight": 0.28,
-              "fractalWeight": 0.72,
-              "riftDepth": 0.27,
-              "boundaryWeight": 0.18,
-              "boundaryGate": 0.11,
-              "boundaryExponent": 1.18,
-              "interiorPenaltyWeight": 0.09,
-              "convergenceBonus": 0.6,
-              "transformPenalty": 0.65,
-              "riftPenalty": 0.78,
-              "hillBoundaryWeight": 0.32,
-              "hillRiftBonus": 0.36,
-              "hillConvergentFoothill": 0.36,
-              "hillInteriorFalloff": 0.2,
-              "hillUpliftWeight": 0.18
+              "tectonicIntensity": 1,
+              "mountainThreshold": 0.58,
+              "hillThreshold": 0.32,
+              "upliftWeight": 0.35,
+              "fractalWeight": 0.15,
+              "riftDepth": 0.2,
+              "boundaryWeight": 1,
+              "boundaryGate": 0.1,
+              "boundaryExponent": 1.6,
+              "interiorPenaltyWeight": 0,
+              "convergenceBonus": 1,
+              "transformPenalty": 0.6,
+              "riftPenalty": 1,
+              "hillBoundaryWeight": 0.35,
+              "hillRiftBonus": 0.25,
+              "hillConvergentFoothill": 0.35,
+              "hillInteriorFalloff": 0.1,
+              "hillUpliftWeight": 0.2
             }
           }
         },

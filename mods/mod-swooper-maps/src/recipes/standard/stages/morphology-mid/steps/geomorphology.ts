@@ -191,8 +191,8 @@ export default createStep(GeomorphologyStepContract, {
           kind: "morphology.geomorphology.ascii.netErosionAndDeposit",
           sampleStep,
           legend: `${SHADE_RAMP} (low→high) ~=water`,
-          erosionRows: erosionRows.rows,
-          depositRows: depositRows.rows,
+          erosionRows,
+          depositRows,
         };
       });
     }
