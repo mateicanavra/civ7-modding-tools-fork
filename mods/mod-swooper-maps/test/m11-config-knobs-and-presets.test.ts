@@ -32,7 +32,25 @@ describe("M11 config layering: knobs-last (foundation + morphology)", () => {
         knobs: { plateCount: "dense", plateActivity: "high" },
         advanced: {
           mesh: { computeMesh: { strategy: "default", config: { plateCount: 10 } } },
-          "plate-graph": { computePlateGraph: { strategy: "default", config: { plateCount: 10 } } },
+          "plate-graph": {
+            computePlateGraph: {
+              strategy: "default",
+              config: {
+                plateCount: 10,
+                referenceArea: 4000,
+                plateScalePower: 0.5,
+                polarCaps: {
+                  capFraction: 0.1,
+                  microplateBandFraction: 0.2,
+                  microplatesPerPole: 0,
+                  microplatesMinPlateCount: 14,
+                  microplateMinAreaCells: 8,
+                  tangentialSpeed: 0.9,
+                  tangentialJitterDeg: 12,
+                },
+              },
+            },
+          },
           projection: {
             computePlates: {
               strategy: "default",

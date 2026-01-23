@@ -95,7 +95,23 @@ describe("m11 plates projection (boundary band)", () => {
     } as const;
 
     const plateGraphConfig = computePlateGraph.normalize(
-      { strategy: "default", config: { plateCount: 10, referenceArea: width * height, plateScalePower: 0 } },
+      {
+        strategy: "default",
+        config: {
+          plateCount: 10,
+          referenceArea: width * height,
+          plateScalePower: 0,
+          polarCaps: {
+            capFraction: 0.1,
+            microplateBandFraction: 0.2,
+            microplatesPerPole: 0,
+            microplatesMinPlateCount: 14,
+            microplateMinAreaCells: 8,
+            tangentialSpeed: 0.9,
+            tangentialJitterDeg: 12,
+          },
+        },
+      },
       ctx as any
     );
     const plateGraph = computePlateGraph.run({ mesh, crust: crust as any, rngSeed: 11 }, plateGraphConfig).plateGraph;

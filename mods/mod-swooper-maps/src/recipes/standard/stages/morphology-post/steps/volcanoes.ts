@@ -2,6 +2,7 @@ import { computeSampleStep, renderAsciiGrid } from "@swooper/mapgen-core";
 import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import VolcanoesStepContract from "./volcanoes.contract.js";
 import { deriveStepSeed } from "@swooper/mapgen-core/lib/rng";
+import { clamp01 } from "@swooper/mapgen-core/lib/math";
 import {
   MORPHOLOGY_VOLCANISM_BASE_DENSITY_MULTIPLIER,
   MORPHOLOGY_VOLCANISM_CONVERGENT_MULTIPLIER_MULTIPLIER,
@@ -39,13 +40,6 @@ function validateVolcanoes(value: unknown): ArtifactValidationIssue[] {
     }
   }
   return [];
-}
-
-function clamp01(value: number): number {
-  if (!Number.isFinite(value)) return 0;
-  if (value < 0) return 0;
-  if (value > 1) return 1;
-  return value;
 }
 
 function clampNumber(value: number, bounds: { min: number; max?: number }): number {

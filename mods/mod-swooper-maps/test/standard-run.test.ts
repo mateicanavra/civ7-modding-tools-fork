@@ -95,7 +95,20 @@ const foundationConfig = {
   "plate-graph": {
     computePlateGraph: {
       strategy: "default",
-      config: { plateCount: 23 },
+      config: {
+        plateCount: 23,
+        referenceArea: 4000,
+        plateScalePower: 0.5,
+        polarCaps: {
+          capFraction: 0.1,
+          microplateBandFraction: 0.2,
+          microplatesPerPole: 0,
+          microplatesMinPlateCount: 14,
+          microplateMinAreaCells: 8,
+          tangentialSpeed: 0.9,
+          tangentialJitterDeg: 12,
+        },
+      },
     },
   },
 };
