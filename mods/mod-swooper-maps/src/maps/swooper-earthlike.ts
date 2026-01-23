@@ -272,10 +272,10 @@ export default createMap({
                 "islands": {
                   "fractalThresholdPercent": 96,
                   "minDistFromLandRadius": 5,
-                  "baseIslandDenNearActive": 2,
-                  "baseIslandDenElse": 2,
-                  "hotspotSeedDenom": 3,
-                  "clusterMax": 12,
+                  "baseIslandDenNearActive": 5,
+                  "baseIslandDenElse": 9,
+                  "hotspotSeedDenom": 6,
+                  "clusterMax": 10,
                   "microcontinentChance": 0.12
                 }
               }
@@ -764,7 +764,7 @@ export default createMap({
           "riverDensity": "dense"
         },
         "lakes": {
-          "tilesPerLakeMultiplier": 1
+          "tilesPerLakeMultiplier": 1.75
         },
         "plot-rivers": {
           "minLength": 5,

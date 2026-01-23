@@ -41,7 +41,7 @@ export default createStep(IslandsStepContract, {
       const y = (index / width) | 0;
       const x = index - y * width;
       if (x < 0 || x >= width || y < 0 || y >= height) continue;
-      if (edit.kind === "peak") {
+      if (edit.kind === "peak" || edit.kind === "coast") {
         heightfield.landMask[index] = 1;
         if (heightfield.elevation[index] <= seaLevelValue) {
           heightfield.elevation[index] = landElevation;

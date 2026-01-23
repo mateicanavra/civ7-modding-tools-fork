@@ -90,17 +90,14 @@ export function shouldSeedIsland(params: {
   baseDenom: number;
   hotspotSignal: number;
   hotspotDenom: number;
-  microcontinentChance: number;
   rng: LabelRng;
 }): boolean {
-  const { noiseValue, threshold, baseDenom, hotspotSignal, hotspotDenom, microcontinentChance, rng } = params;
+  const { noiseValue, threshold, baseDenom, hotspotSignal, hotspotDenom, rng } = params;
   const baseAllowed = noiseValue >= threshold && rng(baseDenom, "island-seed") === 0;
   const hotspotWeight = Math.max(0, Math.min(1, hotspotSignal));
   const hotspotDenomUsed = Math.max(1, Math.round(hotspotDenom / Math.max(0.1, hotspotWeight)));
   const hotspotAllowed = hotspotWeight > 0 && rng(hotspotDenomUsed, "hotspot-seed") === 0;
-  const microAllowed =
-    microcontinentChance > 0 && rng(1000, "microcontinent") / 1000 < microcontinentChance;
-  return baseAllowed || hotspotAllowed || microAllowed;
+  return baseAllowed || hotspotAllowed;
 }
 
 /**

@@ -256,7 +256,7 @@ export const IslandsConfigSchema = Type.Object(
     }),
     /** Chance of spawning larger microcontinent chains outside major margins (0..1). */
     microcontinentChance: Type.Number({
-      description: "Chance of spawning larger microcontinent chains outside major margins (0..1).",
+      description: "Chance (per map) of spawning a larger microcontinent chain outside major margins (0..1).",
       default: 0,
       minimum: 0,
       maximum: 1,
