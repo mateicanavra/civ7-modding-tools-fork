@@ -101,88 +101,211 @@ function computeCellResistance(type: number, age: number): number {
   return 1.0 + 0.8 * agePenalty;
 }
 
-function chooseSeedCells({
-  mesh,
-  crust,
-  plateCount,
-  majorCount,
-  rng,
-}: {
+function clamp01(value: number): number {
+  if (!Number.isFinite(value)) return 0;
+  if (value <= 0) return 0;
+  if (value >= 1) return 1;
+  return value;
+}
+
+function pickExtremeYCell(params: {
+  mesh: { cellCount: number; siteY: Float32Array };
+  eligible: Uint8Array;
+  mode: "min" | "max";
+}): number {
+  const cellCount = params.mesh.cellCount | 0;
+  let best = -1;
+  let bestY = params.mode === "min" ? Number.POSITIVE_INFINITY : Number.NEGATIVE_INFINITY;
+  for (let i = 0; i < cellCount; i++) {
+    if (!params.eligible[i]) continue;
+    const y = params.mesh.siteY[i] ?? 0;
+    if (params.mode === "min") {
+      if (y < bestY) {
+        bestY = y;
+        best = i;
+      }
+    } else {
+      if (y > bestY) {
+        bestY = y;
+        best = i;
+      }
+    }
+  }
+  return best;
+}
+
+function pickSeedCell(params: {
   mesh: { cellCount: number; wrapWidth: number; siteX: Float32Array; siteY: Float32Array; bbox: { yt: number; yb: number } };
   crust: { type: Uint8Array; age: Uint8Array };
-  plateCount: number;
-  majorCount: number;
   rng: (max: number, label?: string) => number;
-}): number[] {
-  const cellCount = mesh.cellCount | 0;
-  const wrapWidth = mesh.wrapWidth;
-  const ySpan = Math.max(1e-6, (mesh.bbox.yb ?? 0) - (mesh.bbox.yt ?? 0));
-  const characteristic = Math.max(1e-6, Math.min(wrapWidth, ySpan));
-  const minSep = (characteristic / Math.sqrt(Math.max(1, plateCount))) * 0.55;
-  const minSepSq = minSep * minSep;
+  used: Uint8Array;
+  existingSeeds: number[];
+  kind: FoundationPlate["kind"];
+  allowed: Uint8Array;
+  minSepSq: number;
+}): number {
+  const cellCount = params.mesh.cellCount | 0;
+  const wrapWidth = params.mesh.wrapWidth;
 
-  const used = new Uint8Array(cellCount);
-  const seeds: number[] = [];
+  let bestCandidate = -1;
+  let bestScore = -Infinity;
 
   const attemptsPerSeed = 64;
-  for (let plateId = 0; plateId < plateCount; plateId++) {
-    const kind: FoundationPlate["kind"] = plateId < majorCount ? "major" : "minor";
-    let bestCandidate = -1;
-    let bestScore = -Infinity;
+  for (let attempt = 0; attempt < attemptsPerSeed; attempt++) {
+    const candidate = params.rng(cellCount, "PlateGraphSeedPick") | 0;
+    if (!params.allowed[candidate]) continue;
+    if (params.used[candidate]) continue;
 
-    for (let attempt = 0; attempt < attemptsPerSeed; attempt++) {
-      const candidate = rng(cellCount, "PlateGraphSeedPick") | 0;
-      if (used[candidate]) continue;
+    const cx = params.mesh.siteX[candidate] ?? 0;
+    const cy = params.mesh.siteY[candidate] ?? 0;
 
-      const cx = mesh.siteX[candidate] ?? 0;
-      const cy = mesh.siteY[candidate] ?? 0;
-
-      let minDistSq = Infinity;
-      for (let s = 0; s < seeds.length; s++) {
-        const seed = seeds[s]!;
-        const sx = mesh.siteX[seed] ?? 0;
-        const sy = mesh.siteY[seed] ?? 0;
-        const d = distanceSqWrapped(cx, cy, sx, sy, wrapWidth);
-        if (d < minDistSq) minDistSq = d;
-      }
-
-      const type = crust.type[candidate] ?? 0;
-      const age = crust.age[candidate] ?? 0;
-      const a = crustAgeNorm(age);
-      const quality =
-        kind === "major"
-          ? (type === 1 ? 1.0 + 1.5 * a : 0.25)
-          : (type === 0 ? 1.0 + 1.0 * (1 - a) : 0.1);
-
-      const score = minDistSq * (0.5 + quality);
-      if (score > bestScore) {
-        bestScore = score;
-        bestCandidate = candidate;
-      }
-
-      if (minDistSq >= minSepSq) break;
+    let minDistSq = Infinity;
+    for (let s = 0; s < params.existingSeeds.length; s++) {
+      const seed = params.existingSeeds[s]!;
+      const sx = params.mesh.siteX[seed] ?? 0;
+      const sy = params.mesh.siteY[seed] ?? 0;
+      const d = distanceSqWrapped(cx, cy, sx, sy, wrapWidth);
+      if (d < minDistSq) minDistSq = d;
     }
 
-    if (bestCandidate < 0) {
-      // Deterministic fallback: first unused index starting at a deterministic offset.
-      const start = rng(cellCount, "PlateGraphSeedFallbackStart") | 0;
-      for (let i = 0; i < cellCount; i++) {
-        const idx = (start + i) % cellCount;
-        if (used[idx]) continue;
-        bestCandidate = idx;
-        break;
-      }
+    const type = params.crust.type[candidate] ?? 0;
+    const age = params.crust.age[candidate] ?? 0;
+    const a = crustAgeNorm(age);
+    const quality =
+      params.kind === "major"
+        ? (type === 1 ? 1.0 + 1.5 * a : 0.25)
+        : (type === 0 ? 1.0 + 1.0 * (1 - a) : 0.1);
+
+    const score = minDistSq * (0.5 + quality);
+    if (score > bestScore) {
+      bestScore = score;
+      bestCandidate = candidate;
     }
 
-    if (bestCandidate < 0) {
-      throw new Error("[Foundation] PlateGraph failed to select seed cells.");
-    }
-
-    used[bestCandidate] = 1;
-    seeds.push(bestCandidate);
+    if (minDistSq >= params.minSepSq) break;
   }
 
-  return seeds;
+  if (bestCandidate < 0) {
+    // Deterministic fallback: first allowed unused index starting at a deterministic offset.
+    const start = params.rng(cellCount, "PlateGraphSeedFallbackStart") | 0;
+    for (let i = 0; i < cellCount; i++) {
+      const idx = (start + i) % cellCount;
+      if (!params.allowed[idx]) continue;
+      if (params.used[idx]) continue;
+      bestCandidate = idx;
+      break;
+    }
+  }
+
+  if (bestCandidate < 0) {
+    throw new Error("[Foundation] PlateGraph failed to select seed cells.");
+  }
+
+  params.used[bestCandidate] = 1;
+  params.existingSeeds.push(bestCandidate);
+  return bestCandidate;
+}
+
+function lockContiguousRegion(params: {
+  mesh: { cellCount: number; neighborsOffsets: Int32Array; neighbors: Int32Array };
+  lockedPlateId: Int16Array;
+  allowed: Uint8Array;
+  plateId: number;
+  seedCell: number;
+  targetCells: number;
+}): number {
+  const cellCount = params.mesh.cellCount | 0;
+  const plateId = params.plateId | 0;
+  const seedCell = params.seedCell | 0;
+  const targetCells = Math.max(0, params.targetCells | 0);
+
+  if (seedCell < 0 || seedCell >= cellCount) return 0;
+  if (!params.allowed[seedCell]) return 0;
+
+  const visited = new Uint8Array(cellCount);
+  const queue = new Int32Array(cellCount);
+  let head = 0;
+  let tail = 0;
+  queue[tail++] = seedCell;
+  visited[seedCell] = 1;
+
+  let locked = 0;
+  while (head < tail && locked < targetCells) {
+    const cellId = queue[head++] | 0;
+    if (!params.allowed[cellId]) continue;
+
+    const current = params.lockedPlateId[cellId] | 0;
+    if (current >= 0 && current !== plateId) continue;
+    if (current === plateId) {
+      locked++;
+    } else {
+      params.lockedPlateId[cellId] = plateId;
+      locked++;
+    }
+
+    const start = params.mesh.neighborsOffsets[cellId] | 0;
+    const end = params.mesh.neighborsOffsets[cellId + 1] | 0;
+    for (let j = start; j < end; j++) {
+      const n = params.mesh.neighbors[j] | 0;
+      if (n < 0 || n >= cellCount) continue;
+      if (visited[n]) continue;
+      visited[n] = 1;
+      queue[tail++] = n;
+      if (tail >= cellCount) break;
+    }
+  }
+
+  return locked;
+}
+
+function filterByMinComponentSize(params: {
+  mesh: { cellCount: number; neighborsOffsets: Int32Array; neighbors: Int32Array };
+  allowed: Uint8Array;
+  minSize: number;
+}): Uint8Array {
+  const cellCount = params.mesh.cellCount | 0;
+  const minSize = Math.max(1, params.minSize | 0);
+
+  const out = new Uint8Array(cellCount);
+  const visited = new Uint8Array(cellCount);
+  const queue = new Int32Array(cellCount);
+  const component = new Int32Array(cellCount);
+
+  for (let i = 0; i < cellCount; i++) {
+    if (!params.allowed[i]) continue;
+    if (visited[i]) continue;
+
+    let head = 0;
+    let tail = 0;
+    let compLen = 0;
+
+    queue[tail++] = i;
+    visited[i] = 1;
+
+    while (head < tail) {
+      const cellId = queue[head++] | 0;
+      component[compLen++] = cellId;
+
+      const start = params.mesh.neighborsOffsets[cellId] | 0;
+      const end = params.mesh.neighborsOffsets[cellId + 1] | 0;
+      for (let j = start; j < end; j++) {
+        const n = params.mesh.neighbors[j] | 0;
+        if (n < 0 || n >= cellCount) continue;
+        if (visited[n]) continue;
+        if (!params.allowed[n]) continue;
+        visited[n] = 1;
+        queue[tail++] = n;
+      }
+    }
+
+    if (compLen >= minSize) {
+      for (let k = 0; k < compLen; k++) {
+        out[component[k]!] = 1;
+      }
+    }
+  }
+
+  return out;
 }
 
 const computePlateGraph = createOp(ComputePlateGraphContract, {
@@ -218,29 +341,224 @@ const computePlateGraph = createOp(ComputePlateGraphContract, {
         }
 
         const majorCount = Math.max(1, Math.floor(platesCount * 0.6));
-        const seedCells = chooseSeedCells({
-          mesh,
-          crust,
-          plateCount: platesCount,
-          majorCount,
-          rng,
-        });
+        const polarPolicy = config.polarCaps ?? {};
+        const capFraction = clamp01(polarPolicy.capFraction ?? 0.1);
+        const microBandFraction = clamp01(polarPolicy.microplateBandFraction ?? 0.2);
+        const requestedMicroPerPole = Math.max(0, polarPolicy.microplatesPerPole ?? 0);
+        const microplatesMinPlateCount = Math.max(0, polarPolicy.microplatesMinPlateCount ?? 14);
+        const microplateMinAreaCells = Math.max(1, polarPolicy.microplateMinAreaCells ?? 8);
+        const tangentialSpeed = Math.max(0, polarPolicy.tangentialSpeed ?? 0.9);
+        const tangentialJitterDeg = Math.max(0, polarPolicy.tangentialJitterDeg ?? 12);
 
-        const plates: FoundationPlate[] = seedCells.map((seedCell, id) => {
+        let minSiteY = Number.POSITIVE_INFINITY;
+        let maxSiteY = Number.NEGATIVE_INFINITY;
+        for (let i = 0; i < cellCount; i++) {
+          const y = mesh.siteY[i];
+          if (!Number.isFinite(y)) continue;
+          if (y < minSiteY) minSiteY = y;
+          if (y > maxSiteY) maxSiteY = y;
+        }
+        if (!Number.isFinite(minSiteY) || !Number.isFinite(maxSiteY)) {
+          throw new Error("[Foundation] PlateGraph mesh.siteY must be finite.");
+        }
+
+        const spanY = Math.max(1e-6, maxSiteY - minSiteY);
+        const northCapMaxY = minSiteY + spanY * capFraction;
+        const southCapMinY = maxSiteY - spanY * capFraction;
+
+        const lockedPlateId = new Int16Array(cellCount);
+        lockedPlateId.fill(-1);
+
+        const northCapEligible = new Uint8Array(cellCount);
+        const southCapEligible = new Uint8Array(cellCount);
+        const northMicroEligible = new Uint8Array(cellCount);
+        const southMicroEligible = new Uint8Array(cellCount);
+        const tectonicEligible = new Uint8Array(cellCount);
+        const allCellsEligible = new Uint8Array(cellCount);
+        allCellsEligible.fill(1);
+
+        for (let i = 0; i < cellCount; i++) {
+          const y = mesh.siteY[i] ?? 0;
+          const inNorthCap = y <= northCapMaxY;
+          const inSouthCap = y >= southCapMinY;
+          if (inNorthCap) {
+            lockedPlateId[i] = 0;
+            northCapEligible[i] = 1;
+            continue;
+          }
+          if (inSouthCap) {
+            lockedPlateId[i] = 1;
+            southCapEligible[i] = 1;
+            continue;
+          }
+
+          tectonicEligible[i] = 1;
+
+          const inNorthMicroBand = y <= minSiteY + spanY * microBandFraction;
+          const inSouthMicroBand = y >= maxSiteY - spanY * microBandFraction;
+          if (inNorthMicroBand) northMicroEligible[i] = 1;
+          if (inSouthMicroBand) southMicroEligible[i] = 1;
+        }
+
+        const capNorthSeed = pickExtremeYCell({ mesh, eligible: northCapEligible, mode: "min" });
+        const capSouthSeed = pickExtremeYCell({ mesh, eligible: southCapEligible, mode: "max" });
+        if (capNorthSeed < 0 || capSouthSeed < 0) {
+          throw new Error("[Foundation] PlateGraph failed to locate polar cap seed cells.");
+        }
+
+        let microPerPole = 0;
+        let northMicroEligibleSized: Uint8Array | null = null;
+        let southMicroEligibleSized: Uint8Array | null = null;
+        if (platesCount >= microplatesMinPlateCount && requestedMicroPerPole > 0) {
+          const maxPerPoleByBudget = Math.max(0, Math.floor((platesCount - 4) / 2));
+          const requested = Math.min(requestedMicroPerPole, maxPerPoleByBudget);
+
+          northMicroEligibleSized = filterByMinComponentSize({ mesh, allowed: northMicroEligible, minSize: microplateMinAreaCells });
+          southMicroEligibleSized = filterByMinComponentSize({ mesh, allowed: southMicroEligible, minSize: microplateMinAreaCells });
+
+          let northCount = 0;
+          let southCount = 0;
+          for (let i = 0; i < cellCount; i++) {
+            if (northMicroEligibleSized[i]) northCount++;
+            if (southMicroEligibleSized[i]) southCount++;
+          }
+
+          // Area guard: per-hemisphere, each microplate must have at least microplateMinAreaCells.
+          const maxByArea = Math.floor(Math.min(northCount, southCount) / microplateMinAreaCells);
+          microPerPole = Math.min(requested, Math.max(0, maxByArea));
+        }
+
+        const roleById: FoundationPlate["role"][] = Array.from({ length: platesCount }, () => "tectonic");
+        roleById[0] = "polarCap";
+        roleById[1] = "polarCap";
+        for (let i = 0; i < microPerPole; i++) {
+          roleById[2 + i] = "polarMicroplate";
+          roleById[2 + microPerPole + i] = "polarMicroplate";
+        }
+
+        const allowedById: Uint8Array[] = Array.from({ length: platesCount }, () => tectonicEligible);
+        allowedById[0] = northCapEligible;
+        allowedById[1] = southCapEligible;
+        for (let i = 0; i < microPerPole; i++) {
+          allowedById[2 + i] = northMicroEligibleSized ?? northMicroEligible;
+          allowedById[2 + microPerPole + i] = southMicroEligibleSized ?? southMicroEligible;
+        }
+        if (platesCount <= 2) {
+          // When scaled plateCount collapses to two plates (small maps), the caps must still cover the whole mesh.
+          allowedById[0] = allCellsEligible;
+          allowedById[1] = allCellsEligible;
+        }
+
+        const tectonicSeedEligible = new Uint8Array(cellCount);
+        if (microPerPole <= 0) {
+          tectonicSeedEligible.set(tectonicEligible);
+        } else {
+          for (let i = 0; i < cellCount; i++) {
+            if (!tectonicEligible[i]) continue;
+            if (northMicroEligible[i] || southMicroEligible[i]) continue;
+            tectonicSeedEligible[i] = 1;
+          }
+        }
+
+        const kindById: FoundationPlate["kind"][] = Array.from({ length: platesCount }, (_, id) =>
+          id < majorCount ? "major" : "minor"
+        );
+        kindById[0] = "major";
+        kindById[1] = "major";
+        for (let id = 0; id < platesCount; id++) {
+          if (roleById[id] === "polarMicroplate") kindById[id] = "minor";
+        }
+
+        const characteristic = Math.max(1e-6, Math.min(mesh.wrapWidth, spanY));
+        const minSep = (characteristic / Math.sqrt(Math.max(1, platesCount))) * 0.55;
+        const minSepSq = minSep * minSep;
+
+        const seedCells = new Int32Array(platesCount);
+        seedCells.fill(-1);
+        seedCells[0] = capNorthSeed;
+        seedCells[1] = capSouthSeed;
+
+        const usedSeedCell = new Uint8Array(cellCount);
+        usedSeedCell[capNorthSeed] = 1;
+        usedSeedCell[capSouthSeed] = 1;
+        const chosenSeeds = [capNorthSeed, capSouthSeed];
+
+        for (let id = 2; id < platesCount; id++) {
+          const role = roleById[id]!;
+          const allowed = role === "tectonic" ? tectonicSeedEligible : allowedById[id]!;
+          seedCells[id] = pickSeedCell({
+            mesh,
+            crust,
+            rng,
+            used: usedSeedCell,
+            existingSeeds: chosenSeeds,
+            kind: kindById[id]!,
+            allowed,
+            minSepSq,
+          });
+        }
+
+        for (let id = 2; id < platesCount; id++) {
+          if (roleById[id] !== "polarMicroplate") continue;
+          const seedCell = seedCells[id] | 0;
+          if (seedCell >= 0 && seedCell < cellCount && (lockedPlateId[seedCell] | 0) < 0) {
+            lockedPlateId[seedCell] = id;
+          }
+        }
+
+        for (let id = 2; id < platesCount; id++) {
+          if (roleById[id] !== "polarMicroplate") continue;
+          const seedCell = seedCells[id] | 0;
+          lockContiguousRegion({
+            mesh,
+            lockedPlateId,
+            allowed: allowedById[id]!,
+            plateId: id,
+            seedCell,
+            targetCells: microplateMinAreaCells,
+          });
+        }
+
+        const plates: FoundationPlate[] = Array.from({ length: platesCount }, (_, id) => {
+          const seedCell = seedCells[id] ?? 0;
           const seedX = mesh.siteX[seedCell] ?? 0;
           const seedY = mesh.siteY[seedCell] ?? 0;
 
-          const baseAngleDeg = rng(360, "PlateGraphAngle");
-          const speed = 0.5 + rng(100, "PlateGraphSpeed") / 200;
-          const rad = (baseAngleDeg * Math.PI) / 180;
-          const velocityX = Math.cos(rad) * speed;
-          const velocityY = Math.sin(rad) * speed;
+          const role = roleById[id]!;
+          const kind = kindById[id]!;
 
-          const rotation = (rng(60, "PlateGraphRotation") - 30) * 0.1;
-          const kind: FoundationPlate["kind"] = id < majorCount ? "major" : "minor";
+          let velocityX = 0;
+          let velocityY = 0;
+          let rotation = 0;
+
+          if (role === "polarCap") {
+            const sign = id === 0 ? 1 : -1;
+            const speed = tangentialSpeed * (0.85 + rng(100, "PlateGraphPolarSpeed") / 400);
+            velocityX = sign * speed;
+            velocityY = 0;
+            rotation = (rng(60, "PlateGraphPolarRotation") - 30) * 0.02;
+          } else if (role === "polarMicroplate") {
+            const hemisphereSign = id < 2 + microPerPole ? 1 : -1;
+            const base = hemisphereSign > 0 ? 0 : 180;
+            const jitter = (rng(Math.max(1, Math.floor(tangentialJitterDeg * 2)), "PlateGraphPolarJitter") - tangentialJitterDeg) as number;
+            const angleDeg = base + jitter;
+            const rad = (angleDeg * Math.PI) / 180;
+            const speed = tangentialSpeed * (0.55 + rng(100, "PlateGraphPolarMicroSpeed") / 500);
+            velocityX = Math.cos(rad) * speed;
+            velocityY = Math.sin(rad) * speed;
+            rotation = (rng(60, "PlateGraphPolarMicroRotation") - 30) * 0.03;
+          } else {
+            const baseAngleDeg = rng(360, "PlateGraphAngle");
+            const speed = 0.5 + rng(100, "PlateGraphSpeed") / 200;
+            const rad = (baseAngleDeg * Math.PI) / 180;
+            velocityX = Math.cos(rad) * speed;
+            velocityY = Math.sin(rad) * speed;
+            rotation = (rng(60, "PlateGraphRotation") - 30) * 0.1;
+          }
 
           return {
             id,
+            role,
             kind,
             seedX,
             seedY,
@@ -273,8 +591,18 @@ const computePlateGraph = createOp(ComputePlateGraphContract, {
 
         const heap = new MinHeap();
 
+        for (let i = 0; i < cellCount; i++) {
+          const locked = lockedPlateId[i] | 0;
+          if (locked < 0) continue;
+          bestCost[i] = 0;
+          cellToPlate[i] = locked;
+          heap.push({ cost: 0, plateId: locked, cellId: i });
+        }
+
         for (let plateId = 0; plateId < platesCount; plateId++) {
-          const seed = seedCells[plateId]!;
+          const seed = seedCells[plateId] | 0;
+          if (seed < 0 || seed >= cellCount) continue;
+          if ((cellToPlate[seed] | 0) >= 0) continue;
           bestCost[seed] = 0;
           cellToPlate[seed] = plateId;
           heap.push({ cost: 0, plateId, cellId: seed });
@@ -295,6 +623,9 @@ const computePlateGraph = createOp(ComputePlateGraphContract, {
           for (let j = start; j < end; j++) {
             const n = mesh.neighbors[j] | 0;
             if (n < 0 || n >= cellCount) continue;
+            if (!allowedById[plateId]![n]) continue;
+            const locked = lockedPlateId[n] | 0;
+            if (locked >= 0 && locked !== (plateId | 0)) continue;
 
             const edgeResistance = (cellResistance[cellId]! + cellResistance[n]!) * 0.5;
             const weight = plateWeights[plateId]!;

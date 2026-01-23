@@ -26,7 +26,9 @@ describe("foundation tile projection (materials)", () => {
 
     const plateGraph = {
       cellToPlate: new Int16Array([0, 0, 0, 0]),
-      plates: [{ id: 0, kind: "major", seedX: 0, seedY: 0, velocityX: 0, velocityY: 0, rotation: 0 }],
+      plates: [
+        { id: 0, role: "tectonic", kind: "major", seedX: 0, seedY: 0, velocityX: 0, velocityY: 0, rotation: 0 },
+      ],
     } as const;
 
     const tectonics = {
