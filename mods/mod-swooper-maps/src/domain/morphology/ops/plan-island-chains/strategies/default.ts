@@ -63,28 +63,47 @@ export const defaultStrategy = createStrategy(PlanIslandChainsContract, "default
       const frontier: number[] = [seedIndex];
       let added = 1;
 
-      while (frontier.length > 0 && added < targetTiles) {
-        const fromIndex = frontier[rng(frontier.length, `${params.label}:frontier`)] ?? -1;
+      const maxIterations = Math.max(targetTiles * 24, 64);
+      let iterations = 0;
+
+      while (frontier.length > 0 && added < targetTiles && iterations < maxIterations) {
+        iterations += 1;
+        const fromPos = rng(frontier.length, `${params.label}:frontier`) | 0;
+        const fromIndex = frontier[fromPos] ?? -1;
         if (fromIndex < 0) break;
         const fy = (fromIndex / width) | 0;
         const fx = fromIndex - fy * width;
         const neighbors = getHexNeighborIndicesOddQ(fx, fy, width, height);
         if (neighbors.length === 0) {
+          frontier[fromPos] = frontier[frontier.length - 1] ?? fromIndex;
           frontier.pop();
           continue;
         }
 
-        const nextIndex = neighbors[rng(neighbors.length, `${params.label}:neighbor`)] ?? -1;
-        if (nextIndex < 0) continue;
-        if (used[nextIndex] === 1) continue;
-        if (landMask[nextIndex] === 1) continue;
+        let picked = -1;
+        const start = rng(neighbors.length, `${params.label}:neighborStart`) | 0;
+        for (let offset = 0; offset < neighbors.length; offset++) {
+          const nextIndex = neighbors[(start + offset) % neighbors.length] ?? -1;
+          if (nextIndex < 0) continue;
+          if (used[nextIndex] === 1) continue;
+          if (landMask[nextIndex] === 1) continue;
 
-        const ny = (nextIndex / width) | 0;
-        const nx = nextIndex - ny * width;
-        if (isWithinRadius(width, height, nx, ny, minDist, landMask)) continue;
+          const ny = (nextIndex / width) | 0;
+          const nx = nextIndex - ny * width;
+          if (isWithinRadius(width, height, nx, ny, minDist, landMask)) continue;
 
-        pushEdit(nextIndex, "coast");
-        frontier.push(nextIndex);
+          picked = nextIndex;
+          break;
+        }
+
+        if (picked < 0) {
+          frontier[fromPos] = frontier[frontier.length - 1] ?? fromIndex;
+          frontier.pop();
+          continue;
+        }
+
+        pushEdit(picked, "coast");
+        frontier.push(picked);
         added += 1;
       }
     }
