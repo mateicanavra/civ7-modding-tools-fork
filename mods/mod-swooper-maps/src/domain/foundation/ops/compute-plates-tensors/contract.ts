@@ -4,7 +4,7 @@ import type { Static } from "@swooper/mapgen-core/authoring";
 import { FoundationMeshSchema } from "../compute-mesh/contract.js";
 import { FoundationCrustSchema } from "../compute-crust/contract.js";
 import { FoundationPlateGraphSchema } from "../compute-plate-graph/contract.js";
-import { FoundationTectonicsSchema } from "../compute-tectonics/contract.js";
+import { FoundationTectonicsSchema } from "../compute-tectonic-history/contract.js";
 
 const StrategySchema = Type.Object(
   {
@@ -71,11 +71,11 @@ const ComputePlatesTensorsContract = defineOp({
           id: TypedArraySchemas.i16({ description: "Plate id per tile." }),
           boundaryCloseness: TypedArraySchemas.u8({ description: "Boundary proximity per tile (0..255)." }),
           /**
-           * Dominant boundary type per tile (BOUNDARY_TYPE values), inferred from the nearest boundary seed within the influence radius.
+           * Boundary regime per tile (BOUNDARY_TYPE values), sampled from mesh-space Foundation tectonics.
            */
           boundaryType: TypedArraySchemas.u8({
             description:
-              "Dominant boundary type per tile (BOUNDARY_TYPE values), inferred from the nearest boundary seed within the influence radius.",
+              "Boundary regime per tile (BOUNDARY_TYPE values), sampled from mesh-space Foundation tectonics.",
           }),
           tectonicStress: TypedArraySchemas.u8({ description: "Tectonic stress per tile (0..255)." }),
           upliftPotential: TypedArraySchemas.u8({ description: "Uplift potential per tile (0..255)." }),

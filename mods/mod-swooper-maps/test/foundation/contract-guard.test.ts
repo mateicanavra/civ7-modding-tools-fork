@@ -80,6 +80,11 @@ describe("foundation contract guardrails", () => {
       expect(text).not.toContain("wrap_x");
       expect(text).not.toContain("wrap_y");
       expect(text).not.toContain("environment_wrap");
+
+      // M11/U11: remove legacy latitude-band tectonics injection and neighbor-scan op surface.
+      expect(text).not.toContain("computeTectonics");
+      expect(text).not.toContain("polarBandFraction");
+      expect(text).not.toContain("polarBoundary");
     }
   });
 });
