@@ -1,15 +1,9 @@
+import { clamp01 } from "@swooper/mapgen-core";
 import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import BiomesStepContract from "./contract.js";
 import { buildLatitudeField } from "./helpers/inputs.js";
 import { ecologyArtifacts } from "../../artifacts.js";
 import { validateBiomeClassificationArtifact } from "../../artifact-validation.js";
-
-function clamp01(value: number): number {
-  if (!Number.isFinite(value)) return 0;
-  if (value <= 0) return 0;
-  if (value >= 1) return 1;
-  return value;
-}
 
 export default createStep(BiomesStepContract, {
   artifacts: implementArtifacts([ecologyArtifacts.biomeClassification], {
