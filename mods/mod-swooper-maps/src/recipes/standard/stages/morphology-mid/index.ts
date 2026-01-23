@@ -35,8 +35,10 @@ type MorphologyMidStageConfig = Static<typeof publicSchema>;
  */
 const knobsSchema = Type.Object(
   {
-    erosion: Type.Optional(MorphologyErosionKnobSchema),
-    coastRuggedness: Type.Optional(MorphologyCoastRuggednessKnobSchema),
+    /** Erosion posture (low/normal/high). Applies as a deterministic multiplier over geomorphology rates (no presence-gating). */
+    erosion: MorphologyErosionKnobSchema,
+    /** Coastline ruggedness posture (smooth/normal/rugged). Applies as deterministic multipliers over bay/fjord carving parameters. */
+    coastRuggedness: MorphologyCoastRuggednessKnobSchema,
   },
   {
     description:

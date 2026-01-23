@@ -23,12 +23,11 @@ export function computeRiverAdjacencyMaskFromRiverClass(options: {
     const y0 = Math.max(0, y - radius);
     const y1 = Math.min(height - 1, y + radius);
     for (let x = 0; x < width; x++) {
-      const x0 = Math.max(0, x - radius);
-      const x1 = Math.min(width - 1, x + radius);
       let adjacent = 0;
       for (let ny = y0; ny <= y1 && !adjacent; ny++) {
         const row = ny * width;
-        for (let nx = x0; nx <= x1; nx++) {
+        for (let dx = -radius; dx <= radius; dx++) {
+          const nx = (x + dx + width) % width;
           if (options.riverClass[row + nx] !== 0) {
             adjacent = 1;
             break;

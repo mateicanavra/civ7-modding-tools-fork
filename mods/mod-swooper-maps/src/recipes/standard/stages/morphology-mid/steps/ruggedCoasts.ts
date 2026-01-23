@@ -106,8 +106,8 @@ export default createStep(RuggedCoastsStepContract, {
     },
   }),
   normalize: (config, ctx) => {
-    const { coastRuggedness } = ctx.knobs as Readonly<{ coastRuggedness?: MorphologyCoastRuggednessKnob }>;
-    const multiplier = MORPHOLOGY_COAST_RUGGEDNESS_MULTIPLIER[coastRuggedness ?? "normal"] ?? 1.0;
+    const { coastRuggedness } = ctx.knobs as Readonly<{ coastRuggedness: MorphologyCoastRuggednessKnob }>;
+    const multiplier = MORPHOLOGY_COAST_RUGGEDNESS_MULTIPLIER[coastRuggedness];
 
     const coastlinesSelection =
       config.coastlines.strategy === "default"

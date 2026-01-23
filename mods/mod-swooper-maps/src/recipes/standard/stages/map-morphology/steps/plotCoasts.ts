@@ -16,6 +16,7 @@ export default createStep(PlotCoastsStepContract, {
       }
     }
 
+    // Adapter-only mutation: expandCoasts updates engine terrain without syncing buffers.
     context.adapter.expandCoasts(width, height);
 
     logLandmassAscii(context.trace, context.adapter, width, height);

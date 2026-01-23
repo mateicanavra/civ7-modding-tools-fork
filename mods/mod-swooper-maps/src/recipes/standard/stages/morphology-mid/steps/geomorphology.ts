@@ -31,8 +31,8 @@ function shadeByte(value: number): string {
 
 export default createStep(GeomorphologyStepContract, {
   normalize: (config, ctx) => {
-    const { erosion } = ctx.knobs as Readonly<{ erosion?: MorphologyErosionKnob }>;
-    const multiplier = MORPHOLOGY_EROSION_RATE_MULTIPLIER[erosion ?? "normal"] ?? 1.0;
+    const { erosion } = ctx.knobs as Readonly<{ erosion: MorphologyErosionKnob }>;
+    const multiplier = MORPHOLOGY_EROSION_RATE_MULTIPLIER[erosion];
 
     const geomorphologySelection =
       config.geomorphology.strategy === "default"
@@ -44,15 +44,15 @@ export default createStep(GeomorphologyStepContract, {
                 ...config.geomorphology.config.geomorphology,
                 fluvial: {
                   ...config.geomorphology.config.geomorphology.fluvial,
-                  rate: clampNumber(config.geomorphology.config.geomorphology.fluvial.rate * multiplier, { min: 0 }),
+                  rate: clampNumber(config.geomorphology.config.geomorphology.fluvial.rate * multiplier, { min: 0, max: 1 }),
                 },
                 diffusion: {
                   ...config.geomorphology.config.geomorphology.diffusion,
-                  rate: clampNumber(config.geomorphology.config.geomorphology.diffusion.rate * multiplier, { min: 0 }),
+                  rate: clampNumber(config.geomorphology.config.geomorphology.diffusion.rate * multiplier, { min: 0, max: 1 }),
                 },
                 deposition: {
                   ...config.geomorphology.config.geomorphology.deposition,
-                  rate: clampNumber(config.geomorphology.config.geomorphology.deposition.rate * multiplier, { min: 0 }),
+                  rate: clampNumber(config.geomorphology.config.geomorphology.deposition.rate * multiplier, { min: 0, max: 1 }),
                 },
               },
             },
