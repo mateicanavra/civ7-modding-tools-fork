@@ -86,7 +86,13 @@ describe("m11 plates projection (boundary band)", () => {
     const mesh = computeMesh.run({ width, height, rngSeed: 7 }, meshConfig).mesh;
     const cellCount = mesh.cellCount | 0;
 
-    const crust = { type: new Uint8Array(cellCount), age: new Uint8Array(cellCount) } as const;
+    const crust = {
+      type: new Uint8Array(cellCount),
+      age: new Uint8Array(cellCount),
+      buoyancy: new Float32Array(cellCount),
+      baseElevation: new Float32Array(cellCount),
+      strength: new Float32Array(cellCount),
+    } as const;
 
     const plateGraphConfig = computePlateGraph.normalize(
       { strategy: "default", config: { plateCount: 10, referenceArea: width * height, plateScalePower: 0 } },
