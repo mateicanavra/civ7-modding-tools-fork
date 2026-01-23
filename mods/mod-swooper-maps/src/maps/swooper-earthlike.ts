@@ -29,7 +29,7 @@ export default createMap({
             "computeMesh": {
               "strategy": "default",
               "config": {
-                "plateCount": 19,
+                "plateCount": 29,
                 "cellsPerPlate": 7,
                 "relaxationSteps": 6,
                 "referenceArea": 16000,
@@ -46,9 +46,9 @@ export default createMap({
                 "shelfElevationBoost": 0.12,
                 "marginElevationPenalty": 0.04,
                 "continentalBaseElevation": 0.78,
-                "continentalAgeBoost": 0.12,
+                "continentalAgeBoost": 0.22,
                 "oceanicBaseElevation": 0.32,
-                "oceanicAgeDepth": 0.22
+                "oceanicAgeDepth": 0.32
               }
             }
           },
@@ -56,7 +56,7 @@ export default createMap({
             "computePlateGraph": {
               "strategy": "default",
               "config": {
-                "plateCount": 19,
+                "plateCount": 29,
                 "referenceArea": 16000,
                 "plateScalePower": 1,
                 "polarCaps": {
@@ -84,16 +84,16 @@ export default createMap({
               "config": {
                 "eraWeights": [
                   0.35,
-                  0.35,
-                  0.3
+                  0.45,
+                  0.35
                 ],
                 "driftStepsByEra": [
                   2,
-                  1,
-                  0
+                  2,
+                  1
                 ],
-                "beltInfluenceDistance": 8,
-                "beltDecay": 0.55,
+                "beltInfluenceDistance": 12,
+                "beltDecay": 0.25,
                 "activityThreshold": 1
               }
             }
@@ -103,7 +103,7 @@ export default createMap({
               "strategy": "default",
               "config": {
                 "boundaryInfluenceDistance": 12,
-                "boundaryDecay": 0.5,
+                "boundaryDecay": 0.3,
                 "movementScale": 65,
                 "rotationScale": 80
               }
@@ -143,7 +143,7 @@ export default createMap({
                 "clusteringBias": 0.25,
                 "crustEdgeBlend": 0.6,
                 "crustNoiseAmplitude": 0.36,
-                "continentalHeight": 0.62,
+                "continentalHeight": 0.69,
                 "oceanicHeight": -0.75,
                 "tectonics": {
                   "boundaryArcWeight": 0.32,
