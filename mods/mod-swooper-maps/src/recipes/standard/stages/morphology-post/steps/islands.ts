@@ -52,20 +52,26 @@ export default createStep(IslandsStepContract, {
 
     context.trace.event(() => {
       let peaks = 0;
+      let coasts = 0;
+      let inBoundsEdits = 0;
       let inBoundsPeaks = 0;
       for (const edit of plan.edits) {
-        if (edit.kind !== "peak") continue;
-        peaks += 1;
+        if (edit.kind === "peak") peaks += 1;
+        else if (edit.kind === "coast") coasts += 1;
+
         const index = edit.index | 0;
         const y = (index / width) | 0;
         const x = index - y * width;
         if (x < 0 || x >= width || y < 0 || y >= height) continue;
-        inBoundsPeaks += 1;
+        inBoundsEdits += 1;
+        if (edit.kind === "peak") inBoundsPeaks += 1;
       }
       return {
         kind: "morphology.islands.summary",
         edits: plan.edits.length,
         peaks,
+        coasts,
+        inBoundsEdits,
         inBoundsPeaks,
       };
     });
