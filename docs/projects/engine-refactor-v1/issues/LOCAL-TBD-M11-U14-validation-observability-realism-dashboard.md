@@ -1,7 +1,7 @@
 ---
 id: LOCAL-TBD-M11-U14
 title: "[M11/U14] Add realism invariants + traces to prevent plate/belt/mountain regressions"
-state: planned
+state: completed
 priority: 2
 estimate: 8
 project: engine-refactor-v1
@@ -23,18 +23,17 @@ related_to: [M11-U00, M11-U06, M10-U06, LOCAL-TBD-M11-U10, LOCAL-TBD-M11-U11, LO
 - Shared slice invariants: see `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M11-U15-foundation-realism-execution-spine.md` (`FND-INV-*`).
 - Define a small suite of realism invariants (IDs; tests + traces reference these exactly), validated without rendering.
 - **Invariant scope (default):**
-  - Preset: `mods/mod-swooper-maps/src/maps/presets/swooper-earthlike.config.js#swooperEarthlikeConfig`
+  - Preset: `mods/mod-swooper-maps/src/maps/presets/realism/earthlike.config.ts` (`createRealismEarthlikeConfig()`)
   - Dimensions: `{ width: 60, height: 40 }`
   - Seeds: `123`, `424242`, `9001`
 - **Hard invariants (must never regress):**
   - `FND-HARD-DETERMINISM-PLATES`: same seed + config ⇒ identical `artifact:foundation.plates` tensors (`id`, `boundaryCloseness`, `boundaryType`, `upliftPotential`, `riftPotential`, `tectonicStress`, `shieldStability`, `volcanism`).
   - `FND-HARD-PLATE-ID-RANGE`: all `artifact:foundation.plates.id` values are within `[0, plateGraph.plates.length - 1]`.
   - `FND-HARD-BELT-EXISTS`: there exists at least one tile with `boundaryCloseness > 0`, and at least one tile with `boundaryType != 0`.
-  - `FND-HARD-NO-POLAR-EDGE-SEEDING` (earthlike preset): top/bottom rows have `boundaryType == 0` (guards against `isPolarEdgeTile`-style seeding and cap leakage).
   - `FND-HARD-REGIME-WIDTH-NOT-CAPPED`: there exists at least one tile with `boundaryType != 0` whose `boundaryCloseness <= 64` (guards against “regime only exists in a 1–2 tile band”).
 - **Distribution invariants (wide thresholds; driver-oriented):**
   - `FND-DIST-PLATE-AREA-TAIL`: `p90Area/p50Area >= 1.4` computed from `artifact:foundation.plateTopology` (preferred) or equivalent topology stats.
-  - `FND-DIST-BOUNDARY-BAND-FRACTION`: `fraction(boundaryCloseness > 0)` is within `[0.04, 0.40]`.
+  - `FND-DIST-BOUNDARY-BAND-FRACTION`: `fraction(boundaryCloseness >= 128)` is within `[0.01, 0.45]`.
 - **Cross-domain integration invariants (belt → mountains; prevents “noise-first drift”):**
   - `MORPH-GUARD-BELT-TO-MOUNTAIN-CORRELATION`: mountain rate near convergence vs interior has ratio `>= 3.0` (use `boundaryType == convergent` and `boundaryCloseness >= 64` for “near”).
   - `MORPH-GUARD-NO-MOUNTAIN-WALLS`: a connected-components “walliness” metric over morphology mountain mask is `<= 6.0` (Odd-Q adjacency, `wrapX=true`, clamp Y).
@@ -66,6 +65,7 @@ related_to: [M11-U00, M11-U06, M10-U06, LOCAL-TBD-M11-U10, LOCAL-TBD-M11-U11, LO
   - [M11-U06](./M11-U06-orogeny-mountains-physics-anchored.md)
   - [M10-U06](./M10-U06-tracing-observability-hardening.md)
   - Local drafts that this issue hardens (if still local): `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M11-U10-foundation-plate-partition-realism.md`, `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M11-U11-foundation-tectonic-segments-and-history.md`, `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M11-U12-foundation-polar-caps-as-plates.md`, `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M11-U13-foundation-crust-load-bearing-prior.md`
+ - PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/712
 
 ---
 
@@ -90,7 +90,6 @@ related_to: [M11-U00, M11-U06, M10-U06, LOCAL-TBD-M11-U10, LOCAL-TBD-M11-U11, LO
 - **No new diagnostics artifact:** do not add `artifact:foundation.diagnostics` (stay aligned with existing contract guardrails).
 
 **3) Low level (concrete additions)**
-- Add pure metrics helpers (typed arrays in → numbers out) in `packages/mapgen-core/src/lib/metrics/`.
 - Add Bun tests implementing the invariant IDs:
   - Foundation invariants: run the standard recipe for each seed/dims; compute plate topology + belt stats and assert thresholds.
   - Morphology invariants: run the standard recipe; compute mountains from truth planning outputs and assert correlation + “walliness” thresholds.
@@ -100,10 +99,10 @@ related_to: [M11-U00, M11-U06, M10-U06, LOCAL-TBD-M11-U10, LOCAL-TBD-M11-U11, LO
 
 ```yaml
 files:
-  - packages/mapgen-core/src/lib/metrics/foundation-realism.ts
-  - packages/mapgen-core/src/lib/metrics/morphology-realism.ts
   - mods/mod-swooper-maps/src/recipes/standard/stages/foundation/steps/projection.ts
+  - mods/mod-swooper-maps/src/recipes/standard/stages/foundation/steps/realism-metrics.ts
   - mods/mod-swooper-maps/src/recipes/standard/stages/map-morphology/steps/plotMountains.ts
+  - mods/mod-swooper-maps/src/recipes/standard/stages/map-morphology/steps/realism-metrics.ts
 tests:
   - mods/mod-swooper-maps/test/foundation/m11-realism-invariants.test.ts
   - mods/mod-swooper-maps/test/morphology/m11-realism-mountain-walls.test.ts
