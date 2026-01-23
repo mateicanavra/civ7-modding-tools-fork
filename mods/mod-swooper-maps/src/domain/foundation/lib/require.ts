@@ -1,7 +1,7 @@
 import type { FoundationMesh } from "../ops/compute-mesh/contract.js";
 import type { FoundationCrust } from "../ops/compute-crust/contract.js";
 import type { FoundationPlateGraph } from "../ops/compute-plate-graph/contract.js";
-import type { FoundationTectonics } from "../ops/compute-tectonics/contract.js";
+import type { FoundationTectonics } from "../ops/compute-tectonic-history/contract.js";
 
 export function requireMesh(mesh: FoundationMesh | undefined, scope: string): FoundationMesh {
   if (!mesh) {
@@ -97,4 +97,3 @@ export function requireTectonics(
 
   return tectonics;
 }
-
