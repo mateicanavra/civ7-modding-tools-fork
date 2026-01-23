@@ -142,3 +142,7 @@ artifacts:
   - `mods/mod-swooper-maps/test/foundation/m11-projection-boundary-band.test.ts`
 - U12 adds/updates plate-policy-focused tests (caps/microplates/role marker), independent of tectonics/projection:
   - `mods/mod-swooper-maps/test/foundation/m11-polar-plates-policy.test.ts`
+
+### Trace
+- Branch: `agent-RAMBO-M11-U12-foundation-polar-caps-as-plates`
+- PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/710
