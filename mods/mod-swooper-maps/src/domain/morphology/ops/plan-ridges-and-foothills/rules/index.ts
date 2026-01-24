@@ -7,6 +7,11 @@ const BOUNDARY_CONVERGENT = 1;
 const BOUNDARY_DIVERGENT = 2;
 const BOUNDARY_TRANSFORM = 3;
 
+function clampByte(value: number): number {
+  if (!Number.isFinite(value)) return 0;
+  return Math.max(0, Math.min(255, Math.round(value))) | 0;
+}
+
 /**
  * Ensures ridge/foothill inputs match the expected map size.
  */
@@ -75,6 +80,31 @@ export function resolveBoundaryStrength(
   return Math.pow(normalized, exponent);
 }
 
+export function computeOrogenyPotential01(params: {
+  boundaryStrength: number;
+  boundaryType: number;
+  uplift: number;
+  stress: number;
+  rift: number;
+}): number {
+  const { boundaryStrength, boundaryType, uplift, stress, rift } = params;
+
+  const collision = boundaryType === BOUNDARY_CONVERGENT ? boundaryStrength : 0;
+  const transform = boundaryType === BOUNDARY_TRANSFORM ? boundaryStrength : 0;
+  const divergence = boundaryType === BOUNDARY_DIVERGENT ? boundaryStrength : 0;
+
+  const collisionSignal = collision * (0.6 * stress + 0.4 * uplift);
+  const transformSignal = transform * (0.4 * stress);
+  const divergenceSignal = divergence * (0.55 * rift + 0.15 * stress);
+
+  return clamp(collisionSignal + transformSignal + divergenceSignal, 0, 1);
+}
+
+export function computeFracture01(params: { boundaryStrength: number; stress: number; rift: number }): number {
+  const { boundaryStrength, stress, rift } = params;
+  return clamp(0.7 * boundaryStrength + 0.2 * stress + 0.1 * rift, 0, 1);
+}
+
 /**
  * Computes mountain score from tectonic signals and fractal noise.
  */
@@ -97,13 +127,21 @@ export function computeMountainScore(params: {
   const transform = boundaryType === BOUNDARY_TRANSFORM ? boundaryStrength : 0;
   const divergence = boundaryType === BOUNDARY_DIVERGENT ? boundaryStrength : 0;
 
+  const orogenyPotential01 = computeOrogenyPotential01({
+    boundaryStrength,
+    boundaryType,
+    uplift,
+    stress,
+    rift,
+  });
+
   let mountainScore =
     collision * scaledBoundaryWeight * (0.5 * stress + 0.5 * uplift) +
     uplift * scaledUpliftWeight * 0.5 +
-    fractal * config.fractalWeight * 0.3;
+    fractal * config.fractalWeight * 0.3 * orogenyPotential01;
 
   if (collision > 0) {
-    mountainScore += collision * scaledConvergenceBonus * (0.6 + fractal * 0.4);
+    mountainScore += collision * scaledConvergenceBonus * (0.6 + fractal * 0.4) * orogenyPotential01;
   }
 
   if (config.interiorPenaltyWeight > 0) {
@@ -132,11 +170,12 @@ export function computeHillScore(params: {
   boundaryStrength: number;
   boundaryType: number;
   uplift: number;
+  stress: number;
   rift: number;
   fractal: number;
   config: PlanRidgesAndFoothillsTypes["config"]["default"];
 }): number {
-  const { boundaryStrength, boundaryType, uplift, rift, fractal, config } = params;
+  const { boundaryStrength, boundaryType, uplift, stress, rift, fractal, config } = params;
 
   const scaledHillBoundaryWeight = config.hillBoundaryWeight * config.tectonicIntensity;
   const scaledHillConvergentFoothill = config.hillConvergentFoothill * config.tectonicIntensity;
@@ -144,9 +183,17 @@ export function computeHillScore(params: {
   const collision = boundaryType === BOUNDARY_CONVERGENT ? boundaryStrength : 0;
   const divergence = boundaryType === BOUNDARY_DIVERGENT ? boundaryStrength : 0;
 
+  const orogenyPotential01 = computeOrogenyPotential01({
+    boundaryStrength,
+    boundaryType,
+    uplift,
+    stress,
+    rift,
+  });
+
   const hillIntensity = Math.sqrt(boundaryStrength);
   const foothillExtent = 0.5 + fractal * 0.5;
-  let hillScore = fractal * config.fractalWeight * 0.8 + uplift * config.hillUpliftWeight * 0.3;
+  let hillScore = fractal * config.fractalWeight * 0.8 * orogenyPotential01 + uplift * config.hillUpliftWeight * 0.3;
 
   if (collision > 0 && config.hillBoundaryWeight > 0) {
     hillScore += hillIntensity * scaledHillBoundaryWeight * foothillExtent;
@@ -174,4 +221,8 @@ export function computeHillScore(params: {
  */
 export function normalizeRidgeFractal(value: number): number {
   return normalizeFractal(value);
+}
+
+export function encode01Byte(value01: number): number {
+  return clampByte(clamp(value01, 0, 1) * 255);
 }

@@ -44,6 +44,14 @@ function clampNumber(value: number, bounds: { min: number; max?: number }): numb
   return Math.max(bounds.min, Math.min(max, value));
 }
 
+const SHADE_RAMP = " .:-=+*#%@";
+
+function shadeByte(value: number): string {
+  const v = Math.max(0, Math.min(255, value | 0));
+  const idx = Math.max(0, Math.min(SHADE_RAMP.length - 1, Math.floor((v / 255) * (SHADE_RAMP.length - 1))));
+  return SHADE_RAMP[idx] ?? "?";
+}
+
 export default createStep(PlotMountainsStepContract, {
   normalize: (config, ctx) => {
     const { orogeny } = ctx.knobs as Readonly<{ orogeny?: MorphologyOrogenyKnob }>;
@@ -129,6 +137,42 @@ export default createStep(PlotMountainsStepContract, {
         kind: "morphology.mountains.ascii.reliefMask",
         sampleStep,
         legend: ".=land ~=water M=mountain h=hill",
+        rows,
+      };
+    });
+    context.trace.event(() => {
+      const sampleStep = computeSampleStep(width, height);
+      const rows = renderAsciiGrid({
+        width,
+        height,
+        sampleStep,
+        cellFn: (x, y) => {
+          const idx = y * width + x;
+          return { base: shadeByte(plan.orogenyPotential01?.[idx] ?? 0) };
+        },
+      });
+      return {
+        kind: "morphology.mountains.ascii.orogenyPotential01",
+        sampleStep,
+        legend: `${SHADE_RAMP} (low→high)`,
+        rows,
+      };
+    });
+    context.trace.event(() => {
+      const sampleStep = computeSampleStep(width, height);
+      const rows = renderAsciiGrid({
+        width,
+        height,
+        sampleStep,
+        cellFn: (x, y) => {
+          const idx = y * width + x;
+          return { base: shadeByte(plan.fracture01?.[idx] ?? 0) };
+        },
+      });
+      return {
+        kind: "morphology.mountains.ascii.fracture01",
+        sampleStep,
+        legend: `${SHADE_RAMP} (low→high)`,
         rows,
       };
     });

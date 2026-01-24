@@ -28,7 +28,7 @@ Non-negotiables (carry forward):
 - [x] [M11-U03 — Foundation crust coherence upgrade](../issues/M11-U03-foundation-crust-coherence-upgrade.md) (branch: `agent-KIMMY-M11-U03-foundation-crust-coherence-upgrade`)
 - [x] [M11-U04 — Foundation tile material drivers + polar boundary conditions](../issues/M11-U04-foundation-tile-material-drivers.md) (branch: `agent-KIMMY-M11-U04-foundation-tile-material-drivers`)
 - [x] [M11-U05 — Morphology substrate material-driven rewrite](../issues/M11-U05-morphology-substrate-material-driven.md) (branch: `agent-KIMMY-M11-U05-morphology-substrate-material-driven`)
-- [ ] [M11-U06 — Orogeny + mountains: physics-anchored planning (noise as micro-structure only)](../issues/M11-U06-orogeny-mountains-physics-anchored.md)
+- [x] [M11-U06 — Orogeny + mountains: physics-anchored planning (noise as micro-structure only)](../issues/M11-U06-orogeny-mountains-physics-anchored.md) (branch: `agent-KIMMY-M11-U06-orogeny-mountains-physics-anchored`)
 - [ ] [M11-U07 — Volcano truth contract completion](../issues/M11-U07-volcanoes-truth-contract-completion.md)
 - [ ] [M11-U08 — Polar boundary conditions + cryosphere truth](../issues/M11-U08-polar-boundary-and-cryosphere.md)
 - [ ] [M11-U09 — Geomorphology upgrade: stream-power erosion + sediment transport](../issues/M11-U09-geomorphology-stream-power-erosion.md)

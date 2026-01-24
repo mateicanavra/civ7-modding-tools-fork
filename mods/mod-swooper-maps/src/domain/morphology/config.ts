@@ -318,8 +318,7 @@ export const MountainsConfigSchema = Type.Object(
     /**
      * Boundary-closeness gate (0..0.99).
      *
-     * Tiles with boundary closeness at-or-below this value receive no boundary-driven contribution,
-     * but can still form mountains/hills from uplift + fractal noise.
+     * Tiles with boundary closeness at-or-below this value receive no boundary-driven contribution.
      *
      * Set to 0 for more interior variety; raise it to keep mountains concentrated along active margins.
      */

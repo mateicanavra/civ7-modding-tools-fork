@@ -23,6 +23,12 @@ const PlanRidgesAndFoothillsContract = defineOp({
   output: Type.Object({
     mountainMask: TypedArraySchemas.u8({ description: "Mask (1/0): mountain tiles." }),
     hillMask: TypedArraySchemas.u8({ description: "Mask (1/0): hill tiles (excluding mountains)." }),
+    orogenyPotential01: TypedArraySchemas.u8({
+      description: "Orogeny potential per tile (0..255). Diagnostic driver surface (physics-gated).",
+    }),
+    fracture01: TypedArraySchemas.u8({
+      description: "Fracture proxy per tile (0..255). Diagnostic driver surface (physics-gated).",
+    }),
   }),
   strategies: {
     default: MountainsConfigSchema,

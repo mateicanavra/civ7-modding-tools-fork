@@ -1,8 +1,11 @@
 import { createStrategy } from "@swooper/mapgen-core/authoring";
 import PlanRidgesAndFoothillsContract from "../contract.js";
 import {
+  computeFracture01,
+  computeOrogenyPotential01,
   computeHillScore,
   computeMountainScore,
+  encode01Byte,
   normalizeRidgeFractal,
   resolveBoundaryStrength,
   validateRidgesInputs,
@@ -15,6 +18,8 @@ export const defaultStrategy = createStrategy(PlanRidgesAndFoothillsContract, "d
 
     const scores = new Float32Array(size);
     const hillScores = new Float32Array(size);
+    const orogenyPotential01 = new Uint8Array(size);
+    const fracture01 = new Uint8Array(size);
 
     const boundaryGate = Math.min(0.99, Math.max(0, config.boundaryGate));
     const falloffExponent = config.boundaryExponent;
@@ -33,6 +38,18 @@ export const defaultStrategy = createStrategy(PlanRidgesAndFoothillsContract, "d
       const fractalMtn = normalizeRidgeFractal(fractalMountain[i]);
       const fractalHillValue = normalizeRidgeFractal(fractalHill[i]);
 
+      const orogeny = computeOrogenyPotential01({
+        boundaryStrength,
+        boundaryType: bType,
+        uplift,
+        stress,
+        rift,
+      });
+      orogenyPotential01[i] = encode01Byte(orogeny);
+
+      const fracture = computeFracture01({ boundaryStrength, stress, rift });
+      fracture01[i] = encode01Byte(fracture);
+
       scores[i] = computeMountainScore({
         boundaryStrength,
         boundaryType: bType,
@@ -47,6 +64,7 @@ export const defaultStrategy = createStrategy(PlanRidgesAndFoothillsContract, "d
         boundaryStrength,
         boundaryType: bType,
         uplift,
+        stress,
         rift,
         fractal: fractalHillValue,
         config,
@@ -71,6 +89,6 @@ export const defaultStrategy = createStrategy(PlanRidgesAndFoothillsContract, "d
       }
     }
 
-    return { mountainMask, hillMask };
+    return { mountainMask, hillMask, orogenyPotential01, fracture01 };
   },
 });
