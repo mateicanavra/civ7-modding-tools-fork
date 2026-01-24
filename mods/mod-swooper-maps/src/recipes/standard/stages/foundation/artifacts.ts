@@ -9,6 +9,8 @@ import {
   FOUNDATION_TILE_TO_CELL_INDEX_ARTIFACT_TAG,
 } from "@swooper/mapgen-core";
 
+const FOUNDATION_PLATE_TOPOLOGY_ARTIFACT_TAG = "artifact:foundation.plateTopology";
+
 const FoundationPlatesArtifactSchema = Type.Object(
   {
     id: TypedArraySchemas.i16({ description: "Plate id per tile." }),
@@ -107,6 +109,32 @@ const FoundationPlateGraphArtifactSchema = Type.Object(
   { additionalProperties: false }
 );
 
+const FoundationPlateTopologyArtifactSchema = Type.Object(
+  {
+    plateCount: Type.Integer({ minimum: 1 }),
+    plates: Type.Immutable(
+      Type.Array(
+        Type.Object(
+          {
+            id: Type.Integer({ minimum: 0 }),
+            area: Type.Integer({ minimum: 0 }),
+            centroid: Type.Object(
+              {
+                x: Type.Number(),
+                y: Type.Number(),
+              },
+              { additionalProperties: false }
+            ),
+            neighbors: Type.Array(Type.Integer({ minimum: 0 }), { default: [] }),
+          },
+          { additionalProperties: false }
+        )
+      )
+    ),
+  },
+  { additionalProperties: false }
+);
+
 const FoundationTectonicsArtifactSchema = Type.Object(
   {
     boundaryType: TypedArraySchemas.u8({
@@ -152,6 +180,11 @@ export const foundationArtifacts = {
     name: "foundationPlateGraph",
     id: FOUNDATION_PLATE_GRAPH_ARTIFACT_TAG,
     schema: FoundationPlateGraphArtifactSchema,
+  }),
+  plateTopology: defineArtifact({
+    name: "foundationPlateTopology",
+    id: FOUNDATION_PLATE_TOPOLOGY_ARTIFACT_TAG,
+    schema: FoundationPlateTopologyArtifactSchema,
   }),
   tectonics: defineArtifact({
     name: "foundationTectonics",

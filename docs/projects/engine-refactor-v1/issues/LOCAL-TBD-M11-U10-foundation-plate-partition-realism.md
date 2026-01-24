@@ -22,33 +22,33 @@ related_to: [M11-U00]
 
 ## Deliverables
 - Shared slice invariants: see `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M11-U15-foundation-realism-execution-spine.md` (`FND-INV-*`).
-- [ ] Replace `foundation/compute-plate-graph`’s Voronoi-nearest assignment with a realism-first partition:
+- [x] Replace `foundation/compute-plate-graph`’s Voronoi-nearest assignment with a realism-first partition:
   - Multi-source weighted region growth (Dijkstra/flood fill) over mesh adjacency.
   - Variable-size distribution by default (few large plates + tail of smaller plates/microplates).
   - Crust-aware resistance so old continental/craton cores are not routinely bisected.
-- [ ] Publish `artifact:foundation.plateTopology` as a first-class truth artifact computed from rasterized plate IDs (tile plate id field) with cylinder wrap semantics.
-- [ ] Add plate partition validation metrics (used in tests; optionally emitted via trace/diagnostics):
+- [x] Publish `artifact:foundation.plateTopology` as a first-class truth artifact computed from rasterized plate IDs (tile plate id field) with cylinder wrap semantics.
+- [x] Add plate partition validation metrics (used in tests; optionally emitted via trace/diagnostics):
   - plate area distribution (heavy-tail / non-uniform)
   - adjacency degree distribution (non-degenerate)
   - sliver detection (no tiny/thin plates in the default configuration)
-- [ ] Update Foundation tests to lock determinism + realism metrics without hard-coding full plate maps.
+- [x] Update Foundation tests to lock determinism + realism metrics without hard-coding full plate maps.
 
 ## Acceptance Criteria
 - Partition realism
-  - [ ] Default Foundation outputs no longer resemble uniform Voronoi blobs (qualitative): a few plate interiors dominate area; boundaries do not read as an even mosaic.
-  - [ ] Plate area distribution is measurably non-uniform (quantitative, via `artifact:foundation.plateTopology`):
+  - [x] Default Foundation outputs no longer resemble uniform Voronoi blobs (qualitative): a few plate interiors dominate area; boundaries do not read as an even mosaic.
+  - [x] Plate area distribution is measurably non-uniform (quantitative, via `artifact:foundation.plateTopology`):
     - `p90Area / p50Area >= 1.4` on a representative test map (e.g. `60x40`) for at least 2 deterministic seeds.
     - `minArea >= 8` tiles (no “one-tile plates” / slivers) for the same test cases.
-  - [ ] Adjacency degrees are plausible and non-degenerate (quantitative, via `artifact:foundation.plateTopology`):
+  - [x] Adjacency degrees are plausible and non-degenerate (quantitative, via `artifact:foundation.plateTopology`):
     - mean degree is within a reasonable band (e.g. `3..7`)
     - variance is non-zero (not all plates have the same neighbor count)
 - Topology artifact contract
-  - [ ] `artifact:foundation.plateTopology` is published by the Foundation stage and includes, at minimum, `plateCount` plus per-plate `{ id, area, centroid, neighbors }`.
-  - [ ] Topology neighbor relations are symmetric (`A` lists `B` ⇒ `B` lists `A`) and respect the cylinder invariant (`wrapX=true`, `wrapY=false`).
-  - [ ] `plateCount` is consistent with the raster plate id field used to build it (`0..plateCount-1`, no out-of-range IDs).
+  - [x] `artifact:foundation.plateTopology` is published by the Foundation stage and includes, at minimum, `plateCount` plus per-plate `{ id, area, centroid, neighbors }`.
+  - [x] Topology neighbor relations are symmetric (`A` lists `B` ⇒ `B` lists `A`) and respect the cylinder invariant (`wrapX=true`, `wrapY=false`).
+  - [x] `plateCount` is consistent with the raster plate id field used to build it (`0..plateCount-1`, no out-of-range IDs).
 - Determinism + single-path cutover
-  - [ ] The partition + topology are deterministic under the same `{seed, config, dimensions}` (tests assert stability).
-  - [ ] There is no legacy/Voronoi “fallback” strategy preserved in the shipped pipeline (single coherent model).
+  - [x] The partition + topology are deterministic under the same `{seed, config, dimensions}` (tests assert stability).
+  - [x] There is no legacy/Voronoi “fallback” strategy preserved in the shipped pipeline (single coherent model).
 
 ## Testing / Verification
 - Run the Foundation test suite:
@@ -58,6 +58,8 @@ related_to: [M11-U00]
   - (Optional) Add a dedicated metrics test file if it improves clarity (still Bun tests under `mods/mod-swooper-maps/test/foundation/`).
 - Smoke-check the full workspace if needed:
   - `pnpm test`
+- Verification (this slice):
+  - `pnpm -C mods/mod-swooper-maps test` ✅
 
 ## Dependencies / Notes
 - Related plan: `docs/projects/engine-refactor-v1/issues/M11-U00-physics-first-realism-upgrade-plan.md`
@@ -66,6 +68,9 @@ related_to: [M11-U00]
   - `docs/projects/engine-refactor-v1/resources/spike/foundation-realism/plate-partition-realism.md`
   - `docs/projects/engine-refactor-v1/resources/spike/spike-foundation-realism-open-questions-alternatives.md` (Q4)
 - North-star algorithm expectations: `docs/projects/engine-refactor-v1/resources/PRD-plate-generation.md` (see “7.3 Plate partitioning”)
+- Traceability:
+  - Branch: `agent-RAMBO-M11-U10-foundation-plate-partition-realism`
+  - PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/708
 - Notes
   - This issue intentionally does **not** tackle tectonic segments/history, polar plates, or crust ownership changes; it focuses on making the partition (and its topology) realism-grade so downstream physics can build on it.
 

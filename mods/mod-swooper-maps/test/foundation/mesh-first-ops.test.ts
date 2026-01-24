@@ -1,8 +1,10 @@
 import { describe, it, expect } from "bun:test";
+import { buildPlateTopology } from "@swooper/mapgen-core/lib/plates";
 import computeMesh from "../../src/domain/foundation/ops/compute-mesh/index.js";
 import computeCrust from "../../src/domain/foundation/ops/compute-crust/index.js";
 import computePlateGraph from "../../src/domain/foundation/ops/compute-plate-graph/index.js";
 import computeTectonics from "../../src/domain/foundation/ops/compute-tectonics/index.js";
+import computePlatesTensors from "../../src/domain/foundation/ops/compute-plates-tensors/index.js";
 
 function neighborsFor(mesh: {
   neighborsOffsets: Int32Array;
@@ -17,6 +19,31 @@ function sumAreas(areas: Float32Array): number {
   let total = 0;
   for (let i = 0; i < areas.length; i++) total += areas[i] ?? 0;
   return total;
+}
+
+function quantile(sorted: number[], q: number): number {
+  if (sorted.length === 0) return 0;
+  const clamped = Math.max(0, Math.min(1, q));
+  const idx = Math.floor((sorted.length - 1) * clamped);
+  return sorted[idx] ?? 0;
+}
+
+function mean(values: number[]): number {
+  if (values.length === 0) return 0;
+  let s = 0;
+  for (let i = 0; i < values.length; i++) s += values[i] ?? 0;
+  return s / values.length;
+}
+
+function variance(values: number[]): number {
+  if (values.length === 0) return 0;
+  const m = mean(values);
+  let s = 0;
+  for (let i = 0; i < values.length; i++) {
+    const d = (values[i] ?? 0) - m;
+    s += d * d;
+  }
+  return s / values.length;
 }
 
 describe("foundation mesh-first ops (slice 2)", () => {
@@ -176,6 +203,72 @@ describe("foundation mesh-first ops (slice 2)", () => {
     expect(tectA.volcanism.length).toBe(mesh.cellCount);
     expect(tectA.fracture.length).toBe(mesh.cellCount);
     expect(tectA.cumulativeUplift.length).toBe(mesh.cellCount);
+  });
+
+  it("plate partition yields non-uniform areas and plausible adjacency degrees (topology metrics)", () => {
+    const width = 60;
+    const height = 40;
+
+    const ctx = { env: { dimensions: { width, height } }, knobs: {} };
+    const meshConfig = computeMesh.normalize(
+      {
+        strategy: "default",
+        config: { plateCount: 16, cellsPerPlate: 3, relaxationSteps: 2, referenceArea: 2400, plateScalePower: 0 },
+      },
+      ctx as any
+    );
+
+    const runCase = (seed: number) => {
+      const mesh = computeMesh.run({ width, height, rngSeed: 1000 + seed }, meshConfig).mesh;
+      const crust = computeCrust.run({ mesh, rngSeed: 2000 + seed }, computeCrust.defaultConfig).crust;
+
+      const plateGraph = computePlateGraph.run(
+        { mesh, crust, rngSeed: 3000 + seed },
+        { strategy: "default", config: { plateCount: 16, referenceArea: 2400, plateScalePower: 0 } }
+      ).plateGraph;
+
+      const tectonics = computeTectonics.run(
+        { mesh, crust, plateGraph },
+        computeTectonics.defaultConfig
+      ).tectonics;
+
+      const platesTensors = computePlatesTensors.run(
+        { width, height, mesh, crust, plateGraph, tectonics },
+        computePlatesTensors.defaultConfig
+      );
+
+      const tilePlateIds = platesTensors.plates.id;
+      let maxId = -1;
+      for (let i = 0; i < tilePlateIds.length; i++) maxId = Math.max(maxId, tilePlateIds[i] | 0);
+      const plateCount = maxId + 1;
+      expect(plateCount).toBe(16);
+
+      const topology = buildPlateTopology(tilePlateIds, width, height, plateCount);
+      const areas = topology.map((p) => p.area);
+      const minArea = Math.min(...areas);
+
+      const sortedAreas = [...areas].sort((a, b) => a - b);
+      const p50 = quantile(sortedAreas, 0.5);
+      const p90 = quantile(sortedAreas, 0.9);
+
+      const degrees = topology.map((p) => p.neighbors.length);
+      const meanDegree = mean(degrees);
+      const degreeVar = variance(degrees);
+
+      return { minArea, p50, p90, meanDegree, degreeVar };
+    };
+
+    const a = runCase(1);
+    const b = runCase(2);
+
+    for (const c of [a, b]) {
+      expect(c.minArea).toBeGreaterThanOrEqual(8);
+      expect(c.p50).toBeGreaterThan(0);
+      expect(c.p90 / c.p50).toBeGreaterThanOrEqual(1.4);
+      expect(c.meanDegree).toBeGreaterThanOrEqual(3);
+      expect(c.meanDegree).toBeLessThanOrEqual(7);
+      expect(c.degreeVar).toBeGreaterThan(0);
+    }
   });
 
   it("compute-crust exhibits spatial coherence (non-IID)", () => {

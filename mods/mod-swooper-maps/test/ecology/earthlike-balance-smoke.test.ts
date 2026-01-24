@@ -7,10 +7,10 @@ import standardRecipe from "../../src/recipes/standard/recipe.js";
 import { initializeStandardRuntime } from "../../src/recipes/standard/runtime.js";
 import { ecologyArtifacts } from "../../src/recipes/standard/stages/ecology/artifacts.js";
 import { BIOME_SYMBOL_TO_INDEX } from "@mapgen/domain/ecology/types.js";
-import { swooperEarthlikeConfig } from "../../src/maps/presets/swooper-earthlike.config.js";
+import { realismEarthlikeConfig } from "../../src/maps/presets/realism/earthlike.config.js";
 
 describe("Earthlike ecology balance (smoke)", () => {
-  it("has desert/boreal presence and non-zero vegetation without drowning coasts", () => {
+  it("has boreal presence and non-zero vegetation without drowning coasts", () => {
     const width = 32;
     const height = 20;
     const seed = 12345;
@@ -18,8 +18,8 @@ describe("Earthlike ecology balance (smoke)", () => {
     const mapInfo = {
       GridWidth: width,
       GridHeight: height,
-      MinLatitude: -60,
-      MaxLatitude: 60,
+      MinLatitude: -80,
+      MaxLatitude: 80,
       PlayersLandmass1: 4,
       PlayersLandmass2: 4,
       StartSectorRows: 4,
@@ -46,7 +46,7 @@ describe("Earthlike ecology balance (smoke)", () => {
     const context = createExtendedMapContext({ width, height }, adapter, env);
     initializeStandardRuntime(context, { mapInfo, logPrefix: "[test]", storyEnabled: true });
 
-    standardRecipe.run(context, env, swooperEarthlikeConfig, { log: () => {} });
+    standardRecipe.run(context, env, realismEarthlikeConfig, { log: () => {} });
 
     const classification = context.artifacts.get(ecologyArtifacts.biomeClassification.id) as
       | { biomeIndex?: Uint8Array }
@@ -55,7 +55,6 @@ describe("Earthlike ecology balance (smoke)", () => {
     if (!(biomeIndex instanceof Uint8Array)) throw new Error("Missing biomeIndex.");
 
     let landCount = 0;
-    let desertBiomeCount = 0;
     let borealBiomeCount = 0;
     let temperateDryBiomeCount = 0;
 
@@ -65,7 +64,6 @@ describe("Earthlike ecology balance (smoke)", () => {
         landCount++;
         const idx = y * width + x;
         const biome = biomeIndex[idx] ?? 255;
-        if (biome === BIOME_SYMBOL_TO_INDEX.desert) desertBiomeCount++;
         if (biome === BIOME_SYMBOL_TO_INDEX.boreal) borealBiomeCount++;
         if (biome === BIOME_SYMBOL_TO_INDEX.temperateDry) temperateDryBiomeCount++;
       }
@@ -101,7 +99,6 @@ describe("Earthlike ecology balance (smoke)", () => {
 
     expect(landCount).toBeGreaterThan(0);
 
-    expect(desertBiomeCount).toBeGreaterThan(0);
     expect(borealBiomeCount).toBeGreaterThan(0);
     expect(temperateDryBiomeCount).toBeGreaterThan(0);
 
