@@ -1,0 +1,6 @@
+:{$PORT:3000} {
+    root * dist
+    encode gzip
+    file_server
+    try_files {path} /index.html
+}
