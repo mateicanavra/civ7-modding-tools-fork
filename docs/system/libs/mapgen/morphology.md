@@ -1,10 +1,14 @@
 # Morphology
 
-> **Status:** Canonical (domain-only causality + contract spec)
+> **Status:** Conceptual / aspirational (not a Phase 2 contract authority)
 >
 > **This doc is:** what Morphology *means* in the pipeline: responsibilities, inputs, outputs, and first-principles causal model.
 >
-> **This doc is not:** SDK wiring guidance (step/stage file layout, authoring mechanics, adapters).
+> **This doc is not:** a locked Phase 2 contract/spec authority (schemas, required inputs/outputs, determinism anchors) or SDK wiring guidance (step/stage file layout, authoring mechanics, adapters).
+
+Phase 2 contract authority lives in:
+- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-CORE-MODEL-AND-PIPELINE.md`
+- `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/morphology/spec/PHASE-2-CONTRACTS.md`
 
 ## Overview
 
@@ -76,7 +80,8 @@ interface MorphologyBuffers {
 
   /**
    * Per-cell coefficient K representing resistance to erosion.
-   * Derived from crust type/age (granite is hard, sandstone is soft).
+   * Phase 2 baseline derives this from Foundation-provided tectonic driver fields as a proxy.
+   * Evolution may incorporate explicit material/lithology drivers when Foundation publishes them as truth surfaces.
    */
   erodibility: Float32Array;
 

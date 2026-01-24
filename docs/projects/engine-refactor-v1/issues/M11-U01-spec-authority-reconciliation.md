@@ -1,7 +1,7 @@
 ---
 id: M11-U01
 title: "[M11/U01] Phase 2 spec + docs authority reconciliation (Morphology physics-first)"
-state: planned
+state: done
 priority: 2
 estimate: 2
 project: engine-refactor-v1
@@ -34,6 +34,15 @@ related_to: [M11-U00, M10-U05]
   - consume `artifact:map.*` / `effect:map.*`, or
   - read `buffer:heightfield`/adapter state as truth inputs.
 - A guardrail exists that prevents regressions of this doc drift class.
+
+## Implementation Decisions
+
+### Treat Phase 2 substrate drivers as uplift/rift baseline (material drivers are explicit evolution)
+- **Context:** Phase 2 docs contradicted themselves: the step map described uplift/rift-only substrate inputs while the contracts doc stated crust/material drivers as a requirement.
+- **Options:** (A) amend Phase 2 to require material/lithology drivers immediately, (B) clarify Phase 2 baseline as uplift/rift-only with material drivers as explicit evolution.
+- **Choice:** (B) clarify Phase 2 baseline as uplift/rift-only and document material drivers as an explicit (non-silent) evolution path.
+- **Rationale:** matches current implementation and keeps “physics-first upgrades” reviewable as follow-on work rather than retroactive canon.
+- **Risk:** requires discipline to avoid treating “material drivers” as implied without a published truth surface and explicit migration slice.
 
 ## Testing / Verification
 - `rg -n \"canonical\" docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/examples -S`

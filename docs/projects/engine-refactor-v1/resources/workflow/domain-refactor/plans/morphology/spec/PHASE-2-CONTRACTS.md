@@ -425,7 +425,9 @@ type MorphologySubstrateArtifact = {
 ```
 
 Semantics:
-- `erodibilityK` must be derived from Foundation crust/material drivers (and Morphology rules); it must not be “authored” as a paint mask or gameplay overlay.
+- `erodibilityK` must be derived deterministically from Foundation-provided Physics driver fields (and Morphology rules); it must not be “authored” as a paint mask or gameplay overlay.
+  - Phase 2 baseline uses the drivers that exist at tile resolution (`artifact:foundation.plates` tectonic signals) as a proxy.
+  - If/when Foundation publishes explicit material/lithology drivers (e.g., projected crust/material fields), they become the primary substrate driver surface without changing the “no overlays / no author painting” rule.
 - `sedimentDepth` is updated by Morphology geomorphic cycles; downstream domains treat it as truth at F2.
 
 ### `artifact:morphology.coastlineMetrics` (required; truth)
