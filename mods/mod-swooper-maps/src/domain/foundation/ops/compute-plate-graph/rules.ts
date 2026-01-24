@@ -1,4 +1,4 @@
-import { clamp01, distanceSqWrapped } from "@swooper/mapgen-core/lib/math";
+import { clamp01, wrapDeltaPeriodic } from "@swooper/mapgen-core/lib/math";
 
 import type { FoundationPlate } from "./contract.js";
 
@@ -72,6 +72,18 @@ export class MinHeap {
     if (a.cellId !== b.cellId) return a.cellId < b.cellId;
     return a.seq < b.seq;
   }
+}
+
+export function distanceSqWrapped(
+  ax: number,
+  ay: number,
+  bx: number,
+  by: number,
+  wrapWidth: number
+): number {
+  const dx = wrapDeltaPeriodic(ax - bx, wrapWidth);
+  const dy = ay - by;
+  return dx * dx + dy * dy;
 }
 
 export function crustAgeNorm(age: number): number {
