@@ -2,6 +2,12 @@ import { computeSampleStep, renderAsciiGrid } from "@swooper/mapgen-core";
 import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import VolcanoesStepContract from "./volcanoes.contract.js";
 import { deriveStepSeed } from "@swooper/mapgen-core/lib/rng";
+import {
+  MORPHOLOGY_VOLCANISM_BASE_DENSITY_MULTIPLIER,
+  MORPHOLOGY_VOLCANISM_CONVERGENT_MULTIPLIER_MULTIPLIER,
+  MORPHOLOGY_VOLCANISM_HOTSPOT_WEIGHT_MULTIPLIER,
+} from "@mapgen/domain/morphology/shared/knob-multipliers.js";
+import type { MorphologyVolcanismKnob } from "@mapgen/domain/morphology/shared/knobs.js";
 
 type ArtifactValidationIssue = Readonly<{ message: string }>;
 type VolcanoKind = "subductionArc" | "rift" | "hotspot";
@@ -42,12 +48,42 @@ function clamp01(value: number): number {
   return value;
 }
 
+function clampNumber(value: number, bounds: { min: number; max?: number }): number {
+  if (!Number.isFinite(value)) return bounds.min;
+  const max = bounds.max ?? Number.POSITIVE_INFINITY;
+  return Math.max(bounds.min, Math.min(max, value));
+}
+
 export default createStep(VolcanoesStepContract, {
   artifacts: implementArtifacts(VolcanoesStepContract.artifacts!.provides!, {
     volcanoes: {
       validate: (value) => validateVolcanoes(value),
     },
   }),
+  normalize: (config, ctx) => {
+    const { volcanism } = ctx.knobs as Readonly<{ volcanism?: MorphologyVolcanismKnob }>;
+    const densityMultiplier = MORPHOLOGY_VOLCANISM_BASE_DENSITY_MULTIPLIER[volcanism ?? "normal"] ?? 1.0;
+    const hotspotMultiplier = MORPHOLOGY_VOLCANISM_HOTSPOT_WEIGHT_MULTIPLIER[volcanism ?? "normal"] ?? 1.0;
+    const convergentMultiplier =
+      MORPHOLOGY_VOLCANISM_CONVERGENT_MULTIPLIER_MULTIPLIER[volcanism ?? "normal"] ?? 1.0;
+
+    const volcanoesSelection =
+      config.volcanoes.strategy === "default"
+        ? {
+            ...config.volcanoes,
+            config: {
+              ...config.volcanoes.config,
+              baseDensity: clampNumber(config.volcanoes.config.baseDensity * densityMultiplier, { min: 0 }),
+              hotspotWeight: clampNumber(config.volcanoes.config.hotspotWeight * hotspotMultiplier, { min: 0 }),
+              convergentMultiplier: clampNumber(config.volcanoes.config.convergentMultiplier * convergentMultiplier, {
+                min: 0,
+              }),
+            },
+          }
+        : config.volcanoes;
+
+    return { ...config, volcanoes: volcanoesSelection };
+  },
   run: (context, config, ops, deps) => {
     const plates = deps.artifacts.foundationPlates.read(context);
     const topography = deps.artifacts.topography.read(context);

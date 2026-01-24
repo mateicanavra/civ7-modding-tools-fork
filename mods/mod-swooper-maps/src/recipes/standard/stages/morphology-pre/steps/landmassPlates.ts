@@ -2,6 +2,8 @@ import { computeSampleStep, ctxRandom, ctxRandomLabel, renderAsciiGrid } from "@
 import type { MapDimensions } from "@civ7/adapter";
 import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import LandmassPlatesStepContract from "./landmassPlates.contract.js";
+import { MORPHOLOGY_SEA_LEVEL_TARGET_WATER_PERCENT_DELTA } from "@mapgen/domain/morphology/shared/knob-multipliers.js";
+import type { MorphologySeaLevelKnob } from "@mapgen/domain/morphology/shared/knobs.js";
 
 type ArtifactValidationIssue = Readonly<{ message: string }>;
 
@@ -107,6 +109,12 @@ function clampInt16(value: number): number {
   return value;
 }
 
+function clampNumber(value: number, bounds: { min: number; max?: number }): number {
+  if (!Number.isFinite(value)) return bounds.min;
+  const max = bounds.max ?? Number.POSITIVE_INFINITY;
+  return Math.max(bounds.min, Math.min(max, value));
+}
+
 export default createStep(LandmassPlatesStepContract, {
   artifacts: implementArtifacts(LandmassPlatesStepContract.artifacts!.provides!, {
     topography: {
@@ -116,6 +124,26 @@ export default createStep(LandmassPlatesStepContract, {
       validate: (value, context) => validateSubstrateBuffer(value, context.dimensions),
     },
   }),
+  normalize: (config, ctx) => {
+    const { seaLevel } = ctx.knobs as Readonly<{ seaLevel?: MorphologySeaLevelKnob }>;
+    const delta = MORPHOLOGY_SEA_LEVEL_TARGET_WATER_PERCENT_DELTA[seaLevel ?? "earthlike"] ?? 0;
+
+    const seaLevelSelection =
+      config.seaLevel.strategy === "default"
+        ? {
+            ...config.seaLevel,
+            config: {
+              ...config.seaLevel.config,
+              targetWaterPercent: clampNumber((config.seaLevel.config.targetWaterPercent ?? 0) + delta, {
+                min: 0,
+                max: 100,
+              }),
+            },
+          }
+        : config.seaLevel;
+
+    return { ...config, seaLevel: seaLevelSelection };
+  },
   run: (context, config, ops, deps) => {
     const plates = deps.artifacts.foundationPlates.read(context);
     const { width, height } = context.dimensions;

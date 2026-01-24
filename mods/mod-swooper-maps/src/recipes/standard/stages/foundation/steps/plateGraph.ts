@@ -3,6 +3,14 @@ import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import { foundationArtifacts } from "../artifacts.js";
 import PlateGraphStepContract from "./plateGraph.contract.js";
 import { validatePlateGraphArtifact, wrapFoundationValidateNoDims } from "./validation.js";
+import { FOUNDATION_PLATE_COUNT_MULTIPLIER } from "@mapgen/domain/foundation/shared/knob-multipliers.js";
+import type { FoundationPlateCountKnob } from "@mapgen/domain/foundation/shared/knobs.js";
+
+function clampInt(value: number, bounds: { min: number; max?: number }): number {
+  const rounded = Math.round(value);
+  const max = bounds.max ?? Number.POSITIVE_INFINITY;
+  return Math.max(bounds.min, Math.min(max, rounded));
+}
 
 export default createStep(PlateGraphStepContract, {
   artifacts: implementArtifacts([foundationArtifacts.plateGraph], {
@@ -10,6 +18,26 @@ export default createStep(PlateGraphStepContract, {
       validate: (value) => wrapFoundationValidateNoDims(value, validatePlateGraphArtifact),
     },
   }),
+  normalize: (config, ctx) => {
+    const { plateCount } = ctx.knobs as Readonly<{ plateCount?: FoundationPlateCountKnob }>;
+    const multiplier = FOUNDATION_PLATE_COUNT_MULTIPLIER[plateCount ?? "normal"] ?? 1.0;
+
+    const computePlateGraph =
+      config.computePlateGraph.strategy === "default"
+        ? {
+            ...config.computePlateGraph,
+            config: {
+              ...config.computePlateGraph.config,
+              plateCount: clampInt((config.computePlateGraph.config.plateCount ?? 0) * multiplier, {
+                min: 2,
+                max: 256,
+              }),
+            },
+          }
+        : config.computePlateGraph;
+
+    return { ...config, computePlateGraph };
+  },
   run: (context, config, ops, deps) => {
     const mesh = deps.artifacts.foundationMesh.read(context);
     const crust = deps.artifacts.foundationCrust.read(context);

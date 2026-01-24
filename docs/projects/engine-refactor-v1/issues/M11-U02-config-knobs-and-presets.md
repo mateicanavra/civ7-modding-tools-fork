@@ -1,7 +1,7 @@
 ---
 id: M11-U02
 title: "[M11/U02] Author config overhaul: knobs + presets + config layering"
-state: planned
+state: done
 priority: 1
 estimate: 4
 project: engine-refactor-v1
@@ -58,3 +58,19 @@ related_to: [M11-U00]
 - Config/knobs semantics: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/IMPLEMENTATION.md`
 - Morphology knobs posture: `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/prompts/MORPHOLOGY-NON-IMPLEMENTATION.md`
 - Earth-like ranges: `mods/mod-swooper-maps/src/maps/presets/swooper-earthlike.config.ts`
+
+## Implementation Decisions
+
+### Use stage knobs as the author surface; keep advanced config as the baseline
+- **Context:** We need a durable author surface that doesn’t require editing step-level trees, while preserving advanced config as an escape hatch.
+- **Options:** (A) stage-level knobs threaded via `ctx.knobs` with per-step `normalize`, (B) a new “preset compiler” layer with a separate config type.
+- **Choice:** (A) stage-level knobs + deterministic transforms in step `normalize`.
+- **Rationale:** matches existing Hydrology knob patterns and keeps composition local + test-lockable.
+- **Risk:** knob enums/multipliers must remain stable and documented to avoid silent tuning drift.
+
+### Presets are plain `StandardRecipeConfig` bundles
+- **Context:** Presets should be easy to import and override without extra machinery.
+- **Options:** (A) exported config objects (TS constants), (B) runtime registry/lookup.
+- **Choice:** (A) exported config objects under `mods/mod-swooper-maps/src/maps/presets/realism/`.
+- **Rationale:** keeps presets type-checked and composable with overrides.
+- **Risk:** preset naming is not enforced at runtime; docs/tests must remain the source of truth.
