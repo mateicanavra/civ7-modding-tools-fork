@@ -29,7 +29,7 @@
     "resources:publish": "bash ./scripts/civ7-resources/publish-submodule.sh",
     "resources:status": "bash ./scripts/civ7-resources/status.sh",
     "setup:git-hooks": "bash ./scripts/git-hooks/setup.sh",
-    "refresh:data": "pnpm -s resources:init && pnpm dev:cli -- data zip default && pnpm dev:cli -- data unzip default",
+    "refresh:data": "pnpm -s resources:init && pnpm -s -F @civ7/plugin-files build && pnpm dev:cli -- data zip default && pnpm dev:cli -- data unzip default",
     "mods:import": "pnpm exec civ7 mod git import",
     "test:mapgen": "pnpm -C packages/mapgen-core test",
     "build:mapgen": "pnpm -C packages/mapgen-core build",
