@@ -85,6 +85,11 @@ related_to: [M11-U00, M11-U04, M11-U06, LOCAL-TBD-M11-U12, LOCAL-TBD-M11-U14]
   - Performance: segment → belt projection kernels can become expensive; keep kernels bounded and test runtime on a standard map size.
   - Tuning surface: prefer a small set of driver knobs (kernel widths, era weights, segment drift strength) over output clamps.
   - Contract creep: keep truth/projection boundaries crisp; avoid turning `foundationPlates` into a mega-bucket.
+- Verification (this slice):
+  - `pnpm -C mods/mod-swooper-maps test` ✅
+- Traceability:
+  - Branch: `agent-RAMBO-M11-U11-foundation-tectonic-segments-and-history`
+  - PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/709
 
 ---
 

@@ -9,7 +9,54 @@ import {
   FOUNDATION_TILE_TO_CELL_INDEX_ARTIFACT_TAG,
 } from "@swooper/mapgen-core";
 
+const FOUNDATION_TECTONIC_SEGMENTS_ARTIFACT_TAG = "artifact:foundation.tectonicSegments";
+const FOUNDATION_TECTONIC_HISTORY_ARTIFACT_TAG = "artifact:foundation.tectonicHistory";
 const FOUNDATION_PLATE_TOPOLOGY_ARTIFACT_TAG = "artifact:foundation.plateTopology";
+
+const FoundationTectonicSegmentsArtifactSchema = Type.Object(
+  {
+    segmentCount: Type.Integer({ minimum: 0 }),
+    aCell: TypedArraySchemas.i32({ shape: null }),
+    bCell: TypedArraySchemas.i32({ shape: null }),
+    plateA: TypedArraySchemas.i16({ shape: null }),
+    plateB: TypedArraySchemas.i16({ shape: null }),
+    regime: TypedArraySchemas.u8({ shape: null }),
+    polarity: TypedArraySchemas.i8({ shape: null }),
+    compression: TypedArraySchemas.u8({ shape: null }),
+    extension: TypedArraySchemas.u8({ shape: null }),
+    shear: TypedArraySchemas.u8({ shape: null }),
+    volcanism: TypedArraySchemas.u8({ shape: null }),
+    fracture: TypedArraySchemas.u8({ shape: null }),
+    driftU: TypedArraySchemas.i8({ shape: null }),
+    driftV: TypedArraySchemas.i8({ shape: null }),
+  },
+  { additionalProperties: false }
+);
+
+const FoundationTectonicHistoryEraArtifactSchema = Type.Object(
+  {
+    boundaryType: TypedArraySchemas.u8({ shape: null }),
+    upliftPotential: TypedArraySchemas.u8({ shape: null }),
+    riftPotential: TypedArraySchemas.u8({ shape: null }),
+    shearStress: TypedArraySchemas.u8({ shape: null }),
+    volcanism: TypedArraySchemas.u8({ shape: null }),
+    fracture: TypedArraySchemas.u8({ shape: null }),
+  },
+  { additionalProperties: false }
+);
+
+const FoundationTectonicHistoryArtifactSchema = Type.Object(
+  {
+    eraCount: Type.Integer({ minimum: 1 }),
+    eras: Type.Array(FoundationTectonicHistoryEraArtifactSchema),
+    upliftTotal: TypedArraySchemas.u8({ shape: null }),
+    fractureTotal: TypedArraySchemas.u8({ shape: null }),
+    volcanismTotal: TypedArraySchemas.u8({ shape: null }),
+    upliftRecentFraction: TypedArraySchemas.u8({ shape: null }),
+    lastActiveEra: TypedArraySchemas.u8({ shape: null }),
+  },
+  { additionalProperties: false }
+);
 
 const FoundationPlatesArtifactSchema = Type.Object(
   {
@@ -180,6 +227,16 @@ export const foundationArtifacts = {
     name: "foundationPlateGraph",
     id: FOUNDATION_PLATE_GRAPH_ARTIFACT_TAG,
     schema: FoundationPlateGraphArtifactSchema,
+  }),
+  tectonicSegments: defineArtifact({
+    name: "foundationTectonicSegments",
+    id: FOUNDATION_TECTONIC_SEGMENTS_ARTIFACT_TAG,
+    schema: FoundationTectonicSegmentsArtifactSchema,
+  }),
+  tectonicHistory: defineArtifact({
+    name: "foundationTectonicHistory",
+    id: FOUNDATION_TECTONIC_HISTORY_ARTIFACT_TAG,
+    schema: FoundationTectonicHistoryArtifactSchema,
   }),
   plateTopology: defineArtifact({
     name: "foundationPlateTopology",

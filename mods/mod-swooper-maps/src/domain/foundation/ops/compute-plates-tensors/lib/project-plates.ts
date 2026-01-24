@@ -4,7 +4,7 @@ import { wrapAbsDeltaPeriodic } from "@swooper/mapgen-core/lib/math";
 import type { FoundationMesh } from "../../compute-mesh/contract.js";
 import type { FoundationCrust } from "../../compute-crust/contract.js";
 import type { FoundationPlateGraph } from "../../compute-plate-graph/contract.js";
-import type { FoundationTectonics } from "../../compute-tectonics/contract.js";
+import type { FoundationTectonics } from "../../compute-tectonic-history/contract.js";
 import { BOUNDARY_TYPE } from "../../../constants.js";
 
 function hexDistanceSq(
@@ -68,25 +68,6 @@ function computeHexWrappedDistanceField(
   }
 
   return { distance, nearestSeed } as const;
-}
-
-function inferBoundaryTypeFromSignals(params: {
-  boundaryType: number;
-  upliftPotential: number;
-  riftPotential: number;
-  shearStress: number;
-}): number {
-  const boundaryType = params.boundaryType | 0;
-  if (boundaryType !== BOUNDARY_TYPE.none) return boundaryType;
-
-  const uplift = params.upliftPotential | 0;
-  const rift = params.riftPotential | 0;
-  const shear = params.shearStress | 0;
-
-  if (uplift > 0 && uplift >= rift && uplift >= shear) return BOUNDARY_TYPE.convergent;
-  if (rift > 0 && rift >= uplift && rift >= shear) return BOUNDARY_TYPE.divergent;
-  if (shear > 0) return BOUNDARY_TYPE.transform;
-  return BOUNDARY_TYPE.none;
 }
 
 export function projectPlatesFromModel(input: {
@@ -192,59 +173,16 @@ export function projectPlatesFromModel(input: {
   }
 
   const isBoundarySeed = new Uint8Array(size);
-  const seedBoundaryType = new Uint8Array(size);
-  const seedUpliftPotential = new Uint8Array(size);
-  const seedRiftPotential = new Uint8Array(size);
-  const seedShearStress = new Uint8Array(size);
-  const seedVolcanism = new Uint8Array(size);
-
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
       const i = y * width + x;
-      const cellId = tileToCellIndex[i] ?? 0;
-      const tectonicBoundary = tectonics.boundaryType[cellId] ?? BOUNDARY_TYPE.none;
       const myPlate = plateId[i]!;
-
-      const myCellId = tileToCellIndex[i] ?? 0;
-      let chosenBoundaryType = tectonics.boundaryType[myCellId] ?? BOUNDARY_TYPE.none;
-      let chosenUplift = tectonics.upliftPotential[myCellId] ?? 0;
-      let chosenRift = tectonics.riftPotential[myCellId] ?? 0;
-      let chosenShear = tectonics.shearStress[myCellId] ?? 0;
-      let chosenVolcanism = tectonics.volcanism[myCellId] ?? 0;
-
       let boundary = false;
       forEachHexNeighborOddQ(x, y, width, height, (nx, ny) => {
         const ni = ny * width + nx;
         if (plateId[ni] !== myPlate) boundary = true;
-        if (!boundary) return;
-
-        const neighborCellId = tileToCellIndex[ni] ?? 0;
-        const neighborBoundaryType = tectonics.boundaryType[neighborCellId] ?? BOUNDARY_TYPE.none;
-        if (chosenBoundaryType === BOUNDARY_TYPE.none && neighborBoundaryType !== BOUNDARY_TYPE.none) {
-          chosenBoundaryType = neighborBoundaryType;
-        }
-        chosenUplift = Math.max(chosenUplift, tectonics.upliftPotential[neighborCellId] ?? 0);
-        chosenRift = Math.max(chosenRift, tectonics.riftPotential[neighborCellId] ?? 0);
-        chosenShear = Math.max(chosenShear, tectonics.shearStress[neighborCellId] ?? 0);
-        chosenVolcanism = Math.max(chosenVolcanism, tectonics.volcanism[neighborCellId] ?? 0);
       });
-
-      const isPolarEdgeTile = (y === 0 || y === height - 1) && (tectonics.boundaryType[myCellId] ?? 0) !== 0;
-      const seed = boundary || isPolarEdgeTile;
-
-      if (seed) {
-        isBoundarySeed[i] = 1;
-        seedBoundaryType[i] = inferBoundaryTypeFromSignals({
-          boundaryType: chosenBoundaryType,
-          upliftPotential: chosenUplift,
-          riftPotential: chosenRift,
-          shearStress: chosenShear,
-        });
-        seedUpliftPotential[i] = clampByte(chosenUplift);
-        seedRiftPotential[i] = clampByte(chosenRift);
-        seedShearStress[i] = clampByte(chosenShear);
-        seedVolcanism[i] = clampByte(chosenVolcanism);
-      }
+      if (boundary) isBoundarySeed[i] = 1;
     }
   }
 
@@ -256,45 +194,27 @@ export function projectPlatesFromModel(input: {
     height,
     maxDistance + 1
   );
-  const regimeMaxDistance = Math.max(0, Math.min(2, maxDistance - 1));
+  void nearestSeed;
 
   for (let i = 0; i < size; i++) {
     const cellId = tileToCellIndex[i] ?? 0;
+    const baseBoundaryType = tectonics.boundaryType[cellId] ?? BOUNDARY_TYPE.none;
     const baseUplift = tectonics.upliftPotential[cellId] ?? 0;
     const baseRift = tectonics.riftPotential[cellId] ?? 0;
     const baseShear = tectonics.shearStress[cellId] ?? 0;
     const baseVolcanism = tectonics.volcanism[cellId] ?? 0;
 
     const dist = distanceField[i]!;
-    let shear = clampByte(baseShear);
+    const influence = dist >= maxDistance ? 0 : Math.exp(-dist * decay);
+    boundaryCloseness[i] = clampByte(influence * 255);
 
-    if (dist >= maxDistance) {
-      boundaryCloseness[i] = 0;
-      boundaryType[i] = BOUNDARY_TYPE.none;
-      upliftPotential[i] = clampByte(baseUplift);
-      riftPotential[i] = clampByte(baseRift);
-      volcanism[i] = clampByte(baseVolcanism);
-    } else {
-      const influence = Math.exp(-dist * decay);
-      boundaryCloseness[i] = clampByte(influence * 255);
+    boundaryType[i] = clampByte(baseBoundaryType);
+    upliftPotential[i] = clampByte(baseUplift);
+    riftPotential[i] = clampByte(baseRift);
+    const shearValue = clampByte(baseShear);
+    volcanism[i] = clampByte(baseVolcanism);
 
-      const seedIndex = nearestSeed[i] | 0;
-      if (seedIndex < 0) {
-        boundaryType[i] = BOUNDARY_TYPE.none;
-        upliftPotential[i] = clampByte(baseUplift);
-        riftPotential[i] = clampByte(baseRift);
-        volcanism[i] = clampByte(baseVolcanism);
-      } else {
-        boundaryType[i] =
-          dist <= regimeMaxDistance ? (seedBoundaryType[seedIndex] ?? BOUNDARY_TYPE.none) : BOUNDARY_TYPE.none;
-        upliftPotential[i] = clampByte(Math.max(baseUplift, (seedUpliftPotential[seedIndex] ?? 0) * influence));
-        riftPotential[i] = clampByte(Math.max(baseRift, (seedRiftPotential[seedIndex] ?? 0) * influence));
-        shear = clampByte(Math.max(baseShear, (seedShearStress[seedIndex] ?? 0) * influence));
-        volcanism[i] = clampByte(Math.max(baseVolcanism, (seedVolcanism[seedIndex] ?? 0) * influence));
-      }
-    }
-
-    const stress = Math.max(upliftPotential[i]!, riftPotential[i]!, shear);
+    const stress = Math.max(upliftPotential[i]!, riftPotential[i]!, shearValue);
     tectonicStress[i] = clampByte(stress);
     shieldStability[i] = 255 - boundaryCloseness[i]!;
   }
