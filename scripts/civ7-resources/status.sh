@@ -25,8 +25,11 @@ if [[ ! -d "$SUBMODULE_REL" ]]; then
   exit 1
 fi
 
-if ! git -C "$SUBMODULE_REL" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-  echo "resources-submodule: not initialized (no git working tree at $SUBMODULE_REL)"
+EXPECTED_TOPLEVEL="$(cd "$SUBMODULE_REL" && pwd -P)"
+ACTUAL_TOPLEVEL="$(git -C "$SUBMODULE_REL" rev-parse --show-toplevel 2>/dev/null || true)"
+
+if [[ -z "$ACTUAL_TOPLEVEL" || "$ACTUAL_TOPLEVEL" != "$EXPECTED_TOPLEVEL" ]]; then
+  echo "resources-submodule: not initialized (no git repo at $SUBMODULE_REL)"
   exit 1
 fi
 

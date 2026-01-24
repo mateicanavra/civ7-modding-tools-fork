@@ -20,7 +20,9 @@ vi.mock("node:fs", async () => {
   return {
     ...actual,
     existsSync: vi.fn(() => false),
+    readFileSync: vi.fn(() => ""),
     mkdirSync: vi.fn(),
+    rmSync: vi.fn(),
     readdirSync: vi.fn(() => []),
     copyFileSync: vi.fn(),
   };
@@ -33,6 +35,24 @@ import * as fs from "node:fs";
 describe("@civ7/plugin-files error handling", () => {
   it("unzipResources throws when archive is missing", async () => {
     await expect(unzipResources({})).rejects.toThrow(/Source zip not found/);
+  });
+
+  it("unzipResources refuses to overwrite a configured submodule directory", async () => {
+    const projectRoot = path.resolve(process.cwd());
+    const dest = path.join(projectRoot, ".civ7/outputs/resources");
+    const zip = path.join(projectRoot, "archive.zip");
+
+    (fs.existsSync as any).mockImplementation((p: string) => {
+      if (p === zip) return true;
+      if (p === dest) return true;
+      if (p === path.join(projectRoot, ".gitmodules")) return true;
+      if (p === path.join(dest, ".git")) return false;
+      return false;
+    });
+
+    (fs.readFileSync as any).mockReturnValue(`[submodule \".civ7/outputs/resources\"]\n\tpath = .civ7/outputs/resources\n\turl = https://example.com/repo.git\n`);
+
+    await expect(unzipResources({ projectRoot, zip, dest })).rejects.toThrow(/configured as a git submodule/i);
   });
 
   it("zipResources throws when source dir is missing", async () => {

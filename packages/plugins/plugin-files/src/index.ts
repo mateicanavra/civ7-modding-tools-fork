@@ -64,6 +64,23 @@ async function readUncompressedSize(zipPath: string): Promise<number> {
   });
 }
 
+function normalizeGitmodulesPath(p: string): string {
+  return p.split(path.sep).join('/');
+}
+
+function isDestConfiguredAsSubmodule(projectRoot: string, destDir: string): boolean {
+  const gitmodulesPath = path.join(projectRoot, '.gitmodules');
+  if (!fsSync.existsSync(gitmodulesPath)) return false;
+
+  const rel = normalizeGitmodulesPath(path.relative(projectRoot, destDir));
+  if (!rel || rel.startsWith('..')) return false;
+
+  const text = fsSync.readFileSync(gitmodulesPath, 'utf8');
+  // Match common .gitmodules formatting: `path = <rel>`
+  const re = new RegExp(`^\\s*path\\s*=\\s*${rel.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&')}\\s*$`, 'm');
+  return re.test(text);
+}
+
 export async function zipResources(options: ZipOptions): Promise<OperationSummary> {
   const projectRoot = options.projectRoot ?? findProjectRoot(process.cwd());
   const cfg = await loadConfig(projectRoot, options.configPath);
@@ -113,10 +130,23 @@ export async function unzipResources(options: UnzipOptions): Promise<OperationSu
     throw new Error(`Source zip not found: ${sourceZip}`);
   }
   const destDir = options.dest ?? resolveUnzipDir({ projectRoot, profile }, raw);
-  if (fsSync.existsSync(destDir)) fsSync.rmSync(destDir, { recursive: true, force: true });
-  fsSync.mkdirSync(destDir, { recursive: true });
+  const destIsSubmodule = isDestConfiguredAsSubmodule(projectRoot, destDir);
+  if (destIsSubmodule) {
+    const gitMarker = path.join(destDir, '.git');
+    if (!fsSync.existsSync(gitMarker)) {
+      const rel = normalizeGitmodulesPath(path.relative(projectRoot, destDir));
+      throw new Error(
+        `Destination is configured as a git submodule (${rel}), but is not initialized. Run 'pnpm resources:init' and retry.`,
+      );
+    }
+    // Do not remove the submodule directory; extracting should update contents in-place.
+    fsSync.mkdirSync(destDir, { recursive: true });
+  } else {
+    if (fsSync.existsSync(destDir)) fsSync.rmSync(destDir, { recursive: true, force: true });
+    fsSync.mkdirSync(destDir, { recursive: true });
+  }
 
-  await execSpawn('unzip', ['-q', sourceZip, '-d', destDir]);
+  await execSpawn('unzip', ['-q', '-o', sourceZip, '-d', destDir]);
 
   const archiveSizeBytes = fsSync.statSync(sourceZip).size;
   const uncompressedSizeBytes = await readUncompressedSize(sourceZip);
@@ -217,4 +247,3 @@ export function resolveModsDir(): ModsDirInfo {
   const base = resolveGameDataDir();
   return { platform: process.platform, modsDir: path.join(base, 'Mods') };
 }
-
