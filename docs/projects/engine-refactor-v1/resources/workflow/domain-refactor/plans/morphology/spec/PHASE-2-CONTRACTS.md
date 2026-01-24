@@ -44,7 +44,7 @@ Non-scope for this file:
 
 ### Canonical mesh → tile projection (deterministic)
 
-Morphology consumes Foundation truth artifacts (mesh-first truths and the derived tile view `artifact:foundation.plates`) and produces tile-indexed Morphology truth artifacts. Any mesh-indexed driver field used to produce tile-indexed values uses this canonical, deterministic projection rule:
+Morphology consumes Foundation truth artifacts (mesh-first truths plus derived tile views like `artifact:foundation.plates` and `artifact:foundation.crustTiles`) and produces tile-indexed Morphology truth artifacts. Any mesh-indexed driver field used to produce tile-indexed values uses this canonical, deterministic projection rule:
 
 - Define `tileToCellIndex[tileIndex]` by nearest mesh site in mesh “hex space”, with wrapX periodic distance:
   - For each tile `(x, y)` compute `tileHex = projectOddqToHexSpace(x, y)` (mesh hex-space coordinates).
@@ -54,6 +54,7 @@ Morphology consumes Foundation truth artifacts (mesh-first truths and the derive
     - `dist2 = dx*dx + dy*dy`
   - Tie-breaker: smallest `cellIndex`.
 - Sample any mesh field `fieldByCell[cellIndex]` to tile as `fieldByTile[tileIndex] = fieldByCell[tileToCellIndex[tileIndex]]`.
+- Foundation publishes the canonical mapping as `artifact:foundation.tileToCellIndex` (dense Int32Array in `tileIndex` order).
 
 Evidence pointer (current implementation of the projection rule):
 - `mods/mod-swooper-maps/src/domain/foundation/lib/project-plates.ts` (`tileToCell` mapping; `projectOddqToHexSpace`; periodic distance via `wrapAbsDeltaPeriodic`)
@@ -164,6 +165,32 @@ Semantics:
 - `type` is **material**, not “plate kind” and not “continent id”.
 - `age` is a monotone “relative age” proxy; consumers must not treat it as years.
 
+### `artifact:foundation.tileToCellIndex` (required; derived mapping)
+
+Owner: Foundation  
+Publish/freeze: F1  
+Indexing: tiles (`tileIndex`)
+
+Schema (current):
+- `Int32Array[width * height]` — `tileToCellIndex[tileIndex]` (dense; values are mesh `cellIndex`)
+
+Semantics:
+- This is the canonical, deterministic mesh→tile projection mapping defined above.
+- Downstream domains MUST use this mapping (or an equivalent implementation of the same rule) for any mesh-sampled driver field.
+
+### `artifact:foundation.crustTiles` (required; derived material view)
+
+Owner: Foundation  
+Publish/freeze: F1  
+Indexing: tiles (`tileIndex`)
+
+Schema (current):
+- `type: Uint8Array[width * height]` — sampled from `artifact:foundation.crust.type` via `tileToCellIndex`
+- `age: Uint8Array[width * height]` — sampled from `artifact:foundation.crust.age` via `tileToCellIndex`
+
+Semantics:
+- This is a deterministic tile-space view of `artifact:foundation.crust` for tile-based consumers (especially Morphology substrate/erodibility).
+
 ### `artifact:foundation.plateGraph` (required)
 
 Owner: Foundation  
@@ -257,7 +284,7 @@ Purpose:
 - Avoid duplicated/reimplemented mesh→tile projection math across multiple downstream steps.
 
 Important posture (locked):
-- `artifact:foundation.plates` is **derived-only** from frozen mesh-first truths (`artifact:foundation.mesh`, `artifact:foundation.plateGraph`, `artifact:foundation.tectonics`) using the canonical mesh→tile projection rule above (wrapX periodic distance + tie-breakers).
+- `artifact:foundation.plates` is **derived-only** from frozen mesh-first truths (`artifact:foundation.mesh`, `artifact:foundation.plateGraph`, `artifact:foundation.tectonics`) using `artifact:foundation.tileToCellIndex` (canonical mesh→tile projection rule: wrapX periodic distance + tie-breakers).
 - It is a physics-side view artifact (Foundation → Morphology is allowed). It is not a Gameplay projection surface and must not be modeled under `artifact:map.*`.
 
 Projection config (Foundation-owned; single-sourced; defaulted deterministically):

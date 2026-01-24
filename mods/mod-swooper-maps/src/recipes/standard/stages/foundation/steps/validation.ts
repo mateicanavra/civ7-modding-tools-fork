@@ -81,6 +81,41 @@ export function validateCrustArtifact(value: unknown): void {
   }
 }
 
+export function validateTileToCellIndexArtifact(value: unknown, dims: MapDimensions): void {
+  if (!(value instanceof Int32Array)) {
+    throw new Error("[FoundationArtifact] Invalid foundation tileToCellIndex.");
+  }
+
+  const expectedLen = Math.max(0, (dims.width | 0) * (dims.height | 0));
+  if (value.length !== expectedLen) {
+    throw new Error("[FoundationArtifact] Invalid foundation tileToCellIndex tensor length.");
+  }
+  for (let i = 0; i < value.length; i++) {
+    const v = value[i] | 0;
+    if (v < 0) {
+      throw new Error("[FoundationArtifact] Invalid foundation tileToCellIndex value.");
+    }
+  }
+}
+
+export function validateCrustTilesArtifact(value: unknown, dims: MapDimensions): void {
+  if (!value || typeof value !== "object") {
+    throw new Error("[FoundationArtifact] Missing foundation crustTiles artifact payload.");
+  }
+  const crust = value as { type?: unknown; age?: unknown };
+  if (!(crust.type instanceof Uint8Array)) {
+    throw new Error("[FoundationArtifact] Invalid foundation crustTiles.type.");
+  }
+  if (!(crust.age instanceof Uint8Array)) {
+    throw new Error("[FoundationArtifact] Invalid foundation crustTiles.age.");
+  }
+
+  const expectedLen = Math.max(0, (dims.width | 0) * (dims.height | 0));
+  if (crust.type.length !== expectedLen || crust.age.length !== expectedLen) {
+    throw new Error("[FoundationArtifact] Invalid foundation crustTiles tensor lengths.");
+  }
+}
+
 export function validatePlateGraphArtifact(value: unknown): void {
   if (!value || typeof value !== "object") {
     throw new Error("[FoundationArtifact] Missing foundation plateGraph artifact payload.");

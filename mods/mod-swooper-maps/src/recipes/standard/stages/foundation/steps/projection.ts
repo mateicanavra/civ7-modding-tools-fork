@@ -1,7 +1,12 @@
 import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import { foundationArtifacts } from "../artifacts.js";
 import ProjectionStepContract from "./projection.contract.js";
-import { validatePlatesArtifact, wrapFoundationValidate } from "./validation.js";
+import {
+  validateCrustTilesArtifact,
+  validatePlatesArtifact,
+  validateTileToCellIndexArtifact,
+  wrapFoundationValidate,
+} from "./validation.js";
 import {
   FOUNDATION_PLATE_ACTIVITY_BOUNDARY_INFLUENCE_DISTANCE_DELTA,
   FOUNDATION_PLATE_ACTIVITY_KINEMATICS_MULTIPLIER,
@@ -21,9 +26,15 @@ function clampNumber(value: number, bounds: { min: number; max?: number }): numb
 }
 
 export default createStep(ProjectionStepContract, {
-  artifacts: implementArtifacts([foundationArtifacts.plates], {
+  artifacts: implementArtifacts([foundationArtifacts.plates, foundationArtifacts.tileToCellIndex, foundationArtifacts.crustTiles], {
     foundationPlates: {
       validate: (value, context) => wrapFoundationValidate(value, context.dimensions, validatePlatesArtifact),
+    },
+    foundationTileToCellIndex: {
+      validate: (value, context) => wrapFoundationValidate(value, context.dimensions, validateTileToCellIndexArtifact),
+    },
+    foundationCrustTiles: {
+      validate: (value, context) => wrapFoundationValidate(value, context.dimensions, validateCrustTilesArtifact),
     },
   }),
   normalize: (config, ctx) => {
@@ -59,6 +70,7 @@ export default createStep(ProjectionStepContract, {
   run: (context, config, ops, deps) => {
     const { width, height } = context.dimensions;
     const mesh = deps.artifacts.foundationMesh.read(context);
+    const crust = deps.artifacts.foundationCrust.read(context);
     const plateGraph = deps.artifacts.foundationPlateGraph.read(context);
     const tectonics = deps.artifacts.foundationTectonics.read(context);
 
@@ -67,6 +79,7 @@ export default createStep(ProjectionStepContract, {
         width,
         height,
         mesh,
+        crust,
         plateGraph,
         tectonics,
       },
@@ -74,5 +87,7 @@ export default createStep(ProjectionStepContract, {
     );
 
     deps.artifacts.foundationPlates.publish(context, platesResult.plates);
+    deps.artifacts.foundationTileToCellIndex.publish(context, platesResult.tileToCellIndex);
+    deps.artifacts.foundationCrustTiles.publish(context, platesResult.crustTiles);
   },
 });
