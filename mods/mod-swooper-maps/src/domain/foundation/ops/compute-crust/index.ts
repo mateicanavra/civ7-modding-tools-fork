@@ -1,5 +1,5 @@
 import { createOp } from "@swooper/mapgen-core/authoring";
-import { wrapDeltaPeriodic } from "@swooper/mapgen-core/lib/math";
+import { clamp01, normalizeRange, wrapDeltaPeriodic } from "@swooper/mapgen-core/lib/math";
 import { createLabelRng } from "@swooper/mapgen-core/lib/rng";
 
 import { requireMesh } from "../../lib/require.js";
@@ -9,17 +9,6 @@ function distanceSq(ax: number, ay: number, bx: number, by: number, wrapWidth: n
   const dx = wrapDeltaPeriodic(ax - bx, wrapWidth);
   const dy = ay - by;
   return dx * dx + dy * dy;
-}
-
-function clamp01(value: number): number {
-  if (!Number.isFinite(value)) return 0;
-  if (value <= 0) return 0;
-  if (value >= 1) return 1;
-  return value;
-}
-
-function ageNorm(age: number): number {
-  return clamp01((age | 0) / 255);
 }
 
 function chooseUniqueSeedCells(cellCount: number, seedCount: number, rng: (max: number, label?: string) => number): number[] {
@@ -258,7 +247,7 @@ const computeCrust = createOp(ComputeCrustContract, {
 
         for (let i = 0; i < cellCount; i++) {
           const isContinental = (type[i] ?? 0) === 1;
-          const a01 = ageNorm(age[i] ?? 0);
+          const a01 = normalizeRange(age[i] ?? 0, 0, 255);
           const coastDist = distToCoast[i] < 0 ? shelfWidthCells * 8 : (distToCoast[i] | 0);
           const shelf01 = clamp01(1 - coastDist / shelfWidthCells);
 
