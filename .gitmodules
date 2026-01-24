@@ -1,0 +1,3 @@
+[submodule ".civ7/outputs/resources"]
+	path = .civ7/outputs/resources
+	url = https://github.com/mateicanavra/civ7-official-resources.git
