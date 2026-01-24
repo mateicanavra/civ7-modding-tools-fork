@@ -1,4 +1,11 @@
-import { HILL_TERRAIN, MOUNTAIN_TERRAIN, logMountainSummary, logReliefAscii } from "@swooper/mapgen-core";
+import {
+  HILL_TERRAIN,
+  MOUNTAIN_TERRAIN,
+  computeSampleStep,
+  logMountainSummary,
+  logReliefAscii,
+  renderAsciiGrid,
+} from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
 import { PerlinNoise } from "@swooper/mapgen-core/lib/noise";
 import { deriveStepSeed } from "@swooper/mapgen-core/lib/rng";
@@ -50,6 +57,46 @@ export default createStep(PlotMountainsStepContract, {
       },
       config.mountains
     );
+
+    context.trace.event(() => {
+      const size = Math.max(0, (width | 0) * (height | 0));
+      let landTiles = 0;
+      let mountainTiles = 0;
+      let hillTiles = 0;
+      for (let i = 0; i < size; i++) {
+        if (topography.landMask[i] !== 1) continue;
+        landTiles += 1;
+        if (plan.mountainMask[i] === 1) mountainTiles += 1;
+        if (plan.hillMask[i] === 1) hillTiles += 1;
+      }
+      return {
+        kind: "morphology.mountains.summary",
+        landTiles,
+        mountainTiles,
+        hillTiles,
+      };
+    });
+    context.trace.event(() => {
+      const sampleStep = computeSampleStep(width, height);
+      const rows = renderAsciiGrid({
+        width,
+        height,
+        sampleStep,
+        cellFn: (x, y) => {
+          const idx = y * width + x;
+          const base = topography.landMask[idx] === 1 ? "." : "~";
+          const overlay =
+            plan.mountainMask[idx] === 1 ? "M" : plan.hillMask[idx] === 1 ? "h" : undefined;
+          return { base, overlay };
+        },
+      });
+      return {
+        kind: "morphology.mountains.ascii.reliefMask",
+        sampleStep,
+        legend: ".=land ~=water M=mountain h=hill",
+        rows,
+      };
+    });
 
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {
