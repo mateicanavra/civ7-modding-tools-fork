@@ -3,6 +3,27 @@ import * as path from "node:path";
 
 // For unit tests we focus on error handling (no system deps)
 
+// Mock child_process to avoid invoking real `zip`/`unzip` binaries in unit tests.
+vi.mock("node:child_process", async () => {
+  const actual = await vi.importActual<any>("node:child_process");
+  const { EventEmitter } = await vi.importActual<any>("node:events");
+  return {
+    ...actual,
+    spawn: vi.fn((cmd: string, args: string[]) => {
+      const p: any = new EventEmitter();
+      p.stdout = new EventEmitter();
+      process.nextTick(() => {
+        // `unzip -l` is used to compute uncompressed size; provide minimal output.
+        if (cmd === "unzip" && Array.isArray(args) && args[0] === "-l") {
+          p.stdout.emit("data", Buffer.from("0 0 0\n"));
+        }
+        p.emit("close", 0);
+      });
+      return p;
+    }),
+  };
+});
+
 // Mock @civ7/config to return deterministic paths
 vi.mock("@civ7/config", async () => {
   return {
@@ -24,6 +45,7 @@ vi.mock("node:fs", async () => {
     mkdirSync: vi.fn(),
     rmSync: vi.fn(),
     readdirSync: vi.fn(() => []),
+    statSync: vi.fn(() => ({ size: 0 })),
     copyFileSync: vi.fn(),
   };
 });
@@ -53,6 +75,34 @@ describe("@civ7/plugin-files error handling", () => {
     (fs.readFileSync as any).mockReturnValue(`[submodule \".civ7/outputs/resources\"]\n\tpath = .civ7/outputs/resources\n\turl = https://example.com/repo.git\n`);
 
     await expect(unzipResources({ projectRoot, zip, dest })).rejects.toThrow(/configured as a git submodule/i);
+  });
+
+  it("unzipResources clears submodule contents but preserves .git", async () => {
+    const projectRoot = path.resolve(process.cwd());
+    const dest = path.join(projectRoot, ".civ7/outputs/resources");
+    const zip = path.join(projectRoot, "archive.zip");
+
+    (fs.existsSync as any).mockImplementation((p: string) => {
+      if (p === zip) return true;
+      if (p === dest) return true;
+      if (p === path.join(projectRoot, ".gitmodules")) return true;
+      if (p === path.join(dest, ".git")) return true;
+      return false;
+    });
+
+    (fs.readFileSync as any).mockReturnValue(
+      `[submodule \".civ7/outputs/resources\"]\n\tpath = .civ7/outputs/resources\n\turl = https://example.com/repo.git\n`,
+    );
+
+    (fs.readdirSync as any).mockReturnValue(["Base", "DLC", "resources.json", ".git"]);
+
+    await unzipResources({ projectRoot, zip, dest });
+
+    // Should delete contents except `.git`
+    expect(fs.rmSync).toHaveBeenCalledWith(path.join(dest, "Base"), expect.anything());
+    expect(fs.rmSync).toHaveBeenCalledWith(path.join(dest, "DLC"), expect.anything());
+    expect(fs.rmSync).toHaveBeenCalledWith(path.join(dest, "resources.json"), expect.anything());
+    expect(fs.rmSync).not.toHaveBeenCalledWith(path.join(dest, ".git"), expect.anything());
   });
 
   it("zipResources throws when source dir is missing", async () => {

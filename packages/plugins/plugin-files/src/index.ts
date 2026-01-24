@@ -139,8 +139,14 @@ export async function unzipResources(options: UnzipOptions): Promise<OperationSu
         `Destination is configured as a git submodule (${rel}), but is not initialized. Run 'pnpm resources:init' and retry.`,
       );
     }
-    // Do not remove the submodule directory; extracting should update contents in-place.
+    // Preserve the submodule metadata but ensure a "fresh" extract by clearing everything
+    // except the `.git` marker (gitdir file or directory).
     fsSync.mkdirSync(destDir, { recursive: true });
+    const entries = fsSync.readdirSync(destDir);
+    for (const entry of entries) {
+      if (entry === '.git') continue;
+      fsSync.rmSync(path.join(destDir, entry), { recursive: true, force: true });
+    }
   } else {
     if (fsSync.existsSync(destDir)) fsSync.rmSync(destDir, { recursive: true, force: true });
     fsSync.mkdirSync(destDir, { recursive: true });
