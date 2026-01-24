@@ -26,7 +26,7 @@ related_to: [M11-U00, M11-U06, LOCAL-TBD-M11-U10, LOCAL-TBD-M11-U11, LOCAL-TBD-M
   - Cap kinematics are tangential by default (policy-driven, not latitude-driven regime injection).
   - Optional polar microplates are enabled only when the map is large enough (compile-time normalization / policy rules), with sliver prevention.
 - Make polar participation legible in artifacts:
-  - Add an explicit plate role marker (e.g. `FoundationPlate.role: "polarCap" | "tectonic"`) so tests and downstream consumers don’t infer “polar” from latitude heuristics.
+  - Add an explicit plate role marker (e.g. `FoundationPlate.role: "polarCap" | "polarMicroplate" | "tectonic"`) so tests and downstream consumers don’t infer “polar” from latitude heuristics.
 - Coordination boundary (avoid parallel edits / conflicting ownership):
   - **U11 owns** removal of polar regime injection and projection hacks (`compute-tectonics`, `project-plates.ts`) as part of the tectonics/history cutover.
   - U12 must not introduce any new latitude/`y`-band regime forcing; it should be satisfiable purely via plate policy + kinematics.
@@ -142,3 +142,7 @@ artifacts:
   - `mods/mod-swooper-maps/test/foundation/m11-projection-boundary-band.test.ts`
 - U12 adds/updates plate-policy-focused tests (caps/microplates/role marker), independent of tectonics/projection:
   - `mods/mod-swooper-maps/test/foundation/m11-polar-plates-policy.test.ts`
+
+### Trace
+- Branch: `agent-RAMBO-M11-U12-foundation-polar-caps-as-plates`
+- PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/710
