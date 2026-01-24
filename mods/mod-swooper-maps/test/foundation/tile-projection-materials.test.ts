@@ -22,6 +22,9 @@ describe("foundation tile projection (materials)", () => {
     const crust = {
       type: new Uint8Array([1, 0, 0, 0]),
       age: new Uint8Array([200, 10, 20, 30]),
+      buoyancy: new Float32Array([0.9, 0.2, 0.3, 0.4]),
+      baseElevation: new Float32Array([0.9, 0.2, 0.3, 0.4]),
+      strength: new Float32Array([0.9, 0.2, 0.3, 0.4]),
     } as const;
 
     const plateGraph = {

@@ -1,5 +1,5 @@
 import { createOp } from "@swooper/mapgen-core/authoring";
-import { wrapDeltaPeriodic } from "@swooper/mapgen-core/lib/math";
+import { clamp01, normalizeRange, wrapDeltaPeriodic } from "@swooper/mapgen-core/lib/math";
 import { createLabelRng } from "@swooper/mapgen-core/lib/rng";
 
 import { requireMesh } from "../../lib/require.js";
@@ -38,10 +38,20 @@ const computeCrust = createOp(ComputeCrustContract, {
 
         const cellCount = mesh.cellCount | 0;
 
-        const continentalRatio = config.continentalRatio;
+        const continentalRatio = config.continentalRatio ?? 0.3;
+        const shelfWidthCells = Math.max(1, (config.shelfWidthCells ?? 6) | 0);
+        const shelfElevationBoost = clamp01(config.shelfElevationBoost ?? 0.12);
+        const marginElevationPenalty = clamp01(config.marginElevationPenalty ?? 0.04);
+        const continentalBaseElevation = clamp01(config.continentalBaseElevation ?? 0.78);
+        const continentalAgeBoost = clamp01(config.continentalAgeBoost ?? 0.12);
+        const oceanicBaseElevation = clamp01(config.oceanicBaseElevation ?? 0.32);
+        const oceanicAgeDepth = clamp01(config.oceanicAgeDepth ?? 0.22);
 
         const type = new Uint8Array(cellCount);
         const age = new Uint8Array(cellCount);
+        const buoyancy = new Float32Array(cellCount);
+        const baseElevation = new Float32Array(cellCount);
+        const strength = new Float32Array(cellCount);
 
         const platesCount = Math.min(cellCount, Math.max(2, Math.round(cellCount / 2)));
         const seedCells = chooseUniqueSeedCells(cellCount, platesCount, rng);
@@ -202,8 +212,65 @@ const computeCrust = createOp(ComputeCrustContract, {
           age[i] = Math.max(0, Math.min(255, biased)) & 0xff;
         }
 
+        const distToCoast = new Int16Array(cellCount);
+        distToCoast.fill(-1);
+        const coastQueue: number[] = [];
+        for (let i = 0; i < cellCount; i++) {
+          const myType = type[i] ?? 0;
+          const neighbors = neighborsFor(mesh, i);
+          let isCoast = false;
+          for (let j = 0; j < neighbors.length; j++) {
+            const n = neighbors[j] | 0;
+            if ((type[n] ?? 0) !== myType) {
+              isCoast = true;
+              break;
+            }
+          }
+          if (isCoast) {
+            distToCoast[i] = 0;
+            coastQueue.push(i);
+          }
+        }
+        for (let q = 0; q < coastQueue.length; q++) {
+          const cellId = coastQueue[q] | 0;
+          const myType = type[cellId] ?? 0;
+          const baseDist = distToCoast[cellId] | 0;
+          const neighbors = neighborsFor(mesh, cellId);
+          for (let j = 0; j < neighbors.length; j++) {
+            const n = neighbors[j] | 0;
+            if ((type[n] ?? 0) !== myType) continue;
+            if (distToCoast[n] !== -1) continue;
+            distToCoast[n] = (baseDist + 1) as number;
+            coastQueue.push(n);
+          }
+        }
+
+        for (let i = 0; i < cellCount; i++) {
+          const isContinental = (type[i] ?? 0) === 1;
+          const a01 = normalizeRange(age[i] ?? 0, 0, 255);
+          const coastDist = distToCoast[i] < 0 ? shelfWidthCells * 8 : (distToCoast[i] | 0);
+          const shelf01 = clamp01(1 - coastDist / shelfWidthCells);
+
+          let base = isContinental
+            ? continentalBaseElevation + continentalAgeBoost * a01
+            : oceanicBaseElevation - oceanicAgeDepth * a01;
+          if (isContinental) {
+            base -= marginElevationPenalty * shelf01;
+          } else {
+            base += shelfElevationBoost * shelf01;
+          }
+          base = clamp01(base);
+
+          baseElevation[i] = base;
+          buoyancy[i] = base;
+
+          const interior01 = clamp01(coastDist / (shelfWidthCells * 2));
+          let s = isContinental ? 0.55 + 0.35 * a01 + 0.2 * interior01 : 0.15 + 0.15 * (1 - a01);
+          strength[i] = clamp01(s);
+        }
+
         return {
-          crust: { type, age },
+          crust: { type, age, buoyancy, baseElevation, strength },
         } as const;
       },
     },

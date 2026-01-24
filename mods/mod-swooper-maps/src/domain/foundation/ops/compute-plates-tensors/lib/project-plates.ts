@@ -86,6 +86,9 @@ export function projectPlatesFromModel(input: {
   crustTiles: {
     type: Uint8Array;
     age: Uint8Array;
+    buoyancy: Float32Array;
+    baseElevation: Float32Array;
+    strength: Float32Array;
   };
   plates: {
     id: Int16Array;
@@ -166,10 +169,16 @@ export function projectPlatesFromModel(input: {
 
   const crustType = new Uint8Array(size);
   const crustAge = new Uint8Array(size);
+  const crustBuoyancy = new Float32Array(size);
+  const crustBaseElevation = new Float32Array(size);
+  const crustStrength = new Float32Array(size);
   for (let i = 0; i < size; i++) {
     const cellId = tileToCellIndex[i] ?? 0;
     crustType[i] = crust.type[cellId] ?? 0;
     crustAge[i] = crust.age[cellId] ?? 0;
+    crustBuoyancy[i] = crust.buoyancy[cellId] ?? 0;
+    crustBaseElevation[i] = crust.baseElevation[cellId] ?? 0;
+    crustStrength[i] = crust.strength[cellId] ?? 0;
   }
 
   const isBoundarySeed = new Uint8Array(size);
@@ -224,6 +233,9 @@ export function projectPlatesFromModel(input: {
     crustTiles: {
       type: crustType,
       age: crustAge,
+      buoyancy: crustBuoyancy,
+      baseElevation: crustBaseElevation,
+      strength: crustStrength,
     },
     plates: {
       id: plateId,

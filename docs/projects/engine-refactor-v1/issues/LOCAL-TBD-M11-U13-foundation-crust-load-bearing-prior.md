@@ -124,3 +124,7 @@ docs:
   - inside-plate: penalize rapid oscillation / speckle in `type` + proxies
   - cross-plate: allow transitions, but bias toward structured margins (controlled by a margin width driver), not random noise
 - **Baseline posture:** `baseElevation` is a pre-tectonic substrate (Airy-ish proxy). Morphology then adds tectonic/belt effects and runs sea-level solve; it should not need to invent continent/basin placement from scratch.
+
+### Trace
+- Branch: `agent-RAMBO-M11-U13-foundation-crust-load-bearing-prior`
+- PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/711

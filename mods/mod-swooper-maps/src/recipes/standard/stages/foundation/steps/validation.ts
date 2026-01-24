@@ -69,15 +69,31 @@ export function validateCrustArtifact(value: unknown): void {
   if (!value || typeof value !== "object") {
     throw new Error("[FoundationArtifact] Missing foundation crust artifact payload.");
   }
-  const crust = value as { type?: unknown; age?: unknown };
+  const crust = value as { type?: unknown; age?: unknown; buoyancy?: unknown; baseElevation?: unknown; strength?: unknown };
   if (!(crust.type instanceof Uint8Array)) {
     throw new Error("[FoundationArtifact] Invalid foundation crust.type.");
   }
   if (!(crust.age instanceof Uint8Array)) {
     throw new Error("[FoundationArtifact] Invalid foundation crust.age.");
   }
+  if (!(crust.buoyancy instanceof Float32Array)) {
+    throw new Error("[FoundationArtifact] Invalid foundation crust.buoyancy.");
+  }
+  if (!(crust.baseElevation instanceof Float32Array)) {
+    throw new Error("[FoundationArtifact] Invalid foundation crust.baseElevation.");
+  }
+  if (!(crust.strength instanceof Float32Array)) {
+    throw new Error("[FoundationArtifact] Invalid foundation crust.strength.");
+  }
   if (crust.type.length <= 0 || crust.age.length <= 0 || crust.type.length !== crust.age.length) {
     throw new Error("[FoundationArtifact] Invalid foundation crust tensor lengths.");
+  }
+  if (
+    crust.buoyancy.length !== crust.type.length ||
+    crust.baseElevation.length !== crust.type.length ||
+    crust.strength.length !== crust.type.length
+  ) {
+    throw new Error("[FoundationArtifact] Invalid foundation crust driver tensor lengths.");
   }
 }
 
@@ -102,16 +118,31 @@ export function validateCrustTilesArtifact(value: unknown, dims: MapDimensions):
   if (!value || typeof value !== "object") {
     throw new Error("[FoundationArtifact] Missing foundation crustTiles artifact payload.");
   }
-  const crust = value as { type?: unknown; age?: unknown };
+  const crust = value as { type?: unknown; age?: unknown; buoyancy?: unknown; baseElevation?: unknown; strength?: unknown };
   if (!(crust.type instanceof Uint8Array)) {
     throw new Error("[FoundationArtifact] Invalid foundation crustTiles.type.");
   }
   if (!(crust.age instanceof Uint8Array)) {
     throw new Error("[FoundationArtifact] Invalid foundation crustTiles.age.");
   }
+  if (!(crust.buoyancy instanceof Float32Array)) {
+    throw new Error("[FoundationArtifact] Invalid foundation crustTiles.buoyancy.");
+  }
+  if (!(crust.baseElevation instanceof Float32Array)) {
+    throw new Error("[FoundationArtifact] Invalid foundation crustTiles.baseElevation.");
+  }
+  if (!(crust.strength instanceof Float32Array)) {
+    throw new Error("[FoundationArtifact] Invalid foundation crustTiles.strength.");
+  }
 
   const expectedLen = Math.max(0, (dims.width | 0) * (dims.height | 0));
-  if (crust.type.length !== expectedLen || crust.age.length !== expectedLen) {
+  if (
+    crust.type.length !== expectedLen ||
+    crust.age.length !== expectedLen ||
+    crust.buoyancy.length !== expectedLen ||
+    crust.baseElevation.length !== expectedLen ||
+    crust.strength.length !== expectedLen
+  ) {
     throw new Error("[FoundationArtifact] Invalid foundation crustTiles tensor lengths.");
   }
 }

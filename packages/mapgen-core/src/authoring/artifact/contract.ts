@@ -1,5 +1,7 @@
 import type { Static, TSchema } from "typebox";
 
+import { applySchemaConventions } from "../schema.js";
+
 const ARTIFACT_NAME_RE = /^[a-z][a-zA-Z0-9]*$/;
 const RESERVED_ARTIFACT_NAMES = new Set(["__proto__", "prototype", "constructor"]);
 const ARTIFACT_ID_PREFIX = "artifact:";
@@ -67,5 +69,6 @@ export function defineArtifact<
 }): ArtifactContract<Name, Id, Schema> {
   assertValidArtifactName(def.name);
   assertValidArtifactId(def.id);
+  applySchemaConventions(def.schema, `artifact:${def.id}`);
   return Object.freeze({ ...def });
 }

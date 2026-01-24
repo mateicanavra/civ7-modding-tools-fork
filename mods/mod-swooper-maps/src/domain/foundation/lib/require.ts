@@ -47,6 +47,15 @@ export function requireCrust(crust: FoundationCrust | undefined, cellCount: numb
   if (!(crust.age instanceof Uint8Array) || crust.age.length !== cellCount) {
     throw new Error(`[Foundation] Invalid crust.age for ${scope}.`);
   }
+  if (!(crust.buoyancy instanceof Float32Array) || crust.buoyancy.length !== cellCount) {
+    throw new Error(`[Foundation] Invalid crust.buoyancy for ${scope}.`);
+  }
+  if (!(crust.baseElevation instanceof Float32Array) || crust.baseElevation.length !== cellCount) {
+    throw new Error(`[Foundation] Invalid crust.baseElevation for ${scope}.`);
+  }
+  if (!(crust.strength instanceof Float32Array) || crust.strength.length !== cellCount) {
+    throw new Error(`[Foundation] Invalid crust.strength for ${scope}.`);
+  }
 
   return crust;
 }

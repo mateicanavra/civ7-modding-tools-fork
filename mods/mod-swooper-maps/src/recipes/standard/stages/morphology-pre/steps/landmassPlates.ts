@@ -168,6 +168,7 @@ export default createStep(LandmassPlatesStepContract, {
       {
         width,
         height,
+        crustBaseElevation: crustTiles.baseElevation,
         boundaryCloseness: plates.boundaryCloseness,
         upliftPotential: plates.upliftPotential,
         riftPotential: plates.riftPotential,

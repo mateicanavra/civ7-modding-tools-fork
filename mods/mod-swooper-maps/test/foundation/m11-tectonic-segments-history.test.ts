@@ -19,7 +19,13 @@ function makeTwoCellMesh(): any {
 describe("m11 tectonics (segments + history)", () => {
   it("segment decomposition is rotation-aware (shear changes when rotation changes)", () => {
     const mesh = makeTwoCellMesh();
-    const crust = { type: new Uint8Array([0, 0]), age: new Uint8Array([0, 0]) } as const;
+    const crust = {
+      type: new Uint8Array([0, 0]),
+      age: new Uint8Array([0, 0]),
+      buoyancy: new Float32Array([0.2, 0.2]),
+      baseElevation: new Float32Array([0.2, 0.2]),
+      strength: new Float32Array([0.2, 0.2]),
+    } as const;
 
     const basePlateGraph = {
       cellToPlate: new Int16Array([0, 1]),
@@ -55,7 +61,13 @@ describe("m11 tectonics (segments + history)", () => {
 
   it("convergent polarity is stable for oceanic-under-continental pairing", () => {
     const mesh = makeTwoCellMesh();
-    const crust = { type: new Uint8Array([0, 1]), age: new Uint8Array([0, 0]) } as const;
+    const crust = {
+      type: new Uint8Array([0, 1]),
+      age: new Uint8Array([0, 0]),
+      buoyancy: new Float32Array([0.2, 0.9]),
+      baseElevation: new Float32Array([0.2, 0.9]),
+      strength: new Float32Array([0.2, 0.9]),
+    } as const;
 
     const plateGraph = {
       cellToPlate: new Int16Array([0, 1]),
@@ -77,7 +89,13 @@ describe("m11 tectonics (segments + history)", () => {
 
   it("3-era history is deterministic and populates lastActiveEra", () => {
     const mesh = makeTwoCellMesh();
-    const crust = { type: new Uint8Array([0, 1]), age: new Uint8Array([0, 0]) } as const;
+    const crust = {
+      type: new Uint8Array([0, 1]),
+      age: new Uint8Array([0, 0]),
+      buoyancy: new Float32Array([0.2, 0.9]),
+      baseElevation: new Float32Array([0.2, 0.9]),
+      strength: new Float32Array([0.2, 0.9]),
+    } as const;
 
     const plateGraph = {
       cellToPlate: new Int16Array([0, 1]),
