@@ -1,18 +1,18 @@
 ---
-id: LOCAL-TBD
-title: "[POST-M10] Foundation tile crust/material drivers (mesh → tile projection surface)"
+id: M11-U04
+title: "[M11/U04] Foundation tile crust/material drivers (mesh → tile projection surface)"
 state: planned
 priority: 2
 estimate: 3
 project: engine-refactor-v1
-milestone: TBD
+milestone: M11
 assignees: []
 labels: [foundation, morphology, contracts]
 parent: null
 children: []
-blocked_by: []
+blocked_by: [M11-U03]
 blocked: []
-related_to: [LOCAL-TBD]
+related_to: [M11-U00]
 ---
 
 <!-- SECTION SCOPE [SYNC] -->

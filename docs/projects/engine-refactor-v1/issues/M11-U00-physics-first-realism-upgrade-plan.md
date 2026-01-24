@@ -1,31 +1,31 @@
 ---
-id: LOCAL-TBD
-title: "[SPIKE] Morphology physics-first gap remediation (post-M10)"
+id: M11-U00
+title: "[M11/U00] Physics-first realism upgrade plan (spike → spec)"
 state: planned
 priority: 2
 estimate: 4
 project: engine-refactor-v1
-milestone: M10
+milestone: M11
 assignees: []
 labels: [morphology, foundation, physics, refactor, spike]
 parent: null
 children: []
 blocked_by: []
 blocked: []
-related_to: [M10-U04, M10-U05]
+related_to: [M10-U04, M10-U05, M10-U06]
 ---
 
 <!-- SECTION SCOPE [SYNC] -->
 ## TL;DR
-- Identify and remediate drift between Phase 0.5 “physics-first” intent, Phase 2 locked Morphology model/contracts, and Phase 3 implementation reality—especially around crust/lithology/erodibility, truth-driver richness, and where deterministic noise is acting as a stand-in for missing drivers.
+- Transform the Phase 0.5 “physics-first” intent into a post-M10, **spec-grade** remediation plan with explicit decisions, concrete migration slices, and guardrails—so “architecture-green” cannot mask “physics-weak”.
 
 ## Deliverables
 - Drift ledger:
   - Phase 0.5 (greenfield) intent vs Phase 2 canon vs current implementation (code + doc evidence).
   - Categorize as: (A) spec inconsistency, (B) missing upstream drivers, (C) implementation incomplete, (D) intentional downscope.
 - Remediation proposal:
-  - Spec corrections required (if Phase 2 docs are internally inconsistent).
-  - New/updated truth driver surfaces required to make morphology “physics-first” in practice.
+  - Spec corrections required (if Phase 2 docs are internally inconsistent) and/or a Phase 4+ evolution plan (if Phase 2 intentionally downscoped).
+  - New/updated truth driver surfaces required to make realism **physics-driven** (not noise-driven).
   - Concrete implementation slices (contracts → ops → steps → tests/guardrails) with clear ownership boundaries.
 - Guardrail plan:
   - Add/extend verifications so the class of drift (cross-boundary imports, missing driver adoption, noise-as-crutch) is caught early.
@@ -52,6 +52,7 @@ related_to: [M10-U04, M10-U05]
   - [M10-U04](./M10-U04-gameplay-stamping-cutover.md)
   - [M10-U05](./M10-U05-truth-artifacts-and-map-projections.md)
   - [M10-U06](./M10-U06-tracing-observability-hardening.md)
+  - [M11 milestone](../milestones/M11-physics-first-realism-upgrade.md)
 
 ---
 
@@ -67,6 +68,25 @@ This spike assumes M10 completes as planned (especially U05):
 - Morphology truth artifacts are aligned to Phase 2 shapes (U05’s stated goal).
 
 This spike is specifically about the remaining “physics-first” quality gap after the architecture cutover is done.
+
+### Research synthesis (deep dives)
+
+Spec-grade research inputs (synthesis of agent deep dives):
+- `docs/projects/engine-refactor-v1/issues/research/physics-first-gap-research.md`
+
+High-signal recommendations (post-M10 remediation direction):
+- **Foundation must provide coherent drivers** (not IID placeholders): polar boundary conditions, coherent crust type+age, continuous regime blends, oceanic age/subsidence proxies, and deformation/strain/fracture fields.
+- **Morphology substrate must become materially driven** (Phase 2 semantic intent): `erodibilityK` must be derivable from crust/material drivers + regime signals.
+- **Mountains/hills must not be “chosen by noise”**: if deterministic noise remains, it should be micro-structure only and amplitude-gated by physics drivers (fracture/orogeny), never creating mountains where physics indicates none.
+- **Volcano truth must match Phase 2 shape**: `volcanoMask` plus a deterministic intent list `{ tileIndex, kind, strength01 }` (land-only; sorted).
+
+### Outcome shape (what “done” means)
+
+This plan is “done” when:
+- The drift ledger is complete and evidence-backed.
+- The decision points are resolved into explicit choices (with rationale and risk).
+- The follow-up issue set is complete, sequenced, and migration-slice shaped (prepare → cutover → cleanup) with “no legacy left” outcomes.
+- **Engine hard stops remain Gameplay-only**: any logic that depends on Civ7 engine-derived elevation/cliffs must live after `effect:map.elevationBuilt`.
 
 ### Quick Navigation
 - [TL;DR](#tldr)
@@ -305,15 +325,19 @@ Goal: ensure mountains/hills placement is primarily driven by physics truths (te
 
 ---
 
-## Follow-up issues to create (local docs)
+## Follow-up issues (M11)
 
-These are tracked as separate local issue docs (see files list at the end). They are intended to become Linear issues after M10 completes.
+These are tracked as separate local issue docs and are indexed by the M11 milestone.
 
-- [LOCAL-TBD-POST-M10-spec-authority-reconciliation](./LOCAL-TBD-POST-M10-spec-authority-reconciliation.md)
-- [LOCAL-TBD-POST-M10-foundation-crust-coherence-upgrade](./LOCAL-TBD-POST-M10-foundation-crust-coherence-upgrade.md)
-- [LOCAL-TBD-POST-M10-foundation-tile-crust-material-drivers](./LOCAL-TBD-POST-M10-foundation-tile-crust-material-drivers.md)
-- [LOCAL-TBD-POST-M10-morphology-substrate-material-driven](./LOCAL-TBD-POST-M10-morphology-substrate-material-driven.md)
-- [LOCAL-TBD-POST-M10-volcanoes-truth-contract-completion](./LOCAL-TBD-POST-M10-volcanoes-truth-contract-completion.md)
+- [M11-U01-spec-authority-reconciliation](./M11-U01-spec-authority-reconciliation.md)
+- [M11-U02-config-knobs-and-presets](./M11-U02-config-knobs-and-presets.md)
+- [M11-U03-foundation-crust-coherence-upgrade](./M11-U03-foundation-crust-coherence-upgrade.md)
+- [M11-U04-foundation-tile-material-drivers](./M11-U04-foundation-tile-material-drivers.md)
+- [M11-U05-morphology-substrate-material-driven](./M11-U05-morphology-substrate-material-driven.md)
+- [M11-U06-orogeny-mountains-physics-anchored](./M11-U06-orogeny-mountains-physics-anchored.md)
+- [M11-U07-volcanoes-truth-contract-completion](./M11-U07-volcanoes-truth-contract-completion.md)
+- [M11-U08-polar-boundary-and-cryosphere](./M11-U08-polar-boundary-and-cryosphere.md)
+- [M11-U09-geomorphology-stream-power-erosion](./M11-U09-geomorphology-stream-power-erosion.md)
 
 ---
 

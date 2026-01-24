@@ -1,18 +1,18 @@
 ---
-id: LOCAL-TBD
-title: "[POST-M10] Volcano truth contract completion (+ optional `artifact:map.volcanoes`)"
+id: M11-U07
+title: "[M11/U07] Volcano truth contract completion (+ optional `artifact:map.volcanoes`)"
 state: planned
 priority: 2
 estimate: 2
 project: engine-refactor-v1
-milestone: TBD
+milestone: M11
 assignees: []
 labels: [morphology, gameplay, contracts]
 parent: null
 children: []
-blocked_by: [M10-U05]
+blocked_by: []
 blocked: []
-related_to: [LOCAL-TBD]
+related_to: [M11-U00]
 ---
 
 <!-- SECTION SCOPE [SYNC] -->

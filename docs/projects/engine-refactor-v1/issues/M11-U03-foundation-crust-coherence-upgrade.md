@@ -1,18 +1,18 @@
 ---
-id: LOCAL-TBD
-title: "[POST-M10] Foundation crust coherence upgrade (make `foundation.crust` a real driver)"
+id: M11-U03
+title: "[M11/U03] Foundation crust coherence upgrade (make `foundation.crust` a real driver)"
 state: planned
 priority: 2
 estimate: 4
 project: engine-refactor-v1
-milestone: TBD
+milestone: M11
 assignees: []
 labels: [foundation, morphology, physics]
 parent: null
 children: []
 blocked_by: []
 blocked: []
-related_to: [LOCAL-TBD]
+related_to: [M11-U00]
 ---
 
 <!-- SECTION SCOPE [SYNC] -->
