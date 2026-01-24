@@ -11,20 +11,20 @@ MapGen Studio is a browser-based visualization tool for the Civ7 map generation 
 
 **Current state:**
 - Railway service exists, connected to the monorepo
-- But it's configured for the whole repo, not the `packages/mapgen-studio` subdirectory
-- The `mapgen-studio` package now exists with a minimal React + Vite scaffold
+- But it's configured for the whole repo, not the `apps/mapgen-studio` subdirectory
+- The `mapgen-studio` app now exists with a minimal React + Vite scaffold
 
 **What we need:**
-- Configure Railway to build/deploy ONLY `packages/mapgen-studio`
+- Configure Railway to build/deploy ONLY `apps/mapgen-studio`
 - Verify the app is accessible at a public URL
 - No authentication or security needed (it's a dev tool)
 
 ---
 
-## Package Location
+## App Location
 
 ```
-packages/mapgen-studio/
+apps/mapgen-studio/
 ├── package.json
 ├── vite.config.ts
 ├── tsconfig.json
@@ -47,10 +47,10 @@ packages/mapgen-studio/
 
 | Setting | Value |
 |---------|-------|
-| **Root Directory** | `packages/mapgen-studio` |
+| **Root Directory** | `apps/mapgen-studio` |
 | **Build Command** | `npm install && npm run build` |
 | **Start Command** | Leave empty (static site) |
-| **Watch Paths** | `packages/mapgen-studio/**` |
+| **Watch Paths** | `apps/mapgen-studio/**` |
 
 4. For static site serving, you need to configure the **Static File Serving**:
    - Go to **Settings** → **Networking**
@@ -58,7 +58,7 @@ packages/mapgen-studio/
 
 ### Option B: Via railway.json (Alternative)
 
-Create `/packages/mapgen-studio/railway.json`:
+Create `/apps/mapgen-studio/railway.json`:
 
 ```json
 {
@@ -77,7 +77,7 @@ Create `/packages/mapgen-studio/railway.json`:
 This uses `serve` to host the static files. You'd also need to add `serve` as a dev dependency:
 
 ```bash
-cd packages/mapgen-studio
+cd apps/mapgen-studio
 npm install --save-dev serve
 ```
 
@@ -91,7 +91,7 @@ railway login
 railway link
 
 # Set the root directory for builds
-railway service update --root-directory packages/mapgen-studio
+railway service update --root-directory apps/mapgen-studio
 
 # Trigger a deploy
 railway up
@@ -103,7 +103,7 @@ railway up
 
 1. **Local test first:**
    ```bash
-   cd packages/mapgen-studio
+   cd apps/mapgen-studio
    npm install
    npm run dev
    # Open http://localhost:5173 - should see "MapGen Studio" page
@@ -143,7 +143,7 @@ Railway might not be serving static files correctly. Options:
 2. Or configure Railway's static file serving feature
 
 ### Wrong directory being built
-Check that **Root Directory** is set to `packages/mapgen-studio` (not the repo root).
+Check that **Root Directory** is set to `apps/mapgen-studio` (not the repo root).
 
 ### Old version showing after deploy
 Railway caches aggressively. Try:
@@ -156,7 +156,7 @@ Railway caches aggressively. Try:
 
 ```bash
 # 1. Install dependencies locally
-cd packages/mapgen-studio
+cd apps/mapgen-studio
 npm install
 
 # 2. Test locally
