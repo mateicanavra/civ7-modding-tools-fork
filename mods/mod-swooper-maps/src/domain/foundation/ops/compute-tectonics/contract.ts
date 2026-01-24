@@ -5,7 +5,50 @@ import { FoundationMeshSchema } from "../compute-mesh/contract.js";
 import { FoundationCrustSchema } from "../compute-crust/contract.js";
 import { FoundationPlateGraphSchema } from "../compute-plate-graph/contract.js";
 
-const StrategySchema = Type.Object({}, { additionalProperties: false });
+const PolarBoundaryRegimeSchema = Type.Union([
+  Type.Literal("convergent"),
+  Type.Literal("divergent"),
+  Type.Literal("transform"),
+]);
+
+const PolarBoundaryEdgeSchema = Type.Object(
+  {
+    regime: PolarBoundaryRegimeSchema,
+    intensity: Type.Number({
+      minimum: 0,
+      maximum: 2,
+      description: "Edge interaction intensity multiplier (0..2).",
+    }),
+  },
+  { additionalProperties: false }
+);
+
+const StrategySchema = Type.Object(
+  {
+    polarBandFraction: Type.Number({
+      default: 0.12,
+      minimum: 0,
+      maximum: 0.5,
+      description: "Fraction of the mesh Y-span treated as the polar edge interaction band.",
+    }),
+    polarBoundary: Type.Optional(
+      Type.Object(
+        {
+          north: PolarBoundaryEdgeSchema,
+          south: PolarBoundaryEdgeSchema,
+        },
+        {
+          additionalProperties: false,
+          default: {
+            north: { regime: "transform", intensity: 1.0 },
+            south: { regime: "transform", intensity: 1.0 },
+          },
+        }
+      )
+    ),
+  },
+  { additionalProperties: false }
+);
 
 export const FoundationTectonicsSchema = Type.Object(
   {

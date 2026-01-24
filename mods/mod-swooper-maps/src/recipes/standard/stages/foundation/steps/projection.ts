@@ -1,3 +1,4 @@
+import { computeSampleStep, renderAsciiGrid } from "@swooper/mapgen-core";
 import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import { foundationArtifacts } from "../artifacts.js";
 import ProjectionStepContract from "./projection.contract.js";
@@ -89,5 +90,27 @@ export default createStep(ProjectionStepContract, {
     deps.artifacts.foundationPlates.publish(context, platesResult.plates);
     deps.artifacts.foundationTileToCellIndex.publish(context, platesResult.tileToCellIndex);
     deps.artifacts.foundationCrustTiles.publish(context, platesResult.crustTiles);
+
+    context.trace.event(() => {
+      const sampleStep = computeSampleStep(width, height);
+      const boundaryType = platesResult.plates.boundaryType;
+      const rows = renderAsciiGrid({
+        width,
+        height,
+        sampleStep,
+        cellFn: (x, y) => {
+          const idx = y * width + x;
+          const t = boundaryType[idx] ?? 0;
+          const base = t === 1 ? "C" : t === 2 ? "D" : t === 3 ? "T" : ".";
+          return { base };
+        },
+      });
+      return {
+        kind: "foundation.plates.ascii.boundaryType",
+        sampleStep,
+        legend: ".=none C=convergent D=divergent T=transform",
+        rows,
+      };
+    });
   },
 });

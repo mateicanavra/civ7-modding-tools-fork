@@ -312,6 +312,9 @@ export default createStep(ClimateRefineStepContract, {
       snowCover: cryosphere.snowCover,
       seaIceCover: cryosphere.seaIceCover,
       albedo: cryosphere.albedo,
+      groundIce01: cryosphere.groundIce01,
+      permafrost01: cryosphere.permafrost01,
+      meltPotential01: cryosphere.meltPotential01,
     });
     deps.artifacts.climateDiagnostics.publish(context, {
       rainShadowIndex: diagnostics.rainShadowIndex,

@@ -4,6 +4,13 @@ import { buildLatitudeField } from "./helpers/inputs.js";
 import { ecologyArtifacts } from "../../artifacts.js";
 import { validateBiomeClassificationArtifact } from "../../artifact-validation.js";
 
+function clamp01(value: number): number {
+  if (!Number.isFinite(value)) return 0;
+  if (value <= 0) return 0;
+  if (value >= 1) return 1;
+  return value;
+}
+
 export default createStep(BiomesStepContract, {
   artifacts: implementArtifacts([ecologyArtifacts.biomeClassification], {
     biomeClassification: {
@@ -18,6 +25,7 @@ export default createStep(BiomesStepContract, {
     const { landMask, elevation } = topography;
     const latitude = buildLatitudeField(context.env.latitudeBounds, width, height);
     const hydrography = deps.artifacts.hydrography.read(context);
+    const cryosphere = deps.artifacts.cryosphere.read(context);
 
     const result = ops.classify(
       {
@@ -32,10 +40,21 @@ export default createStep(BiomesStepContract, {
       },
       config.classify
     );
+
+    const size = Math.max(0, (width | 0) * (height | 0));
+    const treeLine01 = new Float32Array(size);
+    for (let i = 0; i < size; i++) {
+      treeLine01[i] = clamp01(1 - (cryosphere.permafrost01?.[i] ?? 0));
+    }
+
     deps.artifacts.biomeClassification.publish(context, {
       width,
       height,
       ...result,
+      groundIce01: cryosphere.groundIce01,
+      permafrost01: cryosphere.permafrost01,
+      meltPotential01: cryosphere.meltPotential01,
+      treeLine01,
     });
   },
 });

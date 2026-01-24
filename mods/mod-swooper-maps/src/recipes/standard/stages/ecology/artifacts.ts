@@ -11,6 +11,10 @@ export const BiomeClassificationArtifactSchema = Type.Object(
     surfaceTemperature: Type.Any(),
     aridityIndex: Type.Any(),
     freezeIndex: Type.Any(),
+    groundIce01: Type.Any(),
+    permafrost01: Type.Any(),
+    meltPotential01: Type.Any(),
+    treeLine01: Type.Any(),
   },
   { additionalProperties: false }
 );
