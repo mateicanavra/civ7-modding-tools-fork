@@ -146,6 +146,7 @@ export default createStep(LandmassPlatesStepContract, {
   },
   run: (context, config, ops, deps) => {
     const plates = deps.artifacts.foundationPlates.read(context);
+    const crustTiles = deps.artifacts.foundationCrustTiles.read(context);
     const { width, height } = context.dimensions;
     const stepId = `${LandmassPlatesStepContract.phase}/${LandmassPlatesStepContract.id}`;
 
@@ -155,6 +156,10 @@ export default createStep(LandmassPlatesStepContract, {
         height,
         upliftPotential: plates.upliftPotential,
         riftPotential: plates.riftPotential,
+        boundaryCloseness: plates.boundaryCloseness,
+        boundaryType: plates.boundaryType,
+        crustType: crustTiles.type,
+        crustAge: crustTiles.age,
       },
       config.substrate
     );
