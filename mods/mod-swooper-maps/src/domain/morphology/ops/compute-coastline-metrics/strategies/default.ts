@@ -1,16 +1,14 @@
 import { createStrategy } from "@swooper/mapgen-core/authoring";
+import { PerlinNoise } from "@swooper/mapgen-core/lib/noise";
 import { createLabelRng } from "@swooper/mapgen-core/lib/rng";
 import { forEachHexNeighborOddQ } from "@swooper/mapgen-core/lib/grid";
-import { normalizeFractal } from "@swooper/mapgen-core/lib/noise";
 
 import ComputeCoastlineMetricsContract from "../contract.js";
-import {
-  computePlateBias,
-  expandMaskRadius,
-  resolveBayPolicy,
-  resolveFjordDenom,
-  resolveSeaLaneProtection,
-} from "../rules/index.js";
+import { computePlateBias, resolveBayPolicy, resolveFjordDenom } from "../rules/index.js";
+
+const BOUNDARY_CONVERGENT = 1;
+const BOUNDARY_DIVERGENT = 2;
+const BOUNDARY_TRANSFORM = 3;
 
 export const defaultStrategy = createStrategy(ComputeCoastlineMetricsContract, "default", {
   run: (input, config) => {
@@ -19,20 +17,8 @@ export const defaultStrategy = createStrategy(ComputeCoastlineMetricsContract, "
     const landMask = input.landMask as Uint8Array;
     const closeness = input.boundaryCloseness as Uint8Array;
     const boundaryType = input.boundaryType as Uint8Array;
-    const seaLaneMask = input.seaLaneMask as Uint8Array;
-    const activeMarginMask = input.activeMarginMask as Uint8Array;
-    const passiveShelfMask = input.passiveShelfMask as Uint8Array;
-    const fractal = input.fractal as Int16Array;
 
-    if (
-      landMask.length !== size ||
-      closeness.length !== size ||
-      boundaryType.length !== size ||
-      seaLaneMask.length !== size ||
-      activeMarginMask.length !== size ||
-      passiveShelfMask.length !== size ||
-      fractal.length !== size
-    ) {
+    if (landMask.length !== size || closeness.length !== size || boundaryType.length !== size) {
       throw new Error("[CoastlineMetrics] Input tensors must match width*height.");
     }
 
@@ -41,10 +27,9 @@ export const defaultStrategy = createStrategy(ComputeCoastlineMetricsContract, "
     const fjordCfg = coastCfg.fjord;
     const plateBiasCfg = coastCfg.plateBias;
 
-    const protectionConfig = config.seaLanes;
-    const seaLaneRadius = Math.max(0, Math.round(coastCfg.minSeaLaneWidth));
-    const expandedSeaLaneMask = expandMaskRadius(width, height, seaLaneMask, seaLaneRadius);
     const rng = createLabelRng(input.rngSeed | 0);
+    const perlin = new PerlinNoise((input.rngSeed | 0) ^ 0x9e3779b9);
+    const noiseScale = 0.1;
 
     const updatedLandMask = new Uint8Array(landMask);
     const coastMask = new Uint8Array(size);
@@ -76,10 +61,9 @@ export const defaultStrategy = createStrategy(ComputeCoastlineMetricsContract, "
     for (let y = 1; y < height - 1; y++) {
       for (let x = 1; x < width - 1; x++) {
         const i = y * width + x;
-        const onSeaLane = expandedSeaLaneMask[i] === 1;
-        const protection = resolveSeaLaneProtection(protectionConfig, onSeaLane);
-        if (protection.skip) continue;
-        const chanceMult = protection.chanceMultiplier;
+        const bType = boundaryType[i] | 0;
+        const isActiveBoundary = bType === BOUNDARY_CONVERGENT || bType === BOUNDARY_TRANSFORM;
+        const isPassiveBoundary = bType === BOUNDARY_DIVERGENT;
 
         if (isCoastalLand(x, y)) {
           const closenessNorm = closeness[i] / 255;
@@ -87,11 +71,11 @@ export const defaultStrategy = createStrategy(ComputeCoastlineMetricsContract, "
             bay: bayCfg,
             plateBias: plateBiasCfg,
             closenessNorm,
-            boundaryType: boundaryType[i],
-            activeMargin: activeMarginMask[i] === 1,
-            chanceMultiplier: chanceMult,
+            boundaryType: bType,
+            activeMargin: isActiveBoundary || closenessNorm >= plateBiasCfg.threshold,
           });
-          const gate = normalizeFractal(fractal[i]) * 100;
+          const noise = perlin.noise2D(x * noiseScale, y * noiseScale);
+          const gate = Math.max(0, Math.min(1, (noise + 1) / 2)) * 100;
           if (gate < noiseGate && rng(Math.max(1, rollDen), "bay") === 0) {
             updatedLandMask[i] = 0;
             coastMask[i] = 1;
@@ -101,15 +85,20 @@ export const defaultStrategy = createStrategy(ComputeCoastlineMetricsContract, "
 
         if (isWaterAdjacentToLand(x, y)) {
           const closenessNorm = closeness[i] / 255;
-          const bias = computePlateBias(closenessNorm, boundaryType[i], plateBiasCfg);
-          let nearActive = activeMarginMask[i] === 1 || closenessNorm >= plateBiasCfg.threshold;
-          let nearPassive = passiveShelfMask[i] === 1;
+          const bias = computePlateBias(closenessNorm, bType, plateBiasCfg);
+          let nearActive = isActiveBoundary || closenessNorm >= plateBiasCfg.threshold;
+          let nearPassive = isPassiveBoundary;
 
           forEachHexNeighborOddQ(x, y, width, height, (nx, ny) => {
             if (nearActive && nearPassive) return;
             const ni = ny * width + nx;
-            if (!nearActive && activeMarginMask[ni] === 1) nearActive = true;
-            if (!nearPassive && passiveShelfMask[ni] === 1) nearPassive = true;
+            const neighborType = boundaryType[ni] | 0;
+            if (!nearActive) {
+              if (neighborType === BOUNDARY_CONVERGENT || neighborType === BOUNDARY_TRANSFORM) {
+                nearActive = true;
+              }
+            }
+            if (!nearPassive && neighborType === BOUNDARY_DIVERGENT) nearPassive = true;
           });
 
           const denomUsed = resolveFjordDenom({
@@ -118,7 +107,6 @@ export const defaultStrategy = createStrategy(ComputeCoastlineMetricsContract, "
             bias,
             nearActive,
             nearPassive,
-            chanceMultiplier: chanceMult,
           });
 
           if (rng(denomUsed, "fjord") === 0) {

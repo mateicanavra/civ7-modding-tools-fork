@@ -19,6 +19,13 @@ function listFilesRecursive(rootDir: string): string[] {
 }
 
 describe("foundation contract guardrails", () => {
+  it("requires volcanism in foundation plates schema", () => {
+    const repoRoot = path.resolve(import.meta.dir, "../..");
+    const artifactsFile = path.join(repoRoot, "src/recipes/standard/stages/foundation/artifacts.ts");
+    const text = readFileSync(artifactsFile, "utf8");
+    expect(text).toContain("volcanism");
+  });
+
   it("does not import domain config bag schemas from op contracts", () => {
     const repoRoot = path.resolve(import.meta.dir, "../..");
     const foundationOpsDir = path.join(repoRoot, "src/domain/foundation/ops");

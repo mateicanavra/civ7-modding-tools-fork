@@ -2,7 +2,6 @@ import { Type, defineStep } from "@swooper/mapgen-core/authoring";
 import morphology from "@mapgen/domain/morphology";
 
 import { foundationArtifacts } from "../../foundation/artifacts.js";
-import { narrativePreArtifacts } from "../../narrative-pre/artifacts.js";
 
 /**
  * Plans and applies volcanic placements.
@@ -12,7 +11,7 @@ const VolcanoesStepContract = defineStep({
   phase: "morphology",
   requires: [],
   artifacts: {
-    requires: [foundationArtifacts.plates, narrativePreArtifacts.overlays],
+    requires: [foundationArtifacts.plates],
   },
   provides: [],
   ops: {

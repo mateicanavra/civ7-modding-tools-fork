@@ -114,6 +114,7 @@ export interface FoundationPlateFields {
   upliftPotential: Uint8Array;
   riftPotential: Uint8Array;
   shieldStability: Uint8Array;
+  volcanism: Uint8Array;
   movementU: Int8Array;
   movementV: Int8Array;
   rotation: Int8Array;
@@ -407,6 +408,7 @@ export function validateFoundationPlatesArtifact(
   ensureTensor("upliftPotential", plates.upliftPotential, size);
   ensureTensor("riftPotential", plates.riftPotential, size);
   ensureTensor("shieldStability", plates.shieldStability, size);
+  ensureTensor("volcanism", plates.volcanism, size);
   ensureTensor("plateMovementU", plates.movementU, size);
   ensureTensor("plateMovementV", plates.movementV, size);
   ensureTensor("plateRotation", plates.rotation, size);

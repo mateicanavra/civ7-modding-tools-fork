@@ -19,7 +19,7 @@ const PlanVolcanoesContract = defineOp({
     boundaryCloseness: TypedArraySchemas.u8({ description: "Boundary proximity per tile (0..255)." }),
     boundaryType: TypedArraySchemas.u8({ description: "Boundary type per tile (1=conv,2=div,3=trans)." }),
     shieldStability: TypedArraySchemas.u8({ description: "Shield stability per tile (0..255)." }),
-    hotspotMask: TypedArraySchemas.u8({ description: "Mask of hotspot trail tiles (1=hotspot)." }),
+    volcanism: TypedArraySchemas.u8({ description: "Volcanism signal per tile (0..255)." }),
     rngSeed: Type.Integer({ description: "Seed for deterministic volcano placement." }),
   }),
   output: Type.Object({

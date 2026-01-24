@@ -207,7 +207,7 @@ export const CoastlineFjordConfigSchema = Type.Object(
 );
 
 /**
- * Island chain placement using fractal noise and hotspot trails.
+ * Island chain placement using deterministic noise and volcanism signals.
  */
 export const IslandsConfigSchema = Type.Object(
   {
@@ -233,18 +233,18 @@ export const IslandsConfigSchema = Type.Object(
       default: 5,
       minimum: 1,
     }),
-    /** Island frequency away from active margins; controls passive-shelf archipelagos. */
+    /** Island frequency away from active margins; controls interior archipelagos. */
     baseIslandDenElse: Type.Number({
-      description: "Island frequency away from active margins; controls passive-shelf archipelagos.",
+      description: "Island frequency away from active margins; controls interior archipelagos.",
       default: 7,
       minimum: 1,
     }),
     /**
-     * Island seed frequency along hotspot trails.
+     * Island seed frequency along volcanism signals.
      * Smaller values create Hawaii-style chains.
      */
     hotspotSeedDenom: Type.Number({
-      description: "Island seed frequency along hotspot trails; smaller values create Hawaii-style chains.",
+      description: "Island seed frequency along volcanism signals; smaller values create Hawaii-style chains.",
       default: 2,
       minimum: 1,
     }),
@@ -677,11 +677,6 @@ export const CoastConfigSchema = Type.Object(
     bay: CoastlineBayConfigSchema,
     fjord: CoastlineFjordConfigSchema,
     plateBias: CoastlinePlateBiasConfigSchema,
-    minSeaLaneWidth: Type.Number({
-      description: "Minimum channel width preserved for naval passage when carving bays and fjords (tiles).",
-      default: 3,
-      minimum: 0,
-    }),
   }
 );
 
@@ -727,26 +722,3 @@ export type MountainsConfig =
   Static<typeof LandformsConfigSchema["properties"]["mountains"]>;
 export type VolcanoesConfig =
   Static<typeof LandformsConfigSchema["properties"]["volcanoes"]>;
-
-export const HotspotBiasTunablesSchema = Type.Object(
-  {
-    paradiseBias: Type.Number({
-      description: "Bias applied to paradise hotspots when selecting island/volcanic behavior.",
-      default: 2,
-      minimum: 0,
-    }),
-    volcanicBias: Type.Number({
-      description: "Bias applied to volcanic hotspots when selecting island/volcanic behavior.",
-      default: 1,
-      minimum: 0,
-    }),
-    volcanicPeakChance: Type.Number({
-      description: "Chance that a volcanic hotspot receives a peak tile (0..1).",
-      default: 0.33,
-      minimum: 0,
-      maximum: 1,
-    }),
-  }
-);
-
-export type HotspotBiasTunables = Static<typeof HotspotBiasTunablesSchema>;

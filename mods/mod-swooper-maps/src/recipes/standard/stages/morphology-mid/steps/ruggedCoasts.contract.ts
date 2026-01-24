@@ -3,7 +3,6 @@ import morphology from "@mapgen/domain/morphology";
 
 import { foundationArtifacts } from "../../foundation/artifacts.js";
 import { morphologyArtifacts } from "../../morphology-pre/artifacts.js";
-import { narrativePreArtifacts } from "../../narrative-pre/artifacts.js";
 
 /**
  * Produces coastline metrics and applies ruggedization adjustments.
@@ -14,10 +13,7 @@ const RuggedCoastsStepContract = defineStep({
   requires: [],
   provides: [],
   artifacts: {
-    requires: [
-      foundationArtifacts.plates,
-      narrativePreArtifacts.overlays,
-    ],
+    requires: [foundationArtifacts.plates],
     provides: [morphologyArtifacts.coastlineMetrics],
   },
   ops: {

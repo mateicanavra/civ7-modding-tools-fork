@@ -59,6 +59,7 @@ const ComputePlatesTensorsContract = defineOp({
           upliftPotential: TypedArraySchemas.u8({ description: "Uplift potential per tile (0..255)." }),
           riftPotential: TypedArraySchemas.u8({ description: "Rift potential per tile (0..255)." }),
           shieldStability: TypedArraySchemas.u8({ description: "Shield stability per tile (0..255)." }),
+          volcanism: TypedArraySchemas.u8({ description: "Volcanism per tile (0..255)." }),
           movementU: TypedArraySchemas.i8({ description: "Plate movement U component per tile (-127..127)." }),
           movementV: TypedArraySchemas.i8({ description: "Plate movement V component per tile (-127..127)." }),
           rotation: TypedArraySchemas.i8({ description: "Plate rotation per tile (-127..127)." }),
