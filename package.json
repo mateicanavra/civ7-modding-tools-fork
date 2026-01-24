@@ -28,6 +28,7 @@
     "resources:init": "bash ./scripts/civ7-resources/init-submodule.sh",
     "resources:publish": "bash ./scripts/civ7-resources/publish-submodule.sh",
     "resources:status": "bash ./scripts/civ7-resources/status.sh",
+    "resources:unlock": "python3 ./scripts/civ7-resources/unlock-submodule.py",
     "setup:git-hooks": "bash ./scripts/git-hooks/setup.sh",
     "refresh:data": "pnpm -s resources:init && pnpm -s -F @civ7/plugin-files build && pnpm dev:cli -- data zip default && pnpm dev:cli -- data unzip default",
     "mods:import": "pnpm exec civ7 mod git import",
