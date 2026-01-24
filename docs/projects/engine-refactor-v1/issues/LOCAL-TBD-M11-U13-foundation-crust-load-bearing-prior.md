@@ -125,6 +125,16 @@ docs:
   - cross-plate: allow transitions, but bias toward structured margins (controlled by a margin width driver), not random noise
 - **Baseline posture:** `baseElevation` is a pre-tectonic substrate (Airy-ish proxy). Morphology then adds tectonic/belt effects and runs sea-level solve; it should not need to invent continent/basin placement from scratch.
 
+## Implementation Decisions
+
+### Keep defaults in schemas and reject unknown keys
+- **Context:** Review comment requested “no defaults” and “no `additionalProperties`”, conflicting with existing MapGen docs and existing contracts.
+- **Options:** Remove defaults + allow unknown keys; keep defaults + `additionalProperties: false`.
+- **Choice:** Keep defaults in contract schemas and keep `additionalProperties: false` by default.
+- **Rationale:** Keeps contracts self-documenting and prevents silent drift from misspelled keys while preserving normalize/compile for derived values.
+- **Risk:** If upstream expects permissive configs, strict rejection could break legacy author configs; exceptions must be explicit.
+- **ADR:** `docs/system/ADR.md` (ADR-001).
+
 ### Trace
 - Branch: `agent-RAMBO-M11-U13-foundation-crust-load-bearing-prior`
 - PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/711

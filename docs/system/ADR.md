@@ -40,3 +40,16 @@ Each decision follows this structure:
 - Strict dependency resolution
 - Requires pnpm knowledge from contributors
 -->
+
+## ADR-001: Contract schema defaults and unknown-key policy
+
+**Status:** Accepted
+**Date:** 2026-01-24
+**Context:** Review comments requested “no schema defaults” and “no `additionalProperties` field” in MapGen op/step contracts, but existing project docs rely on schema defaults as the canonical baseline and prescribe `additionalProperties: false` for strict, typed configs.
+**Decision:**
+- Keep **author-facing defaults** in contract schemas (property defaults and/or a `defaultConfig` baseline), and keep **derived/scaled values** in normalize/compile steps.
+- Use `additionalProperties: false` on object schemas by default to reject unknown keys, unless an interface is explicitly intended to be open-ended.
+**Consequences:**
+- Contracts remain self-documenting and can validate + default without requiring downstream “fill missing” logic.
+- Unknown-key rejection becomes consistent (reduces silent drift from misspelled config keys).
+- When an open-ended config is needed, it must be explicit and documented as an exception.

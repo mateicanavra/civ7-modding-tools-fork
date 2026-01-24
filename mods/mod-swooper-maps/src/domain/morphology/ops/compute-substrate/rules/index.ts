@@ -42,7 +42,15 @@ function boundaryErodibilityBoost(
     case 3:
       return config.transformBoundaryErodibilityBoost;
     default:
-      return 0;
+      // boundaryType is only defined on the boundary itself, but boundaryCloseness
+      // is a distance falloff field. For interior tiles, apply a generic proximity
+      // boost so closeness affects non-boundary tiles too.
+      return clampNonNegative(
+        (config.convergentBoundaryErodibilityBoost +
+          config.divergentBoundaryErodibilityBoost +
+          config.transformBoundaryErodibilityBoost) /
+          3
+      );
   }
 }
 
@@ -58,7 +66,12 @@ function boundarySedimentBoost(
     case 3:
       return config.transformBoundarySedimentBoost;
     default:
-      return 0;
+      return clampNonNegative(
+        (config.convergentBoundarySedimentBoost +
+          config.divergentBoundarySedimentBoost +
+          config.transformBoundarySedimentBoost) /
+          3
+      );
   }
 }
 

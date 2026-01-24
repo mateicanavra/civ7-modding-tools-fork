@@ -1,30 +1,9 @@
 import { createOp } from "@swooper/mapgen-core/authoring";
-import { clamp01, wrapDeltaPeriodic } from "@swooper/mapgen-core/lib/math";
-import { createLabelRng } from "@swooper/mapgen-core/lib/rng";
+import { clamp01, distanceSqWrapped } from "@swooper/mapgen-core/lib/math";
+import { createLabelRng, pickUniqueIndices } from "@swooper/mapgen-core/lib/rng";
 
 import { requireMesh } from "../../lib/require.js";
 import ComputeCrustContract from "./contract.js";
-
-function distanceSq(ax: number, ay: number, bx: number, by: number, wrapWidth: number): number {
-  const dx = wrapDeltaPeriodic(ax - bx, wrapWidth);
-  const dy = ay - by;
-  return dx * dx + dy * dy;
-}
-
-function ageNorm(age: number): number {
-  return clamp01((age | 0) / 255);
-}
-
-function chooseUniqueSeedCells(cellCount: number, seedCount: number, rng: (max: number, label?: string) => number): number[] {
-  const indices = Array.from({ length: cellCount }, (_, i) => i);
-  for (let i = 0; i < seedCount; i++) {
-    const j = i + (rng(cellCount - i, "CrustSeedShuffle") | 0);
-    const tmp = indices[i]!;
-    indices[i] = indices[j]!;
-    indices[j] = tmp;
-  }
-  return indices.slice(0, seedCount);
-}
 
 function neighborsFor(mesh: { neighborsOffsets: Int32Array; neighbors: Int32Array }, cellId: number): Int32Array {
   const start = mesh.neighborsOffsets[cellId] | 0;
@@ -58,7 +37,7 @@ const computeCrust = createOp(ComputeCrustContract, {
         const strength = new Float32Array(cellCount);
 
         const platesCount = Math.min(cellCount, Math.max(2, Math.round(cellCount / 2)));
-        const seedCells = chooseUniqueSeedCells(cellCount, platesCount, rng);
+        const seedCells = pickUniqueIndices(cellCount, platesCount, rng, "CrustSeedShuffle");
 
         const wrapWidth = mesh.wrapWidth;
         const cellToPlate = new Int16Array(cellCount);
@@ -73,7 +52,7 @@ const computeCrust = createOp(ComputeCrustContract, {
             const seedX = mesh.siteX[seedCell] ?? 0;
             const seedY = mesh.siteY[seedCell] ?? 0;
 
-            const dist = distanceSq(x, y, seedX, seedY, wrapWidth);
+            const dist = distanceSqWrapped(x, y, seedX, seedY, wrapWidth);
             if (dist < bestDist) {
               bestDist = dist;
               bestId = p;
@@ -115,14 +94,7 @@ const computeCrust = createOp(ComputeCrustContract, {
           continentalCells = cellCount;
         } else if (targetContinentalCells > 0) {
           const seedPlateCount = Math.max(1, Math.round(Math.sqrt(platesCount) * ratio));
-          const shuffledPlateIds = Array.from({ length: platesCount }, (_, i) => i);
-          for (let i = 0; i < seedPlateCount; i++) {
-            const j = i + (rng(platesCount - i, "CrustContinentSeedShuffle") | 0);
-            const tmp = shuffledPlateIds[i]!;
-            shuffledPlateIds[i] = shuffledPlateIds[j]!;
-            shuffledPlateIds[j] = tmp;
-          }
-          const seedPlates = shuffledPlateIds.slice(0, seedPlateCount);
+          const seedPlates = pickUniqueIndices(platesCount, seedPlateCount, rng, "CrustContinentSeedShuffle");
 
           const frontier: number[] = [];
           for (let i = 0; i < seedPlates.length; i++) {
@@ -251,7 +223,7 @@ const computeCrust = createOp(ComputeCrustContract, {
 
         for (let i = 0; i < cellCount; i++) {
           const isContinental = (type[i] ?? 0) === 1;
-          const a01 = ageNorm(age[i] ?? 0);
+          const a01 = clamp01((age[i] ?? 0) / 255);
           const coastDist = distToCoast[i] < 0 ? shelfWidthCells * 8 : (distToCoast[i] | 0);
           const shelf01 = clamp01(1 - coastDist / shelfWidthCells);
 

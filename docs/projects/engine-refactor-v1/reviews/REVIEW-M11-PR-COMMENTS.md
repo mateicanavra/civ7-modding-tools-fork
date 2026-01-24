@@ -65,8 +65,8 @@ Doc: `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M11-U13-foundation-crust
 - Author: `mateicanavra`
 - Type: issue comment
 - Location: `mods/mod-swooper-maps/src/domain/foundation/ops/compute-crust/index.ts:14`
-- Status: **unresolved**
-- Evidence: local helper functions (`distanceSq`, `chooseUniqueSeedCells`, etc.) still defined in `compute-crust/index.ts`.
+- Status: **resolved downstream**
+- Evidence: `compute-crust/index.ts` now imports shared helpers (`distanceSqWrapped`, `pickUniqueIndices`) instead of defining local equivalents.
 
 2) **Schema hygiene rules for all contracts**
 - Author: `mateicanavra`
@@ -76,16 +76,15 @@ Doc: `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M11-U13-foundation-crust
   - no top-level object defaults
   - no `additionalProperties` field
   - JSdoc above each property/schema; JSdoc matches `description`
-- Status: **unresolved**
-- Evidence: `compute-crust/contract.ts` still has schema defaults and `additionalProperties: false`, no JSdoc per field.
-- Doc cross-check: `LOCAL-TBD-M11-U10` explicitly mandates `additionalProperties: false`, and `docs/system/libs/mapgen/hydrology-api.md` says defaults belong in schemas. This comment conflicts with existing docs; needs reconciliation.
+- Status: **superseded**
+- Evidence: policy conflict resolved via `docs/system/ADR.md` (ADR-001): defaults remain in schemas and unknown keys are rejected via `additionalProperties: false` by default.
 
 3) **Descriptions must include behavior + defaults**
 - Author: `mateicanavra`
 - Type: issue comment
 - Location: `mods/mod-swooper-maps/src/domain/foundation/ops/compute-crust/contract.ts:17`
-- Status: **unresolved**
-- Evidence: current descriptions are short (“baseline …”) without behavioral context or defaults.
+- Status: **resolved downstream**
+- Evidence: `compute-crust/contract.ts` descriptions now include defaults and more behavioral context.
 
 ### PR #708 — U10 plate partition realism
 Doc: `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M11-U10-foundation-plate-partition-realism.md`
@@ -94,14 +93,14 @@ Doc: `docs/projects/engine-refactor-v1/issues/LOCAL-TBD-M11-U10-foundation-plate
 - Author: `mateicanavra`
 - Type: issue comment
 - Location: `mods/mod-swooper-maps/src/domain/foundation/ops/compute-plate-graph/index.ts:1`
-- Status: **unresolved**
-- Evidence: `compute-plate-graph/index.ts` still embeds MinHeap + seed selection + Dijkstra implementation.
+- Status: **resolved downstream**
+- Evidence: core partition logic (heap + selection + growth helpers) extracted into `compute-plate-graph/rules.ts`.
 
 5) **Extract partition logic into shared rules/strategies**
 - Author: `chatgpt-codex-connector[bot]`
 - Type: review comment
 - Location: `mods/mod-swooper-maps/src/domain/foundation/ops/compute-plate-graph/index.ts:14`
-- Status: **unresolved** (same issue as #4)
+- Status: **resolved downstream** (same issue as #4)
 - Evidence: same as above.
 
 ### PR #707 — Spike: foundation realism gaps
@@ -142,8 +141,8 @@ Doc: `docs/projects/engine-refactor-v1/issues/M11-U05-morphology-substrate-mater
 - Author: `chatgpt-codex-connector[bot]`
 - Type: review comment
 - Location: `mods/mod-swooper-maps/src/domain/morphology/ops/compute-substrate/rules/index.ts:84`
-- Status: **unresolved**
-- Evidence: `boundaryCloseness` is multiplied by a boost gated on `boundaryType`; `boundaryType` is `none` for interior tiles, so proximity falloff is effectively ignored for interior tiles.
+- Status: **resolved downstream**
+- Evidence: `compute-substrate/rules/index.ts` now applies a generic boundary proximity boost when `boundaryType=none`, so `boundaryCloseness` affects interior tiles.
 
 ### PR #698 — U03 crust coherence upgrade
 Doc: `docs/projects/engine-refactor-v1/issues/M11-U03-foundation-crust-coherence-upgrade.md`
@@ -152,8 +151,8 @@ Doc: `docs/projects/engine-refactor-v1/issues/M11-U03-foundation-crust-coherence
 - Author: `chatgpt-codex-connector[bot]`
 - Type: review comment
 - Location: `mods/mod-swooper-maps/src/domain/foundation/ops/compute-crust/index.ts:195`
-- Status: **unresolved**
-- Evidence: `dist01 = maxDist <= 0 ? 1 : d / maxDist`, which makes boundary-only plates “oldest.”
+- Status: **resolved downstream**
+- Evidence: `compute-crust/index.ts` now treats boundary-only plates as youngest (`dist01 = maxDist <= 0 ? 0 : d / maxDist`).
 
 ### PR #697 — U02 config knobs + presets
 Doc: `docs/projects/engine-refactor-v1/issues/M11-U02-config-knobs-and-presets.md`
@@ -162,8 +161,8 @@ Doc: `docs/projects/engine-refactor-v1/issues/M11-U02-config-knobs-and-presets.m
 - Author: `chatgpt-codex-connector[bot]`
 - Type: review comment
 - Location: `mods/mod-swooper-maps/src/recipes/standard/stages/morphology-mid/steps/geomorphology.ts:39`
-- Status: **unresolved**
-- Evidence: `clampNumber` is called with `{ min: 0 }` only; schema max = 1 is ignored.
+- Status: **resolved downstream**
+- Evidence: `geomorphology.ts` clamps knob-scaled erosion rates with `{ min: 0, max: 1 }`.
 
 ### PR #690 — M10 gameplay stamping cutover
 Doc: `docs/projects/engine-refactor-v1/issues/M10-U04-gameplay-stamping-cutover.md`
@@ -172,8 +171,8 @@ Doc: `docs/projects/engine-refactor-v1/issues/M10-U04-gameplay-stamping-cutover.
 - Author: `chatgpt-codex-connector[bot]`
 - Type: review comment
 - Location: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-hydrography/river-adjacency.ts:25`
-- Status: **unresolved**
-- Evidence: adjacency scan clamps `x0/x1` to map bounds; no wrap-X handling.
+- Status: **resolved downstream**
+- Evidence: river adjacency now uses wrap-X when sampling neighbor tiles.
 
 ### PR #689 — M10 map-morphology stamping
 Doc: `docs/projects/engine-refactor-v1/issues/M10-U03-map-morphology-stamping.md`
@@ -182,8 +181,8 @@ Doc: `docs/projects/engine-refactor-v1/issues/M10-U03-map-morphology-stamping.md
 - Author: `chatgpt-codex-connector[bot]`
 - Type: review comment
 - Location: `mods/mod-swooper-maps/src/recipes/standard/stages/map-morphology/steps/plotCoasts.ts:20`
-- Status: **unresolved (needs decision)**
-- Evidence: step calls `adapter.expandCoasts(...)` but does not re-sync `context.buffers.heightfield`.
+- Status: **resolved downstream**
+- Evidence: `plotCoasts.ts` now documents adapter-only mutation and asserts no post-expand drift for heightfield buffers.
 
 ### PR #687 — M10 delete overlays as morphology inputs
 Doc: `docs/projects/engine-refactor-v1/issues/M10-U01-delete-overlays-as-morphology-inputs.md`
@@ -199,16 +198,14 @@ Doc: `docs/projects/engine-refactor-v1/issues/M10-U01-delete-overlays-as-morphol
 
 ### A) Contract/schema hygiene
 **Proposed invariants:**
-- No top-level object defaults in contract schemas.
-- Avoid `additionalProperties` unless explicitly required (decision needed; current docs conflict).
+- Defaults belong in schemas (author-facing defaults), with derived/scaled values in normalize/compile.
+- Use `additionalProperties: false` by default to reject unknown keys (unless intentionally open-ended).
 - JSdoc for each schema property; JSdoc text matches `description`.
-- Descriptions must include behavioral context + default posture.
+- Descriptions must include behavioral context + default posture (default values may live in schema `default`).
 
 **Evidence:** PR #711 comments.
 
-**Conflict to resolve:**
-- `LOCAL-TBD-M11-U10` instructs `additionalProperties: false` on new configs.
-- `docs/system/libs/mapgen/hydrology-api.md` asserts defaults belong in schemas.
+**Conflict status:** resolved via `docs/system/ADR.md` (ADR-001).
 
 ### B) Op modularity (no god-ops)
 **Proposed invariants:**

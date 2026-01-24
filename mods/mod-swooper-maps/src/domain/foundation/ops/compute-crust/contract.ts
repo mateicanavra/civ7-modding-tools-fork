@@ -9,56 +9,62 @@ const StrategySchema = Type.Object(
       default: 0.3,
       minimum: 0,
       maximum: 1,
-      description: "Fraction of cells assigned continental crust (remainder = oceanic).",
+      description:
+        "Fraction of cells assigned continental crust (remainder = oceanic). Default: 0.3.",
     }),
     /** Shelf/margin influence radius in mesh-cell steps (used when shaping baseElevation). */
     shelfWidthCells: Type.Integer({
       default: 6,
       minimum: 1,
       maximum: 64,
-      description: "Shelf/margin influence radius in mesh-cell steps (used when shaping baseElevation).",
+      description:
+        "Shelf/margin influence radius in mesh-cell steps (used when shaping baseElevation). Default: 6.",
     }),
     /** BaseElevation boost applied to oceanic cells near continental boundaries (continental shelf proxy). */
     shelfElevationBoost: Type.Number({
       default: 0.12,
       minimum: 0,
       maximum: 1,
-      description: "BaseElevation boost applied to oceanic cells near continental boundaries (continental shelf proxy).",
+      description:
+        "BaseElevation boost applied to oceanic cells near continental boundaries (continental shelf proxy). Default: 0.12.",
     }),
     /** BaseElevation penalty applied to continental cells near boundaries (passive margin proxy). */
     marginElevationPenalty: Type.Number({
       default: 0.04,
       minimum: 0,
       maximum: 1,
-      description: "BaseElevation penalty applied to continental cells near boundaries (passive margin proxy).",
+      description:
+        "BaseElevation penalty applied to continental cells near boundaries (passive margin proxy). Default: 0.04.",
     }),
     /** Baseline isostatic baseElevation for continental crust (0..1). */
     continentalBaseElevation: Type.Number({
       default: 0.78,
       minimum: 0,
       maximum: 1,
-      description: "Baseline isostatic baseElevation for continental crust (0..1).",
+      description: "Baseline isostatic baseElevation for continental crust (0..1). Default: 0.78.",
     }),
     /** Age-based baseElevation boost for continental interiors (craton proxy; 0..1 of age01). */
     continentalAgeBoost: Type.Number({
       default: 0.12,
       minimum: 0,
       maximum: 1,
-      description: "Age-based baseElevation boost for continental interiors (craton proxy; 0..1 of age01).",
+      description:
+        "Age-based baseElevation boost for continental interiors (craton proxy; 0..1 of age01). Default: 0.12.",
     }),
     /** Baseline isostatic baseElevation for oceanic crust (0..1). */
     oceanicBaseElevation: Type.Number({
       default: 0.32,
       minimum: 0,
       maximum: 1,
-      description: "Baseline isostatic baseElevation for oceanic crust (0..1).",
+      description: "Baseline isostatic baseElevation for oceanic crust (0..1). Default: 0.32.",
     }),
     /** Age-based baseElevation depth increase for oceanic crust (0..1 of age01). */
     oceanicAgeDepth: Type.Number({
       default: 0.22,
       minimum: 0,
       maximum: 1,
-      description: "Age-based baseElevation depth increase for oceanic crust (0..1 of age01).",
+      description:
+        "Age-based baseElevation depth increase for oceanic crust (0..1 of age01). Default: 0.22.",
     }),
   },
   { additionalProperties: false }
