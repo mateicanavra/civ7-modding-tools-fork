@@ -1,8 +1,11 @@
 import { describe, it, expect } from "bun:test";
+import { buildPlateTopology } from "@swooper/mapgen-core/lib/plates";
 import computeMesh from "../../src/domain/foundation/ops/compute-mesh/index.js";
 import computeCrust from "../../src/domain/foundation/ops/compute-crust/index.js";
 import computePlateGraph from "../../src/domain/foundation/ops/compute-plate-graph/index.js";
-import computeTectonics from "../../src/domain/foundation/ops/compute-tectonics/index.js";
+import computeTectonicHistory from "../../src/domain/foundation/ops/compute-tectonic-history/index.js";
+import computeTectonicSegments from "../../src/domain/foundation/ops/compute-tectonic-segments/index.js";
+import computePlatesTensors from "../../src/domain/foundation/ops/compute-plates-tensors/index.js";
 
 function neighborsFor(mesh: {
   neighborsOffsets: Int32Array;
@@ -17,6 +20,31 @@ function sumAreas(areas: Float32Array): number {
   let total = 0;
   for (let i = 0; i < areas.length; i++) total += areas[i] ?? 0;
   return total;
+}
+
+function quantile(sorted: number[], q: number): number {
+  if (sorted.length === 0) return 0;
+  const clamped = Math.max(0, Math.min(1, q));
+  const idx = Math.floor((sorted.length - 1) * clamped);
+  return sorted[idx] ?? 0;
+}
+
+function mean(values: number[]): number {
+  if (values.length === 0) return 0;
+  let s = 0;
+  for (let i = 0; i < values.length; i++) s += values[i] ?? 0;
+  return s / values.length;
+}
+
+function variance(values: number[]): number {
+  if (values.length === 0) return 0;
+  const m = mean(values);
+  let s = 0;
+  for (let i = 0; i < values.length; i++) {
+    const d = (values[i] ?? 0) - m;
+    s += d * d;
+  }
+  return s / values.length;
 }
 
 describe("foundation mesh-first ops (slice 2)", () => {
@@ -150,31 +178,217 @@ describe("foundation mesh-first ops (slice 2)", () => {
     expect(graphA.cellToPlate.length).toBe(mesh.cellCount);
     expect(graphA.plates.length).toBeGreaterThan(1);
 
-    const tectA = computeTectonics.run(
+    const segA = computeTectonicSegments.run(
       {
         mesh,
         crust: crustA,
         plateGraph: graphA,
       },
-      computeTectonics.defaultConfig
-    ).tectonics;
+      computeTectonicSegments.defaultConfig
+    ).segments;
 
-    const tectB = computeTectonics.run(
+    const segB = computeTectonicSegments.run(
       {
         mesh,
         crust: crustA,
         plateGraph: graphA,
       },
-      computeTectonics.defaultConfig
-    ).tectonics;
+      computeTectonicSegments.defaultConfig
+    ).segments;
 
-    expect(Array.from(tectA.boundaryType)).toEqual(Array.from(tectB.boundaryType));
-    expect(tectA.boundaryType.length).toBe(mesh.cellCount);
-    expect(tectA.upliftPotential.length).toBe(mesh.cellCount);
-    expect(tectA.riftPotential.length).toBe(mesh.cellCount);
-    expect(tectA.shearStress.length).toBe(mesh.cellCount);
-    expect(tectA.volcanism.length).toBe(mesh.cellCount);
-    expect(tectA.fracture.length).toBe(mesh.cellCount);
-    expect(tectA.cumulativeUplift.length).toBe(mesh.cellCount);
+    expect(segA.segmentCount).toBe(segB.segmentCount);
+    expect(Array.from(segA.aCell)).toEqual(Array.from(segB.aCell));
+    expect(Array.from(segA.bCell)).toEqual(Array.from(segB.bCell));
+    expect(Array.from(segA.regime)).toEqual(Array.from(segB.regime));
+
+    const histA = computeTectonicHistory.run(
+      { mesh, segments: segA },
+      computeTectonicHistory.defaultConfig
+    );
+    const histB = computeTectonicHistory.run(
+      { mesh, segments: segA },
+      computeTectonicHistory.defaultConfig
+    );
+
+    expect(Array.from(histA.tectonics.boundaryType)).toEqual(Array.from(histB.tectonics.boundaryType));
+    expect(histA.tectonics.boundaryType.length).toBe(mesh.cellCount);
+    expect(histA.tectonics.upliftPotential.length).toBe(mesh.cellCount);
+    expect(histA.tectonics.riftPotential.length).toBe(mesh.cellCount);
+    expect(histA.tectonics.shearStress.length).toBe(mesh.cellCount);
+    expect(histA.tectonics.volcanism.length).toBe(mesh.cellCount);
+    expect(histA.tectonics.fracture.length).toBe(mesh.cellCount);
+    expect(histA.tectonics.cumulativeUplift.length).toBe(mesh.cellCount);
+  });
+
+  it("plate partition yields non-uniform areas and plausible adjacency degrees (topology metrics)", () => {
+    const width = 60;
+    const height = 40;
+
+    const ctx = { env: { dimensions: { width, height } }, knobs: {} };
+    const meshConfig = computeMesh.normalize(
+      {
+        strategy: "default",
+        config: { plateCount: 16, cellsPerPlate: 3, relaxationSteps: 2, referenceArea: 2400, plateScalePower: 0 },
+      },
+      ctx as any
+    );
+
+    const runCase = (seed: number) => {
+      const mesh = computeMesh.run({ width, height, rngSeed: 1000 + seed }, meshConfig).mesh;
+      const crust = computeCrust.run({ mesh, rngSeed: 2000 + seed }, computeCrust.defaultConfig).crust;
+
+      const plateGraph = computePlateGraph.run(
+        { mesh, crust, rngSeed: 3000 + seed },
+        { strategy: "default", config: { plateCount: 16, referenceArea: 2400, plateScalePower: 0 } }
+      ).plateGraph;
+
+      const segments = computeTectonicSegments.run({ mesh, crust, plateGraph }, computeTectonicSegments.defaultConfig).segments;
+      const tectonics = computeTectonicHistory.run(
+        { mesh, segments },
+        computeTectonicHistory.defaultConfig
+      ).tectonics;
+
+      const platesTensors = computePlatesTensors.run(
+        { width, height, mesh, crust, plateGraph, tectonics },
+        computePlatesTensors.defaultConfig
+      );
+
+      const tilePlateIds = platesTensors.plates.id;
+      let maxId = -1;
+      for (let i = 0; i < tilePlateIds.length; i++) maxId = Math.max(maxId, tilePlateIds[i] | 0);
+      const plateCount = maxId + 1;
+      expect(plateCount).toBe(16);
+
+      const topology = buildPlateTopology(tilePlateIds, width, height, plateCount);
+      const areas = topology.map((p) => p.area);
+      const minArea = Math.min(...areas);
+
+      const sortedAreas = [...areas].sort((a, b) => a - b);
+      const p50 = quantile(sortedAreas, 0.5);
+      const p90 = quantile(sortedAreas, 0.9);
+
+      const degrees = topology.map((p) => p.neighbors.length);
+      const meanDegree = mean(degrees);
+      const degreeVar = variance(degrees);
+
+      return { minArea, p50, p90, meanDegree, degreeVar };
+    };
+
+    const a = runCase(1);
+    const b = runCase(2);
+
+    for (const c of [a, b]) {
+      expect(c.minArea).toBeGreaterThanOrEqual(8);
+      expect(c.p50).toBeGreaterThan(0);
+      expect(c.p90 / c.p50).toBeGreaterThanOrEqual(1.4);
+      expect(c.meanDegree).toBeGreaterThanOrEqual(3);
+      expect(c.meanDegree).toBeLessThanOrEqual(7);
+      expect(c.degreeVar).toBeGreaterThan(0);
+    }
+  });
+
+  it("compute-crust exhibits spatial coherence (non-IID)", () => {
+    const width = 60;
+    const height = 30;
+
+    const ctx = { env: { dimensions: { width, height } }, knobs: {} };
+    const meshConfig = computeMesh.normalize(
+      {
+        strategy: "default",
+        config: { plateCount: 16, cellsPerPlate: 4, relaxationSteps: 2, referenceArea: 800, plateScalePower: 0 },
+      },
+      ctx as any
+    );
+
+    const mesh = computeMesh.run(
+      {
+        width,
+        height,
+        rngSeed: 10,
+      },
+      meshConfig
+    ).mesh;
+
+    const crust = computeCrust.run(
+      {
+        mesh,
+        rngSeed: 11,
+      },
+      { strategy: "default", config: { continentalRatio: 0.35 } }
+    ).crust;
+
+    let sameTypeEdges = 0;
+    let totalEdges = 0;
+    for (let i = 0; i < mesh.cellCount; i++) {
+      const neighbors = neighborsFor(mesh, i);
+      for (let j = 0; j < neighbors.length; j++) {
+        const n = neighbors[j]!;
+        if (n <= i) continue;
+        totalEdges++;
+        if (crust.type[i] === crust.type[n]) sameTypeEdges++;
+      }
+    }
+
+    const sameTypeRatio = totalEdges <= 0 ? 1 : sameTypeEdges / totalEdges;
+    expect(sameTypeRatio).toBeGreaterThan(0.7);
+
+    let contSum = 0;
+    let contCount = 0;
+    let oceanSum = 0;
+    let oceanCount = 0;
+    for (let i = 0; i < mesh.cellCount; i++) {
+      if (crust.type[i] === 1) {
+        contSum += crust.age[i] ?? 0;
+        contCount++;
+      } else {
+        oceanSum += crust.age[i] ?? 0;
+        oceanCount++;
+      }
+    }
+
+    if (contCount > 0 && oceanCount > 0) {
+      expect(contSum / contCount).toBeGreaterThan(oceanSum / oceanCount);
+    }
+  });
+
+  it("crust publishes an isostatic baseline and projects it to tiles (continental > oceanic)", () => {
+    const width = 60;
+    const height = 40;
+
+    const ctx = { env: { dimensions: { width, height } }, knobs: {} };
+    const meshConfig = computeMesh.normalize(
+      {
+        strategy: "default",
+        config: { plateCount: 16, cellsPerPlate: 3, relaxationSteps: 2, referenceArea: 2400, plateScalePower: 0 },
+      },
+      ctx as any
+    );
+
+    const mesh = computeMesh.run({ width, height, rngSeed: 10 }, meshConfig).mesh;
+    const crust = computeCrust.run({ mesh, rngSeed: 11 }, { strategy: "default", config: { continentalRatio: 0.35 } }).crust;
+    const plateGraph = computePlateGraph.run(
+      { mesh, crust, rngSeed: 12 },
+      { strategy: "default", config: { plateCount: 16, referenceArea: 2400, plateScalePower: 0 } }
+    ).plateGraph;
+    const segments = computeTectonicSegments.run({ mesh, crust, plateGraph }, computeTectonicSegments.defaultConfig).segments;
+    const tectonics = computeTectonicHistory.run({ mesh, segments }, computeTectonicHistory.defaultConfig).tectonics;
+    const crustTiles = computePlatesTensors.run(
+      { width, height, mesh, crust, plateGraph, tectonics },
+      computePlatesTensors.defaultConfig
+    ).crustTiles;
+
+    const continental: number[] = [];
+    const oceanic: number[] = [];
+    for (let i = 0; i < crustTiles.type.length; i++) {
+      const value = crustTiles.baseElevation[i] ?? 0;
+      if (crustTiles.type[i] === 1) continental.push(value);
+      else oceanic.push(value);
+    }
+
+    continental.sort((a, b) => a - b);
+    oceanic.sort((a, b) => a - b);
+    if (continental.length > 0 && oceanic.length > 0) {
+      expect(quantile(continental, 0.5)).toBeGreaterThan(quantile(oceanic, 0.5));
+    }
   });
 });

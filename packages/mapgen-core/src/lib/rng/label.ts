@@ -9,6 +9,13 @@ const hashLabel = (label: string): number => {
 };
 
 /**
+ * Derive a deterministic seed from a base seed and label.
+ */
+export function deriveStepSeed(baseSeed: number, label: string): number {
+  return (baseSeed | 0) ^ hashLabel(label);
+}
+
+/**
  * Deterministic RNG keyed by label.
  *
  * Each unique label maintains its own LCG state derived from the base seed.

@@ -21,7 +21,7 @@ export function validateVolcanoInputs(
   boundaryCloseness: Uint8Array;
   boundaryType: Uint8Array;
   shieldStability: Uint8Array;
-  hotspotMask: Uint8Array;
+  volcanism: Uint8Array;
 } {
   const { width, height } = input;
   const size = Math.max(0, (width | 0) * (height | 0));
@@ -29,19 +29,19 @@ export function validateVolcanoInputs(
   const boundaryCloseness = input.boundaryCloseness as Uint8Array;
   const boundaryType = input.boundaryType as Uint8Array;
   const shieldStability = input.shieldStability as Uint8Array;
-  const hotspotMask = input.hotspotMask as Uint8Array;
+  const volcanism = input.volcanism as Uint8Array;
 
   if (
     landMask.length !== size ||
     boundaryCloseness.length !== size ||
     boundaryType.length !== size ||
     shieldStability.length !== size ||
-    hotspotMask.length !== size
+    volcanism.length !== size
   ) {
     throw new Error("[Volcanoes] Input tensors must match width*height.");
   }
 
-  return { size, landMask, boundaryCloseness, boundaryType, shieldStability, hotspotMask };
+  return { size, landMask, boundaryCloseness, boundaryType, shieldStability, volcanism };
 }
 
 /**

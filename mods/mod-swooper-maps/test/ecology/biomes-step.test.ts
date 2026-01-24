@@ -6,9 +6,12 @@ import { implementArtifacts } from "@swooper/mapgen-core/authoring";
 import ecology from "@mapgen/domain/ecology/ops";
 
 import biomesStep from "../../src/recipes/standard/stages/ecology/steps/biomes/index.js";
+import plotBiomesStep from "../../src/recipes/standard/stages/map-ecology/steps/plotBiomes.js";
 import { ecologyArtifacts } from "../../src/recipes/standard/stages/ecology/artifacts.js";
-import { hydrologyClimateBaselineArtifacts } from "../../src/recipes/standard/stages/hydrology-climate-baseline/artifacts.js";
 import { hydrologyHydrographyArtifacts } from "../../src/recipes/standard/stages/hydrology-hydrography/artifacts.js";
+import { hydrologyClimateBaselineArtifacts } from "../../src/recipes/standard/stages/hydrology-climate-baseline/artifacts.js";
+import { hydrologyClimateRefineArtifacts } from "../../src/recipes/standard/stages/hydrology-climate-refine/artifacts.js";
+import { morphologyArtifacts } from "../../src/recipes/standard/stages/morphology-pre/artifacts.js";
 import { normalizeOpSelectionOrThrow } from "../support/compiler-helpers.js";
 import { buildTestDeps } from "../support/step-deps.js";
 
@@ -31,20 +34,29 @@ describe("biomes step", () => {
 
     ctx.buffers.heightfield.landMask.fill(1);
     ctx.buffers.heightfield.landMask[0] = 0;
-    ctx.buffers.heightfield.elevation.fill(0);
+    ctx.buffers.heightfield.elevation.fill(1);
+    ctx.buffers.heightfield.elevation[0] = 0;
 
     ctx.buffers.climate.rainfall.fill(120);
     ctx.buffers.climate.humidity.fill(80);
 
     const hydrologyArtifacts = implementArtifacts(
       [
-        hydrologyClimateBaselineArtifacts.heightfield,
+        morphologyArtifacts.topography,
         hydrologyClimateBaselineArtifacts.climateField,
         hydrologyHydrographyArtifacts.hydrography,
+        hydrologyClimateRefineArtifacts.cryosphere,
       ],
-      { heightfield: {}, climateField: {}, hydrography: {} }
+      { topography: {}, climateField: {}, hydrography: {}, cryosphere: {} }
     );
-    hydrologyArtifacts.heightfield.publish(ctx, ctx.buffers.heightfield);
+    const seaLevel = 0;
+    const bathymetry = new Int16Array(size);
+    hydrologyArtifacts.topography.publish(ctx, {
+      elevation: ctx.buffers.heightfield.elevation,
+      seaLevel,
+      landMask: ctx.buffers.heightfield.landMask,
+      bathymetry,
+    });
     hydrologyArtifacts.climateField.publish(ctx, ctx.buffers.climate);
     hydrologyArtifacts.hydrography.publish(ctx, {
       runoff: new Float32Array(size),
@@ -52,6 +64,14 @@ describe("biomes step", () => {
       riverClass: new Uint8Array(size),
       sinkMask: new Uint8Array(size),
       outletMask: new Uint8Array(size),
+    });
+    hydrologyArtifacts.cryosphere.publish(ctx, {
+      snowCover: new Uint8Array(size),
+      seaIceCover: new Uint8Array(size),
+      albedo: new Uint8Array(size),
+      groundIce01: new Float32Array(size),
+      permafrost01: new Float32Array(size),
+      meltPotential01: new Float32Array(size),
     });
 
     const classifyConfig = normalizeOpSelectionOrThrow(ecology.ops.classifyBiomes, {
@@ -70,10 +90,18 @@ describe("biomes step", () => {
       ctx,
       {
         classify: classifyConfig,
-        bindings: {},
       },
       ops,
       buildTestDeps(biomesStep)
+    );
+
+    plotBiomesStep.run(
+      ctx,
+      {
+        bindings: {},
+      },
+      {} as any,
+      buildTestDeps(plotBiomesStep)
     );
 
     const marineId = adapter.getBiomeGlobal("BIOME_MARINE");
@@ -112,19 +140,27 @@ describe("biomes step", () => {
       const ctx = createExtendedMapContext({ width, height }, adapter, env);
 
       ctx.buffers.heightfield.landMask.fill(1);
-      ctx.buffers.heightfield.elevation.fill(0);
+      ctx.buffers.heightfield.elevation.fill(1);
       ctx.buffers.climate.rainfall.fill(120);
       ctx.buffers.climate.humidity.fill(80);
 
       const hydrologyArtifacts = implementArtifacts(
         [
-          hydrologyClimateBaselineArtifacts.heightfield,
+          morphologyArtifacts.topography,
           hydrologyClimateBaselineArtifacts.climateField,
           hydrologyHydrographyArtifacts.hydrography,
+          hydrologyClimateRefineArtifacts.cryosphere,
         ],
-        { heightfield: {}, climateField: {}, hydrography: {} }
+        { topography: {}, climateField: {}, hydrography: {}, cryosphere: {} }
       );
-      hydrologyArtifacts.heightfield.publish(ctx, ctx.buffers.heightfield);
+      const seaLevel = 0;
+      const bathymetry = new Int16Array(size);
+      hydrologyArtifacts.topography.publish(ctx, {
+        elevation: ctx.buffers.heightfield.elevation,
+        seaLevel,
+        landMask: ctx.buffers.heightfield.landMask,
+        bathymetry,
+      });
       hydrologyArtifacts.climateField.publish(ctx, ctx.buffers.climate);
       hydrologyArtifacts.hydrography.publish(ctx, {
         runoff: new Float32Array(size),
@@ -133,13 +169,20 @@ describe("biomes step", () => {
         sinkMask: new Uint8Array(size),
         outletMask: new Uint8Array(size),
       });
+      hydrologyArtifacts.cryosphere.publish(ctx, {
+        snowCover: new Uint8Array(size),
+        seaIceCover: new Uint8Array(size),
+        albedo: new Uint8Array(size),
+        groundIce01: new Float32Array(size),
+        permafrost01: new Float32Array(size),
+        meltPotential01: new Float32Array(size),
+      });
 
       const ops = ecology.ops.bind(biomesStep.contract.ops!).runtime;
       biomesStep.run(
         ctx,
         {
           classify: classifyConfig,
-          bindings: {},
         },
         ops,
         buildTestDeps(biomesStep)

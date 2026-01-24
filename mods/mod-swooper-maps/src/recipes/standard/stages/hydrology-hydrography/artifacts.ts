@@ -1,7 +1,7 @@
 import { TypedArraySchemas, Type, defineArtifact } from "@swooper/mapgen-core/authoring";
 
 /**
- * Snapshot of Hydrology hydrography derived from Morphology routing + Hydrology discharge projection.
+ * Snapshot of Hydrology hydrography derived from Morphology topography + Hydrology discharge projection.
  *
  * This is the canonical read path for “river-ness” and discharge-like signals inside the pipeline.
  * Engine rivers/lakes may differ (engine projection), and must not be treated as Hydrology internal truth.
@@ -36,7 +36,7 @@ export const HydrologyHydrographyArtifactSchema = Type.Object(
   {
     additionalProperties: false,
     description:
-      "Hydrology hydrography snapshot derived from Morphology routing + Hydrology discharge projection. Engine rivers/lakes may differ (projection-only).",
+      "Hydrology hydrography snapshot derived from Morphology topography + Hydrology discharge projection. Engine rivers/lakes may differ (projection-only).",
   }
 );
 

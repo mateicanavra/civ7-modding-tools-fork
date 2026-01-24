@@ -207,7 +207,7 @@ export const CoastlineFjordConfigSchema = Type.Object(
 );
 
 /**
- * Island chain placement using fractal noise and hotspot trails.
+ * Island chain placement using deterministic noise and volcanism signals.
  */
 export const IslandsConfigSchema = Type.Object(
   {
@@ -233,18 +233,18 @@ export const IslandsConfigSchema = Type.Object(
       default: 5,
       minimum: 1,
     }),
-    /** Island frequency away from active margins; controls passive-shelf archipelagos. */
+    /** Island frequency away from active margins; controls interior archipelagos. */
     baseIslandDenElse: Type.Number({
-      description: "Island frequency away from active margins; controls passive-shelf archipelagos.",
+      description: "Island frequency away from active margins; controls interior archipelagos.",
       default: 7,
       minimum: 1,
     }),
     /**
-     * Island seed frequency along hotspot trails.
+     * Island seed frequency along volcanism signals.
      * Smaller values create Hawaii-style chains.
      */
     hotspotSeedDenom: Type.Number({
-      description: "Island seed frequency along hotspot trails; smaller values create Hawaii-style chains.",
+      description: "Island seed frequency along volcanism signals; smaller values create Hawaii-style chains.",
       default: 2,
       minimum: 1,
     }),
@@ -256,7 +256,7 @@ export const IslandsConfigSchema = Type.Object(
     }),
     /** Chance of spawning larger microcontinent chains outside major margins (0..1). */
     microcontinentChance: Type.Number({
-      description: "Chance of spawning larger microcontinent chains outside major margins (0..1).",
+      description: "Chance (per map) of spawning a larger microcontinent chain outside major margins (0..1).",
       default: 0,
       minimum: 0,
       maximum: 1,
@@ -318,8 +318,7 @@ export const MountainsConfigSchema = Type.Object(
     /**
      * Boundary-closeness gate (0..0.99).
      *
-     * Tiles with boundary closeness at-or-below this value receive no boundary-driven contribution,
-     * but can still form mountains/hills from uplift + fractal noise.
+     * Tiles with boundary closeness at-or-below this value receive no boundary-driven contribution.
      *
      * Set to 0 for more interior variety; raise it to keep mountains concentrated along active margins.
      */
@@ -626,8 +625,14 @@ export const GeomorphologyConfigSchema = Type.Object(
           minimum: 0,
           maximum: 1,
         }),
-        m: Type.Number({ description: "Stream power exponent m.", default: 0.5 }),
-        n: Type.Number({ description: "Stream power exponent n.", default: 1.0 }),
+        m: Type.Number({
+          description: "Stream power exponent m for discharge proxy (flowAccum normalized by max).",
+          default: 0.5,
+        }),
+        n: Type.Number({
+          description: "Stream power exponent n for slope proxy (drop-to-receiver normalized by max).",
+          default: 1.0,
+        }),
       }
     ),
     diffusion: Type.Object(
@@ -650,7 +655,8 @@ export const GeomorphologyConfigSchema = Type.Object(
     deposition: Type.Object(
       {
         rate: Type.Number({
-          description: "Sediment deposition rate (0..1).",
+          description:
+            "Sediment settling/transport rate (0..1). Deposits where stream power is low and transports where stream power is high.",
           default: 0.1,
           minimum: 0,
           maximum: 1,
@@ -677,11 +683,6 @@ export const CoastConfigSchema = Type.Object(
     bay: CoastlineBayConfigSchema,
     fjord: CoastlineFjordConfigSchema,
     plateBias: CoastlinePlateBiasConfigSchema,
-    minSeaLaneWidth: Type.Number({
-      description: "Minimum channel width preserved for naval passage when carving bays and fjords (tiles).",
-      default: 3,
-      minimum: 0,
-    }),
   }
 );
 
@@ -727,26 +728,3 @@ export type MountainsConfig =
   Static<typeof LandformsConfigSchema["properties"]["mountains"]>;
 export type VolcanoesConfig =
   Static<typeof LandformsConfigSchema["properties"]["volcanoes"]>;
-
-export const HotspotBiasTunablesSchema = Type.Object(
-  {
-    paradiseBias: Type.Number({
-      description: "Bias applied to paradise hotspots when selecting island/volcanic behavior.",
-      default: 2,
-      minimum: 0,
-    }),
-    volcanicBias: Type.Number({
-      description: "Bias applied to volcanic hotspots when selecting island/volcanic behavior.",
-      default: 1,
-      minimum: 0,
-    }),
-    volcanicPeakChance: Type.Number({
-      description: "Chance that a volcanic hotspot receives a peak tile (0..1).",
-      default: 0.33,
-      minimum: 0,
-      maximum: 1,
-    }),
-  }
-);
-
-export type HotspotBiasTunables = Static<typeof HotspotBiasTunablesSchema>;

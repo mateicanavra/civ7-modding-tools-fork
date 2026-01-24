@@ -53,7 +53,7 @@ const ComputeRadiativeForcingDefaultStrategySchema = Type.Object(
     }),
     /** Insolation proxy at the poles (baseline scale). */
     poleInsolation: Type.Number({
-      default: 0.35,
+      default: 0.25,
       minimum: 0,
       maximum: 2,
       description: "Insolation proxy at the poles.",

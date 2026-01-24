@@ -114,6 +114,7 @@ export interface FoundationPlateFields {
   upliftPotential: Uint8Array;
   riftPotential: Uint8Array;
   shieldStability: Uint8Array;
+  volcanism: Uint8Array;
   movementU: Int8Array;
   movementV: Int8Array;
   rotation: Int8Array;
@@ -124,6 +125,8 @@ export const FOUNDATION_MESH_ARTIFACT_TAG = "artifact:foundation.mesh";
 export const FOUNDATION_CRUST_ARTIFACT_TAG = "artifact:foundation.crust";
 export const FOUNDATION_PLATE_GRAPH_ARTIFACT_TAG = "artifact:foundation.plateGraph";
 export const FOUNDATION_TECTONICS_ARTIFACT_TAG = "artifact:foundation.tectonics";
+export const FOUNDATION_TILE_TO_CELL_INDEX_ARTIFACT_TAG = "artifact:foundation.tileToCellIndex";
+export const FOUNDATION_CRUST_TILES_ARTIFACT_TAG = "artifact:foundation.crustTiles";
 
 /**
  * Store of published artifacts keyed by dependency tag id.
@@ -407,6 +410,7 @@ export function validateFoundationPlatesArtifact(
   ensureTensor("upliftPotential", plates.upliftPotential, size);
   ensureTensor("riftPotential", plates.riftPotential, size);
   ensureTensor("shieldStability", plates.shieldStability, size);
+  ensureTensor("volcanism", plates.volcanism, size);
   ensureTensor("plateMovementU", plates.movementU, size);
   ensureTensor("plateMovementV", plates.movementV, size);
   ensureTensor("plateRotation", plates.rotation, size);

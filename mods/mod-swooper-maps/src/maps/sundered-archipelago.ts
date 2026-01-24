@@ -21,6 +21,7 @@ export default createMap({
   recipe: standardRecipe,
   config: {
   foundation: {
+    advanced: {
     mesh: {
       computeMesh: {
         strategy: "default",
@@ -52,9 +53,19 @@ export default createMap({
       },
     },
     tectonics: {
-      computeTectonics: {
+      computeTectonicSegments: {
         strategy: "default",
-        config: {},
+        config: { intensityScale: 180, regimeMinIntensity: 4 },
+      },
+      computeTectonicHistory: {
+        strategy: "default",
+        config: {
+          eraWeights: [0.35, 0.35, 0.3],
+          driftStepsByEra: [2, 1, 0],
+          beltInfluenceDistance: 8,
+          beltDecay: 0.55,
+          activityThreshold: 1,
+        },
       },
     },
     projection: {
@@ -68,14 +79,18 @@ export default createMap({
         },
       },
     },
+    },
   },
   "morphology-pre": {
+    advanced: {
     "landmass-plates": {
       substrate: {
         strategy: "default",
         config: {
-          baseErodibility: 0.6,
-          baseSediment: 0.2,
+          continentalBaseErodibility: 0.65,
+          oceanicBaseErodibility: 0.55,
+          continentalBaseSediment: 0.15,
+          oceanicBaseSediment: 0.25,
           upliftErodibilityBoost: 0.3,
           riftSedimentBoost: 0.2,
         },
@@ -141,69 +156,10 @@ export default createMap({
         },
       },
     },
-    coastlines: {},
-  },
-  "narrative-pre": {
-    "story-seed": {
-      margins: {
-        // Very high active fraction for volcanic arcs
-        activeFraction: 0.55,
-        passiveFraction: 0.12,
-        minSegmentLength: 8,
-      },
-    },
-    "story-hotspots": {
-      story: {
-        hotspot: {
-          maxTrails: 12,
-          steps: 15,
-          stepLen: 2,
-          minDistFromLand: 5,
-          minTrailSeparation: 12,
-          paradiseBias: 3,
-          volcanicBias: 3,
-          volcanicPeakChance: 0.5,
-        },
-      },
-    },
-    "story-rifts": {
-      story: {
-        rift: {
-          maxRiftsPerMap: 3,
-          lineSteps: 18,
-          stepLen: 2,
-          shoulderWidth: 1,
-        },
-      },
-    },
-    "story-corridors-pre": {
-      corridors: {
-        sea: {
-          protection: "hard",
-          softChanceMultiplier: 0.5,
-          avoidRadius: 2,
-          maxLanes: 3,
-          scanStride: 6,
-          minLengthFrac: 0.7,
-          preferDiagonals: false,
-          laneSpacing: 6,
-          minChannelWidth: 3,
-        },
-        land: {
-          biomesBiasStrength: 0.6,
-          useRiftShoulders: true,
-          maxCorridors: 2,
-          minRunLength: 24,
-          spacing: 0,
-        },
-        islandHop: {
-          useHotspots: true,
-          maxArcs: 2,
-        },
-      },
     },
   },
   "morphology-mid": {
+    advanced: {
     "rugged-coasts": {
       coastlines: {
         strategy: "default",
@@ -232,11 +188,6 @@ export default createMap({
               activeBonus: 1,
               passiveBonus: 2,
             },
-            minSeaLaneWidth: 3,
-          },
-          seaLanes: {
-            mode: "soft",
-            softChanceMultiplier: 1,
           },
         },
       },
@@ -270,20 +221,10 @@ export default createMap({
         },
       },
     },
-  },
-  "narrative-mid": {
-    "story-orogeny": {
-      story: {
-        orogeny: {
-          radius: 2,
-          beltMinLength: 24,
-          windwardBoost: 4,
-          leeDrynessAmplifier: 1.1,
-        },
-      },
     },
   },
   "morphology-post": {
+    advanced: {
     islands: {
       islands: {
         strategy: "default",
@@ -297,39 +238,6 @@ export default createMap({
             clusterMax: 6,
             microcontinentChance: 0.2,
           },
-          hotspot: {
-            paradiseBias: 3,
-            volcanicBias: 3.2,
-            volcanicPeakChance: 0.55,
-          },
-          seaLaneAvoidRadius: 1,
-        },
-      },
-    },
-    mountains: {
-      mountains: {
-        strategy: "default",
-        config: {
-          // Focused volcanic peaks rather than ranges
-          tectonicIntensity: 0.65,
-          mountainThreshold: 0.6,
-          hillThreshold: 0.32,
-          upliftWeight: 0.25,
-          fractalWeight: 0.3,
-          riftDepth: 0.35,
-          // Strong boundary influence for arc volcanism
-          boundaryWeight: 1.1,
-          boundaryGate: 0.1,
-          boundaryExponent: 1.6,
-          interiorPenaltyWeight: 0.2,
-          convergenceBonus: 1.0,
-          transformPenalty: 0.5,
-          riftPenalty: 0.7,
-          hillBoundaryWeight: 0.55,
-          hillRiftBonus: 0.4,
-          hillConvergentFoothill: 0.45,
-          hillInteriorFalloff: 0.25,
-          hillUpliftWeight: 0.28,
         },
       },
     },
@@ -361,6 +269,36 @@ export default createMap({
         config: {},
       },
     },
+    },
+  },
+  "map-morphology": {
+    mountains: {
+      mountains: {
+        strategy: "default",
+        config: {
+          // Focused volcanic peaks rather than ranges
+          tectonicIntensity: 0.65,
+          mountainThreshold: 0.6,
+          hillThreshold: 0.32,
+          upliftWeight: 0.25,
+          fractalWeight: 0.3,
+          riftDepth: 0.35,
+          // Strong boundary influence for arc volcanism
+          boundaryWeight: 1.1,
+          boundaryGate: 0.1,
+          boundaryExponent: 1.6,
+          interiorPenaltyWeight: 0.2,
+          convergenceBonus: 1.0,
+          transformPenalty: 0.5,
+          riftPenalty: 0.7,
+          hillBoundaryWeight: 0.55,
+          hillRiftBonus: 0.4,
+          hillConvergentFoothill: 0.45,
+          hillInteriorFalloff: 0.25,
+          hillUpliftWeight: 0.28,
+        },
+      },
+    },
   },
   "hydrology-climate-baseline": {
     knobs: {
@@ -368,7 +306,6 @@ export default createMap({
       temperature: "hot",
       seasonality: "high",
       oceanCoupling: "earthlike",
-      lakeiness: "many",
     },
   },
   "hydrology-hydrography": {
@@ -381,6 +318,12 @@ export default createMap({
       dryness: "wet",
       temperature: "hot",
       cryosphere: "off",
+    },
+  },
+  "map-hydrology": {
+    knobs: {
+      lakeiness: "many",
+      riverDensity: "dense",
     },
   },
   ecology: {
@@ -502,6 +445,10 @@ export default createMap({
           },
         },
       },
+    },
+  },
+  "map-ecology": {
+    biomes: {
       bindings: {
         snow: "BIOME_TUNDRA",
         tundra: "BIOME_TUNDRA",

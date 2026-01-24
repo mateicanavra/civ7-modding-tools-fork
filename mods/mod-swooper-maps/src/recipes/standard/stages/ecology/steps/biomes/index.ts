@@ -1,12 +1,15 @@
-import { logBiomeSummary } from "@swooper/mapgen-core";
 import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
-import * as ecology from "@mapgen/domain/ecology";
 import BiomesStepContract from "./contract.js";
 import { buildLatitudeField } from "./helpers/inputs.js";
-import { clampToByte } from "./helpers/apply.js";
-import { resolveEngineBiomeIds } from "./helpers/engine-bindings.js";
 import { ecologyArtifacts } from "../../artifacts.js";
 import { validateBiomeClassificationArtifact } from "../../artifact-validation.js";
+
+function clamp01(value: number): number {
+  if (!Number.isFinite(value)) return 0;
+  if (value <= 0) return 0;
+  if (value >= 1) return 1;
+  return value;
+}
 
 export default createStep(BiomesStepContract, {
   artifacts: implementArtifacts([ecologyArtifacts.biomeClassification], {
@@ -18,17 +21,11 @@ export default createStep(BiomesStepContract, {
     const { width, height } = context.dimensions;
 
     const climateField = deps.artifacts.climateField.read(context);
-    const heightfield = deps.artifacts.heightfield.read(context);
-    const { landMask, elevation } = heightfield;
-
-    const biomeField = context.fields.biomeId;
-    const temperatureField = context.fields.temperature;
-    if (!biomeField || !temperatureField) {
-      throw new Error("BiomesStep: Missing biomeId or temperature field buffers.");
-    }
-
-    const latitude = buildLatitudeField(context.adapter, width, height);
+    const topography = deps.artifacts.topography.read(context);
+    const { landMask, elevation } = topography;
+    const latitude = buildLatitudeField(context.env.latitudeBounds, width, height);
     const hydrography = deps.artifacts.hydrography.read(context);
+    const cryosphere = deps.artifacts.cryosphere.read(context);
 
     const result = ops.classify(
       {
@@ -44,36 +41,20 @@ export default createStep(BiomesStepContract, {
       config.classify
     );
 
-    const { land: engineBindings, marine: marineBiome } = resolveEngineBiomeIds(
-      context.adapter,
-      config.bindings
-    );
+    const size = Math.max(0, (width | 0) * (height | 0));
+    const treeLine01 = new Float32Array(size);
+    for (let i = 0; i < size; i++) {
+      treeLine01[i] = clamp01(1 - (cryosphere.permafrost01?.[i] ?? 0));
+    }
+
     deps.artifacts.biomeClassification.publish(context, {
       width,
       height,
       ...result,
+      groundIce01: cryosphere.groundIce01,
+      permafrost01: cryosphere.permafrost01,
+      meltPotential01: cryosphere.meltPotential01,
+      treeLine01,
     });
-
-    for (let y = 0; y < height; y++) {
-      const rowOffset = y * width;
-      for (let x = 0; x < width; x++) {
-        const idx = rowOffset + x;
-        if (landMask[idx] === 0) {
-          context.adapter.setBiomeType(x, y, marineBiome);
-          biomeField[idx] = marineBiome;
-          temperatureField[idx] = clampToByte(result.surfaceTemperature[idx]! + 50);
-          continue;
-        }
-        const biomeIdx = result.biomeIndex[idx]!;
-        if (biomeIdx === 255) continue;
-        const symbol = ecology.biomeSymbolFromIndex(biomeIdx);
-        const engineId = engineBindings[symbol];
-        context.adapter.setBiomeType(x, y, engineId);
-        biomeField[idx] = engineId;
-        temperatureField[idx] = clampToByte(result.surfaceTemperature[idx]! + 50);
-      }
-    }
-
-    logBiomeSummary(context.trace, context.adapter, width, height);
   },
 });

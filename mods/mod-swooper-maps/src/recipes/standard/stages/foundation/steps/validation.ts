@@ -69,15 +69,81 @@ export function validateCrustArtifact(value: unknown): void {
   if (!value || typeof value !== "object") {
     throw new Error("[FoundationArtifact] Missing foundation crust artifact payload.");
   }
-  const crust = value as { type?: unknown; age?: unknown };
+  const crust = value as { type?: unknown; age?: unknown; buoyancy?: unknown; baseElevation?: unknown; strength?: unknown };
   if (!(crust.type instanceof Uint8Array)) {
     throw new Error("[FoundationArtifact] Invalid foundation crust.type.");
   }
   if (!(crust.age instanceof Uint8Array)) {
     throw new Error("[FoundationArtifact] Invalid foundation crust.age.");
   }
+  if (!(crust.buoyancy instanceof Float32Array)) {
+    throw new Error("[FoundationArtifact] Invalid foundation crust.buoyancy.");
+  }
+  if (!(crust.baseElevation instanceof Float32Array)) {
+    throw new Error("[FoundationArtifact] Invalid foundation crust.baseElevation.");
+  }
+  if (!(crust.strength instanceof Float32Array)) {
+    throw new Error("[FoundationArtifact] Invalid foundation crust.strength.");
+  }
   if (crust.type.length <= 0 || crust.age.length <= 0 || crust.type.length !== crust.age.length) {
     throw new Error("[FoundationArtifact] Invalid foundation crust tensor lengths.");
+  }
+  if (
+    crust.buoyancy.length !== crust.type.length ||
+    crust.baseElevation.length !== crust.type.length ||
+    crust.strength.length !== crust.type.length
+  ) {
+    throw new Error("[FoundationArtifact] Invalid foundation crust driver tensor lengths.");
+  }
+}
+
+export function validateTileToCellIndexArtifact(value: unknown, dims: MapDimensions): void {
+  if (!(value instanceof Int32Array)) {
+    throw new Error("[FoundationArtifact] Invalid foundation tileToCellIndex.");
+  }
+
+  const expectedLen = Math.max(0, (dims.width | 0) * (dims.height | 0));
+  if (value.length !== expectedLen) {
+    throw new Error("[FoundationArtifact] Invalid foundation tileToCellIndex tensor length.");
+  }
+  for (let i = 0; i < value.length; i++) {
+    const v = value[i] | 0;
+    if (v < 0) {
+      throw new Error("[FoundationArtifact] Invalid foundation tileToCellIndex value.");
+    }
+  }
+}
+
+export function validateCrustTilesArtifact(value: unknown, dims: MapDimensions): void {
+  if (!value || typeof value !== "object") {
+    throw new Error("[FoundationArtifact] Missing foundation crustTiles artifact payload.");
+  }
+  const crust = value as { type?: unknown; age?: unknown; buoyancy?: unknown; baseElevation?: unknown; strength?: unknown };
+  if (!(crust.type instanceof Uint8Array)) {
+    throw new Error("[FoundationArtifact] Invalid foundation crustTiles.type.");
+  }
+  if (!(crust.age instanceof Uint8Array)) {
+    throw new Error("[FoundationArtifact] Invalid foundation crustTiles.age.");
+  }
+  if (!(crust.buoyancy instanceof Float32Array)) {
+    throw new Error("[FoundationArtifact] Invalid foundation crustTiles.buoyancy.");
+  }
+  if (!(crust.baseElevation instanceof Float32Array)) {
+    throw new Error("[FoundationArtifact] Invalid foundation crustTiles.baseElevation.");
+  }
+  if (!(crust.strength instanceof Float32Array)) {
+    throw new Error("[FoundationArtifact] Invalid foundation crustTiles.strength.");
+  }
+
+  const expectedLen = Math.max(0, (dims.width | 0) * (dims.height | 0));
+  if (
+    crust.type.length !== expectedLen ||
+    crust.age.length !== expectedLen ||
+    crust.buoyancy.length !== expectedLen ||
+    crust.baseElevation.length !== expectedLen ||
+    crust.strength.length !== expectedLen
+  ) {
+    throw new Error("[FoundationArtifact] Invalid foundation crustTiles tensor lengths.");
   }
 }
 
@@ -91,6 +157,145 @@ export function validatePlateGraphArtifact(value: unknown): void {
   }
   if (!Array.isArray(graph.plates) || graph.plates.length <= 0) {
     throw new Error("[FoundationArtifact] Invalid foundation plateGraph.plates.");
+  }
+}
+
+export function validateTectonicSegmentsArtifact(value: unknown): void {
+  if (!value || typeof value !== "object") {
+    throw new Error("[FoundationArtifact] Missing foundation tectonicSegments artifact payload.");
+  }
+  const seg = value as Record<string, unknown> & { segmentCount?: unknown };
+  const segmentCount = typeof seg.segmentCount === "number" ? (seg.segmentCount | 0) : -1;
+  if (segmentCount < 0) {
+    throw new Error("[FoundationArtifact] Invalid foundation tectonicSegments.segmentCount.");
+  }
+
+  const arrays = [
+    "aCell",
+    "bCell",
+    "plateA",
+    "plateB",
+    "regime",
+    "polarity",
+    "compression",
+    "extension",
+    "shear",
+    "volcanism",
+    "fracture",
+    "driftU",
+    "driftV",
+  ] as const;
+
+  for (const key of arrays) {
+    const v = seg[key] as unknown;
+    const ok =
+      v instanceof Int32Array ||
+      v instanceof Int16Array ||
+      v instanceof Uint8Array ||
+      v instanceof Int8Array;
+    if (!ok) {
+      throw new Error(`[FoundationArtifact] Invalid foundation tectonicSegments.${key}.`);
+    }
+    if ((v as { length: number }).length !== segmentCount) {
+      throw new Error(`[FoundationArtifact] Invalid foundation tectonicSegments.${key} length.`);
+    }
+  }
+}
+
+export function validateTectonicHistoryArtifact(value: unknown): void {
+  if (!value || typeof value !== "object") {
+    throw new Error("[FoundationArtifact] Missing foundation tectonicHistory artifact payload.");
+  }
+  const history = value as {
+    eraCount?: unknown;
+    eras?: unknown;
+    upliftTotal?: unknown;
+    fractureTotal?: unknown;
+    volcanismTotal?: unknown;
+    upliftRecentFraction?: unknown;
+    lastActiveEra?: unknown;
+  };
+
+  const eraCount = typeof history.eraCount === "number" ? (history.eraCount | 0) : -1;
+  if (eraCount !== 3) {
+    throw new Error("[FoundationArtifact] Invalid foundation tectonicHistory.eraCount.");
+  }
+  if (!Array.isArray(history.eras) || history.eras.length !== eraCount) {
+    throw new Error("[FoundationArtifact] Invalid foundation tectonicHistory.eras.");
+  }
+
+  const totals = [
+    ["upliftTotal", history.upliftTotal],
+    ["fractureTotal", history.fractureTotal],
+    ["volcanismTotal", history.volcanismTotal],
+    ["upliftRecentFraction", history.upliftRecentFraction],
+    ["lastActiveEra", history.lastActiveEra],
+  ] as const;
+
+  let cellCount: number | null = null;
+  for (const [label, arr] of totals) {
+    if (!(arr instanceof Uint8Array)) {
+      throw new Error(`[FoundationArtifact] Invalid foundation tectonicHistory.${label}.`);
+    }
+    if (cellCount == null) cellCount = arr.length;
+    if (arr.length !== cellCount) {
+      throw new Error(`[FoundationArtifact] Invalid foundation tectonicHistory.${label} length.`);
+    }
+  }
+
+  for (let e = 0; e < history.eras.length; e++) {
+    const era = history.eras[e] as Record<string, unknown> | undefined;
+    if (!era) throw new Error("[FoundationArtifact] Invalid foundation tectonicHistory era payload.");
+    const fields = ["boundaryType", "upliftPotential", "riftPotential", "shearStress", "volcanism", "fracture"] as const;
+    for (const field of fields) {
+      const v = era[field] as unknown;
+      if (!(v instanceof Uint8Array)) {
+        throw new Error(`[FoundationArtifact] Invalid foundation tectonicHistory.eras[${e}].${field}.`);
+      }
+      if (cellCount != null && v.length !== cellCount) {
+        throw new Error(`[FoundationArtifact] Invalid foundation tectonicHistory.eras[${e}].${field} length.`);
+      }
+    }
+  }
+}
+
+export function validatePlateTopologyArtifact(value: unknown): void {
+  if (!value || typeof value !== "object") {
+    throw new Error("[FoundationArtifact] Missing foundation plateTopology artifact payload.");
+  }
+  const topology = value as {
+    plateCount?: unknown;
+    plates?: unknown;
+  };
+  const plateCount = typeof topology.plateCount === "number" ? (topology.plateCount | 0) : 0;
+  if (plateCount <= 0) {
+    throw new Error("[FoundationArtifact] Invalid foundation plateTopology.plateCount.");
+  }
+  if (!Array.isArray(topology.plates) || topology.plates.length !== plateCount) {
+    throw new Error("[FoundationArtifact] Invalid foundation plateTopology.plates.");
+  }
+  for (let i = 0; i < topology.plates.length; i++) {
+    const plate = topology.plates[i] as
+      | { id?: unknown; area?: unknown; centroid?: unknown; neighbors?: unknown }
+      | undefined;
+    const id = typeof plate?.id === "number" ? (plate.id | 0) : -1;
+    if (id < 0 || id >= plateCount) {
+      throw new Error("[FoundationArtifact] Invalid foundation plateTopology plate id.");
+    }
+    const area = typeof plate?.area === "number" ? (plate.area | 0) : -1;
+    if (area < 0) {
+      throw new Error("[FoundationArtifact] Invalid foundation plateTopology plate area.");
+    }
+    const centroid = plate?.centroid as { x?: unknown; y?: unknown } | undefined;
+    if (!centroid || typeof centroid !== "object") {
+      throw new Error("[FoundationArtifact] Invalid foundation plateTopology plate centroid.");
+    }
+    if (typeof centroid.x !== "number" || typeof centroid.y !== "number") {
+      throw new Error("[FoundationArtifact] Invalid foundation plateTopology plate centroid.");
+    }
+    if (plate?.neighbors != null && !Array.isArray(plate.neighbors)) {
+      throw new Error("[FoundationArtifact] Invalid foundation plateTopology plate neighbors.");
+    }
   }
 }
 

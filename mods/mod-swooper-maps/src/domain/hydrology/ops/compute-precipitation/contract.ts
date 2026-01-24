@@ -1,7 +1,7 @@
 import { Type, TypedArraySchemas, defineOp } from "@swooper/mapgen-core/authoring";
 
 /**
- * Computes rainfall and humidity fields from humidity transport + terrain/orography signals.
+ * Computes rainfall and humidity fields from humidity transport + orography signals.
  *
  * This op is the primary “wet/dry” field generator. It is intentionally mechanism-driven:
  * coastal gradients, orographic rain shadows, and deterministic noise provide believable regional structure.
@@ -266,8 +266,6 @@ const ComputePrecipitationInputSchema = Type.Object(
     latitudeByRow: TypedArraySchemas.f32({ description: "Latitude per row (degrees)." }),
     /** Elevation (meters) per tile. */
     elevation: TypedArraySchemas.i16({ description: "Elevation (meters) per tile." }),
-    /** Terrain classification per tile. */
-    terrain: TypedArraySchemas.u8({ description: "Terrain classification per tile." }),
     /** Land mask per tile (1=land, 0=water). */
     landMask: TypedArraySchemas.u8({ description: "Land mask per tile (1=land, 0=water)." }),
     /** Wind U component per tile (-127..127). */

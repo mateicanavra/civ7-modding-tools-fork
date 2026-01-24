@@ -4,7 +4,6 @@ import { forEachHexNeighborOddQ } from "@swooper/mapgen-core/lib/grid";
 import ComputeLandmassesContract from "../contract.js";
 import {
   computeCircularBounds,
-  remapLandmassesBySize,
   validateLandmassInputs,
 } from "../rules/index.js";
 
@@ -19,7 +18,9 @@ export const defaultStrategy = createStrategy(ComputeLandmassesContract, "defaul
     const components: Array<{
       id: number;
       tileCount: number;
+      coastlineLength: number;
       bbox: { west: number; east: number; south: number; north: number };
+      minTileIndex: number;
     }> = [];
 
     const queue: number[] = [];
@@ -37,12 +38,15 @@ export const defaultStrategy = createStrategy(ComputeLandmassesContract, "defaul
       columnsUsed.fill(0);
 
       let tileCount = 0;
+      let coastlineLength = 0;
+      let minTileIndex = i;
       let minY = Number.POSITIVE_INFINITY;
       let maxY = Number.NEGATIVE_INFINITY;
 
       while (queue.length > 0) {
         const idx = queue.pop()!;
         tileCount++;
+        if (idx < minTileIndex) minTileIndex = idx;
         const y = (idx / width) | 0;
         const x = idx - y * width;
 
@@ -52,8 +56,11 @@ export const defaultStrategy = createStrategy(ComputeLandmassesContract, "defaul
 
         forEachHexNeighborOddQ(x, y, width, height, (nx, ny) => {
           const ni = ny * width + nx;
+          if ((landMask[ni] | 0) !== 1) {
+            coastlineLength += 1;
+            return;
+          }
           if ((visited[ni] | 0) === 1) return;
-          if ((landMask[ni] | 0) !== 1) return;
           visited[ni] = 1;
           landmassIdByTile[ni] = componentId;
           queue.push(ni);
@@ -64,17 +71,57 @@ export const defaultStrategy = createStrategy(ComputeLandmassesContract, "defaul
       components.push({
         id: components.length,
         tileCount,
+        coastlineLength,
         bbox: {
           west,
           east,
           south: Number.isFinite(minY) ? minY : 0,
           north: Number.isFinite(maxY) ? maxY : 0,
         },
+        minTileIndex,
       });
     }
 
-    const remapped = remapLandmassesBySize(components, landmassIdByTile);
+    const ordered = components
+      .map((component, index) => ({ component, index }))
+      .sort((a, b) => {
+        const ta = a.component.tileCount;
+        const tb = b.component.tileCount;
+        if (ta !== tb) return tb - ta;
+        const ca = a.component.coastlineLength;
+        const cb = b.component.coastlineLength;
+        if (ca !== cb) return cb - ca;
+        const sa = a.component.bbox.south;
+        const sb = b.component.bbox.south;
+        if (sa !== sb) return sa - sb;
+        const wa = a.component.bbox.west;
+        const wb = b.component.bbox.west;
+        if (wa !== wb) return wa - wb;
+        const ma = a.component.minTileIndex;
+        const mb = b.component.minTileIndex;
+        if (ma !== mb) return ma - mb;
+        return a.index - b.index;
+      });
 
-    return { landmasses: remapped.components, landmassIdByTile: remapped.landmassIdByTile };
+    const remap = new Int32Array(components.length);
+    const sortedComponents: Array<{ id: number; tileCount: number; coastlineLength: number; bbox: { west: number; east: number; south: number; north: number } }> =
+      [];
+    for (let i = 0; i < ordered.length; i++) {
+      const { component, index } = ordered[i];
+      remap[index] = i;
+      sortedComponents.push({
+        id: i,
+        tileCount: component.tileCount,
+        coastlineLength: component.coastlineLength,
+        bbox: component.bbox,
+      });
+    }
+
+    for (let i = 0; i < landmassIdByTile.length; i++) {
+      const previous = landmassIdByTile[i];
+      if (previous >= 0) landmassIdByTile[i] = remap[previous] ?? -1;
+    }
+
+    return { landmasses: sortedComponents, landmassIdByTile };
   },
 });

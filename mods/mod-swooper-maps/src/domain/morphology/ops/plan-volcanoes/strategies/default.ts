@@ -14,7 +14,7 @@ import {
 export const defaultStrategy = createStrategy(PlanVolcanoesContract, "default", {
   run: (input, config) => {
     const { width, height } = input;
-    const { size, landMask, boundaryCloseness, boundaryType, shieldStability, hotspotMask } =
+    const { size, landMask, boundaryCloseness, boundaryType, shieldStability, volcanism } =
       validateVolcanoInputs(input);
 
     if (!config.enabled) return { volcanoes: [] };
@@ -42,7 +42,7 @@ export const defaultStrategy = createStrategy(PlanVolcanoesContract, "default", 
         const closeness = boundaryCloseness[i] / 255;
         const shield = shieldStability[i] / 255;
         const bType = boundaryType[i] | 0;
-        const hotspotBoost = hotspotMask[i] === 1 ? hotspotBase : 0;
+        const hotspotBoost = (volcanism[i] / 255) * hotspotBase;
 
         let weight = scoreVolcanoWeight({
           closeness,

@@ -1,74 +1,18 @@
 import { createMockAdapter } from "@civ7/adapter";
 import { createExtendedMapContext } from "@swooper/mapgen-core";
+import { deriveStepSeed } from "@swooper/mapgen-core/lib/rng";
 import { implementArtifacts, type Static } from "@swooper/mapgen-core/authoring";
 import ecology from "@mapgen/domain/ecology/ops";
-import { publishStoryOverlay, STORY_OVERLAY_KEYS } from "@mapgen/domain/narrative/overlays/index.js";
 
 import { normalizeOpSelectionOrThrow } from "../support/compiler-helpers.js";
+import { buildTestDeps } from "../support/step-deps.js";
 
 import { ecologyArtifacts } from "../../src/recipes/standard/stages/ecology/artifacts.js";
+import { foundationArtifacts } from "../../src/recipes/standard/stages/foundation/artifacts.js";
 import { hydrologyClimateBaselineArtifacts } from "../../src/recipes/standard/stages/hydrology-climate-baseline/artifacts.js";
-import { narrativePreArtifacts } from "../../src/recipes/standard/stages/narrative-pre/artifacts.js";
-
-export const disabledEmbellishmentsConfig = {
-  story: { features: {} },
-  featuresDensity: {},
-};
-
-export const disabledReefEmbellishmentsConfig = {
-  story: {
-    features: {
-      paradiseReefChance: 0,
-      paradiseReefRadius: 0,
-    },
-  },
-  featuresDensity: {
-    shelfReefMultiplier: 0,
-    shelfReefRadius: 0,
-  },
-};
-
-export const disabledVegetationEmbellishmentsConfig = {
-  story: {
-    features: {
-      volcanicForestChance: 0,
-      volcanicForestBonus: 0,
-      volcanicForestMinRainfall: 0,
-      volcanicTaigaChance: 0,
-      volcanicTaigaBonus: 0,
-      volcanicRadius: 1,
-      volcanicTaigaMinLatitude: 0,
-      volcanicTaigaMaxElevation: 0,
-      volcanicTaigaMinRainfall: 0,
-    },
-  },
-  featuresDensity: {
-    rainforestExtraChance: 0,
-    forestExtraChance: 0,
-    taigaExtraChance: 0,
-    rainforestVegetationScale: 0,
-    forestVegetationScale: 0,
-    taigaVegetationScale: 0,
-    rainforestMinRainfall: 0,
-    forestMinRainfall: 0,
-    taigaMaxElevation: 0,
-    minVegetationForBonus: 1,
-  },
-};
-
-export function buildDisabledReefEmbellishmentsSelection() {
-  return normalizeOpSelectionOrThrow(ecology.ops.planReefEmbellishments, {
-    strategy: "default",
-    config: { ...disabledReefEmbellishmentsConfig },
-  });
-}
-
-export function buildDisabledVegetationEmbellishmentsSelection() {
-  return normalizeOpSelectionOrThrow(ecology.ops.planVegetationEmbellishments, {
-    strategy: "default",
-    config: { ...disabledVegetationEmbellishmentsConfig },
-  });
-}
+import { morphologyArtifacts } from "../../src/recipes/standard/stages/morphology-pre/artifacts.js";
+import featuresApplyStep from "../../src/recipes/standard/stages/map-ecology/steps/features-apply/index.js";
+import { resolveFeatureKeyLookups } from "../../src/recipes/standard/stages/map-ecology/steps/features/feature-keys.js";
 
 type VegetatedPlacementConfig = Static<
   typeof ecology.ops.planVegetatedFeaturePlacements.strategies.default.config
@@ -109,6 +53,233 @@ export function buildFeaturesPlacementConfig(overrides: FeaturesPlacementOverrid
       config: overrides.ice ?? {},
     }),
   };
+}
+
+type FeaturesPlacementConfig = ReturnType<typeof buildFeaturesPlacementConfig>;
+
+function clampLatitudeDeg(latitudeDeg: number): number {
+  if (!Number.isFinite(latitudeDeg)) return 0;
+  return Math.max(-89.999, Math.min(89.999, latitudeDeg));
+}
+
+function buildLatitudeField(
+  bounds: { topLatitude: number; bottomLatitude: number },
+  width: number,
+  height: number
+): Float32Array {
+  const latitude = new Float32Array(height * Math.max(1, width));
+  if (height <= 1) {
+    const mid = (bounds.topLatitude + bounds.bottomLatitude) / 2;
+    const clamped = clampLatitudeDeg(mid);
+    for (let i = 0; i < latitude.length; i++) latitude[i] = clamped;
+    return latitude;
+  }
+  const step = (bounds.bottomLatitude - bounds.topLatitude) / (height - 1);
+  for (let y = 0; y < height; y++) {
+    const row = y * width;
+    const lat = clampLatitudeDeg(bounds.topLatitude + step * y);
+    for (let x = 0; x < width; x++) {
+      latitude[row + x] = lat;
+    }
+  }
+  return latitude;
+}
+
+const NO_FEATURE = -1;
+const UNKNOWN_FEATURE = -2;
+
+function buildFeatureKeyField(
+  ctx: ReturnType<typeof createFeaturesTestContext>["ctx"],
+  lookups: ReturnType<typeof resolveFeatureKeyLookups>
+): Int16Array {
+  const { width, height } = ctx.dimensions;
+  const size = width * height;
+  const field = new Int16Array(size);
+  const noFeature = ctx.adapter.NO_FEATURE;
+
+  for (let y = 0; y < height; y++) {
+    const rowOffset = y * width;
+    for (let x = 0; x < width; x++) {
+      const idx = rowOffset + x;
+      const feature = ctx.adapter.getFeatureType(x, y) | 0;
+      if (feature === noFeature) {
+        field[idx] = NO_FEATURE;
+        continue;
+      }
+      const mapped = lookups.byEngineId.get(feature);
+      field[idx] = mapped ?? UNKNOWN_FEATURE;
+    }
+  }
+
+  return field;
+}
+
+function buildRiverAdjacencyMask(options: {
+  width: number;
+  height: number;
+  navigableRiverMask: Uint8Array;
+  radius: number;
+}): Uint8Array {
+  const width = options.width | 0;
+  const height = options.height | 0;
+  const size = Math.max(0, width * height);
+  const radius = Math.max(0, options.radius | 0);
+
+  const mask = new Uint8Array(size);
+  if (radius <= 0) {
+    for (let i = 0; i < size; i++) {
+      mask[i] = options.navigableRiverMask[i] === 1 ? 1 : 0;
+    }
+    return mask;
+  }
+
+  for (let y = 0; y < height; y++) {
+    const y0 = Math.max(0, y - radius);
+    const y1 = Math.min(height - 1, y + radius);
+    for (let x = 0; x < width; x++) {
+      const x0 = Math.max(0, x - radius);
+      const x1 = Math.min(width - 1, x + radius);
+      let adjacent = 0;
+      for (let ny = y0; ny <= y1 && !adjacent; ny++) {
+        const row = ny * width;
+        for (let nx = x0; nx <= x1; nx++) {
+          if (options.navigableRiverMask[row + nx] === 1) {
+            adjacent = 1;
+            break;
+          }
+        }
+      }
+      mask[y * width + x] = adjacent;
+    }
+  }
+
+  return mask;
+}
+
+export function runOwnedFeaturePlacements(options: {
+  ctx: ReturnType<typeof createFeaturesTestContext>["ctx"];
+  placements: FeaturesPlacementConfig;
+}): void {
+  const { ctx, placements } = options;
+  const { width, height } = ctx.dimensions;
+  const size = width * height;
+
+  const classification = ctx.artifacts.get(ecologyArtifacts.biomeClassification.id) as {
+    biomeIndex: Uint8Array;
+    vegetationDensity: Float32Array;
+    effectiveMoisture: Float32Array;
+    surfaceTemperature: Float32Array;
+    aridityIndex: Float32Array;
+    freezeIndex: Float32Array;
+  };
+
+  const landMask = ctx.buffers.heightfield.landMask;
+  const terrainType = ctx.buffers.heightfield.terrain;
+  const navigableRiverMask = new Uint8Array(size);
+  const lookups = resolveFeatureKeyLookups(ctx.adapter);
+  const featureKeyField = buildFeatureKeyField(ctx, lookups);
+  const latitude = buildLatitudeField(ctx.env.latitudeBounds, width, height);
+  const navigableRiverTerrain = ctx.adapter.getTerrainTypeIndex("TERRAIN_NAVIGABLE_RIVER");
+  const coastTerrain = ctx.adapter.getTerrainTypeIndex("TERRAIN_COAST");
+  const seed = deriveStepSeed(ctx.env.seed, "ecology:planFeaturePlacements");
+
+  for (let i = 0; i < size; i++) {
+    navigableRiverMask[i] = terrainType[i] === navigableRiverTerrain ? 1 : 0;
+  }
+
+  const wetRules = placements.wet.config?.rules ?? {};
+  const nearRadius = Math.max(1, Math.floor(wetRules.nearRiverRadius ?? 2));
+  const isolatedRadius = Math.max(1, Math.floor(wetRules.isolatedRiverRadius ?? 1));
+
+  const vegetation = ecology.ops.planVegetatedFeaturePlacements.run(
+    {
+      width,
+      height,
+      seed,
+      biomeIndex: classification.biomeIndex,
+      vegetationDensity: classification.vegetationDensity,
+      effectiveMoisture: classification.effectiveMoisture,
+      surfaceTemperature: classification.surfaceTemperature,
+      aridityIndex: classification.aridityIndex,
+      freezeIndex: classification.freezeIndex,
+      landMask,
+      navigableRiverMask,
+      featureKeyField: featureKeyField.slice(),
+    },
+    placements.vegetated
+  );
+
+  const wetlands = ecology.ops.planWetFeaturePlacements.run(
+    {
+      width,
+      height,
+      seed,
+      biomeIndex: classification.biomeIndex,
+      surfaceTemperature: classification.surfaceTemperature,
+      landMask,
+      navigableRiverMask,
+      featureKeyField: featureKeyField.slice(),
+      nearRiverMask: buildRiverAdjacencyMask({
+        width,
+        height,
+        navigableRiverMask,
+        radius: nearRadius,
+      }),
+      isolatedRiverMask: buildRiverAdjacencyMask({
+        width,
+        height,
+        navigableRiverMask,
+        radius: isolatedRadius,
+      }),
+    },
+    placements.wet
+  );
+
+  const reefs = ecology.ops.planAquaticFeaturePlacements.run(
+    {
+      width,
+      height,
+      seed,
+      landMask,
+      terrainType,
+      latitude,
+      featureKeyField: featureKeyField.slice(),
+      coastTerrain,
+    },
+    placements.aquatic
+  );
+
+  const ice = ecology.ops.planIceFeaturePlacements.run(
+    {
+      width,
+      height,
+      seed,
+      landMask,
+      latitude,
+      featureKeyField: featureKeyField.slice(),
+      naturalWonderMask: new Uint8Array(size),
+    },
+    placements.ice
+  );
+
+  const intentsRuntime = implementArtifacts([ecologyArtifacts.featureIntents], {
+    featureIntents: {},
+  });
+  intentsRuntime.featureIntents.publish(ctx, {
+    vegetation: vegetation.placements,
+    wetlands: wetlands.placements,
+    reefs: reefs.placements,
+    ice: ice.placements,
+  });
+
+  const applyConfig = {
+    apply: normalizeOpSelectionOrThrow(ecology.ops.applyFeatures, {
+      strategy: "default",
+      config: {},
+    }),
+  };
+  const applyOps = ecology.ops.bind(featuresApplyStep.contract.ops!).runtime;
+  featuresApplyStep.run(ctx, applyConfig, applyOps, buildTestDeps(featuresApplyStep));
 }
 
 type WaterMask = (x: number, y: number) => boolean;
@@ -159,7 +330,7 @@ export function createFeaturesTestContext(options: FeaturesTestContextOptions) {
   const ctx = createExtendedMapContext({ width, height }, adapter, env);
 
   const size = width * height;
-  ctx.buffers.heightfield.elevation.fill(0);
+  ctx.buffers.heightfield.elevation.fill(1);
   ctx.buffers.heightfield.landMask.fill(1);
   ctx.buffers.climate.rainfall.fill(defaultRainfall);
   ctx.buffers.climate.humidity.fill(defaultHumidity);
@@ -174,6 +345,7 @@ export function createFeaturesTestContext(options: FeaturesTestContextOptions) {
       if (isWater(x, y)) {
         adapter.setWater(x, y, true);
         ctx.buffers.heightfield.landMask[idx] = 0;
+        ctx.buffers.heightfield.elevation[idx] = 0;
         ctx.fields.biomeId[idx] = marineId;
       } else {
         ctx.fields.biomeId[idx] = landId;
@@ -191,10 +363,17 @@ export function createFeaturesTestContext(options: FeaturesTestContextOptions) {
   const fertility = new Float32Array(size).fill(defaultFertility);
 
   const hydrologyArtifacts = implementArtifacts(
-    [hydrologyClimateBaselineArtifacts.heightfield, hydrologyClimateBaselineArtifacts.climateField],
-    { heightfield: {}, climateField: {} }
+    [morphologyArtifacts.topography, hydrologyClimateBaselineArtifacts.climateField],
+    { topography: {}, climateField: {} }
   );
-  hydrologyArtifacts.heightfield.publish(ctx, ctx.buffers.heightfield);
+  const seaLevel = 0;
+  const bathymetry = new Int16Array(size);
+  hydrologyArtifacts.topography.publish(ctx, {
+    elevation: ctx.buffers.heightfield.elevation,
+    seaLevel,
+    landMask: ctx.buffers.heightfield.landMask,
+    bathymetry,
+  });
   hydrologyArtifacts.climateField.publish(ctx, ctx.buffers.climate);
 
   const ecologyArtifactsRuntime = implementArtifacts(
@@ -218,32 +397,21 @@ export function createFeaturesTestContext(options: FeaturesTestContextOptions) {
     fertility,
   });
 
-  const narrativeArtifacts = implementArtifacts([narrativePreArtifacts.overlays], {
-    overlays: {},
+  const foundationRuntime = implementArtifacts([foundationArtifacts.plates], {
+    foundationPlates: {},
   });
-  narrativeArtifacts.overlays.publish(ctx, ctx.overlays);
-  publishStoryOverlay(ctx, STORY_OVERLAY_KEYS.HOTSPOTS, {
-    kind: STORY_OVERLAY_KEYS.HOTSPOTS,
-    version: 1,
-    width,
-    height,
-    active: [],
-    summary: {
-      paradise: [],
-      volcanic: [],
-    },
-  });
-  publishStoryOverlay(ctx, STORY_OVERLAY_KEYS.MARGINS, {
-    kind: STORY_OVERLAY_KEYS.MARGINS,
-    version: 1,
-    width,
-    height,
-    active: [],
-    passive: [],
-    summary: {
-      active: 0,
-      passive: 0,
-    },
+  foundationRuntime.foundationPlates.publish(ctx, {
+    id: new Int16Array(size),
+    boundaryCloseness: new Uint8Array(size),
+    boundaryType: new Uint8Array(size),
+    tectonicStress: new Uint8Array(size),
+    upliftPotential: new Uint8Array(size),
+    riftPotential: new Uint8Array(size),
+    shieldStability: new Uint8Array(size),
+    volcanism: new Uint8Array(size),
+    movementU: new Int8Array(size),
+    movementV: new Int8Array(size),
+    rotation: new Int8Array(size),
   });
 
   return {

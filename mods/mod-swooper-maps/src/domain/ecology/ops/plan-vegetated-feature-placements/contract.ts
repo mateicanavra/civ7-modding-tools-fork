@@ -89,11 +89,12 @@ const PlanVegetatedFeaturePlacementsContract = defineOp({
     aridityIndex: TypedArraySchemas.f32({ description: "Aridity index per tile (0..1)." }),
     freezeIndex: TypedArraySchemas.f32({ description: "Freeze index per tile (0..1)." }),
     landMask: TypedArraySchemas.u8({ description: "Land mask per tile (1=land, 0=water)." }),
-    terrainType: TypedArraySchemas.u8({ description: "Terrain type id per tile." }),
+    navigableRiverMask: TypedArraySchemas.u8({
+      description: "Mask (1/0): tiles that are navigable rivers.",
+    }),
     featureKeyField: TypedArraySchemas.i16({
       description: "Existing feature key indices per tile (-1 for empty).",
     }),
-    navigableRiverTerrain: Type.Integer({ description: "Terrain id for navigable rivers." }),
   }),
   output: Type.Object({
     placements: Type.Array(VegetatedPlacementSchema),

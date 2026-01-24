@@ -1,8 +1,7 @@
 import { Type, createStage } from "@swooper/mapgen-core/authoring";
-import { climateBaseline, lakes } from "./steps/index.js";
+import { climateBaseline } from "./steps/index.js";
 import {
   HydrologyDrynessKnobSchema,
-  HydrologyLakeinessKnobSchema,
   HydrologyOceanCouplingKnobSchema,
   HydrologySeasonalityKnobSchema,
   HydrologyTemperatureKnobSchema,
@@ -41,23 +40,15 @@ const knobsSchema = Type.Object(
      * - Transforms winds/currents/transport and coastal gradients deterministically.
      */
     oceanCoupling: Type.Optional(HydrologyOceanCouplingKnobSchema),
-    /**
-     * Lake projection frequency bias.
-     *
-     * Stage scope:
-     * - Transforms lake projection frequency only (engine projection).
-     * - Does not change discharge routing truth or hydrography classification.
-     */
-    lakeiness: Type.Optional(HydrologyLakeinessKnobSchema),
   },
   {
     description:
-      "Hydrology climate-baseline knobs (dryness/temperature/seasonality/oceanCoupling/lakeiness). Knobs apply after defaulted step config as deterministic transforms.",
+      "Hydrology climate-baseline knobs (dryness/temperature/seasonality/oceanCoupling). Knobs apply after defaulted step config as deterministic transforms.",
   }
 );
 
 export default createStage({
   id: "hydrology-climate-baseline",
   knobsSchema,
-  steps: [lakes, climateBaseline],
+  steps: [climateBaseline],
 } as const);

@@ -1,10 +1,4 @@
-import {
-  ctxRandom,
-  ctxRandomLabel,
-  logElevationSummary,
-  syncHeightfield,
-  writeClimateField,
-} from "@swooper/mapgen-core";
+import { ctxRandom, ctxRandomLabel, writeClimateField } from "@swooper/mapgen-core";
 import type { MapDimensions } from "@civ7/adapter";
 import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import { hydrologyClimateBaselineArtifacts } from "../artifacts.js";
@@ -326,28 +320,24 @@ export default createStep(ClimateBaselineStepContract, {
   },
   run: (context, config, ops, deps) => {
     const { width, height } = context.dimensions;
-
-    context.adapter.recalculateAreas();
-    context.adapter.buildElevation();
-    context.adapter.recalculateAreas();
-    context.adapter.stampContinents();
-
-    syncHeightfield(context);
-    logElevationSummary(context.trace, context.adapter, width, height, "post-buildElevation");
-
+    const { topLatitude, bottomLatitude } = context.env.latitudeBounds;
     const latitudeByRow = new Float32Array(height);
-    for (let y = 0; y < height; y++) {
-      latitudeByRow[y] = context.adapter.getLatitude(0, y);
+    if (height <= 1) {
+      const mid = (topLatitude + bottomLatitude) / 2;
+      for (let y = 0; y < height; y++) latitudeByRow[y] = clampLatitudeDeg(mid);
+    } else {
+      const step = (bottomLatitude - topLatitude) / (height - 1);
+      for (let y = 0; y < height; y++) {
+        latitudeByRow[y] = clampLatitudeDeg(topLatitude + step * y);
+      }
     }
 
-    const heightfield = deps.artifacts.heightfield.read(context) as {
-      elevation: Int16Array;
-      terrain: Uint8Array;
-      landMask: Uint8Array;
-    };
+    const topography = deps.artifacts.topography.read(context);
+    const elevation = topography.elevation;
+    const landMask = topography.landMask;
     const isWaterMask = new Uint8Array(width * height);
     for (let i = 0; i < isWaterMask.length; i++) {
-      isWaterMask[i] = heightfield.landMask[i] === 0 ? 1 : 0;
+      isWaterMask[i] = landMask[i] === 0 ? 1 : 0;
     }
 
     const stepId = `${ClimateBaselineStepContract.phase}/${ClimateBaselineStepContract.id}`;
@@ -393,8 +383,8 @@ export default createStep(ClimateBaselineStepContract, {
           width,
           height,
           insolation: forcing.insolation,
-          elevation: heightfield.elevation,
-          landMask: heightfield.landMask,
+          elevation,
+          landMask,
         },
         config.computeThermalState
       );
@@ -425,7 +415,7 @@ export default createStep(ClimateBaselineStepContract, {
         {
           width,
           height,
-          landMask: heightfield.landMask,
+          landMask,
           surfaceTemperatureC: thermal.surfaceTemperatureC,
         },
         config.computeEvaporationSources
@@ -436,7 +426,7 @@ export default createStep(ClimateBaselineStepContract, {
           width,
           height,
           latitudeByRow: latitudeByRowSeasonal,
-          landMask: heightfield.landMask,
+          landMask,
           windU: winds.windU,
           windV: winds.windV,
           evaporation: evaporation.evaporation,
@@ -449,9 +439,8 @@ export default createStep(ClimateBaselineStepContract, {
           width,
           height,
           latitudeByRow: latitudeByRowSeasonal,
-          elevation: heightfield.elevation,
-          terrain: heightfield.terrain,
-          landMask: heightfield.landMask,
+          elevation,
+          landMask,
           windU: winds.windU,
           windV: winds.windV,
           humidityF32: moisture.humidity,

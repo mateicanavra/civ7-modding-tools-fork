@@ -50,7 +50,7 @@ const _computeMeshEnvelopeFromStepSchemaConfigIsObject: _ComputeMeshEnvelopeFrom
 
 // Ensure nested op envelopes are typed (not `unknown` / not widened to `string`).
 // If these degrade, IntelliSense for `strategy` + `config.*` becomes unusable.
-type _MeshConfig = NonNullable<_FoundationConfig["mesh"]>;
+type _MeshConfig = NonNullable<NonNullable<_FoundationConfig["advanced"]>["mesh"]>;
 type _ComputeMeshEnvelope = NonNullable<_MeshConfig["computeMesh"]>;
 
 // Strategy should not be `string` or `unknown`.
@@ -78,11 +78,13 @@ createMap({
   recipe: standardRecipe,
   config: {
     foundation: {
-      mesh: {
-        computeMesh: {
-          strategy: "default",
-          config: {
-            plateCount: 3,
+      advanced: {
+        mesh: {
+          computeMesh: {
+            strategy: "default",
+            config: {
+              plateCount: 3,
+            },
           },
         },
       },

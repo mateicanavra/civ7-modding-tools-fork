@@ -129,10 +129,17 @@ Full acceptance criteria, deletion ledger, and verification commands are tracked
 Tracing-specific acceptance criteria live in:
 - [M10-U06](../issues/M10-U06-tracing-observability-hardening.md).
 
+U04 enforcement (cross-boundary import hygiene):
+- Acceptance: no cross-stage helper imports; no step imports from `domain/**/ops/**/rules/**`.
+- Verification: `rg -n "src/recipes/standard/stages/.*/steps/helpers/" mods/mod-swooper-maps/src/recipes/standard/stages/morphology-*`
+- Verification: `rg -n "src/domain/.*/ops/.*/rules" mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-*`
+
 ## Risks + Mitigations (summary)
 
 - Two-truth drift between engine surfaces and Morphology truth.
   - Mitigation: explicit Gameplay stamping steps with `effect:map.*` and no backfeed.
+- Physics-first quality gap (placeholder upstream drivers; spec/example drift) masked by “architecture-green” guardrails.
+  - Mitigation: execute M11 remediation plan: `docs/projects/engine-refactor-v1/milestones/M11-physics-first-realism-upgrade.md` and `docs/projects/engine-refactor-v1/issues/M11-U00-physics-first-realism-upgrade-plan.md`.
 - Overlay backfeeding reintroduced through “helpful” masks.
   - Mitigation: contract guards and overlay purge gates.
 - TerrainBuilder ordering drift.

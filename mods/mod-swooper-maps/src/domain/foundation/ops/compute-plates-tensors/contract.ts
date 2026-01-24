@@ -2,8 +2,9 @@ import { TypedArraySchemas, Type, defineOp } from "@swooper/mapgen-core/authorin
 import type { Static } from "@swooper/mapgen-core/authoring";
 
 import { FoundationMeshSchema } from "../compute-mesh/contract.js";
+import { FoundationCrustSchema } from "../compute-crust/contract.js";
 import { FoundationPlateGraphSchema } from "../compute-plate-graph/contract.js";
-import { FoundationTectonicsSchema } from "../compute-tectonics/contract.js";
+import { FoundationTectonicsSchema } from "../compute-tectonic-history/contract.js";
 
 const StrategySchema = Type.Object(
   {
@@ -43,6 +44,7 @@ const ComputePlatesTensorsContract = defineOp({
       width: Type.Integer({ minimum: 1 }),
       height: Type.Integer({ minimum: 1 }),
       mesh: FoundationMeshSchema,
+      crust: FoundationCrustSchema,
       plateGraph: FoundationPlateGraphSchema,
       tectonics: FoundationTectonicsSchema,
     },
@@ -50,15 +52,45 @@ const ComputePlatesTensorsContract = defineOp({
   ),
   output: Type.Object(
     {
+      tileToCellIndex: TypedArraySchemas.i32({
+        description: "Nearest mesh cellIndex per tileIndex (canonical mesh→tile projection mapping).",
+      }),
+      crustTiles: Type.Object(
+        {
+          type: TypedArraySchemas.u8({
+            description: "Crust type per tile (0=oceanic, 1=continental), sampled via tileToCellIndex.",
+          }),
+          age: TypedArraySchemas.u8({
+            description: "Crust age per tile (0=new, 255=ancient), sampled via tileToCellIndex.",
+          }),
+          buoyancy: TypedArraySchemas.f32({
+            description: "Crust buoyancy proxy per tile (0..1), sampled via tileToCellIndex.",
+          }),
+          baseElevation: TypedArraySchemas.f32({
+            description: "Isostatic base elevation proxy per tile (0..1), sampled via tileToCellIndex.",
+          }),
+          strength: TypedArraySchemas.f32({
+            description: "Lithospheric strength proxy per tile (0..1), sampled via tileToCellIndex.",
+          }),
+        },
+        { additionalProperties: false }
+      ),
       plates: Type.Object(
         {
           id: TypedArraySchemas.i16({ description: "Plate id per tile." }),
           boundaryCloseness: TypedArraySchemas.u8({ description: "Boundary proximity per tile (0..255)." }),
-          boundaryType: TypedArraySchemas.u8({ description: "Boundary type per tile (BOUNDARY_TYPE values)." }),
+          /**
+           * Boundary regime per tile (BOUNDARY_TYPE values), sampled from mesh-space Foundation tectonics.
+           */
+          boundaryType: TypedArraySchemas.u8({
+            description:
+              "Boundary regime per tile (BOUNDARY_TYPE values), sampled from mesh-space Foundation tectonics.",
+          }),
           tectonicStress: TypedArraySchemas.u8({ description: "Tectonic stress per tile (0..255)." }),
           upliftPotential: TypedArraySchemas.u8({ description: "Uplift potential per tile (0..255)." }),
           riftPotential: TypedArraySchemas.u8({ description: "Rift potential per tile (0..255)." }),
           shieldStability: TypedArraySchemas.u8({ description: "Shield stability per tile (0..255)." }),
+          volcanism: TypedArraySchemas.u8({ description: "Volcanism per tile (0..255)." }),
           movementU: TypedArraySchemas.i8({ description: "Plate movement U component per tile (-127..127)." }),
           movementV: TypedArraySchemas.i8({ description: "Plate movement V component per tile (-127..127)." }),
           rotation: TypedArraySchemas.i8({ description: "Plate rotation per tile (-127..127)." }),

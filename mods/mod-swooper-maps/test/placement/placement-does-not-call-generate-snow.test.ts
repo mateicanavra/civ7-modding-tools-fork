@@ -53,11 +53,8 @@ describe("placement", () => {
       starts,
       wonders,
       floodplains,
-      landmasses: {
-        landmasses: [
-          { id: 0, tileCount: 16, bbox: { west: 0, east: 3, south: 0, north: 3 } },
-        ],
-        landmassIdByTile: new Int32Array(16).fill(0),
+      landmassRegionSlotByTile: {
+        slotByTile: new Uint8Array(16).fill(1),
       },
       publishOutputs: (outputs) => placementRuntime.placementOutputs.publish(context, outputs),
     });

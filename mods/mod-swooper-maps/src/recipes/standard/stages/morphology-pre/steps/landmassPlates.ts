@@ -1,14 +1,9 @@
-import {
-  FLAT_TERRAIN,
-  OCEAN_TERRAIN,
-  ctxRandom,
-  ctxRandomLabel,
-  logLandmassAscii,
-  writeHeightfield,
-} from "@swooper/mapgen-core";
+import { computeSampleStep, ctxRandom, ctxRandomLabel, renderAsciiGrid } from "@swooper/mapgen-core";
 import type { MapDimensions } from "@civ7/adapter";
 import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import LandmassPlatesStepContract from "./landmassPlates.contract.js";
+import { MORPHOLOGY_SEA_LEVEL_TARGET_WATER_PERCENT_DELTA } from "@mapgen/domain/morphology/shared/knob-multipliers.js";
+import type { MorphologySeaLevelKnob } from "@mapgen/domain/morphology/shared/knobs.js";
 
 type ArtifactValidationIssue = Readonly<{ message: string }>;
 
@@ -48,12 +43,16 @@ function validateHeightfieldBuffer(value: unknown, dimensions: MapDimensions): A
   const size = expectedSize(dimensions);
   const candidate = value as {
     elevation?: unknown;
-    terrain?: unknown;
+    seaLevel?: unknown;
     landMask?: unknown;
+    bathymetry?: unknown;
   };
   validateTypedArray(errors, "topography.elevation", candidate.elevation, Int16Array, size);
-  validateTypedArray(errors, "topography.terrain", candidate.terrain, Uint8Array, size);
+  if (typeof candidate.seaLevel !== "number" || !Number.isFinite(candidate.seaLevel)) {
+    errors.push({ message: "Expected topography.seaLevel to be a finite number." });
+  }
   validateTypedArray(errors, "topography.landMask", candidate.landMask, Uint8Array, size);
+  validateTypedArray(errors, "topography.bathymetry", candidate.bathymetry, Int16Array, size);
   return errors;
 }
 
@@ -70,21 +69,50 @@ function validateSubstrateBuffer(value: unknown, dimensions: MapDimensions): Art
   return errors;
 }
 
-function applyBaseTerrain(
+function applyBaseTerrainBuffers(
   width: number,
   height: number,
   elevation: Int16Array,
   landMask: Uint8Array,
-  context: Parameters<typeof writeHeightfield>[0]
-): void {
-  for (let y = 0; y < height; y++) {
-    for (let x = 0; x < width; x++) {
-      const i = y * width + x;
-      const isLand = landMask[i] === 1;
-      const terrain = isLand ? FLAT_TERRAIN : OCEAN_TERRAIN;
-      writeHeightfield(context, x, y, { terrain, isLand, elevation: elevation[i] ?? 0 });
-    }
+  heightfield: { elevation: Int16Array; landMask: Uint8Array }
+): { landCount: number; waterCount: number; minElevation: number; maxElevation: number } {
+  const size = Math.max(0, (width | 0) * (height | 0));
+  let landCount = 0;
+  let waterCount = 0;
+  let minElevation = 0;
+  let maxElevation = 0;
+
+  for (let i = 0; i < size; i++) {
+    const nextElevation = elevation[i] ?? 0;
+    const isLand = landMask[i] === 1;
+
+    heightfield.elevation[i] = nextElevation | 0;
+    heightfield.landMask[i] = isLand ? 1 : 0;
+
+    if (isLand) landCount += 1;
+    else waterCount += 1;
+
+    if (i === 0 || nextElevation < minElevation) minElevation = nextElevation;
+    if (i === 0 || nextElevation > maxElevation) maxElevation = nextElevation;
   }
+
+  return { landCount, waterCount, minElevation, maxElevation };
+}
+
+function roundHalfAwayFromZero(value: number): number {
+  return value >= 0 ? Math.floor(value + 0.5) : Math.ceil(value - 0.5);
+}
+
+function clampInt16(value: number): number {
+  if (value > 32767) return 32767;
+  if (value < -32768) return -32768;
+  return value;
+}
+
+function clampNumber(value: number, bounds: { min: number; max?: number }): number {
+  if (!Number.isFinite(value)) return bounds.min;
+  const max = bounds.max ?? Number.POSITIVE_INFINITY;
+  return Math.max(bounds.min, Math.min(max, value));
 }
 
 export default createStep(LandmassPlatesStepContract, {
@@ -96,8 +124,29 @@ export default createStep(LandmassPlatesStepContract, {
       validate: (value, context) => validateSubstrateBuffer(value, context.dimensions),
     },
   }),
+  normalize: (config, ctx) => {
+    const { seaLevel } = ctx.knobs as Readonly<{ seaLevel?: MorphologySeaLevelKnob }>;
+    const delta = MORPHOLOGY_SEA_LEVEL_TARGET_WATER_PERCENT_DELTA[seaLevel ?? "earthlike"] ?? 0;
+
+    const seaLevelSelection =
+      config.seaLevel.strategy === "default"
+        ? {
+            ...config.seaLevel,
+            config: {
+              ...config.seaLevel.config,
+              targetWaterPercent: clampNumber((config.seaLevel.config.targetWaterPercent ?? 0) + delta, {
+                min: 0,
+                max: 100,
+              }),
+            },
+          }
+        : config.seaLevel;
+
+    return { ...config, seaLevel: seaLevelSelection };
+  },
   run: (context, config, ops, deps) => {
     const plates = deps.artifacts.foundationPlates.read(context);
+    const crustTiles = deps.artifacts.foundationCrustTiles.read(context);
     const { width, height } = context.dimensions;
     const stepId = `${LandmassPlatesStepContract.phase}/${LandmassPlatesStepContract.id}`;
 
@@ -107,6 +156,10 @@ export default createStep(LandmassPlatesStepContract, {
         height,
         upliftPotential: plates.upliftPotential,
         riftPotential: plates.riftPotential,
+        boundaryCloseness: plates.boundaryCloseness,
+        boundaryType: plates.boundaryType,
+        crustType: crustTiles.type,
+        crustAge: crustTiles.age,
       },
       config.substrate
     );
@@ -115,6 +168,7 @@ export default createStep(LandmassPlatesStepContract, {
       {
         width,
         height,
+        crustBaseElevation: crustTiles.baseElevation,
         boundaryCloseness: plates.boundaryCloseness,
         upliftPotential: plates.upliftPotential,
         riftPotential: plates.riftPotential,
@@ -146,15 +200,75 @@ export default createStep(LandmassPlatesStepContract, {
       config.landmask
     );
 
-    applyBaseTerrain(width, height, baseTopography.elevation, landmask.landMask, context);
+    const stats = applyBaseTerrainBuffers(
+      width,
+      height,
+      baseTopography.elevation,
+      landmask.landMask,
+      context.buffers.heightfield
+    );
 
-    context.adapter.validateAndFixTerrain();
-    context.adapter.recalculateAreas();
-    context.adapter.stampContinents();
+    const seaLevelValue = seaLevel.seaLevel;
+    const waterElevation = clampInt16(Math.floor(seaLevelValue));
+    const landElevation = clampInt16(Math.floor(seaLevelValue) + 1);
+    for (let i = 0; i < context.buffers.heightfield.elevation.length; i++) {
+      const isLand = context.buffers.heightfield.landMask[i] === 1;
+      const current = context.buffers.heightfield.elevation[i] ?? 0;
+      if (isLand) {
+        if (current <= seaLevelValue) context.buffers.heightfield.elevation[i] = landElevation;
+      } else {
+        if (current > seaLevelValue) context.buffers.heightfield.elevation[i] = waterElevation;
+      }
+    }
 
-    logLandmassAscii(context.trace, context.adapter, width, height);
+    const bathymetry = new Int16Array(Math.max(0, (width | 0) * (height | 0)));
+    for (let i = 0; i < bathymetry.length; i++) {
+      const elevationMeters = context.buffers.heightfield.elevation[i] ?? 0;
+      const isLand = context.buffers.heightfield.landMask[i] === 1;
+      if (isLand) {
+        bathymetry[i] = 0;
+        continue;
+      }
+      const delta = Math.min(0, elevationMeters - seaLevelValue);
+      bathymetry[i] = clampInt16(roundHalfAwayFromZero(delta));
+    }
 
-    deps.artifacts.topography.publish(context, context.buffers.heightfield);
+    const topography = {
+      elevation: context.buffers.heightfield.elevation,
+      seaLevel: seaLevelValue,
+      landMask: context.buffers.heightfield.landMask,
+      bathymetry,
+    };
+
+    context.trace.event(() => ({
+      kind: "morphology.landmassPlates.summary",
+      landTiles: stats.landCount,
+      waterTiles: stats.waterCount,
+      elevationMin: stats.minElevation,
+      elevationMax: stats.maxElevation,
+      seaLevel: seaLevelValue,
+    }));
+    context.trace.event(() => {
+      const sampleStep = computeSampleStep(width, height);
+      const rows = renderAsciiGrid({
+        width,
+        height,
+        sampleStep,
+        cellFn: (x, y) => {
+          const idx = y * width + x;
+          const isLand = context.buffers.heightfield.landMask[idx] === 1;
+          return { base: isLand ? "." : "~" };
+        },
+      });
+      return {
+        kind: "morphology.landmassPlates.ascii.landMask",
+        sampleStep,
+        legend: ".=land ~=water",
+        rows,
+      };
+    });
+
+    deps.artifacts.topography.publish(context, topography);
     deps.artifacts.substrate.publish(context, substrate);
   },
 });

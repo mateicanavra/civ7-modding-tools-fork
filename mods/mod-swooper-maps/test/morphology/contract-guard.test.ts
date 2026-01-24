@@ -144,6 +144,47 @@ describe("morphology contract guardrails", () => {
     }
   });
 
+  it("does not require story overlays in morphology step contracts", () => {
+    const repoRoot = path.resolve(import.meta.dir, "../..");
+    const roots = [
+      path.join(repoRoot, "src/recipes/standard/stages/morphology-pre/steps"),
+      path.join(repoRoot, "src/recipes/standard/stages/morphology-mid/steps"),
+      path.join(repoRoot, "src/recipes/standard/stages/morphology-post/steps"),
+    ];
+
+    const contractFiles = roots.flatMap((root) =>
+      listFilesRecursive(root).filter((file) => file.endsWith("contract.ts"))
+    );
+
+    expect(contractFiles.length).toBeGreaterThan(0);
+
+    for (const file of contractFiles) {
+      const text = readFileSync(file, "utf8");
+      expect(text).not.toContain("artifact:storyOverlays");
+    }
+  });
+
+  it("does not import overlays in morphology step implementations", () => {
+    const repoRoot = path.resolve(import.meta.dir, "../..");
+    const roots = [
+      path.join(repoRoot, "src/recipes/standard/stages/morphology-pre/steps"),
+      path.join(repoRoot, "src/recipes/standard/stages/morphology-mid/steps"),
+      path.join(repoRoot, "src/recipes/standard/stages/morphology-post/steps"),
+    ];
+
+    const stepFiles = roots.flatMap((root) =>
+      listFilesRecursive(root).filter((file) => file.endsWith(".ts") && !file.endsWith("contract.ts"))
+    );
+
+    expect(stepFiles.length).toBeGreaterThan(0);
+
+    for (const file of stepFiles) {
+      const text = readFileSync(file, "utf8");
+      expect(text).not.toContain("overlays.js");
+      expect(text).not.toContain("readOverlay");
+    }
+  });
+
   it("does not reintroduce legacy morphology module imports", () => {
     const repoRoot = path.resolve(import.meta.dir, "../..");
     const srcRoot = path.join(repoRoot, "src");
@@ -241,27 +282,7 @@ describe("morphology contract guardrails", () => {
       mustRequire: "topography";
     }> = [
       {
-        file: path.join(repoRoot, "src/recipes/standard/stages/narrative-pre/steps/storySeed.contract.ts"),
-        mustRequire: "topography",
-      },
-      {
-        file: path.join(repoRoot, "src/recipes/standard/stages/narrative-pre/steps/storyHotspots.contract.ts"),
-        mustRequire: "topography",
-      },
-      {
-        file: path.join(repoRoot, "src/recipes/standard/stages/narrative-pre/steps/storyCorridorsPre.contract.ts"),
-        mustRequire: "topography",
-      },
-      {
-        file: path.join(repoRoot, "src/recipes/standard/stages/narrative-pre/steps/storyRifts.contract.ts"),
-        mustRequire: "topography",
-      },
-      {
-        file: path.join(repoRoot, "src/recipes/standard/stages/narrative-mid/steps/storyOrogeny.contract.ts"),
-        mustRequire: "topography",
-      },
-      {
-        file: path.join(repoRoot, "src/recipes/standard/stages/hydrology-climate-baseline/steps/lakes.contract.ts"),
+        file: path.join(repoRoot, "src/recipes/standard/stages/map-hydrology/steps/lakes.contract.ts"),
         mustRequire: "topography",
       },
     ];

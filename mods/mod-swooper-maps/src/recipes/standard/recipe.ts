@@ -10,11 +10,12 @@ import foundation from "./stages/foundation/index.js";
 import hydrologyClimateBaseline from "./stages/hydrology-climate-baseline/index.js";
 import hydrologyClimateRefine from "./stages/hydrology-climate-refine/index.js";
 import hydrologyHydrography from "./stages/hydrology-hydrography/index.js";
+import mapEcology from "./stages/map-ecology/index.js";
+import mapHydrology from "./stages/map-hydrology/index.js";
 import morphologyMid from "./stages/morphology-mid/index.js";
 import morphologyPost from "./stages/morphology-post/index.js";
 import morphologyPre from "./stages/morphology-pre/index.js";
-import narrativeMid from "./stages/narrative-mid/index.js";
-import narrativePre from "./stages/narrative-pre/index.js";
+import mapMorphology from "./stages/map-morphology/index.js";
 import placement from "./stages/placement/index.js";
 import { STANDARD_TAG_DEFINITIONS } from "./tags.js";
 
@@ -22,14 +23,15 @@ const NAMESPACE = "mod-swooper-maps";
 const stages = [
   foundation,
   morphologyPre,
-  narrativePre,
   morphologyMid,
-  narrativeMid,
   morphologyPost,
   hydrologyClimateBaseline,
   hydrologyHydrography,
   hydrologyClimateRefine,
   ecology,
+  mapMorphology,
+  mapHydrology,
+  mapEcology,
   placement,
 ] as const;
 

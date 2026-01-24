@@ -78,22 +78,23 @@ Hydrology stages (standard recipe):
 - `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-baseline/`
 - `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-hydrography/`
 - `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-refine/`
+- Gameplay projection: `mods/mod-swooper-maps/src/recipes/standard/stages/map-hydrology/`
 
 Stage public config:
 - `hydrology-climate-baseline`, `hydrology-hydrography`, `hydrology-climate-refine` accept `knobs` plus optional advanced step/op config.
 - Advanced config defines the baseline (defaults + explicit tuning); knobs apply after as deterministic transforms.
 
 Step config schemas:
-- Lakes: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-baseline/steps/lakes.contract.ts` (`tilesPerLakeMultiplier`)
+- Lakes: `mods/mod-swooper-maps/src/recipes/standard/stages/map-hydrology/steps/lakes.contract.ts` (`tilesPerLakeMultiplier`)
 - Climate baseline: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-baseline/steps/climateBaseline.contract.ts` (advanced seasonality override only; knobs preferred)
-- Rivers: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-hydrography/steps/rivers.contract.ts` (`minLength`/`maxLength`, engine projection-only)
+- Rivers (hydrography truth): `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-hydrography/steps/rivers.contract.ts`
+- Rivers (engine projection): `mods/mod-swooper-maps/src/recipes/standard/stages/map-hydrology/steps/plotRivers.contract.ts` (`minLength`/`maxLength`)
 - Climate refine: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-refine/steps/climateRefine.contract.ts` (empty; knobs only)
 
 ## Artifacts (published products)
 
 Hydrology publishes typed artifacts for dependency gating and stable consumption:
 
-- `artifact:heightfield`: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-baseline/artifacts.ts` (`HeightfieldArtifactSchema`)
 - `artifact:climateField`: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-baseline/artifacts.ts` (`ClimateFieldArtifactSchema`)
 - `artifact:hydrology.climateSeasonality`: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-baseline/artifacts.ts` (`ClimateSeasonalityArtifactSchema`)
 - `artifact:hydrology._internal.windField`: `mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-climate-baseline/artifacts.ts` (`HydrologyWindFieldSchema`, internal)
@@ -121,11 +122,11 @@ Contracts live under `mods/mod-swooper-maps/src/domain/hydrology/ops/*/contract.
 - `hydrology/compute-ocean-surface-currents` — winds + waterMask → currentU/currentV
 - `hydrology/compute-evaporation-sources` — landMask + temperature → evaporation sources
 - `hydrology/transport-moisture` — winds + evaporation → humidity field (fixed-iteration, bounded)
-- `hydrology/compute-precipitation` — humidity + terrain/orography + `perlinSeed` → rainfall/humidity (baseline + refine)
+- `hydrology/compute-precipitation` — humidity + orography + `perlinSeed` → rainfall/humidity (baseline + refine)
 - `hydrology/compute-land-water-budget` — rainfall/humidity/temperature → PET + aridityIndex (advisory)
 - `hydrology/accumulate-discharge` — Morphology routing + climate → runoff + discharge + sink/outlet masks
 - `hydrology/project-river-network` — discharge → riverClass + computed thresholds (projection-only; monotonic)
-- `hydrology/compute-cryosphere-state` — temperature + rainfall → snow/ice/albedo + freezeIndex
+- `hydrology/compute-cryosphere-state` — temperature + rainfall → snow/ice/albedo + freezeIndex + (groundIce01/permafrost01/meltPotential01)
 - `hydrology/apply-albedo-feedback` — bounded iterations → temperature refinement (optional/knob-gated)
 - `hydrology/compute-climate-diagnostics` — climate signals → advisory diagnostics indices
 

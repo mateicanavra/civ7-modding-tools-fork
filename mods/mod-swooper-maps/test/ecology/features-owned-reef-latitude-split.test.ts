@@ -1,14 +1,10 @@
 import { describe, expect, it } from "bun:test";
 
-import ecology from "@mapgen/domain/ecology/ops";
-import featuresStep from "../../src/recipes/standard/stages/ecology/steps/features/index.js";
 import {
   buildFeaturesPlacementConfig,
   createFeaturesTestContext,
-  buildDisabledReefEmbellishmentsSelection,
-  buildDisabledVegetationEmbellishmentsSelection,
+  runOwnedFeaturePlacements,
 } from "./features-owned.helpers.js";
-import { buildTestDeps } from "../support/step-deps.js";
 
 describe("features (owned baseline)", () => {
   it("selects reef vs cold reef based on latitude split", () => {
@@ -20,6 +16,7 @@ describe("features (owned baseline)", () => {
       rng: () => 0,
       isWater: () => true,
     });
+    ctx.env.latitudeBounds = { topLatitude: 80, bottomLatitude: -80 };
 
     const featuresPlacement = buildFeaturesPlacementConfig({
       vegetated: { multiplier: 0 },
@@ -36,20 +33,7 @@ describe("features (owned baseline)", () => {
       ice: { multiplier: 0 },
     });
 
-    const ops = ecology.ops.bind(featuresStep.contract.ops!).runtime;
-    featuresStep.run(
-      ctx,
-      {
-        iceFeaturePlacements: featuresPlacement.ice,
-        aquaticFeaturePlacements: featuresPlacement.aquatic,
-        wetFeaturePlacements: featuresPlacement.wet,
-        vegetatedFeaturePlacements: featuresPlacement.vegetated,
-        reefEmbellishments: buildDisabledReefEmbellishmentsSelection(),
-        vegetationEmbellishments: buildDisabledVegetationEmbellishmentsSelection(),
-      },
-      ops,
-      buildTestDeps(featuresStep)
-    );
+    runOwnedFeaturePlacements({ ctx, placements: featuresPlacement });
 
     const warmReef = adapter.getFeatureTypeIndex("FEATURE_REEF");
     const coldReef = adapter.getFeatureTypeIndex("FEATURE_COLD_REEF");

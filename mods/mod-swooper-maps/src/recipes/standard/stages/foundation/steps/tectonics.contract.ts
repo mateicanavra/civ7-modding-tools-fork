@@ -10,10 +10,11 @@ const TectonicsStepContract = defineStep({
   provides: [],
   artifacts: {
     requires: [foundationArtifacts.mesh, foundationArtifacts.crust, foundationArtifacts.plateGraph],
-    provides: [foundationArtifacts.tectonics],
+    provides: [foundationArtifacts.tectonicSegments, foundationArtifacts.tectonicHistory, foundationArtifacts.tectonics],
   },
   ops: {
-    computeTectonics: foundation.ops.computeTectonics,
+    computeTectonicSegments: foundation.ops.computeTectonicSegments,
+    computeTectonicHistory: foundation.ops.computeTectonicHistory,
   },
   schema: Type.Object({}, { additionalProperties: false }),
 });

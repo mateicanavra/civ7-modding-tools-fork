@@ -7,14 +7,14 @@ export default createStep(BiomeEdgeRefineStepContract, {
     const classification = deps.artifacts.biomeClassification.read(context);
 
     const { width, height } = context.dimensions;
-    const heightfield = deps.artifacts.heightfield.read(context);
+    const topography = deps.artifacts.topography.read(context);
 
     const refined = ops.refine(
       {
         width,
         height,
         biomeIndex: classification.biomeIndex,
-        landMask: heightfield.landMask,
+        landMask: topography.landMask,
       },
       config.refine
     );

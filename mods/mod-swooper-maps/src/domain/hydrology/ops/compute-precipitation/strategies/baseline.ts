@@ -22,9 +22,6 @@ export const defaultStrategy = createStrategy(ComputePrecipitationContract, "def
     if (!(input.elevation instanceof Int16Array) || input.elevation.length !== size) {
       throw new Error("[Hydrology] Invalid elevation for hydrology/compute-precipitation.");
     }
-    if (!(input.terrain instanceof Uint8Array) || input.terrain.length !== size) {
-      throw new Error("[Hydrology] Invalid terrain for hydrology/compute-precipitation.");
-    }
     if (!(input.landMask instanceof Uint8Array) || input.landMask.length !== size) {
       throw new Error("[Hydrology] Invalid landMask for hydrology/compute-precipitation.");
     }
@@ -80,7 +77,6 @@ export const defaultStrategy = createStrategy(ComputePrecipitationContract, "def
           width,
           height,
           input.elevation,
-          input.terrain,
           input.landMask,
           input.windU,
           input.windV,

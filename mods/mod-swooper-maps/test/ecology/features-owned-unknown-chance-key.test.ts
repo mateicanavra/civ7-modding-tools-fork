@@ -16,9 +16,8 @@ describe("baseline feature placement config", () => {
       aridityIndex: new Float32Array([0.3]),
       freezeIndex: new Float32Array([0.1]),
       landMask: new Uint8Array([1]),
-      terrainType: new Uint8Array([0]),
+      navigableRiverMask: new Uint8Array([0]),
       featureKeyField: new Int16Array([-1]),
-      navigableRiverTerrain: -1,
     };
 
     expect(() =>

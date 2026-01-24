@@ -19,6 +19,13 @@ function listFilesRecursive(rootDir: string): string[] {
 }
 
 describe("foundation contract guardrails", () => {
+  it("requires volcanism in foundation plates schema", () => {
+    const repoRoot = path.resolve(import.meta.dir, "../..");
+    const artifactsFile = path.join(repoRoot, "src/recipes/standard/stages/foundation/artifacts.ts");
+    const text = readFileSync(artifactsFile, "utf8");
+    expect(text).toContain("volcanism");
+  });
+
   it("does not import domain config bag schemas from op contracts", () => {
     const repoRoot = path.resolve(import.meta.dir, "../..");
     const foundationOpsDir = path.join(repoRoot, "src/domain/foundation/ops");
@@ -73,6 +80,11 @@ describe("foundation contract guardrails", () => {
       expect(text).not.toContain("wrap_x");
       expect(text).not.toContain("wrap_y");
       expect(text).not.toContain("environment_wrap");
+
+      // M11/U11: remove legacy latitude-band tectonics injection and neighbor-scan op surface.
+      expect(text).not.toContain("computeTectonics");
+      expect(text).not.toContain("polarBandFraction");
+      expect(text).not.toContain("polarBoundary");
     }
   });
 });

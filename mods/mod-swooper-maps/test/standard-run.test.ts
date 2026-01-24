@@ -33,12 +33,6 @@ const hypsometryConfig = {
   boundaryShareTarget: 0.2,
 };
 
-const marginsConfig = {
-  activeFraction: 0.33,
-  passiveFraction: 0.22,
-  minSegmentLength: 12,
-};
-
 const coastConfig = {
   plateBias: {
     threshold: 0.45,
@@ -53,12 +47,6 @@ const coastConfig = {
   },
   bay: {},
   fjord: {},
-  minSeaLaneWidth: 3,
-};
-
-const seaLaneProtectionConfig = {
-  mode: "soft",
-  softChanceMultiplier: 1,
 };
 
 const mountainsConfig = {
@@ -134,25 +122,6 @@ const basinSeparationConfig = {
   },
 };
 
-const storyHotspotConfig = {
-  paradiseBias: 2,
-  volcanicBias: 1,
-  volcanicPeakChance: 0.33,
-};
-
-const storyFeaturesConfig = {
-  paradiseReefChance: 18,
-  paradiseReefRadius: 2,
-  volcanicForestChance: 22,
-  volcanicForestBonus: 6,
-  volcanicForestMinRainfall: 95,
-  volcanicTaigaChance: 25,
-  volcanicTaigaBonus: 5,
-  volcanicRadius: 1,
-  volcanicTaigaMinLatitude: 55,
-  volcanicTaigaMaxElevation: 400,
-  volcanicTaigaMinRainfall: 60,
-};
 
 const biomesConfig = {
   strategy: "default",
@@ -412,17 +381,9 @@ const plotEffectsConfig = {
   },
 };
 
-const corridorsConfig = {
-  sea: {},
-  land: {},
-  islandHop: {},
-};
-
 const islandsConfig = {};
 const islandsPlanConfig = {
   islands: islandsConfig,
-  hotspot: storyHotspotConfig,
-  seaLaneAvoidRadius: 2,
 };
 
 const geomorphologyConfig = {
@@ -436,62 +397,56 @@ const placementConfig = {
   floodplains: { strategy: "default", config: { minLength: 4, maxLength: 10 } },
   starts: { strategy: "default", config: {} },
 };
-const storyRiftConfig = {};
-const storyOrogenyConfig = {};
-
 const standardConfig = {
-  foundation: foundationConfig,
+  foundation: { advanced: foundationConfig },
   "morphology-pre": {
-    "landmass-plates": {
-      substrate: { strategy: "default", config: {} },
-      baseTopography: { strategy: "default", config: reliefConfig },
-      seaLevel: { strategy: "default", config: hypsometryConfig },
-      landmask: {
-        strategy: "default",
-        config: { basinSeparation: basinSeparationConfig },
+    advanced: {
+      "landmass-plates": {
+        substrate: { strategy: "default", config: {} },
+        baseTopography: { strategy: "default", config: reliefConfig },
+        seaLevel: { strategy: "default", config: hypsometryConfig },
+        landmask: {
+          strategy: "default",
+          config: { basinSeparation: basinSeparationConfig },
+        },
       },
     },
-    coastlines: {},
-  },
-  "narrative-pre": {
-    "story-seed": { margins: marginsConfig },
-    "story-hotspots": { story: { hotspot: storyHotspotConfig } },
-    "story-rifts": { story: { rift: storyRiftConfig } },
-    "story-corridors-pre": { corridors: corridorsConfig },
   },
   "morphology-mid": {
-    "rugged-coasts": {
-      coastlines: {
-        strategy: "default",
-        config: {
-          coast: coastConfig,
-          seaLanes: seaLaneProtectionConfig,
+    advanced: {
+      "rugged-coasts": {
+        coastlines: {
+          strategy: "default",
+          config: {
+            coast: coastConfig,
+          },
         },
       },
-    },
-    routing: {
-      routing: { strategy: "default", config: {} },
-    },
-    geomorphology: {
+      routing: {
+        routing: { strategy: "default", config: {} },
+      },
       geomorphology: {
-        strategy: "default",
-        config: {
-          geomorphology: geomorphologyConfig,
-          worldAge: "mature",
+        geomorphology: {
+          strategy: "default",
+          config: {
+            geomorphology: geomorphologyConfig,
+            worldAge: "mature",
+          },
         },
       },
     },
-  },
-  "narrative-mid": {
-    "story-orogeny": { story: { orogeny: storyOrogenyConfig } },
   },
   "morphology-post": {
-    islands: {
-      islands: { strategy: "default", config: islandsPlanConfig },
+    advanced: {
+      islands: {
+        islands: { strategy: "default", config: islandsPlanConfig },
+      },
+      volcanoes: { volcanoes: { strategy: "default", config: volcanoesConfig } },
+      landmasses: { landmasses: { strategy: "default", config: {} } },
     },
+  },
+  "map-morphology": {
     mountains: { mountains: { strategy: "default", config: mountainsConfig } },
-    volcanoes: { volcanoes: { strategy: "default", config: volcanoesConfig } },
-    landmasses: { landmasses: { strategy: "default", config: {} } },
   },
   "hydrology-climate-baseline": {
     knobs: {
@@ -499,7 +454,6 @@ const standardConfig = {
       temperature: "temperate",
       seasonality: "normal",
       oceanCoupling: "earthlike",
-      lakeiness: "normal",
     },
   },
   "hydrology-hydrography": {
@@ -514,8 +468,17 @@ const standardConfig = {
       cryosphere: "on",
     },
   },
+  "map-hydrology": {
+    knobs: {
+      riverDensity: "normal",
+      lakeiness: "normal",
+    },
+  },
   ecology: {
-    biomes: { classify: biomesConfig, bindings: biomeBindingsConfig },
+    biomes: { classify: biomesConfig },
+  },
+  "map-ecology": {
+    biomes: { bindings: biomeBindingsConfig },
     plotEffects: { plotEffects: plotEffectsConfig },
   },
   placement: {
@@ -720,6 +683,7 @@ describe("standard recipe execution", () => {
     expect(cryosphere?.seaIceCover instanceof Uint8Array).toBe(true);
 
     expect(context.artifacts.get(foundationArtifacts.plates.id)).toBeTruthy();
+    expect(context.artifacts.get(foundationArtifacts.plateTopology.id)).toBeTruthy();
     expect(context.artifacts.get(placementArtifacts.placementOutputs.id)).toBeTruthy();
   });
 
@@ -729,7 +693,7 @@ describe("standard recipe execution", () => {
     expect(signatureA).toBe(signatureB);
   });
 
-	  it("yields more freeze persistence when temperature is cold vs hot (same seed)", () => {
+  it("yields more freeze persistence when temperature is cold vs hot (same seed)", () => {
     const width = 24;
     const height = 18;
     const seed = 123;
@@ -761,8 +725,8 @@ describe("standard recipe execution", () => {
       const mapInfo = {
         GridWidth: width,
         GridHeight: height,
-        MinLatitude: -60,
-        MaxLatitude: 60,
+        MinLatitude: -85,
+        MaxLatitude: 85,
         PlayersLandmass1: 4,
         PlayersLandmass2: 4,
         StartSectorRows: 4,
@@ -790,10 +754,10 @@ describe("standard recipe execution", () => {
       return sum / Math.max(1, freeze.length);
     };
 
-	    const meanCold = runAndMeanFreezeIndex(configCold);
-	    const meanHot = runAndMeanFreezeIndex(configHot);
-	    expect(meanCold).toBeGreaterThan(meanHot);
-	  });
+    const meanCold = runAndMeanFreezeIndex(configCold);
+    const meanHot = runAndMeanFreezeIndex(configHot);
+    expect(meanCold).toBeGreaterThan(meanHot);
+  });
 
 	  it("projects more river tiles when riverDensity is dense vs sparse (same seed)", () => {
 	    const width = 24;

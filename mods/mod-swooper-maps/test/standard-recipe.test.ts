@@ -19,14 +19,15 @@ describe("standard recipe composition", () => {
     const expectedStages = [
       "foundation",
       "morphology-pre",
-      "narrative-pre",
       "morphology-mid",
-      "narrative-mid",
       "morphology-post",
       "hydrology-climate-baseline",
       "hydrology-hydrography",
       "hydrology-climate-refine",
       "ecology",
+      "map-morphology",
+      "map-hydrology",
+      "map-ecology",
       "placement",
     ];
     const observedStages: string[] = [];

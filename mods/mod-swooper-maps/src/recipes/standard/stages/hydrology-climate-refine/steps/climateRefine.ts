@@ -1,4 +1,4 @@
-import { ctxRandom, ctxRandomLabel, logRainfallStats, writeClimateField } from "@swooper/mapgen-core";
+import { ctxRandom, ctxRandomLabel, writeClimateField } from "@swooper/mapgen-core";
 import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import ClimateRefineStepContract from "./climateRefine.contract.js";
 import { hydrologyClimateRefineArtifacts } from "../artifacts.js";
@@ -172,9 +172,8 @@ export default createStep(ClimateRefineStepContract, {
     const { width, height } = context.dimensions;
     const windField = deps.artifacts.windField.read(context);
     const hydrography = deps.artifacts.hydrography.read(context) as { riverClass: Uint8Array };
-    const heightfield = deps.artifacts.heightfield.read(context) as {
+    const topography = deps.artifacts.topography.read(context) as {
       elevation: Int16Array;
-      terrain: Uint8Array;
       landMask: Uint8Array;
     };
 
@@ -183,9 +182,16 @@ export default createStep(ClimateRefineStepContract, {
       humidity: Uint8Array;
     };
 
+    const { topLatitude, bottomLatitude } = context.env.latitudeBounds;
     const latitudeByRow = new Float32Array(height);
-    for (let y = 0; y < height; y++) {
-      latitudeByRow[y] = context.adapter.getLatitude(0, y);
+    if (height <= 1) {
+      const mid = (topLatitude + bottomLatitude) / 2;
+      for (let y = 0; y < height; y++) latitudeByRow[y] = mid;
+    } else {
+      const step = (bottomLatitude - topLatitude) / (height - 1);
+      for (let y = 0; y < height; y++) {
+        latitudeByRow[y] = topLatitude + step * y;
+      }
     }
 
     const size = width * height;
@@ -211,9 +217,8 @@ export default createStep(ClimateRefineStepContract, {
         width,
         height,
         latitudeByRow,
-        elevation: heightfield.elevation,
-        terrain: heightfield.terrain,
-        landMask: heightfield.landMask,
+        elevation: topography.elevation,
+        landMask: topography.landMask,
         windU: windField.windU,
         windV: windField.windV,
         humidityF32,
@@ -231,8 +236,8 @@ export default createStep(ClimateRefineStepContract, {
         width,
         height,
         insolation: forcing.insolation,
-        elevation: heightfield.elevation,
-        landMask: heightfield.landMask,
+        elevation: topography.elevation,
+        landMask: topography.landMask,
       },
       config.computeThermalState
     );
@@ -241,7 +246,7 @@ export default createStep(ClimateRefineStepContract, {
       {
         width,
         height,
-        landMask: heightfield.landMask,
+        landMask: topography.landMask,
         rainfall: refined.rainfall,
         surfaceTemperatureC: thermal.surfaceTemperatureC,
       },
@@ -252,7 +257,7 @@ export default createStep(ClimateRefineStepContract, {
       {
         width,
         height,
-        landMask: heightfield.landMask,
+        landMask: topography.landMask,
         surfaceTemperatureC: albedoFeedback.surfaceTemperatureC,
         rainfall: refined.rainfall,
       },
@@ -263,7 +268,7 @@ export default createStep(ClimateRefineStepContract, {
       {
         width,
         height,
-        landMask: heightfield.landMask,
+        landMask: topography.landMask,
         rainfall: refined.rainfall,
         humidity: refined.humidity,
         surfaceTemperatureC: albedoFeedback.surfaceTemperatureC,
@@ -276,8 +281,8 @@ export default createStep(ClimateRefineStepContract, {
         width,
         height,
         latitudeByRow,
-        elevation: heightfield.elevation,
-        landMask: heightfield.landMask,
+        elevation: topography.elevation,
+        landMask: topography.landMask,
         windU: windField.windU,
         windV: windField.windV,
         rainfall: refined.rainfall,
@@ -307,6 +312,9 @@ export default createStep(ClimateRefineStepContract, {
       snowCover: cryosphere.snowCover,
       seaIceCover: cryosphere.seaIceCover,
       albedo: cryosphere.albedo,
+      groundIce01: cryosphere.groundIce01,
+      permafrost01: cryosphere.permafrost01,
+      meltPotential01: cryosphere.meltPotential01,
     });
     deps.artifacts.climateDiagnostics.publish(context, {
       rainShadowIndex: diagnostics.rainShadowIndex,
@@ -314,6 +322,5 @@ export default createStep(ClimateRefineStepContract, {
       convergenceIndex: diagnostics.convergenceIndex,
     });
 
-    logRainfallStats(context.trace, context.adapter, width, height, "post-climate");
   },
 });

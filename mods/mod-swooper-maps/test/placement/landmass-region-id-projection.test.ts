@@ -2,28 +2,38 @@ import { describe, expect, it } from "bun:test";
 
 import { createMockAdapter } from "@civ7/adapter";
 import { createExtendedMapContext } from "@swooper/mapgen-core";
-import { implementArtifacts } from "@swooper/mapgen-core/authoring";
+import { createLabelRng } from "@swooper/mapgen-core/lib/rng";
 
-import placement from "../../src/domain/placement/ops.js";
-import { getStandardRuntime } from "../../src/recipes/standard/runtime.js";
-import { placementArtifacts } from "../../src/recipes/standard/stages/placement/artifacts.js";
-import { applyPlacementPlan } from "../../src/recipes/standard/stages/placement/steps/placement/apply.js";
+import standardRecipe from "../../src/recipes/standard/recipe.js";
+import { initializeStandardRuntime } from "../../src/recipes/standard/runtime.js";
+import { createRealismEarthlikeConfig } from "../../src/maps/presets/realism/earthlike.config.js";
 
 describe("placement landmass region projection", () => {
   it("projects LandmassRegionId before resources and starts using adapter constants", () => {
-    const adapter = createMockAdapter({
-      width: 4,
-      height: 2,
-      mapInfo: {
-        GridWidth: 4,
-        GridHeight: 2,
-        PlayersLandmass1: 1,
-        PlayersLandmass2: 1,
-        StartSectorRows: 1,
-        StartSectorCols: 1,
-        NumNaturalWonders: 0,
+    const width = 20;
+    const height = 12;
+    const seed = 1337;
+    const mapInfo = {
+      GridWidth: width,
+      GridHeight: height,
+      MinLatitude: -60,
+      MaxLatitude: 60,
+      PlayersLandmass1: 1,
+      PlayersLandmass2: 1,
+      StartSectorRows: 1,
+      StartSectorCols: 1,
+      NumNaturalWonders: 0,
+    };
+    const env = {
+      seed,
+      dimensions: { width, height },
+      latitudeBounds: {
+        topLatitude: mapInfo.MaxLatitude,
+        bottomLatitude: mapInfo.MinLatitude,
       },
-    });
+    };
+
+    const adapter = createMockAdapter({ width, height, mapInfo, mapSizeId: 1, rng: createLabelRng(seed) });
     const callOrder: string[] = [];
     const regionIds: number[] = [];
 
@@ -44,53 +54,9 @@ describe("placement landmass region projection", () => {
       originalSetStartPosition(plotIndex, playerId);
     };
 
-    const context = createExtendedMapContext({ width: 4, height: 2 }, adapter, { seed: 0 });
-    const runtime = getStandardRuntime(context);
-    const baseStarts = {
-      playersLandmass1: runtime.playersLandmass1,
-      playersLandmass2: runtime.playersLandmass2,
-      startSectorRows: runtime.startSectorRows,
-      startSectorCols: runtime.startSectorCols,
-      startSectors: runtime.startSectors,
-    };
-
-    const starts = placement.ops.planStarts.run(
-      { baseStarts },
-      placement.ops.planStarts.defaultConfig
-    );
-    const wonders = placement.ops.planWonders.run(
-      { mapInfo: runtime.mapInfo },
-      placement.ops.planWonders.defaultConfig
-    );
-    const floodplains = placement.ops.planFloodplains.run(
-      {},
-      placement.ops.planFloodplains.defaultConfig
-    );
-
-    const landmassIdByTile = new Int32Array(8);
-    for (let i = 0; i < landmassIdByTile.length; i++) {
-      const y = (i / 4) | 0;
-      const x = i - y * 4;
-      landmassIdByTile[i] = x < 2 ? 0 : 1;
-    }
-
-    const placementRuntime = implementArtifacts([placementArtifacts.placementOutputs], {
-      placementOutputs: {},
-    });
-    applyPlacementPlan({
-      context,
-      starts,
-      wonders,
-      floodplains,
-      landmasses: {
-        landmasses: [
-          { id: 0, tileCount: 4, bbox: { west: 0, east: 1, south: 0, north: 1 } },
-          { id: 1, tileCount: 4, bbox: { west: 2, east: 3, south: 0, north: 1 } },
-        ],
-        landmassIdByTile,
-      },
-      publishOutputs: (outputs) => placementRuntime.placementOutputs.publish(context, outputs),
-    });
+    const context = createExtendedMapContext({ width, height }, adapter, env);
+    initializeStandardRuntime(context, { mapInfo, logPrefix: "[test]", storyEnabled: true });
+    standardRecipe.run(context, env, createRealismEarthlikeConfig(), { log: () => {} });
 
     const firstProjection = callOrder.indexOf("setLandmassRegionId");
     const firstResources = callOrder.indexOf("generateResources");
