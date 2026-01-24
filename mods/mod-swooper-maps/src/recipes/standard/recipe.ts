@@ -13,6 +13,7 @@ import hydrologyHydrography from "./stages/hydrology-hydrography/index.js";
 import morphologyMid from "./stages/morphology-mid/index.js";
 import morphologyPost from "./stages/morphology-post/index.js";
 import morphologyPre from "./stages/morphology-pre/index.js";
+import mapMorphology from "./stages/map-morphology/index.js";
 import placement from "./stages/placement/index.js";
 import { STANDARD_TAG_DEFINITIONS } from "./tags.js";
 
@@ -22,6 +23,7 @@ const stages = [
   morphologyPre,
   morphologyMid,
   morphologyPost,
+  mapMorphology,
   hydrologyClimateBaseline,
   hydrologyHydrography,
   hydrologyClimateRefine,

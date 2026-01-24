@@ -6,24 +6,12 @@ const MorphologyTopographyArtifactSchema = Type.Object(
       description:
         "Signed heightfield elevation per tile. Publish-once buffer handle; steps may mutate in-place via ctx.buffers.heightfield.",
     }),
-    terrain: TypedArraySchemas.u8({
-      description:
-        "Engine terrain id per tile. Publish-once buffer handle; steps may mutate in-place via ctx.buffers.heightfield.",
-    }),
     landMask: TypedArraySchemas.u8({
       description:
         "Land/water mask per tile (1=land, 0=water). Publish-once buffer handle; steps may mutate in-place via ctx.buffers.heightfield.",
     }),
   },
   { description: "Canonical morphology topography buffer handle (publish once)." }
-);
-
-const MorphologyCoastlinesExpandedArtifactSchema = Type.Object(
-  {},
-  {
-    additionalProperties: false,
-    description: "Marker indicating engine coastline expansion has been applied.",
-  }
 );
 
 const MorphologyRoutingArtifactSchema = Type.Object(
@@ -96,11 +84,6 @@ export const morphologyArtifacts = {
     name: "topography",
     id: "artifact:morphology.topography",
     schema: MorphologyTopographyArtifactSchema,
-  }),
-  coastlinesExpanded: defineArtifact({
-    name: "coastlinesExpanded",
-    id: "artifact:morphology.coastlinesExpanded",
-    schema: MorphologyCoastlinesExpandedArtifactSchema,
   }),
   routing: defineArtifact({
     name: "routing",

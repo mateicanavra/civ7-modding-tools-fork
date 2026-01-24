@@ -116,7 +116,6 @@ export const swooperEarthlikeConfig = {
         },
       },
     },
-    coastlines: {},
   },
   "morphology-mid": {
     "rugged-coasts": {

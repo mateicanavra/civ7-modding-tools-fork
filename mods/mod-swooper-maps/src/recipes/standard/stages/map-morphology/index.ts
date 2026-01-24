@@ -1,8 +1,8 @@
 import { Type, createStage } from "@swooper/mapgen-core/authoring";
-import { landmassPlates } from "./steps/index.js";
+import { plotCoasts, plotContinents } from "./steps/index.js";
 
 export default createStage({
-  id: "morphology-pre",
+  id: "map-morphology",
   knobsSchema: Type.Object({}),
-  steps: [landmassPlates],
+  steps: [plotCoasts, plotContinents],
 } as const);
