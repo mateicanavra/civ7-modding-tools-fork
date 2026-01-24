@@ -344,6 +344,205 @@ Priority (highest to lowest):
 
 ---
 
+## Part 6: Full Package Organization & Versioning Analysis
+
+### Current Package Inventory
+
+```
+packages/
+├── civ7-adapter/      @civ7/adapter           (publishable)
+├── civ7-types/        @civ7/types             (publishable)
+├── cli/               @mateicanavra/civ7-cli  (published)
+├── config/            @civ7/config            (private)
+├── mapgen-core/       @swooper/mapgen-core    (publishable)
+├── sdk/               @mateicanavra/civ7-sdk  (published)
+└── plugins/
+    ├── plugin-files/  @civ7/plugin-files      (private)
+    ├── plugin-git/    @civ7/plugin-git        (private)
+    ├── plugin-graph/  @civ7/plugin-graph      (private)
+    └── plugin-mods/   @civ7/plugin-mods       (private)
+```
+
+### Game-Version Coupling Analysis
+
+**Critical insight:** Some packages are **tied to the Civ7 game version** and must be updated when the game updates. Others are **version-independent utilities**.
+
+#### Game-Version Dependent (Must Update Together)
+
+| Package | Why It's Version-Dependent |
+|---------|---------------------------|
+| `@civ7/adapter` | Imports directly from `/base-standard/...` game engine paths |
+| `@civ7/types` | TypeScript definitions for game runtime types |
+| `@mateicanavra/civ7-sdk` | Hardcoded game constants (UNIT, ABILITY, TERRAIN, etc.) |
+
+These three packages are **implicitly coupled** — when the game updates:
+1. Resources are re-extracted (from game files)
+2. Types must be regenerated/updated
+3. Adapter imports may change
+4. SDK constants may need updates
+
+#### Game-Version Independent (Utilities)
+
+| Package | Why It's Independent |
+|---------|---------------------|
+| `@civ7/config` | Generic JSONC config loader |
+| `@civ7/plugin-files` | Generic zip/unzip, file copy |
+| `@civ7/plugin-git` | Generic git operations |
+| `@civ7/plugin-graph` | XML parsing algorithms (content-agnostic) |
+| `@civ7/plugin-mods` | Mod orchestration logic |
+| `@mateicanavra/civ7-cli` | Command orchestrator |
+| `@swooper/mapgen-core` | Map algorithms (uses adapter, but algorithms are stable) |
+
+### Should Types + Adapter Be Merged?
+
+**Analysis:**
+
+| Factor | Merge? | Reasoning |
+|--------|--------|-----------|
+| Versioning | **Yes** | Always update together when game updates |
+| Dependencies | **Yes** | Adapter depends on types; no consumer needs types without adapter |
+| Separation of concerns | No | Types are declarations, adapter has runtime code |
+| Consumer patterns | **Yes** | Nobody imports types alone in practice |
+
+**Recommendation: Merge `@civ7/types` into `@civ7/adapter`**
+
+The adapter becomes the single "game engine interface" package:
+- Exports types (re-exported from internal types)
+- Exports adapter functions
+- Single version tied to game version
+
+```typescript
+// Before (two packages)
+import type { EngineAdapter } from "@civ7/types";
+import { createCiv7Adapter } from "@civ7/adapter";
+
+// After (merged)
+import { createCiv7Adapter, type EngineAdapter } from "@civ7/engine";
+```
+
+### Should We Nest Under `packages/civ7/`?
+
+**Arguments For Nesting:**
+- Groups related packages visually
+- Makes domain boundaries clear
+- Matches the `@civ7/` scope in package names
+
+**Arguments Against:**
+- Adds directory depth without functional benefit
+- pnpm workspaces work fine with flat structure
+- More typing in paths
+
+**Verdict:** Optional. If you value visual organization, do it. If not, flat is fine.
+
+### Recommended Final Structure
+
+#### Option A: Flat with Logical Grouping (Minimal Change)
+
+```
+packages/
+├── cli/                        @mateicanavra/civ7-cli
+├── sdk/                        @mateicanavra/civ7-sdk
+├── engine/                     @civ7/engine  ← MERGED (adapter + types)
+├── mapgen-core/                @swooper/mapgen-core
+├── config/                     @civ7/config
+└── libs/                       ← Renamed from plugins/
+    ├── files/                  @civ7/files
+    ├── git/                    @civ7/git
+    ├── graph/                  @civ7/graph
+    └── mods/                   @civ7/mods
+```
+
+#### Option B: Domain-Nested (More Organization)
+
+```
+packages/
+├── civ7/                       ← All @civ7/* packages
+│   ├── engine/                 @civ7/engine (merged adapter+types)
+│   ├── config/                 @civ7/config
+│   ├── files/                  @civ7/files
+│   ├── git/                    @civ7/git
+│   ├── graph/                  @civ7/graph
+│   └── mods/                   @civ7/mods
+├── cli/                        @mateicanavra/civ7-cli
+├── sdk/                        @mateicanavra/civ7-sdk
+└── mapgen-core/                @swooper/mapgen-core
+```
+
+#### Option C: Versioning-Aligned (Explicit Coupling)
+
+Group by versioning strategy:
+
+```
+packages/
+├── game-tied/                  ← Must version with game updates
+│   ├── engine/                 @civ7/engine (adapter+types)
+│   └── sdk/                    @mateicanavra/civ7-sdk (has game constants)
+├── stable/                     ← Version independently
+│   ├── cli/                    @mateicanavra/civ7-cli
+│   ├── config/                 @civ7/config
+│   ├── files/                  @civ7/files
+│   ├── git/                    @civ7/git
+│   ├── graph/                  @civ7/graph
+│   └── mods/                   @civ7/mods
+└── external/                   ← Different maintainer/scope
+    └── mapgen-core/            @swooper/mapgen-core
+```
+
+### Package Consolidation Summary
+
+| Current | Recommendation | Rationale |
+|---------|---------------|-----------|
+| `@civ7/adapter` + `@civ7/types` | **Merge → `@civ7/engine`** | Always versioned together, tight coupling |
+| `@civ7/plugin-files` | **Rename → `@civ7/files`** | Not a plugin |
+| `@civ7/plugin-git` | **Rename → `@civ7/git`** | Not a plugin |
+| `@civ7/plugin-graph` | **Rename → `@civ7/graph`** | Not a plugin |
+| `@civ7/plugin-mods` | **Rename → `@civ7/mods`** | Not a plugin |
+| `@civ7/config` | **Keep as-is** | Already correctly named |
+| `@mateicanavra/civ7-cli` | **Keep as-is** | Published, correct scope |
+| `@mateicanavra/civ7-sdk` | **Keep as-is** | Published, correct scope |
+| `@swooper/mapgen-core` | **Keep as-is** | Different domain/scope |
+
+### Versioning Strategy Recommendation
+
+Since some packages are game-version-tied:
+
+1. **Tag game-tied packages with game version:**
+   ```
+   @civ7/engine@1.0.0+civ7.1.2.3
+   @mateicanavra/civ7-sdk@1.0.0+civ7.1.2.3
+   ```
+
+2. **Or use a simpler approach:** Document which game version each release supports in CHANGELOG/README.
+
+3. **Resources submodule is the version anchor:**
+   - `.civ7/outputs/resources` submodule points to extracted game files
+   - Submodule commit/tag = game version
+   - All game-tied packages should note compatibility
+
+### Dependency Graph (Post-Restructure)
+
+```
+@mateicanavra/civ7-cli (orchestrator)
+├── @civ7/files
+├── @civ7/git
+├── @civ7/graph
+├── @civ7/mods
+│   ├── @civ7/files
+│   └── @civ7/git
+└── @civ7/config
+
+@mateicanavra/civ7-sdk (for mod developers)
+└── (no internal deps - standalone)
+
+@civ7/engine (game interface)  ← MERGED
+└── (types are internal now)
+
+@swooper/mapgen-core (algorithms)
+└── @civ7/engine
+```
+
+---
+
 ## Sources
 
 - [OCLIF Core GitHub README](https://github.com/oclif/core)
