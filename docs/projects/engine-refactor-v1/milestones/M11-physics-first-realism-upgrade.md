@@ -31,7 +31,7 @@ Non-negotiables (carry forward):
 - [x] [M11-U06 — Orogeny + mountains: physics-anchored planning (noise as micro-structure only)](../issues/M11-U06-orogeny-mountains-physics-anchored.md) (branch: `agent-KIMMY-M11-U06-orogeny-mountains-physics-anchored`)
 - [x] [M11-U07 — Volcano truth contract completion](../issues/M11-U07-volcanoes-truth-contract-completion.md) (branch: `agent-KIMMY-M11-U07-volcanoes-truth-contract-completion`)
 - [x] [M11-U08 — Polar boundary conditions + cryosphere truth](../issues/M11-U08-polar-boundary-and-cryosphere.md) (branch: `agent-KIMMY-M11-U08-polar-boundary-and-cryosphere`)
-- [ ] [M11-U09 — Geomorphology upgrade: stream-power erosion + sediment transport](../issues/M11-U09-geomorphology-stream-power-erosion.md)
+- [x] [M11-U09 — Geomorphology upgrade: stream-power erosion + sediment transport](../issues/M11-U09-geomorphology-stream-power-erosion.md) (branch: `agent-KIMMY-M11-U09-geomorphology-stream-power-erosion`) (PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/704)
 
 ## References
 

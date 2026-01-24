@@ -1,3 +1,4 @@
+import { computeSampleStep, renderAsciiGrid } from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
 
 import GeomorphologyStepContract from "./geomorphology.contract.js";
@@ -18,6 +19,14 @@ function clampNumber(value: number, bounds: { min: number; max?: number }): numb
   if (!Number.isFinite(value)) return bounds.min;
   const max = bounds.max ?? Number.POSITIVE_INFINITY;
   return Math.max(bounds.min, Math.min(max, value));
+}
+
+const SHADE_RAMP = " .:-=+*#%@";
+
+function shadeByte(value: number): string {
+  const v = Math.max(0, Math.min(255, value | 0));
+  const idx = Math.max(0, Math.min(SHADE_RAMP.length - 1, Math.floor((v / 255) * (SHADE_RAMP.length - 1))));
+  return SHADE_RAMP[idx] ?? "?";
 }
 
 export default createStep(GeomorphologyStepContract, {
@@ -71,6 +80,7 @@ export default createStep(GeomorphologyStepContract, {
         height,
         elevation: heightfield.elevation,
         landMask: heightfield.landMask,
+        flowDir: routing.flowDir,
         flowAccum: routing.flowAccum,
         erodibilityK: substrate.erodibilityK,
         sedimentDepth: substrate.sedimentDepth,
@@ -138,5 +148,53 @@ export default createStep(GeomorphologyStepContract, {
         elevationMax,
       };
     });
+
+    if (context.trace.isVerbose) {
+      context.trace.event(() => {
+        const sampleStep = computeSampleStep(width, height);
+
+        let maxErosion = 0;
+        let maxDeposit = 0;
+        for (let i = 0; i < deltas.elevationDelta.length; i++) {
+          const delta = deltas.elevationDelta[i] ?? 0;
+          if (delta < 0) maxErosion = Math.max(maxErosion, -delta);
+          if (delta > 0) maxDeposit = Math.max(maxDeposit, delta);
+        }
+
+        const erosionRows = renderAsciiGrid({
+          width,
+          height,
+          sampleStep,
+          cellFn: (x, y) => {
+            const idx = y * width + x;
+            if (heightfield.landMask[idx] !== 1) return { base: "~" };
+            const delta = deltas.elevationDelta[idx] ?? 0;
+            const erosion = delta < 0 ? (-delta / Math.max(1e-9, maxErosion)) * 255 : 0;
+            return { base: shadeByte(Math.round(erosion)) };
+          },
+        });
+
+        const depositRows = renderAsciiGrid({
+          width,
+          height,
+          sampleStep,
+          cellFn: (x, y) => {
+            const idx = y * width + x;
+            if (heightfield.landMask[idx] !== 1) return { base: "~" };
+            const delta = deltas.elevationDelta[idx] ?? 0;
+            const deposit = delta > 0 ? (delta / Math.max(1e-9, maxDeposit)) * 255 : 0;
+            return { base: shadeByte(Math.round(deposit)) };
+          },
+        });
+
+        return {
+          kind: "morphology.geomorphology.ascii.netErosionAndDeposit",
+          sampleStep,
+          legend: `${SHADE_RAMP} (low→high) ~=water`,
+          erosionRows: erosionRows.rows,
+          depositRows: depositRows.rows,
+        };
+      });
+    }
   },
 });

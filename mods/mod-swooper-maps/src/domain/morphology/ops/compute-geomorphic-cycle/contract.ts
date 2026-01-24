@@ -23,6 +23,7 @@ const ComputeGeomorphicCycleContract = defineOp({
     height: Type.Integer({ minimum: 1, description: "Map height in tiles." }),
     elevation: TypedArraySchemas.i16({ description: "Elevation per tile (normalized units)." }),
     landMask: TypedArraySchemas.u8({ description: "Land mask per tile (1=land, 0=water)." }),
+    flowDir: TypedArraySchemas.i32({ description: "Flow receiver index per tile (-1 for sinks)." }),
     flowAccum: TypedArraySchemas.f32({ description: "Flow accumulation per tile." }),
     erodibilityK: TypedArraySchemas.f32({ description: "Erodibility proxy per tile." }),
     sedimentDepth: TypedArraySchemas.f32({ description: "Sediment depth proxy per tile." }),

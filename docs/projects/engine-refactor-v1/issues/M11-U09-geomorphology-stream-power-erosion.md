@@ -1,7 +1,7 @@
 ---
 id: M11-U09
 title: "[M11/U09] Geomorphology upgrade: stream-power erosion + sediment transport (physics-first realism)"
-state: planned
+state: done
 priority: 1
 estimate: 5
 project: engine-refactor-v1
@@ -37,6 +37,12 @@ related_to: [M11-U00]
   - plausible sediment basins / deltas near coasts.
 - Determinism: fixed seed + fixed inputs yields stable outputs.
 - Boundaries: no backfeeding from Gameplay; no `artifact:map.*` / `effect:map.*` inputs.
+
+## Implementation Decisions
+- Use `routing.flowDir` + `routing.flowAccum` as the explicit coupling surface for geomorphic transport; do not recompute receivers inside geomorphology.
+- Implement stream power as `A^m * S^n` with `A=flowAccum/max(flowAccum)` and `S=dropToReceiver/max(dropToReceiver)`, clamped to `[0,1]`.
+- Model sediment transport as a bounded split of local sediment each era: `settles ~ (1-streamPower)` and `transports ~ streamPower` (both scaled by `deposition.rate`), with transport flowing along `flowDir`.
+- Add verbose trace ASCII diagnostics for net erosion and net deposition (based on sign/magnitude of `elevationDelta`).
 
 ## Testing / Verification
 - Add a fixed-seed fixture that asserts:
