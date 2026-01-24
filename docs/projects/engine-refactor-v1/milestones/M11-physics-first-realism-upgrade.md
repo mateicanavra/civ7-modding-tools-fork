@@ -22,16 +22,16 @@ Non-negotiables (carry forward):
 
 ## Issue Index (proposed sequence)
 
-- [M11-U00 — Physics-first realism upgrade plan (spike → spec)](../issues/M11-U00-physics-first-realism-upgrade-plan.md)
-- [M11-U01 — Spec authority reconciliation (Phase 0.5 vs Phase 2 vs Phase 3)](../issues/M11-U01-spec-authority-reconciliation.md)
-- [M11-U02 — Author config overhaul: knobs + presets + config layering](../issues/M11-U02-config-knobs-and-presets.md)
-- [M11-U03 — Foundation crust coherence upgrade](../issues/M11-U03-foundation-crust-coherence-upgrade.md)
-- [M11-U04 — Foundation tile material drivers + polar boundary conditions](../issues/M11-U04-foundation-tile-material-drivers.md)
-- [M11-U05 — Morphology substrate material-driven rewrite](../issues/M11-U05-morphology-substrate-material-driven.md)
-- [M11-U06 — Orogeny + mountains: physics-anchored planning (noise as micro-structure only)](../issues/M11-U06-orogeny-mountains-physics-anchored.md)
-- [M11-U07 — Volcano truth contract completion](../issues/M11-U07-volcanoes-truth-contract-completion.md)
-- [M11-U08 — Polar boundary conditions + cryosphere truth](../issues/M11-U08-polar-boundary-and-cryosphere.md)
-- [M11-U09 — Geomorphology upgrade: stream-power erosion + sediment transport](../issues/M11-U09-geomorphology-stream-power-erosion.md)
+- [x] [M11-U00 — Physics-first realism upgrade plan (spike → spec)](../issues/M11-U00-physics-first-realism-upgrade-plan.md) (branch: `agent-KIMMY-M11-U00-physics-first-realism-upgrade-plan`)
+- [ ] [M11-U01 — Spec authority reconciliation (Phase 0.5 vs Phase 2 vs Phase 3)](../issues/M11-U01-spec-authority-reconciliation.md)
+- [ ] [M11-U02 — Author config overhaul: knobs + presets + config layering](../issues/M11-U02-config-knobs-and-presets.md)
+- [ ] [M11-U03 — Foundation crust coherence upgrade](../issues/M11-U03-foundation-crust-coherence-upgrade.md)
+- [ ] [M11-U04 — Foundation tile material drivers + polar boundary conditions](../issues/M11-U04-foundation-tile-material-drivers.md)
+- [ ] [M11-U05 — Morphology substrate material-driven rewrite](../issues/M11-U05-morphology-substrate-material-driven.md)
+- [ ] [M11-U06 — Orogeny + mountains: physics-anchored planning (noise as micro-structure only)](../issues/M11-U06-orogeny-mountains-physics-anchored.md)
+- [ ] [M11-U07 — Volcano truth contract completion](../issues/M11-U07-volcanoes-truth-contract-completion.md)
+- [ ] [M11-U08 — Polar boundary conditions + cryosphere truth](../issues/M11-U08-polar-boundary-and-cryosphere.md)
+- [ ] [M11-U09 — Geomorphology upgrade: stream-power erosion + sediment transport](../issues/M11-U09-geomorphology-stream-power-erosion.md)
 
 ## References
 
