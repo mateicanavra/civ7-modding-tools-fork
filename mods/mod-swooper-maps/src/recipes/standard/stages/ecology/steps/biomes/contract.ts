@@ -1,23 +1,20 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
-import ecology, { BiomeEngineBindingsSchema } from "@mapgen/domain/ecology";
+import ecology from "@mapgen/domain/ecology";
 
-import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../../tags.js";
 import { ecologyArtifacts } from "../../artifacts.js";
 import { hydrologyClimateBaselineArtifacts } from "../../../hydrology-climate-baseline/artifacts.js";
 import { hydrologyHydrographyArtifacts } from "../../../hydrology-hydrography/artifacts.js";
+import { morphologyArtifacts } from "../../../morphology-pre/artifacts.js";
 
 const BiomesStepContract = defineStep({
   id: "biomes",
   phase: "ecology",
   requires: [],
-  provides: [
-    M3_DEPENDENCY_TAGS.field.biomeId,
-    M4_EFFECT_TAGS.engine.biomesApplied,
-  ],
+  provides: [],
   artifacts: {
     requires: [
       hydrologyClimateBaselineArtifacts.climateField,
-      hydrologyClimateBaselineArtifacts.heightfield,
+      morphologyArtifacts.topography,
       hydrologyHydrographyArtifacts.hydrography,
     ],
     provides: [ecologyArtifacts.biomeClassification],
@@ -27,11 +24,10 @@ const BiomesStepContract = defineStep({
   },
   schema: Type.Object(
     {
-      bindings: Type.Optional(BiomeEngineBindingsSchema),
     },
     {
       description:
-        "Optional overrides for binding biome symbols to engine biome globals during classification.",
+        "Biome classification configuration.",
     }
   ),
 });

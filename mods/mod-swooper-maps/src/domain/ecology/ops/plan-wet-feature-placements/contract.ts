@@ -71,7 +71,9 @@ const PlanWetFeaturePlacementsContract = defineOp({
       description: "Surface temperature per tile (C).",
     }),
     landMask: TypedArraySchemas.u8({ description: "Land mask per tile (1=land, 0=water)." }),
-    terrainType: TypedArraySchemas.u8({ description: "Terrain type id per tile." }),
+    navigableRiverMask: TypedArraySchemas.u8({
+      description: "Mask (1/0): tiles that are navigable rivers.",
+    }),
     featureKeyField: TypedArraySchemas.i16({
       description: "Existing feature key indices per tile (-1 for empty).",
     }),
@@ -81,7 +83,6 @@ const PlanWetFeaturePlacementsContract = defineOp({
     isolatedRiverMask: TypedArraySchemas.u8({
       description: "River adjacency mask for isolation checks.",
     }),
-    navigableRiverTerrain: Type.Integer({ description: "Terrain id for navigable rivers." }),
   }),
   output: Type.Object({
     placements: Type.Array(WetPlacementSchema),

@@ -1,11 +1,6 @@
-import {
-  COAST_TERRAIN,
-  FLAT_TERRAIN,
-  writeHeightfield,
-} from "@swooper/mapgen-core";
 import { createStep } from "@swooper/mapgen-core/authoring";
 import IslandsStepContract from "./islands.contract.js";
-import { deriveStepSeed } from "../../ecology/steps/helpers/seed.js";
+import { deriveStepSeed } from "@swooper/mapgen-core/lib/rng";
 
 export default createStep(IslandsStepContract, {
   run: (context, config, ops, deps) => {
@@ -32,9 +27,9 @@ export default createStep(IslandsStepContract, {
       const y = (index / width) | 0;
       const x = index - y * width;
       if (x < 0 || x >= width || y < 0 || y >= height) continue;
-      const terrain = edit.kind === "peak" ? FLAT_TERRAIN : COAST_TERRAIN;
-      const isLand = edit.kind === "peak";
-      writeHeightfield(context, x, y, { terrain, isLand });
+      if (edit.kind === "peak") {
+        heightfield.landMask[index] = 1;
+      }
     }
   },
 });

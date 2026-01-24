@@ -1,16 +1,16 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
 import ecology from "@mapgen/domain/ecology";
 
-import { ecologyArtifacts } from "../../artifacts.js";
-import { hydrologyClimateBaselineArtifacts } from "../../../hydrology-climate-baseline/artifacts.js";
+import { ecologyArtifacts } from "../../../ecology/artifacts.js";
+import { morphologyArtifacts } from "../../../morphology-pre/artifacts.js";
 
 const PlotEffectsStepContract = defineStep({
   id: "plot-effects",
-  phase: "ecology",
+  phase: "gameplay",
   requires: [],
   provides: [],
   artifacts: {
-    requires: [hydrologyClimateBaselineArtifacts.heightfield, ecologyArtifacts.biomeClassification],
+    requires: [morphologyArtifacts.topography, ecologyArtifacts.biomeClassification],
   },
   ops: {
     plotEffects: ecology.ops.planPlotEffects,

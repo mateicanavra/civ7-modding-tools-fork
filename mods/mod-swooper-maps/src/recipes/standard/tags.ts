@@ -56,14 +56,34 @@ const EFFECT_OWNERS: Record<string, TagOwner> = {
     phase: "gameplay",
     stepId: "plot-continents",
   },
+  [M10_EFFECT_TAGS.map.mountainsPlotted]: {
+    pkg: "mod-swooper-maps",
+    phase: "gameplay",
+    stepId: "plot-mountains",
+  },
+  [M10_EFFECT_TAGS.map.volcanoesPlotted]: {
+    pkg: "mod-swooper-maps",
+    phase: "gameplay",
+    stepId: "plot-volcanoes",
+  },
+  [M10_EFFECT_TAGS.map.elevationBuilt]: {
+    pkg: "mod-swooper-maps",
+    phase: "gameplay",
+    stepId: "build-elevation",
+  },
+  [M4_EFFECT_TAGS.engine.riversModeled]: {
+    pkg: "mod-swooper-maps",
+    phase: "gameplay",
+    stepId: "plot-rivers",
+  },
   [M4_EFFECT_TAGS.engine.biomesApplied]: {
     pkg: "mod-swooper-maps",
-    phase: "ecology",
-    stepId: "biomes",
+    phase: "gameplay",
+    stepId: "plot-biomes",
   },
   [M4_EFFECT_TAGS.engine.featuresApplied]: {
     pkg: "mod-swooper-maps",
-    phase: "ecology",
+    phase: "gameplay",
     stepId: "features-apply",
   },
   [M4_EFFECT_TAGS.engine.placementApplied]: {

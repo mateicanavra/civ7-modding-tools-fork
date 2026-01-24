@@ -1,8 +1,8 @@
 import type { ExtendedMapContext, HeightfieldBuffer } from "@swooper/mapgen-core";
 import type { Static } from "@swooper/mapgen-core/authoring";
 import ecology from "@mapgen/domain/ecology";
-import { deriveStepSeed } from "../helpers/seed.js";
-import type { BiomeClassificationArtifact } from "../../artifacts.js";
+import { deriveStepSeed } from "@swooper/mapgen-core/lib/rng";
+import type { BiomeClassificationArtifact } from "../../../ecology/artifacts.js";
 
 type PlotEffectsInput = Static<typeof ecology.ops.planPlotEffects.input>;
 

@@ -1,13 +1,7 @@
 import type { MapDimensions } from "@civ7/adapter";
-import {
-  COAST_TERRAIN,
-  FLAT_TERRAIN,
-  OCEAN_TERRAIN,
-  writeHeightfield,
-} from "@swooper/mapgen-core";
 import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import RuggedCoastsStepContract from "./ruggedCoasts.contract.js";
-import { deriveStepSeed } from "../../ecology/steps/helpers/seed.js";
+import { deriveStepSeed } from "@swooper/mapgen-core/lib/rng";
 
 type ArtifactValidationIssue = Readonly<{ message: string }>;
 
@@ -82,17 +76,10 @@ export default createStep(RuggedCoastsStepContract, {
       for (let x = 0; x < width; x++) {
         const i = y * width + x;
         if (coastMask[i] === 1) {
-          writeHeightfield(context, x, y, { terrain: COAST_TERRAIN, isLand: false });
+          heightfield.landMask[i] = 0;
           continue;
         }
-        const isLand = updatedLandMask[i] === 1;
-        const currentIsLand = heightfield.landMask[i] === 1;
-        if (isLand !== currentIsLand) {
-          const terrain = isLand ? FLAT_TERRAIN : OCEAN_TERRAIN;
-          writeHeightfield(context, x, y, { terrain, isLand });
-        } else if (!isLand && heightfield.terrain[i] === COAST_TERRAIN) {
-          writeHeightfield(context, x, y, { terrain: OCEAN_TERRAIN, isLand: false });
-        }
+        heightfield.landMask[i] = updatedLandMask[i] === 1 ? 1 : 0;
       }
     }
 

@@ -6,8 +6,8 @@ export const swooperEarthlikeConfig = {
       computeMesh: {
         strategy: "default",
         config: {
-          plateCount: 23, // Fewer, larger major plates plus some microplates
-          cellsPerPlate: 13, // Slightly denser cells per plate for sharper margins
+          plateCount: 11, // Fewer, larger major plates plus some microplates
+          cellsPerPlate: 7, // Slightly denser cells per plate for sharper margins
           relaxationSteps: 6, // Extra smoothing for coherent plate footprints
           referenceArea: 16000, // Standard reference
           plateScalePower: 0.91, // Still heavy-tailed but fewer tiny microplates
@@ -26,7 +26,7 @@ export const swooperEarthlikeConfig = {
       computePlateGraph: {
         strategy: "default",
         config: {
-          plateCount: 23, // Match mesh plateCount
+          plateCount: 11, // Match mesh plateCount
           referenceArea: 16000,
           plateScalePower: 0.91,
         },
@@ -195,31 +195,6 @@ export const swooperEarthlikeConfig = {
         },
       },
     },
-    mountains: {
-      mountains: {
-        strategy: "default",
-        config: {
-          tectonicIntensity: 0.64,
-          mountainThreshold: 0.59,
-          hillThreshold: 0.44,
-          upliftWeight: 0.28,
-          fractalWeight: 0.72,
-          riftDepth: 0.27,
-          boundaryWeight: 0.18,
-          boundaryGate: 0.11,
-          boundaryExponent: 1.18,
-          interiorPenaltyWeight: 0.09,
-          convergenceBonus: 0.60,
-          transformPenalty: 0.65,
-          riftPenalty: 0.78,
-          hillBoundaryWeight: 0.32,
-          hillRiftBonus: 0.36,
-          hillConvergentFoothill: 0.36,
-          hillInteriorFalloff: 0.20,
-          hillUpliftWeight: 0.18,
-        },
-      },
-    },
     volcanoes: {
       volcanoes: {
         strategy: "default",
@@ -247,13 +222,39 @@ export const swooperEarthlikeConfig = {
       },
     },
   },
+  "map-morphology": {
+    mountains: {
+      mountains: {
+        strategy: "default",
+        config: {
+          tectonicIntensity: 0.64,
+          mountainThreshold: 0.59,
+          hillThreshold: 0.44,
+          upliftWeight: 0.28,
+          fractalWeight: 0.72,
+          riftDepth: 0.27,
+          boundaryWeight: 0.18,
+          boundaryGate: 0.11,
+          boundaryExponent: 1.18,
+          interiorPenaltyWeight: 0.09,
+          convergenceBonus: 0.60,
+          transformPenalty: 0.65,
+          riftPenalty: 0.78,
+          hillBoundaryWeight: 0.32,
+          hillRiftBonus: 0.36,
+          hillConvergentFoothill: 0.36,
+          hillInteriorFalloff: 0.20,
+          hillUpliftWeight: 0.18,
+        },
+      },
+    },
+  },
   "hydrology-climate-baseline": {
     knobs: {
       dryness: "mix",
       temperature: "hot",
       seasonality: "high",
       oceanCoupling: "earthlike",
-      lakeiness: "normal",
     },
     "climate-baseline": {
       seasonality: {
@@ -280,6 +281,12 @@ export const swooperEarthlikeConfig = {
       dryness: "mix",
       temperature: "hot",
       cryosphere: "on",
+    },
+  },
+  "map-hydrology": {
+    knobs: {
+      lakeiness: "normal",
+      riverDensity: "dense",
     },
   },
   ecology: {
@@ -427,6 +434,10 @@ export const swooperEarthlikeConfig = {
           },
         },
       },
+    },
+  },
+  "map-ecology": {
+    biomes: {
       bindings: {
         snow: "BIOME_TUNDRA",
         tundra: "BIOME_TUNDRA",

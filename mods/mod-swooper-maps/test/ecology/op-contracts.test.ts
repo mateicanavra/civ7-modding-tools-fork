@@ -2,10 +2,13 @@ import { describe, expect, it } from "bun:test";
 import { BIOME_SYMBOL_TO_INDEX } from "@mapgen/domain/ecology";
 import ecology from "@mapgen/domain/ecology/ops";
 
-import { disabledEmbellishmentsConfig } from "./features-owned.helpers.js";
 import { normalizeOpSelectionOrThrow } from "../support/compiler-helpers.js";
 
 const createFeatureKeyField = (size: number) => new Int16Array(size).fill(-1);
+const disabledEmbellishmentsConfig = {
+  story: { features: {} },
+  featuresDensity: {},
+};
 
 describe("ecology op contract surfaces", () => {
   it("classifyPedology validates output", () => {
@@ -214,9 +217,8 @@ describe("ecology op contract surfaces", () => {
         aridityIndex: new Float32Array(size).fill(0.2),
         freezeIndex: new Float32Array(size).fill(0),
         landMask: new Uint8Array(size).fill(1),
-        terrainType: new Uint8Array(size).fill(0),
+        navigableRiverMask: new Uint8Array(size).fill(0),
         featureKeyField: createFeatureKeyField(size),
-        navigableRiverTerrain: 255,
       },
       selection
     );
@@ -243,11 +245,10 @@ describe("ecology op contract surfaces", () => {
         biomeIndex: new Uint8Array(size).fill(temperateHumid),
         surfaceTemperature: new Float32Array(size).fill(12),
         landMask: new Uint8Array(size).fill(1),
-        terrainType: new Uint8Array(size).fill(0),
+        navigableRiverMask: new Uint8Array(size).fill(0),
         featureKeyField: createFeatureKeyField(size),
         nearRiverMask: new Uint8Array(size).fill(1),
         isolatedRiverMask: new Uint8Array(size).fill(0),
-        navigableRiverTerrain: 255,
       },
       selection
     );
@@ -324,6 +325,11 @@ describe("ecology op contract surfaces", () => {
     const height = 2;
     const size = width * height;
 
+    const selection = normalizeOpSelectionOrThrow(ecology.ops.planReefEmbellishments, {
+      strategy: "default",
+      config: disabledEmbellishmentsConfig,
+    });
+
     const result = ecology.ops.planReefEmbellishments.run(
       {
         width,
@@ -334,7 +340,7 @@ describe("ecology op contract surfaces", () => {
         paradiseMask: new Uint8Array(size).fill(0),
         passiveShelfMask: new Uint8Array(size).fill(0),
       },
-      { strategy: "default", config: disabledEmbellishmentsConfig }
+      selection
     );
 
     expect(Array.isArray(result.placements)).toBe(true);
@@ -345,6 +351,11 @@ describe("ecology op contract surfaces", () => {
     const height = 2;
     const size = width * height;
     const temperateHumid = BIOME_SYMBOL_TO_INDEX.temperateHumid ?? 4;
+
+    const selection = normalizeOpSelectionOrThrow(ecology.ops.planVegetationEmbellishments, {
+      strategy: "default",
+      config: disabledEmbellishmentsConfig,
+    });
 
     const result = ecology.ops.planVegetationEmbellishments.run(
       {
@@ -362,7 +373,7 @@ describe("ecology op contract surfaces", () => {
         volcanicMask: new Uint8Array(size).fill(0),
         navigableRiverTerrain: 255,
       },
-      { strategy: "default", config: disabledEmbellishmentsConfig }
+      selection
     );
 
     expect(Array.isArray(result.placements)).toBe(true);

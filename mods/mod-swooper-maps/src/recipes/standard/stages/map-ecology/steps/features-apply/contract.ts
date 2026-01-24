@@ -1,11 +1,11 @@
 import { Type, defineStep } from "@swooper/mapgen-core/authoring";
 import ecology from "@mapgen/domain/ecology";
 import { M3_DEPENDENCY_TAGS, M4_EFFECT_TAGS } from "../../../../tags.js";
-import { ecologyArtifacts } from "../../artifacts.js";
+import { ecologyArtifacts } from "../../../ecology/artifacts.js";
 
 const FeaturesApplyStepContract = defineStep({
   id: "features-apply",
-  phase: "ecology",
+  phase: "gameplay",
   requires: [],
   provides: [M3_DEPENDENCY_TAGS.field.featureType, M4_EFFECT_TAGS.engine.featuresApplied],
   artifacts: {

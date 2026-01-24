@@ -79,6 +79,20 @@ const MorphologyLandmassesArtifactSchema = Type.Object(
   { description: "Landmass decomposition snapshot (immutable)." }
 );
 
+const MorphologyVolcanoesArtifactSchema = Type.Object(
+  {
+    volcanoes: Type.Array(
+      Type.Object(
+        {
+          index: Type.Integer({ minimum: 0, description: "Tile index in row-major order." }),
+        },
+        { additionalProperties: false }
+      )
+    ),
+  },
+  { description: "Volcano placement snapshot (immutable)." }
+);
+
 export const morphologyArtifacts = {
   topography: defineArtifact({
     name: "topography",
@@ -104,5 +118,10 @@ export const morphologyArtifacts = {
     name: "landmasses",
     id: "artifact:morphology.landmasses",
     schema: MorphologyLandmassesArtifactSchema,
+  }),
+  volcanoes: defineArtifact({
+    name: "volcanoes",
+    id: "artifact:morphology.volcanoes",
+    schema: MorphologyVolcanoesArtifactSchema,
   }),
 } as const;
