@@ -118,65 +118,6 @@ export const swooperEarthlikeConfig = {
     },
     coastlines: {},
   },
-  "narrative-pre": {
-    "story-seed": {
-      margins: {
-        activeFraction: 0.28,
-        passiveFraction: 0.18,
-        minSegmentLength: 14,
-      },
-    },
-    "story-hotspots": {
-      story: {
-        hotspot: {
-          maxTrails: 4,
-          steps: 8,
-          stepLen: 3,
-          minDistFromLand: 6,
-          minTrailSeparation: 14,
-          paradiseBias: 3,
-          volcanicBias: 2,
-          volcanicPeakChance: 0.35,
-        },
-      },
-    },
-    "story-rifts": {
-      story: {
-        rift: {
-          maxRiftsPerMap: 2,
-          lineSteps: 16,
-          stepLen: 2,
-          shoulderWidth: 1,
-        },
-      },
-    },
-    "story-corridors-pre": {
-      corridors: {
-        sea: {
-          protection: "soft",
-          softChanceMultiplier: 0.35,
-          avoidRadius: 3,
-          maxLanes: 2,
-          scanStride: 6,
-          minLengthFrac: 0.65,
-          preferDiagonals: false,
-          laneSpacing: 7,
-          minChannelWidth: 3,
-        },
-        land: {
-          biomesBiasStrength: 0.6,
-          useRiftShoulders: true,
-          maxCorridors: 2,
-          minRunLength: 26,
-          spacing: 1,
-        },
-        islandHop: {
-          useHotspots: true,
-          maxArcs: 2,
-        },
-      },
-    },
-  },
   "morphology-mid": {
     "rugged-coasts": {
       coastlines: {
@@ -234,18 +175,6 @@ export const swooperEarthlikeConfig = {
             eras: 3,
           },
           worldAge: "mature",
-        },
-      },
-    },
-  },
-  "narrative-mid": {
-    "story-orogeny": {
-      story: {
-        orogeny: {
-          radius: 2,
-          beltMinLength: 34,
-          windwardBoost: 6,
-          leeDrynessAmplifier: 1.15,
         },
       },
     },
