@@ -10,8 +10,8 @@ type PlanFloodplainsOutput = Static<typeof placement.ops.planFloodplains["output
 type PlanStartsOutput = Static<typeof placement.ops.planStarts["output"]>;
 type PlanWondersOutput = Static<typeof placement.ops.planWonders["output"]>;
 
-type MorphologyLandmassesSnapshot = Static<
-  (typeof import("../../../morphology-pre/artifacts.js").morphologyArtifacts)["landmasses"]["schema"]
+type LandmassRegionSlotByTile = Static<
+  (typeof import("../../../../map-artifacts.js").mapArtifacts)["landmassRegionSlotByTile"]["schema"]
 >;
 
 type ApplyPlacementArgs = {
@@ -19,7 +19,7 @@ type ApplyPlacementArgs = {
   starts: DeepReadonly<PlanStartsOutput>;
   wonders: DeepReadonly<PlanWondersOutput>;
   floodplains: DeepReadonly<PlanFloodplainsOutput>;
-  landmasses: DeepReadonly<MorphologyLandmassesSnapshot>;
+  landmassRegionSlotByTile: DeepReadonly<LandmassRegionSlotByTile>;
   publishOutputs: (outputs: PlacementOutputsV1) => DeepReadonly<PlacementOutputsV1>;
 };
 
@@ -28,7 +28,7 @@ export function applyPlacementPlan({
   starts,
   wonders,
   floodplains,
-  landmasses,
+  landmassRegionSlotByTile,
   publishOutputs,
 }: ApplyPlacementArgs): DeepReadonly<PlacementOutputsV1> {
   const { adapter, trace } = context;
@@ -89,16 +89,7 @@ export function applyPlacementPlan({
     });
   }
 
-  let projection: RegionProjection | null = null;
-  try {
-    projection = projectLandmassRegions(context, landmasses);
-    emit({ type: "placement.landmassRegion.projected" });
-  } catch (err) {
-    emit({
-      type: "placement.landmassRegion.error",
-      error: err instanceof Error ? err.message : String(err),
-    });
-  }
+  const slotByTile = landmassRegionSlotByTile.slotByTile;
 
   try {
     adapter.generateResources(width, height);
@@ -114,7 +105,7 @@ export function applyPlacementPlan({
     const { positions, assigned } = assignStartPositions({
       context,
       starts,
-      projection,
+      slotByTile: slotByTile as Uint8Array,
     });
 
     const totalPlayers = positions.length;
@@ -187,69 +178,16 @@ export function applyPlacementPlan({
   return publishOutputs(outputs);
 }
 
-type RegionProjection = {
-  landmassIdByTile: Int32Array;
-  regionByLandmass: Int32Array;
-  westRegionId: number;
-  eastRegionId: number;
-  noneRegionId: number;
-};
-
-/**
- * Gameplay-owned projection: stamp LandmassRegionId from Morphology landmasses.
- */
-function projectLandmassRegions(
-  context: ExtendedMapContext,
-  landmasses: MorphologyLandmassesSnapshot
-): RegionProjection {
-  const { adapter } = context;
-  const { width, height } = context.dimensions;
-  const landmassIdByTile = landmasses.landmassIdByTile;
-  const expected = width * height;
-
-  if (!(landmassIdByTile instanceof Int32Array)) {
-    throw new Error("Morphology landmasses snapshot is missing landmassIdByTile.");
-  }
-  if (landmassIdByTile.length !== expected) {
-    throw new Error(
-      `Expected landmassIdByTile length ${expected} (received ${landmassIdByTile.length}).`
-    );
-  }
-
-  const westRegionId = adapter.getLandmassId("WEST");
-  const eastRegionId = adapter.getLandmassId("EAST");
-  const noneRegionId = adapter.getLandmassId("NONE");
-
-  const regionByLandmass = new Int32Array(landmasses.landmasses.length);
-  for (const mass of landmasses.landmasses) {
-    const centerX = computeWrappedIntervalCenter(mass.bbox.west, mass.bbox.east, width);
-    regionByLandmass[mass.id] = centerX < width / 2 ? westRegionId : eastRegionId;
-  }
-
-  for (let i = 0; i < landmassIdByTile.length; i++) {
-    const landmassId = landmassIdByTile[i] ?? -1;
-    const regionId =
-      landmassId >= 0 && landmassId < regionByLandmass.length
-        ? regionByLandmass[landmassId] ?? noneRegionId
-        : noneRegionId;
-    const y = (i / width) | 0;
-    const x = i - y * width;
-    adapter.setLandmassRegionId(x, y, regionId);
-  }
-
-  return { landmassIdByTile, regionByLandmass, westRegionId, eastRegionId, noneRegionId };
-}
-
 type AssignStartPositionsArgs = {
   context: ExtendedMapContext;
   starts: DeepReadonly<PlanStartsOutput>;
-  projection: RegionProjection | null;
+  slotByTile: Uint8Array;
 };
 
 function assignStartPositions({
   context,
   starts,
-  projection,
+  slotByTile,
 }: AssignStartPositionsArgs): { positions: number[]; assigned: number } {
   const { adapter } = context;
   const { width, height } = context.dimensions;
@@ -257,17 +195,21 @@ function assignStartPositions({
   const playersEast = Math.max(0, starts.playersLandmass2 | 0);
   const totalPlayers = playersWest + playersEast;
 
-  if (!projection || totalPlayers <= 0) {
+  if (totalPlayers <= 0) {
     return { positions: new Array<number>(Math.max(0, totalPlayers)).fill(-1), assigned: 0 };
   }
 
-  const { landmassIdByTile, regionByLandmass, westRegionId, eastRegionId } = projection;
+  const expected = Math.max(0, (width | 0) * (height | 0));
+  if (slotByTile.length !== expected) {
+    throw new Error(`Expected slotByTile length ${expected} (received ${slotByTile.length}).`);
+  }
+
   const used = new Uint8Array(width * height);
   const positions = new Array<number>(totalPlayers).fill(-1);
 
-  const westCandidates = collectCandidates(landmassIdByTile, regionByLandmass, westRegionId);
-  const eastCandidates = collectCandidates(landmassIdByTile, regionByLandmass, eastRegionId);
-  const allCandidates = collectCandidates(landmassIdByTile, regionByLandmass, null);
+  const westCandidates = collectCandidates(slotByTile, 1);
+  const eastCandidates = collectCandidates(slotByTile, 2);
+  const allCandidates = collectCandidates(slotByTile, null);
 
   const startSectors = Array.isArray(starts.startSectors) ? starts.startSectors : [];
   const sectorRows = Math.max(0, starts.startSectorRows | 0);
@@ -331,19 +273,17 @@ function assignStartPositions({
 }
 
 function collectCandidates(
-  landmassIdByTile: Int32Array,
-  regionByLandmass: Int32Array,
-  regionId: number | null
+  slotByTile: Uint8Array,
+  slot: number | null
 ): number[] {
   const candidates: number[] = [];
-  for (let i = 0; i < landmassIdByTile.length; i++) {
-    const landmassId = landmassIdByTile[i] ?? -1;
-    if (landmassId < 0) continue;
-    if (regionId === null) {
-      candidates.push(i);
+  for (let i = 0; i < slotByTile.length; i++) {
+    const value = slotByTile[i] ?? 0;
+    if (slot === null) {
+      if (value !== 0) candidates.push(i);
       continue;
     }
-    if (regionByLandmass[landmassId] === regionId) candidates.push(i);
+    if (value === slot) candidates.push(i);
   }
   return candidates;
 }
@@ -485,15 +425,6 @@ function oddqToCube(x: number, y: number): { x: number; y: number; z: number } {
   const zCube = z;
   const yCube = -xCube - zCube;
   return { x: xCube, y: yCube, z: zCube };
-}
-
-function computeWrappedIntervalCenter(west: number, east: number, width: number): number {
-  if (width <= 0) return 0;
-  const w = ((west % width) + width) % width;
-  const e = ((east % width) + width) % width;
-  if (w <= e) return Math.floor((w + e) / 2);
-  const length = width - w + (e + 1);
-  return (w + Math.floor(length / 2)) % width;
 }
 
 function logTerrainStats(

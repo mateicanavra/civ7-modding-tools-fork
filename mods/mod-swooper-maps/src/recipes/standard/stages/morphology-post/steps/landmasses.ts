@@ -15,11 +15,31 @@ function validateLandmassesSnapshot(value: unknown): ArtifactValidationIssue[] {
     return errors;
   }
 
-  const candidate = value as { landmasses?: unknown };
+  const candidate = value as { landmasses?: unknown; landmassIdByTile?: unknown };
   if (!Array.isArray(candidate.landmasses)) {
     errors.push({ message: "Expected landmasses.landmasses to be an array." });
+  } else {
+    for (const entry of candidate.landmasses) {
+      if (!isRecord(entry)) {
+        errors.push({ message: "Expected landmasses.landmasses entries to be objects." });
+        continue;
+      }
+      if (typeof entry.id !== "number" || entry.id < 0) {
+        errors.push({ message: "Expected landmasses.landmasses entries to include a non-negative id." });
+      }
+      if (typeof entry.tileCount !== "number" || entry.tileCount < 0) {
+        errors.push({ message: "Expected landmasses.landmasses entries to include a non-negative tileCount." });
+      }
+      if (typeof entry.coastlineLength !== "number" || entry.coastlineLength < 0) {
+        errors.push({ message: "Expected landmasses.landmasses entries to include a non-negative coastlineLength." });
+      }
+      const bbox = (entry as { bbox?: unknown }).bbox;
+      if (!isRecord(bbox)) {
+        errors.push({ message: "Expected landmasses.landmasses entries to include bbox." });
+      }
+    }
   }
-  if (!((candidate as { landmassIdByTile?: unknown }).landmassIdByTile instanceof Int32Array)) {
+  if (!(candidate.landmassIdByTile instanceof Int32Array)) {
     errors.push({ message: "Expected landmasses.landmassIdByTile to be an Int32Array." });
   }
 

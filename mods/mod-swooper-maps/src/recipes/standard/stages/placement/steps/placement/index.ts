@@ -10,7 +10,7 @@ export default createStep(PlacementStepContract, {
   }),
   run: (context, _config, _ops, deps) => {
     const placementInputs = deps.artifacts.placementInputs.read(context);
-    const landmasses = deps.artifacts.landmasses.read(context);
+    const landmassRegionSlotByTile = deps.artifacts.landmassRegionSlotByTile.read(context);
     const { starts, wonders, floodplains } = buildPlacementPlanInput(placementInputs);
 
     applyPlacementPlan({
@@ -18,7 +18,7 @@ export default createStep(PlacementStepContract, {
       starts,
       wonders,
       floodplains,
-      landmasses,
+      landmassRegionSlotByTile,
       publishOutputs: (outputs) =>
         deps.artifacts.placementOutputs.publish(context, outputs),
     });
