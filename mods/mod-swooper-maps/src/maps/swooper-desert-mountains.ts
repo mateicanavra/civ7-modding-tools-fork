@@ -23,6 +23,7 @@ export default createMap({
   },
   config: {
   foundation: {
+    advanced: {
     mesh: {
       computeMesh: {
         strategy: "default",
@@ -70,8 +71,10 @@ export default createMap({
         },
       },
     },
+    },
   },
   "morphology-pre": {
+    advanced: {
     "landmass-plates": {
       substrate: {
         strategy: "default",
@@ -139,8 +142,10 @@ export default createMap({
         },
       },
     },
+    },
   },
   "morphology-mid": {
+    advanced: {
     "rugged-coasts": {
       coastlines: {
         strategy: "default",
@@ -200,8 +205,10 @@ export default createMap({
         },
       },
     },
+    },
   },
   "morphology-post": {
+    advanced: {
     islands: {
       islands: {
         strategy: "default",
@@ -243,6 +250,7 @@ export default createMap({
         strategy: "default",
         config: {},
       },
+    },
     },
   },
   "map-morphology": {
