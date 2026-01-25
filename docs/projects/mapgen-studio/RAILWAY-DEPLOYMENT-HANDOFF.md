@@ -72,6 +72,27 @@ We want **GitHub-connected** deploys (auto on merge/push), not local file upload
 
 This repo’s workspace manager is **pnpm** (via `packageManager` + Corepack). Avoid deployment instructions that use `npm`.
 
+### Branch previews (recommended): PR preview environments (Graphite-friendly)
+
+Avoid flipping the shared `staging` environment’s branch to “whatever I’m working on” (it’s global state and breaks as soon as two PRs are active).
+
+Instead, use **PR preview environments**:
+- Keep one persistent env pinned to `main` (today that is `staging`)
+- Create an ephemeral environment per selected PR, pointing to that PR’s branch
+
+This repo includes a GitHub Actions workflow that does this automatically:
+- `.github/workflows/railway-preview.yml`
+- Default policy for Graphite stacks: **only the top-of-stack PR gets a preview**
+  - Opt-in for any PR: add label `railway-preview`
+  - Opt-out: add label `no-railway-preview`
+
+**One-time setup required:**
+1. Add GitHub repo secret `RAILWAY_API_TOKEN` (a Railway API token with access to the project).
+2. Create GitHub labels:
+   - `railway-preview`
+   - `no-railway-preview`
+3. (Recommended) Ensure Railway built-in PR environments are disabled to avoid duplicate previews.
+
 ### Recommended: `railway.json` at repo root (config-as-code)
 
 Create `railway.json` at the **repo root** (auto-detected by Railway):
@@ -214,6 +235,8 @@ Then we can proceed with adding the actual pipeline integration (Web Worker + de
 
 - [Railway Monorepo Guide](https://docs.railway.com/guides/monorepo)
 - [Railway Build Configuration](https://docs.railway.com/guides/build-configuration)
+- [Railway Environments](https://docs.railway.com/guides/environments)
+- [Railway GitHub Autodeploys](https://docs.railway.com/guides/github-autodeploys)
 - [Railpack Static Sites](https://railpack.com/languages/staticfile/)
 - [Vite React Template for Railway](https://github.com/brody192/vite-react-template)
 
