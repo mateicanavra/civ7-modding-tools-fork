@@ -66,41 +66,26 @@ This tells Caddy to:
 
 ## Step 2: Railway Configuration
 
-### Important: shared monorepo vs isolated root directory
+### Central point: fix GitHub deploys (no manual uploads)
 
-This repo is a **shared pnpm workspace** (lockfile + `packageManager` live at the repo root). If you set Railway **Root Directory** to `apps/mapgen-studio`, you are effectively building an **isolated** subtree, which can cause Railpack to miss workspace-level package manager configuration and fall back to npm (or otherwise behave differently than local/CI).
+We want **GitHub-connected** deploys (auto on merge/push), not local file uploads via `railway up`. The service is already connected to `mateicanavra/civ7-modding-tools-fork`; the missing piece is **telling Railpack how to build + start MapGen Studio from a monorepo repo root**.
 
-**Recommendation:** keep Railway building from the repo root, and scope build/start commands + watch paths to `apps/mapgen-studio`.
+This repo’s workspace manager is **pnpm** (via `packageManager` + Corepack). Avoid deployment instructions that use `npm`.
 
-### Option A: Via Railway Dashboard (Recommended)
+### Recommended: `railway.json` at repo root (config-as-code)
 
-1. Go to Railway dashboard → Select the service
-2. Go to **Settings** → **Build & Deploy**
-3. Configure these settings:
-
-| Setting | Value |
-|---------|-------|
-| **Root Directory** | *(leave as repo root)* |
-| **Build Command** | `corepack enable && corepack prepare pnpm@10.10.0 --activate && pnpm install --frozen-lockfile && pnpm -C apps/mapgen-studio build` |
-| **Watch Paths** | `/apps/mapgen-studio/**` |
-
-4. Railpack will build the repo; the command above builds **only** MapGen Studio.
-
-If it doesn't auto-detect, set:
-| Setting | Value |
-|---------|-------|
-| **Start Command** | `cd apps/mapgen-studio && caddy run --config Caddyfile --adapter caddyfile` |
-
-### Option B: Via railway.json
-
-Create `apps/mapgen-studio/railway.json`:
+Create `railway.json` at the **repo root** (auto-detected by Railway):
 
 ```json
 {
   "$schema": "https://railway.app/railway.schema.json",
   "build": {
     "builder": "RAILPACK",
-    "buildCommand": "corepack enable && corepack prepare pnpm@10.10.0 --activate && pnpm install --frozen-lockfile && pnpm -C apps/mapgen-studio build"
+    "watchPatterns": [
+      "apps/mapgen-studio/**",
+      "railway.json"
+    ],
+    "buildCommand": "corepack enable && corepack prepare pnpm@10.10.0 --activate && pnpm -F mapgen-studio... install --frozen-lockfile && pnpm -C apps/mapgen-studio build"
   },
   "deploy": {
     "startCommand": "cd apps/mapgen-studio && caddy run --config Caddyfile --adapter caddyfile",
@@ -109,24 +94,11 @@ Create `apps/mapgen-studio/railway.json`:
 }
 ```
 
-**Important:** Railway config-as-code file paths do **not** follow Root Directory; if you use `apps/mapgen-studio/railway.json`, you must point Railway at the **absolute path** (e.g. `/apps/mapgen-studio/railway.json`) in the service settings.
+This keeps the service’s **Root Directory** at the repo root (so it can see the workspace lockfile), but builds/serves only `apps/mapgen-studio`.
 
-### Option C: Via Railway CLI
+### Optional alternative (dashboard-only)
 
-```bash
-# Login to Railway (browserless pairing is usually easiest)
-railway login --browserless
-
-# Link to existing project (if not already linked)
-railway link -p <PROJECT_ID> -e staging -s <SERVICE_NAME>
-
-# Sanity check
-railway whoami
-railway status
-
-# Trigger a deploy (will use the service's build settings)
-railway up
-```
+If you set Railway **Root Directory** to `apps/mapgen-studio`, Railpack should be able to auto-detect Vite and serve via its built-in SPA support (and you may be able to remove `railway.json`). Config-as-code cannot set Root Directory; it must be set in the service settings.
 
 ---
 
@@ -146,9 +118,10 @@ railway up
    ```
 
 3. **After Railway deploy:**
-   - Get the public URL from Railway dashboard
-   - Visit the URL - should see the same "MapGen Studio" page
-   - Check browser console for any errors
+   - Deploy should trigger automatically on merge/push (GitHub-connected service)
+   - Confirm latest status: `railway deployment list -s mapgen-studio -e staging --limit 5`
+   - Check logs if needed: `railway logs -s mapgen-studio -e staging --latest`
+   - Visit the staging URL and confirm the page renders and shows “Deployment successful.”
 
 ---
 
