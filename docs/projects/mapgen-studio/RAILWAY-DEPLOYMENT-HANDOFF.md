@@ -68,7 +68,7 @@ This tells Caddy to:
 
 ### Central point: fix GitHub deploys (no manual uploads)
 
-We want **GitHub-connected** deploys (auto on merge/push), not local file uploads via `railway up`. The service is already connected to `mateicanavra/civ7-modding-tools-fork`; the missing piece is **telling Railpack how to build + start MapGen Studio from a monorepo repo root**.
+We want **GitHub-connected** deploys (auto on merge/push), not local file uploads via `railway up`. The service is already connected to `mateicanavra/civ7-modding-tools`; the missing piece is **telling Railpack how to build + start MapGen Studio from a monorepo repo root**.
 
 This repo’s workspace manager is **pnpm** (via `packageManager` + Corepack). Avoid deployment instructions that use `npm`.
 
