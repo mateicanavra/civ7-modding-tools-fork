@@ -10,7 +10,7 @@ Scope: `packages/mapgen-core/**`
 
 ## Tooling Rules
 
-- Use package scripts via `pnpm` for build, type‑checks, and tests (`pnpm -F @swooper/mapgen-core <script>`).
+- Use package scripts via `bun` for build, type‑checks, and tests (`bun --cwd packages/mapgen-core run <script>`).
 - Run workspace‑wide validation from repo root when changing cross‑package contracts.
 
 ## Domain Rules

@@ -72,10 +72,10 @@
     }
   },
   "scripts": {
-    "prebuild": "pnpm -C ../civ7-adapter build",
+    "prebuild": "bun --cwd ../civ7-adapter run build",
     "build": "tsup",
-    "precheck": "pnpm -C ../civ7-adapter build",
-    "pretest": "pnpm -C ../civ7-adapter build",
+    "precheck": "bun --cwd ../civ7-adapter run build",
+    "pretest": "bun --cwd ../civ7-adapter run build",
     "test": "bun test",
     "check": "tsc --noEmit"
   },

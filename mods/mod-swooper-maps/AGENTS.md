@@ -10,10 +10,10 @@ Scope: `mods/mod-swooper-maps/**`
 
 ## Tooling Rules
 
-- Use `pnpm` scripts for build, type‑checks, and mod deployment in this package (see `mods/mod-swooper-maps/package.json`).
-- Prefer regenerating `mod/` via `pnpm build` over editing build artifacts.
-- Build `@swooper/mapgen-core` first (`pnpm -C packages/mapgen-core build`) before running this package’s type checks so dist exports resolve.
-- Run broader tests from the repo root (`pnpm test`) or the MapGen core package when needed.
+- Use `bun` scripts for build and type‑checks in this package (see `mods/mod-swooper-maps/package.json`).
+- Prefer regenerating `mod/` via `bun --cwd mods/mod-swooper-maps run build` over editing build artifacts.
+- Build `@swooper/mapgen-core` first (`bun --cwd packages/mapgen-core run build`) before running this package’s type checks so dist exports resolve.
+- Run broader tests from the repo root (`bun run test:ci`) or the MapGen core package when needed.
 - Placement domain follows the op-per-concern pattern (plan wonders, floodplains, starts); placement step orchestrates multiple ops rather than a single monolith.
 
 ## Ecology domain
