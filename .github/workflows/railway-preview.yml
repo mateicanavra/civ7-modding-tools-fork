@@ -103,14 +103,12 @@ jobs:
       - name: Link Railway project (base env)
         env:
           RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
         run: railway link -p "${{ env.RAILWAY_PROJECT_ID }}" -e "${{ env.RAILWAY_BASE_ENVIRONMENT_ID }}" --json >/dev/null
 
       - name: Ensure preview environment exists
         if: steps.decide.outputs.should_preview == 'true'
         env:
           RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
         run: |
           railway environment new "${{ steps.decide.outputs.env_name }}" \
             --copy "${{ env.RAILWAY_BASE_ENVIRONMENT_ID }}" \
@@ -120,7 +118,6 @@ jobs:
         if: steps.decide.outputs.should_preview == 'true'
         env:
           RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
         run: |
           railway environment edit \
             -e "${{ steps.decide.outputs.env_name }}" \
@@ -132,14 +129,12 @@ jobs:
         if: steps.decide.outputs.should_preview == 'true'
         env:
           RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
         run: railway link -p "${{ env.RAILWAY_PROJECT_ID }}" -e "${{ steps.decide.outputs.env_name }}" --json >/dev/null
 
       - name: Redeploy preview
         if: steps.decide.outputs.should_preview == 'true'
         env:
           RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
         run: railway redeploy -s "${{ env.RAILWAY_SERVICE_NAME }}" -y --json >/dev/null
 
       - name: Ensure preview domain
@@ -147,7 +142,6 @@ jobs:
         id: domain
         env:
           RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
         shell: bash
         run: |
           URL="$(
@@ -160,7 +154,6 @@ jobs:
         if: steps.decide.outputs.should_preview != 'true' && steps.decide.outputs.has_token == 'true'
         env:
           RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
         run: railway environment delete "${{ steps.decide.outputs.env_name }}" -y --json >/dev/null || true
 
       - name: Comment preview status
