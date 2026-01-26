@@ -15,7 +15,7 @@ export function App() {
         }}
       >
         <p style={{ color: '#4ecca3', fontFamily: 'monospace' }}>
-          Deployment successful.
+          Deployment successful. (Preview Test C)
         </p>
         <p style={{ color: '#666', marginTop: '1rem', fontSize: '0.9rem' }}>
           Next: Web Worker + deck.gl integration
