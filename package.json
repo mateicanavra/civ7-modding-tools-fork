@@ -3,11 +3,10 @@
   "version": "1.3.0",
   "description": "CLI tools and utilities for Civilization VII modding, including resource extraction, graph visualization, and XML analysis",
   "type": "module",
-  "packageManager": "pnpm@10.10.0",
+  "packageManager": "bun@1.2.20",
   "scripts": {
-    "setup:corepack": "corepack enable && corepack prepare pnpm@10.10.0 --activate",
     "build": "turbo run build",
-    "check": "turbo run check && pnpm lint:domain-refactor-guardrails",
+    "check": "turbo run check && bun run lint:domain-refactor-guardrails",
     "check-types": "turbo run check",
     "dev:cli": "pnpm -F @mateicanavra/civ7-cli dev",
     "dev:sdk": "pnpm -F @mateicanavra/civ7-sdk dev",
@@ -72,8 +71,7 @@
     "resource-extraction"
   ],
   "engines": {
-    "node": ">=20.0.0",
-    "pnpm": ">=10.10.0"
+    "node": ">=20.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
@@ -89,17 +87,9 @@
     "typescript": "^5.9.3",
     "vitest": "^3.2.4"
   },
-  "pnpm": {
-    "overrides": {
-      "typescript": "^5.9.2",
-      "@types/node": "^24.2.1",
-      "rimraf": "^6.0.1"
-    },
-    "onlyBuiltDependencies": [
-      "docsify",
-      "esbuild",
-      "puppeteer",
-      "sharp"
-    ]
+  "overrides": {
+    "typescript": "^5.9.2",
+    "@types/node": "^24.2.1",
+    "rimraf": "^6.0.1"
   }
 }
