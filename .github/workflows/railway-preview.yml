@@ -24,8 +24,8 @@ concurrency:
 env:
   # CIV7 / Magic Apply
   RAILWAY_PROJECT_ID: e4fe5b19-db1f-47ba-9a57-35825b3e69b3
-  # Base environment to copy from (currently: staging)
-  RAILWAY_BASE_ENVIRONMENT_ID: 4474bea1-60b7-4b86-889d-b208a869c39c
+  # Base environment to copy from (preview seed env)
+  RAILWAY_BASE_ENVIRONMENT_ID: 7b924069-d645-4c37-b5cb-0382869f6829
   RAILWAY_SERVICE_NAME: mapgen-studio
 
   # Workflow policy:
