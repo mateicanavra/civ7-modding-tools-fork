@@ -15,7 +15,7 @@ export function App() {
         }}
       >
         <p style={{ color: '#4ecca3', fontFamily: 'monospace' }}>
-          Deployment successful.
+          Deployment successful. (Preview Demo C)
         </p>
         <p style={{ color: '#9ca3af', marginTop: '0.75rem', fontSize: '0.9rem' }}>
           Preview Demo B: (this PR should NOT get a preview)
