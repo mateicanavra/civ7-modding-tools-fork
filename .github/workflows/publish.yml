@@ -40,21 +40,7 @@ jobs:
           registry-url: https://npm.pkg.github.com
           always-auth: true
 
-      - name: Enable Corepack
-        run: corepack enable
-
-      - name: Install pnpm (pinned)
-        run: corepack prepare pnpm@10.10.0 --activate
-
-      - name: Cache pnpm store
-        uses: actions/cache@v4
-        with:
-          path: ~/.local/share/pnpm/store
-          key: pnpm-store-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
-          restore-keys: |
-            pnpm-store-${{ runner.os }}-
-
-      - name: Setup Bun (for playground build)
+      - name: Setup Bun
         uses: oven-sh/setup-bun@v2
         with:
           bun-version-file: ".bun-version"
@@ -63,12 +49,12 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .turbo
-          key: turbo-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml', 'turbo.json', 'packages/*/package.json', 'packages/plugins/*/package.json', 'apps/*/package.json') }}
+          key: turbo-${{ runner.os }}-${{ hashFiles('bun.lock', 'turbo.json', 'packages/*/package.json', 'packages/plugins/*/package.json', 'apps/*/package.json') }}
           restore-keys: |
             turbo-${{ runner.os }}-
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: bun install --frozen-lockfile
 
       - name: Determine publish target
         id: target
@@ -106,46 +92,48 @@ jobs:
 
       - name: Build SDK
         if: steps.target.outputs.target == 'sdk' || steps.target.outputs.target == 'all'
-        run: pnpm -F @mateicanavra/civ7-sdk build
+        run: bun run --filter @mateicanavra/civ7-sdk build
 
       - name: Build CLI
         if: steps.target.outputs.target == 'cli' || steps.target.outputs.target == 'all'
-        run: pnpm -F @mateicanavra/civ7-cli build
+        run: bun run --filter @mateicanavra/civ7-cli build
 
       - name: Lint SDK
         if: steps.target.outputs.target == 'sdk' || steps.target.outputs.target == 'all'
-        run: pnpm -F @mateicanavra/civ7-sdk lint
+        run: bun run --filter @mateicanavra/civ7-sdk lint
 
       - name: Lint CLI
         if: steps.target.outputs.target == 'cli' || steps.target.outputs.target == 'all'
-        run: pnpm -F @mateicanavra/civ7-cli lint
+        run: bun run --filter @mateicanavra/civ7-cli lint
 
       - name: Test SDK
         if: steps.target.outputs.target == 'sdk' || steps.target.outputs.target == 'all'
-        run: pnpm -F @mateicanavra/civ7-sdk test
+        run: bun run --filter @mateicanavra/civ7-sdk test
 
       - name: Test CLI
         if: steps.target.outputs.target == 'cli' || steps.target.outputs.target == 'all'
-        run: pnpm -F @mateicanavra/civ7-cli test
+        run: bun run --filter @mateicanavra/civ7-cli test
 
       - name: Typecheck SDK
         if: steps.target.outputs.target == 'sdk' || steps.target.outputs.target == 'all'
-        run: pnpm -F @mateicanavra/civ7-sdk check
+        run: bun run --filter @mateicanavra/civ7-sdk check
 
       - name: Typecheck CLI
         if: steps.target.outputs.target == 'cli' || steps.target.outputs.target == 'all'
-        run: pnpm -F @mateicanavra/civ7-cli check
+        run: bun run --filter @mateicanavra/civ7-cli check
 
       - name: Publish SDK
         if: steps.target.outputs.target == 'sdk' || steps.target.outputs.target == 'all'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN_SDK }}
+          NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN_SDK }}
           NPM_CONFIG_REGISTRY: https://npm.pkg.github.com
-        run: pnpm -F @mateicanavra/civ7-sdk publish --access public --no-git-checks
+        run: bun publish --cwd packages/sdk --access public
 
       - name: Publish CLI
         if: steps.target.outputs.target == 'cli' || steps.target.outputs.target == 'all'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN_CLI }}
+          NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN_CLI }}
           NPM_CONFIG_REGISTRY: https://npm.pkg.github.com
-        run: pnpm -F @mateicanavra/civ7-cli publish --access public --no-git-checks
+        run: bun publish --cwd packages/cli --access public
