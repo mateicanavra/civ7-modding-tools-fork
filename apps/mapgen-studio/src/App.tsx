@@ -7,7 +7,7 @@ export function App() {
       </p>
       <div
         style={{
-          background: '#16213e',
+          background: '#0f172a',
           borderRadius: '8px',
           padding: '2rem',
           maxWidth: '600px',
