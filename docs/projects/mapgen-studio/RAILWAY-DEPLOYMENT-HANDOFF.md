@@ -68,9 +68,32 @@ This tells Caddy to:
 
 ### Central point: fix GitHub deploys (no manual uploads)
 
-We want **GitHub-connected** deploys (auto on merge/push), not local file uploads via `railway up`. The service is already connected to `mateicanavra/civ7-modding-tools-fork`; the missing piece is **telling Railpack how to build + start MapGen Studio from a monorepo repo root**.
+We want **GitHub-connected** deploys (auto on merge/push), not local file uploads via `railway up`. The service is already connected to `mateicanavra/civ7-modding-tools`; the missing piece is **telling Railpack how to build + start MapGen Studio from a monorepo repo root**.
 
 This repo’s workspace manager is **pnpm** (via `packageManager` + Corepack). Avoid deployment instructions that use `npm`.
+
+### Branch previews (recommended): PR preview environments (Graphite-friendly)
+
+Avoid flipping a shared Railway environment’s branch to “whatever I’m working on” (it’s global state and breaks as soon as two PRs are active).
+
+Instead, use **PR preview environments**:
+- Keep `production` pinned to `main` (always-current deploy)
+- Keep a non-prod seed environment `preview-base` pinned to `main` (copy source for previews)
+- Create an ephemeral environment per selected PR, copying from `preview-base` and pointing to that PR’s branch
+
+This repo includes a GitHub Actions workflow that does this automatically:
+- `.github/workflows/railway-preview.yml`
+- Default policy for Graphite stacks: **only the top-of-stack PR gets a preview**
+  - Opt-in for any PR: add label `railway-preview`
+  - Opt-out: add label `no-railway-preview`
+
+**One-time setup required:**
+1. Add GitHub repo secret `RAILWAY_API_TOKEN` (an account/team Railway API token with access to the project; **project tokens don’t work** for `railway link`).
+2. Create GitHub labels:
+   - `railway-preview`
+   - `no-railway-preview`
+3. Ensure a Railway environment named `preview-base` exists (the workflow copies it to create `pr-<number>` envs).
+4. (Recommended) Ensure Railway built-in PR environments are disabled to avoid duplicate previews.
 
 ### Recommended: `railway.json` at repo root (config-as-code)
 
@@ -119,9 +142,9 @@ If you set Railway **Root Directory** to `apps/mapgen-studio`, Railpack should b
 
 3. **After Railway deploy:**
    - Deploy should trigger automatically on merge/push (GitHub-connected service)
-   - Confirm latest status: `railway deployment list -s mapgen-studio -e staging --limit 5`
-   - Check logs if needed: `railway logs -s mapgen-studio -e staging --latest`
-   - Visit the staging URL and confirm the page renders and shows “Deployment successful.”
+   - Confirm latest status: `railway deployment list -s mapgen-studio -e production --limit 5`
+   - Check logs if needed: `railway logs -s mapgen-studio -e production --latest`
+   - Visit the production URL and confirm the page renders and shows “Deployment successful.”
 
 ---
 
@@ -193,7 +216,7 @@ pnpm -C apps/mapgen-studio build
 
 # 5. If using Railway CLI:
 railway login --browserless
-railway link -p <PROJECT_ID> -e staging -s <SERVICE_NAME>  # if needed
+railway link -p <PROJECT_ID> -e production -s <SERVICE_NAME>  # if needed
 railway up
 ```
 
@@ -214,6 +237,8 @@ Then we can proceed with adding the actual pipeline integration (Web Worker + de
 
 - [Railway Monorepo Guide](https://docs.railway.com/guides/monorepo)
 - [Railway Build Configuration](https://docs.railway.com/guides/build-configuration)
+- [Railway Environments](https://docs.railway.com/guides/environments)
+- [Railway GitHub Autodeploys](https://docs.railway.com/guides/github-autodeploys)
 - [Railpack Static Sites](https://railpack.com/languages/staticfile/)
 - [Vite React Template for Railway](https://github.com/brody192/vite-react-template)
 
