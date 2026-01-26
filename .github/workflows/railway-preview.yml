@@ -226,11 +226,17 @@ jobs:
           path.write_text(json.dumps(cfg))
           PY
 
-      - name: Redeploy preview
+      - name: Checkout PR branch
+        if: steps.finalize.outputs.should_preview == 'true'
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Deploy preview (upload)
         if: steps.finalize.outputs.should_preview == 'true'
         env:
           RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
-        run: railway redeploy -s "${{ env.RAILWAY_SERVICE_NAME }}" -y --json >/dev/null
+        run: railway deployment up -s "${{ env.RAILWAY_SERVICE_NAME }}" --ci --detach --json >/dev/null
 
       - name: Ensure preview domain
         if: steps.finalize.outputs.should_preview == 'true'
