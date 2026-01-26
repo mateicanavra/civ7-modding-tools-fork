@@ -62,5 +62,5 @@ See `docs/process/GRAPHITE.md` and `docs/process/LINEAR.md` for full conventions
 
 ## Repo Policy
 
-- Open PRs against the `fork` remote (not `origin`); details in `docs/process/CONTRIBUTING.md`.
+- Open PRs against `origin`; details in `docs/process/CONTRIBUTING.md`.
 - Active work lives under `docs/projects/`.
