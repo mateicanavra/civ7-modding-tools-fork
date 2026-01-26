@@ -1,67 +1,62 @@
 # Contributing to Civ7 Modding Tools
 
-This repository is a pnpm + Turborepo monorepo with a Bun-first developer experience.
+This repository is a Bun + Turborepo monorepo.
 
 ## Prerequisites
 - Node 20 (see `.nvmrc`)
-- Optional: pin pnpm via Corepack for reproducibility
-  ```bash
-  pnpm run setup:corepack
-  ```
+- Bun (see `.bun-version`)
 
 ## Getting Started
 ```bash
-pnpm install
-pnpm build
-pnpm test
+bun install --frozen-lockfile
+bun run build
+bun run test
 ```
 
-### Developing the CLI (@civ7/cli)
-- Local dev (Bun):
+### Developing the CLI (@mateicanavra/civ7-cli)
+- Local dev:
   ```bash
-  pnpm -F @civ7/cli dev
+  bun run dev:cli
   ```
-- Global link (Node):
+- Global link (optional):
   ```bash
-  pnpm -F @civ7/cli run build
-  pnpm -F @civ7/cli link --global
+  bun run link:cli
   civ7 --help
   ```
-These are independent; local dev runs source via Bun; global link runs installed binary.
 
 ### Workspace apps/packages
-- Docs (Docsify, Bun-first):
+- Docs:
   ```bash
-  pnpm -F @civ7/docs run dev
-  pnpm -F @civ7/docs run fix:links
+  bun run dev:docs
+  bun run --filter @civ7/docs fix:mdx-links
   ```
-- CLI (@civ7/cli):
+- CLI:
   ```bash
-  pnpm -F @civ7/cli run build
+  bun run --filter @mateicanavra/civ7-cli build
   node packages/cli/bin/run.js --help
   ```
-- SDK (@civ7/sdk):
+- SDK:
   ```bash
-  pnpm -F @civ7/sdk run build
+  bun run --filter @mateicanavra/civ7-sdk build
   ```
-- Playground (Bun):
+- Playground:
   ```bash
-  pnpm -F @civ7/playground run dev
+  bun run dev:playground
   ```
 
 ### Root convenience scripts
 - Dev per package:
   ```bash
-  pnpm dev:cli
-  pnpm dev:sdk
-  pnpm dev:docs
-  pnpm dev:playground
+  bun run dev:cli
+  bun run dev:sdk
+  bun run dev:docs
+  bun run dev:playground
   ```
-- Run CLI from root (Bun):
+- Run CLI from root:
   ```bash
-  pnpm cli -- <civ7-command-and-args>
+  bun run dev:cli -- <civ7-command-and-args>
   # example
-  pnpm cli unzip default
+  bun run dev:cli -- data unzip default
   ```
 
 ## Outputs policy
@@ -72,21 +67,21 @@ These are independent; local dev runs source via Bun; global link runs installed
   - Base outputs: `.civ7/outputs`
   - Zip archives: `.civ7/outputs/archives`
   - Unzip directory: `.civ7/outputs/resources` (**git submodule**)
-  - Graph exports: `.civ7/outputs/graph/<seed>`
+- Graph exports: `.civ7/outputs/graph/<seed>`
 - The unzip directory is a git submodule that publishes snapshots to `mateicanavra/civ7-official-resources`.
-  - One-time setup: `pnpm setup:git-hooks`
-  - Init on a fresh clone: `pnpm resources:init` (or `git submodule update --init --recursive`)
+  - One-time setup: `bun run setup:git-hooks`
+  - Init on a fresh clone: `bun run resources:init` (or `git submodule update --init --recursive`)
   - `civ7 data unzip` writes into the submodule working tree; diffs show up in the submodule and are auto-committed/pushed on monorepo commit (via `scripts/git-hooks/pre-commit`).
 - Docs: served directly from `apps/docs/site` (no build/dist by default)
 - SDK: emits to `packages/sdk/dist`
 - Playground: generated content remains under its app directory
 
 ## Publish readiness (Phase 9)
-- SDK: `pnpm -F @civ7/sdk pack` (validation only; do not commit `.tgz`)
-- CLI: `pnpm -F @civ7/cli run build && pnpm -F @civ7/cli link --global && civ7 --help`
+- SDK: `bun pm pack --cwd packages/sdk` (validation only; do not commit `.tgz`)
+- CLI: `bun run link:cli && civ7 --help`
 
 ### Publishing via tags (CI)
-Prerequisite: In GitHub → Settings → Secrets and variables → Actions, add secret `NPM_TOKEN` (npm automation token with publish permission).
+Prerequisite: In GitHub → Settings → Secrets and variables → Actions, add secrets `NPM_TOKEN_SDK` and `NPM_TOKEN_CLI` (publish tokens for GitHub Packages).
 
 From the repo root, create and push one of the following tags:
 
@@ -101,14 +96,14 @@ git tag sdk-vX.Y.Z && git push origin sdk-vX.Y.Z
 git tag cli-vX.Y.Z && git push origin cli-vX.Y.Z
 ```
 
-The `Publish Packages` workflow will build, lint, test, typecheck, then publish the targeted package(s). If `NPM_TOKEN` is missing, the publish steps are skipped.
+The publish workflow will build, lint, test, typecheck, then publish the targeted package(s).
 
 ### Local publish (optional)
 From repo root:
 ```bash
-pnpm publish:sdk   # publish SDK
-pnpm publish:cli   # publish CLI
-pnpm publish:all   # SDK then CLI
+bun run publish:sdk   # publish SDK
+bun run publish:cli   # publish CLI
+bun run publish:all   # SDK then CLI
 ```
 
 ## Coding style
@@ -120,7 +115,7 @@ pnpm publish:all   # SDK then CLI
 ```bash
 git checkout -b feat/your-change
 # make changes
-pnpm test
+bun run test
 git commit
 ```
 

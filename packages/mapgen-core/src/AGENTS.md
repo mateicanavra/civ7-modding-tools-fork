@@ -6,9 +6,8 @@ Scope: `packages/mapgen-core/src/**`
 - Steps/layers should be deterministic from `MapGenContext` + validated config, and write results only through the context.
 - Do not introduce mod‑specific entrypoints or Civ7 runtime imports here.
 
-Tooling: validate with this package’s `pnpm` scripts.
+Tooling: validate with this package’s `bun` scripts.
 
 Docs:
 - `docs/system/libs/mapgen/architecture.md`
 - `docs/system/libs/mapgen/design.md`
-

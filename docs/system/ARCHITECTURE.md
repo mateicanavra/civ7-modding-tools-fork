@@ -36,7 +36,7 @@ mods/               # Colocated mods
 
 ## Build System
 
-- **Package manager:** pnpm (workspaces)
+ - **Package manager:** Bun (workspaces)
 - **Build orchestration:** Turbo
 - **TypeScript bundler:** tsup
 - **Runtime:** Bun (build scripts)

@@ -70,7 +70,7 @@ This tells Caddy to:
 
 We want **GitHub-connected** deploys (auto on merge/push), not local file uploads via `railway up`. The service is already connected to `mateicanavra/civ7-modding-tools`; the missing piece is **telling Railpack how to build + start MapGen Studio from a monorepo repo root**.
 
-This repo’s workspace manager is **pnpm** (via `packageManager` + Corepack). Avoid deployment instructions that use `npm`.
+This repo’s workspace manager is **Bun** (via the root `packageManager` contract). Avoid deployment instructions that assume a different package manager or Corepack.
 
 ### Branch previews (recommended): PR preview environments (Graphite-friendly)
 
@@ -108,7 +108,7 @@ Create `railway.json` at the **repo root** (auto-detected by Railway):
       "apps/mapgen-studio/**",
       "railway.json"
     ],
-    "buildCommand": "corepack enable && corepack prepare pnpm@10.10.0 --activate && pnpm -F mapgen-studio... install --frozen-lockfile && pnpm -C apps/mapgen-studio build"
+    "buildCommand": "bun install --frozen-lockfile && bun run --cwd apps/mapgen-studio build"
   },
   "deploy": {
     "startCommand": "cd apps/mapgen-studio && caddy run --config Caddyfile --adapter caddyfile",
@@ -129,14 +129,14 @@ If you set Railway **Root Directory** to `apps/mapgen-studio`, Railpack should b
 
 1. **Local test first:**
    ```bash
-   pnpm install
-   pnpm -C apps/mapgen-studio dev
+   bun install
+   bun run --cwd apps/mapgen-studio dev
    # Open http://localhost:5173 - should see "MapGen Studio" page
    ```
 
 2. **Build test:**
    ```bash
-   pnpm -C apps/mapgen-studio build
+   bun run --cwd apps/mapgen-studio build
    # Should create apps/mapgen-studio/dist/ with index.html and assets
    ```
 
@@ -161,7 +161,7 @@ A page showing:
 ## Troubleshooting
 
 ### Build fails with "tsc not found"
-The `typescript` is a devDependency. Make sure `pnpm install` runs before `pnpm -C apps/mapgen-studio build`.
+The `typescript` is a devDependency. Make sure `bun install` runs before `bun run --cwd apps/mapgen-studio build`.
 
 ### 502 Bad Gateway
 Railpack might not be detecting the Caddyfile. Try:
@@ -187,8 +187,8 @@ Railway caches aggressively. Try:
 ### Fallback: Use `serve` instead of Caddy
 If Caddy doesn't work, you can use the `serve` package:
 
-1. Add to package.json: `pnpm add -D serve`
-2. Set Start Command: `pnpm exec serve dist -s -l $PORT`
+1. Add to package.json: `bun add -d serve`
+2. Set Start Command: `bunx serve dist -s -l $PORT`
 
 ---
 
@@ -206,13 +206,13 @@ cat > apps/mapgen-studio/Caddyfile << 'EOF'
 EOF
 
 # 2. Install dependencies locally
-pnpm install
+bun install
 
 # 3. Test locally
-pnpm -C apps/mapgen-studio dev
+bun run --cwd apps/mapgen-studio dev
 
 # 4. Test build
-pnpm -C apps/mapgen-studio build
+bun run --cwd apps/mapgen-studio build
 
 # 5. If using Railway CLI:
 railway login --browserless

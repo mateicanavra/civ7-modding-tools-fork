@@ -81,20 +81,20 @@ Status-style commands (e.g., `git status`, `mod status`) also accept `--json` fo
 }
 ```
 
-- The CLI discovers the workspace root by finding the nearest `package.json` that declares `workspaces` (with back-compat support for `pnpm-workspace.yaml`) and resolves defaults like `out/<seed>` accordingly.
+- The CLI discovers the workspace root by finding the nearest `package.json` that declares `workspaces` and resolves defaults like `out/<seed>` accordingly.
 - You can always bypass config with explicit flags: `--root` for XML root, `--dest` for slice destination, etc.
 
 ### Development setup
 
-- Prereqs: Node 18+, pnpm, optional Bun for `dev` script.
-- Install from repo root: `pnpm i`
+- Prereqs: Node 20+ and Bun.
+- Install from repo root: `bun install --frozen-lockfile`
 - Build this package:
-  - `pnpm --filter @civ7-modding/cli run build`
+  - `bun run --filter @mateicanavra/civ7-cli build`
   - Generates `dist/` and refreshes `oclif.manifest.json`.
-- Local linking (optional): `pnpm --filter @civ7-modding/cli run publish:local` to expose the `civ7` binary.
+- Local linking (optional): `bun run link:cli` (from repo root) to expose the `civ7` binary.
 - Dev run:
   - Via bin: `node packages/cli/bin/run.js <command>`
-  - Via scripts: `pnpm --filter @civ7-modding/cli run data:crawl -- --help`
+  - Via scripts: `bun run --filter @mateicanavra/civ7-cli dev -- data:crawl --help`
 
 ### Code structure (key paths)
 
@@ -139,7 +139,7 @@ Status-style commands (e.g., `git status`, `mod status`) also accept `--json` fo
 
 ### Testing
 
-- A minimal [Vitest](https://vitest.dev/) suite lives in `test/` (`test/commands` for CLI surfaces, `test/utils` for helpers). Run `pnpm --filter @civ7/cli test`.
+- A minimal [Vitest](https://vitest.dev/) suite lives in `test/` (`test/commands` for CLI surfaces, `test/utils` for helpers). Run `bun run --filter @mateicanavra/civ7-cli test`.
 - Recommended strategy for expanding coverage:
   - Unit‑test seed parsing, index construction, and expander rules.
   - Snapshot DOT/JSON for a small sample seed.
@@ -152,7 +152,7 @@ Status-style commands (e.g., `git status`, `mod status`) also accept `--json` fo
   - `build`: clean, type‑check/build, regenerate oclif manifest, ensure `bin/run.js` is executable
   - `prepack`: build + generate README via oclif
   - `publish:local`: build and link globally for local dev
-  - `pack` / `publish`: package/publish with pnpm
+  - `pack` / `publish`: package/publish with Bun
 
 ### Extending the crawler
 
@@ -182,4 +182,3 @@ Status-style commands (e.g., `git status`, `mod status`) also accept `--json` fo
 - Manifest: `oclif.manifest.json` (generated)
 
 Maintainers keep a feature tracker in `FEATURES.md` for roadmap and implemented items.
-
