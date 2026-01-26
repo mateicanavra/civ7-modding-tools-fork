@@ -88,7 +88,7 @@ This repo includes a GitHub Actions workflow that does this automatically:
   - Opt-out: add label `no-railway-preview`
 
 **One-time setup required:**
-1. Add GitHub repo secret `RAILWAY_API_TOKEN` (a Railway API token with access to the project).
+1. Add GitHub repo secret `RAILWAY_API_TOKEN` (an account/team Railway API token with access to the project; **project tokens don’t work** for `railway link`).
 2. Create GitHub labels:
    - `railway-preview`
    - `no-railway-preview`
