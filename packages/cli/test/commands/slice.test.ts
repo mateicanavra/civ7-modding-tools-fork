@@ -1,8 +1,11 @@
 import { describe, test, expect, vi, beforeEach } from 'vitest';
 
-vi.mock('../../src/utils', () => ({
+vi.mock('@civ7/config', () => ({
   expandPath: (p: string) => p,
   findProjectRoot: vi.fn(() => '/project'),
+}));
+
+vi.mock('../../src/utils', () => ({
   resolveRootFromConfigOrFlag: vi.fn(async () => '/root'),
 }));
 

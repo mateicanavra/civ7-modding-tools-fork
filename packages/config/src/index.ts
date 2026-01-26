@@ -21,15 +21,34 @@ export function expandPath(filePath: string): string {
   return filePath;
 }
 
+function dirIsWorkspaceRoot(dir: string): boolean {
+  // Prefer pnpm-free detection: a package.json declaring workspaces.
+  const pkgPath = path.join(dir, 'package.json');
+  if (fssync.existsSync(pkgPath)) {
+    try {
+      const raw = fssync.readFileSync(pkgPath, 'utf8');
+      const parsed = JSON.parse(raw) as { workspaces?: unknown };
+      if (parsed && typeof parsed === 'object' && 'workspaces' in parsed) return true;
+    } catch {
+      // Ignore invalid JSON; fall back to other markers.
+    }
+  }
+
+  // Back-compat marker while the repo is still pnpm-based.
+  if (fssync.existsSync(path.join(dir, 'pnpm-workspace.yaml'))) return true;
+
+  return false;
+}
+
 export function findProjectRoot(startDir: string): string {
   let currentDir = startDir;
   while (currentDir !== path.parse(currentDir).root) {
-    if (fssync.existsSync(path.join(currentDir, 'pnpm-workspace.yaml'))) {
+    if (dirIsWorkspaceRoot(currentDir)) {
       return currentDir;
     }
     currentDir = path.dirname(currentDir);
   }
-  throw new Error('Could not find project root. Are you in a pnpm workspace?');
+  throw new Error('Could not find project root. Are you in the monorepo?');
 }
 
 export function findConfig(projectRoot: string, configFlag?: string): string | null {

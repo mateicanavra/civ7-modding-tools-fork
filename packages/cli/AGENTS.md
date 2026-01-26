@@ -81,7 +81,7 @@ Status-style commands (e.g., `git status`, `mod status`) also accept `--json` fo
 }
 ```
 
-- The CLI discovers the workspace root using `pnpm-workspace.yaml` and resolves defaults like `out/<seed>` accordingly.
+- The CLI discovers the workspace root by finding the nearest `package.json` that declares `workspaces` (with back-compat support for `pnpm-workspace.yaml`) and resolves defaults like `out/<seed>` accordingly.
 - You can always bypass config with explicit flags: `--root` for XML root, `--dest` for slice destination, etc.
 
 ### Development setup
@@ -182,5 +182,4 @@ Status-style commands (e.g., `git status`, `mod status`) also accept `--json` fo
 - Manifest: `oclif.manifest.json` (generated)
 
 Maintainers keep a feature tracker in `FEATURES.md` for roadmap and implemented items.
-
 

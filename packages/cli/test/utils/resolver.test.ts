@@ -32,6 +32,7 @@ vi.mock('node:fs', async () => {
   return {
     ...originalFs,
     existsSync: vi.fn(),
+    readFileSync: vi.fn(),
     promises: {
         readFile: vi.fn(),
     },
@@ -49,7 +50,12 @@ describe('CLI Resolver Utilities', () => {
   beforeEach(() => {
     mockedOs.homedir.mockReturnValue(homeDir);
     vi.spyOn(process, 'cwd').mockReturnValue(path.join(projectRoot, 'apps', 'cli'));
-    mockedFs.existsSync.mockImplementation((p) => String(p).endsWith('pnpm-workspace.yaml'));
+    const rootPackageJson = path.join(projectRoot, 'package.json');
+    mockedFs.existsSync.mockImplementation((p) => String(p) === rootPackageJson);
+    mockedFs.readFileSync.mockImplementation((p) => {
+      if (String(p) === rootPackageJson) return JSON.stringify({ workspaces: ['apps/*', 'packages/*', 'mods/*'] });
+      throw new Error(`Unexpected readFileSync: ${String(p)}`);
+    });
   });
 
   afterEach(() => {

@@ -4,7 +4,7 @@ vi.mock('@civ7/plugin-graph', () => ({
   renderSvg: vi.fn(async () => '<svg />'),
 }));
 
-vi.mock('../../src/utils', () => ({
+vi.mock('@civ7/config', () => ({
   findProjectRoot: vi.fn(() => '/project'),
 }));
 
