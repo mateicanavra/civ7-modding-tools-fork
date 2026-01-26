@@ -3,7 +3,7 @@ export function App() {
     <div style={{ padding: '2rem', textAlign: 'center' }}>
       <h1 style={{ marginBottom: '1rem' }}>MapGen Studio</h1>
       <p style={{ color: '#888', marginBottom: '2rem' }}>
-        Civ7 Map Generation Pipeline Visualizer
+        Civ7 Map Generation Pipeline Visualizer (Preview Demo A)
       </p>
       <div
         style={{
