@@ -136,7 +136,7 @@ export async function unzipResources(options: UnzipOptions): Promise<OperationSu
     if (!fsSync.existsSync(gitMarker)) {
       const rel = normalizeGitmodulesPath(path.relative(projectRoot, destDir));
       throw new Error(
-        `Destination is configured as a git submodule (${rel}), but is not initialized. Run 'pnpm resources:init' and retry.`,
+        `Destination is configured as a git submodule (${rel}), but is not initialized. Run 'bun run resources:init' and retry.`,
       );
     }
     // Preserve the submodule metadata but ensure a "fresh" extract by clearing everything

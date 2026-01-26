@@ -21,7 +21,7 @@
     "lint": "eslint .",
     "check": "tsc -p tsconfig.json --noEmit",
     "clean": "rimraf dist",
-    "prepublishOnly": "pnpm build"
+    "prepublishOnly": "bun run build"
   },
   "dependencies": {
     "jstoxml": "^7.0.1",
@@ -42,4 +42,3 @@
     "access": "public"
   }
 }
-

@@ -72,10 +72,10 @@
     }
   },
   "scripts": {
-    "prebuild": "bun --cwd ../civ7-adapter run build",
+    "prebuild": "bun run --cwd ../civ7-adapter build",
     "build": "tsup",
-    "precheck": "bun --cwd ../civ7-adapter run build",
-    "pretest": "bun --cwd ../civ7-adapter run build",
+    "precheck": "bun run --cwd ../civ7-adapter build",
+    "pretest": "bun run --cwd ../civ7-adapter build",
     "test": "bun test",
     "check": "tsc --noEmit"
   },

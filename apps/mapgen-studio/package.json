@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "type": "module",
   "private": true,
-  "packageManager": "pnpm@10.10.0",
+  "packageManager": "bun@1.2.20",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",

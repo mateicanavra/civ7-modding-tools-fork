@@ -11,8 +11,8 @@ if ! command -v gt >/dev/null 2>&1; then
 fi
 
 if [ $# -lt 3 ] || [ $# -gt 4 ]; then
-  echo "Usage: pnpm gt:import-pr <remote> <remote-branch> <new-branch-name> [parent-branch]" >&2
-  echo "Example: pnpm gt:import-pr fork codex-civ-27-config-schema civ-27-config-schema main" >&2
+  echo "Usage: bun run gt:import-pr <remote> <remote-branch> <new-branch-name> [parent-branch]" >&2
+  echo "Example: bun run gt:import-pr fork codex-civ-27-config-schema civ-27-config-schema main" >&2
   exit 1
 fi
 

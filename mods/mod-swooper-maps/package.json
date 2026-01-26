@@ -7,11 +7,11 @@
   "scripts": {
     "build": "tsup",
     "lint": "eslint .",
-    "precheck": "bun --cwd ../../packages/mapgen-core run build",
+    "precheck": "bun run --cwd ../../packages/mapgen-core build",
     "check": "tsc --noEmit",
-    "pretest": "bun --cwd ../../packages/mapgen-core run build",
+    "pretest": "bun run --cwd ../../packages/mapgen-core build",
     "test": "bun test",
-    "deploy": "pnpm run build && pnpm exec civ7 mod manage deploy --input ./mod --id mod-swooper-maps"
+    "deploy": "bun run build && bun run --filter @mateicanavra/civ7-cli dev -- mod manage deploy --input ./mod --id mod-swooper-maps"
   },
   "dependencies": {
     "@swooper/mapgen-core": "workspace:*",

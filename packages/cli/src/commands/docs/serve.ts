@@ -104,7 +104,7 @@ export default class DocsServe extends Command {
       }
       this.log("  ✅ Resources synced successfully (fallback).");
     } else {
-      this.log("  > Neither archive nor pre-extracted resources found. Run `pnpm refresh:data` at repo root.");
+      this.log("  > Neither archive nor pre-extracted resources found. Run `bun run refresh:data` at repo root.");
     }
 
     if (zipExists) {
@@ -170,5 +170,4 @@ export default class DocsServe extends Command {
     void proc;
   }
 }
-
 
