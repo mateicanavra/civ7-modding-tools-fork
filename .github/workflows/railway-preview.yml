@@ -98,15 +98,77 @@ jobs:
           node-version: 20
 
       - name: Install Railway CLI (pinned)
+        if: steps.decide.outputs.has_token == 'true'
         run: npm i -g @railway/cli@4.27.0
 
-      - name: Link Railway project (base env)
+      - name: Seed Railway CLI config (base env)
+        if: steps.decide.outputs.has_token == 'true'
         env:
           RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
-        run: railway link -p "${{ env.RAILWAY_PROJECT_ID }}" -e "${{ env.RAILWAY_BASE_ENVIRONMENT_ID }}" --json >/dev/null
+        shell: bash
+        run: |
+          mkdir -p "$HOME/.railway"
+          python3 - <<'PY'
+          import json, os, pathlib
+
+          path = pathlib.Path.home() / ".railway" / "config.json"
+          cfg = {}
+          if path.exists():
+            cfg = json.loads(path.read_text())
+
+          cfg.setdefault("linkedFunctions", None)
+          cfg.setdefault("projects", {})
+          cfg.setdefault("user", {})
+
+          project_path = os.environ["GITHUB_WORKSPACE"]
+          cfg["projects"][project_path] = {
+            "environment": os.environ["RAILWAY_BASE_ENVIRONMENT_ID"],
+            "environmentName": "preview-base",
+            "name": "CIV7",
+            "project": os.environ["RAILWAY_PROJECT_ID"],
+            "projectPath": project_path,
+            "service": None,
+          }
+
+          path.write_text(json.dumps(cfg))
+          PY
+
+      - name: Check Railway auth (token + project access)
+        id: auth
+        if: steps.decide.outputs.has_token == 'true'
+        continue-on-error: true
+        env:
+          RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
+        run: |
+          set +e
+          railway status --json >/dev/null
+          code=$?
+          set -e
+
+          if [ "$code" -eq 0 ]; then
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Finalize preview decision (includes Railway auth)
+        id: finalize
+        shell: bash
+        run: |
+          railway_ok="${{ steps.auth.outputs.ok }}"
+          if [ -z "$railway_ok" ]; then railway_ok="false"; fi
+
+          should="${{ steps.decide.outputs.should_preview }}"
+          if [ "$should" = "true" ] && [ "$railway_ok" = "true" ]; then
+            echo "should_preview=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "should_preview=false" >> "$GITHUB_OUTPUT"
+          fi
+
+          echo "railway_ok=$railway_ok" >> "$GITHUB_OUTPUT"
 
       - name: Ensure preview environment exists
-        if: steps.decide.outputs.should_preview == 'true'
+        if: steps.finalize.outputs.should_preview == 'true'
         env:
           RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
         run: |
@@ -115,7 +177,7 @@ jobs:
             --json >/dev/null || true
 
       - name: Point preview to PR branch
-        if: steps.decide.outputs.should_preview == 'true'
+        if: steps.finalize.outputs.should_preview == 'true'
         env:
           RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
         run: |
@@ -125,20 +187,53 @@ jobs:
             -m "ci: set preview branch to ${{ github.head_ref }}" \
             --json >/dev/null
 
-      - name: Link Railway project (preview env)
-        if: steps.decide.outputs.should_preview == 'true'
+      - name: Select preview environment (for redeploy/domain)
+        if: steps.finalize.outputs.should_preview == 'true'
         env:
           RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
-        run: railway link -p "${{ env.RAILWAY_PROJECT_ID }}" -e "${{ steps.decide.outputs.env_name }}" --json >/dev/null
+          ENV_NAME: ${{ steps.decide.outputs.env_name }}
+        shell: bash
+        run: |
+          STATUS_JSON="$(railway status --json)"
+
+          ENV_ID="$(STATUS_JSON="$STATUS_JSON" python3 - <<'PY'
+          import json, os, sys
+
+          d = json.loads(os.environ["STATUS_JSON"])
+          env = os.environ["ENV_NAME"]
+          edges = (d.get("environments") or {}).get("edges") or []
+
+          for e in edges:
+            node = (e or {}).get("node") or {}
+            if node.get("name") == env and not node.get("deletedAt"):
+              print(node.get("id") or "")
+              sys.exit(0)
+
+          sys.exit(1)
+          PY
+          )"
+
+          export ENV_ID
+
+          python3 - <<'PY'
+          import json, os, pathlib
+
+          path = pathlib.Path.home() / ".railway" / "config.json"
+          cfg = json.loads(path.read_text())
+          project_path = os.environ["GITHUB_WORKSPACE"]
+          cfg["projects"][project_path]["environment"] = os.environ["ENV_ID"]
+          cfg["projects"][project_path]["environmentName"] = os.environ["ENV_NAME"]
+          path.write_text(json.dumps(cfg))
+          PY
 
       - name: Redeploy preview
-        if: steps.decide.outputs.should_preview == 'true'
+        if: steps.finalize.outputs.should_preview == 'true'
         env:
           RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
         run: railway redeploy -s "${{ env.RAILWAY_SERVICE_NAME }}" -y --json >/dev/null
 
       - name: Ensure preview domain
-        if: steps.decide.outputs.should_preview == 'true'
+        if: steps.finalize.outputs.should_preview == 'true'
         id: domain
         env:
           RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
@@ -151,7 +246,7 @@ jobs:
           echo "url=$URL" >> "$GITHUB_OUTPUT"
 
       - name: Delete preview environment (when not eligible)
-        if: steps.decide.outputs.should_preview != 'true' && steps.decide.outputs.has_token == 'true'
+        if: steps.finalize.outputs.should_preview != 'true' && steps.decide.outputs.has_token == 'true' && steps.finalize.outputs.railway_ok == 'true'
         env:
           RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
         run: railway environment delete "${{ steps.decide.outputs.env_name }}" -y --json >/dev/null || true
@@ -159,7 +254,8 @@ jobs:
       - name: Comment preview status
         uses: actions/github-script@v7
         env:
-          SHOULD_PREVIEW: ${{ steps.decide.outputs.should_preview }}
+          SHOULD_PREVIEW: ${{ steps.finalize.outputs.should_preview }}
+          RAILWAY_OK: ${{ steps.finalize.outputs.railway_ok }}
           PREVIEW_URL: ${{ steps.domain.outputs.url }}
           REASON_JSON: ${{ steps.decide.outputs.reason_json }}
           HAS_TOKEN: ${{ steps.decide.outputs.has_token }}
@@ -180,6 +276,10 @@ jobs:
               ].join('\n');
             } else {
               const reason = JSON.parse(process.env.REASON_JSON || '{}');
+              const authHint =
+                process.env.HAS_TOKEN === 'true' && process.env.RAILWAY_OK !== 'true'
+                  ? '\n\n`RAILWAY_API_TOKEN` is set, but Railway rejected it for this project (invalid token, wrong token type, or missing workspace/project access).'
+                  : '';
               const tokenHint =
                 process.env.HAS_TOKEN === 'true'
                   ? ''
@@ -187,7 +287,7 @@ jobs:
               body = [
                 marker,
                 'Railway preview (MapGen Studio): not provisioned for this PR.',
-                tokenHint,
+                tokenHint + authHint,
                 '',
                 'Policy (Graphite stacks): previews are created only for the **top-of-stack** PR by default.',
                 `- To force a preview for this PR: add label \`${process.env.PREVIEW_LABEL}\``,
