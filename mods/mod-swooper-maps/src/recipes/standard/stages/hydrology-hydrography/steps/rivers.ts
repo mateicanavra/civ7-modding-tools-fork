@@ -1,5 +1,4 @@
 import type { MapDimensions } from "@civ7/adapter";
-import { selectFlowReceiver } from "@swooper/mapgen-core/lib/grid";
 import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import { hydrologyHydrographyArtifacts } from "../artifacts.js";
 import RiversStepContract from "./rivers.contract.js";
@@ -62,26 +61,6 @@ function validateHydrography(value: unknown, dimensions: MapDimensions): Artifac
   return errors;
 }
 
-function computeFlowDir(options: {
-  width: number;
-  height: number;
-  elevation: Int16Array;
-  landMask: Uint8Array;
-}): Int32Array {
-  const { width, height, elevation, landMask } = options;
-  const size = width * height;
-  const flowDir = new Int32Array(size);
-  for (let i = 0; i < size; i++) flowDir[i] = -1;
-  for (let y = 0; y < height; y++) {
-    for (let x = 0; x < width; x++) {
-      const idx = y * width + x;
-      if (landMask[idx] !== 1) continue;
-      flowDir[idx] = selectFlowReceiver(x, y, width, height, elevation);
-    }
-  }
-  return flowDir;
-}
-
 export default createStep(RiversStepContract, {
   artifacts: implementArtifacts([hydrologyHydrographyArtifacts.hydrography], {
     hydrography: {
@@ -122,16 +101,12 @@ export default createStep(RiversStepContract, {
       elevation: Int16Array;
       landMask: Uint8Array;
     };
+    const routing = deps.artifacts.routing.read(context) as { flowDir: Int32Array };
     const climateField = deps.artifacts.climateField.read(context) as {
       rainfall: Uint8Array;
       humidity: Uint8Array;
     };
-    const flowDir = computeFlowDir({
-      width,
-      height,
-      elevation: topography.elevation,
-      landMask: topography.landMask,
-    });
+    const flowDir = routing.flowDir;
 
     const discharge = ops.accumulateDischarge(
       {
