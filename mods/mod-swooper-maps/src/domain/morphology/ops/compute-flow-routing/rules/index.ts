@@ -1,5 +1,3 @@
-import { forEachHexNeighborOddQ } from "@swooper/mapgen-core/lib/grid";
-
 import type { ComputeFlowRoutingTypes } from "../types.js";
 
 /**
@@ -19,53 +17,62 @@ export function validateFlowRoutingInputs(
 }
 
 /**
- * Selects the steepest-descent neighbor for a tile.
- */
-export function selectFlowReceiver(
-  x: number,
-  y: number,
-  width: number,
-  height: number,
-  elevation: Int16Array
-): number {
-  const i = y * width + x;
-  let bestIdx = -1;
-  let bestElev = elevation[i] ?? 0;
-  forEachHexNeighborOddQ(x, y, width, height, (nx, ny) => {
-    const ni = ny * width + nx;
-    const elev = elevation[ni] ?? bestElev;
-    if (elev < bestElev) {
-      bestElev = elev;
-      bestIdx = ni;
-    }
-  });
-  return bestIdx;
-}
-
-/**
- * Computes flow accumulation with a high-to-low elevation pass.
+ * Computes flow accumulation from `flowDir` using a topological queue pass.
  */
 export function computeFlowAccumulation(
-  elevation: Int16Array,
   landMask: Uint8Array,
   flowDir: Int32Array
 ): Float32Array {
-  const size = elevation.length;
-  const indices: number[] = [];
-  for (let i = 0; i < size; i++) {
-    if (landMask[i] === 1) indices.push(i);
-  }
-  indices.sort((a, b) => elevation[b] - elevation[a]);
+  const size = landMask.length;
 
   const flowAccum = new Float32Array(size);
+  const receiver = new Int32Array(size);
+  for (let i = 0; i < size; i++) receiver[i] = -1;
+
+  let landCount = 0;
   for (let i = 0; i < size; i++) {
-    flowAccum[i] = landMask[i] === 1 ? 1 : 0;
+    if (landMask[i] !== 1) {
+      flowAccum[i] = 0;
+      continue;
+    }
+    landCount++;
+    flowAccum[i] = 1;
+    const raw = flowDir[i] ?? -1;
+    if (raw >= 0 && raw < size && landMask[raw] === 1) receiver[i] = raw;
   }
-  for (const i of indices) {
-    const dest = flowDir[i];
-    if (dest >= 0 && landMask[dest] === 1) {
-      flowAccum[dest] += flowAccum[i];
+
+  const indegree = new Int32Array(size);
+  for (let i = 0; i < size; i++) {
+    const r = receiver[i];
+    if (r >= 0) indegree[r] = (indegree[r] ?? 0) + 1;
+  }
+
+  const queue = new Int32Array(size);
+  let head = 0;
+  let tail = 0;
+  for (let i = 0; i < size; i++) {
+    if (landMask[i] !== 1) continue;
+    if (indegree[i] === 0) queue[tail++] = i;
+  }
+
+  let processed = 0;
+  while (head < tail) {
+    const i = queue[head++]!;
+    processed++;
+    const r = receiver[i]!;
+    if (r < 0) continue;
+    flowAccum[r] = (flowAccum[r] ?? 0) + (flowAccum[i] ?? 0);
+    indegree[r] = (indegree[r] ?? 0) - 1;
+    if (indegree[r] === 0) queue[tail++] = r;
+  }
+
+  if (processed < landCount) {
+    // Defensive fallback for residual cycles: keep only local accumulation for those tiles.
+    for (let i = 0; i < size; i++) {
+      if (landMask[i] !== 1) continue;
+      if (indegree[i] > 0) flowAccum[i] = 1;
     }
   }
+
   return flowAccum;
 }
