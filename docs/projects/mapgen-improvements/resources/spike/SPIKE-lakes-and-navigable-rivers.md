@@ -1,4 +1,4 @@
-# Spike: Expanding Hydrology Improvements into Lakes + Navigable Rivers
+# SPIKE: Expanding Hydrology Improvements into Lakes + Navigable Rivers
 
 ## Objective
 
@@ -161,4 +161,3 @@ Add instrumentation that compares:
 2) **Navigable rivers:** keep engine `modelRivers` for now, but eliminate truth/projection mismatch by deferring “navigable river” avoidance decisions until after `plot-rivers` (Option R2), or by applying a late-stage placement filter in `features-apply`.
 
 If we later need owned navigable rivers (Option R3), first expand the adapter surface to clarify what the engine’s river model requires (terrain-only vs river graph), and gate the behavior behind an explicit strategy.
-
