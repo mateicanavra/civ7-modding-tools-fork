@@ -1,5 +1,6 @@
 import type { EngineAdapter } from "@civ7/adapter";
 import type { ExtendedMapContext } from "@swooper/mapgen-core";
+import { NAVIGABLE_RIVER_TERRAIN } from "@swooper/mapgen-core";
 import type { FeatureKey } from "@mapgen/domain/ecology";
 import type { FeatureKeyLookups } from "./feature-keys.js";
 
@@ -26,6 +27,7 @@ export function tryPlaceFeature(
   y: number,
   featureIndex: number
 ): boolean {
+  if (adapter.getTerrainType(x, y) === NAVIGABLE_RIVER_TERRAIN) return false;
   const canPlace = adapter.canHaveFeature(x, y, featureIndex);
   if (!canPlace) return false;
   adapter.setFeatureType(x, y, { Feature: featureIndex, Direction: -1, Elevation: 0 });
