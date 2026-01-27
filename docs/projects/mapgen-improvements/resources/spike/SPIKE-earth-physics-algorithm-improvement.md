@@ -1,4 +1,4 @@
-# Spike: Earth Physics Algorithm Improvement (Hydrology Flow Routing)
+# SPIKE: Earth Physics Algorithm Improvement (Hydrology Flow Routing)
 
 ## Problem statement
 
@@ -95,4 +95,3 @@ Rationale:
 - Garbrecht & Martz (1997) flat drainage directions (journal landing page): `https://www.sciencedirect.com/science/article/abs/pii/S0022169496031381`
 - Hybrid breaching–filling sink removal (Lindsay preprint): `https://jblindsay.github.io/ghrg/pubs/Lindsay-HP-preprint.pdf`
 - RichDEM docs (depression filling/breaching background + implementations): `https://richdem.readthedocs.io/en/latest/depression_filling.html`
-
