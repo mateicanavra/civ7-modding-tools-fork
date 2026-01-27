@@ -66,7 +66,11 @@ export default createStep(GeomorphologyStepContract, {
       seaLevel?: number;
       bathymetry?: Int16Array;
     };
-    const routing = deps.artifacts.routing.read(context);
+    const routing = deps.artifacts.routing.read(context) as {
+      flowDir: Int32Array;
+      flowAccum: Float32Array;
+      routingElevation?: Float32Array;
+    };
     const substrate = deps.artifacts.substrate.read(context) as {
       erodibilityK: Float32Array;
       sedimentDepth: Float32Array;
@@ -79,6 +83,7 @@ export default createStep(GeomorphologyStepContract, {
         width,
         height,
         elevation: heightfield.elevation,
+        routingElevation: routing.routingElevation,
         landMask: heightfield.landMask,
         flowDir: routing.flowDir,
         flowAccum: routing.flowAccum,

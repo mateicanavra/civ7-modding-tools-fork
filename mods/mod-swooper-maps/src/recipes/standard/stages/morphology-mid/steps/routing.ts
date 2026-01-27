@@ -39,9 +39,12 @@ function validateRoutingBuffer(value: unknown, dimensions: MapDimensions): Artif
     return errors;
   }
   const size = expectedSize(dimensions);
-  const candidate = value as { flowDir?: unknown; flowAccum?: unknown; basinId?: unknown };
+  const candidate = value as { flowDir?: unknown; flowAccum?: unknown; routingElevation?: unknown; basinId?: unknown };
   validateTypedArray(errors, "routing.flowDir", candidate.flowDir, Int32Array, size);
   validateTypedArray(errors, "routing.flowAccum", candidate.flowAccum, Float32Array, size);
+  if (candidate.routingElevation != null) {
+    validateTypedArray(errors, "routing.routingElevation", candidate.routingElevation, Float32Array, size);
+  }
   if (candidate.basinId != null) {
     validateTypedArray(errors, "routing.basinId", candidate.basinId, Int32Array, size);
   }
