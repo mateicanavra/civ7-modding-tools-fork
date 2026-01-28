@@ -13,15 +13,15 @@ A TypeScript SDK for programmatically generating Civilization VII mods with stro
 ## Installation
 
 ```bash
-npm install @civ7/sdk
+npm install @mateicanavra/civ7-sdk
 # or
-pnpm add @civ7/sdk
+bun add @mateicanavra/civ7-sdk
 ```
 
 ## Quick Start
 
 ```typescript
-import { Mod, UnitBuilder, ACTION_GROUP_BUNDLE, UNIT_CLASS, UNIT } from '@civ7/sdk';
+import { Mod, UnitBuilder, ACTION_GROUP_BUNDLE, UNIT_CLASS, UNIT } from '@mateicanavra/civ7-sdk';
 
 const mod = new Mod({
     id: 'my-first-mod',
@@ -99,7 +99,7 @@ import {
     KIND,
     ACTION_GROUP,
     ACTION_GROUP_ACTION
-} from '@civ7/sdk';
+} from '@mateicanavra/civ7-sdk';
 
 const mod = new Mod({
     id: 'manual-mod',
@@ -134,7 +134,7 @@ mod.addFiles([unitFile]).build('./my-mod');
 
 ### Create a Civilization
 ```typescript
-import { CivilizationBuilder } from '@civ7/sdk';
+import { CivilizationBuilder } from '@mateicanavra/civ7-sdk';
 
 const gondor = new CivilizationBuilder({
     civilization: {
@@ -148,7 +148,7 @@ const gondor = new CivilizationBuilder({
 
 ### Import Custom Icons
 ```typescript
-import { ImportFileBuilder } from '@civ7/sdk';
+import { ImportFileBuilder } from '@mateicanavra/civ7-sdk';
 
 const icon = new ImportFileBuilder({
     source: './assets/my-icon.png',
@@ -158,7 +158,7 @@ const icon = new ImportFileBuilder({
 
 ### Create a Progression Tree
 ```typescript
-import { ProgressionTreeBuilder } from '@civ7/sdk';
+import { ProgressionTreeBuilder } from '@mateicanavra/civ7-sdk';
 
 const civicsTree = new ProgressionTreeBuilder({
     tree: {
@@ -185,7 +185,7 @@ import {
     RESOURCE,       // All resources
     CIVILIZATION_DOMAIN,  // Civilization domains
     // ... many more
-} from '@civ7/sdk';
+} from '@mateicanavra/civ7-sdk';
 ```
 
 ## Localization

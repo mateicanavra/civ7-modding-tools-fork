@@ -46,8 +46,8 @@ See `docs/process/GRAPHITE.md` and `docs/process/LINEAR.md` for full conventions
 
 ## Tooling Defaults
 
-- Use `pnpm` workspace scripts for build, type‑checks, lint, and tests unless a closer `AGENTS.md` says otherwise.
-- Prefer package scripts (`pnpm -C <path> <script>`) over ad‑hoc commands.
+- Use `bun` workspace scripts for build, type‑checks, lint, and tests unless a closer `AGENTS.md` says otherwise.
+- Prefer package scripts (`bun run --cwd <path> <script>`) over ad‑hoc commands.
 
 ## Civ7 Resources
 

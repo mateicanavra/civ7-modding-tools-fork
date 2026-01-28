@@ -13,11 +13,11 @@
 
 ## Development
 
-- Build: `pnpm run build`
-- Lint: `pnpm lint`
-- Test: `pnpm test`
-- Refresh dependencies: `pnpm refresh`
-- Refresh game data: `pnpm refresh:data`
+- Install dependencies: `bun install --frozen-lockfile`
+- Build: `bun run build`
+- Lint: `bun run lint`
+- Test: `bun run test`
+- Refresh game data: `bun run refresh:data`
 
 ## Current Projects
 

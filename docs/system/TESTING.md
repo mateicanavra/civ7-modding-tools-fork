@@ -5,7 +5,7 @@ This repository uses [Vitest](https://vitest.dev/) for unit tests across most wo
 ## Running all tests
 
 ```bash
-pnpm test
+bun run test
 ```
 
 Runs:
@@ -17,25 +17,25 @@ Runs:
 To run only the Vitest projects:
 
 ```bash
-pnpm test:vitest
+bun run test:vitest
 ```
 
 To run only the mapgen-core Bun tests:
 
 ```bash
-pnpm test:mapgen
+bun run test:mapgen
 ```
 
 To run only the mod tests:
 
 ```bash
-pnpm -C mods/mod-swooper-maps test
+bun --cwd mods/mod-swooper-maps test
 ```
 
 ## Visualizing test runs
 
 ```bash
-pnpm test:ui
+bun run test:ui
 ```
 
 Opens the interactive Vitest UI for all workspaces.
@@ -43,7 +43,7 @@ Opens the interactive Vitest UI for all workspaces.
 ## Running a single workspace
 
 ```bash
-pnpm vitest --project <name>
+bun run test:vitest -- --project <name>
 ```
 
 Use the project name from `vitest.config.ts` (`cli`, `sdk`, `docs`, or `playground`) to target an individual suite.

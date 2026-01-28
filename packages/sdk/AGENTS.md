@@ -82,17 +82,17 @@ Builder -> Nodes -> XML Files -> Mod Output
 
 ## Testing & Validation
 
-- Run `pnpm --filter @civ7/sdk test` to execute the Vitest suite (see `TESTING.md`).
+- Run `bun run --filter @mateicanavra/civ7-sdk test` to execute the Vitest suite (see `TESTING.md`).
 
 ### Type Checking
 ```bash
 cd packages/sdk
-pnpm exec tsc --noEmit
+bun run check
 ```
 
 ### Building
 ```bash
-pnpm build  # Builds with tsup
+bun run build  # Builds with tsup
 ```
 
 ### Example Usage
@@ -141,7 +141,7 @@ See `apps/playground/src/examples/` for working examples
 - [README.md](./README.md) - User-facing documentation
 - [TECHNICAL_GUIDE.md](./TECHNICAL_GUIDE.md) - Deep technical details
 - [CHANGELOG.md](./CHANGELOG.md) - Version history
-- Game schema: Extract with `pnpm refresh:data` at workspace root
+- Game schema: Extract with `bun run refresh:data` at workspace root
 
 ### Testing Notes
 - `XmlFile.write` uses an asynchronous `fs.mkdir` callback; wait briefly after `Mod.build` in tests before reading generated files.

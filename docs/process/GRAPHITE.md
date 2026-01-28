@@ -360,13 +360,13 @@ For branches created via external tools (e.g., Claude/Codex worktrees or cloud t
 # - Renames it to the desired name
 # - Optionally restacks it onto a parent branch
 # - Submits the stack as draft PRs
-pnpm gt:import-worktree <new-branch-name> [parent-branch]
+bun run gt:import-worktree <new-branch-name> [parent-branch]
 
 # Workflow 2: Import a remote PR branch into Graphite
 # - Fetches the remote branch
 # - Creates/checks out a local branch with the desired name
 # - Delegates to the worktree importer (Workflow 1)
-pnpm gt:import-pr <remote> <remote-branch> <new-branch-name> [parent-branch]
+bun run gt:import-pr <remote> <remote-branch> <new-branch-name> [parent-branch]
 ```
 
 ### Avoiding Conflicts

@@ -82,7 +82,7 @@ If the imported mod builds elsewhere, adjust its output path to `./mod/`.
 - Work in `mods/<mod-slug>` like any other workspace.
 - Build locally:
 ```/dev/null/subtree-commands.sh#L20-22
-pnpm -F @civ7/<your-mod-package-name> build
+bun run --cwd mods/<mod-slug> build
 # Outputs to mods/<mod-slug>/mod/
 ```
 
@@ -196,7 +196,7 @@ git subtree pull --prefix=mods/another-mod mod-another-mod main
   - `private: true`
   - `@mateicanavra/civ7-sdk: workspace:*`
   - Build to `./mod/`
-- [ ] Validate build: `pnpm -F @civ7/<pkg> build`
+- [ ] Validate build: `bun run --cwd mods/<mod-slug> build`
 - [ ] Push the subtree to mirror: `git subtree push --prefix=mods/<slug> mod-<slug> <branch>`
 - [ ] (Optional) Add a GH Action to automate mirroring
 

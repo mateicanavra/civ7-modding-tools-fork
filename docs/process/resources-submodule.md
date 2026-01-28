@@ -13,25 +13,25 @@ The intended flow is:
 ## One-time setup (per clone)
 
 1. Initialize the submodule:
-   - `pnpm resources:init`
+   - `bun run resources:init`
    - Or: `git submodule update --init --recursive`
 
 2. Enable auto-publish hooks:
-   - `pnpm setup:git-hooks`
+   - `bun run setup:git-hooks`
 
 ## Daily usage
 
 - Refresh game data (zip then unzip):
-  - `pnpm refresh:data`
+  - `bun run refresh:data`
 - Check whether the resources submodule is clean:
-  - `pnpm resources:status`
+  - `bun run resources:status`
 - Inspect diffs inside the resources repo:
   - `git -C .civ7/outputs/resources status`
   - `git -C .civ7/outputs/resources diff`
 
 ## Auto-publish behavior (source of truth = local)
 
-When `core.hooksPath` is configured via `pnpm setup:git-hooks`, every monorepo commit runs:
+When `core.hooksPath` is configured via `bun run setup:git-hooks`, every monorepo commit runs:
 
 - `scripts/civ7-resources/publish-submodule.sh`
 
@@ -46,7 +46,7 @@ If `.civ7/outputs/resources` is dirty, it will:
 - Clone including submodules:
   - `git clone --recurse-submodules <repo-url>`
 - After pulling monorepo changes, update the checked-out submodule commit:
-  - `pnpm resources:init`
+  - `bun run resources:init`
   - Or: `git submodule update --init --recursive`
 
 ## Temporarily disabling auto-publish (escape hatch)
@@ -56,7 +56,7 @@ If `.civ7/outputs/resources` is dirty, it will:
 
 Re-enable with:
 
-- `pnpm setup:git-hooks`
+- `bun run setup:git-hooks`
 
 ## Notes / risks
 
