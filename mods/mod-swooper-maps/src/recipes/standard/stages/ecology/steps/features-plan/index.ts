@@ -48,8 +48,9 @@ export default createStep(FeaturesPlanStepContract, {
     const size = width * height;
     const emptyFeatureKeyField = (): Int16Array => new Int16Array(size).fill(-1);
     const navigableRiverMask = new Uint8Array(size);
+    const nav = (hydrography as { navigableMask?: Uint8Array }).navigableMask;
     for (let i = 0; i < size; i++) {
-      navigableRiverMask[i] = hydrography.riverClass[i] === 2 ? 1 : 0;
+      navigableRiverMask[i] = nav ? (nav[i] === 1 ? 1 : 0) : hydrography.riverClass[i] === 2 ? 1 : 0;
     }
 
     const vegetationPlacements = config.vegetatedFeaturePlacements
