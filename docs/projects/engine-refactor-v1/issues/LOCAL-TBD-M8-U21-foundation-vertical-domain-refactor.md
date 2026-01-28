@@ -524,7 +524,7 @@ Checklist:
 - [x] `bun run --cwd mods/mod-swooper-maps check`
 - [x] `bun run --cwd mods/mod-swooper-maps test`
 - [x] `bun run --cwd mods/mod-swooper-maps build`
-- [ ] `bun run deploy:mods` (currently fails due to `civ-mod-dacia` deploy `ENOTEMPTY`; `bun run --cwd mods/mod-swooper-maps run deploy` passes)
+- [ ] `bun run deploy:mods` (currently fails due to `civ-mod-dacia` deploy `ENOTEMPTY`; `bun run --cwd mods/mod-swooper-maps deploy` passes)
 
 ## Lookback (Phase 3 → Phase 4): Finalize slices + sequencing
 
