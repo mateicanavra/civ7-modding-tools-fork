@@ -13,8 +13,6 @@ A TypeScript SDK for programmatically generating Civilization VII mods with stro
 ## Installation
 
 ```bash
-npm install @mateicanavra/civ7-sdk
-# or
 bun add @mateicanavra/civ7-sdk
 ```
 

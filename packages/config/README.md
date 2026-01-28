@@ -22,4 +22,4 @@ Include the schema in your `civ.config.jsonc` to enable completions:
 
 ## Build
 
-This package is bundled with [tsup](https://tsup.egoist.dev/). Run `pnpm -F @civ7/config build` to generate the `dist/` outputs.
+This package is bundled with [tsup](https://tsup.egoist.dev/). Run `bun run --filter @civ7/config build` to generate the `dist/` outputs.

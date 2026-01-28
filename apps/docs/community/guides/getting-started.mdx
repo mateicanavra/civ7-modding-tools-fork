@@ -13,7 +13,7 @@ Before you begin modding Civilization VII, make sure you have:
 - Civilization VII game installed
 - Basic knowledge of programming concepts
 - A text editor or IDE (Visual Studio Code is recommended)
-- Node.js installed (version 14 or later) for TypeScript-based modding
+- Bun installed (recommended) for TypeScript-based modding
 
 ## Setting Up Your Environment
 
@@ -38,8 +38,9 @@ Before you begin modding Civilization VII, make sure you have:
 
 3. **Install TypeScript Modding Tools**
    ```bash
-   pnpm init
-   pnpm add civ7-modding-tools typescript ts-node
+   bun init -y
+   bun add civ7-modding-tools
+   bun add -d typescript
    ```
 
 ## Understanding Mod Structure
@@ -75,7 +76,7 @@ mod.build('./dist');
 
 Run this with:
 ``` bash icon="terminal" id="community-guides-getting-started__38528de6" tag="shell"
-pnpm ts-node src/index.ts
+bun run src/index.ts
 ```
 
 ## Where to Go Next

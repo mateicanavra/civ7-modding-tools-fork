@@ -12,7 +12,7 @@ This guide covers how to set up your development environment for using the Civil
 <Check title="Prerequisites" icon="square-check" iconColor="green">
 Before you begin, ensure you have:
 
-- Node.js installed (version 14 or later)
+- Bun installed (recommended)
 - Basic knowledge of TypeScript/JavaScript
 - Basic understanding of Civilization VII modding concepts
 </Check>
@@ -26,11 +26,12 @@ Before you begin, ensure you have:
    ```bash
    mkdir my-civ7-mod
    cd my-civ7-mod
-   pnpm init
+   bun init -y
    ```
 3. Install the TypeScript modding tools:
    ```bash
-   pnpm add civ7-modding-tools typescript ts-node
+   bun add civ7-modding-tools
+   bun add -d typescript
    ```
 4. Create a TypeScript configuration file (`tsconfig.json`):
    ```json title="tsconfig.json" icon="brackets-curly"
@@ -58,7 +59,7 @@ Before you begin, ensure you have:
    <Step title="Install dependencies">
       ```bash
       cd civ7-modding-tools
-      pnpm install
+      bun install
       ```
    </Step>
    <Step title="Copy the examples to use as templates">
@@ -106,7 +107,7 @@ mod.build("./dist"); // Output directory
 Run this script with:
 
 ``` bash icon="terminal" id="community-guides-typescript-howto-environment-setup__d012d849" tag="shell"
-pnpm ts-node build.ts
+bun run build.ts
 ```
 
 For more detailed information about the TypeScript modding tools, see:

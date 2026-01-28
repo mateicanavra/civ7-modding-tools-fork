@@ -13,7 +13,7 @@ What does this service do? (1-2 sentences)
 ## Quick Start
 ```bash
 # Installation
-pnpm add @civ7/<package-name>
+bun add @civ7/<package-name>
 ```
 
 ```typescript

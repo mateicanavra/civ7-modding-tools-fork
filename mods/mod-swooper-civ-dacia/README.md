@@ -36,9 +36,9 @@ If you are using this mod as a standalone repo (e.g., via subtree mirror) and th
 1) Install the upstream SDK and alias it to the expected name (simple fallback)
 
 ```bash
-pnpm add -D civ7-modding-tools
+bun add -d civ7-modding-tools
 # add this to package.json to alias the upstream to our name
-# "pnpm": { "overrides": { "@mateicanavra/civ7-sdk": "npm:civ7-modding-tools@^0.0.0" } }
+# "overrides": { "@mateicanavra/civ7-sdk": "npm:civ7-modding-tools@^0.0.0" }
 ```
 
 or
@@ -60,9 +60,9 @@ Either approach lets the code import `@mateicanavra/civ7-sdk` while resolving to
 Use these scripts to build and deploy your mod in one step:
 
 ```bash
-pnpm run build          # generate XML in mod/
-pnpm run deploy         # deploys mod via the monorepo CLI
-pnpm run build:deploy   # build and deploy
+bun run build          # generate XML in mod/
+bun run deploy         # deploys mod via the monorepo CLI
+bun run build:deploy   # build and deploy
 ```
 
 ## Credits

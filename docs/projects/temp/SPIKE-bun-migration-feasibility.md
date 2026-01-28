@@ -27,11 +27,11 @@ This section verifies whether the **current** toolchain shape is supported by up
 
 ### Versions in this repo (current Bun stack)
 
-- Bun: pinned via `.bun-version` (`1.2.20`)
-- Turborepo: root `devDependencies.turbo` (`^2.6.3`)
-- Vite (MapGen Studio): `apps/mapgen-studio` (`6.4.1`)
-- Vitest: root `devDependencies.vitest` (`3.2.4`)
-- Node: `>= 20` (repo-wide prerequisite)
+- Bun: pinned via `.bun-version` (`1.3.7`)
+- Turborepo: root `devDependencies.turbo` (`^2.7.6`)
+- Vite (MapGen Studio): `apps/mapgen-studio` (`7.3.1`)
+- Vitest: root `devDependencies.vitest` (`4.0.18`)
+- Node: `>= 22.12.0` (repo-wide prerequisite)
 
 ### Sources consulted (upstream docs, checked 2026-01-27)
 
@@ -96,17 +96,12 @@ Recommended options (pick one and make it explicit):
 
 2) **Keep Bun as runtime, but standardize env-loading to avoid conflicts (preferred if we want Bun runtime)**
    - Ensure Vite/Vitest are responsible for `.env` loading (and Bun doesn’t pre-load).
-   - Use Bun’s `--env-file` flag to avoid Bun auto-loading `.env` (so Vite’s mode-specific env loading remains authoritative).
-     - Prefer a repo-local empty file for portability (e.g. `.env.empty` committed at repo root), rather than OS-specific paths like `/dev/null`.
-     - Example shape (conceptual): `bun --env-file=.env.empty run --cwd apps/mapgen-studio dev`
-
-3) **Upgrade Bun to a newer release if it improves env-file control / ergonomics**
-   - If Bun’s newer releases add clearer flags/config to disable auto env-file loading, adopt those and encode them in package scripts so the behavior is deterministic across contributors and CI.
+   - Prefer disabling Bun `.env` auto-loading at the repo level via `bunfig.toml` (`env = false`), or use `bun --no-env-file …` for one-off runs.
    - Bun 1.3+ also introduces/expands **isolated installs** behavior for workspaces (controlled by lockfile `configVersion` and `bunfig.toml [install].linker`):
      - If upgrading from Bun 1.2 → 1.3.2+, expect `bun.lock` to gain a `configVersion` field and possibly change default install structure if it ends up as `configVersion = 1`.
      - If this repo wants to avoid “surprise installs”, explicitly pin `[install] linker = "hoisted"` or `"isolated"` in `bunfig.toml`, then do one clean `bun install` + CI run to lock it in.
 
-## Docs Hardball Sweep Plan (pnpm → Bun) — plan only (do not execute yet)
+## Docs Hardball Sweep Plan (pnpm → Bun) — checklist
 
 Goal: after merging the Bun stack, ensure there is **no contributor-facing “pnpm is required” drift** anywhere outside archived docs.
 

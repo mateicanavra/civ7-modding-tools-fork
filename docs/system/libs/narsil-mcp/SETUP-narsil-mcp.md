@@ -388,7 +388,7 @@ narsil-mcp --repos . --neural --verbose
 After configuration, test with MCP Inspector:
 
 ```bash
-npx @modelcontextprotocol/inspector narsil-mcp --repos .
+bunx @modelcontextprotocol/inspector narsil-mcp --repos .
 ```
 
 Or verify in Claude Desktop:

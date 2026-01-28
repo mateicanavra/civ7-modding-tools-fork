@@ -5,7 +5,7 @@ This app uses [Vitest](https://vitest.dev/) with the Node environment.
 ## Running tests
 
 ```bash
-pnpm --filter @civ7/docs test
+bun run --filter @civ7/docs test
 ```
 
 ## Current smoke tests
@@ -14,5 +14,5 @@ pnpm --filter @civ7/docs test
 
 ## Suggested future tests
 
-- Verify the Mintlify build succeeds (`pnpm -F @civ7/docs build`).
+- Verify the Mintlify build succeeds (`bun run --filter @civ7/docs build`).
 - Check for broken links using Mintlify CI checks.

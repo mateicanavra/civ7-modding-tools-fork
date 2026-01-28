@@ -1,6 +1,6 @@
 # PLAN: Bun-first, Bun-only, latest toolchain upgrade
 
-**Last updated:** 2026-01-27
+**Last updated:** 2026-01-28
 
 This plan assumes the repo contract is **Bun-only package manager**, and extends it to a **latest-deps, no-legacy** toolchain posture:
 
@@ -12,7 +12,7 @@ Related context:
 - Feasibility + rationale: `docs/projects/temp/SPIKE-bun-migration-feasibility.md`
 - ADR (package manager contract): `docs/system/ADR.md` (`ADR-001`)
 
-## Target versions (latest as of 2026-01-27)
+## Target versions (latest as of 2026-01-28)
 
 **Decision:** Track latest stable releases for the following, updating pins when we do this work.
 
@@ -64,13 +64,15 @@ and re-lock once under the upgraded Bun.
 Vite docs warn that Bun auto-loads `.env` files into `process.env` before Vite runs, which can interfere with Vite’s own env loading (because Vite respects already-set `process.env` values).  
 Source: https://vite.dev/guide/env-and-mode
 
-**Decision:** Keep running Vite via `bun run`, but make env-loading deterministic.
+**Decision:** Keep running Vite/Vitest via `bun run`, but make env-loading deterministic.
 
 - Alternatives considered:
   - Run Vite/Vitest via **Node** to avoid Bun `.env` behavior entirely.
-  - Keep Bun runtime but force “no preloaded env” with `bun --env-file=...` (chosen).
+  - Disable Bun’s `.env` auto-loading at the repo level (chosen).
 
-**Implementation note:** commit a repo-local empty env file (e.g. `.env.empty`) and update Vite/Vitest scripts that must preserve Vite mode semantics to run with `bun --env-file=.env.empty …`.
+**Implementation note:** disable Bun `.env` auto-loading in `bunfig.toml` (Bun supports `env = false`) so Vite/Vitest control env semantics consistently.
+
+Source: https://bun.com/docs/runtime/env
 
 ## Execution plan (no-legacy cutover)
 
@@ -96,7 +98,7 @@ Source: https://vite.dev/guide/env-and-mode
   - root `package.json#engines.node` → `>=22.12.0`
   - CI: `actions/setup-node` → `22.12.x`
 
-**Decision:** CI uses the same Node major/minor as `.nvmrc` (no “Node 20” fallback).
+**Decision:** CI uses the same Node major/minor as `.nvmrc` (no legacy Node fallback).
 
 ### Phase 2 — Bun install strategy (isolated) + lockfile regeneration
 
@@ -122,15 +124,14 @@ Source: https://vite.dev/guide/env-and-mode
 
 ### Phase 4 — Vite/Vitest “Bun everywhere” hardening
 
-- Add `.env.empty` at repo root.
-- Update scripts that run Vite/Vitest to use `bun --env-file=.env.empty` where preserving Vite’s env mode behavior matters.
+- Ensure Bun does not auto-load `.env` files for this repo (use `env = false` in `bunfig.toml`).
 - Validate:
   - `bun run test:ci` (Vitest 4)
   - `bun run --cwd apps/mapgen-studio dev` smoke (manual) and `build`
 
-**Decision:** Apply `bun --env-file=.env.empty` **only** to scripts that invoke Vite/Vitest (not globally).
+**Decision:** Disable Bun `.env` auto-loading globally for this repo.
 
-- Rationale: most transparent (the script shows the behavior), least surprising (doesn’t change unrelated commands), still consistent across local + CI.
+- Rationale: most transparent (one repo-level rule), least surprising for Vite/Vitest mode semantics, still consistent across local + CI.
 
 ### Phase 5 — Docs hardball sweep (pnpm removal, Bun-only)
 
@@ -139,6 +140,9 @@ Do not begin until Phases 1–4 are green (otherwise docs drift is guaranteed).
 - Inventory pnpm/Corepack mentions (excluding archived docs).
 - Update docs to Bun-only instructions; keep consumer docs consistent with “Bun-first” messaging (no “pnpm recommended”).
 - Add lightweight guardrails to prevent pnpm artifacts from reappearing.
+- Decide how to treat legacy package-manager instructions in time-bound project docs under `docs/projects/**`:
+  - Option A: sweep non-archived project docs to Bun (mechanical replacements + spot checks).
+  - Option B: add a prominent “historical (pnpm-era)” banner at the project root and link to Bun equivalents, leaving details unchanged.
 
 ## Validation gates (what “done” means)
 
