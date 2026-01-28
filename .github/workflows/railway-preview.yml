@@ -194,12 +194,10 @@ jobs:
           ENV_NAME: ${{ steps.decide.outputs.env_name }}
         shell: bash
         run: |
-          STATUS_JSON="$(railway status --json)"
-
-          ENV_ID="$(STATUS_JSON="$STATUS_JSON" python3 - <<'PY'
+          ENV_ID="$(railway status --json | python3 - <<'PY'
           import json, os, sys
 
-          d = json.loads(os.environ["STATUS_JSON"])
+          d = json.load(sys.stdin)
           env = os.environ["ENV_NAME"]
           edges = (d.get("environments") or {}).get("edges") or []
 
