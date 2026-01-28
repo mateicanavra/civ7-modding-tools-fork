@@ -24,12 +24,13 @@ Related context:
   - Source: https://www.npmjs.com/package/turbo
 - Vitest: `4.0.18` (npm latest)
   - Source: https://www.npmjs.com/package/vitest
-- Node (repo prerequisite): **22.12+** (to satisfy Vite 7)
+- Node (repo prerequisite): **22.14+** (to satisfy Vite 7)
   - Source: Vite 7 announcement (Node support section): https://vite.dev/blog/announcing-vite7
+- `@types/node`: track the **Node 22.x** line (don’t chase `@types/node@latest` across Node majors)
 
-**Decision:** Pin Node in `.nvmrc` to the **major.minor line** (`22.12`) and let patch versions float.
+**Decision:** Pin Node in `.nvmrc` to the **major.minor line** (`22.14`) and let patch versions float.
 
-- Rationale: least confusing for contributors (always “Node 22.12.x”), transparent (matches Vite 7’s requirement), and flexible (picks up security/bugfix patches without churn).
+- Rationale: least confusing for contributors (always “Node 22.14.x”), transparent (matches Vite 7’s requirement), and flexible (picks up security/bugfix patches without churn).
 - CI still pins to the same major/minor line (see Phase 1) so local and CI stay aligned.
 
 ## Compatibility constraints (what upstream docs say)
@@ -94,9 +95,9 @@ Source: https://bun.com/docs/runtime/env
   - root `package.json#packageManager` → `bun@1.3.7`
   - any workspace `packageManager` fields that disagree → align or remove (prefer align)
 - Update Node pin everywhere:
-  - `.nvmrc` → `22.12`
-  - root `package.json#engines.node` → `>=22.12.0`
-  - CI: `actions/setup-node` → `22.12.x`
+  - `.nvmrc` → `22.14`
+  - root `package.json#engines.node` → `>=22.14.0`
+  - CI: `actions/setup-node` → `22.14.x`
 
 **Decision:** CI uses the same Node major/minor as `.nvmrc` (no legacy Node fallback).
 

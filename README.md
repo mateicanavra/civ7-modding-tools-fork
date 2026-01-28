@@ -52,7 +52,7 @@ civ7-modding-tools/
 Setting up this project is a two-step process. First, you install the project dependencies and the CLI. Second, you use the newly installed CLI to pull in the game data.
 
 ### Prerequisites
-- Node 22.12+ (see `.nvmrc`)
+- Node 22.14+ (see `.nvmrc`)
 - Bun (see `.bun-version`)
 
 ### Step 1: Install Dependencies and Link the CLI

@@ -71,11 +71,11 @@
     "resource-extraction"
   ],
   "engines": {
-    "node": ">=22.12.0"
+    "node": ">=22.14.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
-    "@types/node": "^24.10.9",
+    "@types/node": "^22.14.0",
     "@typescript-eslint/eslint-plugin": "^8.54.0",
     "@typescript-eslint/parser": "^8.54.0",
     "@vitest/ui": "^4.0.18",
@@ -89,7 +89,7 @@
   },
   "overrides": {
     "typescript": "^5.9.2",
-    "@types/node": "^24.2.1",
+    "@types/node": "^22.14.0",
     "rimraf": "^6.0.1"
   }
 }
