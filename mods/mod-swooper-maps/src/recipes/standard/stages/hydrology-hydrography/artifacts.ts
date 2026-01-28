@@ -34,6 +34,12 @@ export const HydrologyHydrographyArtifactSchema = Type.Object(
         description: "Optional channel width proxy in tiles (continuous).",
       })
     ),
+    /** Optional mask (1/0): tiles classified as navigable rivers by Hydrography physics. */
+    navigableMask: Type.Optional(
+      TypedArraySchemas.u8({
+        description: "Optional mask (1/0): tiles classified as navigable rivers by Hydrography physics.",
+      })
+    ),
     /** Discrete river class derived from discharge thresholds (0=none, 1=minor, 2=major). */
     riverClass: TypedArraySchemas.u8({
       description: "River class per tile (0=none, 1=minor, 2=major).",

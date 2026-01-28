@@ -81,6 +81,9 @@ describe("hydrology/project-river-network (physics strategy)", () => {
         majorWidthTiles: 1.15,
         majorSlopeMax01: 1,
         majorConfinementMax01: 1,
+        navigableWidthTiles: 1.75,
+        navigableSlopeMax01: 1,
+        navigableConfinementMax01: 1,
       }
     );
 
@@ -110,6 +113,9 @@ describe("hydrology/project-river-network (physics strategy)", () => {
         majorWidthTiles: 1.15,
         majorSlopeMax01: 0.5,
         majorConfinementMax01: 0.8,
+        navigableWidthTiles: 1.75,
+        navigableSlopeMax01: 0.35,
+        navigableConfinementMax01: 0.7,
       }
     );
 
