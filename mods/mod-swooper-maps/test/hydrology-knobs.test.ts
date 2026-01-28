@@ -76,7 +76,11 @@ describe("hydrology knobs compilation", () => {
     const compiled = standardRecipe.compileConfig(env, {
       "map-hydrology": { lakes: {} },
     });
-    expect(compiled["map-hydrology"].lakes.tilesPerLakeMultiplier).toBe(1);
+    expect(compiled["map-hydrology"].lakes.minFillDepthM).toBe(1);
+    expect(compiled["map-hydrology"].lakes.evapScale).toBe(1);
+    expect(compiled["map-hydrology"].lakes.seepageLoss).toBe(1);
+    expect(compiled["map-hydrology"].lakes.seasonalityStrength01).toBe(0.75);
+    expect(compiled["map-hydrology"].lakes.permanenceThreshold01).toBe(0.75);
   });
 
   it("applies knobs as deterministic transforms over advanced config baselines", () => {
@@ -99,7 +103,7 @@ describe("hydrology knobs compilation", () => {
       },
       "map-hydrology": {
         knobs: { riverDensity: "dense", lakeiness: "many" },
-        lakes: { tilesPerLakeMultiplier: 2 },
+        lakes: { seepageLoss: 2, evapScale: 2, permanenceThreshold01: 0.75 },
         "plot-rivers": { minLength: 11, maxLength: 11 },
       },
       "hydrology-hydrography": {
@@ -130,8 +134,10 @@ describe("hydrology knobs compilation", () => {
     });
 
     // Baseline values apply first (schema defaults + advanced config), then knobs transform them.
-    // - lakeiness=many multiplies tilesPerLakeMultiplier by 0.7 (more lakes).
-    expect(compiled["map-hydrology"].lakes.tilesPerLakeMultiplier).toBeCloseTo(1.4, 6);
+    // - lakeiness=many reduces seepage loss and evap scaling and lowers permanence threshold.
+    expect(compiled["map-hydrology"].lakes.seepageLoss).toBeCloseTo(1.7, 6);
+    expect(compiled["map-hydrology"].lakes.evapScale).toBeCloseTo(1.9, 6);
+    expect(compiled["map-hydrology"].lakes.permanenceThreshold01).toBeCloseTo(0.65, 6);
     // - dryness=wet scales rainfallScale by 1.15 (wetter climate).
     expect(compiled["hydrology-climate-baseline"]["climate-baseline"].computePrecipitation.config.rainfallScale).toBeCloseTo(
       141.45,
