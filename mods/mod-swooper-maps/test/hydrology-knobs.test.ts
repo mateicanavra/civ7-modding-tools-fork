@@ -102,9 +102,8 @@ describe("hydrology knobs compilation", () => {
         },
       },
       "map-hydrology": {
-        knobs: { riverDensity: "dense", lakeiness: "many" },
+        knobs: { lakeiness: "many" },
         lakes: { seepageLoss: 2, evapScale: 2, permanenceThreshold01: 0.75 },
-        "plot-rivers": { minLength: 11, maxLength: 11 },
       },
       "hydrology-hydrography": {
         knobs: { riverDensity: "dense" },
@@ -145,9 +144,6 @@ describe("hydrology knobs compilation", () => {
     );
     // - riverDensity=dense increases runoffScale in hydrology-hydrography (physics input).
     expect(compiled["hydrology-hydrography"].rivers.accumulateDischarge.config.runoffScale).toBeCloseTo(1.25, 6);
-    // Note: engine river modeling bounds remain controlled by the step config (projection-only).
-    expect(compiled["map-hydrology"]["plot-rivers"].minLength).toBe(11);
-    expect(compiled["map-hydrology"]["plot-rivers"].maxLength).toBe(11);
     expect(
       compiled["hydrology-climate-refine"]["climate-refine"].computePrecipitation.config.riverCorridor
         .lowlandAdjacencyBonus

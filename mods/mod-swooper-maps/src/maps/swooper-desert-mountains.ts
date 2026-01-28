@@ -314,7 +314,6 @@ export default createMap({
   "map-hydrology": {
     knobs: {
       lakeiness: "few",
-      riverDensity: "sparse",
     },
   },
   ecology: {

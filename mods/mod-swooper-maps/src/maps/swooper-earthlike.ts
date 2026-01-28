@@ -739,8 +739,7 @@ export default createMap({
       },
       "map-hydrology": {
         "knobs": {
-          "lakeiness": "normal",
-          "riverDensity": "dense"
+          "lakeiness": "normal"
         },
         "lakes": {
           "minFillDepthM": 1,
@@ -749,10 +748,7 @@ export default createMap({
           "seasonalityStrength01": 0.75,
           "permanenceThreshold01": 0.75
         },
-        "plot-rivers": {
-          "minLength": 5,
-          "maxLength": 15
-        }
+        "plot-rivers": {}
       },
       "map-ecology": {
         "knobs": {},
