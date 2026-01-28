@@ -22,7 +22,7 @@ export function expandPath(filePath: string): string {
 }
 
 function dirIsWorkspaceRoot(dir: string): boolean {
-  // Prefer pnpm-free detection: a package.json declaring workspaces.
+  // Workspace root = nearest package.json declaring workspaces.
   const pkgPath = path.join(dir, 'package.json');
   if (fssync.existsSync(pkgPath)) {
     try {
@@ -33,9 +33,6 @@ function dirIsWorkspaceRoot(dir: string): boolean {
       // Ignore invalid JSON; fall back to other markers.
     }
   }
-
-  // Back-compat marker while the repo is still pnpm-based.
-  if (fssync.existsSync(path.join(dir, 'pnpm-workspace.yaml'))) return true;
 
   return false;
 }
