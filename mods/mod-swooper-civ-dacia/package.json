@@ -28,7 +28,7 @@
     "@mateicanavra/civ7-sdk": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "^24.10.9",
+    "@types/node": "^22.14.0",
     "@typescript-eslint/eslint-plugin": "^8.54.0",
     "@typescript-eslint/parser": "^8.54.0",
     "docsify-cli": "^4.4.4",
@@ -39,7 +39,7 @@
     "typescript": "^5.9.3"
   },
   "engines": {
-    "node": ">=22.12.0"
+    "node": ">=22.14.0"
   },
   "type": "module"
 }

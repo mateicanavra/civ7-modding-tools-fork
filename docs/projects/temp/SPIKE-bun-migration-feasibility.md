@@ -31,7 +31,7 @@ This section verifies whether the **current** toolchain shape is supported by up
 - Turborepo: root `devDependencies.turbo` (`^2.7.6`)
 - Vite (MapGen Studio): `apps/mapgen-studio` (`7.3.1`)
 - Vitest: root `devDependencies.vitest` (`4.0.18`)
-- Node: `>= 22.12.0` (repo-wide prerequisite)
+- Node: `>= 22.14.0` (repo-wide prerequisite)
 
 ### Sources consulted (upstream docs, checked 2026-01-27)
 
