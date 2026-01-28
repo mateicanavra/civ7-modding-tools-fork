@@ -6,11 +6,11 @@ This package uses [Vitest](https://vitest.dev/).
 
 - Run all projects (recommended):
   ```bash
-  pnpm test
+  bun run test
   ```
 - Run only this package's tests:
   ```bash
-  npx vitest run packages/config/test
+  bun run test:vitest -- --project config
   ```
 
 ## Current status

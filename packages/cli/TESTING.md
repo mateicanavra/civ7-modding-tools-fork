@@ -5,7 +5,7 @@ This package uses [Vitest](https://vitest.dev/) with the Node environment. Tests
 ## Running tests
 
 ```bash
-pnpm --filter @civ7/cli test
+bun run --filter @mateicanavra/civ7-cli test
 ```
 
 ## Current smoke tests

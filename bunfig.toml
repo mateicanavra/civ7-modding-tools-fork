@@ -1,3 +1,5 @@
+env = false
+
 [install]
 linker = "isolated"
 trustedDependencies = ["docsify", "esbuild", "puppeteer", "sharp"]

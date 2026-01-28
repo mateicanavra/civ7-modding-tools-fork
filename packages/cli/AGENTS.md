@@ -13,7 +13,7 @@ This document orients AI agents and contributors to the `@civ7-modding/cli` pack
 
 ### Tech stack
 
-- **Runtime**: Node.js >= 18
+- **Runtime**: Node.js >= 22.12
 - **CLI framework**: `@oclif/core`
 - **Language**: TypeScript (strict), `tsc` build to CommonJS
 - **Graph rendering**: `@hpcc-js/wasm` (Graphviz compiled to WebAssembly)
@@ -86,7 +86,7 @@ Status-style commands (e.g., `git status`, `mod status`) also accept `--json` fo
 
 ### Development setup
 
-- Prereqs: Node 20+ and Bun.
+- Prereqs: Node 22.12+ and Bun.
 - Install from repo root: `bun install --frozen-lockfile`
 - Build this package:
   - `bun run --filter @mateicanavra/civ7-cli build`

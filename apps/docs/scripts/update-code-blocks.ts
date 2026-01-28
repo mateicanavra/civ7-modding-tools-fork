@@ -154,7 +154,7 @@ function detectLanguage(code: string): Detection {
   // bash/terminal: typical commands
   const bashSignals = [
     /^\s*#\s/, // comment lines
-    /^\s*(mkdir|cd|ls|cat|touch|echo|rm|cp|mv|pnpm|npm|yarn|bun|git|npx|chmod|chown|ts-node)\b/,
+    /^\s*(mkdir|cd|ls|cat|touch|echo|rm|cp|mv|npm|yarn|bun|git|npx|chmod|chown|ts-node)\b/,
   ];
   if (lines.every(l => l.trim() === '' || bashSignals.some(rx => rx.test(l)))) {
     return { language: 'bash', reason: 'terminal-commands' };
@@ -355,5 +355,4 @@ function main() {
 }
 
 main();
-
 

@@ -3,7 +3,7 @@
 This repository is a Bun + Turborepo monorepo.
 
 ## Prerequisites
-- Node 20 (see `.nvmrc`)
+- Node 22.12+ (see `.nvmrc`)
 - Bun (see `.bun-version`)
 
 ## Getting Started

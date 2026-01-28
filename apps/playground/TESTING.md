@@ -5,7 +5,7 @@ This app uses [Vitest](https://vitest.dev/) with the Node environment.
 ## Running tests
 
 ```bash
-pnpm --filter @civ7/playground test
+bun run --filter @civ7/playground test
 ```
 
 ## Current smoke tests

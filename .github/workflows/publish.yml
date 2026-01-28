@@ -32,6 +32,16 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Guard against pnpm artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          if find . -name pnpm-lock.yaml -o -name pnpm-workspace.yaml | grep -q .; then
+            echo "pnpm artifacts detected (repo contract is Bun-only):"
+            find . -name pnpm-lock.yaml -o -name pnpm-workspace.yaml
+            exit 1
+          fi
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:

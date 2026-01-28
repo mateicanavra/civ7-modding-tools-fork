@@ -52,18 +52,16 @@ civ7-modding-tools/
 Setting up this project is a two-step process. First, you install the project dependencies and the CLI. Second, you use the newly installed CLI to pull in the game data.
 
 ### Prerequisites
-- Node 20 (see `.nvmrc`)
-- Optional: pin pnpm via Corepack for reproducibility
-  ```bash
-  pnpm run setup:corepack
-  ```
+- Node 22.12+ (see `.nvmrc`)
+- Bun (see `.bun-version`)
 
 ### Step 1: Install Dependencies and Link the CLI
 
 This command will install all necessary dependencies, build the CLI, and create a global link to the `civ7` executable, making it available everywhere in your terminal.
 
 ```bash
-pnpm refresh
+bun install --frozen-lockfile
+bun run link:cli
 ```
 You only need to run this command once for the initial setup, or whenever you pull changes that affect dependencies or the CLI source code.
 
@@ -74,7 +72,7 @@ You only need to run this command once for the initial setup, or whenever you pu
 After the `civ7` command is available, you can use it to populate the repository with the official game data from your local Civilization VII installation. This script runs `civ7 zip` and then `civ7 unzip`, placing the outputs in the `.civ7/outputs` directory at the project root.
 
 ```bash
-pnpm refresh:data
+bun run refresh:data
 ```
 
 This command only needs to be run once. The `docs` and `playground` apps will automatically sync the resources they need from this central location when you run their `dev` commands. The docs app uses a fast unzip via `@civ7/plugin-files`.
