@@ -95,7 +95,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22.12.x
 
       - name: Install Railway CLI (pinned)
         if: steps.decide.outputs.has_token == 'true'
