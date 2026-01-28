@@ -10,8 +10,8 @@ const knobsSchema = Type.Object(
      * River projection density.
      *
      * Stage scope:
-     * - Transforms projection thresholds/length bounds over the defaulted baseline.
-     * - Does not change discharge routing truth (only projection/classification).
+     * - Applies as a deterministic transform over Hydrology physics inputs (runoff scaling).
+     * - Does not change routing truth (flow directions); it changes how much water becomes runoff.
      */
     riverDensity: Type.Optional(HydrologyRiverDensityKnobSchema),
   },

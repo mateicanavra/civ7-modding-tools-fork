@@ -3,10 +3,7 @@ import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import { forEachHexNeighborOddQ } from "@swooper/mapgen-core/lib/grid";
 import { hydrologyHydrographyArtifacts } from "../artifacts.js";
 import RiversStepContract from "./rivers.contract.js";
-import {
-  HYDROLOGY_RIVER_DENSITY_MAJOR_PERCENTILE,
-  HYDROLOGY_RIVER_DENSITY_MINOR_PERCENTILE,
-} from "@mapgen/domain/hydrology/shared/knob-multipliers.js";
+import { HYDROLOGY_RIVER_DENSITY_RUNOFF_SCALE_MULTIPLIER } from "@mapgen/domain/hydrology/shared/knob-multipliers.js";
 import type { HydrologyRiverDensityKnob } from "@mapgen/domain/hydrology/shared/knobs.js";
 
 type ArtifactValidationIssue = Readonly<{ message: string }>;
@@ -148,29 +145,17 @@ export default createStep(RiversStepContract, {
   }),
   normalize: (config, ctx) => {
     const { riverDensity } = ctx.knobs as { riverDensity: HydrologyRiverDensityKnob };
-    if (config.projectRiverNetwork.strategy !== "default") return config;
+    if (config.accumulateDischarge.strategy !== "default") return config;
 
-    const minorDelta =
-      HYDROLOGY_RIVER_DENSITY_MINOR_PERCENTILE[riverDensity] -
-      HYDROLOGY_RIVER_DENSITY_MINOR_PERCENTILE.normal;
-    const majorDelta =
-      HYDROLOGY_RIVER_DENSITY_MAJOR_PERCENTILE[riverDensity] -
-      HYDROLOGY_RIVER_DENSITY_MAJOR_PERCENTILE.normal;
-
-    const minorPercentile = Math.max(
-      0,
-      Math.min(1, config.projectRiverNetwork.config.minorPercentile + minorDelta)
-    );
-    const majorPercentile = Math.max(
-      0,
-      Math.min(1, config.projectRiverNetwork.config.majorPercentile + majorDelta)
-    );
+    const mul = HYDROLOGY_RIVER_DENSITY_RUNOFF_SCALE_MULTIPLIER[riverDensity] ?? 1;
+    const runoffScale = Math.max(0, (config.accumulateDischarge.config.runoffScale ?? 1) * mul);
+    if (runoffScale === config.accumulateDischarge.config.runoffScale) return config;
 
     return {
       ...config,
-      projectRiverNetwork: {
-        ...config.projectRiverNetwork,
-        config: { ...config.projectRiverNetwork.config, minorPercentile, majorPercentile },
+      accumulateDischarge: {
+        ...config.accumulateDischarge,
+        config: { ...config.accumulateDischarge.config, runoffScale },
       },
     };
   },
