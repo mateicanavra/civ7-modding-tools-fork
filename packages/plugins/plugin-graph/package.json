@@ -10,8 +10,8 @@
     "dist"
   ],
   "dependencies": {
-    "@hpcc-js/wasm": "^2.26.0",
-    "fast-xml-parser": "^5.2.5"
+    "@hpcc-js/wasm": "^2.32.3",
+    "fast-xml-parser": "^5.3.3"
   },
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts",
@@ -22,10 +22,10 @@
     "clean": "rimraf dist"
   },
   "devDependencies": {
-    "tsup": "^8.5.0",
-    "typescript": "^5.9.2",
-    "@types/node": "^24.2.1",
-    "vitest": "^3.2.4"
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3",
+    "@types/node": "^24.10.9",
+    "vitest": "^4.0.18"
   },
   "engines": {
     "node": ">=20"

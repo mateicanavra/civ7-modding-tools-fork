@@ -25,18 +25,20 @@
   },
   "dependencies": {
     "jstoxml": "^7.0.1",
-    "lodash-es": "^4.17.21"
+    "lodash-es": "^4.17.23"
   },
   "devDependencies": {
-    "tsup": "^8.5.0",
-    "typescript": "^5.9.2",
-    "vitest": "^3.2.4",
-    "@types/node": "^24.2.1",
-    "eslint": "^9.33.0",
-    "@types/lodash": "^4.17.20",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.18",
+    "@types/node": "^24.10.9",
+    "eslint": "^9.39.2",
+    "@types/lodash": "^4.17.23",
     "@types/jstoxml": "^5.0.0"
   },
-  "engines": { "node": ">=22.12.0" },
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/",
     "access": "public"
