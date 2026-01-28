@@ -1,0 +1,2 @@
+[install]
+trustedDependencies = ["docsify", "esbuild", "puppeteer", "sharp"]
