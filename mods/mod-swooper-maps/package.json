@@ -7,9 +7,9 @@
   "scripts": {
     "build": "tsup",
     "lint": "eslint .",
-    "precheck": "pnpm -C ../../packages/mapgen-core build",
+    "precheck": "bun --cwd ../../packages/mapgen-core run build",
     "check": "tsc --noEmit",
-    "pretest": "pnpm -C ../../packages/mapgen-core build",
+    "pretest": "bun --cwd ../../packages/mapgen-core run build",
     "test": "bun test",
     "deploy": "pnpm run build && pnpm exec civ7 mod manage deploy --input ./mod --id mod-swooper-maps"
   },
