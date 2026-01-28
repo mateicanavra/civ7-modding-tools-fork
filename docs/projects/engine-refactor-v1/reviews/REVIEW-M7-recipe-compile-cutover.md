@@ -80,8 +80,8 @@ Each issue is intended to be independently reviewable (one Graphite branch), wit
   - Tests no longer fail with “missing artifacts” without a preceding actionable pipeline error.
 - **Verification checklist**
   - Add/adjust a focused unit test in `packages/mapgen-core/test/pipeline/**` that asserts fail-fast throw + error content.
-  - Run `pnpm -C packages/mapgen-core test`.
-  - Run `pnpm -C mods/mod-swooper-maps test` (standard recipe run must fail loudly if a step fails).
+  - Run `bun run --cwd packages/mapgen-core test`.
+  - Run `bun run --cwd mods/mod-swooper-maps test` (standard recipe run must fail loudly if a step fails).
 
 #### 2) Execution plan role: structure-only plan construction (REMAINING)
 
@@ -98,7 +98,7 @@ Each issue is intended to be independently reviewable (one Graphite branch), wit
   - `execution-plan.ts` contains no TypeBox runtime validation/defaulting code paths.
   - Structural errors are still detected and surfaced as engine/plan errors (not compiler errors).
 - **Verification checklist**
-  - Run `pnpm -C packages/mapgen-core test` (especially execution plan tests).
+  - Run `bun run --cwd packages/mapgen-core test` (especially execution plan tests).
   - `rg -n \"TypeCompiler|Value\\.\" packages/mapgen-core/src/engine` returns empty (or only intended non-validation usages).
 
 #### 3) Dedicated compiler error codes for config validation failures (REMAINING)
@@ -118,7 +118,7 @@ Each issue is intended to be independently reviewable (one Graphite branch), wit
   - No compile-time schema validation errors are labeled as `op.normalize.failed`.
 - **Verification checklist**
   - Add/adjust compiler unit tests in `packages/mapgen-core/test/compiler/**` validating code + path stability.
-  - Run `pnpm -C packages/mapgen-core test`.
+  - Run `bun run --cwd packages/mapgen-core test`.
 
 #### 4) Remove runtime validation surfaces from authoring core (REMAINING)
 
@@ -140,7 +140,7 @@ Each issue is intended to be independently reviewable (one Graphite branch), wit
   - Authoring `DomainOp` remains fully type-safe and ergonomic without validation surface methods.
 - **Verification checklist**
   - `rg -n \"runValidated\\(|\\.validate\\(\" packages` returns only allowed dev/test/tooling helpers (if any).
-  - Run `pnpm check-types` and `pnpm -C packages/mapgen-core test`.
+  - Run `bun run check-types` and `bun run --cwd packages/mapgen-core test`.
 
 #### 5) Move custom validation into compile-time `normalize` (REMAINING)
 
@@ -157,7 +157,7 @@ Each issue is intended to be independently reviewable (one Graphite branch), wit
   - No runtime code path depends on `customValidate`.
 - **Verification checklist**
   - Add/adjust targeted unit test(s) covering invalid configs.
-  - Run `pnpm -C mods/mod-swooper-maps test`.
+  - Run `bun run --cwd mods/mod-swooper-maps test`.
 
 #### 6) Schema defaults + factory enforcement (deep-defaults contract) (REMAINING)
 
@@ -188,8 +188,8 @@ Each issue is intended to be independently reviewable (one Graphite branch), wit
   - Add/adjust unit tests in `packages/mapgen-core/test/authoring/**` asserting:
     - factory rejects object-level object defaults, and
     - `additionalProperties: false` is applied by convention.
-  - Run `pnpm -C packages/mapgen-core test`.
-  - Run `pnpm -C mods/mod-swooper-maps test` (defaultConfig-related failures must be eliminated by schema cleanup, not by runtime defaulting).
+  - Run `bun run --cwd packages/mapgen-core test`.
+  - Run `bun run --cwd mods/mod-swooper-maps test` (defaultConfig-related failures must be eliminated by schema cleanup, not by runtime defaulting).
 
 #### 7) Artifact handler/factory pattern (runtime invariants) (REMAINING)
 
@@ -213,7 +213,7 @@ Each issue is intended to be independently reviewable (one Graphite branch), wit
   - No TypeBox runtime validators are required for artifact invariants.
 - **Verification checklist**
   - Add/adjust artifact-focused tests in `mods/mod-swooper-maps/test/pipeline/**`.
-  - Run `pnpm -C mods/mod-swooper-maps test`.
+  - Run `bun run --cwd mods/mod-swooper-maps test`.
 
 #### 8) Remove runtime TypeBox validators for placement inputs/outputs (REMAINING)
 
@@ -235,7 +235,7 @@ Each issue is intended to be independently reviewable (one Graphite branch), wit
   - Placement stages use artifact handlers for reads/writes.
 - **Verification checklist**
   - `rg -n \"TypeCompiler\" mods/mod-swooper-maps/src/recipes/standard/stages/placement` returns empty.
-  - Run `pnpm -C mods/mod-swooper-maps test`.
+  - Run `bun run --cwd mods/mod-swooper-maps test`.
 
 #### 9) Remove runtime `runValidated` usage in steps (REMAINING)
 
@@ -255,7 +255,7 @@ Each issue is intended to be independently reviewable (one Graphite branch), wit
   - Step runtime uses normalized selections produced by the compiler.
 - **Verification checklist**
   - `rg -n \"runValidated\" mods/mod-swooper-maps/src/recipes/standard/stages` returns empty.
-  - Run `pnpm -C mods/mod-swooper-maps test`.
+  - Run `bun run --cwd mods/mod-swooper-maps test`.
 
 #### 10) Remove runtime defaulting/normalization in op strategies (REMAINING)
 
@@ -275,7 +275,7 @@ Each issue is intended to be independently reviewable (one Graphite branch), wit
   - Config behavior matches compiler normalization behavior for all ops.
 - **Verification checklist**
   - Add/adjust tests to assert normalization happens via compiler-backed runner (issue 11).
-  - Run `pnpm -C mods/mod-swooper-maps test`.
+  - Run `bun run --cwd mods/mod-swooper-maps test`.
 
 #### 11) Tests + docs: compiler-backed validated runner + alignment pass (REMAINING)
 
@@ -299,9 +299,9 @@ Each issue is intended to be independently reviewable (one Graphite branch), wit
   - Ops remain easily runnable in isolation with validated runner semantics.
   - Docs clearly state the boundaries and the “one obvious way” for validation/defaulting.
 - **Verification checklist**
-  - Run `pnpm test:mapgen`.
-  - Run `pnpm -C mods/mod-swooper-maps test`.
-  - Run `pnpm check` (ensures lint guardrails don’t regress).
+  - Run `bun run test:mapgen`.
+  - Run `bun run --cwd mods/mod-swooper-maps test`.
+  - Run `bun run check` (ensures lint guardrails don’t regress).
 
 #### 12) Centralize shared utilities in `mapgen-core` (REMAINING)
 
@@ -320,8 +320,8 @@ Each issue is intended to be independently reviewable (one Graphite branch), wit
   - Shared helpers live in `mapgen-core` and are reused (no duplicate local clones across ops).
   - Imports are consistent and type-safe.
 - **Verification checklist**
-  - Run `pnpm -C packages/mapgen-core test` and `pnpm -C mods/mod-swooper-maps test`.
-  - `pnpm lint` (imports should satisfy guardrails once issue 13 lands).
+  - Run `bun run --cwd packages/mapgen-core test` and `bun run --cwd mods/mod-swooper-maps test`.
+  - `bun run lint` (imports should satisfy guardrails once issue 13 lands).
 
 #### 13) Lint guardrails for the architecture (FIRST-CLASS) (REMAINING)
 
@@ -339,9 +339,9 @@ Each issue is intended to be independently reviewable (one Graphite branch), wit
   - The architecture must be enforced mechanically so it doesn’t regress under iteration (human or agent).
 - **Acceptance criteria**
   - Violations are caught by lint with actionable error messages pointing to the intended canonical path.
-  - Running `pnpm check` serves as a structural safeguard for the target architecture.
+  - Running `bun run check` serves as a structural safeguard for the target architecture.
 - **Verification checklist**
-  - Run `pnpm lint` and `pnpm check`.
+  - Run `bun run lint` and `bun run check`.
   - Add at least one regression fixture (a small intentionally-bad import in a test-only fixture or documented example) if the repo’s lint patterns support it; otherwise rely on targeted `no-restricted-imports` coverage.
 
 ## REVIEW m7-t01-compiler-module-skeleton-strict-normalization

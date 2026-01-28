@@ -33,7 +33,7 @@ related_to: []
 - [x] Downstream remains pipeline-green:
   - Narrative post and any other consumers either continue to receive `artifact:riverAdjacency` or are migrated to the new hydrography artifact in this slice.
   - Placement’s `effect:engine.riversModeled` gating is preserved (either via continuing engine projection or explicitly re-owning the effect semantics).
-- [x] `pnpm check` and `pnpm -C mods/mod-swooper-maps test` pass.
+- [x] `bun run check` and `bun run --cwd mods/mod-swooper-maps test` pass.
 
 ## Implementation Decisions
 - Preserve engine river modeling as projection-only (`adapter.modelRivers(...)`) for pipeline safety, but publish Hydrology truth as discharge-derived artifacts and never read `adapter.isAdjacentToRivers(...)` in Hydrology hydrography ownership.
@@ -41,8 +41,8 @@ related_to: []
 - Compile minor/major river thresholds deterministically from the discharge distribution using knob-driven percentiles (`riverDensity`), and lock monotonicity via tests.
 
 ## Testing / Verification
-- `pnpm check`
-- `pnpm -C mods/mod-swooper-maps test`
+- `bun run check`
+- `bun run --cwd mods/mod-swooper-maps test`
 - `rg -n \"artifact:morphology\\.routing\" mods/mod-swooper-maps/src/recipes/standard` (expect Hydrology consumes routing artifact in Slice 5)
 
 ## Dependencies / Notes

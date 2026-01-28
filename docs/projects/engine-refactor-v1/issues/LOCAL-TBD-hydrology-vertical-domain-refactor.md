@@ -60,13 +60,13 @@ related_to:
 
 ## Testing / Verification
 - `REFRACTOR_DOMAINS="hydrology" ./scripts/lint/lint-domain-refactor-guardrails.sh`
-- `pnpm check`
-- `pnpm -C packages/mapgen-core check`
-- `pnpm -C packages/mapgen-core test`
-- `pnpm -C mods/mod-swooper-maps check`
-- `pnpm -C mods/mod-swooper-maps test`
-- `pnpm -C mods/mod-swooper-maps build`
-- `pnpm deploy:mods`
+- `bun run check`
+- `bun run --cwd packages/mapgen-core check`
+- `bun run --cwd packages/mapgen-core test`
+- `bun run --cwd mods/mod-swooper-maps check`
+- `bun run --cwd mods/mod-swooper-maps test`
+- `bun run --cwd mods/mod-swooper-maps build`
+- `bun run deploy:mods`
 
 ## Dependencies / Notes
 - Phase 2 authority (locked model; do not change here): `docs/projects/engine-refactor-v1/resources/workflow/domain-refactor/plans/hydrology/spike-hydrology-modeling-synthesis.md`
@@ -234,7 +234,7 @@ Placement note (current wiring evidence):
 ## Guardrails → enforcement (mechanical checks)
 
 Base enforcement hook (already exists):
-- `pnpm lint:domain-refactor-guardrails` (`scripts/lint/lint-domain-refactor-guardrails.sh`)
+- `bun run lint:domain-refactor-guardrails` (`scripts/lint/lint-domain-refactor-guardrails.sh`)
 
 Until there is a dedicated hydrology ban linter, use these mechanical checks in Slice 1 verification:
 - `rg -n \"narrative-swatches\" swooper-src/recipes/standard` (expect zero hits)
@@ -273,8 +273,8 @@ Plan vs actual summary:
 - Downstream stability goals held: `artifact:riverAdjacency` remains available (now projected from discharge-derived hydrography), and Placement’s `effect:engine.riversModeled` gating remains intact.
 
 Phase 5 gates executed (all green):
-- `pnpm check` (includes domain refactor guardrails)
+- `bun run check` (includes domain refactor guardrails)
 - `REFRACTOR_DOMAINS="hydrology" ./scripts/lint/lint-domain-refactor-guardrails.sh`
-- `pnpm -C packages/mapgen-core check && pnpm -C packages/mapgen-core test`
-- `pnpm -C mods/mod-swooper-maps check && pnpm -C mods/mod-swooper-maps test && pnpm -C mods/mod-swooper-maps build`
-- `pnpm deploy:mods`
+- `bun run --cwd packages/mapgen-core check && bun run --cwd packages/mapgen-core test`
+- `bun run --cwd mods/mod-swooper-maps check && bun run --cwd mods/mod-swooper-maps test && bun run --cwd mods/mod-swooper-maps build`
+- `bun run deploy:mods`

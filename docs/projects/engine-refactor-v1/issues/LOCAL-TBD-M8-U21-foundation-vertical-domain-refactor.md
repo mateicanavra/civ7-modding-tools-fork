@@ -45,10 +45,10 @@ related_to: []
 
 ## Acceptance Criteria
 - [ ] Foundation remains pipeline-green at the end of every slice:
-  - `pnpm -C mods/mod-swooper-maps check`
-  - `pnpm -C mods/mod-swooper-maps test`
-  - `pnpm -C mods/mod-swooper-maps build`
-  - `pnpm deploy:mods`
+  - `bun run --cwd mods/mod-swooper-maps check`
+  - `bun run --cwd mods/mod-swooper-maps test`
+  - `bun run --cwd mods/mod-swooper-maps build`
+  - `bun run deploy:mods`
 - [ ] No legacy artifact access paths remain:
   - `rg -n "ctx\.artifacts\.get\(.*foundation\." mods/mod-swooper-maps/src packages/mapgen-core` returns no hits (allowlist test harnesses only, if explicitly documented).
 - [ ] Directionality is fully removed:
@@ -65,13 +65,13 @@ related_to: []
 
 ## Testing / Verification
 - Slice-local targeted verification:
-  - `pnpm -C mods/mod-swooper-maps test -- --testPathPattern foundation` (or the repo’s equivalent Foundation test selector)
+  - `bun run --cwd mods/mod-swooper-maps test -- --testPathPattern foundation` (or the repo’s equivalent Foundation test selector)
   - `rg -n "ctx\.artifacts\.get\(.*foundation\." mods/mod-swooper-maps/src packages/mapgen-core`
 - Full gates (end of each slice, minimum once at the end):
-  - `pnpm check`
-  - `pnpm test`
-  - `pnpm build`
-  - `pnpm deploy:mods`
+  - `bun run check`
+  - `bun run test`
+  - `bun run build`
+  - `bun run deploy:mods`
 
 ## Slicing strategy (additive → migration → deletion)
 
@@ -179,49 +179,49 @@ Pre-implementation confirmation to run (and record) before writing code:
 Complexity × parallelism: high complexity × low parallelism (Foundation is upstream of everything).
 
 ### Baseline checks (Phase 0)
-- `pnpm -C packages/mapgen-core check`: pass
-- `pnpm -C packages/mapgen-core test`: fail
+- `bun run --cwd packages/mapgen-core check`: pass
+- `bun run --cwd packages/mapgen-core test`: fail
   - `packages/mapgen-core/test/pipeline/tag-registry.test.ts` fails with duplicate provider error for `artifact:test.foo` (provider step duplicates)
-- `pnpm -C mods/mod-swooper-maps check`: fail
+- `bun run --cwd mods/mod-swooper-maps check`: fail
   - Type errors in `mods/mod-swooper-maps/src/recipes/standard/stages/**` where `deps.artifacts.*` types resolve as `{}` (multiple stages)
-- `pnpm -C mods/mod-swooper-maps test`: fail
+- `bun run --cwd mods/mod-swooper-maps test`: fail
   - Duplicate provider error for `artifact:foundation.plates` in standard recipe
   - `ReferenceError: Cannot access 'standardRecipe' before initialization` in standard recipe tests
-- `pnpm -C mods/mod-swooper-maps build`: pass
-- `pnpm deploy:mods`: pass
+- `bun run --cwd mods/mod-swooper-maps build`: pass
+- `bun run deploy:mods`: pass
 
 Post Slice 1 re-run (after contract-first spine cutover + toolchain fixes):
-- `pnpm -C packages/mapgen-core check`: pass
-- `pnpm -C packages/mapgen-core test`: pass
-- `pnpm -C mods/mod-swooper-maps check`: pass
-- `pnpm -C mods/mod-swooper-maps test`: pass
+- `bun run --cwd packages/mapgen-core check`: pass
+- `bun run --cwd packages/mapgen-core test`: pass
+- `bun run --cwd mods/mod-swooper-maps check`: pass
+- `bun run --cwd mods/mod-swooper-maps test`: pass
 
 Post Slice 2 re-run (after additive mesh-first artifacts + ops scaffolding):
-- `pnpm -C packages/mapgen-core check`: pass
-- `pnpm -C packages/mapgen-core test`: pass
-- `pnpm -C mods/mod-swooper-maps check`: pass
-- `pnpm -C mods/mod-swooper-maps test`: pass
-- `pnpm -C mods/mod-swooper-maps build`: pass
-- `pnpm deploy:mods`: pass
+- `bun run --cwd packages/mapgen-core check`: pass
+- `bun run --cwd packages/mapgen-core test`: pass
+- `bun run --cwd mods/mod-swooper-maps check`: pass
+- `bun run --cwd mods/mod-swooper-maps test`: pass
+- `bun run --cwd mods/mod-swooper-maps build`: pass
+- `bun run deploy:mods`: pass
 
 Post Slice 3 re-run (after removing ctx.artifacts.get coupling for Foundation consumers):
-- `pnpm -C packages/mapgen-core check`: pass
-- `pnpm -C packages/mapgen-core test`: pass
-- `pnpm -C mods/mod-swooper-maps check`: pass
-- `pnpm -C mods/mod-swooper-maps test`: pass
+- `bun run --cwd packages/mapgen-core check`: pass
+- `bun run --cwd packages/mapgen-core test`: pass
+- `bun run --cwd mods/mod-swooper-maps check`: pass
+- `bun run --cwd mods/mod-swooper-maps test`: pass
 
 Post Slice 4 re-run (after directionality cutover to env-only + deletion sweep):
-- `pnpm -C packages/mapgen-core check`: pass
-- `pnpm -C packages/mapgen-core test`: pass
-- `pnpm -C mods/mod-swooper-maps check`: pass
-- `pnpm -C mods/mod-swooper-maps test`: pass
-- `pnpm -C mods/mod-swooper-maps build`: pass
-- `pnpm deploy:mods`: pass
+- `bun run --cwd packages/mapgen-core check`: pass
+- `bun run --cwd packages/mapgen-core test`: pass
+- `bun run --cwd mods/mod-swooper-maps check`: pass
+- `bun run --cwd mods/mod-swooper-maps test`: pass
+- `bun run --cwd mods/mod-swooper-maps build`: pass
+- `bun run deploy:mods`: pass
 Post Slice 5 re-run (after config purity + FoundationContext removal):
-- `pnpm -C packages/mapgen-core check`: pass
-- `pnpm -C packages/mapgen-core test`: pass
-- `pnpm -C mods/mod-swooper-maps check`: pass
-- `pnpm -C mods/mod-swooper-maps test`: pass
+- `bun run --cwd packages/mapgen-core check`: pass
+- `bun run --cwd packages/mapgen-core test`: pass
+- `bun run --cwd mods/mod-swooper-maps check`: pass
+- `bun run --cwd mods/mod-swooper-maps test`: pass
 
 #### Slice 4: directionality removal (schema hardening)
 - Context: directionality was a global knob that leaked across domains.
@@ -455,14 +455,14 @@ Checklist:
   - align foundation projection config with the new contract (no legacy fields).
 
 Acceptance criteria:
-- [ ] `pnpm -C mods/mod-swooper-maps check` passes (type-level surface is coherent).
+- [ ] `bun run --cwd mods/mod-swooper-maps check` passes (type-level surface is coherent).
 
 ##### Slice 6 gates (must pass before Slice 7)
-- [ ] `pnpm -C packages/mapgen-core check`
-- [ ] `pnpm -C packages/mapgen-core test`
-- [ ] `pnpm -C mods/mod-swooper-maps check`
-- [ ] `pnpm -C mods/mod-swooper-maps test`
-- [ ] `pnpm -C mods/mod-swooper-maps build`
+- [ ] `bun run --cwd packages/mapgen-core check`
+- [ ] `bun run --cwd packages/mapgen-core test`
+- [ ] `bun run --cwd mods/mod-swooper-maps check`
+- [ ] `bun run --cwd mods/mod-swooper-maps test`
+- [ ] `bun run --cwd mods/mod-swooper-maps build`
 
 #### Slice 7 — Downstream rebuild (authoritative surfaces only)
 
@@ -489,11 +489,11 @@ Acceptance criteria:
 - [ ] `rg -n \"directionality\" mods/mod-swooper-maps/src packages/mapgen-core/src` returns no hits.
 
 ##### Slice 7 gates
-- [ ] `pnpm -C packages/mapgen-core check`
-- [ ] `pnpm -C packages/mapgen-core test`
-- [ ] `pnpm -C mods/mod-swooper-maps check`
-- [ ] `pnpm -C mods/mod-swooper-maps test`
-- [ ] `pnpm -C mods/mod-swooper-maps build`
+- [ ] `bun run --cwd packages/mapgen-core check`
+- [ ] `bun run --cwd packages/mapgen-core test`
+- [ ] `bun run --cwd mods/mod-swooper-maps check`
+- [ ] `bun run --cwd mods/mod-swooper-maps test`
+- [ ] `bun run --cwd mods/mod-swooper-maps build`
 
 #### Slice 8 — Ruthless deletion sweep (no shims, no legacy, no compat)
 
@@ -519,12 +519,12 @@ Checklist:
   - `directionality` or `foundation.dynamics` surfaces.
 
 ##### Slice 8 final gates
-- [x] `pnpm -C packages/mapgen-core check`
-- [x] `pnpm -C packages/mapgen-core test`
-- [x] `pnpm -C mods/mod-swooper-maps check`
-- [x] `pnpm -C mods/mod-swooper-maps test`
-- [x] `pnpm -C mods/mod-swooper-maps build`
-- [ ] `pnpm deploy:mods` (currently fails due to `civ-mod-dacia` deploy `ENOTEMPTY`; `pnpm -C mods/mod-swooper-maps run deploy` passes)
+- [x] `bun run --cwd packages/mapgen-core check`
+- [x] `bun run --cwd packages/mapgen-core test`
+- [x] `bun run --cwd mods/mod-swooper-maps check`
+- [x] `bun run --cwd mods/mod-swooper-maps test`
+- [x] `bun run --cwd mods/mod-swooper-maps build`
+- [ ] `bun run deploy:mods` (currently fails due to `civ-mod-dacia` deploy `ENOTEMPTY`; `bun run --cwd mods/mod-swooper-maps run deploy` passes)
 
 ## Lookback (Phase 3 → Phase 4): Finalize slices + sequencing
 

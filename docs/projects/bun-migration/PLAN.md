@@ -121,7 +121,7 @@ Source: https://bun.com/docs/runtime/env
 - Upgrade app deps:
   - `apps/mapgen-studio`: `vite` → `7.3.1`, `@vitejs/plugin-react` → latest compatible, TypeScript as needed
 
-**Decision:** Use Bun-native workflows for upgrades (`bun update`, `bun outdated`) unless we hit a concrete limitation; avoid `npx npm-check-updates` unless necessary.
+**Decision:** Use Bun-native workflows for upgrades (`bun update`, `bun outdated`) unless we hit a concrete limitation; avoid `bunx npm-check-updates` unless necessary.
 
 ### Phase 4 — Vite/Vitest “Bun everywhere” hardening
 

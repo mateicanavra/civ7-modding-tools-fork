@@ -68,7 +68,7 @@ Transform the legacy monolithic JavaScript mapgen stack into typed, testable Typ
 - `packages/mapgen-core` established as the primary engine package.
 - Core orchestration, world model, and major layers ported to TypeScript.
 - Swooper Maps mod scripts use TypeScript entrypoints and build tooling.
-- Basic pnpm-based build/test wiring in place.
+- Basic Bun-based build/test wiring in place.
 
 **Residual Work / Carry-Over**
 

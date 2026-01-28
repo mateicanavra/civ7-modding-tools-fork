@@ -35,7 +35,7 @@ related_to: []
 ## Testing / Verification
 - `REFRACTOR_DOMAINS="morphology" ./scripts/lint/lint-domain-refactor-guardrails.sh`
 - `rg -n "artifact:map\\.realized\\." mods/mod-swooper-maps/src packages/mapgen-core/src`
-- `pnpm -C mods/mod-swooper-maps test -- test/pipeline/map-stamping.contract-guard.test.ts`
+- `bun run --cwd mods/mod-swooper-maps test -- test/pipeline/map-stamping.contract-guard.test.ts`
 
 ## Dependencies / Notes
 - Blocked by [M10-U02](./M10-U02-delete-overlay-system.md).

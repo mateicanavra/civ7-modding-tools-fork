@@ -57,7 +57,7 @@ Requirements (within refactor scope):
 Add at least one domain-local unit test for the op contract:
 - Validate config selection deterministically using the mod’s canonical helpers:
   - `mods/mod-swooper-maps/test/support/compiler-helpers.ts` (`runOpValidated`, `normalizeStrictOrThrow`)
-- Location (mod): `mods/mod-swooper-maps/test/**` (bun test runner via `pnpm -C mods/mod-swooper-maps test`).
+- Location (mod): `mods/mod-swooper-maps/test/**` (bun test runner via `bun run --cwd mods/mod-swooper-maps test`).
 - Recommended minimum assertions:
   - `runOpValidated(op, input, rawSelection)` does schema defaulting + strict validation + `op.normalize(...)`.
   - Validate op output shape explicitly when it matters: `normalizeStrictOrThrow(op.output, output, "<path>")`.
@@ -91,15 +91,15 @@ Troubleshooting note:
 Run smallest-first, then widen:
 ```bash
 REFRACTOR_DOMAINS="<domain>[,<domain2>...]" ./scripts/lint/lint-domain-refactor-guardrails.sh
-pnpm -C packages/mapgen-core check
-pnpm -C packages/mapgen-core test
-pnpm -C mods/mod-swooper-maps check
-pnpm -C mods/mod-swooper-maps test
-pnpm -C mods/mod-swooper-maps build
-pnpm deploy:mods
-pnpm check
-pnpm test
-pnpm build
+bun run --cwd packages/mapgen-core check
+bun run --cwd packages/mapgen-core test
+bun run --cwd mods/mod-swooper-maps check
+bun run --cwd mods/mod-swooper-maps test
+bun run --cwd mods/mod-swooper-maps build
+bun run deploy:mods
+bun run check
+bun run test
+bun run build
 ```
 
 ## “Around-the-block” cleanup checklist (required at the end)

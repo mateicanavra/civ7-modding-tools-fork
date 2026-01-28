@@ -37,7 +37,7 @@ related_to: []
 - `REFRACTOR_DOMAINS="morphology,hydrology,placement" ./scripts/lint/lint-domain-refactor-guardrails.sh`
 - `REFRACTOR_DOMAINS="morphology" DOMAIN_REFACTOR_GUARDRAILS_PROFILE=full ./scripts/lint/lint-domain-refactor-guardrails.sh`
 - `rg -n "artifact:map\\.realized\\." mods/mod-swooper-maps/src packages/mapgen-core/src`
-- `pnpm -C mods/mod-swooper-maps test -- test/pipeline/map-stamping.contract-guard.test.ts`
+- `bun run --cwd mods/mod-swooper-maps test -- test/pipeline/map-stamping.contract-guard.test.ts`
 
 ## Dependencies / Notes
 - Blocked by [M10-U06](./M10-U06-tracing-observability-hardening.md).
@@ -132,18 +132,18 @@ rg -n "syncHeightfield\\(" mods/mod-swooper-maps/src packages/mapgen-core/src
 rg -n "adapter\\.(createFractal|getFractalHeight)\\(" mods/mod-swooper-maps/src
 rg -n "logLandmassAscii\\(|logReliefAscii\\(|logFoundationAscii\\(|logMountainSummary\\(|logVolcanoSummary\\(" mods/mod-swooper-maps/src/recipes/standard/stages/morphology-*
 
-pnpm -C packages/mapgen-core check
-pnpm -C packages/mapgen-core test
-pnpm -C packages/mapgen-core build
+bun run --cwd packages/mapgen-core check
+bun run --cwd packages/mapgen-core test
+bun run --cwd packages/mapgen-core build
 
-pnpm -C mods/mod-swooper-maps check
-pnpm -C mods/mod-swooper-maps test
-pnpm -C mods/mod-swooper-maps build
+bun run --cwd mods/mod-swooper-maps check
+bun run --cwd mods/mod-swooper-maps test
+bun run --cwd mods/mod-swooper-maps build
 
-pnpm deploy:mods
-pnpm check
-pnpm test
-pnpm build
+bun run deploy:mods
+bun run check
+bun run test
+bun run build
 ```
 
 ### Files

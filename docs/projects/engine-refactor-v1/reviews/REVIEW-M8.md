@@ -265,7 +265,7 @@ Branches (downstack → upstack):
 **What landed (as verified in-tree)**
 - Step contracts import only `@mapgen/domain/<domain>` (no deep `@mapgen/domain/<domain>/*`, no `/ops`), and Ecology’s contract entrypoint is curated (no value `export *`).
 - `eslint.config.js` enforces step-contract vs recipe-compile import boundaries and bans value `export *` on contract/public-surface files.
-- `mods/mod-swooper-maps/package.json` adds `lint`, and `pnpm lint` includes `mod-swooper-maps:lint`.
+- `mods/mod-swooper-maps/package.json` adds `lint`, and `bun run lint` includes `mod-swooper-maps:lint`.
 - `scripts/lint/lint-domain-refactor-guardrails.sh` adds an Ecology step-contract deep-import check and doc-coverage checks; `docs/.../06-enforcement.md` documents the “tests canonical-by-default; exceptions allowed” posture.
 
 **High-leverage issues**
@@ -274,8 +274,8 @@ Branches (downstack → upstack):
 
 **Spot-check verification**
 - `rg -n "@mapgen/domain/ecology/" mods/mod-swooper-maps/src/recipes/standard/stages/ecology/steps/**/contract.ts` → no hits.
-- `pnpm exec eslint mods/mod-swooper-maps/src/recipes/standard/recipe.ts`, `pnpm -C mods/mod-swooper-maps lint`, `pnpm lint:domain-refactor-guardrails`, `pnpm lint` → pass.
-- Per the issue doc, a full `pnpm check/lint/test/build/deploy:mods` run was also recorded; I did not re-run the full suite as part of this review.
+- `bunx eslint mods/mod-swooper-maps/src/recipes/standard/recipe.ts`, `bun run --cwd mods/mod-swooper-maps lint`, `bun run lint:domain-refactor-guardrails`, `bun run lint` → pass.
+- Per the issue doc, a full `bun run check/lint/test/build/deploy:mods` run was also recorded; I did not re-run the full suite as part of this review.
 
 **Implementation decisions**
 - Decisions logged: none under `## Implementation Decisions`. Visible choices: use ESLint for structural boundaries and a targeted bash guardrail for “docs-as-code” coverage, with Ecology as the stricter exemplar domain.

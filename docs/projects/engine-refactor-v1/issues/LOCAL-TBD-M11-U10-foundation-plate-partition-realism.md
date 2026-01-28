@@ -52,14 +52,14 @@ related_to: [M11-U00]
 
 ## Testing / Verification
 - Run the Foundation test suite:
-  - `pnpm -C mods/mod-swooper-maps test`
+  - `bun run --cwd mods/mod-swooper-maps test`
 - Add/extend tests that compute realism metrics from `artifact:foundation.plateTopology` (prefer metrics assertions over snapshotting full `cellToPlate`/tile id arrays):
   - Extend `mods/mod-swooper-maps/test/foundation/mesh-first-ops.test.ts` with topology metrics checks.
   - (Optional) Add a dedicated metrics test file if it improves clarity (still Bun tests under `mods/mod-swooper-maps/test/foundation/`).
 - Smoke-check the full workspace if needed:
-  - `pnpm test`
+  - `bun run test`
 - Verification (this slice):
-  - `pnpm -C mods/mod-swooper-maps test` ✅
+  - `bun run --cwd mods/mod-swooper-maps test` ✅
 
 ## Dependencies / Notes
 - Related plan: `docs/projects/engine-refactor-v1/issues/M11-U00-physics-first-realism-upgrade-plan.md`

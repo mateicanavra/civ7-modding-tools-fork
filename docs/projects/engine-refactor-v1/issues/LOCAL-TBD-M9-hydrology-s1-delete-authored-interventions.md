@@ -33,13 +33,13 @@ related_to: []
 - [x] No Hydrology step reads `deps.artifacts.overlays` (or any narrative overlay artifact).
 - [x] No Hydrology code imports `@mapgen/domain/narrative/*`.
 - [x] No remaining references to swatches or paleo in Hydrology climate code paths.
-- [x] `pnpm check` passes (includes `pnpm lint:domain-refactor-guardrails`).
+- [x] `bun run check` passes (includes `bun run lint:domain-refactor-guardrails`).
 
 Completed on branch `agent-TURTLE-M9-LOCAL-TBD-M9-hydrology-s1-delete-authored-interventions` (PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/613).
 
 ## Testing / Verification
-- `pnpm check`
-- `pnpm -C mods/mod-swooper-maps test`
+- `bun run check`
+- `bun run --cwd mods/mod-swooper-maps test`
 - `rg -n "\"narrative-swatches\"" mods/mod-swooper-maps/src/recipes/standard` (expect zero hits)
 - `rg -n "storyTagClimatePaleo" mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-core` (expect zero hits)
 - `rg -n "deps\\.artifacts\\.overlays" mods/mod-swooper-maps/src/recipes/standard/stages/hydrology-post` (expect zero hits)
@@ -140,7 +140,7 @@ files:
 
 ### Guardrails (turn bans into failures)
 
-The repo already has a guardrails hook: `pnpm lint:domain-refactor-guardrails` (`scripts/lint/lint-domain-refactor-guardrails.sh`).
+The repo already has a guardrails hook: `bun run lint:domain-refactor-guardrails` (`scripts/lint/lint-domain-refactor-guardrails.sh`).
 
 This slice should add enforcement for the hydrology-specific bans in one of two ways (do not punt silently):
 

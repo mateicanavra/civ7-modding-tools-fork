@@ -541,7 +541,7 @@ Prompt:
    - Do not rename Civ7 plot tags (`PLOT_TAG`, `getPlotTagId`, `PlotTagName`)
    - Do not rename narrative ‘storyTag*’ functions yet
 
-5) Validate with the workspace’s standard checks (pnpm scripts).”
+5) Validate with the workspace’s standard checks (bun scripts).”
 
 ---
 

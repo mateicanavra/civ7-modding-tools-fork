@@ -38,7 +38,7 @@ related_to: [M11-U00]
 ## Testing / Verification
 - Add a focused test fixture:
   - two tiles with identical uplift/rift but different crust/material → different `erodibilityK`.
-- `pnpm -C mods/mod-swooper-maps test -- <new-or-existing-morphology-test>`
+- `bun run --cwd mods/mod-swooper-maps test -- <new-or-existing-morphology-test>`
 
 ## Dependencies / Notes
 - Blocked by whichever issue provides tile crust/material drivers (Foundation projection surface).

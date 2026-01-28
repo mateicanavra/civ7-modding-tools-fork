@@ -75,7 +75,7 @@ Resolved: removed legacy `defineOpSchema` export from `packages/mapgen-core/src/
 ## Fix Loop Update (M7)
 - Review points: follow-ups landed and rules boundary violations now import types from each op’s `types.ts` surface (no rule exports).
 - Additional fixes (to unblock full suite): op config schema typing now uses `TUnsafe` for strategy envelope `Static<>` inference, ecology ops use `@mapgen/domain` aliases for cross-module imports, and contract `as const` assertions were removed to match authoring spec.
-- Validation: `pnpm check`, `pnpm build`, `pnpm test`, `pnpm lint`.
+- Validation: `bun run check`, `bun run build`, `bun run test`, `bun run lint`.
 - A1 review follow-up: added `normalizeOpsTopLevel` tests for `op.missing` + `op.normalize.failed` in `packages/mapgen-core/test/compiler/normalize.test.ts`.
 - A1 review follow-up: unknown-key detection now traverses array items for stable paths (test added in `packages/mapgen-core/test/compiler/normalize.test.ts`).
 
