@@ -77,11 +77,35 @@ describe("hydrology: A/B routing impact (legacy vs priority-flood)", () => {
 
     const legacyRivers = projectRiverNetwork.run(
       { width, height, landMask, discharge: legacy.discharge },
-      { minorPercentile: 0.85, majorPercentile: 0.95, minMinorDischarge: 2, minMajorDischarge: 4 }
+      {
+        widthCoeff: 0.15,
+        dischargeExponent: 0.5,
+        slopeWidthExponent: 0,
+        confinementWidthExponent: 0,
+        minorWidthTiles: 0.6,
+        majorWidthTiles: 2.0,
+        majorSlopeMax01: 1,
+        majorConfinementMax01: 1,
+        navigableWidthTiles: 2.5,
+        navigableSlopeMax01: 1,
+        navigableConfinementMax01: 1,
+      }
     );
     const nextRivers = projectRiverNetwork.run(
       { width, height, landMask, discharge: next.discharge },
-      { minorPercentile: 0.85, majorPercentile: 0.95, minMinorDischarge: 2, minMajorDischarge: 4 }
+      {
+        widthCoeff: 0.15,
+        dischargeExponent: 0.5,
+        slopeWidthExponent: 0,
+        confinementWidthExponent: 0,
+        minorWidthTiles: 0.6,
+        majorWidthTiles: 2.0,
+        majorSlopeMax01: 1,
+        majorConfinementMax01: 1,
+        navigableWidthTiles: 2.5,
+        navigableSlopeMax01: 1,
+        navigableConfinementMax01: 1,
+      }
     );
 
     const legacyRiverTiles = countMask(legacyRivers.riverClass, (v) => v > 0);
