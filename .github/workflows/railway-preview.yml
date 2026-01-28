@@ -188,30 +188,59 @@ jobs:
             --json >/dev/null
 
       - name: Select preview environment (for redeploy/domain)
+        id: envselect
         if: steps.finalize.outputs.should_preview == 'true'
         env:
           RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
           ENV_NAME: ${{ steps.decide.outputs.env_name }}
         shell: bash
         run: |
-          ENV_ID="$(railway status --json | python3 - <<'PY'
-          import json, os, sys
+          set +e
+          STATUS_JSON="$(railway status --json 2>&1)"
+          status_code=$?
+          set -e
 
-          d = json.load(sys.stdin)
-          env = os.environ["ENV_NAME"]
-          edges = (d.get("environments") or {}).get("edges") or []
+          if [ "$status_code" -ne 0 ] || [ -z "$STATUS_JSON" ]; then
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+            echo "env_id=" >> "$GITHUB_OUTPUT"
+            echo "railway status failed or returned empty output; skipping preview env selection."
+            exit 0
+          fi
 
-          for e in edges:
-            node = (e or {}).get("node") or {}
-            if node.get("name") == env and not node.get("deletedAt"):
-              print(node.get("id") or "")
-              sys.exit(0)
+          ENV_ID="$(
+            python3 - <<'PY' <<<"$STATUS_JSON" || exit 1
+import json, os, sys
 
-          sys.exit(1)
-          PY
-          )"
+raw = sys.stdin.read()
+# tolerate non-json prefix/suffix from railway on failure
+start = raw.find("{")
+if start == -1:
+  sys.exit(1)
+
+d = json.loads(raw[start:])
+env = os.environ["ENV_NAME"]
+edges = (d.get("environments") or {}).get("edges") or []
+
+for e in edges:
+  node = (e or {}).get("node") or {}
+  if node.get("name") == env and not node.get("deletedAt"):
+    print(node.get("id") or "")
+    sys.exit(0)
+
+sys.exit(1)
+PY
+          )" || true
+
+          if [ -z "$ENV_ID" ]; then
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+            echo "env_id=" >> "$GITHUB_OUTPUT"
+            echo "Could not resolve ENV_ID; skipping preview env selection."
+            exit 0
+          fi
 
           export ENV_ID
+          echo "ok=true" >> "$GITHUB_OUTPUT"
+          echo "env_id=$ENV_ID" >> "$GITHUB_OUTPUT"
 
           python3 - <<'PY'
           import json, os, pathlib
@@ -225,19 +254,19 @@ jobs:
           PY
 
       - name: Checkout PR branch
-        if: steps.finalize.outputs.should_preview == 'true'
+        if: steps.finalize.outputs.should_preview == 'true' && steps.envselect.outputs.ok == 'true'
         uses: actions/checkout@v4
         with:
           ref: ${{ github.head_ref }}
 
       - name: Deploy preview (upload)
-        if: steps.finalize.outputs.should_preview == 'true'
+        if: steps.finalize.outputs.should_preview == 'true' && steps.envselect.outputs.ok == 'true'
         env:
           RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
         run: railway deployment up -s "${{ env.RAILWAY_SERVICE_NAME }}" --ci --detach --json >/dev/null
 
       - name: Ensure preview domain
-        if: steps.finalize.outputs.should_preview == 'true'
+        if: steps.finalize.outputs.should_preview == 'true' && steps.envselect.outputs.ok == 'true'
         id: domain
         env:
           RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
@@ -258,7 +287,7 @@ jobs:
       - name: Comment preview status
         uses: actions/github-script@v7
         env:
-          SHOULD_PREVIEW: ${{ steps.finalize.outputs.should_preview }}
+          SHOULD_PREVIEW: ${{ steps.envselect.outputs.ok }}
           RAILWAY_OK: ${{ steps.finalize.outputs.railway_ok }}
           PREVIEW_URL: ${{ steps.domain.outputs.url }}
           REASON_JSON: ${{ steps.decide.outputs.reason_json }}
