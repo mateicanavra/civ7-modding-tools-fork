@@ -1,7 +1,6 @@
 import { describe, expect, it } from "bun:test";
 
 import { defaultStrategy } from "../src/domain/hydrology/ops/project-river-network/strategies/default.js";
-import { physicsStrategy } from "../src/domain/hydrology/ops/project-river-network/strategies/physics.js";
 
 describe("hydrology/project-river-network (default strategy)", () => {
   it("produces no rivers when all land discharge is zero", () => {
@@ -17,19 +16,25 @@ describe("hydrology/project-river-network (default strategy)", () => {
         discharge: new Float32Array(size).fill(0),
       },
       {
-        minorPercentile: 0.85,
-        majorPercentile: 0.95,
-        minMinorDischarge: 0,
-        minMajorDischarge: 0,
+        widthCoeff: 0.25,
+        dischargeExponent: 0.5,
+        slopeWidthExponent: 0,
+        confinementWidthExponent: 0,
+        minorWidthTiles: 0.6,
+        majorWidthTiles: 1.15,
+        majorSlopeMax01: 1,
+        majorConfinementMax01: 1,
+        navigableWidthTiles: 1.75,
+        navigableSlopeMax01: 1,
+        navigableConfinementMax01: 1,
       }
     );
 
     expect(Array.from(out.riverClass)).toEqual(new Array(size).fill(0));
-    expect(out.minorThreshold).toBe(0);
-    expect(out.majorThreshold).toBe(0);
+    expect(Array.from(out.navigableMask ?? new Uint8Array(size))).toEqual(new Array(size).fill(0));
   });
 
-  it("does not classify zero-discharge land as rivers when thresholds are derived from positives", () => {
+  it("does not classify zero-discharge land as rivers when some tiles have discharge", () => {
     const width = 4;
     const height = 3;
     const size = width * height;
@@ -45,21 +50,23 @@ describe("hydrology/project-river-network (default strategy)", () => {
         discharge,
       },
       {
-        minorPercentile: 0.85,
-        majorPercentile: 0.95,
-        minMinorDischarge: 0,
-        minMajorDischarge: 0,
+        widthCoeff: 0.5,
+        dischargeExponent: 0.5,
+        slopeWidthExponent: 0,
+        confinementWidthExponent: 0,
+        minorWidthTiles: 0.6,
+        majorWidthTiles: 1.15,
+        majorSlopeMax01: 1,
+        majorConfinementMax01: 1,
+        navigableWidthTiles: 1.75,
+        navigableSlopeMax01: 1,
+        navigableConfinementMax01: 1,
       }
     );
 
-    expect(out.minorThreshold).toBe(10);
-    expect(out.majorThreshold).toBe(10);
     expect(out.riverClass[0]).toBe(2);
     expect(Array.from(out.riverClass.slice(1))).toEqual(new Array(size - 1).fill(0));
   });
-});
-
-describe("hydrology/project-river-network (physics strategy)", () => {
   it("classifies rivers monotonically with discharge when slope/confinement are zero", () => {
     const width = 5;
     const height = 1;
@@ -70,7 +77,7 @@ describe("hydrology/project-river-network (physics strategy)", () => {
     const confinement01 = new Float32Array(size).fill(0);
     const discharge = new Float32Array([0, 1, 5, 20, 60]);
 
-    const out = physicsStrategy.run(
+    const out = defaultStrategy.run(
       { width, height, landMask, discharge, slope01, confinement01 },
       {
         widthCoeff: 0.25,
@@ -102,7 +109,7 @@ describe("hydrology/project-river-network (physics strategy)", () => {
     const slope01 = new Float32Array([0.1, 0.9, 0.1]);
     const confinement01 = new Float32Array([0.1, 0.1, 0.95]);
 
-    const out = physicsStrategy.run(
+    const out = defaultStrategy.run(
       { width, height, landMask, discharge, slope01, confinement01 },
       {
         widthCoeff: 0.2,
