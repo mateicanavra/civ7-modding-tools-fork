@@ -30,7 +30,7 @@ async function sync() {
       await fs.cp(SOURCE_DIR, DEST_DIR, { recursive: true });
       console.log('  ✅ Resources synced successfully (fallback).');
     } else {
-      console.log('  > Neither archive nor pre-extracted resources found. Run `pnpm refresh:data` at repo root.');
+      console.log('  > Neither archive nor pre-extracted resources found. Run `bun run refresh:data` at repo root.');
     }
 
     console.log('\n✅ Resources sync complete.');

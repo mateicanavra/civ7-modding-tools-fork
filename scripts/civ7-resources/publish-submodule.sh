@@ -38,7 +38,7 @@ if [[ -n "$GIT_DIR" && -f "$INDEX_LOCK" ]]; then
   done
   if [[ -f "$INDEX_LOCK" ]]; then
     echo "ERROR: resources submodule index is locked: $INDEX_LOCK" >&2
-    echo "If no git is running, clear it with: pnpm -s resources:unlock" >&2
+    echo "If no git is running, clear it with: bun run resources:unlock" >&2
     exit 1
   fi
 fi

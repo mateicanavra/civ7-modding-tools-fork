@@ -24,7 +24,7 @@ if [[ -d "$SUBMODULE_REL" ]]; then
   if [[ -n "$ACTUAL_TOPLEVEL" && "$ACTUAL_TOPLEVEL" != "$EXPECTED_TOPLEVEL" ]]; then
     echo "Submodule '$SUBMODULE_REL' exists but is not a git checkout."
     echo "This usually means the directory was overwritten (e.g., by data unzip)."
-    echo "Move it aside or delete it, then re-run: pnpm resources:init"
+    echo "Move it aside or delete it, then re-run: bun run resources:init"
     exit 1
   fi
 fi
@@ -36,6 +36,6 @@ ACTUAL_TOPLEVEL="$(git -C "$SUBMODULE_REL" rev-parse --show-toplevel 2>/dev/null
 if [[ -z "$ACTUAL_TOPLEVEL" || "$ACTUAL_TOPLEVEL" != "$EXPECTED_TOPLEVEL" ]]; then
   echo "Submodule '$SUBMODULE_REL' exists but is not a git checkout."
   echo "This usually means the directory was overwritten (e.g., by data unzip)."
-  echo "Move it aside or delete it, then re-run: pnpm resources:init"
+  echo "Move it aside or delete it, then re-run: bun run resources:init"
   exit 1
 fi

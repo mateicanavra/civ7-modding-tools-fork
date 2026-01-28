@@ -6,12 +6,12 @@
   "main": "index.js",
   "scripts": {
     "build": "tsx build.ts",
-    "deploy": "pnpm exec civ7 mod manage deploy --input ./mod --id mod-swooper-civ-dacia",
+    "deploy": "bun run --filter @mateicanavra/civ7-cli dev -- mod manage deploy --input ./mod --id mod-swooper-civ-dacia",
     "docs": "docsify serve docs",
     "lint": "eslint .",
     "format": "prettier --write .",
     "check": "tsc -p tsconfig.json --noEmit",
-    "build:deploy": "pnpm run build && pnpm run deploy"
+    "build:deploy": "bun run build && bun run deploy"
   },
   "repository": {
     "type": "git",

@@ -11,7 +11,7 @@ if ! command -v gt >/dev/null 2>&1; then
 fi
 
 if [ $# -lt 1 ] || [ $# -gt 2 ]; then
-  echo "Usage: pnpm gt:import-worktree <new-branch-name> [parent-branch]" >&2
+  echo "Usage: bun run gt:import-worktree <new-branch-name> [parent-branch]" >&2
   echo "  - Operates on the CURRENT branch (\"this branch\") by default." >&2
   exit 1
 fi
