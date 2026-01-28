@@ -89,25 +89,10 @@ export const HYDROLOGY_LAKEINESS_TILES_PER_LAKE_MULTIPLIER = {
   many: 0.7,
 } as const satisfies Record<HydrologyLakeinessKnob, number>;
 
-export const HYDROLOGY_RIVER_DENSITY_LENGTH_BOUNDS = {
-  sparse: { minLength: 7, maxLength: 18 },
-  normal: { minLength: 5, maxLength: 15 },
-  dense: { minLength: 3, maxLength: 12 },
-} as const satisfies Record<
-  HydrologyRiverDensityKnob,
-  Readonly<{ minLength: number; maxLength: number }>
->;
-
-export const HYDROLOGY_RIVER_DENSITY_MINOR_PERCENTILE = {
-  sparse: 0.88,
-  normal: 0.82,
-  dense: 0.75,
-} as const satisfies Record<HydrologyRiverDensityKnob, number>;
-
-export const HYDROLOGY_RIVER_DENSITY_MAJOR_PERCENTILE = {
-  sparse: 0.97,
-  normal: 0.94,
-  dense: 0.9,
+export const HYDROLOGY_RIVER_DENSITY_RUNOFF_SCALE_MULTIPLIER = {
+  sparse: 0.8,
+  normal: 1.0,
+  dense: 1.25,
 } as const satisfies Record<HydrologyRiverDensityKnob, number>;
 
 export const HYDROLOGY_RIVERS_DEFAULT_MIN_LENGTH = 5 as const;
