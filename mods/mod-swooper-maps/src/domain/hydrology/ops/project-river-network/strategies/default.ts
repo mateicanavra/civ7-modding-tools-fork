@@ -2,13 +2,6 @@ import { createStrategy } from "@swooper/mapgen-core/authoring";
 import ProjectRiverNetworkContract from "../contract.js";
 import { clamp01 } from "../rules/index.js";
 
-function percentileThreshold(values: number[], p: number): number {
-  if (values.length === 0) return Infinity;
-  const pct = clamp01(p);
-  const i = Math.floor((values.length - 1) * pct);
-  return values[i] ?? Infinity;
-}
-
 export const defaultStrategy = createStrategy(ProjectRiverNetworkContract, "default", {
   run: (input, config) => {
     const width = input.width | 0;
@@ -21,36 +14,76 @@ export const defaultStrategy = createStrategy(ProjectRiverNetworkContract, "defa
     if (!(input.discharge instanceof Float32Array) || input.discharge.length !== size) {
       throw new Error("[Hydrology] Invalid discharge for hydrology/project-river-network.");
     }
+    if (input.slope01 != null && (!(input.slope01 instanceof Float32Array) || input.slope01.length !== size)) {
+      throw new Error("[Hydrology] Invalid slope01 for hydrology/project-river-network (default).");
+    }
+    if (
+      input.confinement01 != null &&
+      (!(input.confinement01 instanceof Float32Array) || input.confinement01.length !== size)
+    ) {
+      throw new Error("[Hydrology] Invalid confinement01 for hydrology/project-river-network (default).");
+    }
 
     const riverClass = new Uint8Array(size);
+    const channelWidthTiles = new Float32Array(size);
+    const navigableMask = new Uint8Array(size);
 
-    const landDischarge: number[] = [];
+    const widthCoeff = Math.max(0, config.widthCoeff);
+    const dischargeExponent = Math.max(0, config.dischargeExponent);
+    const slopeWidthExponent = Math.max(0, config.slopeWidthExponent);
+    const confinementWidthExponent = Math.max(0, config.confinementWidthExponent);
+
+    const minorWidthTiles = Math.max(0, config.minorWidthTiles);
+    const majorWidthTiles = Math.max(minorWidthTiles, config.majorWidthTiles);
+
+    const majorSlopeMax01 = clamp01(config.majorSlopeMax01);
+    const majorConfinementMax01 = clamp01(config.majorConfinementMax01);
+
+    const navigableWidthTiles = Math.max(0, config.navigableWidthTiles);
+    const navigableSlopeMax01 = clamp01(config.navigableSlopeMax01);
+    const navigableConfinementMax01 = clamp01(config.navigableConfinementMax01);
+
+    const slope01 = input.slope01;
+    const confinement01 = input.confinement01;
+
     for (let i = 0; i < size; i++) {
       if (input.landMask[i] !== 1) continue;
-      const d = input.discharge[i] ?? 0;
-      if (d > 0) landDischarge.push(d);
+      const q = Math.max(0, input.discharge[i] ?? 0);
+      if (q <= 0) continue;
+
+      let w = widthCoeff > 0 ? widthCoeff * Math.pow(q, dischargeExponent) : 0;
+      if (w <= 0) continue;
+
+      const s = slope01 ? clamp01(slope01[i] ?? 0) : 0;
+      const c = confinement01 ? clamp01(confinement01[i] ?? 0) : 0;
+
+      if (slopeWidthExponent > 0) w *= Math.pow(1 - s, slopeWidthExponent);
+      if (confinementWidthExponent > 0) w *= Math.pow(1 - c, confinementWidthExponent);
+
+      channelWidthTiles[i] = w;
+
+      if (w < minorWidthTiles) continue;
+
+      if (w >= majorWidthTiles && s <= majorSlopeMax01 && c <= majorConfinementMax01) {
+        riverClass[i] = 2;
+      } else {
+        riverClass[i] = 1;
+      }
+
+      if (w >= navigableWidthTiles && s <= navigableSlopeMax01 && c <= navigableConfinementMax01) {
+        navigableMask[i] = 1;
+      }
     }
-    landDischarge.sort((a, b) => a - b);
 
-    if (landDischarge.length === 0) {
-      const minorThreshold = Math.max(0, config.minMinorDischarge);
-      const majorThreshold = Math.max(minorThreshold, config.minMajorDischarge);
-      return { riverClass, minorThreshold, majorThreshold } as const;
-    }
+    const invertWidthToDischarge = (w: number): number => {
+      if (widthCoeff <= 0) return 0;
+      if (dischargeExponent <= 0) return w > 0 ? Infinity : 0;
+      return Math.pow(Math.max(0, w) / widthCoeff, 1 / dischargeExponent);
+    };
 
-    const rawMinor = percentileThreshold(landDischarge, config.minorPercentile);
-    const rawMajor = percentileThreshold(landDischarge, config.majorPercentile);
+    const minorThreshold = invertWidthToDischarge(minorWidthTiles);
+    const majorThreshold = invertWidthToDischarge(majorWidthTiles);
 
-    const minorThreshold = Math.max(0, config.minMinorDischarge, rawMinor);
-    const majorThreshold = Math.max(minorThreshold, config.minMajorDischarge, rawMajor);
-
-    for (let i = 0; i < size; i++) {
-      if (input.landMask[i] !== 1) continue;
-      const d = input.discharge[i] ?? 0;
-      if (d <= 0) continue;
-      riverClass[i] = d >= majorThreshold ? 2 : d >= minorThreshold ? 1 : 0;
-    }
-
-    return { riverClass, minorThreshold, majorThreshold } as const;
+    return { riverClass, channelWidthTiles, navigableMask, minorThreshold, majorThreshold } as const;
   },
 });
