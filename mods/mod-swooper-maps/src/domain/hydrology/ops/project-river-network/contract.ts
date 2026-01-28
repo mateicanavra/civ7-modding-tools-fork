@@ -50,6 +50,12 @@ const ProjectRiverNetworkOutputSchema = Type.Object(
         description: "Optional channel width proxy in tiles (continuous; strategy-dependent).",
       })
     ),
+    /** Optional mask (1/0): tiles classified as navigable channels (strategy-dependent). */
+    navigableMask: Type.Optional(
+      TypedArraySchemas.u8({
+        description: "Optional mask (1/0): tiles classified as navigable channels (strategy-dependent).",
+      })
+    ),
     /** Computed discharge threshold for minor rivers (same units as discharge). */
     minorThreshold: Type.Number({
       description: "Computed discharge threshold for minor rivers (same units as discharge).",
@@ -168,6 +174,27 @@ const ProjectRiverNetworkPhysicsStrategySchema = Type.Object(
       minimum: 0,
       maximum: 1,
       description: "Major rivers above this confinement (0..1) are suppressed to minor.",
+    }),
+    /** Minimum channel width (tiles) to classify a navigable river tile. */
+    navigableWidthTiles: Type.Number({
+      default: 1.75,
+      minimum: 0,
+      maximum: 50,
+      description: "Minimum channel width (tiles) to classify a navigable river tile.",
+    }),
+    /** Navigable channels above this slope (0..1) are suppressed. */
+    navigableSlopeMax01: Type.Number({
+      default: 0.35,
+      minimum: 0,
+      maximum: 1,
+      description: "Navigable channels above this slope (0..1) are suppressed.",
+    }),
+    /** Navigable channels above this confinement (0..1) are suppressed. */
+    navigableConfinementMax01: Type.Number({
+      default: 0.7,
+      minimum: 0,
+      maximum: 1,
+      description: "Navigable channels above this confinement (0..1) are suppressed.",
     }),
   },
   {

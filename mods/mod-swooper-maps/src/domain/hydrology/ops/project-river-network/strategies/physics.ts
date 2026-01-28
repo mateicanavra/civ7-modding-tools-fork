@@ -26,6 +26,7 @@ export const physicsStrategy = createStrategy(ProjectRiverNetworkContract, "phys
 
     const riverClass = new Uint8Array(size);
     const channelWidthTiles = new Float32Array(size);
+    const navigableMask = new Uint8Array(size);
 
     const widthCoeff = Math.max(0, config.widthCoeff);
     const dischargeExponent = Math.max(0, config.dischargeExponent);
@@ -37,6 +38,10 @@ export const physicsStrategy = createStrategy(ProjectRiverNetworkContract, "phys
 
     const majorSlopeMax01 = clamp01(config.majorSlopeMax01);
     const majorConfinementMax01 = clamp01(config.majorConfinementMax01);
+
+    const navigableWidthTiles = Math.max(0, config.navigableWidthTiles);
+    const navigableSlopeMax01 = clamp01(config.navigableSlopeMax01);
+    const navigableConfinementMax01 = clamp01(config.navigableConfinementMax01);
 
     const slope01 = input.slope01;
     const confinement01 = input.confinement01;
@@ -64,6 +69,10 @@ export const physicsStrategy = createStrategy(ProjectRiverNetworkContract, "phys
       } else {
         riverClass[i] = 1;
       }
+
+      if (w >= navigableWidthTiles && s <= navigableSlopeMax01 && c <= navigableConfinementMax01) {
+        navigableMask[i] = 1;
+      }
     }
 
     const invertWidthToDischarge = (w: number): number => {
@@ -75,7 +84,6 @@ export const physicsStrategy = createStrategy(ProjectRiverNetworkContract, "phys
     const minorThreshold = invertWidthToDischarge(minorWidthTiles);
     const majorThreshold = invertWidthToDischarge(majorWidthTiles);
 
-    return { riverClass, channelWidthTiles, minorThreshold, majorThreshold } as const;
+    return { riverClass, channelWidthTiles, navigableMask, minorThreshold, majorThreshold } as const;
   },
 });
-
