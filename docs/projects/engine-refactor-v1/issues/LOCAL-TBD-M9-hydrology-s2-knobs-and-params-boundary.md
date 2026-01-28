@@ -36,9 +36,9 @@ related_to: []
 Completed on branch `agent-TURTLE-M9-LOCAL-TBD-M9-hydrology-s2-knobs-and-params-boundary` (PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/614).
 
 ## Testing / Verification
-- `pnpm check`
-- `pnpm -C mods/mod-swooper-maps test`
-- `pnpm lint:domain-refactor-guardrails`
+- `bun run check`
+- `bun run --cwd mods/mod-swooper-maps test`
+- `bun run lint:domain-refactor-guardrails`
 - `rg -n "\\bclimate\\s*:" mods/mod-swooper-maps/src/maps` (expect zero hits; authored hydrology climate bags removed)
 - `rg -n "\"climate-baseline\"\\s*:|\"climate-refine\"\\s*:|\\blakes\\s*:|\\brivers\\s*:" mods/mod-swooper-maps/src/maps` (expect zero hits; authored step-id bags removed)
 

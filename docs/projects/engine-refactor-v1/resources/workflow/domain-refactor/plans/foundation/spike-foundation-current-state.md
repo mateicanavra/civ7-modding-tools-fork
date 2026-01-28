@@ -14,12 +14,12 @@ Ran the Phase 0 baseline gates (worktree + full checks/tests/build/deploy). Resu
 
 Commands:
 ```bash
-pnpm -C packages/mapgen-core check
-pnpm -C packages/mapgen-core test
-pnpm -C mods/mod-swooper-maps check
-pnpm -C mods/mod-swooper-maps test
-pnpm -C mods/mod-swooper-maps build
-pnpm deploy:mods
+bun run --cwd packages/mapgen-core check
+bun run --cwd packages/mapgen-core test
+bun run --cwd mods/mod-swooper-maps check
+bun run --cwd mods/mod-swooper-maps test
+bun run --cwd mods/mod-swooper-maps build
+bun run deploy:mods
 ```
 
 ---

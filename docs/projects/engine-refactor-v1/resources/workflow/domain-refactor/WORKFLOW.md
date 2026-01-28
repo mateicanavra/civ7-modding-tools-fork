@@ -328,17 +328,17 @@ Patch-path guard (mandatory):
 
 Install deps (only if you will run checks in this worktree):
 ```bash
-pnpm install
+bun install --frozen-lockfile
 ```
 
 Baseline gates (mandatory; record failures with links + rationale if environmental):
 ```bash
-pnpm -C packages/mapgen-core check
-pnpm -C packages/mapgen-core test
-pnpm -C mods/mod-swooper-maps check
-pnpm -C mods/mod-swooper-maps test
-pnpm -C mods/mod-swooper-maps build
-pnpm deploy:mods
+bun run --cwd packages/mapgen-core check
+bun run --cwd packages/mapgen-core test
+bun run --cwd mods/mod-swooper-maps check
+bun run --cwd mods/mod-swooper-maps test
+bun run --cwd mods/mod-swooper-maps build
+bun run deploy:mods
 ```
 
 Commit rules (Graphite-only):
@@ -385,17 +385,17 @@ REFRACTOR_DOMAINS="<domain>" ./scripts/lint/lint-domain-refactor-guardrails.sh
 
 Repo-level check (fast-ish; catches type drift + guardrails):
 ```bash
-pnpm check
+bun run check
 ```
 
 Full verification gates (must be green before “done”):
 ```bash
-pnpm -C packages/mapgen-core check
-pnpm -C packages/mapgen-core test
-pnpm -C mods/mod-swooper-maps check
-pnpm -C mods/mod-swooper-maps test
-pnpm -C mods/mod-swooper-maps build
-pnpm deploy:mods
+bun run --cwd packages/mapgen-core check
+bun run --cwd packages/mapgen-core test
+bun run --cwd mods/mod-swooper-maps check
+bun run --cwd mods/mod-swooper-maps test
+bun run --cwd mods/mod-swooper-maps build
+bun run deploy:mods
 ```
 
 If a gate is not runnable due to environment constraints (e.g., deploy requires Civ7), record:

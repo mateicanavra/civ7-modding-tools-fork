@@ -54,7 +54,7 @@ related_to: [M11-U00, M11-U04, M11-U06, LOCAL-TBD-M11-U10, LOCAL-TBD-M11-U11, LO
 - Cutover complete: the standard recipe has a single coherent crust baseline path, and Morphology does not re-introduce a competing baseline computation.
 
 ## Testing / Verification
-- Run: `pnpm test` (or focused: `pnpm -C mods/mod-swooper-maps test`).
+- Run: `bun run test` (or focused: `bun run --cwd mods/mod-swooper-maps test`).
 - Extend/add deterministic invariants tests:
 
 ```yaml

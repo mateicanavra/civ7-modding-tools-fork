@@ -66,7 +66,7 @@ related_to: [M11-U00, M11-U04, M11-U06, LOCAL-TBD-M11-U12, LOCAL-TBD-M11-U14]
   - new drivers are exposed via explicit artifacts (`*Tiles`), with consumers updated to read those drivers intentionally.
 
 ## Testing / Verification
-- `pnpm test` (includes `pnpm -C packages/mapgen-core test` and `pnpm -C mods/mod-swooper-maps test`).
+- `bun run test` (includes `bun run --cwd packages/mapgen-core test` and `bun run --cwd mods/mod-swooper-maps test`).
 - Add deterministic fixture tests (small synthetic mesh/plates) that assert:
   - segment kinematics decomposition is rotation-aware (compression/extension/shear change when rotation changes),
   - polarity assignment is stable and consistent for convergent margins,
@@ -86,7 +86,7 @@ related_to: [M11-U00, M11-U04, M11-U06, LOCAL-TBD-M11-U12, LOCAL-TBD-M11-U14]
   - Tuning surface: prefer a small set of driver knobs (kernel widths, era weights, segment drift strength) over output clamps.
   - Contract creep: keep truth/projection boundaries crisp; avoid turning `foundationPlates` into a mega-bucket.
 - Verification (this slice):
-  - `pnpm -C mods/mod-swooper-maps test` ✅
+  - `bun run --cwd mods/mod-swooper-maps test` ✅
 - Traceability:
   - Branch: `agent-RAMBO-M11-U11-foundation-tectonic-segments-and-history`
   - PR: https://app.graphite.com/github/pr/mateicanavra/civ7-modding-tools-fork/709

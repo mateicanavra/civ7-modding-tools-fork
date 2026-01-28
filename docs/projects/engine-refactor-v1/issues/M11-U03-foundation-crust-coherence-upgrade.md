@@ -34,7 +34,7 @@ related_to: [M11-U00]
 ## Testing / Verification
 - Add at least one test that fails if crust becomes IID again:
   - adjacency coherence check (neighbor similarity above a minimum threshold) on a fixed seed fixture.
-- `pnpm -C mods/mod-swooper-maps test -- <new-or-existing-foundation-test>`
+- `bun run --cwd mods/mod-swooper-maps test -- <new-or-existing-foundation-test>`
 
 ## Dependencies / Notes
 - Current placeholder implementation: `mods/mod-swooper-maps/src/domain/foundation/ops/compute-crust/index.ts`.

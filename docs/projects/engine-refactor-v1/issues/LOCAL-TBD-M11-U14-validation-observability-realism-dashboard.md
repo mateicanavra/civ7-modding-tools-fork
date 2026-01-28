@@ -52,10 +52,10 @@ related_to: [M11-U00, M11-U06, M10-U06, LOCAL-TBD-M11-U10, LOCAL-TBD-M11-U11, LO
 - No new “diagnostics artifact” contract is introduced (keep observability in traces unless/until a consumer requires an artifact).
 
 ## Testing / Verification
-- Run: `pnpm -C packages/mapgen-core test`
-- Run: `pnpm -C mods/mod-swooper-maps test`
-- Focus (Bun): `pnpm -C mods/mod-swooper-maps test -- test/foundation/m11-realism-invariants.test.ts test/morphology/m11-realism-mountain-walls.test.ts`
-- Run: `pnpm test`
+- Run: `bun run --cwd packages/mapgen-core test`
+- Run: `bun run --cwd mods/mod-swooper-maps test`
+- Focus (Bun): `bun run --cwd mods/mod-swooper-maps test -- test/foundation/m11-realism-invariants.test.ts test/morphology/m11-realism-mountain-walls.test.ts`
+- Run: `bun run test`
 
 ## Dependencies / Notes
 - References:

@@ -36,12 +36,12 @@ related_to: []
 - [x] Ops do not import from `recipes/**` or `maps/**`, and do not import adapters/contexts (pure input/output).
 - [x] `artifact:climateField` continues to publish rainfall/humidity arrays with correct size and deterministic values for the same seed + knobs.
 - [x] All ops have explicit iteration counts / fixed passes; no convergence loops.
-- [x] `pnpm check` and `pnpm -C mods/mod-swooper-maps test` pass.
+- [x] `bun run check` and `bun run --cwd mods/mod-swooper-maps test` pass.
 
 ## Testing / Verification
-- `pnpm check`
-- `pnpm -C mods/mod-swooper-maps test`
-- `pnpm lint:domain-refactor-guardrails`
+- `bun run check`
+- `bun run --cwd mods/mod-swooper-maps test`
+- `bun run lint:domain-refactor-guardrails`
 - `rg -n \"@mapgen/domain/hydrology/ops/\" mods/mod-swooper-maps/src/recipes/standard` (expect zero hits; steps must import from domain surface only)
 - `rg -n \"recipes/standard|/recipes/\" mods/mod-swooper-maps/src/domain/hydrology` (expect zero hits; domain boundary)
 

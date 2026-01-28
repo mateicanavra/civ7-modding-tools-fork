@@ -34,7 +34,7 @@ related_to: [M10-U06]
 
 ## Testing / Verification
 - `rg -n "artifact:storyOverlays|narrativePreArtifacts\\.overlays|readOverlay|overlays\\.js" mods/mod-swooper-maps/src`
-- `pnpm -C mods/mod-swooper-maps test -- test/standard-run.test.ts test/standard-recipe.test.ts`
+- `bun run --cwd mods/mod-swooper-maps test -- test/standard-run.test.ts test/standard-recipe.test.ts`
 
 ## Dependencies / Notes
 - Blocked by [M10-U01](./M10-U01-delete-overlays-as-morphology-inputs.md).

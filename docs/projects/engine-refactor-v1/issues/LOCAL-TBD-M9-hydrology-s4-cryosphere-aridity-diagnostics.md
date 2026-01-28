@@ -31,11 +31,11 @@ related_to: []
 - [x] New artifacts are additive: existing consumers (Ecology, Placement) remain unbroken if they ignore them.
 - [x] New artifacts are typed and validated (TypeBox schemas match runtime typed arrays).
 - [x] Diagnostics are documented as advisory (projections) and do not become internal truth for Hydrology (projections never define internal representation).
-- [x] `pnpm check` and `pnpm -C mods/mod-swooper-maps test` pass.
+- [x] `bun run check` and `bun run --cwd mods/mod-swooper-maps test` pass.
 
 ## Testing / Verification
-- `pnpm check`
-- `pnpm -C mods/mod-swooper-maps test`
+- `bun run check`
+- `bun run --cwd mods/mod-swooper-maps test`
 - Add/extend tests to assert bounded feedback determinism (e.g., checksum of ice index after N fixed iterations).
 
 ## Dependencies / Notes

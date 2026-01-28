@@ -43,8 +43,8 @@ related_to: [M11-U00, M11-U06, LOCAL-TBD-M11-U10, LOCAL-TBD-M11-U11, LOCAL-TBD-M
 
 ## Testing / Verification
 - Automated:
-  - `pnpm test`
-  - `pnpm -C mods/mod-swooper-maps test`
+  - `bun run test`
+  - `bun run --cwd mods/mod-swooper-maps test`
 - Targeted:
   - Add/update tests that validate polar plate policy + kinematics (cap contiguity, role marker, conditional microplates).
 - Manual sanity (fast):

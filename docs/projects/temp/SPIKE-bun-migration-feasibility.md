@@ -12,7 +12,7 @@ The main risks are not “Bun runtime incompatibility” so much as:
 
 - Workspace definition drift (pnpm uses `pnpm-workspace.yaml`; Bun uses `package.json` workspaces)
 - pnpm-only dependency controls (`pnpm.overrides`, `pnpm.onlyBuiltDependencies`, and `.npmrc` knobs)
-- CI workflows and auth patterns that are currently pnpm-centric
+- CI workflows and auth patterns that were pnpm-centric
 - Repo runtime code that detects “workspace root” by looking for `pnpm-workspace.yaml`
 
 **Intention (locked for future work):**
@@ -155,14 +155,14 @@ So “conflict” here means “split-brain toolchain risk” (two different sou
 
 ### Workspaces (critical mismatch for Bun)
 
-- Root `package.json` workspaces are currently:
+- Root `package.json` workspaces are:
   - `apps/*`
   - `packages/*`
+  - `packages/plugins/*`
   - `mods/*`
-- pnpm includes plugins via `pnpm-workspace.yaml` (includes `packages/plugins/*`).
-- Multiple workspaces depend on plugins via `workspace:*` (e.g. `packages/cli/package.json` depends on `@civ7/plugin-*`).
+- Multiple workspaces depend on plugins via `workspace:*` (e.g. `packages/cli` depends on `@civ7/plugin-*`).
 
-Under Bun, workspace membership comes from root `package.json`. As-is, Bun would likely fail to resolve those plugin `workspace:*` deps unless the root workspaces list is corrected first.
+Under Bun, workspace membership comes from root `package.json`. This repo’s workspaces list now includes plugins, so `workspace:*` dependencies resolve under Bun.
 
 ### pnpm-specific runtime logic (must be removed)
 
@@ -170,14 +170,11 @@ Historically, `@civ7/config` discovered the project root by scanning for `pnpm-w
 
 ### pnpm-only dependency controls (need Bun equivalents)
 
-Root `package.json` contains pnpm-only config under `"pnpm"`:
+Historically this repo relied on pnpm-only config under `"pnpm"` (not supported by Bun).
 
-- `pnpm.overrides` (pins `typescript`, `@types/node`, `rimraf`)
-- `pnpm.onlyBuiltDependencies` (includes `docsify`, `esbuild`, `puppeteer`, `sharp`)
-
-Bun supports top-level `overrides` (npm-style) but not pnpm’s nested override semantics. For “only built dependencies”, Bun uses a different concept: `trustedDependencies` (Bun’s secure-by-default lifecycle script allowlist).
-
-Also note root `.npmrc` includes pnpm-only settings (e.g. `only-built-dependencies[]=`) and would likely be replaced or migrated to Bun’s `bunfig.toml` for Bun-native config (Bun docs recommend this).
+This repo now uses:
+- top-level `overrides` (npm-style), and
+- `bunfig.toml` `trustedDependencies` (Bun’s secure-by-default lifecycle script allowlist).
 
 ### Tests (Vitest is repo standard; one Bun-test island exists)
 
@@ -187,17 +184,15 @@ Also note root `.npmrc` includes pnpm-only settings (e.g. `only-built-dependenci
 
 This is already a mixed model today (Vitest + Bun test).
 
-### CI / Publishing (currently pnpm-centric)
+### CI / Publishing (Bun-based)
 
-CI installs and runs with pnpm:
+CI installs and runs with Bun:
 
-- `.github/workflows/ci.yml` uses Corepack + pnpm, caches pnpm store keyed off `pnpm-lock.yaml`, then runs `pnpm build/lint/test`.
+- `.github/workflows/ci.yml` uses `bun install --frozen-lockfile` and runs `bun run build/lint/test:ci`.
 
-Publishing is pnpm-based and targets GitHub Packages:
+Publishing uses Bun and targets GitHub Packages:
 
-- `.github/workflows/publish.yml` uses `pnpm -F … publish` with `NODE_AUTH_TOKEN` and `NPM_CONFIG_REGISTRY`.
-
-Bun supports publishing and `.npmrc`, but the expected auth environment variable is typically `NPM_CONFIG_TOKEN` (per Bun docs for `bun publish`). This is solvable, but it’s a deliberate change in CI conventions.
+- `.github/workflows/publish.yml` uses `bun publish` (and Bun-friendly auth wiring via `NPM_CONFIG_TOKEN`).
 
 ## Tradeoffs to choose explicitly (beyond “legacy directions”)
 
@@ -205,25 +200,20 @@ If we choose “Bun-only package manager”, the remaining tradeoffs are mostly 
 
 1) **Workspace source of truth**
    - Bun/npm-style workspaces come from root `package.json`.
-   - Today pnpm’s source of truth is split across `package.json` and `pnpm-workspace.yaml`.
    - Decision required: root `package.json` becomes authoritative for *all* workspaces (including plugins).
 
 2) **Dependency resolution + override semantics**
-   - We currently rely on `pnpm.overrides`.
    - Bun supports npm-style `overrides`, but parity is not guaranteed for pnpm-specific behaviors.
    - Decision required: define the minimal override policy we need, then express it in Bun-compatible config.
 
 3) **Native dependency lifecycle scripts / security model**
-   - We currently allow a set of native deps to build (pnpm `onlyBuiltDependencies` + `.npmrc` knobs).
    - Bun has a different model (`trustedDependencies`).
    - Decision required: declare which deps are trusted to run install scripts, and where that policy lives.
 
 4) **CI caching + reproducibility contract**
-   - Today CI caches pnpm store and Turbo keyed off `pnpm-lock.yaml`.
    - Bun-only means a new lockfile + new caching strategy and a new “frozen lockfile” policy.
 
 5) **Publishing mechanics + auth wiring**
-   - Today publishing is `pnpm publish` with GitHub Packages registry wiring.
    - Bun-only likely changes which env vars are used and how `.npmrc` is generated in CI.
 
 None of these are reasons not to do Bun-only; they’re the “edges” that determine whether the migration is robust vs. brittle.
@@ -332,7 +322,7 @@ Given your preference to avoid overlapping patterns without strong reason, Strat
 - Bun’s lifecycle script model is different (trusted allowlist). If not configured, installs can fail subtly for native deps.
 - `workspace:*` resolution will break if workspace globs are incomplete (plugins are currently the sharp edge).
 - Publishing auth can be a footgun if CI sticks with `NODE_AUTH_TOKEN` but Bun expects `NPM_CONFIG_TOKEN` (or explicit `.npmrc` token wiring).
-- `packages/config` (and by extension CLI defaults) currently assume pnpm workspace root discovery and will need to be rewritten once pnpm artifacts are removed.
+- `packages/config` (and by extension CLI defaults) must not assume pnpm workspace root discovery (this repo now uses pnpm-free root discovery).
 
 ## Minimum “implementable” prework checklist (what to harden first)
 
@@ -353,7 +343,7 @@ If the goal is to make this migration fully implementable with low ambiguity, th
    - Acceptance: clean install works on CI and on macOS without manual intervention for `sharp`/`puppeteer`/etc.
 
 4) **Rewrite CI install/cache to Bun**
-   - Replace Corepack+pnpm steps with Bun setup + Bun install + updated cache keys (lockfile changes).
+   - Use Bun setup + `bun install --frozen-lockfile` + updated cache keys (lockfile changes).
    - Acceptance: CI can run the existing `build/lint/test` commands using Bun-only orchestration.
 
 5) **Rewrite publishing to Bun (or explicitly keep Node/npm for publish)**

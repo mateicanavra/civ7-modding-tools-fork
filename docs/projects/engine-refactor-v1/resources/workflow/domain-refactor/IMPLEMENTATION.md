@@ -327,17 +327,17 @@ In the final slice, do the “around-the-block” cleanup:
 Before the full repo gates, run the fast refactor gates:
 ```bash
 REFRACTOR_DOMAINS="<domain>" ./scripts/lint/lint-domain-refactor-guardrails.sh
-pnpm check
+bun run check
 ```
 
 Then run the full verification gates:
 ```bash
-pnpm -C packages/mapgen-core check
-pnpm -C packages/mapgen-core test
-pnpm -C mods/mod-swooper-maps check
-pnpm -C mods/mod-swooper-maps test
-pnpm -C mods/mod-swooper-maps build
-pnpm deploy:mods
+bun run --cwd packages/mapgen-core check
+bun run --cwd packages/mapgen-core test
+bun run --cwd mods/mod-swooper-maps check
+bun run --cwd mods/mod-swooper-maps test
+bun run --cwd mods/mod-swooper-maps build
+bun run deploy:mods
 ```
 
 Finally, do the Phase 5 traceability pass:
