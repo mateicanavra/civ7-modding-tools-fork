@@ -21,6 +21,126 @@ The main risks are not “Bun runtime incompatibility” so much as:
 - Test runner is **not** part of this decision: we can keep Vitest repo-wide (plus existing Bun-test “islands”) while changing the package manager.
 - If we proceed, we should record a formal ADR that supersedes any “pnpm is the monorepo contract” language.
 
+## Upstream Compatibility Check (Bun + Turborepo + Vite/Vitest) — 2026-01-27
+
+This section verifies whether the **current** toolchain shape is supported by upstream docs, and calls out any adjustments needed to keep “Bun-only package manager” robust.
+
+### Versions in this repo (current Bun stack)
+
+- Bun: pinned via `.bun-version` (`1.2.20`)
+- Turborepo: root `devDependencies.turbo` (`^2.6.3`)
+- Vite (MapGen Studio): `apps/mapgen-studio` (`6.4.1`)
+- Vitest: root `devDependencies.vitest` (`3.2.4`)
+- Node: `>= 20` (repo-wide prerequisite)
+
+### Sources consulted (upstream docs, checked 2026-01-27)
+
+- Bun release + monorepo install behavior:
+  - https://github.com/oven-sh/bun/releases/latest (latest stable as of 2026-01-27)
+  - https://bun.com/blog/bun-v1.3.7
+  - https://bun.com/blog/bun-v1.3.2 (isolated vs hoisted defaults clarified; `configVersion` behavior)
+  - https://bun.com/docs/pm/isolated-installs
+  - https://bun.com/docs/pm/lockfile
+- Turborepo + Bun package manager support:
+  - https://turborepo.dev/blog/turbo-2-6 (Bun package manager → stable; bun.lock v1 support)
+  - https://turborepo.dev/docs/support-policy
+- Vite + Bun runner interactions:
+  - https://vite.dev/guide/env-and-mode (Bun `.env` auto-load caveat)
+  - https://vite.dev/blog/announcing-vite7 (Node support for Vite 7)
+  - https://www.npmjs.com/package/vite (latest stable version as of 2026-01-27)
+  - https://www.npmjs.com/package/@vitejs/plugin-react (React plugin version alignment)
+  - https://www.npmjs.com/package/vitest (Vitest version alignment)
+  - https://www.npmjs.com/package/turbo (Turborepo version alignment)
+
+### Findings
+
+**Latest versions / constraints that matter to this repo:**
+- Bun’s latest stable release is `1.3.7` (released 2026-01-26 / 2026-01-27 depending on timezone). Bun 1.3 introduced isolated installs as the default for workspaces, but Bun 1.3.2 restored *hoisted* installs as the default for existing workspaces unless you opt into isolated mode (or your lockfile `configVersion` indicates otherwise).
+- Turborepo 2.6 marked “Bun as package manager” as stable and added support for Bun’s `bun.lock` v1 parsing for cache correctness.
+- Vite’s latest stable major is 7.x (npm currently shows `7.3.1`) and Vite 7 requires Node `20.19+` / `22.12+`.
+- Vitest’s latest stable major is 4.x (npm currently shows `4.0.18`) and is expected to track Vite 7 compatibility; the Vite 7 announcement states Vitest supports Vite 7 starting from Vitest 3.2.
+
+**Turborepo + Bun (monorepo):**
+- Turborepo documents Bun as a supported package manager, and treats Bun as “stable” in its support policy.
+- Turborepo relies on a **workspace-aware** package manager and a **non-nested** workspace layout (avoid recursive globs like `packages/**`). Multiple explicit workspace globs are fine.
+- Our workspace layout (`apps/*`, `packages/*`, `packages/plugins/*`, `mods/*`) matches the “explicit globs” model and avoids `**` recursion.
+
+**Bun workspaces:**
+- Bun supports npm-style workspaces via root `package.json` `workspaces` and `workspace:*` dependencies.
+- Bun provides workspace filtering for installs and script execution (`--filter`) and directory scoping (`--cwd`), which matches the way this repo orchestrates builds/tests/publish from the root.
+  - Workspaces are defined by the root `package.json`. This repo should treat the root as the single source of truth (don’t rely on per-package nested workspace definitions).
+
+**Bun + Vite/Vitest (runtime):**
+- Vite includes `bun.lock` in its dependency pre-bundling cache heuristics.
+- Vite explicitly warns about Bun’s `.env` file auto-loading potentially interfering with Vite’s own `.env.*` loading semantics; workaround(s) are suggested in the Vite docs.
+
+**Local sanity check (this stack):**
+- `bun install --frozen-lockfile` from repo root is clean (no lock changes).
+- `bun run --cwd apps/mapgen-studio build` succeeds (Vite build under Bun runner).
+
+### Implications / Adjustments (if we want Bun to stay “everything”)
+
+The core “Bun-only package manager” plan is compatible with Turborepo + Bun workspaces.
+
+The only *tooling sharp edge* called out by upstream docs is **`.env` semantics** when running Vite (and, by extension, Vitest/Vite-node tooling) under Bun.
+
+If we upgrade to **Vite 7**, we must raise the repo’s Node minimum to match Vite 7’s documented requirement (`20.19+` / `22.12+`).
+
+Recommended options (pick one and make it explicit):
+
+1) **Keep Bun as package manager + run Vite/Vitest under Node (most conservative)**
+   - Keep `bun install` + Bun lockfile + Bun filters.
+   - For Vite/Vitest scripts, invoke Node explicitly (so Bun does not pre-load `.env` files).
+   - Pros: avoids env-loader mismatch entirely.
+   - Cons: “Bun runs everything” becomes “Bun installs everything.”
+
+2) **Keep Bun as runtime, but standardize env-loading to avoid conflicts (preferred if we want Bun runtime)**
+   - Ensure Vite/Vitest are responsible for `.env` loading (and Bun doesn’t pre-load).
+   - Use Bun’s `--env-file` flag to avoid Bun auto-loading `.env` (so Vite’s mode-specific env loading remains authoritative).
+     - Prefer a repo-local empty file for portability (e.g. `.env.empty` committed at repo root), rather than OS-specific paths like `/dev/null`.
+     - Example shape (conceptual): `bun --env-file=.env.empty run --cwd apps/mapgen-studio dev`
+
+3) **Upgrade Bun to a newer release if it improves env-file control / ergonomics**
+   - If Bun’s newer releases add clearer flags/config to disable auto env-file loading, adopt those and encode them in package scripts so the behavior is deterministic across contributors and CI.
+   - Bun 1.3+ also introduces/expands **isolated installs** behavior for workspaces (controlled by lockfile `configVersion` and `bunfig.toml [install].linker`):
+     - If upgrading from Bun 1.2 → 1.3.2+, expect `bun.lock` to gain a `configVersion` field and possibly change default install structure if it ends up as `configVersion = 1`.
+     - If this repo wants to avoid “surprise installs”, explicitly pin `[install] linker = "hoisted"` or `"isolated"` in `bunfig.toml`, then do one clean `bun install` + CI run to lock it in.
+
+## Docs Hardball Sweep Plan (pnpm → Bun) — plan only (do not execute yet)
+
+Goal: after merging the Bun stack, ensure there is **no contributor-facing “pnpm is required” drift** anywhere outside archived docs.
+
+### Policy decisions (make explicit before editing)
+
+- Do we allow docs aimed at *consumers* (not repo contributors) to mention npm/pnpm/yarn as alternatives, or do we hardball “Bun recommended everywhere”?
+- Do we treat `docs/_archive/**` and `docs/projects/**/_archive/**` as exempt from cleanup (recommended), while keeping them historically accurate?
+
+### Remediation phases (suggested)
+
+1) **Contributor surface (highest priority)**
+   - `README.md` (replace pnpm/Corepack setup and `pnpm refresh*` with Bun equivalents).
+   - `docs/PROCESS.md`, `docs/process/CONTRIBUTING.md`, `docs/system/TESTING.md` (ensure Bun-only instructions; remove pnpm-only commands).
+
+2) **Package-local instructions**
+   - `*/TESTING.md` files under `apps/**`, `packages/**`, `mods/**` that still say `pnpm …`.
+   - Package READMEs that instruct `pnpm add` or `pnpm -F …`.
+
+3) **Templates + doc tooling**
+   - `docs/_templates/**` (e.g. `docs/_templates/service.md`) should default to Bun (or be package-manager-neutral if that’s the chosen policy).
+   - `apps/docs/**` community guides and code blocks that assume pnpm (decide: update vs keep as “any package manager” guidance).
+
+### Execution checklist (when we choose to do it)
+
+- Inventory:
+  - `rg -n \"\\bpnpm\\b\" -S --glob '!**/node_modules/**' --glob '!docs/_archive/**'`
+  - `rg -n \"\\bcorepack\\b\" -S --glob '!**/node_modules/**' --glob '!docs/_archive/**'`
+- Edit + verify:
+  - Replace repo-contributor commands with Bun equivalents (`bun install --frozen-lockfile`, `bun run …`, `bun --cwd …`, `bun run --filter …`).
+  - Ensure docs don’t reference deleted artifacts (`pnpm-lock.yaml`, `pnpm-workspace.yaml`).
+- Gate:
+  - Fresh-clone path: `bun install --frozen-lockfile` then `bun run test:ci` from repo root.
+  - Optional: `bun run --cwd apps/mapgen-studio build` (ensures Vite path works under Bun).
+
 ## Why “conflicts” matter (and what we’re choosing)
 
 There are multiple historical directions in this repo:
