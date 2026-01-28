@@ -12,7 +12,7 @@ const knobsSchema = Type.Object(
   },
   {
     description:
-      "Map-hydrology knobs (lakeiness/riverDensity). Knobs apply to engine projection only.",
+      "Map-hydrology knobs (lakeiness/riverDensity). Knobs apply to gameplay projection; lakeiness affects lake persistence physics.",
   }
 );
 

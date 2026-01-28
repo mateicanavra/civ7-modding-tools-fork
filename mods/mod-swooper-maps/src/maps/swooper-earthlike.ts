@@ -743,7 +743,11 @@ export default createMap({
           "riverDensity": "dense"
         },
         "lakes": {
-          "tilesPerLakeMultiplier": 1
+          "minFillDepthM": 1,
+          "evapScale": 1,
+          "seepageLoss": 1,
+          "seasonalityStrength01": 0.75,
+          "permanenceThreshold01": 0.75
         },
         "plot-rivers": {
           "minLength": 5,
