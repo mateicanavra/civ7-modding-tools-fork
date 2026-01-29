@@ -5,13 +5,14 @@ import { computeGeomorphicDeltas, validateGeomorphicInputs } from "../rules/inde
 export const defaultStrategy = createStrategy(ComputeGeomorphicCycleContract, "default", {
   run: (input, config) => {
     const { width, height } = input;
-    const { elevation, flowDir, flowAccum, erodibility, sedimentDepth, landMask } =
+    const { elevation, routingElevation, flowDir, flowAccum, erodibility, sedimentDepth, landMask } =
       validateGeomorphicInputs(input);
 
     return computeGeomorphicDeltas({
       width,
       height,
       elevation,
+      routingElevation,
       flowDir,
       flowAccum,
       erodibility,

@@ -5,7 +5,7 @@ import { morphologyArtifacts } from "../../morphology-pre/artifacts.js";
 /**
  * Lake projection step (engine-facing).
  *
- * Lakes are projected via engine mechanisms as a Gameplay projection only.
+ * Lakes are projected as a Gameplay projection only.
  * This step must remain deterministic and must not embed regional “paint” behavior inside Hydrology truth.
  */
 const LakesStepConfigSchema = Type.Object(
@@ -37,7 +37,7 @@ const LakesStepContract = defineStep({
   requires: [],
   provides: [],
   artifacts: {
-    requires: [morphologyArtifacts.topography],
+    requires: [morphologyArtifacts.topography, morphologyArtifacts.routing],
   },
   schema: LakesStepConfigSchema,
 });

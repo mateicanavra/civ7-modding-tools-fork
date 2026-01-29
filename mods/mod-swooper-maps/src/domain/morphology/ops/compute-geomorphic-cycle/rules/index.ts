@@ -17,6 +17,7 @@ export function validateGeomorphicInputs(
 ): {
   size: number;
   elevation: Int16Array;
+  routingElevation?: Float32Array;
   flowDir: Int32Array;
   flowAccum: Float32Array;
   erodibility: Float32Array;
@@ -26,6 +27,8 @@ export function validateGeomorphicInputs(
   const { width, height } = input;
   const size = Math.max(0, (width | 0) * (height | 0));
   const elevation = input.elevation as Int16Array;
+  const routingElevation =
+    input.routingElevation instanceof Float32Array ? (input.routingElevation as Float32Array) : undefined;
   const flowDir = input.flowDir as Int32Array;
   const flowAccum = input.flowAccum as Float32Array;
   const erodibility = input.erodibilityK as Float32Array;
@@ -34,6 +37,7 @@ export function validateGeomorphicInputs(
 
   if (
     elevation.length !== size ||
+    (routingElevation != null && routingElevation.length !== size) ||
     flowDir.length !== size ||
     flowAccum.length !== size ||
     erodibility.length !== size ||
@@ -43,7 +47,7 @@ export function validateGeomorphicInputs(
     throw new Error("[Geomorphology] Input tensors must match width*height.");
   }
 
-  return { size, elevation, flowDir, flowAccum, erodibility, sedimentDepth, landMask };
+  return { size, elevation, routingElevation, flowDir, flowAccum, erodibility, sedimentDepth, landMask };
 }
 
 /**
@@ -60,6 +64,7 @@ export function computeGeomorphicDeltas(params: {
   width: number;
   height: number;
   elevation: Int16Array;
+  routingElevation?: Float32Array;
   flowDir: Int32Array;
   flowAccum: Float32Array;
   erodibility: Float32Array;
@@ -67,7 +72,7 @@ export function computeGeomorphicDeltas(params: {
   landMask: Uint8Array;
   config: ComputeGeomorphicCycleTypes["config"]["default"];
 }): { elevationDelta: Float32Array; sedimentDelta: Float32Array } {
-  const { width, height, elevation, flowDir, flowAccum, erodibility, sedimentDepth, landMask, config } =
+  const { width, height, elevation, routingElevation, flowDir, flowAccum, erodibility, sedimentDepth, landMask, config } =
     params;
   const size = elevation.length;
 
@@ -92,6 +97,8 @@ export function computeGeomorphicDeltas(params: {
     scratchSediment[i] = sedimentDepth[i] ?? 0;
   }
 
+  const slopeSurface = routingElevation ?? scratchElevation;
+
   const erosionRate = fluvial.rate * ageScale;
   const diffusionRate = diffusion.rate * ageScale;
   const depositionRate = deposition.rate * ageScale;
@@ -105,7 +112,7 @@ export function computeGeomorphicDeltas(params: {
       if (landMask[i] !== 1) continue;
       const dest = flowDir[i] ?? -1;
       if (dest < 0 || dest >= size) continue;
-      const drop = (scratchElevation[i] ?? 0) - (scratchElevation[dest] ?? 0);
+      const drop = (slopeSurface[i] ?? 0) - (slopeSurface[dest] ?? 0);
       if (drop > maxDrop) maxDrop = drop;
     }
 
@@ -135,8 +142,9 @@ export function computeGeomorphicDeltas(params: {
         const dest = flowDir[i] ?? -1;
         const aNorm = clamp((flowAccum[i] ?? 0) / maxFlow, 0, 1);
         const discharge = Math.pow(aNorm, m);
+        const slopeElev = slopeSurface[i] ?? elev;
         const drop =
-          dest >= 0 && dest < size ? Math.max(0, elev - (scratchElevation[dest] ?? 0)) : 0;
+          dest >= 0 && dest < size ? Math.max(0, slopeElev - (slopeSurface[dest] ?? 0)) : 0;
         const slopeNorm = clamp(drop / maxDrop, 0, 1);
         const slope = Math.pow(slopeNorm, n);
         const streamPower = clamp(discharge * slope, 0, 1);

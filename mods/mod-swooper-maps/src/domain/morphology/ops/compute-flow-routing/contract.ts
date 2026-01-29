@@ -24,6 +24,12 @@ const ComputeFlowRoutingContract = defineOp({
       description: "Steepest-descent receiver index per tile (or -1 for sinks/edges).",
     }),
     flowAccum: TypedArraySchemas.f32({ description: "Drainage area proxy per tile." }),
+    routingElevation: Type.Optional(
+      TypedArraySchemas.f32({
+        description:
+          "Optional hydrologically-conditioned routing surface (Float32), used for slope/stream-power when flowDir may climb raw Int16 elevation due to depression filling.",
+      })
+    ),
     basinId: TypedArraySchemas.i32({
       description: "Optional basin identifier per tile (or -1 when unassigned).",
     }),
