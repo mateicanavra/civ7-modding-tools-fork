@@ -42,7 +42,6 @@ jobs:
     name: Reconcile preview environments
     runs-on: ubuntu-latest
     env:
-      # Base token used for status/listing and other non-destructive operations.
       RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
     steps:
       - name: Setup Node
@@ -205,7 +204,6 @@ jobs:
         env:
           ELIGIBLE_NUMBERS_JSON: ${{ steps.eligible.outputs.eligible_numbers_json }}
           DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.dry_run || 'false' }}
-          RAILWAY_DELETE_TOKEN: ${{ secrets.RAILWAY_API_TOKEN_ADMIN }}
         shell: bash
         run: |
           set -euo pipefail
@@ -258,19 +256,6 @@ jobs:
             cat stale_env_names.txt
             exit 0
           fi
-
-          if [ -z "${RAILWAY_DELETE_TOKEN:-}" ]; then
-            echo "::warning::Missing GitHub secret RAILWAY_API_TOKEN_ADMIN; skipping deletion."
-            echo "- Delete skipped: missing GitHub secret \`RAILWAY_API_TOKEN_ADMIN\`" >> "$GITHUB_STEP_SUMMARY"
-            echo "" >> "$GITHUB_STEP_SUMMARY"
-            echo "Stale preview environments (manual cleanup):" >> "$GITHUB_STEP_SUMMARY"
-            echo "\`\`\`" >> "$GITHUB_STEP_SUMMARY"
-            cat stale_env_names.txt >> "$GITHUB_STEP_SUMMARY" || true
-            echo "\`\`\`" >> "$GITHUB_STEP_SUMMARY"
-            exit 0
-          fi
-
-          export RAILWAY_API_TOKEN="$RAILWAY_DELETE_TOKEN"
 
           echo "Deleting stale preview environments..."
           python3 - <<'PY' > stale_env_delete_args.tsv
