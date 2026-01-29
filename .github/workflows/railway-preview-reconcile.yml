@@ -257,9 +257,65 @@ jobs:
             exit 0
           fi
 
+          echo "Deleting stale preview environments..."
           while IFS= read -r env_name; do
             if [ -z "$env_name" ]; then
               continue
             fi
-            railway environment delete "$env_name" -y --json >/dev/null || true
+            echo "Deleting $env_name"
+            set +e
+            railway environment delete "$env_name" -y --json
+            code=$?
+            set -e
+            if [ "$code" -ne 0 ]; then
+              echo "::warning::Failed to delete Railway environment '$env_name' (exit $code)."
+            fi
           done < stale_env_names.txt
+
+          # Verify remaining preview environments after deletion.
+          set +e
+          railway status --json 2>&1 > railway_status_raw_after_delete.txt
+          status_code=$?
+          set -e
+
+          if [ "$status_code" -ne 0 ]; then
+            echo "::warning::Could not re-check Railway status after deletion (exit $status_code)."
+            exit 0
+          fi
+
+          python3 - <<'PY' > pr_envs_after.json
+          import json, pathlib, re, sys
+
+          raw = pathlib.Path("railway_status_raw_after_delete.txt").read_text()
+          start = raw.find("{")
+          if start == -1:
+            print("[]")
+            sys.exit(0)
+          try:
+            d = json.loads(raw[start:])
+          except Exception:
+            print("[]")
+            sys.exit(0)
+
+          edges = (d.get("environments") or {}).get("edges") or []
+          pr_envs = []
+          for e in edges:
+            node = (e or {}).get("node") or {}
+            name = node.get("name") or ""
+            deleted_at = node.get("deletedAt")
+            if deleted_at:
+              continue
+            if not re.fullmatch(r"pr-\d+", name):
+              continue
+            pr_envs.append(name)
+
+          print(json.dumps(sorted(pr_envs)))
+          PY
+
+          remaining="$(
+            python3 - <<'PY'
+          import json
+          print(len(json.load(open("pr_envs_after.json"))))
+          PY
+          )"
+          echo "- Remaining preview envs after deletion: $remaining" >> "$GITHUB_STEP_SUMMARY"
