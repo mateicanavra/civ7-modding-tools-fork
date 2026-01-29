@@ -231,7 +231,8 @@ jobs:
             if pr_number not in eligible:
               stale.append(name)
 
-          print("\\n".join(stale))
+          if stale:
+            print("\\n".join(stale))
           PY
 
           stale_count="$(wc -l < stale_env_names.txt | tr -d ' ')"
