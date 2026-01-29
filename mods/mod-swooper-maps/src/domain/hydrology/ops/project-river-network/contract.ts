@@ -3,12 +3,8 @@ import { Type, TypedArraySchemas, defineOp } from "@swooper/mapgen-core/authorin
 /**
  * Projects a discrete river network classification from discharge.
  *
- * This op is projection-only: it converts a continuous discharge proxy into stable minor/major river classes.
- * It must be deterministic and monotonic with respect to its percentile thresholds.
- *
- * Practical guidance:
- * - If you want more rivers overall: lower `minorPercentile` and/or `majorPercentile`.
- * - If you want only the strongest channels: raise percentiles and/or set minimum discharge thresholds.
+ * This op is physics-oriented: it converts discharge (and optional slope/confinement) into stable river classes
+ * via a deterministic channel geometry proxy.
  */
 const ProjectRiverNetworkInputSchema = Type.Object(
   {
@@ -73,51 +69,11 @@ const ProjectRiverNetworkOutputSchema = Type.Object(
 
 /**
  * Default river projection parameters.
- */
-const ProjectRiverNetworkDefaultStrategySchema = Type.Object(
-  {
-    /** Discharge percentile used as the minor river threshold (0..1). */
-    minorPercentile: Type.Number({
-      default: 0.85,
-      minimum: 0,
-      maximum: 1,
-      description: "Discharge percentile used as the minor river threshold (0..1).",
-    }),
-    /** Discharge percentile used as the major river threshold (0..1). */
-    majorPercentile: Type.Number({
-      default: 0.95,
-      minimum: 0,
-      maximum: 1,
-      description: "Discharge percentile used as the major river threshold (0..1).",
-    }),
-    /** Minimum discharge allowed for minor rivers (same units as discharge). */
-    minMinorDischarge: Type.Number({
-      default: 0,
-      minimum: 0,
-      maximum: 1e9,
-      description: "Minimum discharge allowed for minor rivers (same units as discharge).",
-    }),
-    /** Minimum discharge allowed for major rivers (same units as discharge). */
-    minMajorDischarge: Type.Number({
-      default: 0,
-      minimum: 0,
-      maximum: 1e9,
-      description: "Minimum discharge allowed for major rivers (same units as discharge).",
-    }),
-  },
-  {
-    additionalProperties: false,
-    description: "River network projection parameters (default strategy).",
-  }
-);
-
-/**
- * Physics-oriented river classification parameters.
  *
- * This strategy intentionally avoids percentile targeting. Rivers are classified via a
+ * Rivers are classified via a
  * deterministic channel geometry proxy from discharge (optionally modulated by slope/confinement).
  */
-const ProjectRiverNetworkPhysicsStrategySchema = Type.Object(
+const ProjectRiverNetworkDefaultStrategySchema = Type.Object(
   {
     /** Width coefficient (tiles) applied to discharge^b. */
     widthCoeff: Type.Number({
@@ -199,7 +155,7 @@ const ProjectRiverNetworkPhysicsStrategySchema = Type.Object(
   },
   {
     additionalProperties: false,
-    description: "River classification parameters (physics strategy).",
+    description: "River classification parameters (default strategy).",
   }
 );
 
@@ -210,7 +166,6 @@ const ProjectRiverNetworkContract = defineOp({
   output: ProjectRiverNetworkOutputSchema,
   strategies: {
     default: ProjectRiverNetworkDefaultStrategySchema,
-    physics: ProjectRiverNetworkPhysicsStrategySchema,
   },
 });
 

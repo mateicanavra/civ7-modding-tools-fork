@@ -393,7 +393,7 @@ export default createMap({
             }
           },
           "projectRiverNetwork": {
-            "strategy": "physics",
+            "strategy": "default",
             "config": {}
           }
         }
