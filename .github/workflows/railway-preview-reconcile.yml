@@ -285,7 +285,7 @@ jobs:
             echo "$output"
             if [ "$code" -ne 0 ]; then
               if echo "$output" | grep -q "Unauthorized"; then
-                echo "::error::Railway rejected this token for environment deletion. Configure repo secret RAILWAY_API_TOKEN_ADMIN with a token that can delete environments, then re-run this workflow."
+                echo "::error::Railway rejected this token for environment deletion. Update the repo secret RAILWAY_API_TOKEN to a token that has permission to delete environments in this Railway project/workspace, then re-run this workflow."
                 exit 1
               fi
               if [ -n "$env_id" ] && [ -n "$env_name" ] && [ "$target" != "$env_name" ]; then
