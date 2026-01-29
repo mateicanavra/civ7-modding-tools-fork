@@ -262,6 +262,11 @@ jobs:
           if [ -z "${RAILWAY_DELETE_TOKEN:-}" ]; then
             echo "::warning::Missing GitHub secret RAILWAY_API_TOKEN_ADMIN; skipping deletion."
             echo "- Delete skipped: missing GitHub secret \`RAILWAY_API_TOKEN_ADMIN\`" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "Stale preview environments (manual cleanup):" >> "$GITHUB_STEP_SUMMARY"
+            echo "\`\`\`" >> "$GITHUB_STEP_SUMMARY"
+            cat stale_env_names.txt >> "$GITHUB_STEP_SUMMARY" || true
+            echo "\`\`\`" >> "$GITHUB_STEP_SUMMARY"
             exit 0
           fi
 
