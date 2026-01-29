@@ -233,8 +233,8 @@
   },
   "overrides": {
     "@types/node": "^22.14.0",
-    "rimraf": "^6.0.1",
-    "typescript": "^5.9.2",
+    "rimraf": "^6.1.2",
+    "typescript": "^5.9.3",
   },
   "packages": {
     "@alcalzone/ansi-tokenize": ["@alcalzone/ansi-tokenize@0.2.3", "", { "dependencies": { "ansi-styles": "^6.2.1", "is-fullwidth-code-point": "^5.0.0" } }, "sha512-jsElTJ0sQ4wHRz+C45tfect76BwbTbgkgKByOzpCN9xG61N5V6u/glvg1CsNJhq2xJIFpKHSwG3D2wPPuEYOrQ=="],
