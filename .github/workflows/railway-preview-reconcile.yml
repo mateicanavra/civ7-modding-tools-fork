@@ -232,7 +232,7 @@ jobs:
               stale.append(name)
 
           if stale:
-            print("\\n".join(stale))
+            print("\n".join(stale))
           PY
 
           stale_count="$(wc -l < stale_env_names.txt | tr -d ' ')"
