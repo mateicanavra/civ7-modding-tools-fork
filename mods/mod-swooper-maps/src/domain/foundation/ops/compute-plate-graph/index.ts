@@ -341,14 +341,14 @@ const computePlateGraph = createOp(ComputePlateGraphContract, {
         }
 
         const majorCount = Math.max(1, Math.floor(platesCount * 0.6));
-        const polarPolicy = config.polarCaps ?? {};
-        const capFraction = clamp01(polarPolicy.capFraction ?? 0.1);
-        const microBandFraction = clamp01(polarPolicy.microplateBandFraction ?? 0.2);
-        const requestedMicroPerPole = Math.max(0, polarPolicy.microplatesPerPole ?? 0);
-        const microplatesMinPlateCount = Math.max(0, polarPolicy.microplatesMinPlateCount ?? 14);
-        const microplateMinAreaCells = Math.max(1, polarPolicy.microplateMinAreaCells ?? 8);
-        const tangentialSpeed = Math.max(0, polarPolicy.tangentialSpeed ?? 0.9);
-        const tangentialJitterDeg = Math.max(0, polarPolicy.tangentialJitterDeg ?? 12);
+
+        const capFraction = clamp01(config.polarCaps?.capFraction ?? 0.1);
+        const microBandFraction = clamp01(config.polarCaps?.microplateBandFraction ?? 0.2);
+        const requestedMicroPerPole = Math.max(0, config.polarCaps?.microplatesPerPole ?? 0);
+        const microplatesMinPlateCount = Math.max(0, config.polarCaps?.microplatesMinPlateCount ?? 14);
+        const microplateMinAreaCells = Math.max(1, config.polarCaps?.microplateMinAreaCells ?? 8);
+        const tangentialSpeed = Math.max(0, config.polarCaps?.tangentialSpeed ?? 0.9);
+        const tangentialJitterDeg = Math.max(0, config.polarCaps?.tangentialJitterDeg ?? 12);
 
         let minSiteY = Number.POSITIVE_INFINITY;
         let maxSiteY = Number.NEGATIVE_INFINITY;

@@ -24,8 +24,9 @@ const _badFoundationStepId: _FoundationStepIds = "definitely-not-a-step";
 type _NoBogusStage = StandardRecipeConfig["bogus-stage"];
 
 type _FoundationConfig = NonNullable<StandardRecipeConfig["foundation"]>;
-// @ts-expect-error - unknown step id should not be indexable.
-type _NoBogusStep = _FoundationConfig["bogus-step"];
+type _FoundationAdvanced = NonNullable<_FoundationConfig["advanced"]>;
+// @ts-expect-error - unknown advanced group id should not be indexable.
+type _NoBogusAdvancedGroup = _FoundationAdvanced["bogus-group"];
 
 // Sanity check: op contract envelope types must be structurally typed (not `unknown`).
 type _ComputeMeshOp = typeof foundationDomain.ops.computeMesh;
@@ -50,17 +51,20 @@ const _computeMeshEnvelopeFromStepSchemaConfigIsObject: _ComputeMeshEnvelopeFrom
 
 // Ensure nested op envelopes are typed (not `unknown` / not widened to `string`).
 // If these degrade, IntelliSense for `strategy` + `config.*` becomes unusable.
-type _MeshConfig = NonNullable<_FoundationConfig["mesh"]>;
-type _ComputeMeshEnvelope = NonNullable<_MeshConfig["computeMesh"]>;
+type _MeshGroup = NonNullable<_FoundationAdvanced["mesh"]>;
+// @ts-expect-error - unknown step id should not be indexable.
+type _NoBogusStep = _MeshGroup["bogus-step"];
+
+type _MeshConfig = NonNullable<_MeshGroup["computeMesh"]>;
 
 // Strategy should not be `string` or `unknown`.
-type _ComputeMeshStrategy = _ComputeMeshEnvelope["strategy"];
+type _ComputeMeshStrategy = _MeshConfig["strategy"];
 type _ComputeMeshStrategyIsNarrow = string extends _ComputeMeshStrategy ? false : true;
 const _computeMeshStrategyIsNarrow: _ComputeMeshStrategyIsNarrow = true;
 
 // Config should be a structured object, not `unknown`.
 // (Config is optional in authoring inputs because defaults are applied during compilation.)
-type _ComputeMeshConfig = NonNullable<_ComputeMeshEnvelope["config"]>;
+type _ComputeMeshConfig = NonNullable<_MeshConfig["config"]>;
 type _ComputeMeshConfigIsObject = _ComputeMeshConfig extends object ? true : false;
 const _computeMeshConfigIsObject: _ComputeMeshConfigIsObject = true;
 
