@@ -208,27 +208,27 @@ jobs:
           fi
 
           ENV_ID="$(
-            python3 - <<'PY' <<<"$STATUS_JSON" || exit 1
+            python3 -c '
 import json, os, sys
 
 raw = sys.stdin.read()
 # tolerate non-json prefix/suffix from railway on failure
-start = raw.find("{")
+start = raw.find(\"{\")
 if start == -1:
   sys.exit(1)
 
 d = json.loads(raw[start:])
-env = os.environ["ENV_NAME"]
-edges = (d.get("environments") or {}).get("edges") or []
+env = os.environ[\"ENV_NAME\"]
+edges = (d.get(\"environments\") or {}).get(\"edges\") or []
 
 for e in edges:
-  node = (e or {}).get("node") or {}
-  if node.get("name") == env and not node.get("deletedAt"):
-    print(node.get("id") or "")
+  node = (e or {}).get(\"node\") or {}
+  if node.get(\"name\") == env and not node.get(\"deletedAt\"):
+    print(node.get(\"id\") or \"\")
     sys.exit(0)
 
 sys.exit(1)
-PY
+' <<<\"$STATUS_JSON\" || exit 1
           )" || true
 
           if [ -z "$ENV_ID" ]; then
