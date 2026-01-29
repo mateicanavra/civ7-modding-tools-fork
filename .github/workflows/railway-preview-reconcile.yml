@@ -155,19 +155,31 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          STATUS_JSON="$(railway status --json 2>&1)"
-          export STATUS_JSON
+          set +e
+          railway status --json 2>&1 > railway_status_raw.txt
+          status_code=$?
+          set -e
+
+          if [ "$status_code" -ne 0 ]; then
+            echo "[]" > pr_envs.json
+            echo "count=0" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
 
           python3 - <<'PY' > pr_envs.json
-          import json, os, re, sys
+          import json, pathlib, re, sys
 
-          raw = os.environ.get("STATUS_JSON", "")
+          raw = pathlib.Path("railway_status_raw.txt").read_text()
           start = raw.find("{")
           if start == -1:
             print("[]")
             sys.exit(0)
 
-          d = json.loads(raw[start:])
+          try:
+            d = json.loads(raw[start:])
+          except Exception:
+            print("[]")
+            sys.exit(0)
           edges = (d.get("environments") or {}).get("edges") or []
 
           pr_envs = []
@@ -185,7 +197,13 @@ jobs:
           print(json.dumps(pr_envs))
           PY
 
-          echo "count=$(python3 -c 'import json; print(len(json.load(open("pr_envs.json"))))')" >> "$GITHUB_OUTPUT"
+          count="$(
+            python3 - <<'PY'
+          import json
+          print(len(json.load(open("pr_envs.json"))))
+          PY
+          )"
+          echo "count=$count" >> "$GITHUB_OUTPUT"
 
       - name: Delete stale preview environments
         if: steps.auth.outputs.ok == 'true'
