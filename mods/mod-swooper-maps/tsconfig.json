@@ -15,5 +15,6 @@
     "moduleResolution": "Bundler",
     "types": ["@civ7/types"]
   },
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["src/dev/**"]
 }

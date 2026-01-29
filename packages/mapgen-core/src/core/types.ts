@@ -158,6 +158,58 @@ export interface GenerationMetrics {
   warnings: string[];
 }
 
+export type VizLayerKind = "grid" | "points" | "segments";
+
+export type VizScalarFormat = "u8" | "i8" | "u16" | "i16" | "i32" | "f32";
+
+export interface VizDumper {
+  /**
+   * Base directory for run dumps. The concrete run directory is typically
+   * resolved as `${outputRoot}/${runId}`.
+   *
+   * NOTE: this is expected to be injected by local tooling; runtime/game code
+   * should not assume it exists.
+   */
+  outputRoot: string;
+
+  dumpGrid: (
+    trace: TraceScope,
+    layer: {
+      layerId: string;
+      dims: { width: number; height: number };
+      format: VizScalarFormat;
+      values: ArrayBufferView;
+      /**
+       * Optional stable suffix to keep filenames unique within a run.
+       * Does not affect `layerId` (which should remain stable).
+       */
+      fileKey?: string;
+    }
+  ) => void;
+
+  dumpPoints: (
+    trace: TraceScope,
+    layer: {
+      layerId: string;
+      positions: Float32Array; // [x0,y0,x1,y1,...]
+      values?: ArrayBufferView;
+      valueFormat?: VizScalarFormat;
+      fileKey?: string;
+    }
+  ) => void;
+
+  dumpSegments: (
+    trace: TraceScope,
+    layer: {
+      layerId: string;
+      segments: Float32Array; // [x0,y0,x1,y1,...] pairs per segment
+      values?: ArrayBufferView;
+      valueFormat?: VizScalarFormat;
+      fileKey?: string;
+    }
+  ) => void;
+}
+
 // ============================================================================
 // Extended MapContext
 // ============================================================================
@@ -173,6 +225,7 @@ export interface ExtendedMapContext {
   env: Env;
   metrics: GenerationMetrics;
   trace: TraceScope;
+  viz?: VizDumper;
   adapter: EngineAdapter;
   /**
    * Published data products keyed by dependency tag (e.g. "artifact:climateField").

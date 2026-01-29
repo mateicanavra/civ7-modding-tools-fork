@@ -5,6 +5,7 @@ import MeshStepContract from "./mesh.contract.js";
 import { validateMeshArtifact, wrapFoundationValidateNoDims } from "./validation.js";
 import { FOUNDATION_PLATE_COUNT_MULTIPLIER } from "@mapgen/domain/foundation/shared/knob-multipliers.js";
 import type { FoundationPlateCountKnob } from "@mapgen/domain/foundation/shared/knobs.js";
+import { interleaveXY } from "./viz.js";
 
 function clampInt(value: number, bounds: { min: number; max?: number }): number {
   const rounded = Math.round(value);
@@ -53,5 +54,13 @@ export default createStep(MeshStepContract, {
     );
 
     deps.artifacts.foundationMesh.publish(context, meshResult.mesh);
+
+    context.viz?.dumpPoints(context.trace, {
+      layerId: "foundation.mesh.sites",
+      positions: interleaveXY(meshResult.mesh.siteX, meshResult.mesh.siteY),
+      values: meshResult.mesh.areas,
+      valueFormat: "f32",
+      fileKey: "areas",
+    });
   },
 });

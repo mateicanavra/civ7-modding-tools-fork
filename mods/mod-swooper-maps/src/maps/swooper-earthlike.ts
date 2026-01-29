@@ -30,7 +30,7 @@ export default createMap({
               "strategy": "default",
               "config": {
                 "plateCount": 28,
-                "cellsPerPlate": 7,
+                "cellsPerPlate": 14,
                 "relaxationSteps": 4,
                 "referenceArea": 6996,
                 "plateScalePower": 0.65

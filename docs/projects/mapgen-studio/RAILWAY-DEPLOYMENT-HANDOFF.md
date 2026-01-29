@@ -9,6 +9,10 @@
 
 MapGen Studio is a browser-based visualization tool for the Civ7 map generation pipeline. The near-term goal is a **public, static deployment** (zero auth) to prove the Railway deployment pipeline before we build the real product: an **in-browser pipeline runner** (Web Worker) plus **rich visualization** (e.g., deck.gl) for debugging/iteration.
 
+Roadmap for the visualization product (including V0 “dump + deck.gl viewer”): `docs/projects/mapgen-studio/ROADMAP.md`.
+
+This document is intentionally **deployment-only** (Railway + static hosting). Product/architecture details live in the roadmap and V0 plan.
+
 **Current state:**
 - Railway service exists, connected to the monorepo
 - But it's configured for the whole repo, not the `apps/mapgen-studio` subdirectory
