@@ -16,6 +16,24 @@ export const HydrologyHydrographyArtifactSchema = Type.Object(
     discharge: TypedArraySchemas.f32({
       description: "Accumulated discharge proxy per tile (routing + runoff accumulation).",
     }),
+    /** Optional local slope proxy on the routing surface (0..1). */
+    slope01: Type.Optional(
+      TypedArraySchemas.f32({
+        description: "Optional slope proxy per tile (0..1) on the routing surface.",
+      })
+    ),
+    /** Optional valley confinement proxy (0..1; higher = more confined). */
+    confinement01: Type.Optional(
+      TypedArraySchemas.f32({
+        description: "Optional valley confinement proxy per tile (0..1; higher = more confined).",
+      })
+    ),
+    /** Optional channel width proxy in tiles (continuous). */
+    channelWidthTiles: Type.Optional(
+      TypedArraySchemas.f32({
+        description: "Optional channel width proxy in tiles (continuous).",
+      })
+    ),
     /** Discrete river class derived from discharge thresholds (0=none, 1=minor, 2=major). */
     riverClass: TypedArraySchemas.u8({
       description: "River class per tile (0=none, 1=minor, 2=major).",

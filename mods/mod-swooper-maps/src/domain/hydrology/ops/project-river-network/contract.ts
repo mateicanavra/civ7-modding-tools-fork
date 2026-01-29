@@ -20,6 +20,14 @@ const ProjectRiverNetworkInputSchema = Type.Object(
     landMask: TypedArraySchemas.u8({ description: "Land mask per tile (1=land, 0=water)." }),
     /** Discharge proxy per tile. */
     discharge: TypedArraySchemas.f32({ description: "Discharge proxy per tile." }),
+    /** Optional slope proxy per tile (0..1). */
+    slope01: Type.Optional(
+      TypedArraySchemas.f32({ description: "Optional slope proxy per tile (0..1)." })
+    ),
+    /** Optional confinement proxy per tile (0..1; higher = more confined). */
+    confinement01: Type.Optional(
+      TypedArraySchemas.f32({ description: "Optional confinement proxy per tile (0..1; higher = more confined)." })
+    ),
   },
   {
     additionalProperties: false,
@@ -36,6 +44,12 @@ const ProjectRiverNetworkOutputSchema = Type.Object(
     riverClass: TypedArraySchemas.u8({
       description: "River class per tile (0=none, 1=minor, 2=major).",
     }),
+    /** Optional channel width proxy in tiles (continuous; strategy-dependent). */
+    channelWidthTiles: Type.Optional(
+      TypedArraySchemas.f32({
+        description: "Optional channel width proxy in tiles (continuous; strategy-dependent).",
+      })
+    ),
     /** Computed discharge threshold for minor rivers (same units as discharge). */
     minorThreshold: Type.Number({
       description: "Computed discharge threshold for minor rivers (same units as discharge).",
@@ -91,6 +105,77 @@ const ProjectRiverNetworkDefaultStrategySchema = Type.Object(
   }
 );
 
+/**
+ * Physics-oriented river classification parameters.
+ *
+ * This strategy intentionally avoids percentile targeting. Rivers are classified via a
+ * deterministic channel geometry proxy from discharge (optionally modulated by slope/confinement).
+ */
+const ProjectRiverNetworkPhysicsStrategySchema = Type.Object(
+  {
+    /** Width coefficient (tiles) applied to discharge^b. */
+    widthCoeff: Type.Number({
+      default: 0.035,
+      minimum: 0,
+      maximum: 10,
+      description: "Width coefficient (tiles) applied to discharge^b.",
+    }),
+    /** Discharge exponent b in width ∝ Q^b. */
+    dischargeExponent: Type.Number({
+      default: 0.45,
+      minimum: 0,
+      maximum: 2,
+      description: "Discharge exponent b in width ∝ Q^b.",
+    }),
+    /** How strongly slope suppresses width (width *= (1 - slope01)^k). */
+    slopeWidthExponent: Type.Number({
+      default: 1.25,
+      minimum: 0,
+      maximum: 8,
+      description: "How strongly slope suppresses width (width *= (1 - slope01)^k).",
+    }),
+    /** How strongly confinement suppresses width (width *= (1 - confinement01)^k). */
+    confinementWidthExponent: Type.Number({
+      default: 1.0,
+      minimum: 0,
+      maximum: 8,
+      description: "How strongly confinement suppresses width (width *= (1 - confinement01)^k).",
+    }),
+    /** Minimum channel width (tiles) to classify a minor river. */
+    minorWidthTiles: Type.Number({
+      default: 0.6,
+      minimum: 0,
+      maximum: 50,
+      description: "Minimum channel width (tiles) to classify a minor river.",
+    }),
+    /** Minimum channel width (tiles) to classify a major river. */
+    majorWidthTiles: Type.Number({
+      default: 1.15,
+      minimum: 0,
+      maximum: 50,
+      description: "Minimum channel width (tiles) to classify a major river.",
+    }),
+    /** Major rivers above this slope (0..1) are suppressed to minor. */
+    majorSlopeMax01: Type.Number({
+      default: 0.45,
+      minimum: 0,
+      maximum: 1,
+      description: "Major rivers above this slope (0..1) are suppressed to minor.",
+    }),
+    /** Major rivers above this confinement (0..1) are suppressed to minor. */
+    majorConfinementMax01: Type.Number({
+      default: 0.8,
+      minimum: 0,
+      maximum: 1,
+      description: "Major rivers above this confinement (0..1) are suppressed to minor.",
+    }),
+  },
+  {
+    additionalProperties: false,
+    description: "River classification parameters (physics strategy).",
+  }
+);
+
 const ProjectRiverNetworkContract = defineOp({
   kind: "compute",
   id: "hydrology/project-river-network",
@@ -98,6 +183,7 @@ const ProjectRiverNetworkContract = defineOp({
   output: ProjectRiverNetworkOutputSchema,
   strategies: {
     default: ProjectRiverNetworkDefaultStrategySchema,
+    physics: ProjectRiverNetworkPhysicsStrategySchema,
   },
 });
 
