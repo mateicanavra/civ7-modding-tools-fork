@@ -29,10 +29,10 @@ export default createMap({
             "computeMesh": {
               "strategy": "default",
               "config": {
-                "plateCount": 19,
+                "plateCount": 28,
                 "cellsPerPlate": 7,
                 "relaxationSteps": 6,
-                "referenceArea": 16000,
+                "referenceArea": 6996,
                 "plateScalePower": 1
               }
             }
@@ -41,7 +41,7 @@ export default createMap({
             "computeCrust": {
               "strategy": "default",
               "config": {
-                "continentalRatio": 0.37
+                "continentalRatio": 0.29
               }
             }
           },
@@ -49,8 +49,8 @@ export default createMap({
             "computePlateGraph": {
               "strategy": "default",
               "config": {
-                "plateCount": 19,
-                "referenceArea": 16000,
+                "plateCount": 28,
+                "referenceArea": 6996,
                 "plateScalePower": 1
               }
             }
@@ -140,7 +140,7 @@ export default createMap({
             "seaLevel": {
               "strategy": "default",
               "config": {
-                "targetWaterPercent": 63,
+                "targetWaterPercent": 70,
                 "targetScalar": 1,
                 "variance": 1.5,
                 "boundaryShareTarget": 0.08,
@@ -296,13 +296,13 @@ export default createMap({
       "hydrology-climate-baseline": {
         "knobs": {
           "dryness": "mix",
-          "temperature": "hot",
-          "seasonality": "high",
+          "temperature": "temperate",
+          "seasonality": "normal",
           "oceanCoupling": "earthlike"
         },
         "climate-baseline": {
           "seasonality": {
-            "axialTiltDeg": 29.44,
+            "axialTiltDeg": 23.44,
             "modeCount": 4
           },
           "computeAtmosphericCirculation": {
@@ -394,14 +394,26 @@ export default createMap({
           },
           "projectRiverNetwork": {
             "strategy": "default",
-            "config": {}
+            "config": {
+              "widthCoeff": 0.035,
+              "dischargeExponent": 0.45,
+              "slopeWidthExponent": 1.25,
+              "confinementWidthExponent": 1,
+              "minorWidthTiles": 0.6,
+              "majorWidthTiles": 1.15,
+              "majorSlopeMax01": 0.45,
+              "majorConfinementMax01": 0.8,
+              "navigableWidthTiles": 1.75,
+              "navigableSlopeMax01": 0.35,
+              "navigableConfinementMax01": 0.7
+            }
           }
         }
       },
       "hydrology-climate-refine": {
         "knobs": {
           "dryness": "mix",
-          "temperature": "hot",
+          "temperature": "temperate",
           "cryosphere": "on"
         },
         "climate-refine": {
