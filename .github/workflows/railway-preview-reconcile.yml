@@ -1,0 +1,353 @@
+name: Railway Preview Reconciler (MapGen Studio)
+
+on:
+  schedule:
+    # Hourly, slightly offset to avoid contention with other scheduled jobs.
+    - cron: "17 * * * *"
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - labeled
+      - unlabeled
+      - ready_for_review
+      - converted_to_draft
+      - closed
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "If true, report stale preview envs but don't delete them."
+        required: false
+        default: "false"
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: railway-preview-reconcile
+  cancel-in-progress: true
+
+env:
+  RAILWAY_PROJECT_ID: e4fe5b19-db1f-47ba-9a57-35825b3e69b3
+  RAILWAY_BASE_ENVIRONMENT_ID: 7b924069-d645-4c37-b5cb-0382869f6829
+  RAILWAY_SERVICE_NAME: mapgen-studio
+
+  PREVIEW_LABEL: railway-preview
+  NO_PREVIEW_LABEL: no-railway-preview
+
+jobs:
+  reconcile:
+    name: Reconcile preview environments
+    runs-on: ubuntu-latest
+    env:
+      RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
+    steps:
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.14.x
+
+      - name: Decide whether to run (requires Railway token)
+        id: decide
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const hasToken = Boolean(process.env.RAILWAY_API_TOKEN);
+            core.setOutput('has_token', hasToken ? 'true' : 'false');
+
+      - name: Install Railway CLI (pinned)
+        if: steps.decide.outputs.has_token == 'true'
+        run: npm i -g @railway/cli@4.27.0
+
+      - name: Seed Railway CLI config (base env)
+        if: steps.decide.outputs.has_token == 'true'
+        shell: bash
+        run: |
+          mkdir -p "$HOME/.railway"
+          python3 - <<'PY'
+          import json, os, pathlib
+
+          path = pathlib.Path.home() / ".railway" / "config.json"
+          cfg = {}
+          if path.exists():
+            cfg = json.loads(path.read_text())
+
+          cfg.setdefault("linkedFunctions", None)
+          cfg.setdefault("projects", {})
+          cfg.setdefault("user", {})
+
+          project_path = os.environ["GITHUB_WORKSPACE"]
+          cfg["projects"][project_path] = {
+            "environment": os.environ["RAILWAY_BASE_ENVIRONMENT_ID"],
+            "environmentName": "preview-base",
+            "name": "CIV7",
+            "project": os.environ["RAILWAY_PROJECT_ID"],
+            "projectPath": project_path,
+            "service": None,
+          }
+
+          path.write_text(json.dumps(cfg))
+          PY
+
+      - name: Check Railway auth (token + project access)
+        id: auth
+        if: steps.decide.outputs.has_token == 'true'
+        continue-on-error: true
+        run: |
+          set +e
+          railway status --json >/dev/null
+          code=$?
+          set -e
+
+          if [ "$code" -eq 0 ]; then
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Compute eligible PRs (Graphite-aware)
+        id: eligible
+        if: steps.auth.outputs.ok == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const previewLabel = process.env.PREVIEW_LABEL;
+            const noPreviewLabel = process.env.NO_PREVIEW_LABEL;
+
+            const openPRs = await github.paginate(github.rest.pulls.list, {
+              owner,
+              repo,
+              state: 'open',
+              per_page: 100,
+            });
+
+            // Graphite "top-of-stack" heuristic:
+            // If any open PR has base == this PR's head branch, this PR has a child => not top.
+            const baseRefs = new Set(openPRs.map((pr) => pr.base?.ref).filter(Boolean));
+
+            const eligible = [];
+            for (const pr of openPRs) {
+              const labels = (pr.labels || []).map((l) => l.name);
+              const force = labels.includes(previewLabel);
+              const suppress = labels.includes(noPreviewLabel);
+              const isFork = pr.head?.repo?.full_name !== `${owner}/${repo}`;
+              const isTopOfStack = !baseRefs.has(pr.head?.ref);
+
+              const shouldPreview = !isFork && !suppress && (force || (isTopOfStack && !pr.draft));
+              if (shouldPreview) eligible.push(pr.number);
+            }
+
+            core.setOutput('eligible_numbers_json', JSON.stringify(eligible));
+            core.setOutput('eligible_count', String(eligible.length));
+
+      - name: Collect existing Railway preview environments
+        id: envs
+        if: steps.auth.outputs.ok == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          set +e
+          railway status --json 2>&1 > railway_status_raw.txt
+          status_code=$?
+          set -e
+
+          if [ "$status_code" -ne 0 ]; then
+            echo "[]" > pr_envs.json
+            echo "count=0" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          python3 - <<'PY' > pr_envs.json
+          import json, pathlib, re, sys
+
+          raw = pathlib.Path("railway_status_raw.txt").read_text()
+          start = raw.find("{")
+          if start == -1:
+            print("[]")
+            sys.exit(0)
+
+          try:
+            d = json.loads(raw[start:])
+          except Exception:
+            print("[]")
+            sys.exit(0)
+          edges = (d.get("environments") or {}).get("edges") or []
+
+          pr_envs = []
+          for e in edges:
+            node = (e or {}).get("node") or {}
+            name = node.get("name") or ""
+            env_id = node.get("id") or ""
+            deleted_at = node.get("deletedAt")
+            if deleted_at:
+              continue
+            if not re.fullmatch(r"pr-\d+", name):
+              continue
+            pr_envs.append({"name": name, "id": env_id})
+
+          print(json.dumps(pr_envs))
+          PY
+
+          count="$(
+            python3 - <<'PY'
+          import json
+          print(len(json.load(open("pr_envs.json"))))
+          PY
+          )"
+          echo "count=$count" >> "$GITHUB_OUTPUT"
+
+      - name: Delete stale preview environments
+        if: steps.auth.outputs.ok == 'true'
+        env:
+          ELIGIBLE_NUMBERS_JSON: ${{ steps.eligible.outputs.eligible_numbers_json }}
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.dry_run || 'false' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python3 - <<'PY'
+          import json, os, re
+
+          eligible = set(json.loads(os.environ.get("ELIGIBLE_NUMBERS_JSON") or "[]"))
+          pr_envs = json.load(open("pr_envs.json"))
+
+          stale = []
+          for env in pr_envs:
+            name = env.get("name") or ""
+            env_id = env.get("id") or ""
+            m = re.fullmatch(r"pr-(\d+)", name)
+            if not m:
+              continue
+            pr_number = int(m.group(1))
+            if pr_number not in eligible:
+              stale.append({"name": name, "id": env_id, "pr": pr_number})
+
+          with open("stale_envs.json", "w") as f:
+            json.dump(stale, f)
+
+          with open("stale_env_names.txt", "w") as f:
+            for e in stale:
+              f.write(e["name"] + "\n")
+
+          print(len(stale))
+          PY
+
+          stale_count="$(python3 -c 'import json; print(len(json.load(open("stale_envs.json"))))')"
+          eligible_count="${{ steps.eligible.outputs.eligible_count }}"
+
+          {
+            echo "## Railway Preview Reconciler"
+            echo ""
+            echo "- Eligible PR previews: ${eligible_count:-0}"
+            echo "- Existing preview envs: ${{ steps.envs.outputs.count || '0' }}"
+            echo "- Stale preview envs: ${stale_count}"
+            echo "- Dry run: ${DRY_RUN}"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          if [ "$stale_count" -eq 0 ]; then
+            exit 0
+          fi
+
+          if [ "$DRY_RUN" = "true" ]; then
+            echo "Dry run; would delete:"
+            cat stale_env_names.txt
+            exit 0
+          fi
+
+          echo "Deleting stale preview environments..."
+          python3 - <<'PY' > stale_env_delete_args.tsv
+          import json
+
+          for e in json.load(open("stale_envs.json")):
+            env_id = (e.get("id") or "").strip()
+            name = (e.get("name") or "").strip()
+            print(f"{env_id}\t{name}")
+          PY
+
+          while IFS=$'\t' read -r env_id env_name; do
+            if [ -z "$env_id" ] && [ -z "$env_name" ]; then
+              continue
+            fi
+
+            target="$env_id"
+            if [ -z "$target" ]; then
+              target="$env_name"
+            fi
+
+            echo "Deleting $env_name ($target)"
+            set +e
+            output="$(railway environment delete "$target" -y --json 2>&1)"
+            code=$?
+            set -e
+            echo "$output"
+            if [ "$code" -ne 0 ]; then
+              if echo "$output" | grep -q "Unauthorized"; then
+                echo "::error::Railway rejected this token for environment deletion. Update the repo secret RAILWAY_API_TOKEN to a token that has permission to delete environments in this Railway project/workspace, then re-run this workflow."
+                exit 1
+              fi
+              if [ -n "$env_id" ] && [ -n "$env_name" ] && [ "$target" != "$env_name" ]; then
+                echo "::warning::Delete by id failed for '$env_name' (exit $code); retrying by name."
+                set +e
+                output2="$(railway environment delete "$env_name" -y --json 2>&1)"
+                code2=$?
+                set -e
+                echo "$output2"
+                if [ "$code2" -ne 0 ]; then
+                  echo "::warning::Failed to delete Railway environment '$env_name' by name too (exit $code2)."
+                fi
+              else
+                echo "::warning::Failed to delete Railway environment '$env_name' (exit $code)."
+              fi
+            fi
+          done < stale_env_delete_args.tsv
+
+          # Verify remaining preview environments after deletion.
+          set +e
+          railway status --json 2>&1 > railway_status_raw_after_delete.txt
+          status_code=$?
+          set -e
+
+          if [ "$status_code" -ne 0 ]; then
+            echo "::warning::Could not re-check Railway status after deletion (exit $status_code)."
+            exit 0
+          fi
+
+          python3 - <<'PY' > pr_envs_after.json
+          import json, pathlib, re, sys
+
+          raw = pathlib.Path("railway_status_raw_after_delete.txt").read_text()
+          start = raw.find("{")
+          if start == -1:
+            print("[]")
+            sys.exit(0)
+          try:
+            d = json.loads(raw[start:])
+          except Exception:
+            print("[]")
+            sys.exit(0)
+
+          edges = (d.get("environments") or {}).get("edges") or []
+          pr_envs = []
+          for e in edges:
+            node = (e or {}).get("node") or {}
+            name = node.get("name") or ""
+            deleted_at = node.get("deletedAt")
+            if deleted_at:
+              continue
+            if not re.fullmatch(r"pr-\d+", name):
+              continue
+            pr_envs.append(name)
+
+          print(json.dumps(sorted(pr_envs)))
+          PY
+
+          remaining="$(
+            python3 - <<'PY'
+          import json
+          print(len(json.load(open("pr_envs_after.json"))))
+          PY
+          )"
+          echo "- Remaining preview envs after deletion: $remaining" >> "$GITHUB_STEP_SUMMARY"
