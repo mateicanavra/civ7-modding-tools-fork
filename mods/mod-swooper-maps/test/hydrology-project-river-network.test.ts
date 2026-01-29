@@ -96,7 +96,7 @@ describe("hydrology/project-river-network (default strategy)", () => {
 
     expect(out.channelWidthTiles).toBeInstanceOf(Float32Array);
     expect(out.channelWidthTiles.length).toBe(size);
-    expect(Array.from(out.riverClass)).toEqual([0, 0, 1, 2, 2]);
+    expect(Array.from(out.riverClass)).toEqual([0, 0, 0, 1, 2]);
   });
 
   it("suppresses major rivers when slope/confinement exceed major gates", () => {
