@@ -215,7 +215,7 @@ jobs:
         run: |
           set -euo pipefail
 
-          python3 - <<'PY' > stale_env_names.txt
+          python3 - <<'PY'
           import json, os, re
 
           eligible = set(json.loads(os.environ.get("ELIGIBLE_NUMBERS_JSON") or "[]"))
@@ -224,18 +224,25 @@ jobs:
           stale = []
           for env in pr_envs:
             name = env.get("name") or ""
+            env_id = env.get("id") or ""
             m = re.fullmatch(r"pr-(\d+)", name)
             if not m:
               continue
             pr_number = int(m.group(1))
             if pr_number not in eligible:
-              stale.append(name)
+              stale.append({"name": name, "id": env_id, "pr": pr_number})
 
-          if stale:
-            print("\n".join(stale))
+          with open("stale_envs.json", "w") as f:
+            json.dump(stale, f)
+
+          with open("stale_env_names.txt", "w") as f:
+            for e in stale:
+              f.write(e["name"] + "\n")
+
+          print(len(stale))
           PY
 
-          stale_count="$(wc -l < stale_env_names.txt | tr -d ' ')"
+          stale_count="$(python3 -c 'import json; print(len(json.load(open("stale_envs.json"))))')"
           eligible_count="${{ steps.eligible.outputs.eligible_count }}"
 
           {
@@ -258,19 +265,45 @@ jobs:
           fi
 
           echo "Deleting stale preview environments..."
-          while IFS= read -r env_name; do
-            if [ -z "$env_name" ]; then
+          python3 - <<'PY' > stale_env_delete_args.tsv
+          import json
+
+          for e in json.load(open("stale_envs.json")):
+            env_id = (e.get("id") or "").strip()
+            name = (e.get("name") or "").strip()
+            print(f"{env_id}\t{name}")
+          PY
+
+          while IFS=$'\t' read -r env_id env_name; do
+            if [ -z "$env_id" ] && [ -z "$env_name" ]; then
               continue
             fi
-            echo "Deleting $env_name"
+
+            target="$env_id"
+            if [ -z "$target" ]; then
+              target="$env_name"
+            fi
+
+            echo "Deleting $env_name ($target)"
             set +e
-            railway environment delete "$env_name" -y --json
+            railway environment delete "$target" -y --json
             code=$?
             set -e
             if [ "$code" -ne 0 ]; then
-              echo "::warning::Failed to delete Railway environment '$env_name' (exit $code)."
+              if [ -n "$env_id" ] && [ -n "$env_name" ] && [ "$target" != "$env_name" ]; then
+                echo "::warning::Delete by id failed for '$env_name' (exit $code); retrying by name."
+                set +e
+                railway environment delete "$env_name" -y --json
+                code2=$?
+                set -e
+                if [ "$code2" -ne 0 ]; then
+                  echo "::warning::Failed to delete Railway environment '$env_name' by name too (exit $code2)."
+                fi
+              else
+                echo "::warning::Failed to delete Railway environment '$env_name' (exit $code)."
+              fi
             fi
-          done < stale_env_names.txt
+          done < stale_env_delete_args.tsv
 
           # Verify remaining preview environments after deletion.
           set +e
