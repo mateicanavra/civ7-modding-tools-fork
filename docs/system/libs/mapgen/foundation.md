@@ -12,6 +12,8 @@ The Foundation layer constructs the physical "board" used by downstream shaping:
 
 Unlike grid-based noise and nearest-neighbor heuristics, this approach uses a graph-based physics model that explicitly decouples **kinematics** (plate motion) from **material** (crust type/age).
 
+For the unified refactor proposal and implementation roadmap, see [`foundation-refactor-proposal.md`](foundation-refactor-proposal.md).
+
 ### Modeling posture: mesh-first (not tile-first)
 
 - The canonical Foundation substrate is a **mesh/graph** (Delaunay → Voronoi), not a tile grid.

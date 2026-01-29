@@ -130,3 +130,7 @@ See: `docs/system/libs/mapgen/narrative.md` and `docs/projects/engine-refactor-v
 - **Produces:** placements and any placement-owned diagnostics/products needed by downstream consumers (if any).
 
 See: `docs/system/libs/mapgen/placement.md`
+
+## Diagnostics & Visualization
+
+Pipeline traces and layer dumps can be used to visualize post-run artifacts in an external deck.gl viewer. See `docs/system/libs/mapgen/pipeline-visualization-deckgl.md`.
