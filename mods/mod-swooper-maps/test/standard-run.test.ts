@@ -470,7 +470,6 @@ const standardConfig = {
   },
   "map-hydrology": {
     knobs: {
-      riverDensity: "normal",
       lakeiness: "normal",
     },
   },
