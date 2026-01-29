@@ -718,14 +718,14 @@ export default createMap({
           "mountains": {
             "strategy": "default",
             "config": {
-              "tectonicIntensity": 0.64,
-              "mountainThreshold": 0.59,
+              "tectonicIntensity": 0.58,
+              "mountainThreshold": 0.62,
               "hillThreshold": 0.44,
               "upliftWeight": 0.28,
               "fractalWeight": 0.72,
               "riftDepth": 0.27,
               "boundaryWeight": 0.18,
-              "boundaryGate": 0.11,
+              "boundaryGate": 0.13,
               "boundaryExponent": 1.18,
               "interiorPenaltyWeight": 0.09,
               "convergenceBonus": 0.6,
