@@ -101,7 +101,7 @@ export type HydrologyCryosphereKnob = Static<typeof HydrologyCryosphereKnobSchem
  * Hydrology river density knob (semantic intent).
  *
  * Meaning:
- * - River network projection density preset (classification thresholds and length bounds).
+ * - River network density preset expressed as a high-level bias over Hydrology physics inputs.
  *
  * Stage scope:
  * - Used by `hydrology-hydrography` only.
@@ -111,7 +111,7 @@ export const HydrologyRiverDensityKnobSchema = Type.Union(
   {
     default: "normal",
     description:
-      "River projection density preset (sparse/normal/dense). Applies as a deterministic transform over projection thresholds and length bounds.",
+      "River density preset (sparse/normal/dense). Applies as a deterministic transform over Hydrology physics inputs (runoff scaling), not outcome targets.",
   }
 );
 
@@ -136,4 +136,3 @@ export const HydrologyLakeinessKnobSchema = Type.Union(
 );
 
 export type HydrologyLakeinessKnob = Static<typeof HydrologyLakeinessKnobSchema>;
-

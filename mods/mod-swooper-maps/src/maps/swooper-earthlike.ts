@@ -393,13 +393,8 @@ export default createMap({
             }
           },
           "projectRiverNetwork": {
-            "strategy": "default",
-            "config": {
-              "minorPercentile": 0.85,
-              "majorPercentile": 0.95,
-              "minMinorDischarge": 0,
-              "minMajorDischarge": 0
-            }
+            "strategy": "physics",
+            "config": {}
           }
         }
       },
