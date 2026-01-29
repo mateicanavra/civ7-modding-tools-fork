@@ -4,6 +4,7 @@ import { createStep, implementArtifacts } from "@swooper/mapgen-core/authoring";
 import { foundationArtifacts } from "../artifacts.js";
 import PlateTopologyStepContract from "./plateTopology.contract.js";
 import { validatePlateTopologyArtifact, wrapFoundationValidateNoDims } from "./validation.js";
+import { pointsFromTileCentroids, segmentsFromTileTopologyNeighbors } from "./viz.js";
 
 function validateTopologySymmetry(plates: ReadonlyArray<{ id: number; neighbors: number[] }>): void {
   const neighborSets = new Map<number, Set<number>>();
@@ -49,5 +50,19 @@ export default createStep(PlateTopologyStepContract, {
     validateTopologySymmetry(topologyPlates);
 
     deps.artifacts.foundationPlateTopology.publish(context, { plateCount, plates: topologyPlates });
+
+    const centroidPoints = pointsFromTileCentroids(topologyPlates);
+    context.viz?.dumpPoints(context.trace, {
+      layerId: "foundation.plateTopology.centroids",
+      positions: centroidPoints.positions,
+      values: centroidPoints.areas,
+      valueFormat: "i32",
+      fileKey: "areas",
+    });
+
+    context.viz?.dumpSegments(context.trace, {
+      layerId: "foundation.plateTopology.neighbors",
+      segments: segmentsFromTileTopologyNeighbors(topologyPlates),
+    });
   },
 });

@@ -5,6 +5,7 @@ import PlateGraphStepContract from "./plateGraph.contract.js";
 import { validatePlateGraphArtifact, wrapFoundationValidateNoDims } from "./validation.js";
 import { FOUNDATION_PLATE_COUNT_MULTIPLIER } from "@mapgen/domain/foundation/shared/knob-multipliers.js";
 import type { FoundationPlateCountKnob } from "@mapgen/domain/foundation/shared/knobs.js";
+import { interleaveXY, pointsFromPlateSeeds } from "./viz.js";
 
 function clampInt(value: number, bounds: { min: number; max?: number }): number {
   const rounded = Math.round(value);
@@ -54,5 +55,21 @@ export default createStep(PlateGraphStepContract, {
     );
 
     deps.artifacts.foundationPlateGraph.publish(context, plateGraphResult.plateGraph);
+
+    const positions = interleaveXY(mesh.siteX, mesh.siteY);
+    context.viz?.dumpPoints(context.trace, {
+      layerId: "foundation.plateGraph.cellToPlate",
+      positions,
+      values: plateGraphResult.plateGraph.cellToPlate,
+      valueFormat: "i16",
+    });
+
+    const seeds = pointsFromPlateSeeds(plateGraphResult.plateGraph.plates);
+    context.viz?.dumpPoints(context.trace, {
+      layerId: "foundation.plateGraph.plateSeeds",
+      positions: seeds.positions,
+      values: seeds.ids,
+      valueFormat: "i16",
+    });
   },
 });

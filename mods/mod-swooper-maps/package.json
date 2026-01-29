@@ -11,6 +11,7 @@
     "check": "tsc --noEmit",
     "pretest": "bun run --cwd ../../packages/mapgen-core build",
     "test": "bun test",
+    "viz:foundation": "bun ./src/dev/viz/foundation-run.ts",
     "deploy": "bun run build && bun run --filter @mateicanavra/civ7-cli dev -- mod manage deploy --input \"$PWD/mod\" --id mod-swooper-maps"
   },
   "dependencies": {
