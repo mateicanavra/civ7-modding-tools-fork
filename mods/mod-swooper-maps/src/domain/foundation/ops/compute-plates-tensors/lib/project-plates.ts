@@ -205,13 +205,17 @@ export function projectPlatesFromModel(input: {
   );
   void nearestSeed;
 
-  for (let i = 0; i < size; i++) {
-    const cellId = tileToCellIndex[i] ?? 0;
-    const baseBoundaryType = tectonics.boundaryType[cellId] ?? BOUNDARY_TYPE.none;
-    const baseUplift = tectonics.upliftPotential[cellId] ?? 0;
-    const baseRift = tectonics.riftPotential[cellId] ?? 0;
-    const baseShear = tectonics.shearStress[cellId] ?? 0;
-    const baseVolcanism = tectonics.volcanism[cellId] ?? 0;
+	  for (let i = 0; i < size; i++) {
+	    const cellId = tileToCellIndex[i] ?? 0;
+	    const baseBoundaryType = tectonics.boundaryType[cellId] ?? BOUNDARY_TYPE.none;
+	    // `upliftPotential` in the newest-era field is intentionally scaled by era weights,
+	    // which compresses its dynamic range. For ridge/mountain planning, we want a stable
+	    // 0..255 uplift signal that represents "total orogeny opportunity" rather than
+	    // only the newest era.
+	    const baseUplift = tectonics.cumulativeUplift[cellId] ?? tectonics.upliftPotential[cellId] ?? 0;
+	    const baseRift = tectonics.riftPotential[cellId] ?? 0;
+	    const baseShear = tectonics.shearStress[cellId] ?? 0;
+	    const baseVolcanism = tectonics.volcanism[cellId] ?? 0;
 
     const dist = distanceField[i]!;
     const influence = dist >= maxDistance ? 0 : Math.exp(-dist * decay);
