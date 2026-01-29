@@ -83,10 +83,22 @@ export const HYDROLOGY_OROGRAPHIC_REDUCTION_BASE = 8 as const;
 export const HYDROLOGY_OROGRAPHIC_REDUCTION_PER_STEP = 6 as const;
 export const HYDROLOGY_WATER_GRADIENT_LOWLAND_BONUS_BASE = 2 as const;
 
-export const HYDROLOGY_LAKEINESS_TILES_PER_LAKE_MULTIPLIER = {
-  few: 1.5,
+export const HYDROLOGY_LAKEINESS_SEEPAGE_LOSS_MULTIPLIER = {
+  few: 1.15,
   normal: 1.0,
-  many: 0.7,
+  many: 0.85,
+} as const satisfies Record<HydrologyLakeinessKnob, number>;
+
+export const HYDROLOGY_LAKEINESS_EVAP_SCALE_MULTIPLIER = {
+  few: 1.05,
+  normal: 1.0,
+  many: 0.95,
+} as const satisfies Record<HydrologyLakeinessKnob, number>;
+
+export const HYDROLOGY_LAKEINESS_PERMANENCE_THRESHOLD_DELTA01 = {
+  few: 0.1,
+  normal: 0.0,
+  many: -0.1,
 } as const satisfies Record<HydrologyLakeinessKnob, number>;
 
 export const HYDROLOGY_RIVER_DENSITY_RUNOFF_SCALE_MULTIPLIER = {
