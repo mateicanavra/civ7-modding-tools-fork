@@ -29,11 +29,11 @@ export default createMap({
             "computeMesh": {
               "strategy": "default",
               "config": {
-                "plateCount": 19,
+                "plateCount": 28,
                 "cellsPerPlate": 7,
-                "relaxationSteps": 6,
-                "referenceArea": 16000,
-                "plateScalePower": 1
+                "relaxationSteps": 4,
+                "referenceArea": 6996,
+                "plateScalePower": 0.65
               }
             }
           },
@@ -41,7 +41,7 @@ export default createMap({
             "computeCrust": {
               "strategy": "default",
               "config": {
-                "continentalRatio": 0.37
+                "continentalRatio": 0.29
               }
             }
           },
@@ -49,9 +49,9 @@ export default createMap({
             "computePlateGraph": {
               "strategy": "default",
               "config": {
-                "plateCount": 19,
-                "referenceArea": 16000,
-                "plateScalePower": 1
+                "plateCount": 28,
+                "referenceArea": 6996,
+                "plateScalePower": 0.65
               }
             }
           },
