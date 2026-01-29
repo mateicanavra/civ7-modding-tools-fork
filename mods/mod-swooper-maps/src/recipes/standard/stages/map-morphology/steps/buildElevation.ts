@@ -8,10 +8,14 @@ export default createStep(BuildElevationStepContract, {
     const topography = deps.artifacts.topography.read(context);
     const { width, height } = context.dimensions;
 
+    // Align with base-standard posture: validate + stamp before buildElevation so
+    // engine elevation/cliffs reflect the finalized terrain surface (incl. mountains/volcanoes).
+    context.adapter.validateAndFixTerrain();
+    context.adapter.recalculateAreas();
+    context.adapter.stampContinents();
     context.adapter.recalculateAreas();
     context.adapter.buildElevation();
     context.adapter.recalculateAreas();
-    context.adapter.stampContinents();
     syncHeightfield(context);
 
     logElevationSummary(context.trace, context.adapter, width, height, "map-morphology/build-elevation");

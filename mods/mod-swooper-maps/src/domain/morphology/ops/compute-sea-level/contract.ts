@@ -12,6 +12,9 @@ const ComputeSeaLevelContract = defineOp({
     width: Type.Integer({ minimum: 1, description: "Map width in tiles." }),
     height: Type.Integer({ minimum: 1, description: "Map height in tiles." }),
     elevation: TypedArraySchemas.i16({ description: "Base elevation per tile (normalized units)." }),
+    crustType: TypedArraySchemas.u8({
+      description: "Crust type per tile (0=oceanic, 1=continental).",
+    }),
     boundaryCloseness: TypedArraySchemas.u8({
       description: "Boundary proximity per tile (0..255).",
     }),

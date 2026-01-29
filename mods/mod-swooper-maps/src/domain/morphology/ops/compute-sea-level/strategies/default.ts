@@ -6,7 +6,7 @@ import { resolveSeaLevel, resolveTargetPercent, validateSeaLevelInputs } from ".
 
 export const defaultStrategy = createStrategy(ComputeSeaLevelContract, "default", {
   run: (input, config) => {
-    const { elevation, boundaryCloseness, upliftPotential } = validateSeaLevelInputs(input);
+    const { elevation, crustType, boundaryCloseness } = validateSeaLevelInputs(input);
     const rng = createLabelRng(input.rngSeed | 0);
     const targetPct = resolveTargetPercent(config, rng);
 
@@ -18,8 +18,8 @@ export const defaultStrategy = createStrategy(ComputeSeaLevelContract, "default"
       values,
       targetPct,
       elevation,
+      crustType,
       boundaryCloseness,
-      upliftPotential,
       boundaryTarget: config.boundaryShareTarget,
       continentalTarget: config.continentalFraction ?? null,
     });
