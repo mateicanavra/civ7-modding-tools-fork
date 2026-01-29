@@ -190,7 +190,7 @@ jobs:
             deleted_at = node.get("deletedAt")
             if deleted_at:
               continue
-            if not re.fullmatch(r"pr-\\d+", name):
+            if not re.fullmatch(r"pr-\d+", name):
               continue
             pr_envs.append({"name": name, "id": env_id})
 
@@ -224,7 +224,7 @@ jobs:
           stale = []
           for env in pr_envs:
             name = env.get("name") or ""
-            m = re.fullmatch(r"pr-(\\d+)", name)
+            m = re.fullmatch(r"pr-(\d+)", name)
             if not m:
               continue
             pr_number = int(m.group(1))
