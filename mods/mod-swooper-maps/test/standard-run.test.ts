@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import { createMockAdapter } from "@civ7/adapter";
-import { createExtendedMapContext, sha256Hex, stableStringify } from "@swooper/mapgen-core";
+import { HILL_TERRAIN, MOUNTAIN_TERRAIN, VOLCANO_FEATURE, createExtendedMapContext, sha256Hex, stableStringify } from "@swooper/mapgen-core";
 import { createLabelRng } from "@swooper/mapgen-core/lib/rng";
 
 import standardRecipe from "../src/recipes/standard/recipe.js";
@@ -681,6 +681,25 @@ describe("standard recipe execution", () => {
       | undefined;
     expect(cryosphere?.snowCover instanceof Uint8Array).toBe(true);
     expect(cryosphere?.seaIceCover instanceof Uint8Array).toBe(true);
+
+    // Mountains/hills are a key visible output of the tectonics → morphology pipeline.
+    // This is intentionally lightweight (mock adapter) and guards against accidental
+    // no-op mountain projection or zeroed tectonic driver surfaces.
+    let landTiles = 0;
+    let nonVolcanoMountainTiles = 0;
+    let hillTiles = 0;
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
+        if (adapter.isWater(x, y)) continue;
+        landTiles++;
+        const feature = adapter.getFeatureType(x, y);
+        const terrain = adapter.getTerrainType(x, y);
+        if (terrain === MOUNTAIN_TERRAIN && feature !== VOLCANO_FEATURE) nonVolcanoMountainTiles++;
+        else if (terrain === HILL_TERRAIN) hillTiles++;
+      }
+    }
+    expect(landTiles).toBeGreaterThan(0);
+    expect(nonVolcanoMountainTiles + hillTiles).toBeGreaterThan(0);
 
     expect(context.artifacts.get(foundationArtifacts.plates.id)).toBeTruthy();
     expect(context.artifacts.get(foundationArtifacts.plateTopology.id)).toBeTruthy();

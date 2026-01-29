@@ -182,6 +182,7 @@ export default createStep(LandmassPlatesStepContract, {
         width,
         height,
         elevation: baseTopography.elevation,
+        crustType: crustTiles.type,
         boundaryCloseness: plates.boundaryCloseness,
         upliftPotential: plates.upliftPotential,
         rngSeed: ctxRandom(context, ctxRandomLabel(stepId, "morphology/compute-sea-level"), 2_147_483_647),
