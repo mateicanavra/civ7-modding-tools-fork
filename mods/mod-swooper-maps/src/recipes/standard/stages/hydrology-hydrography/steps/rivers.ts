@@ -48,6 +48,7 @@ function validateHydrography(value: unknown, dimensions: MapDimensions): Artifac
     slope01?: unknown;
     confinement01?: unknown;
     channelWidthTiles?: unknown;
+    navigableMask?: unknown;
     riverClass?: unknown;
     sinkMask?: unknown;
     outletMask?: unknown;
@@ -60,6 +61,8 @@ function validateHydrography(value: unknown, dimensions: MapDimensions): Artifac
     validateTypedArray(errors, "hydrography.confinement01", candidate.confinement01, Float32Array, size);
   if (candidate.channelWidthTiles != null)
     validateTypedArray(errors, "hydrography.channelWidthTiles", candidate.channelWidthTiles, Float32Array, size);
+  if (candidate.navigableMask != null)
+    validateTypedArray(errors, "hydrography.navigableMask", candidate.navigableMask, Uint8Array, size);
   validateTypedArray(errors, "hydrography.riverClass", candidate.riverClass, Uint8Array, size);
   validateTypedArray(errors, "hydrography.sinkMask", candidate.sinkMask, Uint8Array, size);
   validateTypedArray(errors, "hydrography.outletMask", candidate.outletMask, Uint8Array, size);
@@ -220,6 +223,7 @@ export default createStep(RiversStepContract, {
       slope01: Float32Array;
       confinement01: Float32Array;
       channelWidthTiles?: Float32Array;
+      navigableMask?: Uint8Array;
       riverClass: Uint8Array;
       sinkMask: Uint8Array;
       outletMask: Uint8Array;
@@ -234,6 +238,7 @@ export default createStep(RiversStepContract, {
     };
 
     if (projected.channelWidthTiles) payload.channelWidthTiles = projected.channelWidthTiles;
+    if (projected.navigableMask) payload.navigableMask = projected.navigableMask;
 
     deps.artifacts.hydrography.publish(context, payload);
   },

@@ -1,18 +1,16 @@
 import { Type, createStage } from "@swooper/mapgen-core/authoring";
 import {
   HydrologyLakeinessKnobSchema,
-  HydrologyRiverDensityKnobSchema,
 } from "@mapgen/domain/hydrology/shared/knobs.js";
 import { lakes, plotRivers } from "./steps/index.js";
 
 const knobsSchema = Type.Object(
   {
     lakeiness: Type.Optional(HydrologyLakeinessKnobSchema),
-    riverDensity: Type.Optional(HydrologyRiverDensityKnobSchema),
   },
   {
     description:
-      "Map-hydrology knobs (lakeiness/riverDensity). Knobs apply to gameplay projection; lakeiness affects lake persistence physics.",
+      "Map-hydrology knobs (lakeiness). Knobs apply to gameplay projection; lakeiness affects lake persistence physics.",
   }
 );
 

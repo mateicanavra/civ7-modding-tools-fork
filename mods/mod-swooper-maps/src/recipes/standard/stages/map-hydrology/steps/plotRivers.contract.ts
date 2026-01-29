@@ -4,29 +4,11 @@ import { M4_EFFECT_TAGS, M10_EFFECT_TAGS } from "../../../tags.js";
 import { hydrologyHydrographyArtifacts } from "../../hydrology-hydrography/artifacts.js";
 
 const PlotRiversStepConfigSchema = Type.Object(
-  {
-    /**
-     * Engine river modeling minimum length threshold (lower = denser).
-     */
-    minLength: Type.Integer({
-      description: "Engine river modeling minimum length threshold (lower = denser).",
-      default: 5,
-      minimum: 1,
-      maximum: 40,
-    }),
-    /**
-     * Engine river modeling maximum length threshold.
-     */
-    maxLength: Type.Integer({
-      description: "Engine river modeling maximum length threshold.",
-      default: 15,
-      minimum: 1,
-      maximum: 80,
-    }),
-  },
+  {},
   {
     additionalProperties: false,
-    description: "Config for engine river projection (projection-only).",
+    description:
+      "Config for river gameplay projection. Engine rivers are still modeled for visuals/naming; navigable river terrain is stamped from Hydrography truth.",
   }
 );
 
